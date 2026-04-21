@@ -4,7 +4,7 @@ This document defines the phased plan for converting the existing `basic_statist
 
 ## Objectives
 
-- Transition course content from beginner-focused base R to advanced tidyverse and dplyr style.
+- Transition course content from beginner-focused base R to advanced dplyr-style workflows.
 - Refactor the course into research-oriented modules with reproducible workflows.
 - Preserve existing sessions where relevant while upgrading them for PhD-level depth.
 - Keep `dev_code_data/` as a development-only folder and exclude it from course publication.
@@ -24,7 +24,7 @@ This document defines the phased plan for converting the existing `basic_statist
 
 ### 2.1 Redesign the main course outline
 - Update `index.qmd` to describe a PhD-level clinical research course.
-- Rework learning objectives toward reproducible research, advanced modeling, and tidyverse workflows.
+- Rework learning objectives toward reproducible research, advanced modeling, and dplyr-based workflows.
 
 ### 2.2 Update `_quarto.yml`
 - Keep the book structure, but prepare to extend sessions to advanced topics.
@@ -32,7 +32,7 @@ This document defines the phased plan for converting the existing `basic_statist
 
 ## Phase 3: Content Upgrade
 
-### 3.1 Rewrite sessions in tidyverse style
+### 3.1 Rewrite sessions in dplyr style
 - Replace base R examples with `dplyr`, `tidyr`, `purrr`, and modern `ggplot2`.
 - Use pipe-based analysis throughout.
 - Standardize code style in `R/load-packages.R` and `R/functions.R`.

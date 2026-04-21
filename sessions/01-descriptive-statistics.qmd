@@ -1,0 +1,73 @@
+# Descriptive Statistics & Exploratory Data Analysis {#descriptive-statistics}
+
+```{r setup}
+#| include: false
+#| eval: true
+source(here::here("R/functions.R"))
+source(here::here("R/load-packages.R"))
+``` 
+
+This session teaches practical descriptive statistics and exploratory
+data analysis (EDA) with a focus on interpretation for clinical
+research. Each section shows when to use the method, a short code demo,
+how to read the output, and a short exercise for practice.
+
+## When to use EDA
+
+Use EDA as the first analytic step to understand data quality, detect
+missingness and outliers, and choose reasonable transformations or
+models. Good EDA prevents common modeling mistakes and grounds
+interpretation in the actual data.
+
+## Short code demo (dplyr-style)
+
+```{r demo-load, echo=TRUE}
+# load and clean a canonical clinical dataset
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
+  mutate(stage = factor(stage, levels = 1:4))
+
+# counts by stage
+pbc %>% count(stage)
+```
+
+```{r demo-summary, echo=TRUE}
+# descriptive summary by stage (handle missingness)
+pbc %>%
+  filter(!is.na(bili)) %>%
+  group_by(stage) %>%
+  summarize(
+    n = n(),
+    mean_bili = mean(bili, na.rm = TRUE),
+    sd_bili = sd(bili, na.rm = TRUE),
+    median_bili = median(bili, na.rm = TRUE),
+    iqr_bili = IQR(bili, na.rm = TRUE)
+  )
+```
+
+## How to explain the output (teacher notes)
+
+- **What to report:** show counts, an estimate of central tendency
+  (median if skewed), and a measure of spread (IQR) for each group.
+- **What it means:** for example, higher median bilirubin in later
+  stages suggests worsening liver function; emphasize clinical units
+  and whether differences are clinically meaningful, not just
+  statistically significant.
+- **Implications:** use these findings to guide choice of transformations
+  (e.g., log-transform skewed labs), adjust sample-size expectations,
+  and plan covariate adjustment in regression.
+
+## Short exercise
+
+- Compute mean, median, IQR and the proportion missing for `bili` by
+  `stage`. Write one brief interpretation (2–3 sentences) focusing on
+  clinical relevance.
+
+**Hint:** use `group_by(stage)` and `summarize(..., na.rm = TRUE)` to
+compute summaries; `sum(is.na(bili))/n()` gives proportion missing.
+
+## Packages used
+
+- `dplyr`, `janitor`, `survival`, `ggplot2` (for plotting in follow-up
+  exercises)
