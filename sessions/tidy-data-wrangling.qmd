@@ -219,6 +219,20 @@ mtcars %>%
 
 lm_mpg <- lm(mpg ~ wt, data = mtcars)
 broom::tidy(lm_mpg)
+
+## How to explain to a clinician
+
+- **Report:** present the slope with its 95% CI and an example change anchored to familiar units (e.g. "a 0.5 increase in weight is associated with ~X change in mpg, 95% CI [L, U]").  
+- **Prediction:** show a predicted value for a realistic patient profile and give the 95% prediction interval to reflect individual variability.
+
+```{r lm-predictions}
+# Predictions for representative weights (confidence and prediction intervals)
+new_wt <- tibble(wt = seq(min(mtcars$wt), max(mtcars$wt), length.out = 5))
+pred_ci <- predict(lm_mpg, newdata = new_wt, interval = "confidence")
+pred_pi <- predict(lm_mpg, newdata = new_wt, interval = "prediction")
+new_wt_preds <- bind_cols(new_wt, as_tibble(pred_ci))
+new_wt_preds
+```
 ```
 
 The regression output includes slope, standard error, and p-value.
@@ -237,6 +251,20 @@ chisq_test <- pbc %>%
   table() %>%
   chisq.test()
 chisq_test
+
+## Fisher's exact example (small counts)
+
+```{r fisher-example}
+# Example 2x2 table with small counts
+small_tab <- matrix(c(10, 2, 3, 20), nrow = 2, byrow = TRUE)
+dimnames(small_tab) <- list(Treatment = c("A", "B"), Outcome = c("Event", "NoEvent"))
+fisher.test(small_tab)
+```
+
+## How to explain categorical results to a clinician
+
+- **Chi-square:** report whether there is statistical evidence for an association and, when possible, provide effect-size measures (risk difference, odds ratio).  
+- **Fisher's exact:** explain that it is used for small expected counts and report the p-value; always pair with an effect-size or a simple descriptive sentence about the observed proportions.
 ```
 
 The chi-square test evaluates whether disease stage is associated with sex.
@@ -252,6 +280,11 @@ power.t.test(n = 20, sd = 1, power = 0.8)
 
 These calculations show how sample size, effect size, and power interact.
 
+## How to explain power to a clinician
+
+- **Plain language:** "Power tells us how likely the study is to detect a clinically important effect if it exists. Choosing an effect size should be driven by clinical importance, not just statistical convenience."  
+- **Actionable statement:** give the required sample size for a specified, clinically meaningful difference and discuss feasibility.
+
 ## 10. Exercise
 
 - Compute mean and standard deviation of `bili` by sex in `pbc`.
@@ -265,17 +298,4 @@ Basic statistics for clinical research combines descriptive summary,
 comparative testing, and simple modeling. A tidy workflow keeps these
 steps reproducible and easy to communicate.
 
-## 10. Exercise
-
-- Compute the mean and standard deviation of `log_thick` separately for
-  ulcerated and non-ulcerated tumours.
-- Fit a linear model predicting `mpg` from `wt` and `am` in `mtcars`, and
-  interpret the coefficient for `wt`.
-- Create a contingency table for `am` and `cyl` and explain whether the
-  proportions are similar across transmission types.
-
-## Key takeaway
-
-Basic statistics in clinical research combines clear descriptive
-summary, comparison of groups, and model-based inference. A tidy workflow
-makes these steps reproducible and easier to communicate.
+*** End Patch

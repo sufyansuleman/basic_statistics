@@ -18,3 +18,62 @@ research practices.
 - Describe survival and censored data.
 - Fit Kaplan-Meier curves using R.
 - Interpret survival summaries in clinical research.
+
+## Methods covered in this session
+
+- Kaplan-Meier estimation for survival probability.
+- Stratified survival curves and group comparisons.
+- Log-rank tests for comparing survival curves.
+- Cox proportional hazards regression for time-to-event modeling.
+- Interpretation of hazard ratios, confidence intervals, and p-values.
+
+## Kaplan–Meier estimation and log-rank test
+
+We use the `lung` dataset from the `survival` package for examples.
+
+```{r km-logrank}
+library(survival)
+
+lung2 <- survival::lung %>% as_tibble() %>%
+	mutate(status_event = (status == 2)) # TRUE when event (death) occurred
+
+# Kaplan-Meier by sex
+km_sex <- survfit(Surv(time, status_event) ~ sex, data = lung2)
+summary(km_sex)
+
+# Plot the KM curves (base plot for simplicity)
+plot(km_sex, col = c("blue", "red"), xlab = "Days", ylab = "Survival probability")
+legend("topright", legend = c("Male","Female"), col = c("blue","red"), lty = 1)
+
+# Log-rank test
+survdiff(Surv(time, status_event) ~ sex, data = lung2)
+```
+
+### How to explain KM and log-rank to a clinician
+
+- **KM:** "Kaplan–Meier curves estimate the proportion of patients surviving beyond each time point, accounting for censoring."  
+- **Log-rank:** "The log-rank test assesses whether survival curves differ across groups; report the p-value and consider reporting median survival times with CIs if available."
+
+## Cox proportional hazards regression
+
+Cox regression estimates hazard ratios (HR) and adjusts for covariates.
+
+```{r cox-example}
+cox1 <- coxph(Surv(time, status_event) ~ sex + age + ph.ecog, data = lung2)
+summary(cox1)
+
+# Hazard ratios and 95% CI
+exp(coef(cox1))
+exp(confint.default(cox1))
+```
+
+### How to explain Cox results to a clinician
+
+- **Report:** the hazard ratio with 95% CI and an interpretation in clinical terms (e.g., "HR=1.5 means a 50% higher instantaneous risk of event").  
+- **Context:** note whether proportional hazards assumptions were checked and how adjustments change the effect estimates.
+
+## Short exercise
+
+- Plot Kaplan–Meier curves by sex using `lung`; run a log-rank test and fit a Cox model adjusting for age. Interpret the hazard ratio for `sex` in one sentence.
+
+**Hint:** use `survfit()`, `survdiff()`, and `coxph()`; convert `status` to an event indicator with `status==2` for `lung`.

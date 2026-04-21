@@ -17,3 +17,66 @@ comparative analysis, cohort studies, and hypothesis testing for research.
 - Understand study design and research questions.
 - Translate clinical data questions into analysis plans.
 - Implement analytic workflows with tidyverse tools.
+
+## Methods covered in this session
+
+- Correlation analysis for variable association.
+- One-way and two-way ANOVA for group comparisons.
+- Multiple comparison adjustments (Tukey, Dunnett, Bonferroni, Holm).
+- Chi-square tests for categorical data relationships.
+- Logistic regression for binary outcomes and risk interpretation.
+- Model diagnostics and interpretation of fitted models.
+
+## One-way and two-way ANOVA with multiple comparisons
+
+ANOVA tests whether group means differ; use `glht` from `multcomp` to
+extract adjusted comparisons (Tukey, Dunnett).
+
+```{r anova-glht}
+pg <- datasets::PlantGrowth %>% as_tibble()
+
+pg_lm <- lm(weight ~ group, data = pg)
+summary(pg_lm)
+
+library(multcomp)
+pg_glht <- glht(pg_lm, linfct = mcp(group = "Tukey"))
+summary(pg_glht)
+confint(pg_glht)
+```
+
+How to explain to a clinician
+
+- **Report:** "ANOVA tests whether any group differs; Tukey shows pairwise differences with CIs adjusted for multiplicity."  
+- **Context:** emphasize effect sizes and which pairwise contrasts are clinically meaningful rather than only p-values.
+
+## Logistic regression and odds ratios
+
+Logistic regression models the log-odds of a binary outcome; exponentiated coefficients are odds ratios.
+
+```{r logistic-example}
+mtcars <- datasets::mtcars %>% as_tibble(rownames = "model") %>%
+	mutate(manual = if_else(am == 1, 1, 0))
+
+fit_log <- glm(manual ~ wt + hp, family = binomial, data = mtcars)
+summary(fit_log)
+
+# Odds ratios and 95% CI
+exp(coef(fit_log))
+exp(confint.default(fit_log))
+
+# Predicted probabilities for example profiles
+new_profiles <- tibble(wt = c(2.5, 3.5), hp = c(100, 150))
+new_profiles$pred_prob <- predict(fit_log, newdata = new_profiles, type = "response")
+new_profiles
+```
+
+How to explain to a clinician
+
+- **Report:** present the odds ratio with 95% CI and an example probability change: "A patient with wt=X and hp=Y has predicted probability Z% (95% CI [L%, U%])."  
+- **Context:** clarify that odds ratios are multiplicative changes in odds and that risk differences may be easier to communicate when baseline risk is known.
+
+## Exercises (short)
+
+- Fit the logistic model above and report the odds ratio for a 1-unit change in `wt` with its 95% CI; write one sentence interpreting the clinical meaning.
+
+**Hint:** use `glm(..., family=binomial)`, `exp(coef())` and `exp(confint.default())`.

@@ -5,112 +5,153 @@
 #| eval: true
 source(here::here("R/functions.R"))
 source(here::here("R/load-packages.R"))
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
+  mutate(
+    sex = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
+    stage = factor(stage, labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4"))
+  )
 ```
 
 ## Introduction
 
-This session moves beyond basic charts to research-quality figures.
-We cover how to design plots that support clinical conclusions, show
-uncertainty, and communicate results to non-technical audiences.
+This session shows how research figures support statistical interpretation.
+A strong plot does more than display data: it answers a question, shows
+uncertainty, and makes the result easier to explain.
 
 ## Learning outcomes
 
-- Create layered and faceted plots using `ggplot2`.
-- Apply thoughtful themes, colors, and annotations for clarity.
-- Visualize uncertainty with ribbons, error bars, and confidence bands.
-- Build plots that support clinical interpretation and decision-making.
+- Choose visual forms that fit a research question.
+- Interpret trend lines, confidence bands, and subgroup comparisons.
+- Create layered and faceted plots with `ggplot2`.
+- Use annotation and labels to communicate the key message.
+- Build figures that support evidence-based conclusions.
+
+## Methods covered in this session
+
+- Regression line visualization and interpretation
+- Confidence and prediction interval plotting
+- Group comparisons using color and facets
+- Model diagnostics and residual visualization
+- Communicating uncertainty with plots
 
 ## 1. Design principles for research plots
 
-A good research figure is:
+A useful research figure is:
 
-- **Clear**: the message is easy to read.
-- **Accurate**: the visual representation matches the data.
-- **Informative**: it supports a specific research question.
-- **Reusable**: it can be included in reports and presentations.
+- **Clear**: the main message is easy to read.
+- **Accurate**: the visual reflects the underlying data.
+- **Informative**: it answers a specific question.
+- **Interpretable**: it helps readers draw the right conclusion.
+- **Honest**: it shows uncertainty and avoids misleading design.
 
-## 2. Layered plotting with ggplot2
+## 2. Use a consistent dataset for interpretation
+
+We use the `pbc` dataset from the `survival` package in this session.
+That allows us to connect visualization directly to clinical research
+questions about bilirubin, age, and sex.
+
+```{r pbc-summary}
+pbc %>%
+  summarize(
+    n = n(),
+    mean_age = mean(age, na.rm = TRUE),
+    mean_bili = mean(bili, na.rm = TRUE),
+    prop_female = mean(sex == "Female")
+  )
+```
+
+This dataset is useful because it includes both continuous and categorical
+variables, which lets us practice different plot types.
+
+## 3. Layered plotting with ggplot2
+
+Layered plots let us combine raw data, trend lines, and uncertainty in one
+figure.
 
 ```{r layered-plot}
-mtcars <- datasets::mtcars %>%
-  as_tibble(rownames = "model") %>%
-  mutate(am = factor(am, labels = c("Automatic", "Manual")))
-
-mtcars %>%
-  ggplot(aes(x = wt, y = mpg, color = am)) +
-  geom_point(size = 3, alpha = 0.8) +
+pbc %>%
+  ggplot(aes(x = age, y = bili, color = sex)) +
+  geom_point(alpha = 0.6, size = 2) +
   geom_smooth(method = "lm", se = TRUE, linetype = "dashed") +
   labs(
-    title = "Fuel efficiency by weight and transmission type",
-    subtitle = "A clear view of how weight and transmission influence mpg",
-    x = "Weight (1000 lbs)",
-    y = "Miles per gallon",
-    color = "Transmission"
+    title = "Bilirubin and age by sex",
+    subtitle = "Trend lines with 95% uncertainty bands",
+    x = "Age (years)",
+    y = "Bilirubin (mg/dL)",
+    color = "Sex"
   ) +
   theme_minimal(base_size = 14)
 ```
 
-### Explanation
+### What this figure tells us
 
-- `geom_point()` displays the raw observations.
-- `geom_smooth()` adds a trend line and uncertainty band.
-- Color groups make it easy to compare categories.
+- The points show the raw relationship between age and bilirubin.
+- The trend lines estimate the average pattern for each sex.
+- The shaded bands show uncertainty around those estimates.
+- If the bands overlap, the difference between groups is less certain.
 
-## 3. Faceting to compare subgroups
+## 4. Faceting to compare subgroups
 
-Faceting creates a series of similar plots, one per subgroup.
+Faceting makes it easy to compare the same relationship across groups.
 
 ```{r faceting}
-mtcars %>%
-  ggplot(aes(x = wt, y = mpg)) +
-  geom_point(size = 2, alpha = 0.7) +
-  facet_wrap(~ am) +
+pbc %>%
+  ggplot(aes(x = age, y = bili)) +
+  geom_point(alpha = 0.6, color = "steelblue") +
+  facet_wrap(~ sex) +
+  geom_smooth(method = "lm", se = TRUE, color = "darkred") +
   labs(
-    title = "MPG vs Weight by Transmission",
-    x = "Weight (1000 lbs)",
-    y = "Miles per gallon"
+    title = "Bilirubin by age for female and male patients",
+    x = "Age (years)",
+    y = "Bilirubin (mg/dL)"
   ) +
   theme_minimal()
 ```
 
-Faceting is useful when you want to compare the same relationship across
-different clinical or experimental groups.
+Faceting is useful when the research question asks whether a pattern is
+consistent across groups. It highlights differences in slope, spread, and
+uncertainty.
 
-## 4. Visualizing uncertainty
+## 5. Visualizing uncertainty
 
-Showing uncertainty is critical in research communication.
+A key strength of research graphics is showing how precise the estimates are.
 
 ```{r uncertainty}
-mtcars %>%
-  ggplot(aes(x = wt, y = mpg)) +
-  geom_point(color = "steelblue", alpha = 0.7) +
+pbc %>%
+  ggplot(aes(x = age, y = bili)) +
+  geom_point(color = "steelblue", alpha = 0.6) +
   geom_smooth(method = "lm", se = TRUE, fill = "lightblue") +
   labs(
-    title = "Regression with uncertainty band",
-    x = "Weight (1000 lbs)",
-    y = "Miles per gallon"
+    title = "Age and bilirubin with uncertainty band",
+    x = "Age (years)",
+    y = "Bilirubin (mg/dL)"
   ) +
   theme_minimal()
 ```
 
-The shaded ribbon around the trend line shows the 95% confidence band,
-which helps readers understand the precision of the estimate.
+The ribbon shows a confidence band around the trend line. Wider bands
+indicate more uncertainty, which is especially important when the data are
+noisy or sparse.
 
-## 5. Publication-ready themes and annotation
+## 6. Annotation and narrative
 
-A clean theme and well-chosen labels are essential.
+The best figures include titles, subtitles, and axis labels that explain
+the message. Good annotations help a reader see the conclusion without
+needing to inspect every detail.
 
 ```{r theme-annotation}
-mtcars %>%
-  ggplot(aes(x = wt, y = mpg, color = am)) +
-  geom_point(size = 3) +
+pbc %>%
+  ggplot(aes(x = age, y = bili, color = sex)) +
+  geom_point(size = 2, alpha = 0.7) +
   geom_smooth(method = "lm", se = FALSE) +
   labs(
-    title = "Weight and fuel efficiency across transmission types",
-    subtitle = "A publication-ready figure with clear annotations",
-    x = "Weight (1000 lbs)",
-    y = "Miles per gallon",
-    color = "Transmission"
+    title = "Bilirubin increases slightly with age",
+    subtitle = "The trend is visible for both female and male patients",
+    x = "Age (years)",
+    y = "Bilirubin (mg/dL)",
+    color = "Sex"
   ) +
   theme_classic(base_size = 14) +
   theme(
@@ -120,15 +161,67 @@ mtcars %>%
   )
 ```
 
-## 6. Exercise: refine an analysis plot
+This figure is prepared for a report because it has a clear title and a
+subtitle that state the main conclusion.
+
+## 7. Exercise: refine an analysis plot
 
 1. Use the `pbc` dataset from the `survival` package.
 2. Plot `bili` versus `age`.
-3. Add a smooth trend line and separate by `sex` using color or facets.
-4. Add titles and axis labels that explain the plot to a clinical reader.
+3. Add a smooth line and uncertainty band.
+4. Separate by `sex` using color or facets.
+5. Write a one-sentence summary of what the plot shows.
 
-## 7. Key takeaways
+## 8. Model diagnostics and prediction visualization
 
-Advanced visualization is not about making plots more complex. It is
-about making research findings easier to understand, more accurate, and
-more persuasive.
+Checking model assumptions and visualizing predictions are essential
+steps before turning plots into clinical messages.
+
+```{r diagnostics-predictions}
+# Fit a simple linear model and inspect residuals
+lm_bili_age <- lm(bili ~ age + sex, data = pbc)
+pbc_diag <- pbc %>%
+  mutate(fitted = fitted(lm_bili_age), resid = residuals(lm_bili_age))
+
+# Residuals vs fitted values
+ggplot(pbc_diag, aes(x = fitted, y = resid)) +
+  geom_point(alpha = 0.6) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residuals vs Fitted: bili ~ age + sex", x = "Fitted values", y = "Residuals") +
+  theme_minimal()
+
+# QQ-plot of residuals
+ggplot(pbc_diag, aes(sample = resid)) +
+  stat_qq() +
+  stat_qq_line(color = "firebrick") +
+  labs(title = "QQ-plot of model residuals") +
+  theme_minimal()
+
+# Prediction ribbon across age
+new_age <- expand.grid(age = seq(min(pbc$age, na.rm = TRUE), max(pbc$age, na.rm = TRUE), length.out = 100),
+                       sex = levels(pbc$sex)) %>%
+  as_tibble()
+preds_conf <- predict(lm_bili_age, newdata = new_age, interval = "confidence")
+preds_df <- bind_cols(new_age, as_tibble(preds_conf))
+
+ggplot(preds_df, aes(x = age, y = fit, color = sex, fill = sex)) +
+  geom_line() +
+  geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.15, color = NA) +
+  facet_wrap(~ sex) +
+  labs(title = "Predicted mean bilirubin by age with 95% CI", y = "Predicted bilirubin (mg/dL)") +
+  theme_minimal()
+```
+
+### How to explain diagnostics and predictions to a clinician
+
+- **Diagnostics:** "I checked residuals and a QQ-plot to assess whether model assumptions (linearity, homoscedasticity, approximate normality of residuals) are reasonable. If residuals show systematic patterns, consider transformation or robust methods."  
+- **Predictions:** "Report predicted mean values for representative ages with 95% confidence intervals, and give prediction intervals when discussing individual patient-level expectations. Confidence bands show uncertainty of the mean estimate; prediction intervals are wider and capture individual variability."
+
+## 8. Key takeaways
+
+Advanced visualization is not about making plots more complex. It is about
+making research findings easier to understand, more accurate, and more
+persuasive.
+
+A good research figure answers a question, shows uncertainty, and helps a
+reader draw the right conclusion.

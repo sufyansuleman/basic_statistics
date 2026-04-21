@@ -24,6 +24,15 @@ At the end of this session you will be able to:
 - Use contingency tables for categorical clinical outcomes.
 - Apply power calculations for planning clinical studies.
 
+## Methods covered in this session
+
+- Descriptive statistics and summary measures
+- Data transformation and standardization
+- Confidence interval calculation and interpretation
+- One-sample and two-sample t-tests
+- Paired comparisons and Welch tests
+- Power and sample size reasoning
+
 ## 1. Why basic statistics matter in research
 
 Clinical research begins with data that describe people, treatments,
@@ -186,6 +195,11 @@ The t-test compares average tooth length between the two supplement
 groups. A smaller p-value suggests evidence of a true difference in
 means.
 
+#### How to explain to a clinician
+
+- **Report:** the estimated mean difference and its 95% confidence interval (CI); say explicitly whether the CI includes zero.  
+- **Context:** explain whether the observed difference is large enough to matter for patient care — focus on effect size and clinical relevance, not just the p-value.
+
 ## 6. One-way ANOVA
 
 One-way ANOVA extends the comparison to three or more groups.
@@ -233,6 +247,11 @@ broom::tidy(lm_mpg)
 The regression slope tells us the expected change in mpg for each
 unit increase in weight.
 
+#### How to explain to a clinician
+
+- **Report:** the slope as the expected change in outcome per unit change in the predictor, with its 95% CI (for example: "Each 1 kg increase in weight is associated with X change in mpg, 95% CI [L, U]").  
+- **Context:** state whether the magnitude is clinically meaningful and mention key covariates that were (or were not) adjusted for; avoid implying causation from a single unadjusted model.
+
 ## 8. Categorical analysis and chi-square tests
 
 Contingency tables help analyze categorical outcomes.
@@ -272,6 +291,11 @@ size, and statistical power.
 3. Use `PlantGrowth` to compute and interpret a Tukey pairwise comparison.
 4. Create a contingency table from `HairEyeColor` and explain the chi-square
    test result in one sentence.
+5. Compute a 95% confidence interval for mean bilirubin on the log scale, back-transform it to the original scale, and write one sentence describing what the interval says about typical patient bilirubin.
+
+### Exercise answers (hints)
+
+- Exercise 5 hint: compute mean and standard error on `log_bili`, use `qt(0.975, df)` to get the t critical value, build the CI on the log scale, then `exp()` the limits and the mean to return to the original scale; interpret the interval as the plausible range for the population mean bilirubin under the model assumptions.
 
 ## Key takeaways
 
