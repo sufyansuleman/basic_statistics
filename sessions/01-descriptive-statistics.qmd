@@ -12,6 +12,13 @@ data analysis (EDA) with a focus on interpretation for clinical
 research. Each section shows when to use the method, a short code demo,
 how to read the output, and a short exercise for practice.
 
+## Learning outcomes
+
+- Compute and report descriptive summaries (means, medians, IQRs, and missingness).
+- Visualize distributions with histograms, boxplots, and density plots.
+- Choose reasonable transformations and explain their clinical relevance.
+- Produce a short, clinician-friendly interpretation of descriptive results.
+
 ## When to use EDA
 
 Use EDA as the first analytic step to understand data quality, detect
@@ -46,6 +53,44 @@ pbc %>%
   )
 ```
 
+## Worked example: assess bilirubin distribution and missingness
+
+```{r worked-example, echo=TRUE}
+# Re-create a minimal workflow from dev_code_data/excercise1.R
+library(dplyr)
+library(ggplot2)
+
+# proportion missing and simple summaries
+summary_tbl <- pbc %>%
+  group_by(stage) %>%
+  summarize(
+    n = n(),
+    prop_missing_bili = mean(is.na(bili)),
+    median_bili = median(bili, na.rm = TRUE),
+    iqr_bili = IQR(bili, na.rm = TRUE)
+  )
+
+summary_tbl
+
+# histogram with log-transform comparison
+ggplot(pbc, aes(x = bili)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  labs(title = "Bilirubin: raw scale") +
+  theme_minimal()
+
+ggplot(pbc %>% filter(!is.na(bili)), aes(x = log(bili))) +
+  geom_histogram(bins = 30, fill = "darkorange", color = "white") +
+  labs(title = "Log-transformed bilirubin (compare skewness)") +
+  theme_minimal()
+
+# boxplot by stage
+ggplot(pbc %>% filter(!is.na(bili)), aes(x = factor(stage), y = bili)) +
+  geom_boxplot(fill = "lightblue") +
+  geom_jitter(width = 0.15, alpha = 0.4, size = 1.2) +
+  labs(x = "Stage", y = "Bilirubin (mg/dL)", title = "Bilirubin by stage") +
+  theme_minimal()
+```
+
 ## How to explain the output (teacher notes)
 
 - **What to report:** show counts, an estimate of central tendency
@@ -64,6 +109,12 @@ pbc %>%
   `stage`. Write one brief interpretation (2–3 sentences) focusing on
   clinical relevance.
 
+::: {.callout-tip collapse="true" title="Exercise 1 — Solution"}
+- Solution (PDF): `dev_code_data/Solution1.pdf`  
+- Solution script: `dev_code_data/Solution1.R`  
+Run: `Rscript dev_code_data/Solution1.R` or open the PDF in your browser/RStudio.
+:::
+
 **Hint:** use `group_by(stage)` and `summarize(..., na.rm = TRUE)` to
 compute summaries; `sum(is.na(bili))/n()` gives proportion missing.
 
@@ -71,3 +122,13 @@ compute summaries; `sum(is.na(bili))/n()` gives proportion missing.
 
 - `dplyr`, `janitor`, `survival`, `ggplot2` (for plotting in follow-up
   exercises)
+
+## Further reading
+
+- R reference and environment: @R-Core-Team-2023.
+- Practical data workflows: @Wickham-Grolemund-2017.
+- Visualization guidance: @Wickham-2016-ggplot2; @Chang-2018.
+
+## Resources
+
+- Example scripts: `dev_code_data/excercise1.R` (descriptive examples).

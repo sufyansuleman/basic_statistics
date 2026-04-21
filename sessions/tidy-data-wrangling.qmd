@@ -219,6 +219,7 @@ mtcars %>%
 
 lm_mpg <- lm(mpg ~ wt, data = mtcars)
 broom::tidy(lm_mpg)
+```
 
 ## How to explain to a clinician
 
@@ -233,8 +234,6 @@ pred_pi <- predict(lm_mpg, newdata = new_wt, interval = "prediction")
 new_wt_preds <- bind_cols(new_wt, as_tibble(pred_ci))
 new_wt_preds
 ```
-```
-
 The regression output includes slope, standard error, and p-value.
 
 ## 8. Contingency tables and chi-square tests
@@ -297,5 +296,14 @@ These calculations show how sample size, effect size, and power interact.
 Basic statistics for clinical research combines descriptive summary,
 comparative testing, and simple modeling. A tidy workflow keeps these
 steps reproducible and easy to communicate.
+
+## Further reading
+
+- Data import and tidy workflows: @Wickham-Grolemund-2017; @Wickham-2017-readr.
+- R reference and environment: @R-Core-Team-2023.
+
+## Resources
+
+ - Example scripts: `dev_code_data/file1.R`, `dev_code_data/functions.R`, `dev_code_data/package-loading.R`.
 
 *** End Patch

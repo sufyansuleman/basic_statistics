@@ -90,3 +90,48 @@ How to explain to a clinician
 - Exercise 8 (longitudinal LMM): `dev_code_data/excercise8.Rmd` and `Exercise8.pdf`.  
 - No pre-prepared solution file is included for Exercise 8 in `dev_code_data` — students should run the Rmd and inspect outputs.
 :::
+
+## Instructor notes
+
+- Target audience: clinicians with basic R familiarity; emphasize interpretation over p-values.
+- Estimated time: 75–90 minutes (lecture + hands-on exercise).
+- Pre-run: ensure `dev_code_data/package-loading.R` or `R/load-packages.R` is sourced so required packages are available.
+- Suggested assessment: short write-up interpreting logistic regression output for a clinical example.
+
+## Worked example — logistic regression (concise)
+
+```{r clinical-worked-logistic, echo=TRUE}
+# Minimal clinical-style logistic regression example using `mtcars`
+library(dplyr)
+mtcars2 <- datasets::mtcars %>%
+	as_tibble(rownames = "model") %>%
+	mutate(manual = factor(if_else(am == 1, "Manual", "Automatic")))
+
+fit_log <- glm(manual ~ wt + hp, family = binomial(), data = mtcars2)
+
+# Tidy coefficients and compute odds ratios
+broom::tidy(fit_log) %>%
+	mutate(odds_ratio = exp(estimate))
+
+# Predicted probability for two example profiles
+new_profiles <- tibble(wt = c(2.5, 3.5), hp = c(100, 150))
+predict(fit_log, newdata = new_profiles, type = "response")
+```
+
+## Short exercise (clinical case)
+
+- Run `dev_code_data/excercise6.R` to fit a logistic model for a binary outcome, compute odds ratios with 95% CIs, and write a one-sentence clinical interpretation.
+
+::: {.callout-tip collapse="true" title="Exercise — Solution"}
+- Solution script: `dev_code_data/Solution6.R`  
+- Solution (PDF): `dev_code_data/Solution6.pdf`  
+:::
+
+## Further reading
+
+- Clinical methods and applied workflows: @Wickham-Grolemund-2017; @Matloff-2011.
+- Model selection and interactive model building: @Henderson-Velleman-1981.
+
+## Resources
+
+- Exercises and lecture notes: `dev_code_data/lesson_basic_statistic_course.R`, `dev_code_data/Lecture1.pdf`.
