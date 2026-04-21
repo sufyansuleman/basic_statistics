@@ -1,0 +1,44 @@
+# Multiple Regression & Confounding {#multiple-regression}
+
+```{r setup}
+#| include: false
+#| eval: true
+source(here::here("R/functions.R"))
+source(here::here("R/load-packages.R"))
+```
+
+Multiple regression models an outcome using several predictors and helps
+assess confounding and adjusted associations.
+
+## When to use multiple regression
+
+Use multiple regression to estimate associations while adjusting for potential
+confounders; check collinearity and model diagnostics.
+
+## Short code demo (dplyr-style)
+
+```{r demo-multilm, echo=TRUE}
+mtcars <- datasets::mtcars %>% as_tibble(rownames = "model") %>%
+  mutate(am = factor(am, labels = c("auto", "manual")))
+
+multilm <- lm(mpg ~ wt + hp + am, data = mtcars)
+broom::tidy(multilm)
+broom::glance(multilm)
+```
+
+## How to interpret the output (teacher notes)
+
+- **Adjusted coefficients:** each coefficient represents the expected change
+  in the outcome holding other variables constant.
+- **Diagnostics:** check residuals, leverage, and variance inflation where
+  appropriate.
+
+## Short exercise
+
+- Fit `mpg ~ wt + hp` and compare the `wt` coefficient to the simple model `mpg ~ wt`.
+
+**Hint:** use `broom::tidy()` and `broom::glance()` for concise summaries.
+
+## Packages used
+
+- `dplyr`, `broom`

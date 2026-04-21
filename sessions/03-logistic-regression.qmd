@@ -1,0 +1,45 @@
+# Logistic Regression {#logistic-regression}
+
+```{r setup}
+#| include: false
+#| eval: true
+source(here::here("R/functions.R"))
+source(here::here("R/load-packages.R"))
+```
+
+Logistic regression models binary outcomes; coefficients exponentiated are
+odds ratios.
+
+## When to use logistic regression
+
+Use logistic regression for binary outcomes (event / no event). Adjust for
+confounders when estimating associations.
+
+## Short code demo (dplyr-style)
+
+```{r demo-glm, echo=TRUE}
+# example using mtcars: model probability of manual transmission (am)
+mtcars <- datasets::mtcars %>% as_tibble(rownames = "model") %>%
+  mutate(am = factor(am, labels = c("auto", "manual")))
+
+fit_log <- glm(am ~ wt + hp, family = binomial, data = mtcars)
+
+# tidy coefficients and convert to odds ratios
+broom::tidy(fit_log)
+exp(coef(fit_log))
+```
+
+## How to explain the output (teacher notes)
+
+- **Odds ratio:** multiplicative change in odds for a one-unit predictor increase.
+- **Predicted probabilities** are usually easier to communicate than odds ratios.
+
+## Short exercise
+
+- Fit a model with `am ~ wt` and compute predicted probability for two example weights.
+
+**Hint:** use `predict(..., type = "response")` for probabilities.
+
+## Packages used
+
+- `dplyr`, `broom`, `ggplot2`

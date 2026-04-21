@@ -1,0 +1,44 @@
+# Linear Regression {#linear-regression}
+
+```{r setup}
+#| include: false
+#| eval: true
+source(here::here("R/functions.R"))
+source(here::here("R/load-packages.R"))
+```
+
+This short session introduces simple linear regression for continuous outcomes.
+
+## When to use linear regression
+
+Use linear regression to model a continuous outcome as a function of one or
+more predictors when the outcome is approximately continuous and residuals are
+reasonably well-behaved.
+
+## Short code demo (dplyr-style)
+
+```{r demo-lm, echo=TRUE}
+# load example data and fit a simple model
+mtcars <- datasets::mtcars %>% as_tibble(rownames = "model")
+lm_fit <- lm(mpg ~ wt, data = mtcars)
+
+# tidy coefficient table and model summary
+broom::tidy(lm_fit)
+broom::glance(lm_fit)
+```
+
+## How to interpret the output (teacher notes)
+
+- **Slope:** expected change in the outcome per one-unit increase in the predictor.
+- **Intercept:** expected outcome when predictors equal zero (context dependent).
+- **R-squared:** fraction of variance explained by the model; interpret with caution.
+
+## Short exercise
+
+- Fit `mpg ~ wt + hp` and report the coefficient for `wt` with a one-sentence interpretation.
+
+**Hint:** use `lm()` and `broom::tidy()`; consider whether effect sizes are clinically meaningful.
+
+## Packages used
+
+- `dplyr`, `broom`, `ggplot2`

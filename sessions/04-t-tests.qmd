@@ -1,0 +1,48 @@
+# T-tests & Group Comparisons {#t-tests}
+
+```{r setup}
+#| include: false
+#| eval: true
+source(here::here("R/functions.R"))
+source(here::here("R/load-packages.R"))
+```
+
+This session covers one-sample, two-sample, and paired t-tests and when to
+use Welch's correction.
+
+## When to use t-tests
+
+Use t-tests to compare means between groups (one-sample, two-sample) or
+paired measurements on the same subjects (paired t-test). Use Welch's t-test
+when variances are unequal.
+
+## Short code demo (dplyr-style)
+
+```{r demo-ttest, echo=TRUE}
+# two-sample example from ToothGrowth
+tg <- datasets::ToothGrowth %>% as_tibble() %>% mutate(dose = factor(dose))
+tg_low <- tg %>% filter(dose == 0.5)
+
+# two-sample t-test comparing supplements
+t_test_res <- t.test(len ~ supp, data = tg_low)
+broom::tidy(t_test_res)
+
+# paired example using built-in sleep dataset
+paired_res <- t.test(extra ~ group, data = datasets::sleep, paired = TRUE)
+broom::tidy(paired_res)
+```
+
+## How to explain the output (teacher notes)
+
+- **Report:** mean difference and 95% CI. State whether CI includes zero.
+- **Context:** choose paired vs independent test based on study design.
+
+## Short exercise
+
+- Select two groups from `mtcars` (e.g., `am` levels) and run an appropriate t-test; write a one-line interpretation.
+
+**Hint:** use `t.test(..., var.equal = TRUE)` for pooled variance, omit for Welch.
+
+## Packages used
+
+- `broom`, `dplyr`

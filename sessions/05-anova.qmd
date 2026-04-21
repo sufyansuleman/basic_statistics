@@ -1,0 +1,43 @@
+# ANOVA & Multiple Comparisons {#anova}
+
+```{r setup}
+#| include: false
+#| eval: true
+source(here::here("R/functions.R"))
+source(here::here("R/load-packages.R"))
+```
+
+One-way ANOVA compares means across three or more groups; use post-hoc
+comparisons to identify which groups differ.
+
+## When to use ANOVA
+
+Use ANOVA for group mean comparisons when the outcome is continuous and you
+have three or more groups. Follow with a multiplicity-corrected post-hoc test
+if you need pairwise contrasts.
+
+## Short code demo (dplyr-style)
+
+```{r demo-anova, echo=TRUE}
+pg <- datasets::PlantGrowth %>% as_tibble()
+pg_aov <- aov(weight ~ group, data = pg)
+summary(pg_aov)
+
+# Tukey pairwise comparisons
+TukeyHSD(pg_aov)
+```
+
+## How to explain the output (teacher notes)
+
+- **Report:** global F-test result and pairwise comparisons (adjusted CIs).
+- **Context:** emphasize effect sizes and which contrasts are clinically meaningful.
+
+## Short exercise
+
+- Run the ANOVA and report which groups differ using Tukey's test; write a one-line conclusion.
+
+**Hint:** use `TukeyHSD()` on the fitted `aov` object.
+
+## Packages used
+
+- `dplyr`
