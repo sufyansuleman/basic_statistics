@@ -1,0 +1,56 @@
+project:
+  type: book
+
+book:
+  title: "Getting Started with R"
+  subtitle: "An Introduction to R and RStudio for beginners"
+  author:
+    - name: "Sufyan Suleman"
+      affiliation: "Novo Nordisk Foundation Center for Basic Metabolic Research, University of Copenhagen Denmark"
+    - name: "Asmat Ullah"
+      affiliation: "Department of Biomedicine, Faculty of Health, Aarhus University Denmark"
+  chapters:
+  - index.qmd
+  - part: "Programme"
+    chapters:
+    - programme/schedule.qmd
+  - part: "Sessions"
+    chapters:
+    - sessions/introduction.qmd
+    - sessions/basic-syntax.qmd
+    - sessions/rmarkdown-basics.qmd
+    - sessions/vectors.qmd
+    - sessions/df-lists.qmd
+    - sessions/packages-libraries.qmd
+    - sessions/basic-import.qmd
+    - sessions/basic-visualization.qmd
+    - sessions/help-docs.qmd
+
+  appendices:
+    - LICENSE.md
+    - appendix/references.qmd
+    - appendix/discussion.qmd
+    - appendix/acknowledgements.qmd
+  page-footer:
+    center:
+      - text: "License: CC BY 4.0"
+        href: LICENSE.html
+
+bibliography:
+  - includes/references.bib
+csl: includes/vancouver.csl
+
+editor:
+  markdown:
+    wrap: 72
+    canonical: true
+
+format:
+  html:
+    include-after-body:
+      - "includes/site-counter.html"
+    theme: "cosmo"
+
+
+execute:
+  freeze: auto

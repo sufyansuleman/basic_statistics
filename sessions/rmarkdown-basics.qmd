@@ -1,0 +1,262 @@
+# R Markdown Basics {#sec-rmarkdown-basics}
+
+```{r setup}
+#| include: false
+#| eval: true
+source(here::here("R/functions.R"))
+source(here::here("R/load-packages.R"))
+```
+
+## What is R Markdown?
+
+-   R Markdown is a file format for making dynamic documents with R. An
+    R Markdown document is written in markdown (an easy-to-write plain
+    text format) and contains chunks of embedded R code.
+
+-   The R Markdown is then processed by the knitr package, which
+    executes all of the R code chunks and creates a new markdown (.md)
+    document which includes the code and its output. This markdown
+    document can then be rendered into a variety of formats including
+    HTML, PDF, MS Word, scientific articles, websites, and more. You can
+    even use R Markdown to build interactive documents and slideshows.
+
+-   R Markdown documents are fully reproducible and support dozens of
+    static and dynamic output formats. When you use R Markdown, you'll
+    have the opportunity to flex your creativity and your technical
+    skills. The possibilities are nearly endless.
+
+-   R Markdown is a variant of Markdown that has embedded R code chunks,
+    to be used with knitr to make it easy to create reproducible
+    web-based reports. R Markdown files are designed to be used with the
+    RStudio IDE, allowing you to quickly create documents and
+    presentations that are fully reproducible.
+
+## What is R Script?
+
+-   R Script is a plain-text file that contains R code that you intend
+    to use again later - to run the same analysis, to re-create a plot,
+    etc. Unlike an R Markdown document, an R Script does not contain
+    text in addition to the R code. It's simply a list of commands that
+    you would otherwise enter at the R command prompt. R Scripts are a
+    great way to ensure that your analyses are reproducible. They also
+    make it easy to re-use your code in other projects and share your
+    code with others. R script files are designed to be used with the
+    RStudio IDE, allowing you to quickly create documents and
+    presentations that are fully reproducible. In this course we will
+    work with R Markdown files.
+
+## Creat an R Markdown file
+
+In this section, you will learn how to create a new R Markdown file, and
+save it with a specific name in a designated directory. This is a
+fundamental skill that will help you keep your work organized as you
+learn R.
+
+-   **Instructions**
+
+1.  **Launch RStudio**:
+    -   Now that the RStudio is open on your computer.
+2.  **Create a New Directory**:
+    -   In the Files pane (bottom-right by default), navigate to a
+        location on your computer where you'd like to save your work.
+    -   Click on the "New Folder" icon, and name the new folder
+        `learning_R`.
+    -   Please try to avoid creating the folder on a remote drive as it
+        will make it much slower to work with. Make folder on your
+        computer in Documents or Drive of choice.
+3.  **Set Working Directory**:
+    -   Once the folder is created, set it as your working directory by
+        clicking on "Session" on top pane, then "Set As Working
+        Directory" -\> Choose directory and locate the directory
+        `learning_R` and press OK.
+
+OR by typing in the console without \#
+
+```{r}
+# setwd("Drive:/path/to_your/directory/learning_R")
+```
+
+4.  **Create a New R Markdown file**:
+    -   Go to the toolbar at the top of the RStudio window.
+    -   Click on "File", then "New File", and select "R Markdown".
+5.  **Save the R Markdown file**:
+    -   Now, save the new R Markdown by clicking on "File" in the
+        toolbar, then "Save" (or by pressing `Ctrl + S` on your
+        keyboard).
+    -   In the dialog box that appears, navigate to the `learning_R`
+        directory that you created.
+    -   Name your file `workbook` and click "Save".
+    -   It will be saved with file extension `.Rmd`
+6.  **Verify the file is created**:
+    -   In the Files pane, navigate to the `learning R` directory.
+    -   Confirm that your `workbook.Rmd` file is saved there.
+
+::: callout-note
+-   When working with R, it's important to develop the habit of using
+    underscores (\_) instead of spaces when naming files and folders.
+-   In this module, we will work in a R Markdown file. We won't be
+    creating an R Script at this stage.
+-   R Markdown is incredibly useful at this point, functioning much like
+    a notebook where you can explore and play around with data.
+-   Going forward, ensure you follow the steps and exercises in order,
+    as each step typically builds upon the previous one. Skipping ahead
+    may result in missing crucial information and getting errors.
+:::
+
+## Read and Reflect
+
+-   How does organizing your files into designated directories help
+    streamline your workflow?
+-   Why is it important to give meaningful names to your R Scripts?
+-   How is it related to your research directories and file names, do
+    you also write names like results1, results2, results3, results
+    final, results commented PI and results4, results final2.
+
+Take a moment to reflect on these questions. As you continue to learn R,
+maintaining an organized workspace will become increasingly important.
+
+::: callout-note
+Want to learn more about the naming conventions in R?
+
+Check out this for naming: [files and
+directories](https://style.tidyverse.org/files.html#:~:text=File%20names%20should%20be%20meaningful,letters%2C%20%2D%20%2C%20and%20_%20.&text=If%20you%20later%20realise%20that,use%2002a%20%2C%2002b%20%2C%20etc)
+and this for
+[Objects](https://bookdown.org/content/d1e53ac9-28ce-472f-bc2c-f499f18264a3/names.html)
+:::
+
+## Using the R Markdown file
+
+-   If R Markdown file **workbook.Rmd** that you recently created is not
+    already open, you can open it by clicking on its name in the file
+    pane.
+
+When the file is open the the RStudio interface look like this.
+
+![RStudio Interface on Start](../images/RStudio_interface_2.PNG)
+
+-   And the `workbook` looks like this. Does it in your case?
+
+![RMarkdown file startup](../images/RMarkdwon_example.PNG)
+
+-   Read the content of the file and then delete the everything below
+    \## R Markdown
+
+-   Let's proceed to complete Exercise 3 inside the **workbook.Rmd**
+    file.
+
+## Excercise 1
+
+-   **Discovering Data Types**
+
+-   Inside the opened workbook place your cursor below the \## R
+    Markdown
+
+-   To insert a code chunk, press `Ctrl + Alt + I`, or alternatively,
+    you can click on "Code" at the top "on the Toolbar" and then select
+    "Insert Chunk".
+
+Use the class() function to discover the data type of a variable:
+
+::: callout-note
+In R, the class() function is used to determine the data type of an
+object. This function is particularly useful when working with different
+types of data structures in R, such as vectors, matrices, data frames,
+and lists. It helps you understand how R is interpreting your data,
+which is crucial for effective data manipulation and analysis
+:::
+
+```{r}
+#| include: FALSE
+
+num1 <- 5        # integer
+num2 <- 5.5  
+
+char1 <- "Hello"       # a word
+char2 <- "Hello, world!"  # a sentence
+
+log1 <- TRUE            # TRUE value
+log2 <- (5 > 3)         # TRUE, because 5 is greater than 3
+
+
+```
+
+::: {.callout-tip collapse="true" title="Tip"}
+1.  Recall that we created the objects num1, char1, and log1 earlier in
+    Section 2.4. If they are visible in your environment pane, employ
+    the class function to ascertain the type of data they contain. If
+    they are not visible, recreate them by rerunning the code from
+    sections 2.4.1 to 2.4.3.
+
+2.  When executing code in R Markdown, you can either click the green
+    arrow button at the top right corner of the code chunk to run the
+    entire code chunk or position your cursor on the specific line of
+    code you wish to run and press Ctrl + Enter, which will execute only
+    that particular line of code.
+:::
+
+```{r}
+class(num1)  # Output: "numeric"
+class(char1) # Output: "character"
+class(log1)  # Output: "logical"
+```
+
+## Excercise 2
+
+1.  Create a numeric variable and perform a basic arithmetic operation.
+2.  Create a character variable containing your name.
+3.  Create a logical variable by comparing two numbers.
+4.  perform this inside the workbook file
+
+::: {.callout-warning title="Variable names to avoid"}
+You have the flexibility to choose any name for your variables. However,
+it is recommended to refrain from utilizing names of functions and
+objects from base R to prevent any potential conflicts or unexpected
+behavior. Here are some examples to consider:
+
+1.  `c`
+2.  `df`
+3.  `mean`
+4.  `sum`
+5.  `data`
+6.  `matrix`
+7.  `vector`
+8.  `list`
+9.  `factor`
+10. `library`
+
+These names are commonly used in R for various purposes, and using them
+as variable names can lead to confusion or errors in your code. It's
+generally a good practice to choose descriptive and unique names for
+your variables to avoid any issues.
+:::
+
+::: {.callout-tip collapse="true" title="Excercise 2: Click to see solution"}
+1.  
+
+```{r}
+numeric_variable <- 10
+arithmetic_result <- numeric_variable + 5  # Adding 5 to the numeric_variable
+```
+
+2.  
+
+```{r}
+name_variable <- "Your Name"
+```
+
+3.  
+
+```{r}
+comparison_variable <- (10 > 5)  # Checking if 10 is greater than 5
+```
+
+-   **In this solution:**
+
+1.  A numeric variable named `numeric_variable` is created and assigned
+    a value of 10. A basic arithmetic operation (addition) is then
+    performed on this variable.
+2.  A character variable named `name_variable` is created and assigned
+    the value "Your Name".
+3.  A logical variable named `comparison_variable` is created by
+    comparing two numbers using the greater than (`>`) operator.
+:::

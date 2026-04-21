@@ -1,0 +1,439 @@
+# Vectors and Factors {#sec-vectors}
+
+```{r setup}
+#| include: false
+#| eval: true
+source(here::here("R/functions.R"))
+source(here::here("R/load-packages.R"))
+```
+
+## Creating and Manipulating Vectors
+
+Vectors are fundamental data structures in R, which allow you to store
+multiple values in a single variable. These values should be of the same
+data type (e.g., all numeric, all character, etc.). Vectors are ordered,
+meaning that the values have a specific order in the vector.
+
+::: callout-important
+Moving forward, please work within the `workbook` file you created
+earlier. To strengthen your coding skills and develop finger muscles
+memory, we recommend typing out the code inside the code chunks as you
+learn and practice R.
+:::
+
+### Creating Vectors
+
+You can create a vector using the `c()` function, which stands for
+concatenate. Here's how:
+
+```{r}
+# Creating a numeric vector
+numeric_vector <- c(1, 3, 5, 7, 9)
+```
+
+```{r}
+# Creating a character vector
+character_vector <- c("apple", "banana", "cherry")
+```
+
+```{r}
+# Creating a logical vector
+logical_vector <- c(TRUE, FALSE, TRUE)
+```
+
+### Accessing Vector Elements
+
+You can access individual elements of a vector using square brackets
+\[\] with the index (position) of the element in the vector that you
+want.
+
+```{r}
+#Accessing the second element of numeric_vector
+numeric_vector[2]
+# here we asked R what element is at index 2
+# the answer is  3
+```
+
+### Manipulating Vectors
+
+There are various ways to manipulate vectors in R. Some of them include:
+
+Adding Elements: You can add elements to a vector using the c()
+function.
+
+```{r}
+# Adding an element to numeric_vector
+numeric_vector <- c(numeric_vector, 11)  # numeric_vector is now c(1, 3, 5, 7, 9, 11)
+
+```
+
+Removing Elements: A common way to remove elements is by using \[ \] and
+giving the index of the element in the vector.
+
+```{r}
+# Removing the first element from numeric_vector
+numeric_vector <- numeric_vector[-1]  # numeric_vector is now c(3, 5, 7, 9, 11)
+```
+
+Changing Elements: You can change the value of a vector element by
+assigning a new value to it.
+
+```{r}
+# Changing the third element of numeric_vector
+numeric_vector[3] <- 10  # numeric_vector is now c(2, 3, 10, 5, 6)
+```
+
+## Excercise 3
+
+Now it's your turn to practice!
+
+1.  Create a character vector with names of three of your favorite
+    fruits.
+2.  Access and print the second element of the vector.
+3.  Add another favorite fruit to your vector.
+4.  Remove the first element from your vector.
+5.  Change the last element of your vector to a different food item.
+6.  On every step verify the output, is it what you expected?
+
+::: {.callout-tip collapse="true" title="Excercise 3: Click to see solution"}
+```{r}
+
+# 1. Create a character vector with names of three of your favorite fruits.
+favorite_fruits <- c("Apple", "Banana", "Cherry")
+
+# 2. Access and print the second element of the vector.
+second_fruit <- favorite_fruits[2]
+print(second_fruit)
+
+# 4. Add another favorite fruit to your vector.
+favorite_fruits <- c(favorite_fruits, "Date")
+print(favorite_fruits)
+
+# 4. Remove the first element from your vector.
+favorite_fruits <- favorite_fruits[-1]
+print(favorite_fruits)
+
+# 4. Change the last element of your vector to a different fruit item.
+
+favorite_fruits[3] <- "Elderberry"
+print(favorite_fruits)
+
+# Now, the favorite_fruits vector should be: c("Banana", "Cherry", "Elderberry")
+
+```
+:::
+
+## Factors and levels
+
+When working with data in R, we often deal with categorical variables,
+which are variables that can be divided into different categories, such
+as "Yes" or "No", or "Small", "Medium", "Large". In R, we use a special
+type of variable called a *factor* to handle these categories. Think of
+factors as containers that hold and manage these categories, which we
+call *levels*.
+
+### Understanding Factors
+
+Imagine you're sorting fruits into baskets. Each basket is labeled with
+the name of a fruit. In R, each basket is like a *level* of a factor.
+The factor is the concept of "fruit types". If you have three types of
+fruits---apples, bananas, and cherries---then your factor has three
+levels: "Apple", "Banana", and "Cherry".
+
+**Why Use Factors?**
+
+-   **Organization for Analysis:** Just as baskets help us organize
+    fruits, factors help organize our data, making it easier to analyze.
+-   **Clear Categories:** Even if we didn't collect any cherries, our
+    "fruit type" factor still knows cherries exist as a category,
+    keeping our data consistent.
+-   **Order Matters:** We can order our factors (like saying small,
+    medium, and large sizes), which is important for analysis that
+    depends on ranking.
+-   **Visualization:** Factors help R know how to group and label data
+    in charts, which makes our visualizations clear and accurate.
+
+**Practical Example: Fruit Count Chart with factor levels**
+
+Let's relate this to our fruit count chart below. We categorized the
+count of different fruits. In our chart, each fruit type is a level in
+our factor. This allows us to make a clear and organized bar chart,
+showing us how many of each fruit type we have. Remember, factors are
+there to make our data analysis and visualization tasks easier and more
+accurate, much like baskets help keep fruits organized in real life!
+
+::: callout-note
+Move your cursor over the bars in the chart to view the precise counts
+of each fruit type.
+:::
+
+```{r fruit-plot-with-factors, echo=FALSE, message=FALSE}
+library(plotly)
+library(ggplot2)
+
+# Example dataset: Fruits and their counts
+fruits <- c("Apple", "Banana", "Cherry", "Date", "Elderberry")
+counts <- c(23, 15, 19, 10, 5)
+
+# Calculate total count of all fruits
+total_count <- sum(counts)
+
+# Create a data frame
+fruit_data <- data.frame(Fruit = factor(fruits, levels = fruits), Count = counts)
+
+# Use ggplot2 to create a bar plot with a custom tooltip
+ggplot_visual <- ggplot(fruit_data, aes(x = Fruit, y = Count, fill = Fruit,
+                                        text = paste("Fruit: ", Fruit, "<br>Count: ", Count,
+                                                     "<br>Total Count: ", total_count))) +
+  geom_bar(stat = "identity") +
+  scale_fill_brewer(palette = "Set3") +
+  labs(x = "Fruit Type", y = "Count", title = "Fruits Count by factors") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# Convert the ggplot to a plotly interactive plot with custom tooltip
+plotly_visual <- ggplotly(ggplot_visual, tooltip = "text")  # Only display the custom tooltip
+
+# Display the plotly interactive plot
+plotly_visual
+
+
+```
+
+**Practical Example: Fruit Count Chart without factor levles** In this
+example, we didn't specify to R that our data should be treated as
+categorical with distinct factor levels. Instead, we've labeled all
+entries simply as "All Fruits," akin to placing various fruits into one
+basket. This approach makes it challenging to discern the quantity of
+each individual fruit type because we're presented with a combined total
+rather than a detailed breakdown.
+
+```{r fruit-plot-witout-factors, echo=FALSE, message=FALSE}
+# R code to plot all fruits as a single bar, ignoring individual counts
+
+# Example dataset: Fruits and their counts without factor levels
+fruits <- rep("Apple Banana Cherry Date Elderberry", 5) 
+counts <- c(23, 15, 19, 10, 5)  # The individual counts remain the same
+
+# Calculate the total count
+total_count <- sum(counts)
+
+# Create a data frame with a single fruit category
+fruit_data_combined <- data.frame(Fruit = fruits, Count = total_count)
+
+# Use ggplot2 to create a bar plot with all fruits combined into a single bar
+ggplot_visual_2 <- ggplot(fruit_data_combined, aes(x = Fruit, y = Count, fill = Fruit,
+                                                   text = paste("Total Count: ", Count))) +
+  geom_bar(stat = "identity") +
+  scale_fill_brewer(palette = "Set3") +  # Single color since there's only one category
+  labs(x = "", y = "Total Count", title = "Fruits count without factors") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# Convert the ggplot to a plotly interactive plot with custom tooltip
+plotly_visual_2 <- ggplotly(ggplot_visual_2, tooltip = "text")  # Display the custom tooltip
+
+# Display the plotly interactive plot
+plotly_visual_2
+
+```
+
+### Creating and converting Factors
+
+You can create a factor from a vector using the `factor()` function.
+Here's how:
+
+```{r}
+# Create a vector of fruit names
+fruit_vector <- c("Apple", "Banana", "Cherry", "Apple", "Cherry", "Banana", "Banana", "Cherry", "Apple","Apple","Apple")
+```
+
+```{r}
+fruit_vector #  you can get the value of a vector just by runnin gits name in console or in the code chunk
+```
+
+**Convert the vector to a factor**
+
+```{r}
+# In this code, convert the fruit_vector vector into a factor using the factor() function.
+fruit_factor <- factor(fruit_vector)
+```
+
+```{r}
+fruit_factor  
+```
+
+**Levels of a Factor** The unique values in a factor are called levels.
+You can see the levels of a factor using the levels() function. Get the
+levels of factor
+
+```{r}
+levels(fruit_factor)  
+```
+
+**Getting Summary of Factors**
+
+```{r}
+summary(fruit_factor)
+
+```
+
+You can change the number of the elements (fruit names in the
+fruit_vector) and then play with it.
+
+::: callout-note
+Why get summary of factors? It is because just like you'd want to know
+how many of each type of fruit you have in the basket, in statistics,
+you often need to sort data into categories and count them. Factors help
+you do that in R.
+:::
+
+### Ordered Factors
+
+**Understanding Ordered Factors in R** In R, when we talk about data
+like T-shirt sizes or class levels, we call them "factors." They are
+like labels we put on things that are similar, such as "Small,"
+"Medium," "Large" for sizes.
+
+But sometimes, it's not enough to just label these things. We need to
+remember that some labels come before others, like how "Small" is
+smaller than "Medium." We use something called "ordered factors" to do
+this.
+
+**Why Ordered Factors Matter**
+
+Think about lining up for a race. The order matters, right? First,
+second, third. If we mix it up, it would be confusing. It's the same
+with our data. If we don't use ordered factors when the order is
+important, we might get mixed up results.
+
+**How to Make Ordered Factors**
+
+Here's how we make ordered factors in R:
+
+1.  We tell R which labels we have, like "Small," "Medium," "Large."
+2.  We tell R to remember the order by saying `TRUE` to "ordered."
+
+**Example with T-Shirt Sizes**
+
+Let's say we're sorting T-shirts by size:
+
+```{r}
+sizes <- c("Small", "Medium", "Large", "Medium", "Small")
+```
+
+To keep the sizes in order, we make an ordered factor:
+
+```{r}
+ordered_sizes <- factor(sizes, ordered = TRUE, levels = c("Small", "Medium", "Large"))
+```
+
+Now R knows that "Small" comes before "Medium," and "Medium" comes
+before "Large."
+
+**Using Ordered Factors**
+
+When we have our sizes in order, we can do things like see if one size
+is bigger than another, or make graphs where "Small" comes before
+"Medium," not just wherever they popped up in our list. So, ordered
+factors help us keep our data tidy and in line, like students in a
+school line-up. It helps us make sense of things that should follow a
+certain order, giving us clearer results when we're working with our
+information. This is super helpful for making sure we understand our
+data the right way.
+
+### Converting Factors
+
+Let's use a fruit basket again as an example to illustrate this concept:
+
+Suppose you have a basket filled with an assortment of fruits: apples,
+bananas, and cherries. You decide to organize them by putting a little
+sticker on each that says "apple", "banana", or "cherry". In R, this is
+like creating a factor for your fruits.
+
+Here's some R code that might represent our fruit basket as a factor:
+
+```{r}
+fruits <- c("apple", "banana", "cherry", "apple", "cherry")
+fruit_factor <- factor(fruits)
+```
+
+Now, let's explore the conversions and understand why and when you might
+need them:
+
+1.  **To Character:**
+
+    Sometimes, you want to check the stickers without sorting the
+    fruits. This is like converting your factor to a character vector.
+    You're not interested in how many apples or cherries you have, just
+    what's in the basket.
+
+```{r}
+fruit_labels <- as.character(fruit_factor)
+```
+
+**Why and when you need this:** You might need to do this when you're
+only interested in the names of the fruits for a task like labeling a
+shelf, where the count doesn't matter.
+
+2.  **To Numeric:**
+
+On other occasions, you might decide to assign a number to each type of
+fruit: apples = 1, bananas = 2, cherries = 4. This is like converting
+your factor to a numeric vector. Instead of names, each fruit is
+represented by a number.
+
+```{r}
+fruit_numbers <- as.numeric(fruit_factor)
+```
+
+**Why and when you need this:** This is useful when you're entering your
+fruit data into a system that requires numbers instead of names, maybe
+for a stocktaking system that tracks inventory with codes instead of
+fruit names.
+
+In summary, whether you convert a factor into characters or numbers
+depends on what you need at the moment:
+
+-   Use characters when you want to work with the names or labels
+    directly.
+-   Use numbers when you need to enter data into a numerical system or
+    do some sort of calculation where categories are represented by
+    numbers.
+
+### Excercise 4
+
+Now, practice what you've learned!
+
+1.  Create a factor variable with your favorite colors.
+2.  Find out the levels of your factor variable.
+3.  Create an ordered factor with levels "Low", "Medium", "High".
+4.  Get a summary of your ordered factor.
+5.  Convert the factor back to a character vector.
+
+::: {.callout-tip collapse="true" title="Excercise 4: Click to see solution"}
+```{r}
+
+# 1. Create a factor variable with your favorite colors.
+favorite_colors <- c("Red", "Blue", "Green", "Blue", "Red")
+color_factor <- factor(favorite_colors)
+
+# 2. Find out the levels of your factor variable.
+color_levels <- levels(color_factor)
+color_levels  # Output: "Blue" "Green" "Red"
+
+# 5. Create an ordered factor with levels "Low", "Medium", "High".
+ordered_vector <- c("Low", "Medium", "High", "Medium", "Low")
+ordered_factor <- factor(ordered_vector, ordered = TRUE, levels = c("Low", "Medium", "High"))
+
+# 5. Get a summary of your ordered factor.
+ordered_summary <- summary(ordered_factor)
+ordered_summary  # Output: a table showing the counts of each level
+
+# 5. Convert the factor back to a character vector.
+char_vector <- as.character(ordered_factor)
+char_vector  # Output: "Low" "Medium" "High" "Medium" "Low"
+
+```
+:::
+

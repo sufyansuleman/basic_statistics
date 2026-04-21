@@ -1,0 +1,94 @@
+---
+execute: 
+  warning: false
+---
+
+# Data Frames and Lists {#sec-df-lists}
+
+```{r setup}
+#| include: false
+#| eval: true
+source(here::here("R/functions.R"))
+source(here::here("R/load-packages.R"))
+```
+
+# Introduction
+
+In this section, we will analyze two datasets related to dietary effects
+on milk protein levels in cows and gene expression data for the
+alpha-synuclein gene. The analysis includes data cleaning,
+visualization, hypothesis testing, and statistical adjustments for
+multiple comparisons. The tools used are `dplyr`, `ggplot2`, and
+`tidyverse`.
+
+## Analysis of Milk Protein Levels
+
+### Data Preparation
+
+We analyze milk protein levels at specific time points after calving for
+cows on different diets. The objective is to assess dietary effects on
+protein levels and compute statistical summaries and comparisons.
+
+```{r}
+# Load the data and filter for analysis
+data <- (Milk)
+milk_data <- data %>%
+  dplyr::filter(Time == 6, Diet %in% c("lupins", "barley+lupins")) %>%
+  dplyr::select(protein, Cow, Diet) %>%
+  mutate(Diet = droplevels(Diet))
+
+# Data summary
+milk_data %>% summary()
+
+```
+
+##Exploratory Data Analysis
+
+###Visualization of Protein Levels by Diet
+
+```{r}
+ggplot(milk_data, aes(x = Diet, y = protein, color = Diet)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.2, alpha = 0.6) +
+  labs(title = "Protein Levels by Diet", x = "Diet", y = "Protein Level (%)") +
+  theme_minimal()
+```
+
+```{r}
+milk_summary <- milk_data %>%
+  group_by(Diet) %>%
+  summarise(
+    mean_protein = mean(protein, na.rm = TRUE),
+    sd_protein = sd(protein, na.rm = TRUE),
+    n = n(),
+    ci_lower = mean_protein - qt(0.975, df = n - 1) * sd_protein / sqrt(n),
+    ci_upper = mean_protein + qt(0.975, df = n - 1) * sd_protein / sqrt(n)
+  )
+milk_summary
+
+```
+
+## Hypothesis Testing
+
+### We test if there is a significant difference in protein levels between diets.
+
+```{r}
+t_test_results <- t.test(protein ~ Diet, data = milk_data)
+t_test_results
+```
+
+```{r}
+ggplot(milk_data, aes(x = protein, fill = Diet)) +
+  geom_histogram(alpha = 0.7, position = "identity", bins = 10) +
+  labs(title = "Distribution of Protein Levels by Diet", x = "Protein Level (%)", y = "Frequency") +
+  scale_fill_manual(values = c("lupins" = "blue", "barley+lupins" = "green")) +
+  theme_minimal()
+
+```
+
+```{r}
+# Adjust for multiple comparisons
+p_adjusted <- p.adjust(t_test_results$p.value, method = "bonferroni")
+p_adjusted
+
+```

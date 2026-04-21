@@ -1,0 +1,367 @@
+# Basic R Syntax and Operations {#sec-basic-syntax}
+
+```{r setup}
+#| include: false
+#| eval: true
+source(here::here("R/functions.R"))
+source(here::here("R/load-packages.R"))
+```
+
+## Arithmetic / Mathematical Operations
+
+Arithmetic operations are fundamental in R, as in many programming
+languages. They allow us to perform basic mathematical calculations. In
+this section, we will explore the primary arithmetic operators available
+in R.
+
+::: callout-note
+Please note that there is no need to save any part of this course or
+create a new file at this moment. We will initially work in the console,
+and later, we will proceed to create a new R R Script / R Markdown file,
+where we will write and save our code.
+:::
+
+### Operators
+
+Here are the basic arithmetic operators in R:
+
+-   Addition (`+`)
+-   Subtraction (`-`)
+-   Multiplication (`*`)
+-   Division (`/`)
+-   Exponentiation (`^`)
+
+## Using basic operators in R
+
+Let's examine these operators and observe how they function. We will use
+the console to execute the code. The console is the panel at the bottom
+left of your RStudio window. You can type code directly into the console
+and press enter to execute it. The console is a great place to
+experiment with code, but it is not a good place to save your code. We
+will learn how to save our code in a later section.
+
+### Addition
+
+You can type or copy this code chunk and paste it in your console and
+hit enter
+
+```{r}
+# Addition
+3 + 4  # Output: 7
+```
+
+Hooray! You've just taken your first step into the world of coding with
+R. When you input "3 + 4", R calculates that the sum is 7. You might
+have noticed the \[1\] preceding your output in the console; don't
+worry, this simply indicates that 7 is the first (and only) element in
+the output. The index, \[1\], is particularly helpful when you're
+dealing with lengthy outputs, as it marks the position of the first
+element in each line, making it easier to track elements.
+
+::: callout-tip
+**Index with continuous numbers**
+
+Below exercise demonstrate indexing when you are working with large
+outputs.
+
+Copy paste the code chunk in the console
+
+```{r}
+# In this code we are telling R to store numbers from 1 to 100 in a an object called "numbers" 
+numbers <- 1:100
+
+# and then print the stored object (numbers in this case)
+print(numbers)
+
+```
+
+In this example, the sequence is straightforward because it consists of
+ordered numbers from 1 to 100, making it clear that the number at
+positions **1, 19, 37, 55, 73 and 91**. However, the alignment of
+numbers and their respective positions may vary for each individual,
+depending on the size of the console pane in use.
+
+**Index with random numbers**
+
+Below exercise demonstrate indexing in R when the numbers are random.
+
+```{r}
+# We are telling R to store numbers 1 to 35 randomly in a an object called random_numbers 
+random_numbers <- rnorm(1:35)
+
+# and then print the stored object (random_numbers in this case)
+print(random_numbers)
+```
+
+In this R output, the numbers in square brackets, represent the index
+position of the first number on each line. However, the alignment of
+numbers and their respective positions may vary for each individual,
+depending on the size of the console pane in use and every time you run
+this code.
+
+These index positions help you to quickly locate and reference specific
+elements in the output, particularly when dealing with large datasets.
+:::
+
+### Subtraction
+
+Please **type**, the following arithmetic operations into the console,
+then press enter to execute the code and observe the results. Focus to
+type is to develop muscles memory.
+
+```{r}
+# Subtraction
+10 - 6  # Output: 4
+```
+
+### Multiplication
+
+```{r}
+# Multiplication
+5 * 3  # Output: 15
+```
+
+### Division
+
+```{r}
+# Division
+8 / 2  # Output: 4
+```
+
+### Exponention
+
+```{r}
+# Exponentiation
+2^3  # Output: 8
+```
+
+Certainly! Here's a section on the Order of Operations in R:
+
+### Order of Operations in R
+
+In R, like in most programming languages, when a line of code contains
+multiple operations, it's crucial to understand how these operations are
+prioritized and executed. This prioritization is governed by the "Order
+of Operations." This concept, sometimes known as operator precedence,
+dictates the rules R follows to evaluate expressions.
+
+The order of operations in R is as follows:
+
+1.  **Parentheses `()`**: Operations inside parentheses are performed
+    first. This allows you to override the default order of operations.
+    For example, in `2 * (3 + 4)`, the addition inside the parentheses
+    is performed before the multiplication.
+
+2.  **Exponents `^`**: Next, R performs exponentiation. For instance, in
+    `3 ^ 2 * 4`, the exponentiation `3 ^ 2` is evaluated before the
+    multiplication.
+
+3.  **Divide `/` and Multiply `*`**: These operations are on the same
+    level of precedence and are performed from left to right. For
+    example, in the expression `10 / 2 * 3`, R first divides 10 by 2,
+    and then multiplies the result by 3.
+
+4.  **Add `+` and Subtract `-`**: These also share the same level of
+    precedence and are executed from left to right. In `5 + 3 - 2`, R
+    first adds 5 and 3, then subtracts 2 from their sum.
+
+Remember, R follows these rules strictly. However, you can always use
+parentheses to structure your expressions in a way that reflects the
+intended calculations. Understanding and utilizing the order of
+operations is essential for writing accurate and efficient R code.
+
+::: {.callout-tip title="Activity"}
+Activity basic operators and order of operations in R
+
+Type each of the following expressions into the console and press enter
+to execute:
+
+-   `8 + 2 * 5`
+-   `(8 + 2) * 5`
+-   `20 / 4 - 3` -`20 / (4 - 3)`
+-   `3 ^ 2 + 4`
+-   `3 ^ (2 + 4)`
+
+Note down the output for each expression. Think about why each
+expression gives the result it does based on the order of operations.
+:::
+
+::: {.callout-tip collapse="true" title="Solution"}
+Do your numbers match with these?
+
+-   `8 + 2 * 5` = 18 (Multiplication before addition)
+-   `(8 + 2) * 5` = 50 (Parentheses first, then multiplication)
+-   `20 / 4 - 3` = 2 (Division before subtraction)
+-   `20 / (4 - 3)` = 20 (Parentheses first, then division)
+-   `3 ^ 2 + 4` = 13 (Exponentiation before addition)
+-   `3 ^ (2 + 4)` = 729 (Parentheses first, then exponentiation)
+
+Understanding the order of operations is essential for accurate
+computations in R
+:::
+
+## Objetcs, Variables and Vectors
+
+In R, think of an "object" as a box where you can store all kinds of
+things. This box could contain a single item, like a marble, or many
+items, like a bunch of marbles lined up in a row. In R, everything is
+stored in these kinds of boxes, and each one is called an 'object.'
+
+Now, imagine that inside one of these boxes, you have a tray of eggs.
+This tray is a bit like a "vector" in R. It holds items (the eggs) that
+are all the same kind, neatly in a row. If you replace eggs with
+numbers, that's what a numeric vector is -- a line-up of numbers.
+
+And when you talk about a "variable," it's like having a name tag on
+your box. It's the name you give to your box so you can find it easily
+among other boxes. For instance, if you put a name tag that says 'x' on
+a box with the number 10 inside, 'x' is your way of saying, "This is
+where I keep my number 10."
+
+Let's simplify that:
+
+-   **Object:** A box for keeping any item or set of items in R.
+-   **Vector:** A tray inside the box that holds items of the same type
+    in a neat line.
+-   **Variable:** The name tag on the box, telling you what's inside
+    without having to open it.
+
+### Vectors in R
+
+Vectors are one of the most fundamental data types in R. They are
+collections of elements that are all of the same type. You can create a
+vector using the `c()` function, which stands for 'combine':
+
+```{r}
+# Creating a numeric vector
+numbers <- c(1, 2, 3, 4, 5)
+
+# Creating a character vector
+words <- c("apple", "banana", "cherry")
+```
+
+### Manipulating Vectors
+
+Once you have a vector, you can perform operations on all its elements
+at once:
+
+```{r}
+# Adding 2 to each element
+numbers + 2  # Output: 3, 4, 5, 6, 7
+```
+
+```{r}
+# Concatenating strings
+paste(words, "fruit")  
+```
+
+### Variables in R
+
+In R, to assign a value to a variable, we use the **assignment
+operator** `<-`.
+
+The `<-` assignment operator is one of the most utilized operator in R.
+In RStudio, the keyboard shortcut for the assignment operator `<-` is
+Alt + - (Alt and hyphen) on Windows and Linux. On a Mac, you can use
+Option + - (Option and hyphen) to type the assignment operator `<-`. So,
+you would hold down the Alt or Option key and press the hyphen key at
+the same time.
+
+```{r}
+
+my_number <- 10  # 'my_number' is now 10
+my_text <- "Hello, world!"  # 'my_text' is now "Hello, world!"
+```
+
+In these examples:
+
+-   **my_number and my_text**: are the names of the variables.
+
+-   **10 and "Hello, world!"**: are the values we're storing in the
+    variables.
+
+-   **\<-**: is the assignment operator that stores/assigns the values
+    into the variables.
+
+### Using Variables
+
+Once a value is stored in a variable, you can use the variable name to
+access the value:
+
+```{r}
+my_number + 5  # Output: 15
+```
+
+You can also change the value stored in a variable by assigning a new
+value to it (older value will be overwritten and will not be available
+anymore):
+
+```{r}
+my_number <- 20  # 'my_number' is now 20
+
+```
+
+### Variable Naming Rules
+
+When naming your variables, keep in mind the following rules:
+
+-   Variable names should start with a letter.
+-   They can contain letters, numbers, underscores (\_), and periods
+    (.).
+-   They cannot contain spaces or other special characters.
+
+```{r}
+valid_name <- 10  # This is a valid variable name
+also_valid123 <- 20  # This is also valid
+```
+
+This line will cause an error because of the space in the variable name
+Type the code in console without \# and see the error message
+
+```{r}
+# not valid <- 30
+```
+
+## Basic Data Types
+
+Understanding data types is crucial as they form the foundation upon
+which we build our data analysis. In R, the main data types you will
+encounter are numeric, character, and logical.
+
+### Numeric Data Type
+
+Numeric data types include both integers and floating-point numbers.
+Here's how you can work with numeric data in R:
+
+-   Numeric Examples
+
+```{r}
+num1 <- 5        # integer
+num2 <- 5.5      # floating-point number
+```
+
+### Character Data Type
+
+Character data type is used to store text. Here's how you can work with
+character data in R:
+
+-   Character Examples
+
+```{r}
+char1 <- "Hello"       # a word
+char2 <- "Hello, world!"  # a sentence
+
+```
+
+### Logical Data Type
+
+Logical data type represents TRUE or FALSE values, which are often the
+result of comparisons. Here's how you can work with logical data in R:
+
+-   Logical Examples
+
+```{r}
+log1 <- TRUE            # TRUE value
+log2 <- (5 > 3)         # TRUE, because 5 is greater than 3
+
+```

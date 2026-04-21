@@ -1,0 +1,46 @@
+# Schedule {#sec .unnumbered}
+
+This course marks the beginning of a series of R courses, combining
+live-coding sessions with practical exercises and teamwork, using
+real-world data. Lectures are primarily at the beginning followed by a
+code along sessions and exercises. The schedule provided is an
+**approximate guide**, not a strict timetable, as session lengths may
+vary. This flexible format is designed to adapt to the content and
+interactive elements of the course.
+
+::: panel-tabset
+```{r schedule-table}
+#| eval: true
+#| echo: false
+#| output: asis
+library(dplyr)
+add_link <- function(text, icon, link) {
+  colour <- "#138d75"
+  added_link <- paste0("<i class='fa-solid fa-", icon, "' style='color:", colour, "'></i>&nbsp;&nbsp;<a href=\"", link, "\">", text, "</a>")
+  if (link == "") {
+    added_link <- paste0("<i class='fa-solid fa-", icon, "' style='color:", colour, "'></i>&nbsp;&nbsp;", text)
+  }
+  return(htmltools::HTML(added_link))
+}
+
+schedule <- here::here("programme/schedule.csv") %>%
+  readr::read_csv(col_types = "ccccc") %>%
+  mutate(across(everything(), ~ if_else(is.na(.x), "", .x))) %>%
+  mutate(
+    `Session topic` = list(`Session topic`, icon, link) %>%
+      purrr::pmap(~ add_link(..1, ..2, ..3)) %>%
+      unlist()
+  ) %>%
+  select(-icon, -link)
+
+unique(schedule$Day) %>%
+  purrr::map_chr(\(day) {
+    knitr::knit_child(
+      input = here::here("programme/_schedule-days.qmd"),
+      envir = environment(),
+      quiet = TRUE
+    )
+  }) %>%
+  cat(sep = "\n")
+```
+:::
