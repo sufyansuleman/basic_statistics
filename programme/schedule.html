@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Clinical Research Analytics with R - 11&nbsp; Advanced Visualization and Scientific Communication</title>
+<title>Basic statitics concepts cours in R - 1&nbsp; Programme</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../sessions/clinical-research-methods.html" rel="next">
-<link href="../sessions/reproducible-research.html" rel="prev">
+<link href="../sessions/01-descriptive-statistics.html" rel="next">
+<link href="../index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -115,7 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/introduction.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/advanced-visualization.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../programme/schedule.html">Programme</a></li><li class="breadcrumb-item"><a href="../programme/schedule.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Programme</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -130,7 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Clinical Research Analytics with R</a> 
+      <a href="../">Basic statitics concepts cours in R</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -157,8 +123,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../programme/schedule.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Schedule</span></a>
+  <a href="../programme/schedule.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Programme</span></span></a>
   </div>
 </li>
       </ul>
@@ -174,44 +140,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview of R and RStudio</span></span></a>
+  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Descriptive Statistics &amp; Exploratory Data Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/basic-syntax.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Basic R Syntax and Operations</span></span></a>
+  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/rmarkdown-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Markdown Basics</span></span></a>
+  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Vectors and Factors</span></span></a>
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/explore-dairy-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Frames and Lists</span></span></a>
+  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ANOVA &amp; Multiple Comparisons</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/packages-libraries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/basic-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Basic Data Visualization</span></span></a>
+  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Multiple Regression &amp; Confounding</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -234,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/advanced-visualization.html" class="sidebar-item-text sidebar-link active">
+  <a href="../sessions/advanced-visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></span></a>
   </div>
 </li>
@@ -305,31 +265,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">11.1</span> Introduction</a></li>
-  <li><a href="#learning-outcomes" id="toc-learning-outcomes" class="nav-link" data-scroll-target="#learning-outcomes"><span class="header-section-number">11.2</span> Learning outcomes</a></li>
-  <li><a href="#design-principles-for-research-plots" id="toc-design-principles-for-research-plots" class="nav-link" data-scroll-target="#design-principles-for-research-plots"><span class="header-section-number">11.3</span> 1. Design principles for research plots</a></li>
-  <li><a href="#layered-plotting-with-ggplot2" id="toc-layered-plotting-with-ggplot2" class="nav-link" data-scroll-target="#layered-plotting-with-ggplot2"><span class="header-section-number">11.4</span> 2. Layered plotting with ggplot2</a>
-  <ul class="collapse">
-  <li><a href="#explanation" id="toc-explanation" class="nav-link" data-scroll-target="#explanation"><span class="header-section-number">11.4.1</span> Explanation</a></li>
-  </ul></li>
-  <li><a href="#faceting-to-compare-subgroups" id="toc-faceting-to-compare-subgroups" class="nav-link" data-scroll-target="#faceting-to-compare-subgroups"><span class="header-section-number">11.5</span> 3. Faceting to compare subgroups</a></li>
-  <li><a href="#visualizing-uncertainty" id="toc-visualizing-uncertainty" class="nav-link" data-scroll-target="#visualizing-uncertainty"><span class="header-section-number">11.6</span> 4. Visualizing uncertainty</a></li>
-  <li><a href="#publication-ready-themes-and-annotation" id="toc-publication-ready-themes-and-annotation" class="nav-link" data-scroll-target="#publication-ready-themes-and-annotation"><span class="header-section-number">11.7</span> 5. Publication-ready themes and annotation</a></li>
-  <li><a href="#exercise-refine-an-analysis-plot" id="toc-exercise-refine-an-analysis-plot" class="nav-link" data-scroll-target="#exercise-refine-an-analysis-plot"><span class="header-section-number">11.8</span> 6. Exercise: refine an analysis plot</a></li>
-  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">11.9</span> 7. Key takeaways</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/introduction.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/advanced-visualization.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../programme/schedule.html">Programme</a></li><li class="breadcrumb-item"><a href="../programme/schedule.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Programme</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-advanced-viz" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></span></h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Programme</span></h1>
 </div>
 
 
@@ -346,170 +289,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="introduction" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">11.1</span> Introduction</h2>
-<p>This session moves beyond basic charts to research-quality figures. We cover how to design plots that support clinical conclusions, show uncertainty, and communicate results to non-technical audiences.</p>
-</section>
-<section id="learning-outcomes" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="learning-outcomes"><span class="header-section-number">11.2</span> Learning outcomes</h2>
-<ul>
-<li>Create layered and faceted plots using <code>ggplot2</code>.</li>
-<li>Apply thoughtful themes, colors, and annotations for clarity.</li>
-<li>Visualize uncertainty with ribbons, error bars, and confidence bands.</li>
-<li>Build plots that support clinical interpretation and decision-making.</li>
-</ul>
-</section>
-<section id="design-principles-for-research-plots" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="design-principles-for-research-plots"><span class="header-section-number">11.3</span> 1. Design principles for research plots</h2>
-<p>A good research figure is:</p>
-<ul>
-<li><strong>Clear</strong>: the message is easy to read.</li>
-<li><strong>Accurate</strong>: the visual representation matches the data.</li>
-<li><strong>Informative</strong>: it supports a specific research question.</li>
-<li><strong>Reusable</strong>: it can be included in reports and presentations.</li>
-</ul>
-</section>
-<section id="layered-plotting-with-ggplot2" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="layered-plotting-with-ggplot2"><span class="header-section-number">11.4</span> 2. Layered plotting with ggplot2</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="ot">&lt;-</span> datasets<span class="sc">::</span>mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"model"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">am =</span> <span class="fu">factor</span>(am, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Automatic"</span>, <span class="st">"Manual"</span>)))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg, <span class="at">color =</span> am)) <span class="sc">+</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Fuel efficiency by weight and transmission type"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"A clear view of how weight and transmission influence mpg"</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Weight (1000 lbs)"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Miles per gallon"</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Transmission"</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="advanced-visualization_files/figure-html/layered-plot-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="explanation" class="level3" data-number="11.4.1">
-<h3 data-number="11.4.1" class="anchored" data-anchor-id="explanation"><span class="header-section-number">11.4.1</span> Explanation</h3>
-<ul>
-<li><code>geom_point()</code> displays the raw observations.</li>
-<li><code>geom_smooth()</code> adds a trend line and uncertainty band.</li>
-<li>Color groups make it easy to compare categories.</li>
-</ul>
-</section>
-</section>
-<section id="faceting-to-compare-subgroups" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="faceting-to-compare-subgroups"><span class="header-section-number">11.5</span> 3. Faceting to compare subgroups</h2>
-<p>Faceting creates a series of similar plots, one per subgroup.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> am) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"MPG vs Weight by Transmission"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Weight (1000 lbs)"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Miles per gallon"</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="advanced-visualization_files/figure-html/faceting-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Faceting is useful when you want to compare the same relationship across different clinical or experimental groups.</p>
-</section>
-<section id="visualizing-uncertainty" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="visualizing-uncertainty"><span class="header-section-number">11.6</span> 4. Visualizing uncertainty</h2>
-<p>Showing uncertainty is critical in research communication.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Regression with uncertainty band"</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Weight (1000 lbs)"</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Miles per gallon"</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="advanced-visualization_files/figure-html/uncertainty-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The shaded ribbon around the trend line shows the 95% confidence band, which helps readers understand the precision of the estimate.</p>
-</section>
-<section id="publication-ready-themes-and-annotation" class="level2" data-number="11.7">
-<h2 data-number="11.7" class="anchored" data-anchor-id="publication-ready-themes-and-annotation"><span class="header-section-number">11.7</span> 5. Publication-ready themes and annotation</h2>
-<p>A clean theme and well-chosen labels are essential.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg, <span class="at">color =</span> am)) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Weight and fuel efficiency across transmission types"</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"A publication-ready figure with clear annotations"</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Weight (1000 lbs)"</span>,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Miles per gallon"</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Transmission"</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="advanced-visualization_files/figure-html/theme-annotation-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-refine-an-analysis-plot" class="level2" data-number="11.8">
-<h2 data-number="11.8" class="anchored" data-anchor-id="exercise-refine-an-analysis-plot"><span class="header-section-number">11.8</span> 6. Exercise: refine an analysis plot</h2>
-<ol type="1">
-<li>Use the <code>pbc</code> dataset from the <code>survival</code> package.</li>
-<li>Plot <code>bili</code> versus <code>age</code>.</li>
-<li>Add a smooth trend line and separate by <code>sex</code> using color or facets.</li>
-<li>Add titles and axis labels that explain the plot to a clinical reader.</li>
-</ol>
-</section>
-<section id="key-takeaways" class="level2" data-number="11.9">
-<h2 data-number="11.9" class="anchored" data-anchor-id="key-takeaways"><span class="header-section-number">11.9</span> 7. Key takeaways</h2>
-<p>Advanced visualization is not about making plots more complex. It is about making research findings easier to understand, more accurate, and more persuasive.</p>
+<p>This schedule page is a placeholder for the course programme/schedule.</p>
 
 
-</section>
 
 </main> <!-- /main -->
-<script data-goatcounter="https://easy-r.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+<!-- Placeholder for site counter / analytics snippet -->
+<!-- Add your analytics or site-counter script here if desired -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -899,13 +685,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/reproducible-research.html" class="pagination-link  aria-label=" &lt;span="" research="" with="" quarto="" and="" renv&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Reproducible Research with Quarto and renv</span></span>
+      <a href="../index.html" class="pagination-link  aria-label=" course="" overview"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Course Overview</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/clinical-research-methods.html" class="pagination-link" aria-label="<span class='chapter-number'>12</span>&nbsp; <span class='chapter-title'>Clinical Research Methods in R</span>">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clinical Research Methods in R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/01-descriptive-statistics.html" class="pagination-link" aria-label="<span class='chapter-number'>2</span>&nbsp; <span class='chapter-title'>Descriptive Statistics &amp; Exploratory Data Analysis</span>">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Descriptive Statistics &amp; Exploratory Data Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
