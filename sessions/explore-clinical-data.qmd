@@ -429,7 +429,7 @@ few cases with very high tumor thickness. On the left side, the
 distribution is more concentrated, indicating that most cases have lower
 tumor thickness.
 
-```{r melanoma-analysis}
+```{r melanoma-summary}
 # Calculate and summarize the mean and standard deviation of tumor thickness in the dataset
 melanoma %>% 
   summarise(mean_thickness = mean(thick), # Calculate the mean thickness
@@ -459,7 +459,7 @@ for the mean and helps identify potential outliers or extreme cases.
 
 ### Visualizing Outliers
 
-```{r melanoma-analysis}
+```{r melanoma-boxplot}
 # Creating a boxplot to visualize the distribution of tumor thickness and identify potential outliers
 p <- ggplot(melanoma, aes(y = thick)) +
   geom_boxplot(fill = "lightblue", color = "black") + # Customizing boxplot appearance

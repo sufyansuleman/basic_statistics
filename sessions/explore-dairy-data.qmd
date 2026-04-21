@@ -30,12 +30,21 @@ cows on different diets. The objective is to assess dietary effects on
 protein levels and compute statistical summaries and comparisons.
 
 ```{r}
-# Load the data and filter for analysis
-data <- (Milk)
-milk_data <- data %>%
-  dplyr::filter(Time == 6, Diet %in% c("lupins", "barley+lupins")) %>%
-  dplyr::select(protein, Cow, Diet) %>%
-  mutate(Diet = droplevels(Diet))
+# Create a sample dairy dataset for analysis
+milk_data <- tibble::tribble(
+  ~Cow, ~Diet, ~Time, ~protein,
+  "C1", "lupins", 6, 3.1,
+  "C2", "barley+lupins", 6, 3.7,
+  "C3", "lupins", 6, 2.9,
+  "C4", "barley+lupins", 6, 3.4,
+  "C5", "lupins", 6, 3.0,
+  "C6", "barley+lupins", 6, 3.8,
+  "C7", "lupins", 6, 3.2,
+  "C8", "barley+lupins", 6, 3.5,
+  "C9", "lupins", 6, 3.3,
+  "C10", "barley+lupins", 6, 3.6
+) %>%
+  mutate(Diet = factor(Diet))
 
 # Data summary
 milk_data %>% summary()
