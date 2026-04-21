@@ -1,29 +1,28 @@
-﻿# This script loads the packages used across the course.
+# This script loads the packages used across the course.
 # It is sourced at the start of each session.
 
 source(here::here("R/functions.R"))
 
-# Recommended packages for the course.
+# Core packages for most sessions.
 recommended_packages <- c(
   "here",
-  "tidyverse",
+  "dplyr",
+  "tidyr",
+  "ggplot2",
+  "readr",
+  "purrr",
+  "stringr",
+  "forcats",
+  "tibble",
   "janitor",
-  "readxl",
-  "writexl",
-  "survival",
-  "survminer",
-  "broom",
-  "broom.mixed",
-  "gtsummary",
-  "gt",
   "glue",
   "lubridate",
-  "targets",
-  "tarchetypes",
+  "readxl",
+  "writexl",
+  "broom",
   "patchwork",
-  "cowplot",
-  "modelr"
+  "cowplot"
 )
 
-# Load course packages.
+# Load core course packages.
 load_packages(recommended_packages)

@@ -1,9 +1,22 @@
-﻿# Shared helper functions for the course
+# Shared helper functions for the course
 
 # Load a specific package, installing it if necessary.
 load_package <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
-    install.packages(pkg, dependencies = TRUE)
+    repos <- getOption("repos")
+    if (is.null(repos) || repos["CRAN"] == "@CRAN@" || repos["CRAN"] == "") {
+      repos <- c(CRAN = "https://cloud.r-project.org")
+    }
+    lib_path <- Sys.getenv("R_LIBS_USER")
+    if (lib_path == "") {
+      lib_path <- file.path(Sys.getenv("HOME", unset = Sys.getenv("USERPROFILE")), "R", "library")
+    }
+    if (!dir.exists(lib_path)) {
+      dir.create(lib_path, recursive = TRUE, showWarnings = FALSE)
+    }
+    pkg_type <- if (.Platform$OS.type == "windows") "binary" else "source"
+    install.packages(pkg, dependencies = TRUE, repos = repos, lib = lib_path, type = pkg_type)
+    .libPaths(c(lib_path, .libPaths()))
   }
   library(pkg, character.only = TRUE)
 }

@@ -9,12 +9,126 @@ source(here::here("R/load-packages.R"))
 
 ## Introduction
 
-This session explores advanced visualization techniques for research.
-We focus on publication-quality plots, layered grammars, and visual
-strategies for communicating scientific results.
+This session moves beyond basic charts to research-quality figures.
+We cover how to design plots that support clinical conclusions, show
+uncertainty, and communicate results to non-technical audiences.
 
 ## Learning outcomes
 
-- Build layered and faceted plots with `ggplot2`.
-- Apply themes and annotation for scientific publication.
-- Convey uncertainty and clinical trends clearly.
+- Create layered and faceted plots using `ggplot2`.
+- Apply thoughtful themes, colors, and annotations for clarity.
+- Visualize uncertainty with ribbons, error bars, and confidence bands.
+- Build plots that support clinical interpretation and decision-making.
+
+## 1. Design principles for research plots
+
+A good research figure is:
+
+- **Clear**: the message is easy to read.
+- **Accurate**: the visual representation matches the data.
+- **Informative**: it supports a specific research question.
+- **Reusable**: it can be included in reports and presentations.
+
+## 2. Layered plotting with ggplot2
+
+```{r layered-plot}
+mtcars <- datasets::mtcars %>%
+  as_tibble(rownames = "model") %>%
+  mutate(am = factor(am, labels = c("Automatic", "Manual")))
+
+mtcars %>%
+  ggplot(aes(x = wt, y = mpg, color = am)) +
+  geom_point(size = 3, alpha = 0.8) +
+  geom_smooth(method = "lm", se = TRUE, linetype = "dashed") +
+  labs(
+    title = "Fuel efficiency by weight and transmission type",
+    subtitle = "A clear view of how weight and transmission influence mpg",
+    x = "Weight (1000 lbs)",
+    y = "Miles per gallon",
+    color = "Transmission"
+  ) +
+  theme_minimal(base_size = 14)
+```
+
+### Explanation
+
+- `geom_point()` displays the raw observations.
+- `geom_smooth()` adds a trend line and uncertainty band.
+- Color groups make it easy to compare categories.
+
+## 3. Faceting to compare subgroups
+
+Faceting creates a series of similar plots, one per subgroup.
+
+```{r faceting}
+mtcars %>%
+  ggplot(aes(x = wt, y = mpg)) +
+  geom_point(size = 2, alpha = 0.7) +
+  facet_wrap(~ am) +
+  labs(
+    title = "MPG vs Weight by Transmission",
+    x = "Weight (1000 lbs)",
+    y = "Miles per gallon"
+  ) +
+  theme_minimal()
+```
+
+Faceting is useful when you want to compare the same relationship across
+different clinical or experimental groups.
+
+## 4. Visualizing uncertainty
+
+Showing uncertainty is critical in research communication.
+
+```{r uncertainty}
+mtcars %>%
+  ggplot(aes(x = wt, y = mpg)) +
+  geom_point(color = "steelblue", alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE, fill = "lightblue") +
+  labs(
+    title = "Regression with uncertainty band",
+    x = "Weight (1000 lbs)",
+    y = "Miles per gallon"
+  ) +
+  theme_minimal()
+```
+
+The shaded ribbon around the trend line shows the 95% confidence band,
+which helps readers understand the precision of the estimate.
+
+## 5. Publication-ready themes and annotation
+
+A clean theme and well-chosen labels are essential.
+
+```{r theme-annotation}
+mtcars %>%
+  ggplot(aes(x = wt, y = mpg, color = am)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "Weight and fuel efficiency across transmission types",
+    subtitle = "A publication-ready figure with clear annotations",
+    x = "Weight (1000 lbs)",
+    y = "Miles per gallon",
+    color = "Transmission"
+  ) +
+  theme_classic(base_size = 14) +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(face = "bold"),
+    plot.subtitle = element_text(size = 11)
+  )
+```
+
+## 6. Exercise: refine an analysis plot
+
+1. Use the `pbc` dataset from the `survival` package.
+2. Plot `bili` versus `age`.
+3. Add a smooth trend line and separate by `sex` using color or facets.
+4. Add titles and axis labels that explain the plot to a clinical reader.
+
+## 7. Key takeaways
+
+Advanced visualization is not about making plots more complex. It is
+about making research findings easier to understand, more accurate, and
+more persuasive.

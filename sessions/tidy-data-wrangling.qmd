@@ -1,4 +1,4 @@
-# Tidy Data Wrangling for Research {#sec-tidy-data}
+# Basic Statistics for Clinical Research {#sec-basic-statistics}
 
 ```{r setup}
 #| include: false
@@ -9,13 +9,273 @@ source(here::here("R/load-packages.R"))
 
 ## Introduction
 
-This session introduces tidyverse data wrangling best practices for
-research datasets. We focus on clean data structure, reproducible data
-preparation, and pipelines built with `dplyr` and `tidyr`.
+This session covers foundational statistics topics for clinical research
+using a tidyverse workflow. It mirrors the basic statistics coverage from
+`dev_code_data` while remaining reliable in the current environment.
 
 ## Learning outcomes
 
-- Understand tidy data principles.
-- Use `dplyr` verbs for data transformation.
-- Use `tidyr` to reshape and clean datasets.
-- Create reproducible data pipelines for research analyses.
+- Compute descriptive statistics for clinical variables.
+- Visualize distributions and compare groups.
+- Use transformations and confidence intervals.
+- Apply t-tests, ANOVA, correlation, regression, and contingency tests.
+- Interpret power and sample-size calculations.
+
+## 1. Load and inspect the PBC dataset
+
+```{r load-pbc}
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
+  mutate(
+    sex = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
+    stage = factor(stage)
+  )
+
+pbc %>%
+  glimpse()
+```
+
+The `pbc` dataset contains clinical laboratory measurements and disease
+stage for patients with primary biliary cirrhosis.
+
+## 2. Descriptive statistics and distributions
+
+```{r descriptive-stats}
+pbc %>%
+  summarize(
+    n_obs = n(),
+    mean_bili = mean(bili, na.rm = TRUE),
+    sd_bili = sd(bili, na.rm = TRUE),
+    median_bili = median(bili, na.rm = TRUE),
+    iqr_bili = IQR(bili, na.rm = TRUE)
+  )
+
+pbc %>%
+  ggplot(aes(x = bili)) +
+  geom_histogram(fill = "steelblue", color = "white", bins = 30) +
+  labs(
+    title = "Distribution of serum bilirubin",
+    x = "Bilirubin (mg/dL)",
+    y = "Count"
+  ) +
+  theme_minimal()
+```
+
+We can also compare bilirubin by stage.
+
+```{r bili-by-stage}
+pbc %>%
+  ggplot(aes(x = stage, y = bili, fill = stage)) +
+  geom_boxplot(alpha = 0.75) +
+  geom_jitter(width = 0.15, alpha = 0.4, size = 1.5) +
+  labs(
+    title = "Bilirubin by disease stage",
+    x = "Stage",
+    y = "Bilirubin (mg/dL)"
+  ) +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Pastel1")
+```
+
+## 3. Transformations and normal approximation
+
+Serum bilirubin is right-skewed, so a log transformation can improve
+normal approximation.
+
+```{r log-transform}
+pbc <- pbc %>%
+  mutate(log_bili = log(bili))
+
+pbc %>%
+  summarize(
+    mean_log = mean(log_bili, na.rm = TRUE),
+    sd_log = sd(log_bili, na.rm = TRUE)
+  )
+
+pbc %>%
+  ggplot(aes(sample = log_bili)) +
+  stat_qq() +
+  stat_qq_line(color = "firebrick") +
+  labs(
+    title = "QQ plot of log-transformed bilirubin",
+    x = "Theoretical quantiles",
+    y = "Sample quantiles"
+  ) +
+  theme_minimal()
+```
+
+## 4. Confidence intervals and one-sample inference
+
+Estimate the mean log bilirubin and back-transform the interval.
+
+```{r ci-one-sample}
+ci_log <- pbc %>%
+  summarize(
+    estimate = mean(log_bili, na.rm = TRUE),
+    se = sd(log_bili, na.rm = TRUE) / sqrt(sum(!is.na(log_bili))),
+    df = sum(!is.na(log_bili)) - 1
+  ) %>%
+  mutate(
+    t_crit = qt(0.975, df),
+    lower = estimate - t_crit * se,
+    upper = estimate + t_crit * se,
+    lower_orig = exp(lower),
+    upper_orig = exp(upper),
+    estimate_orig = exp(estimate)
+  )
+
+ci_log
+```
+
+This shows a confidence interval on both the log scale and the original scale.
+
+## 5. Two-sample comparison: ToothGrowth
+
+The `ToothGrowth` dataset is useful for comparing two groups with a t-test.
+
+```{r toothgrowth-setup}
+tg <- datasets::ToothGrowth %>%
+  as_tibble() %>%
+  mutate(dose = factor(dose))
+
+tg %>%
+  group_by(supp, dose) %>%
+  summarize(
+    n = n(),
+    mean_len = mean(len),
+    sd_len = sd(len)
+  ) %>%
+  ungroup()
+```
+
+Compare supplement groups at the lowest dose.
+
+```{r t-test-toothgrowth}
+tg_low <- tg %>%
+  filter(dose == 0.5)
+
+test_result <- t.test(len ~ supp, data = tg_low)
+
+broom::tidy(test_result)
+```
+
+The t-test gives a mean difference, confidence interval, and p-value.
+
+## 6. One-way ANOVA and group comparisons
+
+A one-way ANOVA compares means across three treatment groups.
+
+```{r plantgrowth-aov}
+pg <- datasets::PlantGrowth %>%
+  as_tibble()
+
+pg %>%
+  ggplot(aes(x = group, y = weight)) +
+  geom_boxplot(fill = "lightblue") +
+  geom_jitter(width = 0.15, alpha = 0.6) +
+  labs(
+    title = "Plant growth by treatment group",
+    x = "Group",
+    y = "Plant weight"
+  ) +
+  theme_minimal()
+
+pg_aov <- aov(weight ~ group, data = pg)
+summary(pg_aov)
+```
+
+Inspect pairwise differences with Tukey's method.
+
+```{r plantgrowth-tukey}
+TukeyHSD(pg_aov)
+```
+
+## 7. Correlation and linear regression
+
+We now use `mtcars` to illustrate correlation and regression.
+
+```{r mtcars-regression}
+mtcars <- datasets::mtcars %>%
+  as_tibble(rownames = "model") %>%
+  mutate(am = factor(am, labels = c("Automatic", "Manual")))
+
+mtcars %>%
+  summarize(
+    cor_wt_mpg = cor(wt, mpg),
+    cor_wt_hp = cor(wt, hp)
+  )
+
+mtcars %>%
+  ggplot(aes(x = wt, y = mpg)) +
+  geom_point(color = "darkgreen", size = 2) +
+  geom_smooth(method = "lm", se = TRUE, color = "steelblue") +
+  labs(
+    title = "Linear relationship between weight and MPG",
+    x = "Weight (1000 lbs)",
+    y = "Miles per gallon"
+  ) +
+  theme_minimal()
+
+lm_mpg <- lm(mpg ~ wt, data = mtcars)
+broom::tidy(lm_mpg)
+```
+
+The regression output includes slope, standard error, and p-value.
+
+## 8. Contingency tables and chi-square tests
+
+Categorical association is a core component of clinical analysis.
+
+```{r categorical-analysis}
+pbc %>%
+  count(stage, sex) %>%
+  pivot_wider(names_from = sex, values_from = n, values_fill = 0)
+
+chisq_test <- pbc %>%
+  select(stage, sex) %>%
+  table() %>%
+  chisq.test()
+chisq_test
+```
+
+The chi-square test evaluates whether disease stage is associated with sex.
+
+## 9. Power and sample size intuition
+
+Study planning often begins with a power calculation.
+
+```{r power-calculation}
+power.t.test(power = 0.8, delta = 0.5, sd = 1)
+power.t.test(n = 20, sd = 1, power = 0.8)
+```
+
+These calculations show how sample size, effect size, and power interact.
+
+## 10. Exercise
+
+- Compute mean and standard deviation of `bili` by sex in `pbc`.
+- Fit a linear model predicting `mpg` from `wt` and `am` in `mtcars`.
+- Create a contingency table for `am` and `cyl` and describe whether
+  proportions differ by transmission type.
+
+## Key takeaway
+
+Basic statistics for clinical research combines descriptive summary,
+comparative testing, and simple modeling. A tidy workflow keeps these
+steps reproducible and easy to communicate.
+
+## 10. Exercise
+
+- Compute the mean and standard deviation of `log_thick` separately for
+  ulcerated and non-ulcerated tumours.
+- Fit a linear model predicting `mpg` from `wt` and `am` in `mtcars`, and
+  interpret the coefficient for `wt`.
+- Create a contingency table for `am` and `cyl` and explain whether the
+  proportions are similar across transmission types.
+
+## Key takeaway
+
+Basic statistics in clinical research combines clear descriptive
+summary, comparison of groups, and model-based inference. A tidy workflow
+makes these steps reproducible and easier to communicate.

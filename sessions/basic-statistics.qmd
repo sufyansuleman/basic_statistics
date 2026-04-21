@@ -1,0 +1,280 @@
+# Basic Statistics for Clinical Research {#sec-basic-statistics}
+
+```{r setup}
+#| include: false
+#| eval: true
+source(here::here("R/functions.R"))
+source(here::here("R/load-packages.R"))
+```
+
+## Introduction
+
+This session introduces the essential statistical concepts used in
+clinical research. It focuses on interpretation, reproducible code, and
+how basic statistics support real research decisions.
+
+## Learning outcomes
+
+At the end of this session you will be able to:
+
+- Summarize clinical data using descriptive statistics.
+- Visualize distributions and compare groups with clear plots.
+- Compute and interpret confidence intervals, t-tests, and ANOVA.
+- Fit basic regression and correlation models.
+- Use contingency tables for categorical clinical outcomes.
+- Apply power calculations for planning clinical studies.
+
+## 1. Why basic statistics matter in research
+
+Clinical research begins with data that describe people, treatments,
+and outcomes. Before using complex models, researchers must answer
+simple questions:
+
+- What is the typical value of this lab measurement?
+- How variable is it across patients?
+- Do two groups have different average outcomes?
+- Are two clinical measurements correlated?
+- Can we quantify uncertainty around our estimates?
+
+These questions are the foundation of credible research.
+
+## 2. Descriptive statistics with clinical data
+
+We begin with the `pbc` dataset, a standard clinical dataset from the
+`survival` package.
+
+```{r pbc-summary}
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
+  mutate(
+    sex = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
+    stage = factor(stage)
+  )
+
+pbc %>%
+  summarize(
+    n = n(),
+    mean_bili = mean(bili, na.rm = TRUE),
+    sd_bili = sd(bili, na.rm = TRUE),
+    median_bili = median(bili, na.rm = TRUE),
+    iqr_bili = IQR(bili, na.rm = TRUE)
+  )
+```
+
+Notice how we use `na.rm = TRUE` to ignore missing values. This is
+essential for research datasets where missingness is common.
+
+### 2.1 Visualizing distribution
+
+```{r pbc-plot}
+pbc %>%
+  ggplot(aes(x = bili)) +
+  geom_histogram(fill = "steelblue", color = "white", bins = 30) +
+  labs(
+    title = "Distribution of serum bilirubin",
+    x = "Bilirubin (mg/dL)",
+    y = "Count"
+  ) +
+  theme_minimal()
+```
+
+### 2.2 Summary by group
+
+Next, compare bilirubin values across disease stage.
+
+```{r pbc-group-summary}
+pbc %>%
+  group_by(stage) %>%
+  summarize(
+    n = n(),
+    mean_bili = mean(bili, na.rm = TRUE),
+    sd_bili = sd(bili, na.rm = TRUE),
+    median_bili = median(bili, na.rm = TRUE)
+  ) %>%
+  ungroup()
+```
+
+Use group summaries to identify whether clinical values differ across
+important patient strata.
+
+## 3. Transformations and normality
+
+Clinical variables are often skewed. Log-transforming can make a
+variable easier to interpret and analyze.
+
+```{r pbc-log-transform}
+pbc <- pbc %>%
+  mutate(log_bili = log(bili))
+
+pbc %>%
+  ggplot(aes(sample = log_bili)) +
+  stat_qq() +
+  stat_qq_line(color = "firebrick") +
+  labs(
+    title = "QQ plot of log-transformed bilirubin",
+    x = "Theoretical quantiles",
+    y = "Sample quantiles"
+  ) +
+  theme_minimal()
+```
+
+### 3.1 Interpretation
+
+The Q-Q plot shows whether the log-transformed variable approximates a
+normal distribution. Research methods often rely on this assumption, so
+examining plots like these is good practice.
+
+## 4. Confidence intervals
+
+A confidence interval quantifies uncertainty around an estimate. In
+research, we use it to express how precise our estimate is.
+
+```{r pbc-ci}
+ci_bili <- pbc %>%
+  summarize(
+    estimate = mean(log_bili, na.rm = TRUE),
+    se = sd(log_bili, na.rm = TRUE) / sqrt(sum(!is.na(log_bili))),
+    df = sum(!is.na(log_bili)) - 1
+  ) %>%
+  mutate(
+    t_crit = qt(0.975, df),
+    lower = estimate - t_crit * se,
+    upper = estimate + t_crit * se,
+    lower_orig = exp(lower),
+    upper_orig = exp(upper),
+    estimate_orig = exp(estimate)
+  )
+
+ci_bili
+```
+
+This example shows a 95% confidence interval for the mean bilirubin on
+the original scale.
+
+## 5. Comparing two groups with a t-test
+
+The `ToothGrowth` dataset illustrates a basic comparison between two
+groups.
+
+```{r toothgrowth-setup}
+tg <- datasets::ToothGrowth %>%
+  as_tibble() %>%
+  mutate(dose = factor(dose))
+
+tg %>%
+  filter(dose == 0.5) %>%
+  group_by(supp) %>%
+  summarize(
+    n = n(),
+    mean_len = mean(len),
+    sd_len = sd(len)
+  )
+```
+
+```{r toothgrowth-ttest}
+tg_low <- tg %>% filter(dose == 0.5)
+
+test_result <- t.test(len ~ supp, data = tg_low)
+
+broom::tidy(test_result)
+```
+
+### 5.1 Interpretation
+
+The t-test compares average tooth length between the two supplement
+groups. A smaller p-value suggests evidence of a true difference in
+means.
+
+## 6. One-way ANOVA
+
+One-way ANOVA extends the comparison to three or more groups.
+
+```{r plantgrowth-anova}
+pg <- datasets::PlantGrowth %>% as_tibble()
+
+pg_aov <- aov(weight ~ group, data = pg)
+summary(pg_aov)
+```
+
+Use `TukeyHSD()` to see which groups differ.
+
+```{r plantgrowth-tukey}
+TukeyHSD(pg_aov)
+```
+
+### 6.1 Interpretation
+
+ANOVA tests whether at least one group mean differs from the others.
+Tukey's test shows which specific group pairs are different.
+
+## 7. Correlation and linear regression
+
+Correlation measures the relationship between two continuous variables.
+
+```{r mtcars-correlation}
+mtcars <- datasets::mtcars %>%
+  as_tibble(rownames = "model") %>%
+  mutate(am = factor(am, labels = c("Automatic", "Manual")))
+
+correlation <- cor.test(mtcars$wt, mtcars$mpg)
+correlation
+```
+
+A simple linear model quantifies the association.
+
+```{r mtcars-regression}
+lm_mpg <- lm(mpg ~ wt, data = mtcars)
+broom::tidy(lm_mpg)
+```
+
+### 7.1 Interpretation
+
+The regression slope tells us the expected change in mpg for each
+unit increase in weight.
+
+## 8. Categorical analysis and chi-square tests
+
+Contingency tables help analyze categorical outcomes.
+
+```{r hair-eye}
+hair_eye_table <- margin.table(HairEyeColor, c(1, 2))
+
+hair_eye_table
+
+chi_result <- stats::chisq.test(hair_eye_table)
+
+chi_result
+```
+
+### 8.1 Interpretation
+
+A chi-square test evaluates whether hair color and eye color are
+associated beyond random chance.
+
+## 9. Power and sample size
+
+Study planning uses power calculations to determine how many subjects
+are needed.
+
+```{r power-calculation}
+power.t.test(power = 0.8, delta = 0.5, sd = 1)
+power.t.test(n = 20, sd = 1, power = 0.8)
+```
+
+These calculations show the relationship between sample size, effect
+size, and statistical power.
+
+## 10. Exercises
+
+1. Create a table of mean bilirubin by sex in the `pbc` dataset.
+2. Fit a linear model predicting `mpg` from `wt` and interpret the slope.
+3. Use `PlantGrowth` to compute and interpret a Tukey pairwise comparison.
+4. Create a contingency table from `HairEyeColor` and explain the chi-square
+   test result in one sentence.
+
+## Key takeaways
+
+Basic statistics are not just formulas. They are tools for asking and
+answering clinical research questions with data. Every analysis should
+connect back to interpretation and research decisions.
