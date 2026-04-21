@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Basic statitics concepts cours in R - 2&nbsp; Descriptive Statistics &amp; Exploratory Data Analysis</title>
+<title>Basic statitics concepts cours in R - 9&nbsp; Linear Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../sessions/sampling-and-estimation.html" rel="next">
-<link href="../programme/schedule.html" rel="prev">
+<link href="../sessions/03-logistic-regression.html" rel="next">
+<link href="../sessions/power-and-sample-size.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Descriptive Statistics &amp; Exploratory Data Analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/02-linear-regression.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Linear Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -174,7 +174,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link active">
+  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Descriptive Statistics &amp; Exploratory Data Analysis</span></span></a>
   </div>
 </li>
@@ -216,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></a>
   </div>
 </li>
@@ -339,20 +339,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#when-to-use-eda" id="toc-when-to-use-eda" class="nav-link active" data-scroll-target="#when-to-use-eda"><span class="header-section-number">2.1</span> When to use EDA</a></li>
-  <li><a href="#short-code-demo-dplyr-style" id="toc-short-code-demo-dplyr-style" class="nav-link" data-scroll-target="#short-code-demo-dplyr-style"><span class="header-section-number">2.2</span> Short code demo (dplyr-style)</a></li>
-  <li><a href="#how-to-explain-the-output-teacher-notes" id="toc-how-to-explain-the-output-teacher-notes" class="nav-link" data-scroll-target="#how-to-explain-the-output-teacher-notes"><span class="header-section-number">2.3</span> How to explain the output (teacher notes)</a></li>
-  <li><a href="#short-exercise" id="toc-short-exercise" class="nav-link" data-scroll-target="#short-exercise"><span class="header-section-number">2.4</span> Short exercise</a></li>
-  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used"><span class="header-section-number">2.5</span> Packages used</a></li>
+  <li><a href="#when-to-use-linear-regression" id="toc-when-to-use-linear-regression" class="nav-link active" data-scroll-target="#when-to-use-linear-regression"><span class="header-section-number">9.1</span> When to use linear regression</a></li>
+  <li><a href="#short-code-demo-dplyr-style" id="toc-short-code-demo-dplyr-style" class="nav-link" data-scroll-target="#short-code-demo-dplyr-style"><span class="header-section-number">9.2</span> Short code demo (dplyr-style)</a></li>
+  <li><a href="#how-to-interpret-the-output-teacher-notes" id="toc-how-to-interpret-the-output-teacher-notes" class="nav-link" data-scroll-target="#how-to-interpret-the-output-teacher-notes"><span class="header-section-number">9.3</span> How to interpret the output (teacher notes)</a></li>
+  <li><a href="#short-exercise" id="toc-short-exercise" class="nav-link" data-scroll-target="#short-exercise"><span class="header-section-number">9.4</span> Short exercise</a></li>
+  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used"><span class="header-section-number">9.5</span> Packages used</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Descriptive Statistics &amp; Exploratory Data Analysis</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/02-linear-regression.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Linear Regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="descriptive-statistics" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Descriptive Statistics &amp; Exploratory Data Analysis</span></span></h1>
+<h1 class="title"><span id="linear-regression" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></h1>
 </div>
 
 
@@ -369,76 +369,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This session teaches practical descriptive statistics and exploratory data analysis (EDA) with a focus on interpretation for clinical research. Each section shows when to use the method, a short code demo, how to read the output, and a short exercise for practice.</p>
-<section id="when-to-use-eda" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="when-to-use-eda"><span class="header-section-number">2.1</span> When to use EDA</h2>
-<p>Use EDA as the first analytic step to understand data quality, detect missingness and outliers, and choose reasonable transformations or models. Good EDA prevents common modeling mistakes and grounds interpretation in the actual data.</p>
+<p>This short session introduces simple linear regression for continuous outcomes.</p>
+<section id="when-to-use-linear-regression" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="when-to-use-linear-regression"><span class="header-section-number">9.1</span> When to use linear regression</h2>
+<p>Use linear regression to model a continuous outcome as a function of one or more predictors when the outcome is approximately continuous and residuals are reasonably well-behaved.</p>
 </section>
-<section id="short-code-demo-dplyr-style" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="short-code-demo-dplyr-style"><span class="header-section-number">2.2</span> Short code demo (dplyr-style)</h2>
+<section id="short-code-demo-dplyr-style" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="short-code-demo-dplyr-style"><span class="header-section-number">9.2</span> Short code demo (dplyr-style)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load and clean a canonical clinical dataset</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stage =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># counts by stage</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span> <span class="fu">count</span>(stage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load example data and fit a simple model</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="ot">&lt;-</span> datasets<span class="sc">::</span>mtcars <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"model"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy coefficient table and model summary</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 2
-  stage     n
-  &lt;fct&gt; &lt;int&gt;
-1 1        21
-2 2        92
-3 3       155
-4 4       144
-5 &lt;NA&gt;      6</code></pre>
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)    37.3      1.88      19.9  8.24e-19
+2 wt             -5.34     0.559     -9.56 1.29e-10</code></pre>
 </div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># descriptive summary by stage (handle missingness)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(bili)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(stage) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_bili =</span> <span class="fu">mean</span>(bili, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_bili =</span> <span class="fu">sd</span>(bili, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_bili =</span> <span class="fu">median</span>(bili, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">iqr_bili =</span> <span class="fu">IQR</span>(bili, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">glance</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 6
-  stage     n mean_bili sd_bili median_bili iqr_bili
-  &lt;fct&gt; &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;
-1 1        21      1.36    1.79        0.8      0.5 
-2 2        92      2.45    4.14        0.95     1.5 
-3 3       155      2.83    4.19        1.3      2.1 
-4 4       144      4.43    4.86        2.55     4.57
-5 &lt;NA&gt;      6      2.75    2.67        1.45     3.32</code></pre>
+<pre><code># A tibble: 1 × 12
+  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     0.753         0.745  3.05      91.4 1.29e-10     1  -80.0  166.  170.
+# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
 </div>
 </div>
 </section>
-<section id="how-to-explain-the-output-teacher-notes" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="how-to-explain-the-output-teacher-notes"><span class="header-section-number">2.3</span> How to explain the output (teacher notes)</h2>
+<section id="how-to-interpret-the-output-teacher-notes" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="how-to-interpret-the-output-teacher-notes"><span class="header-section-number">9.3</span> How to interpret the output (teacher notes)</h2>
 <ul>
-<li><strong>What to report:</strong> show counts, an estimate of central tendency (median if skewed), and a measure of spread (IQR) for each group.</li>
-<li><strong>What it means:</strong> for example, higher median bilirubin in later stages suggests worsening liver function; emphasize clinical units and whether differences are clinically meaningful, not just statistically significant.</li>
-<li><strong>Implications:</strong> use these findings to guide choice of transformations (e.g., log-transform skewed labs), adjust sample-size expectations, and plan covariate adjustment in regression.</li>
+<li><strong>Slope:</strong> expected change in the outcome per one-unit increase in the predictor.</li>
+<li><strong>Intercept:</strong> expected outcome when predictors equal zero (context dependent).</li>
+<li><strong>R-squared:</strong> fraction of variance explained by the model; interpret with caution.</li>
 </ul>
 </section>
-<section id="short-exercise" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="short-exercise"><span class="header-section-number">2.4</span> Short exercise</h2>
+<section id="short-exercise" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="short-exercise"><span class="header-section-number">9.4</span> Short exercise</h2>
 <ul>
-<li>Compute mean, median, IQR and the proportion missing for <code>bili</code> by <code>stage</code>. Write one brief interpretation (2–3 sentences) focusing on clinical relevance.</li>
+<li>Fit <code>mpg ~ wt + hp</code> and report the coefficient for <code>wt</code> with a one-sentence interpretation.</li>
 </ul>
-<p><strong>Hint:</strong> use <code>group_by(stage)</code> and <code>summarize(..., na.rm = TRUE)</code> to compute summaries; <code>sum(is.na(bili))/n()</code> gives proportion missing.</p>
+<p><strong>Hint:</strong> use <code>lm()</code> and <code>broom::tidy()</code>; consider whether effect sizes are clinically meaningful.</p>
 </section>
-<section id="packages-used" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="packages-used"><span class="header-section-number">2.5</span> Packages used</h2>
+<section id="packages-used" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="packages-used"><span class="header-section-number">9.5</span> Packages used</h2>
 <ul>
-<li><code>dplyr</code>, <code>janitor</code>, <code>survival</code>, <code>ggplot2</code> (for plotting in follow-up exercises)</li>
+<li><code>dplyr</code>, <code>broom</code>, <code>ggplot2</code></li>
 </ul>
 
 
@@ -836,13 +816,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../programme/schedule.html" class="pagination-link  aria-label=" &lt;span="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Programme</span></span>
+      <a href="../sessions/power-and-sample-size.html" class="pagination-link  aria-label=" &lt;span="" sample="" size,="" and="" study="" design="" considerations&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power, Sample Size, and Study Design Considerations</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/sampling-and-estimation.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>Sampling, Estimation, and Confidence Intervals</span>">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/03-logistic-regression.html" class="pagination-link" aria-label="<span class='chapter-number'>10</span>&nbsp; <span class='chapter-title'>Logistic Regression</span>">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

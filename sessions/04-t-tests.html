@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Basic statitics concepts cours in R - 2&nbsp; Descriptive Statistics &amp; Exploratory Data Analysis</title>
+<title>Basic statitics concepts cours in R - 11&nbsp; T-tests &amp; Group Comparisons</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../sessions/02-linear-regression.html" rel="next">
-<link href="../programme/schedule.html" rel="prev">
+<link href="../sessions/05-anova.html" rel="next">
+<link href="../sessions/03-logistic-regression.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Descriptive Statistics &amp; Exploratory Data Analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -174,86 +174,122 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link active">
+  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Descriptive Statistics &amp; Exploratory Data Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Hypothesis Testing: t-tests, nonparametrics, and multiple comparisons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Categorical Data: Contingency Tables, Risks, and Chi-square Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Correlation and Measures of Association</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power, Sample Size, and Study Design Considerations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></a>
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ANOVA &amp; Multiple Comparisons</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">ANOVA &amp; Multiple Comparisons</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Multiple Regression &amp; Confounding</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multiple Regression &amp; Confounding</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/basic-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Basic Statistics for Clinical Research</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Basic Statistics for Clinical Research</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/tidy-data-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Basic Statistics for Clinical Research</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Basic Statistics for Clinical Research</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/reproducible-research.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Reproducible Research with Quarto and renv</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Reproducible Research with Quarto and renv</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/advanced-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clinical Research Methods in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Clinical Research Methods in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Survival and Time-to-Event Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Survival and Time-to-Event Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/explore-clinical-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Basic Statistics for Health Researchers - Exercise Day 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Basic Statistics for Health Researchers - Exercise Day 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -303,20 +339,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#when-to-use-eda" id="toc-when-to-use-eda" class="nav-link active" data-scroll-target="#when-to-use-eda"><span class="header-section-number">2.1</span> When to use EDA</a></li>
-  <li><a href="#short-code-demo-dplyr-style" id="toc-short-code-demo-dplyr-style" class="nav-link" data-scroll-target="#short-code-demo-dplyr-style"><span class="header-section-number">2.2</span> Short code demo (dplyr-style)</a></li>
-  <li><a href="#how-to-explain-the-output-teacher-notes" id="toc-how-to-explain-the-output-teacher-notes" class="nav-link" data-scroll-target="#how-to-explain-the-output-teacher-notes"><span class="header-section-number">2.3</span> How to explain the output (teacher notes)</a></li>
-  <li><a href="#short-exercise" id="toc-short-exercise" class="nav-link" data-scroll-target="#short-exercise"><span class="header-section-number">2.4</span> Short exercise</a></li>
-  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used"><span class="header-section-number">2.5</span> Packages used</a></li>
+  <li><a href="#when-to-use-t-tests" id="toc-when-to-use-t-tests" class="nav-link active" data-scroll-target="#when-to-use-t-tests"><span class="header-section-number">11.1</span> When to use t-tests</a></li>
+  <li><a href="#short-code-demo-dplyr-style" id="toc-short-code-demo-dplyr-style" class="nav-link" data-scroll-target="#short-code-demo-dplyr-style"><span class="header-section-number">11.2</span> Short code demo (dplyr-style)</a></li>
+  <li><a href="#how-to-explain-the-output-teacher-notes" id="toc-how-to-explain-the-output-teacher-notes" class="nav-link" data-scroll-target="#how-to-explain-the-output-teacher-notes"><span class="header-section-number">11.3</span> How to explain the output (teacher notes)</a></li>
+  <li><a href="#short-exercise" id="toc-short-exercise" class="nav-link" data-scroll-target="#short-exercise"><span class="header-section-number">11.4</span> Short exercise</a></li>
+  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used"><span class="header-section-number">11.5</span> Packages used</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Descriptive Statistics &amp; Exploratory Data Analysis</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="descriptive-statistics" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Descriptive Statistics &amp; Exploratory Data Analysis</span></span></h1>
+<h1 class="title"><span id="t-tests" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></h1>
 </div>
 
 
@@ -333,76 +369,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This session teaches practical descriptive statistics and exploratory data analysis (EDA) with a focus on interpretation for clinical research. Each section shows when to use the method, a short code demo, how to read the output, and a short exercise for practice.</p>
-<section id="when-to-use-eda" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="when-to-use-eda"><span class="header-section-number">2.1</span> When to use EDA</h2>
-<p>Use EDA as the first analytic step to understand data quality, detect missingness and outliers, and choose reasonable transformations or models. Good EDA prevents common modeling mistakes and grounds interpretation in the actual data.</p>
+<p>This session covers one-sample, two-sample, and paired t-tests and when to use Welch’s correction.</p>
+<section id="when-to-use-t-tests" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="when-to-use-t-tests"><span class="header-section-number">11.1</span> When to use t-tests</h2>
+<p>Use t-tests to compare means between groups (one-sample, two-sample) or paired measurements on the same subjects (paired t-test). Use Welch’s t-test when variances are unequal.</p>
 </section>
-<section id="short-code-demo-dplyr-style" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="short-code-demo-dplyr-style"><span class="header-section-number">2.2</span> Short code demo (dplyr-style)</h2>
+<section id="short-code-demo-dplyr-style" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="short-code-demo-dplyr-style"><span class="header-section-number">11.2</span> Short code demo (dplyr-style)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load and clean a canonical clinical dataset</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stage =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># counts by stage</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span> <span class="fu">count</span>(stage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># two-sample example from ToothGrowth</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tg <span class="ot">&lt;-</span> datasets<span class="sc">::</span>ToothGrowth <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dose =</span> <span class="fu">factor</span>(dose))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tg_low <span class="ot">&lt;-</span> tg <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dose <span class="sc">==</span> <span class="fl">0.5</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># two-sample t-test comparing supplements</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>t_test_res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_low)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(t_test_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 2
-  stage     n
-  &lt;fct&gt; &lt;int&gt;
-1 1        21
-2 2        92
-3 3       155
-4 4       144
-5 &lt;NA&gt;      6</code></pre>
+<pre><code># A tibble: 1 × 10
+  estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
+     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1     5.25      13.2      7.98      3.17 0.00636      15.0     1.72      8.78
+# ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
 </div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># descriptive summary by stage (handle missingness)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(bili)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(stage) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_bili =</span> <span class="fu">mean</span>(bili, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_bili =</span> <span class="fu">sd</span>(bili, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_bili =</span> <span class="fu">median</span>(bili, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">iqr_bili =</span> <span class="fu">IQR</span>(bili, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># paired example using built-in sleep dataset</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>paired_res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(extra <span class="sc">~</span> group, <span class="at">data =</span> datasets<span class="sc">::</span>sleep, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(paired_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 6
-  stage     n mean_bili sd_bili median_bili iqr_bili
-  &lt;fct&gt; &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;
-1 1        21      1.36    1.79        0.8      0.5 
-2 2        92      2.45    4.14        0.95     1.5 
-3 3       155      2.83    4.19        1.3      2.1 
-4 4       144      4.43    4.86        2.55     4.57
-5 &lt;NA&gt;      6      2.75    2.67        1.45     3.32</code></pre>
+<pre><code># A tibble: 1 × 8
+  estimate statistic p.value parameter conf.low conf.high method     alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
+1    -1.58     -4.06 0.00283         9    -2.46    -0.700 Paired t-… two.sided  </code></pre>
 </div>
 </div>
 </section>
-<section id="how-to-explain-the-output-teacher-notes" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="how-to-explain-the-output-teacher-notes"><span class="header-section-number">2.3</span> How to explain the output (teacher notes)</h2>
+<section id="how-to-explain-the-output-teacher-notes" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="how-to-explain-the-output-teacher-notes"><span class="header-section-number">11.3</span> How to explain the output (teacher notes)</h2>
 <ul>
-<li><strong>What to report:</strong> show counts, an estimate of central tendency (median if skewed), and a measure of spread (IQR) for each group.</li>
-<li><strong>What it means:</strong> for example, higher median bilirubin in later stages suggests worsening liver function; emphasize clinical units and whether differences are clinically meaningful, not just statistically significant.</li>
-<li><strong>Implications:</strong> use these findings to guide choice of transformations (e.g., log-transform skewed labs), adjust sample-size expectations, and plan covariate adjustment in regression.</li>
+<li><strong>Report:</strong> mean difference and 95% CI. State whether CI includes zero.</li>
+<li><strong>Context:</strong> choose paired vs independent test based on study design.</li>
 </ul>
 </section>
-<section id="short-exercise" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="short-exercise"><span class="header-section-number">2.4</span> Short exercise</h2>
+<section id="short-exercise" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="short-exercise"><span class="header-section-number">11.4</span> Short exercise</h2>
 <ul>
-<li>Compute mean, median, IQR and the proportion missing for <code>bili</code> by <code>stage</code>. Write one brief interpretation (2–3 sentences) focusing on clinical relevance.</li>
+<li>Select two groups from <code>mtcars</code> (e.g., <code>am</code> levels) and run an appropriate t-test; write a one-line interpretation.</li>
 </ul>
-<p><strong>Hint:</strong> use <code>group_by(stage)</code> and <code>summarize(..., na.rm = TRUE)</code> to compute summaries; <code>sum(is.na(bili))/n()</code> gives proportion missing.</p>
+<p><strong>Hint:</strong> use <code>t.test(..., var.equal = TRUE)</code> for pooled variance, omit for Welch.</p>
 </section>
-<section id="packages-used" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="packages-used"><span class="header-section-number">2.5</span> Packages used</h2>
+<section id="packages-used" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="packages-used"><span class="header-section-number">11.5</span> Packages used</h2>
 <ul>
-<li><code>dplyr</code>, <code>janitor</code>, <code>survival</code>, <code>ggplot2</code> (for plotting in follow-up exercises)</li>
+<li><code>broom</code>, <code>dplyr</code></li>
 </ul>
 
 
@@ -800,13 +817,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../programme/schedule.html" class="pagination-link  aria-label=" &lt;span="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Programme</span></span>
+      <a href="../sessions/03-logistic-regression.html" class="pagination-link  aria-label=" &lt;span="" regression&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/02-linear-regression.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>Linear Regression</span>">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/05-anova.html" class="pagination-link" aria-label="<span class='chapter-number'>12</span>&nbsp; <span class='chapter-title'>ANOVA &amp; Multiple Comparisons</span>">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">ANOVA &amp; Multiple Comparisons</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
