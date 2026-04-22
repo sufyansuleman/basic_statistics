@@ -2,12 +2,10 @@ Canonical session → dev_code_data resources
 
 1. 01-descriptive-statistics.qmd
    - Examples / code: `dev_code_data/excercise1.R`, `dev_code_data/file1.R`
-   - Solutions: `dev_code_data/Solution1.R`, `dev_code_data/Solution1.pdf`
    - Lecture notes: `dev_code_data/Lecture1.pdf`
 
 2. sampling-and-estimation.qmd
    - Examples / code: `dev_code_data/excercise1.R`
-   - Solutions: `dev_code_data/Solution1.R`, `dev_code_data/Solution1.pdf`
 
 3. tidy-data-wrangling.qmd
    - Examples / code: `dev_code_data/file1.R`, `dev_code_data/functions.R`, `dev_code_data/package-loading.R`
