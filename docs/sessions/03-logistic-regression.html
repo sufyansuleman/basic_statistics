@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Simple basic statistics concepts - 7&nbsp; T-tests &amp; Group Comparisons</title>
+<title>Simple basic statistics concepts - 11&nbsp; Logistic Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -84,8 +84,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../sessions/categorical-data-and-chi-square.html" rel="next">
-<link href="../sessions/hypothesis-testing.html" rel="prev">
+<link href="../sessions/model-building-and-diagnostics.html" rel="next">
+<link href="../sessions/06-multiple-regression.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -135,7 +135,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/03-logistic-regression.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistic Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -213,7 +213,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link active">
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></a>
   </div>
 </li>
@@ -237,7 +237,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
   </div>
 </li>
@@ -307,22 +307,22 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#when-to-use-t-tests" id="toc-when-to-use-t-tests" class="nav-link active" data-scroll-target="#when-to-use-t-tests"><span class="header-section-number">7.1</span> When to use t-tests</a></li>
-  <li><a href="#short-code-demo" id="toc-short-code-demo" class="nav-link" data-scroll-target="#short-code-demo"><span class="header-section-number">7.2</span> Short code demo</a></li>
-  <li><a href="#how-to-explain-the-output-teacher-notes" id="toc-how-to-explain-the-output-teacher-notes" class="nav-link" data-scroll-target="#how-to-explain-the-output-teacher-notes"><span class="header-section-number">7.3</span> How to explain the output (teacher notes)</a></li>
-  <li><a href="#short-exercise" id="toc-short-exercise" class="nav-link" data-scroll-target="#short-exercise"><span class="header-section-number">7.4</span> Short exercise</a></li>
-  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used"><span class="header-section-number">7.5</span> Packages used</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">7.6</span> Further reading</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">7.7</span> Resources</a></li>
+  <li><a href="#when-to-use-logistic-regression" id="toc-when-to-use-logistic-regression" class="nav-link active" data-scroll-target="#when-to-use-logistic-regression"><span class="header-section-number">11.1</span> When to use logistic regression</a></li>
+  <li><a href="#short-code-demo" id="toc-short-code-demo" class="nav-link" data-scroll-target="#short-code-demo"><span class="header-section-number">11.2</span> Short code demo</a></li>
+  <li><a href="#how-to-explain-the-output-teacher-notes" id="toc-how-to-explain-the-output-teacher-notes" class="nav-link" data-scroll-target="#how-to-explain-the-output-teacher-notes"><span class="header-section-number">11.3</span> How to explain the output (teacher notes)</a></li>
+  <li><a href="#short-exercise" id="toc-short-exercise" class="nav-link" data-scroll-target="#short-exercise"><span class="header-section-number">11.4</span> Short exercise</a></li>
+  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used"><span class="header-section-number">11.5</span> Packages used</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">11.6</span> Further reading</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">11.7</span> Resources</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/03-logistic-regression.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistic Regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="t-tests" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></h1>
+<h1 class="title"><span id="logistic-regression" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></h1>
 </div>
 
 
@@ -339,100 +339,102 @@ div.csl-indent {
 </header>
 
 
-<p>This session covers one-sample, two-sample, and paired t-tests and when to use Welch’s correction.</p>
-<section id="when-to-use-t-tests" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="when-to-use-t-tests"><span class="header-section-number">7.1</span> When to use t-tests</h2>
-<p>Use t-tests to compare means between groups (one-sample, two-sample) or paired measurements on the same subjects (paired t-test). Use Welch’s t-test when variances are unequal.</p>
+<p>Logistic regression models binary outcomes; coefficients exponentiated are odds ratios.</p>
+<section id="when-to-use-logistic-regression" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="when-to-use-logistic-regression"><span class="header-section-number">11.1</span> When to use logistic regression</h2>
+<p>Use logistic regression for binary outcomes (event / no event). Adjust for confounders when estimating associations.</p>
 </section>
-<section id="short-code-demo" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="short-code-demo"><span class="header-section-number">7.2</span> Short code demo</h2>
+<section id="short-code-demo" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="short-code-demo"><span class="header-section-number">11.2</span> Short code demo</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># two-sample example from ToothGrowth</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tg <span class="ot">&lt;-</span> datasets<span class="sc">::</span>ToothGrowth <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dose =</span> <span class="fu">factor</span>(dose))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tg_low <span class="ot">&lt;-</span> tg <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dose <span class="sc">==</span> <span class="fl">0.5</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example using mtcars: model probability of manual transmission (am)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="ot">&lt;-</span> datasets<span class="sc">::</span>mtcars <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"model"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">am =</span> <span class="fu">factor</span>(am, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"auto"</span>, <span class="st">"manual"</span>)))</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># two-sample t-test comparing supplements</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>t_test_res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_low)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(t_test_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>fit_log <span class="ot">&lt;-</span> <span class="fu">glm</span>(am <span class="sc">~</span> wt <span class="sc">+</span> hp, <span class="at">family =</span> binomial, <span class="at">data =</span> mtcars)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy coefficients and convert to odds ratios</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(fit_log)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 10
-  estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
-     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1     5.25      13.2      7.98      3.17 0.00636      15.0     1.72      8.78
-# ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
+<pre><code># A tibble: 3 × 5
+  term        estimate std.error statistic p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 (Intercept)  18.9       7.44        2.53 0.0113 
+2 wt           -8.08      3.07       -2.63 0.00843
+3 hp            0.0363    0.0177      2.04 0.0409 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># paired example using built-in sleep dataset</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>paired_res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(extra <span class="sc">~</span> group, <span class="at">data =</span> datasets<span class="sc">::</span>sleep, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(paired_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(fit_log))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 8
-  estimate statistic p.value parameter conf.low conf.high method     alternative
-     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
-1    -1.58     -4.06 0.00283         9    -2.46    -0.700 Paired t-… two.sided  </code></pre>
+<pre><code> (Intercept)           wt           hp 
+1.561455e+08 3.085967e-04 1.036921e+00 </code></pre>
 </div>
 </div>
 </section>
-<section id="how-to-explain-the-output-teacher-notes" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="how-to-explain-the-output-teacher-notes"><span class="header-section-number">7.3</span> How to explain the output (teacher notes)</h2>
+<section id="how-to-explain-the-output-teacher-notes" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="how-to-explain-the-output-teacher-notes"><span class="header-section-number">11.3</span> How to explain the output (teacher notes)</h2>
 <ul>
-<li><strong>Report:</strong> mean difference and 95% CI. State whether CI includes zero.</li>
-<li><strong>Context:</strong> choose paired vs independent test based on study design.</li>
+<li><strong>Odds ratio:</strong> multiplicative change in odds for a one-unit predictor increase.</li>
+<li><strong>Predicted probabilities</strong> are usually easier to communicate than odds ratios.</li>
 </ul>
 </section>
-<section id="short-exercise" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="short-exercise"><span class="header-section-number">7.4</span> Short exercise</h2>
+<section id="short-exercise" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="short-exercise"><span class="header-section-number">11.4</span> Short exercise</h2>
 <ul>
-<li>Select two groups from <code>mtcars</code> (e.g., <code>am</code> levels) and run an appropriate t-test; write a one-line interpretation.</li>
+<li>Fit a model with <code>am ~ wt</code> and compute predicted probability for two example weights.</li>
 </ul>
-<p><strong>Hint:</strong> use <code>t.test(..., var.equal = TRUE)</code> for pooled variance, omit for Welch.</p>
+<p><strong>Hint:</strong> use <code>predict(..., type = "response")</code> for probabilities.</p>
 </section>
-<section id="packages-used" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="packages-used"><span class="header-section-number">7.5</span> Packages used</h2>
+<section id="packages-used" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="packages-used"><span class="header-section-number">11.5</span> Packages used</h2>
 <ul>
-<li><code>broom</code>, <code>dplyr</code></li>
+<li><code>dplyr</code>, <code>broom</code>, <code>ggplot2</code></li>
 </ul>
 <p><strong>Exercises</strong></p>
 <ul>
-<li>See <code>dev_code_data/excercise2.R</code> for t-test examples and paired/independent comparisons.</li>
+<li>See <code>dev_code_data/excercise6.R</code> for worked logistic regression examples (model fitting, <code>publish()</code>, comparisons, and multiple testing with <code>multcomp</code>).</li>
 </ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Exercise 2 — Solution">
+<div class="callout callout-style-default callout-tip callout-titled" title="Exercise 6 — Solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 2 — Solution
+Exercise 6 — Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Solution (PDF): <code>dev_code_data/Solution2.pdf</code><br>
+<li>Solution (PDF): <code>dev_code_data/Solution6.pdf</code><br>
 </li>
-<li>Solution script: <code>dev_code_data/Solution2.R</code><br>
-Run: <code>Rscript dev_code_data/Solution2.R</code> or open the PDF in your browser/RStudio.</li>
+<li>Solution script: <code>dev_code_data/Solution6.R</code><br>
+Run: <code>Rscript dev_code_data/Solution6.R</code> or open the PDF in your browser/RStudio.</li>
 </ul>
 </div>
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">7.6</span> Further reading</h2>
+<section id="further-reading" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">11.6</span> Further reading</h2>
 <ul>
-<li>Testing and nonparametrics: <span class="citation" data-cites="Teetor-2011">Teetor (<a href="#ref-Teetor-2011" role="doc-biblioref">2011</a>)</span>; <span class="citation" data-cites="Wickham-Grolemund-2017">Wickham and Grolemund (<a href="#ref-Wickham-Grolemund-2017" role="doc-biblioref">2017</a>)</span>.</li>
+<li>Logistic regression references and interpretation: <span class="citation" data-cites="Matloff-2011">Matloff (<a href="#ref-Matloff-2011" role="doc-biblioref">2011</a>)</span>; <span class="citation" data-cites="Henderson-Velleman-1981">Henderson and Velleman (<a href="#ref-Henderson-Velleman-1981" role="doc-biblioref">1981</a>)</span>.</li>
+<li>Practical modeling guidance: <span class="citation" data-cites="Wickham-Grolemund-2017">Wickham and Grolemund (<a href="#ref-Wickham-Grolemund-2017" role="doc-biblioref">2017</a>)</span>.</li>
 </ul>
 </section>
-<section id="resources" class="level2" data-number="7.7">
-<h2 data-number="7.7" class="anchored" data-anchor-id="resources"><span class="header-section-number">7.7</span> Resources</h2>
+<section id="resources" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="resources"><span class="header-section-number">11.7</span> Resources</h2>
 <ul>
-<li>Example script: <code>dev_code_data/excercise2.R</code> (t-tests, paired tests, and Wilcoxon examples).</li>
+<li>Example script: <code>dev_code_data/excercise6.R</code> (model fitting and prediction examples).</li>
 </ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Teetor-2011" class="csl-entry" role="listitem">
-Teetor, Paul. 2011. <em>R Cookbook: Proven Recipes for Data Analysis, Statistics, and Graphics</em>. O’Reilly Media.
+<div id="ref-Henderson-Velleman-1981" class="csl-entry" role="listitem">
+Henderson, H. V., and P. F. Velleman. 1981. <span>“Building Multiple Regression Models Interactively.”</span> <em>Biometrics</em> 37: 391–411.
+</div>
+<div id="ref-Matloff-2011" class="csl-entry" role="listitem">
+Matloff, Norman. 2011. <em>The Art of r Programming: A Tour of Statistical Software Design</em>. No Starch Press. <a href="https://nostarch.com/artofr.htm">https://nostarch.com/artofr.htm</a>.
 </div>
 <div id="ref-Wickham-Grolemund-2017" class="csl-entry" role="listitem">
 Wickham, Hadley, and Garrett Grolemund. 2017. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. O’Reilly Media, Inc. <a href="https://r4ds.had.co.nz/">https://r4ds.had.co.nz/</a>.
@@ -830,13 +832,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/hypothesis-testing.html" class="pagination-link  aria-label=" &lt;span="" testing:="" t-tests,="" nonparametrics,="" and="" multiple="" comparisons&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hypothesis Testing: t-tests, nonparametrics, and multiple comparisons</span></span>
+      <a href="../sessions/06-multiple-regression.html" class="pagination-link  aria-label=" &lt;span="" regression="" &amp;="" confounding&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multiple Regression &amp; Confounding</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/categorical-data-and-chi-square.html" class="pagination-link" aria-label="<span class='chapter-number'>8</span>&nbsp; <span class='chapter-title'>Categorical Data: Contingency Tables, Risks, and Chi-square Tests</span>">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Categorical Data: Contingency Tables, Risks, and Chi-square Tests</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/model-building-and-diagnostics.html" class="pagination-link" aria-label="<span class='chapter-number'>12</span>&nbsp; <span class='chapter-title'>Model Building and Diagnostics</span>">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

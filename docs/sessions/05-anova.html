@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Simple basic statistics concepts - 7&nbsp; T-tests &amp; Group Comparisons</title>
+<title>Simple basic statistics concepts - 13&nbsp; ANOVA &amp; Multiple Comparisons</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -84,8 +84,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../sessions/categorical-data-and-chi-square.html" rel="next">
-<link href="../sessions/hypothesis-testing.html" rel="prev">
+<link href="../sessions/power-and-sample-size.html" rel="next">
+<link href="../sessions/model-building-and-diagnostics.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -135,7 +135,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/05-anova.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ANOVA &amp; Multiple Comparisons</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -213,7 +213,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link active">
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></a>
   </div>
 </li>
@@ -249,7 +249,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ANOVA &amp; Multiple Comparisons</span></span></a>
   </div>
 </li>
@@ -307,22 +307,22 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#when-to-use-t-tests" id="toc-when-to-use-t-tests" class="nav-link active" data-scroll-target="#when-to-use-t-tests"><span class="header-section-number">7.1</span> When to use t-tests</a></li>
-  <li><a href="#short-code-demo" id="toc-short-code-demo" class="nav-link" data-scroll-target="#short-code-demo"><span class="header-section-number">7.2</span> Short code demo</a></li>
-  <li><a href="#how-to-explain-the-output-teacher-notes" id="toc-how-to-explain-the-output-teacher-notes" class="nav-link" data-scroll-target="#how-to-explain-the-output-teacher-notes"><span class="header-section-number">7.3</span> How to explain the output (teacher notes)</a></li>
-  <li><a href="#short-exercise" id="toc-short-exercise" class="nav-link" data-scroll-target="#short-exercise"><span class="header-section-number">7.4</span> Short exercise</a></li>
-  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used"><span class="header-section-number">7.5</span> Packages used</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">7.6</span> Further reading</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">7.7</span> Resources</a></li>
+  <li><a href="#when-to-use-anova" id="toc-when-to-use-anova" class="nav-link active" data-scroll-target="#when-to-use-anova"><span class="header-section-number">13.1</span> When to use ANOVA</a></li>
+  <li><a href="#short-code-demo" id="toc-short-code-demo" class="nav-link" data-scroll-target="#short-code-demo"><span class="header-section-number">13.2</span> Short code demo</a></li>
+  <li><a href="#how-to-explain-the-output-teacher-notes" id="toc-how-to-explain-the-output-teacher-notes" class="nav-link" data-scroll-target="#how-to-explain-the-output-teacher-notes"><span class="header-section-number">13.3</span> How to explain the output (teacher notes)</a></li>
+  <li><a href="#short-exercise" id="toc-short-exercise" class="nav-link" data-scroll-target="#short-exercise"><span class="header-section-number">13.4</span> Short exercise</a></li>
+  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used"><span class="header-section-number">13.5</span> Packages used</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">13.6</span> Further reading</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">13.7</span> Resources</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/05-anova.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ANOVA &amp; Multiple Comparisons</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="t-tests" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></h1>
+<h1 class="title"><span id="anova" class="quarto-section-identifier"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ANOVA &amp; Multiple Comparisons</span></span></h1>
 </div>
 
 
@@ -339,103 +339,104 @@ div.csl-indent {
 </header>
 
 
-<p>This session covers one-sample, two-sample, and paired t-tests and when to use Welch’s correction.</p>
-<section id="when-to-use-t-tests" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="when-to-use-t-tests"><span class="header-section-number">7.1</span> When to use t-tests</h2>
-<p>Use t-tests to compare means between groups (one-sample, two-sample) or paired measurements on the same subjects (paired t-test). Use Welch’s t-test when variances are unequal.</p>
+<p>One-way ANOVA compares means across three or more groups; use post-hoc comparisons to identify which groups differ.</p>
+<section id="when-to-use-anova" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="when-to-use-anova"><span class="header-section-number">13.1</span> When to use ANOVA</h2>
+<p>Use ANOVA for group mean comparisons when the outcome is continuous and you have three or more groups. Follow with a multiplicity-corrected post-hoc test if you need pairwise contrasts.</p>
 </section>
-<section id="short-code-demo" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="short-code-demo"><span class="header-section-number">7.2</span> Short code demo</h2>
+<section id="short-code-demo" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="short-code-demo"><span class="header-section-number">13.2</span> Short code demo</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># two-sample example from ToothGrowth</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tg <span class="ot">&lt;-</span> datasets<span class="sc">::</span>ToothGrowth <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dose =</span> <span class="fu">factor</span>(dose))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tg_low <span class="ot">&lt;-</span> tg <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dose <span class="sc">==</span> <span class="fl">0.5</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># two-sample t-test comparing supplements</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>t_test_res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_low)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(t_test_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> datasets<span class="sc">::</span>PlantGrowth <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pg_aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(weight <span class="sc">~</span> group, <span class="at">data =</span> pg)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pg_aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 10
-  estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
-     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1     5.25      13.2      7.98      3.17 0.00636      15.0     1.72      8.78
-# ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)  
+group        2  3.766  1.8832   4.846 0.0159 *
+Residuals   27 10.492  0.3886                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># paired example using built-in sleep dataset</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>paired_res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(extra <span class="sc">~</span> group, <span class="at">data =</span> datasets<span class="sc">::</span>sleep, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(paired_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tukey pairwise comparisons</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(pg_aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 8
-  estimate statistic p.value parameter conf.low conf.high method     alternative
-     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
-1    -1.58     -4.06 0.00283         9    -2.46    -0.700 Paired t-… two.sided  </code></pre>
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = weight ~ group, data = pg)
+
+$group
+            diff        lwr       upr     p adj
+trt1-ctrl -0.371 -1.0622161 0.3202161 0.3908711
+trt2-ctrl  0.494 -0.1972161 1.1852161 0.1979960
+trt2-trt1  0.865  0.1737839 1.5562161 0.0120064</code></pre>
 </div>
 </div>
 </section>
-<section id="how-to-explain-the-output-teacher-notes" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="how-to-explain-the-output-teacher-notes"><span class="header-section-number">7.3</span> How to explain the output (teacher notes)</h2>
+<section id="how-to-explain-the-output-teacher-notes" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="how-to-explain-the-output-teacher-notes"><span class="header-section-number">13.3</span> How to explain the output (teacher notes)</h2>
 <ul>
-<li><strong>Report:</strong> mean difference and 95% CI. State whether CI includes zero.</li>
-<li><strong>Context:</strong> choose paired vs independent test based on study design.</li>
+<li><strong>Report:</strong> global F-test result and pairwise comparisons (adjusted CIs).</li>
+<li><strong>Context:</strong> emphasize effect sizes and which contrasts are clinically meaningful.</li>
 </ul>
 </section>
-<section id="short-exercise" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="short-exercise"><span class="header-section-number">7.4</span> Short exercise</h2>
+<section id="short-exercise" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="short-exercise"><span class="header-section-number">13.4</span> Short exercise</h2>
 <ul>
-<li>Select two groups from <code>mtcars</code> (e.g., <code>am</code> levels) and run an appropriate t-test; write a one-line interpretation.</li>
+<li>Run the ANOVA and report which groups differ using Tukey’s test; write a one-line conclusion.</li>
 </ul>
-<p><strong>Hint:</strong> use <code>t.test(..., var.equal = TRUE)</code> for pooled variance, omit for Welch.</p>
+<p><strong>Hint:</strong> use <code>TukeyHSD()</code> on the fitted <code>aov</code> object.</p>
 </section>
-<section id="packages-used" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="packages-used"><span class="header-section-number">7.5</span> Packages used</h2>
+<section id="packages-used" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="packages-used"><span class="header-section-number">13.5</span> Packages used</h2>
 <ul>
-<li><code>broom</code>, <code>dplyr</code></li>
+<li><code>dplyr</code></li>
 </ul>
 <p><strong>Exercises</strong></p>
 <ul>
-<li>See <code>dev_code_data/excercise2.R</code> for t-test examples and paired/independent comparisons.</li>
+<li>See <code>dev_code_data/excercise4.R</code> for worked examples on dose–response comparisons, pairwise tests, and model diagnostics.</li>
 </ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Exercise 2 — Solution">
+<div class="callout callout-style-default callout-tip callout-titled" title="Exercise 4 — Solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 2 — Solution
+Exercise 4 — Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Solution (PDF): <code>dev_code_data/Solution2.pdf</code><br>
+<li>Solution (PDF): <code>dev_code_data/Solution4.pdf</code><br>
 </li>
-<li>Solution script: <code>dev_code_data/Solution2.R</code><br>
-Run: <code>Rscript dev_code_data/Solution2.R</code> or open the PDF in your browser/RStudio.</li>
+<li>Solution script: <code>dev_code_data/Solution4.R</code><br>
+Run: <code>Rscript dev_code_data/Solution4.R</code> or open the PDF in your browser/RStudio.</li>
 </ul>
 </div>
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">7.6</span> Further reading</h2>
+<section id="further-reading" class="level2" data-number="13.6">
+<h2 data-number="13.6" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">13.6</span> Further reading</h2>
 <ul>
-<li>Testing and nonparametrics: <span class="citation" data-cites="Teetor-2011">Teetor (<a href="#ref-Teetor-2011" role="doc-biblioref">2011</a>)</span>; <span class="citation" data-cites="Wickham-Grolemund-2017">Wickham and Grolemund (<a href="#ref-Wickham-Grolemund-2017" role="doc-biblioref">2017</a>)</span>.</li>
+<li>ANOVA and multiple comparisons: <span class="citation" data-cites="Teetor-2011">Teetor (<a href="#ref-Teetor-2011" role="doc-biblioref">2011</a>)</span>; <span class="citation" data-cites="Matloff-2011">Matloff (<a href="#ref-Matloff-2011" role="doc-biblioref">2011</a>)</span>.</li>
 </ul>
 </section>
-<section id="resources" class="level2" data-number="7.7">
-<h2 data-number="7.7" class="anchored" data-anchor-id="resources"><span class="header-section-number">7.7</span> Resources</h2>
+<section id="resources" class="level2" data-number="13.7">
+<h2 data-number="13.7" class="anchored" data-anchor-id="resources"><span class="header-section-number">13.7</span> Resources</h2>
 <ul>
-<li>Example script: <code>dev_code_data/excercise2.R</code> (t-tests, paired tests, and Wilcoxon examples).</li>
+<li>Example script: <code>dev_code_data/excercise4.R</code> (dose–response comparisons and post-hoc tests).</li>
 </ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Matloff-2011" class="csl-entry" role="listitem">
+Matloff, Norman. 2011. <em>The Art of r Programming: A Tour of Statistical Software Design</em>. No Starch Press. <a href="https://nostarch.com/artofr.htm">https://nostarch.com/artofr.htm</a>.
+</div>
 <div id="ref-Teetor-2011" class="csl-entry" role="listitem">
 Teetor, Paul. 2011. <em>R Cookbook: Proven Recipes for Data Analysis, Statistics, and Graphics</em>. O’Reilly Media.
-</div>
-<div id="ref-Wickham-Grolemund-2017" class="csl-entry" role="listitem">
-Wickham, Hadley, and Garrett Grolemund. 2017. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. O’Reilly Media, Inc. <a href="https://r4ds.had.co.nz/">https://r4ds.had.co.nz/</a>.
 </div>
 </div>
 </section>
@@ -830,13 +831,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/hypothesis-testing.html" class="pagination-link  aria-label=" &lt;span="" testing:="" t-tests,="" nonparametrics,="" and="" multiple="" comparisons&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hypothesis Testing: t-tests, nonparametrics, and multiple comparisons</span></span>
+      <a href="../sessions/model-building-and-diagnostics.html" class="pagination-link  aria-label=" &lt;span="" building="" and="" diagnostics&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/categorical-data-and-chi-square.html" class="pagination-link" aria-label="<span class='chapter-number'>8</span>&nbsp; <span class='chapter-title'>Categorical Data: Contingency Tables, Risks, and Chi-square Tests</span>">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Categorical Data: Contingency Tables, Risks, and Chi-square Tests</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/power-and-sample-size.html" class="pagination-link" aria-label="<span class='chapter-number'>14</span>&nbsp; <span class='chapter-title'>Power, Sample Size, and Study Design Considerations</span>">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Power, Sample Size, and Study Design Considerations</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

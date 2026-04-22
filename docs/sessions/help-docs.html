@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Simple basic statistics concepts - 7&nbsp; T-tests &amp; Group Comparisons</title>
+<title>Simple basic statistics concepts - 20&nbsp; Help and Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -84,8 +50,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../sessions/categorical-data-and-chi-square.html" rel="next">
-<link href="../sessions/hypothesis-testing.html" rel="prev">
+<link href="../sessions/explore-clinical-data.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -135,7 +100,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/help-docs.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Help and Documentation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -213,7 +178,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link active">
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></a>
   </div>
 </li>
@@ -291,7 +256,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
@@ -307,22 +272,27 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#when-to-use-t-tests" id="toc-when-to-use-t-tests" class="nav-link active" data-scroll-target="#when-to-use-t-tests"><span class="header-section-number">7.1</span> When to use t-tests</a></li>
-  <li><a href="#short-code-demo" id="toc-short-code-demo" class="nav-link" data-scroll-target="#short-code-demo"><span class="header-section-number">7.2</span> Short code demo</a></li>
-  <li><a href="#how-to-explain-the-output-teacher-notes" id="toc-how-to-explain-the-output-teacher-notes" class="nav-link" data-scroll-target="#how-to-explain-the-output-teacher-notes"><span class="header-section-number">7.3</span> How to explain the output (teacher notes)</a></li>
-  <li><a href="#short-exercise" id="toc-short-exercise" class="nav-link" data-scroll-target="#short-exercise"><span class="header-section-number">7.4</span> Short exercise</a></li>
-  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used"><span class="header-section-number">7.5</span> Packages used</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">7.6</span> Further reading</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">7.7</span> Resources</a></li>
+  <li><a href="#statistical-methods-in-this-course" id="toc-statistical-methods-in-this-course" class="nav-link active" data-scroll-target="#statistical-methods-in-this-course"><span class="header-section-number">20.1</span> Statistical methods in this course</a></li>
+  <li><a href="#accessing-help-files" id="toc-accessing-help-files" class="nav-link" data-scroll-target="#accessing-help-files"><span class="header-section-number">20.2</span> Accessing Help Files</a>
+  <ul class="collapse">
+  <li><a href="#how-to-access-help-files" id="toc-how-to-access-help-files" class="nav-link" data-scroll-target="#how-to-access-help-files"><span class="header-section-number">20.2.1</span> How to Access Help Files:</a></li>
+  <li><a href="#tips-for-navigating-help-files" id="toc-tips-for-navigating-help-files" class="nav-link" data-scroll-target="#tips-for-navigating-help-files"><span class="header-section-number">20.2.2</span> Tips for Navigating Help Files:</a></li>
+  </ul></li>
+  <li><a href="#searching-for-r-documentation" id="toc-searching-for-r-documentation" class="nav-link" data-scroll-target="#searching-for-r-documentation"><span class="header-section-number">20.3</span> Searching for R Documentation</a>
+  <ul class="collapse">
+  <li><a href="#tips-for-effective-searching" id="toc-tips-for-effective-searching" class="nav-link" data-scroll-target="#tips-for-effective-searching"><span class="header-section-number">20.3.1</span> Tips for Effective Searching:</a></li>
+  </ul></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">20.4</span> Further reading</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">20.5</span> Resources</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/help-docs.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Help and Documentation</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="t-tests" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></h1>
+<h1 class="title"><span id="sec-help-docs" class="quarto-section-identifier"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></h1>
 </div>
 
 
@@ -339,103 +309,171 @@ div.csl-indent {
 </header>
 
 
-<p>This session covers one-sample, two-sample, and paired t-tests and when to use Welch’s correction.</p>
-<section id="when-to-use-t-tests" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="when-to-use-t-tests"><span class="header-section-number">7.1</span> When to use t-tests</h2>
-<p>Use t-tests to compare means between groups (one-sample, two-sample) or paired measurements on the same subjects (paired t-test). Use Welch’s t-test when variances are unequal.</p>
+<section id="statistical-methods-in-this-course" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="statistical-methods-in-this-course"><span class="header-section-number">20.1</span> Statistical methods in this course</h2>
+<p>This course covers a set of core statistical methods used in real research data analysis. The following table maps each method to the session where it is taught and practiced.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Session</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Descriptive statistics</td>
+<td><code>basic-statistics.qmd</code></td>
+<td>summaries, distributions, and data description</td>
+</tr>
+<tr class="even">
+<td>Data transformation / standardization</td>
+<td><code>basic-statistics.qmd</code></td>
+<td>log transform, scaling, and normalizing data</td>
+</tr>
+<tr class="odd">
+<td>Confidence intervals</td>
+<td><code>basic-statistics.qmd</code></td>
+<td>CIs for means, proportions, and regression estimates</td>
+</tr>
+<tr class="even">
+<td>t-tests</td>
+<td><code>basic-statistics.qmd</code></td>
+<td>one-sample, two-sample, paired, and Welch tests</td>
+</tr>
+<tr class="odd">
+<td>Power / sample size calculation</td>
+<td><code>basic-statistics.qmd</code></td>
+<td>power analysis for mean differences and proportions</td>
+</tr>
+<tr class="even">
+<td>Correlation</td>
+<td><code>clinical-research-methods.qmd</code></td>
+<td>Pearson and Spearman correlation analysis</td>
+</tr>
+<tr class="odd">
+<td>Linear regression</td>
+<td><code>basic-statistics.qmd</code> / <code>advanced-visualization.qmd</code></td>
+<td>regression modeling, slope interpretation, and diagnostics</td>
+</tr>
+<tr class="even">
+<td>ANOVA</td>
+<td><code>clinical-research-methods.qmd</code></td>
+<td>one-way and two-way ANOVA, comparison of group means</td>
+</tr>
+<tr class="odd">
+<td>Multiple comparisons</td>
+<td><code>clinical-research-methods.qmd</code></td>
+<td>Tukey, Dunnett, Bonferroni, Holm adjustments</td>
+</tr>
+<tr class="even">
+<td>Nonparametric tests</td>
+<td><code>clinical-research-methods.qmd</code></td>
+<td>Wilcoxon test and rank-based comparisons</td>
+</tr>
+<tr class="odd">
+<td>Chi-square tests</td>
+<td><code>clinical-research-methods.qmd</code></td>
+<td>categorical data association and contingency tables</td>
+</tr>
+<tr class="even">
+<td>Logistic regression</td>
+<td><code>clinical-research-methods.qmd</code></td>
+<td>binary outcome modeling and odds ratio interpretation</td>
+</tr>
+<tr class="odd">
+<td>Survival analysis</td>
+<td><code>survival-and-time-to-event.qmd</code></td>
+<td>Kaplan-Meier curves, log-rank tests, Cox regression</td>
+</tr>
+<tr class="even">
+<td>Model diagnostics / interpretation</td>
+<td><code>advanced-visualization.qmd</code> / <code>clinical-research-methods.qmd</code></td>
+<td>residuals, QQ plots, assumption checks, report-ready interpretation</td>
+</tr>
+</tbody>
+</table>
+<p>Understanding how to access help and documentation in R is crucial for both beginners and experienced users. This section will guide you through two essential skills: accessing help files and searching for R documentation. These tools will empower you to find solutions and understand functions or packages better as you progress in your R journey.</p>
 </section>
-<section id="short-code-demo" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="short-code-demo"><span class="header-section-number">7.2</span> Short code demo</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># two-sample example from ToothGrowth</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tg <span class="ot">&lt;-</span> datasets<span class="sc">::</span>ToothGrowth <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dose =</span> <span class="fu">factor</span>(dose))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tg_low <span class="ot">&lt;-</span> tg <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dose <span class="sc">==</span> <span class="fl">0.5</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># two-sample t-test comparing supplements</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>t_test_res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_low)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(t_test_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 10
-  estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
-     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1     5.25      13.2      7.98      3.17 0.00636      15.0     1.72      8.78
-# ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># paired example using built-in sleep dataset</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>paired_res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(extra <span class="sc">~</span> group, <span class="at">data =</span> datasets<span class="sc">::</span>sleep, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(paired_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 8
-  estimate statistic p.value parameter conf.low conf.high method     alternative
-     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
-1    -1.58     -4.06 0.00283         9    -2.46    -0.700 Paired t-… two.sided  </code></pre>
-</div>
-</div>
+<section id="accessing-help-files" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="accessing-help-files"><span class="header-section-number">20.2</span> Accessing Help Files</h2>
+<p>In R, every function and package comes with a help file that explains its usage, arguments, and provides examples. These files are invaluable for learning how to use different functions correctly.</p>
+<section id="how-to-access-help-files" class="level3" data-number="20.2.1">
+<h3 data-number="20.2.1" class="anchored" data-anchor-id="how-to-access-help-files"><span class="header-section-number">20.2.1</span> How to Access Help Files:</h3>
+<ol type="1">
+<li><p><strong>Using <code>?</code> Operator</strong>: The simplest way to access help for a function is by using the <code>?</code> operator followed by the function name. For example, <code>?mean</code> will open the help file for the mean function.</p></li>
+<li><p><strong>Using <code>help()</code> Function</strong>: Alternatively, you can use the <code>help()</code> function. For example, <code>help(mean)</code> achieves the same as <code>?mean</code>.</p></li>
+<li><p><strong>Help for Packages</strong>: To view documentation for a whole package, use <code>help(package = "packageName")</code>. Replace <code>"packageName"</code> with the name of the package you’re interested in.</p></li>
+</ol>
 </section>
-<section id="how-to-explain-the-output-teacher-notes" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="how-to-explain-the-output-teacher-notes"><span class="header-section-number">7.3</span> How to explain the output (teacher notes)</h2>
+<section id="tips-for-navigating-help-files" class="level3" data-number="20.2.2">
+<h3 data-number="20.2.2" class="anchored" data-anchor-id="tips-for-navigating-help-files"><span class="header-section-number">20.2.2</span> Tips for Navigating Help Files:</h3>
 <ul>
-<li><strong>Report:</strong> mean difference and 95% CI. State whether CI includes zero.</li>
-<li><strong>Context:</strong> choose paired vs independent test based on study design.</li>
+<li><strong>Arguments</strong>: Pay attention to the ‘Arguments’ section to understand what inputs the function accepts.</li>
+<li><strong>Examples</strong>: The ‘Examples’ section is great for seeing how the function works in practice.</li>
+<li><strong>See Also</strong>: This section provides links to related functions and documentation.</li>
 </ul>
 </section>
-<section id="short-exercise" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="short-exercise"><span class="header-section-number">7.4</span> Short exercise</h2>
-<ul>
-<li>Select two groups from <code>mtcars</code> (e.g., <code>am</code> levels) and run an appropriate t-test; write a one-line interpretation.</li>
-</ul>
-<p><strong>Hint:</strong> use <code>t.test(..., var.equal = TRUE)</code> for pooled variance, omit for Welch.</p>
 </section>
-<section id="packages-used" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="packages-used"><span class="header-section-number">7.5</span> Packages used</h2>
+<section id="searching-for-r-documentation" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="searching-for-r-documentation"><span class="header-section-number">20.3</span> Searching for R Documentation</h2>
+<p>Sometimes you might not remember the exact name of a function or you’re looking for functions related to a specific task. Here’s how to search effectively:</p>
+<ol type="1">
+<li><p><strong>Using <code>??</code> Operator</strong>: This is a broader search than <code>?</code>. For example, <code>??regression</code> will return a list of help files related to regression.</p></li>
+<li><p><strong>Using <code>help.search()</code> Function</strong>: This works similarly to <code>??</code>. For example, <code>help.search("regression")</code> will search for “regression” in the R documentation.</p></li>
+<li><p><strong>Online Resources</strong>: Websites like <a href="https://www.rdocumentation.org/">RDocumentation</a> or <a href="https://cran.r-project.org/">CRAN</a> provide searchable databases of R documentation.</p></li>
+</ol>
+<section id="tips-for-effective-searching" class="level3" data-number="20.3.1">
+<h3 data-number="20.3.1" class="anchored" data-anchor-id="tips-for-effective-searching"><span class="header-section-number">20.3.1</span> Tips for Effective Searching:</h3>
 <ul>
-<li><code>broom</code>, <code>dplyr</code></li>
+<li><strong>Use Keywords</strong>: Think about the keywords related to what you’re trying to find.</li>
+<li><strong>Explore Related Functions</strong>: Often, searching will lead you to related functions that might be useful.</li>
+<li><strong>Check Online Communities</strong>: Forums like Stack Overflow have a wealth of information and examples.</li>
 </ul>
-<p><strong>Exercises</strong></p>
-<ul>
-<li>See <code>dev_code_data/excercise2.R</code> for t-test examples and paired/independent comparisons.</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Exercise 2 — Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<p>Mastering the use of help files and knowing how to search the R documentation effectively will significantly enhance your ability to learn and solve problems in R. Remember, seeking help is an integral part of the learning process, and these tools are there to assist you every step of the way.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 2 — Solution
+Tip
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<ul>
-<li>Solution (PDF): <code>dev_code_data/Solution2.pdf</code><br>
-</li>
-<li>Solution script: <code>dev_code_data/Solution2.R</code><br>
-Run: <code>Rscript dev_code_data/Solution2.R</code> or open the PDF in your browser/RStudio.</li>
-</ul>
-</div>
+<p>Always explore the examples given in the help files, as they often provide practical insights into how functions can be used.</p>
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">7.6</span> Further reading</h2>
+</section>
+<section id="further-reading" class="level2" data-number="20.4">
+<h2 data-number="20.4" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">20.4</span> Further reading</h2>
 <ul>
-<li>Testing and nonparametrics: <span class="citation" data-cites="Teetor-2011">Teetor (<a href="#ref-Teetor-2011" role="doc-biblioref">2011</a>)</span>; <span class="citation" data-cites="Wickham-Grolemund-2017">Wickham and Grolemund (<a href="#ref-Wickham-Grolemund-2017" role="doc-biblioref">2017</a>)</span>.</li>
+<li>R reference and documentation: <span class="citation" data-cites="R-Core-Team-2023">R Core Team (<a href="#ref-R-Core-Team-2023" role="doc-biblioref">2023</a>)</span>; <span class="citation" data-cites="CRAN">R Core Team (<a href="#ref-CRAN" role="doc-biblioref">n.d.</a>)</span>.</li>
+<li>Community Q&amp;A and examples: <span class="citation" data-cites="StackOverflow-R"><span>“Stack Overflow - r Tag”</span> (<a href="#ref-StackOverflow-R" role="doc-biblioref">n.d.</a>)</span>.</li>
 </ul>
 </section>
-<section id="resources" class="level2" data-number="7.7">
-<h2 data-number="7.7" class="anchored" data-anchor-id="resources"><span class="header-section-number">7.7</span> Resources</h2>
+<section id="resources" class="level2" data-number="20.5">
+<h2 data-number="20.5" class="anchored" data-anchor-id="resources"><span class="header-section-number">20.5</span> Resources</h2>
 <ul>
-<li>Example script: <code>dev_code_data/excercise2.R</code> (t-tests, paired tests, and Wilcoxon examples).</li>
+<li>Quick links: CRAN (https://cran.r-project.org), RDocumentation, and Stack Overflow (<code>dev_code_data/README.md</code> for course-specific pointers).</li>
 </ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Teetor-2011" class="csl-entry" role="listitem">
-Teetor, Paul. 2011. <em>R Cookbook: Proven Recipes for Data Analysis, Statistics, and Graphics</em>. O’Reilly Media.
+<div id="ref-R-Core-Team-2023" class="csl-entry" role="listitem">
+R Core Team. 2023. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
 </div>
-<div id="ref-Wickham-Grolemund-2017" class="csl-entry" role="listitem">
-Wickham, Hadley, and Garrett Grolemund. 2017. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. O’Reilly Media, Inc. <a href="https://r4ds.had.co.nz/">https://r4ds.had.co.nz/</a>.
+<div id="ref-CRAN" class="csl-entry" role="listitem">
+———. n.d. <em>CRAN (Comprehensive r Archive Network)</em>. <a href="https://cran.r-project.org/">https://cran.r-project.org/</a>.
+</div>
+<div id="ref-StackOverflow-R" class="csl-entry" role="listitem">
+<span>“Stack Overflow - r Tag.”</span> n.d. <a href="https://stackoverflow.com/questions/tagged/r" class="uri">https://stackoverflow.com/questions/tagged/r</a>.
 </div>
 </div>
 </section>
@@ -830,14 +868,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/hypothesis-testing.html" class="pagination-link  aria-label=" &lt;span="" testing:="" t-tests,="" nonparametrics,="" and="" multiple="" comparisons&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hypothesis Testing: t-tests, nonparametrics, and multiple comparisons</span></span>
+      <a href="../sessions/explore-clinical-data.html" class="pagination-link  aria-label=" &lt;span="" statistics="" for="" health="" researchers="" -="" exercise="" day="" 1&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Basic Statistics for Health Researchers - Exercise Day 1</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/categorical-data-and-chi-square.html" class="pagination-link" aria-label="<span class='chapter-number'>8</span>&nbsp; <span class='chapter-title'>Categorical Data: Contingency Tables, Risks, and Chi-square Tests</span>">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Categorical Data: Contingency Tables, Risks, and Chi-square Tests</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
