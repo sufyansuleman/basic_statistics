@@ -25,10 +25,15 @@ jobs:
         with:
           r-version: '4.3'
 
-      - name: Install Quarto
-        uses: quarto-dev/quarto-action@v3
-        with:
-          install: true
+      - name: Install Quarto CLI
+        run: |
+          echo "Installing Quarto CLI"
+          # Download latest linux-amd64 tarball and install to /opt/quarto
+          wget -qO /tmp/quarto.tar.gz https://github.com/quarto-dev/quarto-cli/releases/latest/download/quarto-linux-amd64.tar.gz
+          tar -xzf /tmp/quarto.tar.gz -C /tmp
+          sudo mv /tmp/quarto-* /opt/quarto
+          sudo ln -sf /opt/quarto/bin/quarto /usr/local/bin/quarto
+          quarto --version
 
       - name: Install R packages
         run: |
