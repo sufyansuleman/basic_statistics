@@ -216,49 +216,49 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ANOVA &amp; Multiple Comparisons</span></span></a>
+ <span class="menu-text">Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Power, Sample Size, and Study Design Considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power, Sample Size, and Study Design Considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/reproducible-research.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Reproducible Research with Quarto and renv</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Reproducible Research with Quarto and renv</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/packages-libraries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Clinical Research Methods in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Clinical Research Methods in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Survival and Time-to-Event Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Survival and Time-to-Event Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/explore-clinical-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Basic Statistics for Health Researchers - Exercise Day 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Basic Statistics for Health Researchers - Exercise Day 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,7 +269,13 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -303,13 +309,18 @@ div.csl-indent {
 </ul>
 <p><strong>Hands-on / Examples</strong></p>
 <ul>
-<li>See <code>dev_code_data/excercise5.R</code> for worked examples on smoking and survival, binomial CIs, Fisher and chi-square tests, and 2x2 measures.</li>
-<li>Run <code>source("dev_code_data/excercise5.R")</code> to reproduce the analyses.</li>
+<li>Public dataset: Titanic passenger dataset (2x2 tables, chi-square, and stratified analyses)</li>
+<li>Load example: <code>titanic &lt;- readr::read_csv('https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv')</code></li>
+</ul>
+<section id="data" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="data">Data</h2>
+<ul>
+<li><code>titanic</code> (public CSV): passenger survival and demographics; useful for 2x2 tables, odds ratios, and stratified comparisons. Load with <code>readr::read_csv()</code> (URL above) or via the <code>titanic</code> package.</li>
 </ul>
 <p><strong>Exercises</strong></p>
+<p><strong>Exercises</strong></p>
 <ul>
-<li><p>Using the <code>smoking</code> dataset from <code>dev_code_data/excercise5.R</code>, compute and interpret the odds ratio and 95% CI. <strong>Exercises</strong></p></li>
-<li><p>Using the <code>smoking</code> dataset from <code>dev_code_data/excercise5.R</code>, compute and interpret the odds ratio and 95% CI.</p></li>
+<li>Using the <code>titanic</code> dataset (see above), create a 2x2 table for survival by passenger class or sex, compute an odds ratio and a 95% CI, and interpret the result.</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled" title="Exercise 5 — Solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -324,10 +335,8 @@ Exercise 5 — Solution
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Solution (PDF): <code>dev_code_data/Solution5.pdf</code><br>
-</li>
-<li>Solution script: <code>dev_code_data/Solution5.R</code><br>
-Run: <code>Rscript dev_code_data/Solution5.R</code> or open the PDF in your browser/RStudio.</li>
+<li>Solution files previously stored in <code>dev_code_data</code> have been removed.</li>
+<li>Run the inline examples above or use the public <code>titanic</code> dataset for 2x2 and chi-square exercises.</li>
 </ul>
 </div>
 </div>
@@ -342,6 +351,7 @@ Matloff, Norman. 2011. <em>The Art of r Programming: A Tour of Statistical Softw
 Wickham, Hadley, and Garrett Grolemund. 2017. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. O’Reilly Media, Inc. <a href="https://r4ds.had.co.nz/">https://r4ds.had.co.nz/</a>.
 </div>
 </div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

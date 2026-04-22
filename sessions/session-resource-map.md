@@ -77,8 +77,6 @@ Canonical session → public datasets (dev_code_data replaced)
             - Example cache: `if (!dir.exists('data')) dir.create('data'); readr::write_csv(penguins, 'data/penguins.csv')`
 
 16. packages-libraries.qmd
-        - Packages/datasets to demonstrate:
-            - `palmerpenguins`, `nycflights13`, `gapminder`, `ggplot2`, `dplyr`
 
 17. clinical-research-methods.qmd
         - Dataset:

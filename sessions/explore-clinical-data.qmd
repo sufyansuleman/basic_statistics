@@ -110,9 +110,9 @@ if (!exists("migraine")) {
     load(here::here("data/migraine.rda"))
   }
 
-  # 3) try sourcing a script in dev_code_data
-  if (!exists("migraine") && file.exists(here::here("dev_code_data/migraine.R"))) {
-    tryCatch({ source(here::here("dev_code_data/migraine.R")) }, error = function(e) NULL)
+  # 3) try sourcing a script in `scripts/` (moved from dev_code_data)
+  if (!exists("migraine") && file.exists(here::here("scripts/migraine.R"))) {
+    tryCatch({ source(here::here("scripts/migraine.R")) }, error = function(e) NULL)
   }
 
   # 4) fallback: create a small simulated dataset matching expected columns
@@ -304,8 +304,8 @@ if (!exists("Galton")) {
     load(here::here("data/Galton.rda"))
   }
 
-  if (!exists("Galton") && file.exists(here::here("dev_code_data/Galton.R"))) {
-    tryCatch({ source(here::here("dev_code_data/Galton.R")) }, error = function(e) NULL)
+  if (!exists("Galton") && file.exists(here::here("scripts/Galton.R"))) {
+    tryCatch({ source(here::here("scripts/Galton.R")) }, error = function(e) NULL)
   }
 
   if (!exists("Galton")) {
@@ -459,8 +459,8 @@ if (!exists("melanoma")) {
     load(here::here("data/melanoma.rda"))
   }
 
-  if (!exists("melanoma") && file.exists(here::here("dev_code_data/melanoma.R"))) {
-    tryCatch({ source(here::here("dev_code_data/melanoma.R")) }, error = function(e) NULL)
+  if (!exists("melanoma") && file.exists(here::here("scripts/melanoma.R"))) {
+    tryCatch({ source(here::here("scripts/melanoma.R")) }, error = function(e) NULL)
   }
 
   if (!exists("melanoma")) {
@@ -1236,5 +1236,5 @@ standards.
 
 ## Resources
 
-- SCD simulated data: `data/scd_simulated_data.rda`; examples: `dev_code_data/Pheno_fam_correlation.Rmd`.
+- SCD simulated data: `data/scd_simulated_data.rda`; example materials previously in `dev_code_data` have been moved to `scripts/` or `R/` where appropriate — see `data_sources.md` for suggested scripts and load snippets.
 

@@ -19,6 +19,10 @@ comparative analysis, cohort studies, and hypothesis testing for research.
  - Translate clinical data questions into analysis plans.
  - Implement analytic workflows with modern R tools for data wrangling and visualization.
 
+## Data {.unnumbered}
+
+- Use public clinical datasets such as `survival::pbc` for liver-related examples, `NHANES` subsets for population health demonstrations, or local small datasets in `data/` for classroom exercises (see `data_sources.md`).
+
 ## Methods covered in this session
 
 - Correlation analysis for variable association.
@@ -84,18 +88,18 @@ How to explain to a clinician
 
 **Additional Exercises**
 
-- See `dev_code_data/excercise8.Rmd` for a longitudinal / repeated-measures example using `lmm()` and mixed models; reproduce the analysis and examine mean differences and model summaries.
+- For longitudinal / repeated-measures examples, consider `lme4::sleepstudy` (as a worked example) or pick a publicly archived clinical longitudinal dataset from Dryad/Zenodo (check DOI before use); see `data_sources.md` for suggestions.
 
 ::: {.callout-tip collapse="true" title="Exercise 8 — Note"}
-- Exercise 8 (longitudinal LMM): `dev_code_data/excercise8.Rmd` and `Exercise8.pdf`.  
-- No pre-prepared solution file is included for Exercise 8 in `dev_code_data` — students should run the Rmd and inspect outputs.
+- Exercise 8 (longitudinal LMM): use `lme4::sleepstudy` or a public longitudinal clinical dataset (see `data_sources.md`).
+- No pre-prepared solution file is included here; run the Rmd and inspect outputs or use the inline examples.
 :::
 
 ## Instructor notes
 
 - Target audience: clinicians with basic R familiarity; emphasize interpretation over p-values.
 - Estimated time: 75–90 minutes (lecture + hands-on exercise).
-- Pre-run: ensure `dev_code_data/package-loading.R` or `R/load-packages.R` is sourced so required packages are available.
+- Pre-run: ensure `R/load-packages.R` is sourced so required packages are available.
 - Suggested assessment: short write-up interpreting logistic regression output for a clinical example.
 
 ## Worked example — logistic regression (concise)
@@ -120,11 +124,11 @@ predict(fit_log, newdata = new_profiles, type = "response")
 
 ## Short exercise (clinical case)
 
-- Run `dev_code_data/excercise6.R` to fit a logistic model for a binary outcome, compute odds ratios with 95% CIs, and write a one-sentence clinical interpretation.
+
+- Run the inline logistic example above or use a public clinical dataset from `data_sources.md` to fit a logistic model, compute odds ratios, and write a one-sentence clinical interpretation.
 
 ::: {.callout-tip collapse="true" title="Exercise — Solution"}
-- Solution script: `dev_code_data/Solution6.R`  
-- Solution (PDF): `dev_code_data/Solution6.pdf`  
+- Solution files previously stored in `dev_code_data` have been removed; run the inline examples above or use datasets from `data_sources.md`.
 :::
 
 ## Further reading
@@ -134,4 +138,4 @@ predict(fit_log, newdata = new_profiles, type = "response")
 
 ## Resources
 
-- Exercises and lecture notes: `dev_code_data/lesson_basic_statistic_course.R`, `dev_code_data/Lecture1.pdf`.
+- Exercises and lecture notes: see `data_sources.md` for recommended datasets; lecture materials have been consolidated in the `sessions/` folder.

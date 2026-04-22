@@ -1,0 +1,1593 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Simple basic statistics concepts",
+    "section": "",
+    "text": "Course Overview\nPractical, short course on core statistical tools and interpreting results for clinical research. Focus: data summary, uncertainty, visualization, and clear communication.",
+    "crumbs": [
+      "Course Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#what-you-will-learn",
+    "href": "index.html#what-you-will-learn",
+    "title": "Simple basic statistics concepts",
+    "section": "What You Will Learn",
+    "text": "What You Will Learn\n\nSummarize and visualize data clearly.\nQuantify uncertainty with confidence intervals and tests.\nFit and interpret basic regression and classification models.\nReport findings in plain language and produce reproducible analyses.",
+    "crumbs": [
+      "Course Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#methods-covered-in-this-course",
+    "href": "index.html#methods-covered-in-this-course",
+    "title": "Simple basic statistics concepts",
+    "section": "Methods covered in this course",
+    "text": "Methods covered in this course\n\nDescriptive statistics and data transformation\nConfidence intervals, hypothesis tests, t-tests, ANOVA\nRegression (linear, logistic) and model diagnostics\nSurvival analysis and time-to-event methods\nEffective data visualization",
+    "crumbs": [
+      "Course Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#why-this-course",
+    "href": "index.html#why-this-course",
+    "title": "Simple basic statistics concepts",
+    "section": "Why This Course",
+    "text": "Why This Course\nHelps clinicians and researchers interpret numerical results, decide when findings matter, and communicate conclusions clearly using reproducible R workflows.",
+    "crumbs": [
+      "Course Overview"
+    ]
+  },
+  {
+    "objectID": "sessions/01-descriptive-statistics.html",
+    "href": "sessions/01-descriptive-statistics.html",
+    "title": "1  Descriptive Statistics & Exploratory Data Analysis",
+    "section": "",
+    "text": "Data",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Descriptive Statistics & Exploratory Data Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/01-descriptive-statistics.html#data",
+    "href": "sessions/01-descriptive-statistics.html#data",
+    "title": "1  Descriptive Statistics & Exploratory Data Analysis",
+    "section": "",
+    "text": "survival::pbc: clinical dataset (primary biliary cirrhosis) with labs and demographics; useful for demonstrating distributional summaries and missingness.\nLocal fallback: data/scd_simulated_data.rda (simulated SCD data) if present in data/ — useful when a small in-repo example is preferred.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Descriptive Statistics & Exploratory Data Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/01-descriptive-statistics.html#learning-outcomes",
+    "href": "sessions/01-descriptive-statistics.html#learning-outcomes",
+    "title": "1  Descriptive Statistics & Exploratory Data Analysis",
+    "section": "1.1 Learning outcomes",
+    "text": "1.1 Learning outcomes\n\nCompute and report descriptive summaries (means, medians, IQRs, and missingness).\nVisualize distributions with histograms, boxplots, and density plots.\nChoose reasonable transformations and explain their clinical relevance.\nProduce a short, clinician-friendly interpretation of descriptive results.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Descriptive Statistics & Exploratory Data Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/01-descriptive-statistics.html#when-to-use-eda",
+    "href": "sessions/01-descriptive-statistics.html#when-to-use-eda",
+    "title": "1  Descriptive Statistics & Exploratory Data Analysis",
+    "section": "1.2 When to use EDA",
+    "text": "1.2 When to use EDA\nUse EDA as the first analytic step to understand data quality, detect missingness and outliers, and choose reasonable transformations or models. Good EDA prevents common modeling mistakes and grounds interpretation in the actual data.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Descriptive Statistics & Exploratory Data Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/01-descriptive-statistics.html#short-code-demo",
+    "href": "sessions/01-descriptive-statistics.html#short-code-demo",
+    "title": "1  Descriptive Statistics & Exploratory Data Analysis",
+    "section": "1.3 Short code demo",
+    "text": "1.3 Short code demo\n\n# load and clean a canonical clinical dataset\npbc &lt;- survival::pbc %&gt;%\n  as_tibble() %&gt;%\n  janitor::clean_names() %&gt;%\n  mutate(stage = factor(stage, levels = 1:4))\n\n# counts by stage\npbc %&gt;% count(stage)\n\n\n# descriptive summary by stage (handle missingness)\npbc %&gt;%\n  filter(!is.na(bili)) %&gt;%\n  group_by(stage) %&gt;%\n  summarize(\n    n = n(),\n    mean_bili = mean(bili, na.rm = TRUE),\n    sd_bili = sd(bili, na.rm = TRUE),\n    median_bili = median(bili, na.rm = TRUE),\n    iqr_bili = IQR(bili, na.rm = TRUE)\n  )",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Descriptive Statistics & Exploratory Data Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/01-descriptive-statistics.html#worked-example-assess-bilirubin-distribution-and-missingness",
+    "href": "sessions/01-descriptive-statistics.html#worked-example-assess-bilirubin-distribution-and-missingness",
+    "title": "1  Descriptive Statistics & Exploratory Data Analysis",
+    "section": "1.4 Worked example: assess bilirubin distribution and missingness",
+    "text": "1.4 Worked example: assess bilirubin distribution and missingness\n\n# Re-create a minimal workflow using `survival::pbc` or local data (see `data_sources.md`)\nlibrary(dplyr)\nlibrary(ggplot2)\n\n# proportion missing and simple summaries\nsummary_tbl &lt;- pbc %&gt;%\n  group_by(stage) %&gt;%\n  summarize(\n    n = n(),\n    prop_missing_bili = mean(is.na(bili)),\n    median_bili = median(bili, na.rm = TRUE),\n    iqr_bili = IQR(bili, na.rm = TRUE)\n  )\n\nsummary_tbl\n\n# histogram with log-transform comparison\nggplot(pbc, aes(x = bili)) +\n  geom_histogram(bins = 30, fill = \"steelblue\", color = \"white\") +\n  labs(title = \"Bilirubin: raw scale\") +\n  theme_minimal()\n\nggplot(pbc %&gt;% filter(!is.na(bili)), aes(x = log(bili))) +\n  geom_histogram(bins = 30, fill = \"darkorange\", color = \"white\") +\n  labs(title = \"Log-transformed bilirubin (compare skewness)\") +\n  theme_minimal()\n\n# boxplot by stage\nggplot(pbc %&gt;% filter(!is.na(bili)), aes(x = factor(stage), y = bili)) +\n  geom_boxplot(fill = \"lightblue\") +\n  geom_jitter(width = 0.15, alpha = 0.4, size = 1.2) +\n  labs(x = \"Stage\", y = \"Bilirubin (mg/dL)\", title = \"Bilirubin by stage\") +\n  theme_minimal()",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Descriptive Statistics & Exploratory Data Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/01-descriptive-statistics.html#how-to-explain-the-output-teacher-notes",
+    "href": "sessions/01-descriptive-statistics.html#how-to-explain-the-output-teacher-notes",
+    "title": "1  Descriptive Statistics & Exploratory Data Analysis",
+    "section": "1.5 How to explain the output (teacher notes)",
+    "text": "1.5 How to explain the output (teacher notes)\n\nWhat to report: show counts, an estimate of central tendency (median if skewed), and a measure of spread (IQR) for each group.\nWhat it means: for example, higher median bilirubin in later stages suggests worsening liver function; emphasize clinical units and whether differences are clinically meaningful, not just statistically significant.\nImplications: use these findings to guide choice of transformations (e.g., log-transform skewed labs), adjust sample-size expectations, and plan covariate adjustment in regression.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Descriptive Statistics & Exploratory Data Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/01-descriptive-statistics.html#short-exercise",
+    "href": "sessions/01-descriptive-statistics.html#short-exercise",
+    "title": "1  Descriptive Statistics & Exploratory Data Analysis",
+    "section": "1.6 Short exercise",
+    "text": "1.6 Short exercise\n\nCompute mean, median, IQR and the proportion missing for bili by stage. Write one brief interpretation (2–3 sentences) focusing on clinical relevance.\n\n\n\n\n\n\n\nExercise 1 — Solution\n\n\n\n\n\nRun the solution code directly in an R session or within Quarto.\n#' ---\n#' title: \"Exercise 1 - solution\"\n#' author: \"Paul Blanche\"\n#' output: pdf_document\n#' fontsize: 12pt\n#' ---\n#'\n## ----setup, include=FALSE-----------------------------------------------------\nknitr::opts_chunk$set(echo = TRUE)\nrm(list=ls())\n\n#'\n#' ## Question 1\n#'\n#' We load the data and have a look a the first lines.\n## -----------------------------------------------------------------------------\n## Prefer local simulated SCD (data/scd_simulated_data.rda) otherwise use `survival::pbc`\nif (file.exists(here::here('data','scd_simulated_data.rda'))) {\n  load(here::here('data','scd_simulated_data.rda'))\n  d &lt;- scd_simulated_data\n} else {\n  d &lt;- survival::pbc %&gt;% as_tibble()\n}\nhead(d)\n\n#'\n#' We get summary statistics for all variables.\n## -----------------------------------------------------------------------------\nsummary(d)\n\n#'\n#' The variables HCT, Creat and Hb have missing values.\n#'\n#' ## Question 2\n#'\n## -----------------------------------------------------------------------------\ntable(d$sex)\n\n#' There are 82 women and 94 men.\n#'\n## -----------------------------------------------------------------------------\ntable(d$SCD)\n\n#' There are 88 subjects with and 88 without Sickle Cell Disease.\n#'\n#' ## Question 3\n#'\n## ---- fig.height=5------------------------------------------------------------\nboxplot(d$Psys~factor(d$SCD,levels=c(0,1),labels=c(\"no\",\"yes\")),\n                      xlab=\"Sickle Cell Disease\",\n                      ylab=\"Diastolic pressure (mmHg)\")\n\n#'\n#'\n#' **Interpretation:**\n#'\n#' * Box:\n#'    + middle line: median Q2 (50%)\n#'    + bottom: first quartile Q1 (25%)\n#'    + top: third quartile Q3 (75%)\n#' * Whiskers:  size is 1.5 times the height of the box, but not exceeding minimum and maximum.\n#' * Dots: observations beyond whiskers\n#'\n#' The overall interpretation seems to make sense: lower values are observed for subjects with SCD (median for SCD patients is approximately Q1 for subjects without SCD).\n#'\n#'\n#' **Note:** some **experienced** students might prefer to use an alternative code, using the packages **dplyr** and **ggplot2**. See appendix for such a code.\n#'\n#'\n#' ## Question 4\n#' First we create the BMI variable and add it to the data.\n## -----------------------------------------------------------------------------\nd$BMI &lt;- d$weight/(d$height/100)^2\n\n#' Note that we divide the height by 100 because we want the height unit to be meters, not centimeters.\n## ---- fig.height=5------------------------------------------------------------\nhist(d$BMI,xlab=\"Body Mass Index\",main=\"\")\n\n#'\n#' BMI does not look normally distributed because the distribution does not seem symmetric around the mean/median.\n#'\n#' Mean of BMI:\n## -----------------------------------------------------------------------------\nmean(d$BMI)\n\n#' Sdandard deviation of BMI:\n## -----------------------------------------------------------------------------\nsd(d$BMI)\n\n#' Minimum of BMI:\n## -----------------------------------------------------------------------------\nmin(d$BMI)\n\n#' Maximum of BMI:\n## -----------------------------------------------------------------------------\nmax(d$BMI)\n\n#' First and third quartiles of BMI (25% and 75%):\n## -----------------------------------------------------------------------------\nquantile(d$BMI)\n\n#'\n#' or:\n## -----------------------------------------------------------------------------\nquantile(d$BMI, 0.25)\nquantile(d$BMI, 0.75)\n\n#'\n#'\n#' Median of BMI has already been computed (50% above). Alternatively:\n## -----------------------------------------------------------------------------\nmedian(d$BMIgroup &lt;- cut(d$BMI,\n                  breaks=c(0,18.5,25,30,Inf),\n                  include.lowest=TRUE,right=FALSE)\ntable(d$BMIgroup)\n\n#' Because the variable is far from being normally distributed, it is generally more informative to report the median and the first and third quartiles rather than mean and sd.\n#' We now compute the frequencies for each BMI group.\n## -----------------------------------------------------------------------------\n\n\n#' We observe 32 subjects \"underweight\", 112 \"normal\", 23 \"overweight\" and 9 \"obese\". Graphically:\n## ---- fig.height=4------------------------------------------------------------\nbarplot(table(d$BMIgroup),xlab=\"Body Mass Index\",ylab=\"Number of subjects\")\n\n#'\n#' We now do the same, but separately for subjects with and without SCD. However, we now report proportions instead of counts, to facilitate the comparison between the two groups. We make sure that the y-axis is the same for both plots to facilitate the comparison.\n## ---- fig.width=10------------------------------------------------------------\npar(mfrow=c(1,2))\nbarplot(table(d$BMIgroup[d$SCD==0])/sum(table(d$BMIgroup[d$SCD==0])),\n        main=\"No SCD\",\n        ylim=c(0,0.7))\nbarplot(table(d$BMIgroup[d$SCD==1])/sum(table(d$BMIgroup[d$SCD==1])),\n        main=\"SCD\",\n        ylim=c(0,0.7))\n\n\n#' We observe somewhat lower BMI for subjects with SCD (less overweight and less obese subjects).\n#'\n#' ## Question 5\n#' We compute the mean and sd for subjects with (SCD=1) and without (SCD=0) SCD.\n## -----------------------------------------------------------------------------\nmean(d$Pdias[d$SCD==1])\nmean(d$Pdias[d$SCD==0])\nsd(d$Pdias[d$SCD==1])\nsd(d$Pdias[d$SCD==0])\n\n#'\n#'\n#'\n#' Next, we use the t.test function to compute 95% confidence interval for the mean diastolic pressure in the two populations of subjects with and without SCD.\n## -----------------------------------------------------------------------------\nt.test(d$Pdias[d$SCD==1])\nt.test(d$Pdias[d$SCD==0])\n\n#' The confidence intervals are [60.3;63.3] and [67.8;72.4] for subjects with and without SCD, respectively. They do not overlap, hence we can conclude to a significant difference in mean diastolic pressure between the two groups (at the usual 5% level for the type-I error control).\n#'\n#' We now compute the 95% **prediction** interval for the diastolic pressure in the two populations of subjects with and without SCD.\n## -----------------------------------------------------------------------------\npredict(lm(d$Pdias[d$SCD==0]~1),interval=\"prediction\")[1,]\npredict(lm(d$Pdias[d$SCD==1]~1),interval=\"prediction\")[1,]\n\n#' Under the assumption that the diastolic pressure is (approximately) normally distributed in each population (which should be checked using e.g. a QQplot!) then we can expect that (close to) 95% of the subjects without SCD (and similar to that of the study) have a diastolic pressure between 48.4 and 91.7. For subjects with SCD, between 47.9 and 75.7.\n#'\n#'\n#' ## Question 6\n#'\n## -----------------------------------------------------------------------------\nt.test(d$Psys[d$SCD==1])\nt.test(d$Psys[d$SCD==0])\n\n#' The confidence intervals are [115.9;120.8] and [124.1;129.7]. They do not overlap, hence a significant difference.\n## -----------------------------------------------------------------------------\nt.test(d$Psys[d$SCD==1 & d$sex==2])\nt.test(d$Psys[d$SCD==0 & d$sex==2])\n\n#' The confidence intervals are [113.9;119.9] and [119.9;127.2]. They do overlap (although very little), hence **we cannot rigorously say whether there is a significant difference**. We need to perform a two-sample t-test to rigorously conclude (see course Day 2).\n#'\n#' We now produce a dotplot to display the individual observations.\n## ---- fig.width=5-------------------------------------------------------------\nstripchart(d$Psys~factor(d$SCD,levels=c(0,1),labels=c(\"No SCD\",\"SCD\")),\n           vertical=TRUE,\n           method=\"jitter\",\n           xlab=\"\",\n           ylab=\"Systolic blood pressure (mmHg)\",\n           pch=19,\n           col=c(\"forestgreen\",\"red\"))\n\n#'\n#' Now we produce QQplots for each group.\n## ---- fig.width=10------------------------------------------------------------\npar(mfrow=c(1,2))\nqqnorm(scale(d$Psys[d$SCD==1 & d$sex==2]),main=\"SCD\")\nabline(0,1,col=\"red\",lty=2,lwd=3)\nqqnorm(scale(d$Psys[d$SCD==0 & d$sex==2]),main=\"No SCD\")\nabline(0,1,col=\"red\",lty=2,lwd=3)\n\n\n\nHint: use group_by(stage) and summarize(..., na.rm = TRUE) to compute summaries; sum(is.na(bili))/n() gives proportion missing.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Descriptive Statistics & Exploratory Data Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/01-descriptive-statistics.html#packages-used",
+    "href": "sessions/01-descriptive-statistics.html#packages-used",
+    "title": "1  Descriptive Statistics & Exploratory Data Analysis",
+    "section": "1.7 Packages used",
+    "text": "1.7 Packages used\n\ndplyr, janitor, survival, ggplot2 (for plotting in follow-up exercises)",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Descriptive Statistics & Exploratory Data Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/01-descriptive-statistics.html#further-reading",
+    "href": "sessions/01-descriptive-statistics.html#further-reading",
+    "title": "1  Descriptive Statistics & Exploratory Data Analysis",
+    "section": "1.8 Further reading",
+    "text": "1.8 Further reading\n\nR reference and environment: R Core Team (2023).\nPractical data workflows: Wickham and Grolemund (2017).\nVisualization guidance: Wickham (2016); Chang (2018).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Descriptive Statistics & Exploratory Data Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/01-descriptive-statistics.html#resources",
+    "href": "sessions/01-descriptive-statistics.html#resources",
+    "title": "1  Descriptive Statistics & Exploratory Data Analysis",
+    "section": "1.9 Resources",
+    "text": "1.9 Resources\n\nExample scripts: moved from dev_code_data — use inline examples above or see data_sources.md for public dataset load snippets.\n\n\n\n\n\nChang, Winston. 2018. R Graphics Cookbook: Practical Recipes for Visualizing Data. O’Reilly Media. https://r-graphics.org/.\n\n\nR Core Team. 2023. R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing. https://www.R-project.org/.\n\n\nWickham, Hadley. 2016. Ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. https://ggplot2-book.org/.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Descriptive Statistics & Exploratory Data Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/sampling-and-estimation.html",
+    "href": "sessions/sampling-and-estimation.html",
+    "title": "2  Sampling, Estimation, and Confidence Intervals",
+    "section": "",
+    "text": "2.1 Further reading",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Sampling, Estimation, and Confidence Intervals</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/sampling-and-estimation.html#further-reading",
+    "href": "sessions/sampling-and-estimation.html#further-reading",
+    "title": "2  Sampling, Estimation, and Confidence Intervals",
+    "section": "",
+    "text": "Sampling and inference concepts: R Core Team (2023); Wickham and Grolemund (2017).\nPractical statistics recipes: Teetor (2011).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Sampling, Estimation, and Confidence Intervals</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/sampling-and-estimation.html#resources",
+    "href": "sessions/sampling-and-estimation.html#resources",
+    "title": "2  Sampling, Estimation, and Confidence Intervals",
+    "section": "2.2 Resources",
+    "text": "2.2 Resources\n\nPrimary example: dev_code_data/excercise1.R (Questions 1–7 and appendix code).\n\n\n\n\n\nR Core Team. 2023. R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing. https://www.R-project.org/.\n\n\nTeetor, Paul. 2011. R Cookbook: Proven Recipes for Data Analysis, Statistics, and Graphics. O’Reilly Media.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Sampling, Estimation, and Confidence Intervals</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html",
+    "href": "sessions/tidy-data-wrangling.html",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "",
+    "text": "3.1 Introduction\nThis session covers foundational statistics topics for clinical research using a tidy workflow. It mirrors the basic statistics coverage from dev_code_data while remaining reliable in the current environment.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#learning-outcomes",
+    "href": "sessions/tidy-data-wrangling.html#learning-outcomes",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.2 Learning outcomes",
+    "text": "3.2 Learning outcomes\n\nCompute descriptive statistics for clinical variables.\nVisualize distributions and compare groups.\nUse transformations and confidence intervals.\nApply t-tests, ANOVA, correlation, regression, and contingency tests.\nInterpret power and sample-size calculations.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#load-and-inspect-the-pbc-dataset",
+    "href": "sessions/tidy-data-wrangling.html#load-and-inspect-the-pbc-dataset",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.3 1. Load and inspect the PBC dataset",
+    "text": "3.3 1. Load and inspect the PBC dataset\n\npbc &lt;- survival::pbc %&gt;%\n  as_tibble() %&gt;%\n  janitor::clean_names() %&gt;%\n  mutate(\n    sex = factor(sex, levels = c(\"f\", \"m\"), labels = c(\"Female\", \"Male\")),\n    stage = factor(stage)\n  )\n\npbc %&gt;%\n  glimpse()\n\nThe pbc dataset contains clinical laboratory measurements and disease stage for patients with primary biliary cirrhosis.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#descriptive-statistics-and-distributions",
+    "href": "sessions/tidy-data-wrangling.html#descriptive-statistics-and-distributions",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.4 2. Descriptive statistics and distributions",
+    "text": "3.4 2. Descriptive statistics and distributions\n\npbc %&gt;%\n  summarize(\n    n_obs = n(),\n    mean_bili = mean(bili, na.rm = TRUE),\n    sd_bili = sd(bili, na.rm = TRUE),\n    median_bili = median(bili, na.rm = TRUE),\n    iqr_bili = IQR(bili, na.rm = TRUE)\n  )\n\npbc %&gt;%\n  ggplot(aes(x = bili)) +\n  geom_histogram(fill = \"steelblue\", color = \"white\", bins = 30) +\n  labs(\n    title = \"Distribution of serum bilirubin\",\n    x = \"Bilirubin (mg/dL)\",\n    y = \"Count\"\n  ) +\n  theme_minimal()\n\nWe can also compare bilirubin by stage.\n\npbc %&gt;%\n  ggplot(aes(x = stage, y = bili, fill = stage)) +\n  geom_boxplot(alpha = 0.75) +\n  geom_jitter(width = 0.15, alpha = 0.4, size = 1.5) +\n  labs(\n    title = \"Bilirubin by disease stage\",\n    x = \"Stage\",\n    y = \"Bilirubin (mg/dL)\"\n  ) +\n  theme_minimal() +\n  scale_fill_brewer(palette = \"Pastel1\")",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#transformations-and-normal-approximation",
+    "href": "sessions/tidy-data-wrangling.html#transformations-and-normal-approximation",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.5 3. Transformations and normal approximation",
+    "text": "3.5 3. Transformations and normal approximation\nSerum bilirubin is right-skewed, so a log transformation can improve normal approximation.\n\npbc &lt;- pbc %&gt;%\n  mutate(log_bili = log(bili))\n\npbc %&gt;%\n  summarize(\n    mean_log = mean(log_bili, na.rm = TRUE),\n    sd_log = sd(log_bili, na.rm = TRUE)\n  )\n\npbc %&gt;%\n  ggplot(aes(sample = log_bili)) +\n  stat_qq() +\n  stat_qq_line(color = \"firebrick\") +\n  labs(\n    title = \"QQ plot of log-transformed bilirubin\",\n    x = \"Theoretical quantiles\",\n    y = \"Sample quantiles\"\n  ) +\n  theme_minimal()",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#confidence-intervals-and-one-sample-inference",
+    "href": "sessions/tidy-data-wrangling.html#confidence-intervals-and-one-sample-inference",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.6 4. Confidence intervals and one-sample inference",
+    "text": "3.6 4. Confidence intervals and one-sample inference\nEstimate the mean log bilirubin and back-transform the interval.\n\nci_log &lt;- pbc %&gt;%\n  summarize(\n    estimate = mean(log_bili, na.rm = TRUE),\n    se = sd(log_bili, na.rm = TRUE) / sqrt(sum(!is.na(log_bili))),\n    df = sum(!is.na(log_bili)) - 1\n  ) %&gt;%\n  mutate(\n    t_crit = qt(0.975, df),\n    lower = estimate - t_crit * se,\n    upper = estimate + t_crit * se,\n    lower_orig = exp(lower),\n    upper_orig = exp(upper),\n    estimate_orig = exp(estimate)\n  )\n\nci_log\n\nThis shows a confidence interval on both the log scale and the original scale.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#two-sample-comparison-toothgrowth",
+    "href": "sessions/tidy-data-wrangling.html#two-sample-comparison-toothgrowth",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.7 5. Two-sample comparison: ToothGrowth",
+    "text": "3.7 5. Two-sample comparison: ToothGrowth\nThe ToothGrowth dataset is useful for comparing two groups with a t-test.\n\ntg &lt;- datasets::ToothGrowth %&gt;%\n  as_tibble() %&gt;%\n  mutate(dose = factor(dose))\n\ntg %&gt;%\n  group_by(supp, dose) %&gt;%\n  summarize(\n    n = n(),\n    mean_len = mean(len),\n    sd_len = sd(len)\n  ) %&gt;%\n  ungroup()\n\nCompare supplement groups at the lowest dose.\n\ntg_low &lt;- tg %&gt;%\n  filter(dose == 0.5)\n\ntest_result &lt;- t.test(len ~ supp, data = tg_low)\n\nbroom::tidy(test_result)\n\nThe t-test gives a mean difference, confidence interval, and p-value.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#one-way-anova-and-group-comparisons",
+    "href": "sessions/tidy-data-wrangling.html#one-way-anova-and-group-comparisons",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.8 6. One-way ANOVA and group comparisons",
+    "text": "3.8 6. One-way ANOVA and group comparisons\nA one-way ANOVA compares means across three treatment groups.\n\npg &lt;- datasets::PlantGrowth %&gt;%\n  as_tibble()\n\npg %&gt;%\n  ggplot(aes(x = group, y = weight)) +\n  geom_boxplot(fill = \"lightblue\") +\n  geom_jitter(width = 0.15, alpha = 0.6) +\n  labs(\n    title = \"Plant growth by treatment group\",\n    x = \"Group\",\n    y = \"Plant weight\"\n  ) +\n  theme_minimal()\n\npg_aov &lt;- aov(weight ~ group, data = pg)\nsummary(pg_aov)\n\nInspect pairwise differences with Tukey’s method.\n\nTukeyHSD(pg_aov)",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#correlation-and-linear-regression",
+    "href": "sessions/tidy-data-wrangling.html#correlation-and-linear-regression",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.9 7. Correlation and linear regression",
+    "text": "3.9 7. Correlation and linear regression\nWe now use mtcars to illustrate correlation and regression.\n\nmtcars &lt;- datasets::mtcars %&gt;%\n  as_tibble(rownames = \"model\") %&gt;%\n  mutate(am = factor(am, labels = c(\"Automatic\", \"Manual\")))\n\nmtcars %&gt;%\n  summarize(\n    cor_wt_mpg = cor(wt, mpg),\n    cor_wt_hp = cor(wt, hp)\n  )\n\nmtcars %&gt;%\n  ggplot(aes(x = wt, y = mpg)) +\n  geom_point(color = \"darkgreen\", size = 2) +\n  geom_smooth(method = \"lm\", se = TRUE, color = \"steelblue\") +\n  labs(\n    title = \"Linear relationship between weight and MPG\",\n    x = \"Weight (1000 lbs)\",\n    y = \"Miles per gallon\"\n  ) +\n  theme_minimal()\n\nlm_mpg &lt;- lm(mpg ~ wt, data = mtcars)\nbroom::tidy(lm_mpg)",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#how-to-explain-to-a-clinician",
+    "href": "sessions/tidy-data-wrangling.html#how-to-explain-to-a-clinician",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.10 How to explain to a clinician",
+    "text": "3.10 How to explain to a clinician\n\nReport: present the slope with its 95% CI and an example change anchored to familiar units (e.g. “a 0.5 increase in weight is associated with ~X change in mpg, 95% CI [L, U]”).\n\nPrediction: show a predicted value for a realistic patient profile and give the 95% prediction interval to reflect individual variability.\n\n\n# Predictions for representative weights (confidence and prediction intervals)\nnew_wt &lt;- tibble(wt = seq(min(mtcars$wt), max(mtcars$wt), length.out = 5))\npred_ci &lt;- predict(lm_mpg, newdata = new_wt, interval = \"confidence\")\npred_pi &lt;- predict(lm_mpg, newdata = new_wt, interval = \"prediction\")\nnew_wt_preds &lt;- bind_cols(new_wt, as_tibble(pred_ci))\nnew_wt_preds\n\nThe regression output includes slope, standard error, and p-value.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#contingency-tables-and-chi-square-tests",
+    "href": "sessions/tidy-data-wrangling.html#contingency-tables-and-chi-square-tests",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.11 8. Contingency tables and chi-square tests",
+    "text": "3.11 8. Contingency tables and chi-square tests\nCategorical association is a core component of clinical analysis.\n\npbc %&gt;%\n  count(stage, sex) %&gt;%\n  pivot_wider(names_from = sex, values_from = n, values_fill = 0)\n\nchisq_test &lt;- pbc %&gt;%\n  select(stage, sex) %&gt;%\n  table() %&gt;%\n  chisq.test()\nchisq_test\n\n## Fisher's exact example (small counts)\n\n\n# Example 2x2 table with small counts\nsmall_tab &lt;- matrix(c(10, 2, 3, 20), nrow = 2, byrow = TRUE)\ndimnames(small_tab) &lt;- list(Treatment = c(\"A\", \"B\"), Outcome = c(\"Event\", \"NoEvent\"))\nfisher.test(small_tab)",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#how-to-explain-categorical-results-to-a-clinician",
+    "href": "sessions/tidy-data-wrangling.html#how-to-explain-categorical-results-to-a-clinician",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.12 How to explain categorical results to a clinician",
+    "text": "3.12 How to explain categorical results to a clinician\n\nChi-square: report whether there is statistical evidence for an association and, when possible, provide effect-size measures (risk difference, odds ratio).\n\nFisher’s exact: explain that it is used for small expected counts and report the p-value; always pair with an effect-size or a simple descriptive sentence about the observed proportions.\n\n\nThe chi-square test evaluates whether disease stage is associated with sex.\n\n## 9. Power and sample size intuition\n\nStudy planning often begins with a power calculation.\n\n::: {.cell}\n\n```{.r .cell-code}\npower.t.test(power = 0.8, delta = 0.5, sd = 1)\npower.t.test(n = 20, sd = 1, power = 0.8)\n:::\nThese calculations show how sample size, effect size, and power interact.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#how-to-explain-power-to-a-clinician",
+    "href": "sessions/tidy-data-wrangling.html#how-to-explain-power-to-a-clinician",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.13 How to explain power to a clinician",
+    "text": "3.13 How to explain power to a clinician\n\nPlain language: “Power tells us how likely the study is to detect a clinically important effect if it exists. Choosing an effect size should be driven by clinical importance, not just statistical convenience.”\n\nActionable statement: give the required sample size for a specified, clinically meaningful difference and discuss feasibility.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#exercise",
+    "href": "sessions/tidy-data-wrangling.html#exercise",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.14 10. Exercise",
+    "text": "3.14 10. Exercise\n\nCompute mean and standard deviation of bili by sex in pbc.\nFit a linear model predicting mpg from wt and am in mtcars.\nCreate a contingency table for am and cyl and describe whether proportions differ by transmission type.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#key-takeaway",
+    "href": "sessions/tidy-data-wrangling.html#key-takeaway",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.15 Key takeaway",
+    "text": "3.15 Key takeaway\nBasic statistics for clinical research combines descriptive summary, comparative testing, and simple modeling. A tidy workflow keeps these steps reproducible and easy to communicate.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#further-reading",
+    "href": "sessions/tidy-data-wrangling.html#further-reading",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.16 Further reading",
+    "text": "3.16 Further reading\n\nData import and tidy workflows: Wickham and Grolemund (2017); Wickham (2017).\nR reference and environment: R Core Team (2023).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/tidy-data-wrangling.html#resources",
+    "href": "sessions/tidy-data-wrangling.html#resources",
+    "title": "3  Basic Statistics for Clinical Research",
+    "section": "3.17 Resources",
+    "text": "3.17 Resources\n\nExample scripts: dev_code_data/file1.R, dev_code_data/functions.R, dev_code_data/package-loading.R.\n\n*** End Patch\n\n\n\n\nR Core Team. 2023. R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing. https://www.R-project.org/.\n\n\nWickham, Hadley. 2017. Readr: Read Rectangular Text Data. https://CRAN.R-project.org/package=readr.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Basic Statistics for Clinical Research</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/basic-visualization.html",
+    "href": "sessions/basic-visualization.html",
+    "title": "4  Basic Data Visualization",
+    "section": "",
+    "text": "4.1 Introduction to ggplot2",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Basic Data Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/basic-visualization.html#introduction-to-ggplot2",
+    "href": "sessions/basic-visualization.html#introduction-to-ggplot2",
+    "title": "4  Basic Data Visualization",
+    "section": "",
+    "text": "4.1.1 What is ggplot2?\nggplot2 is one of the most powerful and flexible tools for data visualization in R. ggplot2 is part of a widely used collection of packages and is based on the Grammar of Graphics, a framework for creating graphics in a structured and intuitive manner. With ggplot2, you can create a wide range of static and interactive plots, from simple scatter plots to complex multi-layered graphics.\n\n\n4.1.2 Key Features of ggplot2\n1- Layered Approach: ggplot2 uses a layering system, allowing you to add elements to a plot incrementally. Each layer can consist of data points, statistical summaries, axes, legends, and more. 2- Aesthetic Mappings: You can map variables in your data to visual properties (aesthetics) like color, size, and shape. 3- Extensible: ggplot2 can be easily extended with numerous add-on packages, making it adaptable to a wide range of visualization needs. 4- Theme System: Customize the appearance of your plots with adjustable themes.\n\n\n\n\n\n\nNote\n\n\n\nBefore using ggplot2, it must be installed and loaded into your R environment. To install ggplot2, use the command install.packages(\"ggplot2\"). To load ggplot2, use the command library(ggplot2).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Basic Data Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/basic-visualization.html#further-reading",
+    "href": "sessions/basic-visualization.html#further-reading",
+    "title": "4  Basic Data Visualization",
+    "section": "4.2 Further reading",
+    "text": "4.2 Further reading\n\nVisualization and ggplot2: Wickham (2016); Chang (2018).\nPractical plotting recipes: Wickham and Grolemund (2017).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Basic Data Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/basic-visualization.html#resources",
+    "href": "sessions/basic-visualization.html#resources",
+    "title": "4  Basic Data Visualization",
+    "section": "4.3 Resources",
+    "text": "4.3 Resources\n\nExample demos moved from dev_code_data; use inline examples above or see data_sources.md for dataset and demo script suggestions.\n\nCertainly! Here’s how you would format the content about basic data visualization with ggplot2 in Quarto:",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Basic Data Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/basic-visualization.html#creating-simple-plots",
+    "href": "sessions/basic-visualization.html#creating-simple-plots",
+    "title": "4  Basic Data Visualization",
+    "section": "4.4 Creating Simple Plots",
+    "text": "4.4 Creating Simple Plots\n\n4.4.1 Understanding the Basic Plot Structure in ggplot2\nIn this section, we delve into the basics of data visualization using ggplot2 in R. ggplot2 allows us to transform data into informative and compelling visual narratives, similar to how a painter brings a canvas to life.\nThe Three Pillars of a ggplot2 Plot:\n\nData: The foundation of every ggplot2 plot is your data. This is akin to the canvas for a painter, where your dataset provides the variables to be visualized.\nAesthetics (aes): Aesthetics are the visual properties that represent your data, such as color, size, and shape. Think of these as the palette of colors you choose to represent different aspects of your data.\nGeometries (geom_): These are the types of plots you can create, like scatter plots, bar charts, etc. Each geom_ function in ggplot2 is a different way to visually represent your data.\n\n\n\n4.4.2 Making a Scatter Plot\nData Preparation\nConsider a dataset df with two numeric variables, x and y, representing coordinates on a graph.\n\n# Create a dataframe with two numeric variables\ndf &lt;- data.frame(x = c(1, 2, 3, 4, 5),\n                 y = c(1, 2, 3, 4, 5))\n\nPlot Creation\nTo create a scatter plot, we use geom_point(), which plots points for each data pair in df.\n\n# Create a scatter plot\nggplot(df, aes(x = x, y = y)) +\n  geom_point()\n\nCustomizing Your Plot\n*Adding Titles and Labels\nAdding a title and axis labels helps in providing context and making the plot informative.\n\nggplot(df, aes(x = x, y = y)) +\n  geom_point() +\n  labs(title = \"My Scatter Plot\",\n       x = \"X Axis\",\n       y = \"Y Axis\")\n\nColor and Size Customizations\nModifying the color and size of points can highlight specific aspects of the data.\n\nggplot(df, aes(x = x, y = y)) +\n  geom_point(color = \"red\", size = 3)",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Basic Data Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/basic-visualization.html#examples-of-plots-types-with-iris-dataset",
+    "href": "sessions/basic-visualization.html#examples-of-plots-types-with-iris-dataset",
+    "title": "4  Basic Data Visualization",
+    "section": "4.5 Examples of Plots types with iris dataset",
+    "text": "4.5 Examples of Plots types with iris dataset\n\n4.5.1 Scatter Plot\nA scatter plot is ideal for visualizing the relationship between two continuous variables. For the iris dataset, we can plot sepal length against sepal width.\n\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n  geom_point() +\n  ggtitle(\"Scatter Plot of Sepal Dimensions\") +\n  xlab(\"Sepal Length\") +\n  ylab(\"Sepal Width\")\n\n\n\n4.5.2 Line Plot\nLine plots are great for showing trends over a variable, usually time. However, as the iris dataset doesn’t contain a time variable, we can use it to show how sepal length varies with sepal width for different species, using species as a grouping variable.\n\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_line() +\n  ggtitle(\"Line Plot of Sepal Dimensions\") +\n  xlab(\"Sepal Length\") +\n  ylab(\"Sepal Width\")\n\n\n\n4.5.3 Bar Plot\nBar plots are used for categorical data. We can use it to show the count of iris for each species in the iris dataset.\n\nggplot(iris, aes(x = Species)) +\n  geom_bar(fill = \"green\", color = \"black\") +\n  ggtitle(\"Bar Plot of Species\") +\n  xlab(\"Species\") +\n  ylab(\"Count\")\n\n\n\n4.5.4 Histogram\nHistograms are used to visualize the distribution of a single continuous variable. Let’s create a histogram for sepal length.\n\nggplot(iris, aes(x = Sepal.Length)) +\n  geom_histogram(fill = \"blue\", color = \"black\") +\n  ggtitle(\"Histogram of Sepal Length\") +\n  xlab(\"Sepal Length\") +\n  ylab(\"Count\")\n\n\n\n4.5.5 Boxplot\nBoxplots are useful for showing the distribution of a continuous variable and detecting outliers. We can create a boxplot for sepal width across the different species.\n\nggplot(iris, aes(x = Species, y = Sepal.Width)) +\n  geom_boxplot(fill = \"orange\", color = \"black\") +\n  ggtitle(\"Boxplot of Sepal Width\") +\n  xlab(\"Species\") +\n  ylab(\"Sepal Width\")\n\nThese examples illustrate the basic types of plots you can create using ggplot2 and the iris dataset. Each type of plot serves a different purpose and can provide various insights into your data. Remember, the key to effective data visualization is choosing the right type of plot for your data and the story you want to tell.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Basic Data Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/basic-visualization.html#excercise-9",
+    "href": "sessions/basic-visualization.html#excercise-9",
+    "title": "4  Basic Data Visualization",
+    "section": "4.6 Excercise 9",
+    "text": "4.6 Excercise 9\nTasks\n\nLoad the ggplot2 package using the command library(ggplot2).\nExplore the mtcars dataset by viewing the first few rows using head(mtcars). Understand the variables like mpg (miles per gallon), cyl (number of cylinders), hp (horsepower), etc.\nCreate a Scatter Plot:\n\n\nPlot mpg against hp (miles per gallon vs. horsepower).\nUse ggplot() function with aes(x = hp, y = mpg) to specify aesthetics.\nAdd geom_point() to create the scatter plot.\nOptionally, add labs(title = “MPG vs Horsepower”, x = “Horsepower”, y = “Miles per Gallon”) to add labels and a title to your plot.\n\n\nCreate a Box Plot:\n\n\nCreate a box plot to visualize the distribution of mpg across different numbers of cyl (cylinders).\nUse ggplot() with aes(x = factor(cyl), y = mpg).\nAdd geom_boxplot() to create the box plot.\nOptionally, add labels and a title as in the previous step.\n\n\nBonus Task:\n\n\nExperiment with customizing your plots. Try changing the color of the points in the scatter plot or the fill color of the box plot. Use color or fill arguments within geom_point() or geom_boxplot()\n\n\n\n\n\n\n\nExcercise 9: Click to see solution\n\n\n\n\n\n\n\n\n\nlibrary(ggplot2)\n\n\n\n\n\nhead(mtcars)\n\n\n\n\n\nggplot(mtcars, aes(x = hp, y = mpg)) +\n  geom_point() +\n  labs(title = \"MPG vs Horsepower\",\n       x = \"Horsepower\",\n       y = \"Miles per Gallon\")\n\n\n\n\n\nggplot(mtcars, aes(x = factor(cyl), y = mpg)) +\n  geom_boxplot() +\n  labs(title = \"MPG vs Cylinders\",\n       x = \"Cylinders\",\n       y = \"Miles per Gallon\")\n\n\n\n\n\nggplot(mtcars, aes(x = hp, y = mpg)) +\n  geom_point(color = \"red\") +\n  labs(title = \"MPG vs Horsepower\",\n       x = \"Horsepower\",\n       y = \"Miles per Gallon\")\n\n\nggplot(mtcars, aes(x = factor(cyl), y = mpg, fill = factor(cyl))) +\n  geom_boxplot() +\n  labs(title = \"MPG Distribution Across Cylinder Counts\", \n       x = \"Number of Cylinders\", \n       y = \"Miles per Gallon\") +\n  scale_fill_brewer(palette = \"Pastel1\")\n\n\n\n\n\n\n\n\nChang, Winston. 2018. R Graphics Cookbook: Practical Recipes for Visualizing Data. O’Reilly Media. https://r-graphics.org/.\n\n\nWickham, Hadley. 2016. Ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. https://ggplot2-book.org/.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Basic Data Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html",
+    "href": "sessions/advanced-visualization.html",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "",
+    "text": "5.1 Introduction\nThis session shows how research figures support statistical interpretation. A strong plot does more than display data: it answers a question, shows uncertainty, and makes the result easier to explain.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html#learning-outcomes",
+    "href": "sessions/advanced-visualization.html#learning-outcomes",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "5.2 Learning outcomes",
+    "text": "5.2 Learning outcomes\n\nChoose visual forms that fit a research question.\nInterpret trend lines, confidence bands, and subgroup comparisons.\nCreate layered and faceted plots with ggplot2.\nUse annotation and labels to communicate the key message.\nBuild figures that support evidence-based conclusions.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html#methods-covered-in-this-session",
+    "href": "sessions/advanced-visualization.html#methods-covered-in-this-session",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "5.3 Methods covered in this session",
+    "text": "5.3 Methods covered in this session\n\nRegression line visualization and interpretation\nConfidence and prediction interval plotting\nGroup comparisons using color and facets\nModel diagnostics and residual visualization\nCommunicating uncertainty with plots",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html#design-principles-for-research-plots",
+    "href": "sessions/advanced-visualization.html#design-principles-for-research-plots",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "5.4 1. Design principles for research plots",
+    "text": "5.4 1. Design principles for research plots\nA useful research figure is:\n\nClear: the main message is easy to read.\nAccurate: the visual reflects the underlying data.\nInformative: it answers a specific question.\nInterpretable: it helps readers draw the right conclusion.\nHonest: it shows uncertainty and avoids misleading design.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html#use-a-consistent-dataset-for-interpretation",
+    "href": "sessions/advanced-visualization.html#use-a-consistent-dataset-for-interpretation",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "5.5 2. Use a consistent dataset for interpretation",
+    "text": "5.5 2. Use a consistent dataset for interpretation\nWe use the pbc dataset from the survival package in this session. That allows us to connect visualization directly to clinical research questions about bilirubin, age, and sex.\n\npbc %&gt;%\n  summarize(\n    n = n(),\n    mean_age = mean(age, na.rm = TRUE),\n    mean_bili = mean(bili, na.rm = TRUE),\n    prop_female = mean(sex == \"Female\")\n  )\n\nThis dataset is useful because it includes both continuous and categorical variables, which lets us practice different plot types.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html#layered-plotting-with-ggplot2",
+    "href": "sessions/advanced-visualization.html#layered-plotting-with-ggplot2",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "5.6 3. Layered plotting with ggplot2",
+    "text": "5.6 3. Layered plotting with ggplot2\nLayered plots let us combine raw data, trend lines, and uncertainty in one figure.\n\npbc %&gt;%\n  ggplot(aes(x = age, y = bili, color = sex)) +\n  geom_point(alpha = 0.6, size = 2) +\n  geom_smooth(method = \"lm\", se = TRUE, linetype = \"dashed\") +\n  labs(\n    title = \"Bilirubin and age by sex\",\n    subtitle = \"Trend lines with 95% uncertainty bands\",\n    x = \"Age (years)\",\n    y = \"Bilirubin (mg/dL)\",\n    color = \"Sex\"\n  ) +\n  theme_minimal(base_size = 14)\n\n\n5.6.1 What this figure tells us\n\nThe points show the raw relationship between age and bilirubin.\nThe trend lines estimate the average pattern for each sex.\nThe shaded bands show uncertainty around those estimates.\nIf the bands overlap, the difference between groups is less certain.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html#faceting-to-compare-subgroups",
+    "href": "sessions/advanced-visualization.html#faceting-to-compare-subgroups",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "5.7 4. Faceting to compare subgroups",
+    "text": "5.7 4. Faceting to compare subgroups\nFaceting makes it easy to compare the same relationship across groups.\n\npbc %&gt;%\n  ggplot(aes(x = age, y = bili)) +\n  geom_point(alpha = 0.6, color = \"steelblue\") +\n  facet_wrap(~ sex) +\n  geom_smooth(method = \"lm\", se = TRUE, color = \"darkred\") +\n  labs(\n    title = \"Bilirubin by age for female and male patients\",\n    x = \"Age (years)\",\n    y = \"Bilirubin (mg/dL)\"\n  ) +\n  theme_minimal()\n\nFaceting is useful when the research question asks whether a pattern is consistent across groups. It highlights differences in slope, spread, and uncertainty.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html#visualizing-uncertainty",
+    "href": "sessions/advanced-visualization.html#visualizing-uncertainty",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "5.8 5. Visualizing uncertainty",
+    "text": "5.8 5. Visualizing uncertainty\nA key strength of research graphics is showing how precise the estimates are.\n\npbc %&gt;%\n  ggplot(aes(x = age, y = bili)) +\n  geom_point(color = \"steelblue\", alpha = 0.6) +\n  geom_smooth(method = \"lm\", se = TRUE, fill = \"lightblue\") +\n  labs(\n    title = \"Age and bilirubin with uncertainty band\",\n    x = \"Age (years)\",\n    y = \"Bilirubin (mg/dL)\"\n  ) +\n  theme_minimal()\n\nThe ribbon shows a confidence band around the trend line. Wider bands indicate more uncertainty, which is especially important when the data are noisy or sparse.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html#annotation-and-narrative",
+    "href": "sessions/advanced-visualization.html#annotation-and-narrative",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "5.9 6. Annotation and narrative",
+    "text": "5.9 6. Annotation and narrative\nThe best figures include titles, subtitles, and axis labels that explain the message. Good annotations help a reader see the conclusion without needing to inspect every detail.\n\npbc %&gt;%\n  ggplot(aes(x = age, y = bili, color = sex)) +\n  geom_point(size = 2, alpha = 0.7) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  labs(\n    title = \"Bilirubin increases slightly with age\",\n    subtitle = \"The trend is visible for both female and male patients\",\n    x = \"Age (years)\",\n    y = \"Bilirubin (mg/dL)\",\n    color = \"Sex\"\n  ) +\n  theme_classic(base_size = 14) +\n  theme(\n    legend.position = \"top\",\n    plot.title = element_text(face = \"bold\"),\n    plot.subtitle = element_text(size = 11)\n  )\n\nThis figure is prepared for a report because it has a clear title and a subtitle that state the main conclusion.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html#exercise-refine-an-analysis-plot",
+    "href": "sessions/advanced-visualization.html#exercise-refine-an-analysis-plot",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "5.10 7. Exercise: refine an analysis plot",
+    "text": "5.10 7. Exercise: refine an analysis plot\n\nUse the pbc dataset from the survival package.\nPlot bili versus age.\nAdd a smooth line and uncertainty band.\nSeparate by sex using color or facets.\nWrite a one-sentence summary of what the plot shows.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html#model-diagnostics-and-prediction-visualization",
+    "href": "sessions/advanced-visualization.html#model-diagnostics-and-prediction-visualization",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "5.11 8. Model diagnostics and prediction visualization",
+    "text": "5.11 8. Model diagnostics and prediction visualization\nChecking model assumptions and visualizing predictions are essential steps before turning plots into clinical messages.\n\n# Fit a simple linear model and inspect residuals\nlm_bili_age &lt;- lm(bili ~ age + sex, data = pbc)\npbc_diag &lt;- pbc %&gt;%\n  mutate(fitted = fitted(lm_bili_age), resid = residuals(lm_bili_age))\n\n# Residuals vs fitted values\nggplot(pbc_diag, aes(x = fitted, y = resid)) +\n  geom_point(alpha = 0.6) +\n  geom_hline(yintercept = 0, linetype = \"dashed\") +\n  labs(title = \"Residuals vs Fitted: bili ~ age + sex\", x = \"Fitted values\", y = \"Residuals\") +\n  theme_minimal()\n\n# QQ-plot of residuals\nggplot(pbc_diag, aes(sample = resid)) +\n  stat_qq() +\n  stat_qq_line(color = \"firebrick\") +\n  labs(title = \"QQ-plot of model residuals\") +\n  theme_minimal()\n\n# Prediction ribbon across age\nnew_age &lt;- expand.grid(age = seq(min(pbc$age, na.rm = TRUE), max(pbc$age, na.rm = TRUE), length.out = 100),\n                       sex = levels(pbc$sex)) %&gt;%\n  as_tibble()\npreds_conf &lt;- predict(lm_bili_age, newdata = new_age, interval = \"confidence\")\npreds_df &lt;- bind_cols(new_age, as_tibble(preds_conf))\n\nggplot(preds_df, aes(x = age, y = fit, color = sex, fill = sex)) +\n  geom_line() +\n  geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.15, color = NA) +\n  facet_wrap(~ sex) +\n  labs(title = \"Predicted mean bilirubin by age with 95% CI\", y = \"Predicted bilirubin (mg/dL)\") +\n  theme_minimal()\n\n\n5.11.1 How to explain diagnostics and predictions to a clinician\n\nDiagnostics: “I checked residuals and a QQ-plot to assess whether model assumptions (linearity, homoscedasticity, approximate normality of residuals) are reasonable. If residuals show systematic patterns, consider transformation or robust methods.”\n\nPredictions: “Report predicted mean values for representative ages with 95% confidence intervals, and give prediction intervals when discussing individual patient-level expectations. Confidence bands show uncertainty of the mean estimate; prediction intervals are wider and capture individual variability.”",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html#key-takeaways",
+    "href": "sessions/advanced-visualization.html#key-takeaways",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "5.12 8. Key takeaways",
+    "text": "5.12 8. Key takeaways\nAdvanced visualization is not about making plots more complex. It is about making research findings easier to understand, more accurate, and more persuasive.\nA good research figure answers a question, shows uncertainty, and helps a reader draw the right conclusion.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html#further-reading",
+    "href": "sessions/advanced-visualization.html#further-reading",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "5.13 Further reading",
+    "text": "5.13 Further reading\n\nAdvanced plotting and scientific communication: Wickham (2016); Chang (2018).\nTidy workflows for visualization: Wickham and Grolemund (2017).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/advanced-visualization.html#resources",
+    "href": "sessions/advanced-visualization.html#resources",
+    "title": "5  Advanced Visualization and Scientific Communication",
+    "section": "5.14 Resources",
+    "text": "5.14 Resources\n\nExample demos moved from dev_code_data; use inline examples above or see data_sources.md for dataset choices and suggested demo scripts.\n\n\n\n\n\nChang, Winston. 2018. R Graphics Cookbook: Practical Recipes for Visualizing Data. O’Reilly Media. https://r-graphics.org/.\n\n\nWickham, Hadley. 2016. Ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. https://ggplot2-book.org/.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Advanced Visualization and Scientific Communication</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/hypothesis-testing.html",
+    "href": "sessions/hypothesis-testing.html",
+    "title": "6  Hypothesis Testing: t-tests, nonparametrics, and multiple comparisons",
+    "section": "",
+    "text": "Overview\nThis session introduces hypothesis testing for means and distributions, including one- and two-sample t-tests, paired tests, Wilcoxon tests, and approaches to multiple testing. Readings: Wickham and Grolemund (2017); Teetor (2011).\nLearning Objectives\n\nFormulate null and alternative hypotheses for common tests.\nPerform and interpret t-tests (one-sample, two-sample, paired).\nApply nonparametric alternatives and multiple-testing adjustments.\n\nKey Concepts\n\nChoice of test based on data and assumptions (normality, equal variances)\np-values, effect sizes, and confidence intervals\nMultiple testing corrections: Bonferroni, Holm, Benjamini–Hochberg\n\nHands-on / Examples\n\nExamples and code: dev_code_data/excercise2.R (t-tests, Wilcoxon, p.adjust examples).\nRun source(\"dev_code_data/excercise2.R\") from the project root to reproduce examples.\n\nExercises\n\nRe-run the gene-expression example in dev_code_data/excercise2.R and compare Bonferroni vs BH adjustments. Exercises\nRe-run the gene-expression example in dev_code_data/excercise2.R and compare Bonferroni vs BH adjustments.\n\n\n\n\n\n\n\nExercise 2 — Solution\n\n\n\n\n\n\nSolution (PDF): dev_code_data/Solution2.pdf\n\nSolution script: dev_code_data/Solution2.R\nRun: Rscript dev_code_data/Solution2.R or open the PDF in your browser/RStudio.\n\n\n\n\n\n\n\n\nTeetor, Paul. 2011. R Cookbook: Proven Recipes for Data Analysis, Statistics, and Graphics. O’Reilly Media.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Hypothesis Testing: t-tests, nonparametrics, and multiple comparisons</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/04-t-tests.html",
+    "href": "sessions/04-t-tests.html",
+    "title": "7  T-tests & Group Comparisons",
+    "section": "",
+    "text": "7.1 When to use t-tests\nUse t-tests to compare means between groups (one-sample, two-sample) or paired measurements on the same subjects (paired t-test). Use Welch’s t-test when variances are unequal.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>T-tests & Group Comparisons</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/04-t-tests.html#short-code-demo",
+    "href": "sessions/04-t-tests.html#short-code-demo",
+    "title": "7  T-tests & Group Comparisons",
+    "section": "7.2 Short code demo",
+    "text": "7.2 Short code demo\n\n# two-sample example from ToothGrowth\ntg &lt;- datasets::ToothGrowth %&gt;% as_tibble() %&gt;% mutate(dose = factor(dose))\ntg_low &lt;- tg %&gt;% filter(dose == 0.5)\n\n# two-sample t-test comparing supplements\nt_test_res &lt;- t.test(len ~ supp, data = tg_low)\nbroom::tidy(t_test_res)\n\n# paired example using built-in sleep dataset\npaired_res &lt;- t.test(extra ~ group, data = datasets::sleep, paired = TRUE)\nbroom::tidy(paired_res)",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>T-tests & Group Comparisons</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/04-t-tests.html#how-to-explain-the-output-teacher-notes",
+    "href": "sessions/04-t-tests.html#how-to-explain-the-output-teacher-notes",
+    "title": "7  T-tests & Group Comparisons",
+    "section": "7.3 How to explain the output (teacher notes)",
+    "text": "7.3 How to explain the output (teacher notes)\n\nReport: mean difference and 95% CI. State whether CI includes zero.\nContext: choose paired vs independent test based on study design.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>T-tests & Group Comparisons</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/04-t-tests.html#short-exercise",
+    "href": "sessions/04-t-tests.html#short-exercise",
+    "title": "7  T-tests & Group Comparisons",
+    "section": "7.4 Short exercise",
+    "text": "7.4 Short exercise\n\nSelect two groups from mtcars (e.g., am levels) and run an appropriate t-test; write a one-line interpretation.\n\nHint: use t.test(..., var.equal = TRUE) for pooled variance, omit for Welch.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>T-tests & Group Comparisons</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/04-t-tests.html#packages-used",
+    "href": "sessions/04-t-tests.html#packages-used",
+    "title": "7  T-tests & Group Comparisons",
+    "section": "7.5 Packages used",
+    "text": "7.5 Packages used\n\nbroom, dplyr",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>T-tests & Group Comparisons</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/04-t-tests.html#data",
+    "href": "sessions/04-t-tests.html#data",
+    "title": "7  T-tests & Group Comparisons",
+    "section": "Data",
+    "text": "Data\n\nTeaching example: ToothGrowth (plant growth experiment). For clinical examples, use NHANES subsets (blood pressure, labs) or MASS::birthwt for perinatal outcomes; see data_sources.md for links.\n\nExercises\n\nUse the inline examples above or data_sources.md for clinical t-test datasets; older dev_code_data scripts have been removed.\n\n\n\n\n\n\n\nExercise 2 — Solution\n\n\n\n\n\n\nSolution files previously stored in dev_code_data have been removed.\nRun the inline examples above or use public datasets listed in data_sources.md for clinical t-test exercises.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>T-tests & Group Comparisons</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/04-t-tests.html#further-reading",
+    "href": "sessions/04-t-tests.html#further-reading",
+    "title": "7  T-tests & Group Comparisons",
+    "section": "7.6 Further reading",
+    "text": "7.6 Further reading\n\nTesting and nonparametrics: Teetor (2011); Wickham and Grolemund (2017).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>T-tests & Group Comparisons</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/04-t-tests.html#resources",
+    "href": "sessions/04-t-tests.html#resources",
+    "title": "7  T-tests & Group Comparisons",
+    "section": "7.7 Resources",
+    "text": "7.7 Resources\n\nExample scripts moved from dev_code_data; use inline examples above or consult data_sources.md for public dataset alternatives.\n\n\n\n\n\nTeetor, Paul. 2011. R Cookbook: Proven Recipes for Data Analysis, Statistics, and Graphics. O’Reilly Media.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>T-tests & Group Comparisons</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/categorical-data-and-chi-square.html",
+    "href": "sessions/categorical-data-and-chi-square.html",
+    "title": "8  Categorical Data: Contingency Tables, Risks, and Chi-square Tests",
+    "section": "",
+    "text": "Data\nExercises\nExercises",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Categorical Data: Contingency Tables, Risks, and Chi-square Tests</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/categorical-data-and-chi-square.html#data",
+    "href": "sessions/categorical-data-and-chi-square.html#data",
+    "title": "8  Categorical Data: Contingency Tables, Risks, and Chi-square Tests",
+    "section": "",
+    "text": "titanic (public CSV): passenger survival and demographics; useful for 2x2 tables, odds ratios, and stratified comparisons. Load with readr::read_csv() (URL above) or via the titanic package.\n\n\n\n\nUsing the titanic dataset (see above), create a 2x2 table for survival by passenger class or sex, compute an odds ratio and a 95% CI, and interpret the result.\n\n\n\n\n\n\n\nExercise 5 — Solution\n\n\n\n\n\n\nSolution files previously stored in dev_code_data have been removed.\nRun the inline examples above or use the public titanic dataset for 2x2 and chi-square exercises.\n\n\n\n\n\n\n\n\nMatloff, Norman. 2011. The Art of r Programming: A Tour of Statistical Software Design. No Starch Press. https://nostarch.com/artofr.htm.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Categorical Data: Contingency Tables, Risks, and Chi-square Tests</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/02-linear-regression.html",
+    "href": "sessions/02-linear-regression.html",
+    "title": "9  Linear Regression",
+    "section": "",
+    "text": "9.1 When to use linear regression\nUse linear regression to model a continuous outcome as a function of one or more predictors when the outcome is approximately continuous and residuals are reasonably well-behaved.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/02-linear-regression.html#short-code-demo",
+    "href": "sessions/02-linear-regression.html#short-code-demo",
+    "title": "9  Linear Regression",
+    "section": "9.2 Short code demo",
+    "text": "9.2 Short code demo\n\n# load example data and fit a simple model\nmtcars &lt;- datasets::mtcars %&gt;% as_tibble(rownames = \"model\")\nlm_fit &lt;- lm(mpg ~ wt, data = mtcars)\n\n# tidy coefficient table and model summary\nbroom::tidy(lm_fit)\nbroom::glance(lm_fit)",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/02-linear-regression.html#data",
+    "href": "sessions/02-linear-regression.html#data",
+    "title": "9  Linear Regression",
+    "section": "Data",
+    "text": "Data\n\nBuilt-in: mtcars — compact example for regression demonstrations (vehicle MPG vs weight). For clinical regression examples use survival::pbc or gapminder for population-level analyses (see data_sources.md).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/02-linear-regression.html#how-to-interpret-the-output-teacher-notes",
+    "href": "sessions/02-linear-regression.html#how-to-interpret-the-output-teacher-notes",
+    "title": "9  Linear Regression",
+    "section": "9.3 How to interpret the output (teacher notes)",
+    "text": "9.3 How to interpret the output (teacher notes)\n\nSlope: expected change in the outcome per one-unit increase in the predictor.\nIntercept: expected outcome when predictors equal zero (context dependent).\nR-squared: fraction of variance explained by the model; interpret with caution.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/02-linear-regression.html#short-exercise",
+    "href": "sessions/02-linear-regression.html#short-exercise",
+    "title": "9  Linear Regression",
+    "section": "9.4 Short exercise",
+    "text": "9.4 Short exercise\n\nFit mpg ~ wt + hp and report the coefficient for wt with a one-sentence interpretation.\n\nHint: use lm() and broom::tidy(); consider whether effect sizes are clinically meaningful.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/02-linear-regression.html#packages-used",
+    "href": "sessions/02-linear-regression.html#packages-used",
+    "title": "9  Linear Regression",
+    "section": "9.5 Packages used",
+    "text": "9.5 Packages used\n\ndplyr, broom, ggplot2\n\nExercises\n\nExample code is inline above; see data_sources.md for public datasets and suggested replacements for older dev_code_data scripts.\n\n\n\n\n\n\n\nExercise 3 — Solution\n\n\n\n\n\n\nSolution files previously stored in dev_code_data have been removed.\nRun the inline examples above or use one of the public datasets listed in data_sources.md for extended regression exercises.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/02-linear-regression.html#further-reading",
+    "href": "sessions/02-linear-regression.html#further-reading",
+    "title": "9  Linear Regression",
+    "section": "9.6 Further reading",
+    "text": "9.6 Further reading\n\nPractical regression and diagnostics: Henderson and Velleman (1981); Matloff (2011).\nApplied examples and tidy workflows: Wickham and Grolemund (2017).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/02-linear-regression.html#resources",
+    "href": "sessions/02-linear-regression.html#resources",
+    "title": "9  Linear Regression",
+    "section": "9.7 Resources",
+    "text": "9.7 Resources\n– Example scripts moved from dev_code_data; use inline examples above or see data_sources.md for public dataset alternatives.\n\n\n\n\nHenderson, H. V., and P. F. Velleman. 1981. “Building Multiple Regression Models Interactively.” Biometrics 37: 391–411.\n\n\nMatloff, Norman. 2011. The Art of r Programming: A Tour of Statistical Software Design. No Starch Press. https://nostarch.com/artofr.htm.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/06-multiple-regression.html",
+    "href": "sessions/06-multiple-regression.html",
+    "title": "10  Multiple Regression & Confounding",
+    "section": "",
+    "text": "Data",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Multiple Regression & Confounding</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/06-multiple-regression.html#data",
+    "href": "sessions/06-multiple-regression.html#data",
+    "title": "10  Multiple Regression & Confounding",
+    "section": "",
+    "text": "datasets::mtcars for compact numeric demonstrations (mpg, wt, hp). For clinical examples use MASS::birthwt or survival::pbc to illustrate adjusted associations in health data.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Multiple Regression & Confounding</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/06-multiple-regression.html#when-to-use-multiple-regression",
+    "href": "sessions/06-multiple-regression.html#when-to-use-multiple-regression",
+    "title": "10  Multiple Regression & Confounding",
+    "section": "10.1 When to use multiple regression",
+    "text": "10.1 When to use multiple regression\nUse multiple regression to estimate associations while adjusting for potential confounders; check collinearity and model diagnostics.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Multiple Regression & Confounding</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/06-multiple-regression.html#short-code-demo",
+    "href": "sessions/06-multiple-regression.html#short-code-demo",
+    "title": "10  Multiple Regression & Confounding",
+    "section": "10.2 Short code demo",
+    "text": "10.2 Short code demo\n\nmtcars &lt;- datasets::mtcars %&gt;% as_tibble(rownames = \"model\") %&gt;%\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\")))\n\nmultilm &lt;- lm(mpg ~ wt + hp + am, data = mtcars)\nbroom::tidy(multilm)\nbroom::glance(multilm)",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Multiple Regression & Confounding</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/06-multiple-regression.html#how-to-interpret-the-output-teacher-notes",
+    "href": "sessions/06-multiple-regression.html#how-to-interpret-the-output-teacher-notes",
+    "title": "10  Multiple Regression & Confounding",
+    "section": "10.3 How to interpret the output (teacher notes)",
+    "text": "10.3 How to interpret the output (teacher notes)\n\nAdjusted coefficients: each coefficient represents the expected change in the outcome holding other variables constant.\nDiagnostics: check residuals, leverage, and variance inflation where appropriate.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Multiple Regression & Confounding</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/06-multiple-regression.html#short-exercise",
+    "href": "sessions/06-multiple-regression.html#short-exercise",
+    "title": "10  Multiple Regression & Confounding",
+    "section": "10.4 Short exercise",
+    "text": "10.4 Short exercise\n\nFit mpg ~ wt + hp and compare the wt coefficient to the simple model mpg ~ wt.\n\nHint: use broom::tidy() and broom::glance() for concise summaries.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Multiple Regression & Confounding</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/06-multiple-regression.html#packages-used",
+    "href": "sessions/06-multiple-regression.html#packages-used",
+    "title": "10  Multiple Regression & Confounding",
+    "section": "10.5 Packages used",
+    "text": "10.5 Packages used\n\ndplyr, broom\n\nExercises\n\nUse inline examples or a public dataset from data_sources.md (e.g., MASS::birthwt) for multiple regression with interaction terms and centering exercises.\n\n\n\n\n\n\n\nExercise 7 — Solution\n\n\n\n\n\n\nSolution files previously stored in dev_code_data have been removed.\nRun the inline examples above or use a public dataset listed in data_sources.md for extended exercises.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Multiple Regression & Confounding</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/06-multiple-regression.html#further-reading",
+    "href": "sessions/06-multiple-regression.html#further-reading",
+    "title": "10  Multiple Regression & Confounding",
+    "section": "10.6 Further reading",
+    "text": "10.6 Further reading\n\nConfounding, model interpretation, and interactions: Henderson and Velleman (1981); Matloff (2011).\nTidy modeling workflows: Wickham and Grolemund (2017).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Multiple Regression & Confounding</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/06-multiple-regression.html#resources",
+    "href": "sessions/06-multiple-regression.html#resources",
+    "title": "10  Multiple Regression & Confounding",
+    "section": "10.7 Resources",
+    "text": "10.7 Resources\n\nExample materials moved from dev_code_data; use inline examples or data_sources.md for dataset choices and scripts.\n\n\n\n\n\nHenderson, H. V., and P. F. Velleman. 1981. “Building Multiple Regression Models Interactively.” Biometrics 37: 391–411.\n\n\nMatloff, Norman. 2011. The Art of r Programming: A Tour of Statistical Software Design. No Starch Press. https://nostarch.com/artofr.htm.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Multiple Regression & Confounding</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/03-logistic-regression.html",
+    "href": "sessions/03-logistic-regression.html",
+    "title": "11  Logistic Regression",
+    "section": "",
+    "text": "11.1 When to use logistic regression\nUse logistic regression for binary outcomes (event / no event). Adjust for confounders when estimating associations.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Logistic Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/03-logistic-regression.html#data",
+    "href": "sessions/03-logistic-regression.html#data",
+    "title": "11  Logistic Regression",
+    "section": "Data",
+    "text": "Data\n\nClinical example: Pima Indians Diabetes (public CSV) — suitable for logistic regression, classification, and model calibration examples. See data_sources.md for additional clinical datasets.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Logistic Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/03-logistic-regression.html#short-code-demo",
+    "href": "sessions/03-logistic-regression.html#short-code-demo",
+    "title": "11  Logistic Regression",
+    "section": "11.2 Short code demo",
+    "text": "11.2 Short code demo\n\n# load Pima diabetes dataset (public CSV)\npima &lt;- readr::read_csv('https://raw.githubusercontent.com/selva86/datasets/master/PimaIndiansDiabetes.csv')\npima &lt;- pima %&gt;% mutate(diabetes = as.factor(diabetes))\n\nfit_log &lt;- glm(diabetes ~ age + bmi, family = binomial, data = pima)\n\n# tidy coefficients and approximate odds ratios\nbroom::tidy(fit_log)\nexp(coef(fit_log))",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Logistic Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/03-logistic-regression.html#how-to-explain-the-output-teacher-notes",
+    "href": "sessions/03-logistic-regression.html#how-to-explain-the-output-teacher-notes",
+    "title": "11  Logistic Regression",
+    "section": "11.3 How to explain the output (teacher notes)",
+    "text": "11.3 How to explain the output (teacher notes)\n\nOdds ratio: multiplicative change in odds for a one-unit predictor increase.\nPredicted probabilities are usually easier to communicate than odds ratios.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Logistic Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/03-logistic-regression.html#short-exercise",
+    "href": "sessions/03-logistic-regression.html#short-exercise",
+    "title": "11  Logistic Regression",
+    "section": "11.4 Short exercise",
+    "text": "11.4 Short exercise\n\nFit a model with diabetes ~ bmi + age and compute predicted probabilities for representative covariate values.\n\nHint: use predict(..., type = 'response') for probabilities.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Logistic Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/03-logistic-regression.html#packages-used",
+    "href": "sessions/03-logistic-regression.html#packages-used",
+    "title": "11  Logistic Regression",
+    "section": "11.5 Packages used",
+    "text": "11.5 Packages used\n\ndplyr, readr, broom, ggplot2\n\nExercises\n\nExample code is inline above; see data_sources.md for public datasets and suggested exercise replacements.\n\n\n\n\n\n\n\nExercise 6 — Solution\n\n\n\n\n\n\nSolution files previously stored in dev_code_data have been removed.\nRun the inline examples above or use one of the public datasets listed in data_sources.md for extended logistic exercises.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Logistic Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/03-logistic-regression.html#further-reading",
+    "href": "sessions/03-logistic-regression.html#further-reading",
+    "title": "11  Logistic Regression",
+    "section": "11.6 Further reading",
+    "text": "11.6 Further reading\n\nLogistic regression references and interpretation: Matloff (2011); Henderson and Velleman (1981).\nPractical modeling guidance: Wickham and Grolemund (2017).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Logistic Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/03-logistic-regression.html#resources",
+    "href": "sessions/03-logistic-regression.html#resources",
+    "title": "11  Logistic Regression",
+    "section": "11.7 Resources",
+    "text": "11.7 Resources\n\nExample scripts moved out of dev_code_data; see data_sources.md and inline examples above.\n\n\n\n\n\nHenderson, H. V., and P. F. Velleman. 1981. “Building Multiple Regression Models Interactively.” Biometrics 37: 391–411.\n\n\nMatloff, Norman. 2011. The Art of r Programming: A Tour of Statistical Software Design. No Starch Press. https://nostarch.com/artofr.htm.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Logistic Regression</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/model-building-and-diagnostics.html",
+    "href": "sessions/model-building-and-diagnostics.html",
+    "title": "12  Model Building and Diagnostics",
+    "section": "",
+    "text": "Overview\nModel building and diagnostics are essential for trustworthy inference. This session covers model selection, checking assumptions, interpreting coefficients, and common diagnostic plots. Readings: Henderson and Velleman (1981); Matloff (2011).\nLearning Objectives\n\nUnderstand model building goals and variable selection strategies.\nPerform residual diagnostics and assess model fit.\nInterpret model coefficients and confidence intervals.\n\nHands-on / Examples\n\nSee dev_code_data/excercise3.R and dev_code_data/excercise4.R for examples of regression fitting, diagnostic plots, and ANOVA-based model comparisons.\nSee dev_code_data/6_Model_Building_From_Purpose_ToConc.pdf for guidance on building models from research purpose to conclusions.\n\nExercises\n\nFit a linear model predicting MAP from age and SCD using dev_code_data examples; inspect residuals and comment on assumptions. Exercises\nFit a linear model predicting MAP from age and SCD using dev_code_data examples; inspect residuals and comment on assumptions.\n\n\n\n\n\n\n\nExercise 3 & 4 — Solutions\n\n\n\n\n\n\nExercise 3 (regression diagnostics): dev_code_data/Solution3.pdf / dev_code_data/Solution3.R\n\nExercise 4 (ANOVA / multiple comparisons): dev_code_data/Solution4.pdf / dev_code_data/Solution4.R\nRun: Rscript dev_code_data/Solution3.R or Rscript dev_code_data/Solution4.R or open the PDFs.\n\n\n\n\n\n\n\n\nHenderson, H. V., and P. F. Velleman. 1981. “Building Multiple Regression Models Interactively.” Biometrics 37: 391–411.\n\n\nMatloff, Norman. 2011. The Art of r Programming: A Tour of Statistical Software Design. No Starch Press. https://nostarch.com/artofr.htm.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Model Building and Diagnostics</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/05-anova.html",
+    "href": "sessions/05-anova.html",
+    "title": "Data",
+    "section": "",
+    "text": "ANOVA & Multiple Comparisons\nOne-way ANOVA compares means across three or more groups; use post-hoc comparisons to identify which groups differ.",
+    "crumbs": [
+      "Sessions",
+      "Data"
+    ]
+  },
+  {
+    "objectID": "sessions/05-anova.html#when-to-use-anova",
+    "href": "sessions/05-anova.html#when-to-use-anova",
+    "title": "Data",
+    "section": "When to use ANOVA",
+    "text": "When to use ANOVA\nUse ANOVA for group mean comparisons when the outcome is continuous and you have three or more groups. Follow with a multiplicity-corrected post-hoc test if you need pairwise contrasts.",
+    "crumbs": [
+      "Sessions",
+      "Data"
+    ]
+  },
+  {
+    "objectID": "sessions/05-anova.html#short-code-demo",
+    "href": "sessions/05-anova.html#short-code-demo",
+    "title": "Data",
+    "section": "Short code demo",
+    "text": "Short code demo\n\npg &lt;- datasets::PlantGrowth %&gt;% as_tibble()\npg_aov &lt;- aov(weight ~ group, data = pg)\nsummary(pg_aov)\n\n# Tukey pairwise comparisons\nTukeyHSD(pg_aov)",
+    "crumbs": [
+      "Sessions",
+      "Data"
+    ]
+  },
+  {
+    "objectID": "sessions/05-anova.html#how-to-explain-the-output-teacher-notes",
+    "href": "sessions/05-anova.html#how-to-explain-the-output-teacher-notes",
+    "title": "Data",
+    "section": "How to explain the output (teacher notes)",
+    "text": "How to explain the output (teacher notes)\n\nReport: global F-test result and pairwise comparisons (adjusted CIs).\nContext: emphasize effect sizes and which contrasts are clinically meaningful.",
+    "crumbs": [
+      "Sessions",
+      "Data"
+    ]
+  },
+  {
+    "objectID": "sessions/05-anova.html#short-exercise",
+    "href": "sessions/05-anova.html#short-exercise",
+    "title": "Data",
+    "section": "Short exercise",
+    "text": "Short exercise\n\nRun the ANOVA and report which groups differ using Tukey’s test; write a one-line conclusion.\n\nHint: use TukeyHSD() on the fitted aov object.",
+    "crumbs": [
+      "Sessions",
+      "Data"
+    ]
+  },
+  {
+    "objectID": "sessions/05-anova.html#packages-used",
+    "href": "sessions/05-anova.html#packages-used",
+    "title": "Data",
+    "section": "Packages used",
+    "text": "Packages used\n\ndplyr\n\nExercises\n\nUse the inline example above or pick a Dryad/Zenodo animal dataset (DOI) — see data_sources.md for curated links. dev_code_data scripts were removed.\n\n\n\n\n\n\n\nExercise 4 — Solution\n\n\n\n\n\n\nSolution files previously stored in dev_code_data have been removed.\nRun the inline examples above or use a public dataset listed in data_sources.md for extended exercises.",
+    "crumbs": [
+      "Sessions",
+      "Data"
+    ]
+  },
+  {
+    "objectID": "sessions/05-anova.html#further-reading",
+    "href": "sessions/05-anova.html#further-reading",
+    "title": "Data",
+    "section": "Further reading",
+    "text": "Further reading\n\nANOVA and multiple comparisons: Teetor (2011); Matloff (2011).",
+    "crumbs": [
+      "Sessions",
+      "Data"
+    ]
+  },
+  {
+    "objectID": "sessions/05-anova.html#resources",
+    "href": "sessions/05-anova.html#resources",
+    "title": "Data",
+    "section": "Resources",
+    "text": "Resources\n\nExample scripts moved from dev_code_data; use inline examples or data_sources.md for dataset alternatives.\n\n\n\n\n\nMatloff, Norman. 2011. The Art of r Programming: A Tour of Statistical Software Design. No Starch Press. https://nostarch.com/artofr.htm.\n\n\nTeetor, Paul. 2011. R Cookbook: Proven Recipes for Data Analysis, Statistics, and Graphics. O’Reilly Media.",
+    "crumbs": [
+      "Sessions",
+      "Data"
+    ]
+  },
+  {
+    "objectID": "sessions/power-and-sample-size.html",
+    "href": "sessions/power-and-sample-size.html",
+    "title": "13  Power, Sample Size, and Study Design Considerations",
+    "section": "",
+    "text": "Overview\nThis session introduces concepts of statistical power, type I/II errors, and sample size calculations for common designs. Readings: Matloff (2011); Teetor (2011).\nLearning Objectives\n\nDefine power and its relation to sample size and effect size.\nPerform simple sample size and power calculations for t-tests and proportions.\n\nHands-on / Examples\n\nPractical examples and formulas are discussed; exercises in dev_code_data may reference design considerations within the lecture notes (e.g., Lecture1.pdf–Lecture4.pdf).\n\nExercises\n\nCompute required sample size for detecting a mean difference of interest given desired power and alpha; implement with power.t.test() in R.\n\n\n\n\n\nMatloff, Norman. 2011. The Art of r Programming: A Tour of Statistical Software Design. No Starch Press. https://nostarch.com/artofr.htm.\n\n\nTeetor, Paul. 2011. R Cookbook: Proven Recipes for Data Analysis, Statistics, and Graphics. O’Reilly Media.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Power, Sample Size, and Study Design Considerations</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/reproducible-research.html",
+    "href": "sessions/reproducible-research.html",
+    "title": "14  Reproducible Research with Quarto and renv",
+    "section": "",
+    "text": "14.1 Introduction\nIn this session, we cover reproducible research workflows using Quarto, renv, and best practices for managing dependencies, outputs, and research reports.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Reproducible Research with Quarto and renv</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/reproducible-research.html#learning-outcomes",
+    "href": "sessions/reproducible-research.html#learning-outcomes",
+    "title": "14  Reproducible Research with Quarto and renv",
+    "section": "14.2 Learning outcomes",
+    "text": "14.2 Learning outcomes\n\nUse Quarto / R Markdown to create reproducible reports.\nManage package dependencies with renv.\nOrganize research projects for reproducibility.\nDocument analysis decisions and data provenance.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Reproducible Research with Quarto and renv</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/reproducible-research.html#further-reading",
+    "href": "sessions/reproducible-research.html#further-reading",
+    "title": "14  Reproducible Research with Quarto and renv",
+    "section": "14.3 Further reading",
+    "text": "14.3 Further reading\n\nReproducible workflows and Quarto: RStudio Team (2023).\nProject organization and tidy data practices: Wickham and Grolemund (2017).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Reproducible Research with Quarto and renv</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/reproducible-research.html#resources",
+    "href": "sessions/reproducible-research.html#resources",
+    "title": "14  Reproducible Research with Quarto and renv",
+    "section": "14.4 Resources",
+    "text": "14.4 Resources\n\nStarter scripts: R/load-packages.R, R/functions.R, dev_code_data/package-loading.R.\n\n\n\n\n\nRStudio Team. 2023. RStudio: Integrated Development Environment for r. RStudio, PBC. http://www.rstudio.com/.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Reproducible Research with Quarto and renv</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/packages-libraries.html",
+    "href": "sessions/packages-libraries.html",
+    "title": "15  R Packages and Libraries",
+    "section": "",
+    "text": "15.1 Understanding R Packages and Libraries\nWhen working with R, you’ll often hear about “packages” and “libraries.” It’s important to understand what these are and how they are used in the R programming environment.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>R Packages and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/packages-libraries.html#understanding-r-packages-and-libraries",
+    "href": "sessions/packages-libraries.html#understanding-r-packages-and-libraries",
+    "title": "15  R Packages and Libraries",
+    "section": "",
+    "text": "15.1.1 What Are R Packages?\nThink of a package as a toolbox that contains a set of tools (functions), materials (data sets), and an instruction manual (documentation). Just as you might have different toolboxes for different types of work (like electrical work or carpentry), in R, you have different packages for different types of tasks, like creating graphs, analyzing statistical data, or manipulating text.\nPackages in R are created by the community: people like you and me who need a set of functions and decide to bundle them together for everyone to use. Once a package is created, it can be shared with others.\n\n\n15.1.2 What Are R Libraries?\nNow, if packages are like toolboxes, then libraries are like the shelves where you store these toolboxes. In R, a library is a directory on your computer where packages are stored. When you install a package, it’s like putting a toolbox on one of these shelves. And when you want to use a package, you have to take it off the shelf and open it, which in R, you do by “loading” the package.\n\n\n15.1.3 Where Are Libraries Stored?\nOn your computer, the R libraries are stored in a place that R knows and can access when you ask it to. This is usually a folder named “R” in your system’s library folder or in a location that you specify. You don’t usually have to worry about where this is unless you’re managing multiple versions of R or you have special security settings on your computer.\n\n\n\n\n\n\nTip\n\n\n\nIf you want to check where the libraries are installed on computer run this command in your console .libPaths()",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>R Packages and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/packages-libraries.html#installing-loading-and-managing-r-packages",
+    "href": "sessions/packages-libraries.html#installing-loading-and-managing-r-packages",
+    "title": "15  R Packages and Libraries",
+    "section": "15.2 Installing, Loading, and Managing R Packages",
+    "text": "15.2 Installing, Loading, and Managing R Packages\n\n15.2.1 What Are the Sources of R Packages?\nPackages can come from several places:",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>R Packages and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/packages-libraries.html#further-reading",
+    "href": "sessions/packages-libraries.html#further-reading",
+    "title": "15  R Packages and Libraries",
+    "section": "15.3 Further reading",
+    "text": "15.3 Further reading\n\nCRAN and package resources: R Core Team (n.d.); R Core Team (2023).\nPackage recipes and guidance: Matloff (2011).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>R Packages and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/packages-libraries.html#resources",
+    "href": "sessions/packages-libraries.html#resources",
+    "title": "15  R Packages and Libraries",
+    "section": "15.4 Resources",
+    "text": "15.4 Resources\n\nExamples and loaders: dev_code_data/package-loading.R, R/load-packages.R.\n\n\nCRAN (Comprehensive R Archive Network): This is the main repository where R packages are stored. Think of it as the official app store for R. When you use install.packages(), you’re usually downloading from CRAN.\nBioconductor: This is a repository that’s focused on bioinformatics packages.\nGitHub: Some developers choose to put their packages on GitHub, a platform for developers to share code. These aren’t always officially released on CRAN, but you can still install them using tools like devtools. This requires first install devtools from CRAN website, load its libraries before using it install packages from Github\nLocal Files: Sometimes, you might have a package file (with a .tar.gz extension for Mac/Linux or .zip for Windows) on your computer that you can install directly.\n\nSummary\n\nA package is a collection of functions, data, and documentation that extends R’s capabilities.\nA library is a place on your computer where R packages are stored.\nYou can get packages from places like CRAN, Bioconductor, GitHub, or even local files on your computer.\nOnce you get the hold of installing and loading packages, you’ll have access to a vast world of tools that can help you do almost anything you can imagine with R.\n\n\n15.4.1 Section: Installing and Loading R Packages\nIn this section, we’ll cover the essential skills of installing and loading packages in R, a crucial step in leveraging the vast array of tools available for data analysis in R. R packages are collections of functions, data, and compiled code that extend the basic functionality of R.\nBy the end of this section, students will be able to: 1. Install R packages from CRAN and other repositories. 2. Load packages into an R session. 3. Troubleshoot common issues related to package installation.\n\n\n15.4.2 Installing R Packages from CRAN\nAccessing CRAN - CRAN (Comprehensive R Archive Network) is the main repository for R packages. - To install a package from CRAN, use the install.packages() function in R.\nExample Command - For example, to install the package ggplot2, you would use the command: install.packages(\"ggplot2\").\nInternet Connection - Ensure you have an active internet connection, as R will need to download the package files.\nDependencies - When installing a package, R automatically installs any other packages (dependencies) that are required.\n\n\n\n\n\n\nNote\n\n\n\nIf you use the command install.packages(\"ggdag package\"), to install a package of your choice ggdag as an example, and you get the following error message.\nWarning in install.packages : package ‘ggdag package’ is not available for this version of R\nA version of this package for your version of R might be available elsewhere, see the ideas at https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages\nYou will get this error message because the package is not available on CRAN repositiory. Search it on web and see where this package is available and then try the below two methods You can try installing it from GitHub using the devtools package or from Bioconductor.\n\n\n\n\n15.4.3 Installing Packages from GitHub\n*Using DevTools - The devtools package in R is designed to facilitate package development and installation from sources like GitHub. - First, install devtools from CRAN using install.packages(\"devtools\"). - Then load the package using library(devtools).\nInstall from GitHub - With devtools installed, and loaded you can use the install_github() function to install packages directly from GitHub. - The syntax is devtools::install_github(\"username/repository\"), where username is the GitHub username and repository is the name of the repository.\nExample Command - For instance, if you want to install a package named leaflet from a GitHub user rstudio``, use:devtools::install_github(“rstudio/leaflet”)`.\nNote on Private Repositories - For private repositories, you may need to configure additional authentication settings.\n\n\n15.4.4 Installing Packages from Bioconductor\nBioconductor for Bioinformatics - Bioconductor is a project providing tools for the analysis and comprehension of high-throughput genomic data in R. - It has its own set of packages, particularly focused on bioinformatics.\nInstall Bioconductor Packages - To install packages from Bioconductor, first install the BiocManager package from CRAN using install.packages(\"BiocManager\"). - Then, use BiocManager::install() to install packages from Bioconductor.\nExample Command - For example, to install the GenomicFeatures package from Bioconductor, use: BiocManager::install(\"GenomicFeatures\").\nBioconductor Versioning - Bioconductor releases are semi-annual and tied to specific versions of R. Ensure that your version of R is compatible with the version of Bioconductor you are using.\n\n\n15.4.5 Loading Packages into R Session\nUsing library() - Once a package is installed, load it into your R session using the library() function. - For example, to load ggplot2, use: library(ggplot2).\nChecking Installed Packages - Use installed.packages() to get a list of all packages installed in your R environment.\n\n\n15.4.6 Troubleshooting Package Installation\nError Messages - Pay close attention to any error messages during installation; they often provide clues about the issue.\nDependency Issues - If there are missing dependencies, try installing those packages separately.\nCompatibility with R Version - Some packages may not be compatible with your current version of R. Check the package documentation for version requirements.\nInternet Connection and Firewalls - Ensure a stable internet connection. Firewalls or network policies may sometimes block R from accessing external servers.\n\n\n\n\n\n\nTip\n\n\n\nAdditional Resources - Type the following commands into your R console and hit enter. This will open an R documentation window in the Files pane, specifically in the Help Tab. This window provides detailed information about these commands. At this stage, it’s not necessary to delve deeply into understanding every aspect of these commands. However, this method is a valuable tool for learning more about packages and functions in R as you progress. - For R documentation, use: ?install.packages and ?library",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>R Packages and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/packages-libraries.html#exercise-7",
+    "href": "sessions/packages-libraries.html#exercise-7",
+    "title": "15  R Packages and Libraries",
+    "section": "15.5 Exercise 7",
+    "text": "15.5 Exercise 7\nThis exercise is designed to familiarize you with the process of installing and loading R packages, and exploring their functions. You’ll get hands-on experience with some of the basic data analysis packages in R.\n\nInstall Package:\n\nInstall the following popular R packages for data analysis:\n\nggplot2 for data visualization.\nreadr for reading rectangular data.\n\nInstall your chosen package using the command install.packages(\"packageName\"), replacing \"packageName\" with the name of the package.\nWe will use these two packages in next two sections\n\nLoad the Package:\n\nLoad the package into your R session using library(packageName).\n\nExplore Package Functions:\n\n\nUsing RStudio’s Help Tab:\n\nIn RStudio, locate the Help tab, which is typically found in the lower right panel in the File pane. Type the name of the package or a specific function from the package in the search bar. Press enter, and a new page will open, displaying detailed information about the package or function.\n\n\n\n\n\n\nExcercise 7: Click to see solution\n\n\n\n\n\n\nInstall\n\nInstall one by one\ninstall.packages(\"ggplot2\")\ninstall.packages(\"readr\")\nOR install in one go\ninstall.packages(\"ggplot2\", \"readr\")\nWhen you run the above codes you will see the following text (or something similar) in your console It may take sometime if it is also installing the dependencies (other packages required for ggplot2)\ntrying URL 'https://cran.rstudio.com/bin/windows/contrib/3.6/ggplot2_3.2.1.zip Content type 'application/zip' length 3976166 bytes (3.8 MB) downloaded 3.8 MB\npackage ‘ggplot2’ successfully unpacked and MD5 sums checked\nThe downloaded binary packages are in C:\\Users\\...\\your\\directory\nIf you see this message it means that the package is installed successfully. Do not be afraid of the text in red color that mostly symbolize the Error or Warning message.\n\nLoad the packages\n\nUse the library() function to load the packages ggplot2 and readr as shown below\nlibrary(ggplot2)\nlibrary(readr)\nWhen you run these commands, they should execute without any errors or warning messages, and typically, you won’t see any output in the console. If the packages are loaded successfully, R proceeds silently, indicating that everything is functioning correctly.\n\nExplore\n\nUsing RStudio’s Help Tab\n\nLocating the Help Tab:\n\nIn RStudio, find the Help tab in the lower right panel, typically under the File pane.\n\nSearching for Package or Function Documentation:\n\nIn the search bar, type ggplot2 and press enter. A new documentation page opens, showing detailed information about the ggplot2 package. It has its own webpage and GitHub page; please click on the ggplot2 website ggplot2 website to explore more about ggplot usage.\nIn the search bar, type ggplot, which is a function in the ggplot2, package and press enter. A new documentation page opens with Description, Usage, Arguments, Details and Exxamples on information page.\nIn the search bar, type readr and press enter. You will see again a page open up with links to web pages. You can click on the readr website readr website to get more information on the readr package.\nIn the search bar, type read_csv and press enter. You will see again a page open up with information all read function available in the readr package.\n\n\nNavigate down and find the read_csv function and read the arguments it can take.\n\nHere read_csv() is function that performs a specific task. Everything inside the read_csv() within the small closed brackets, separated by comma is an argument. For example col_names is an argument and it can take logical values either TRUE or FALSE. If you do not specify the argument, it will take the default value. For example, if you do not specify the argument col_names it will take the default value FALSE and will not read the first row of the data as column names.\nSummary\n\nThrough the Help tab, you can access a wealth of information about R packages and their functions.\nThis process helps in understanding how specific functions work, including their required inputs (arguments) and what they return.\nBy exploring these resources, you gain insights into how to effectively use these packages in your R programming tasks.\n\n\n\n\n\n\n\n\nMatloff, Norman. 2011. The Art of r Programming: A Tour of Statistical Software Design. No Starch Press. https://nostarch.com/artofr.htm.\n\n\nR Core Team. 2023. R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing. https://www.R-project.org/.\n\n\n———. n.d. CRAN (Comprehensive r Archive Network). https://cran.r-project.org/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>R Packages and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/clinical-research-methods.html",
+    "href": "sessions/clinical-research-methods.html",
+    "title": "16  Clinical Research Methods in R",
+    "section": "",
+    "text": "16.1 Introduction\nThis session introduces clinical research modeling concepts such as comparative analysis, cohort studies, and hypothesis testing for research.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Clinical Research Methods in R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/clinical-research-methods.html#learning-outcomes",
+    "href": "sessions/clinical-research-methods.html#learning-outcomes",
+    "title": "16  Clinical Research Methods in R",
+    "section": "16.2 Learning outcomes",
+    "text": "16.2 Learning outcomes\n\nUnderstand study design and research questions.\nTranslate clinical data questions into analysis plans.\nTranslate clinical data questions into analysis plans.\nImplement analytic workflows with modern R tools for data wrangling and visualization.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Clinical Research Methods in R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/clinical-research-methods.html#data",
+    "href": "sessions/clinical-research-methods.html#data",
+    "title": "16  Clinical Research Methods in R",
+    "section": "Data",
+    "text": "Data\n\nUse public clinical datasets such as survival::pbc for liver-related examples, NHANES subsets for population health demonstrations, or local small datasets in data/ for classroom exercises (see data_sources.md).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Clinical Research Methods in R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/clinical-research-methods.html#methods-covered-in-this-session",
+    "href": "sessions/clinical-research-methods.html#methods-covered-in-this-session",
+    "title": "16  Clinical Research Methods in R",
+    "section": "16.3 Methods covered in this session",
+    "text": "16.3 Methods covered in this session\n\nCorrelation analysis for variable association.\nOne-way and two-way ANOVA for group comparisons.\nMultiple comparison adjustments (Tukey, Dunnett, Bonferroni, Holm).\nChi-square tests for categorical data relationships.\nLogistic regression for binary outcomes and risk interpretation.\nModel diagnostics and interpretation of fitted models.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Clinical Research Methods in R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/clinical-research-methods.html#one-way-and-two-way-anova-with-multiple-comparisons",
+    "href": "sessions/clinical-research-methods.html#one-way-and-two-way-anova-with-multiple-comparisons",
+    "title": "16  Clinical Research Methods in R",
+    "section": "16.4 One-way and two-way ANOVA with multiple comparisons",
+    "text": "16.4 One-way and two-way ANOVA with multiple comparisons\nANOVA tests whether group means differ; use glht from multcomp to extract adjusted comparisons (Tukey, Dunnett).\n\npg &lt;- datasets::PlantGrowth %&gt;% as_tibble()\n\npg_lm &lt;- lm(weight ~ group, data = pg)\nsummary(pg_lm)\n\nlibrary(multcomp)\npg_glht &lt;- glht(pg_lm, linfct = mcp(group = \"Tukey\"))\nsummary(pg_glht)\nconfint(pg_glht)\n\nHow to explain to a clinician\n\nReport: “ANOVA tests whether any group differs; Tukey shows pairwise differences with CIs adjusted for multiplicity.”\n\nContext: emphasize effect sizes and which pairwise contrasts are clinically meaningful rather than only p-values.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Clinical Research Methods in R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/clinical-research-methods.html#logistic-regression-and-odds-ratios",
+    "href": "sessions/clinical-research-methods.html#logistic-regression-and-odds-ratios",
+    "title": "16  Clinical Research Methods in R",
+    "section": "16.5 Logistic regression and odds ratios",
+    "text": "16.5 Logistic regression and odds ratios\nLogistic regression models the log-odds of a binary outcome; exponentiated coefficients are odds ratios.\n\nmtcars &lt;- datasets::mtcars %&gt;% as_tibble(rownames = \"model\") %&gt;%\n    mutate(manual = if_else(am == 1, 1, 0))\n\nfit_log &lt;- glm(manual ~ wt + hp, family = binomial, data = mtcars)\nsummary(fit_log)\n\n# Odds ratios and 95% CI\nexp(coef(fit_log))\nexp(confint.default(fit_log))\n\n# Predicted probabilities for example profiles\nnew_profiles &lt;- tibble(wt = c(2.5, 3.5), hp = c(100, 150))\nnew_profiles$pred_prob &lt;- predict(fit_log, newdata = new_profiles, type = \"response\")\nnew_profiles\n\nHow to explain to a clinician\n\nReport: present the odds ratio with 95% CI and an example probability change: “A patient with wt=X and hp=Y has predicted probability Z% (95% CI [L%, U%]).”\n\nContext: clarify that odds ratios are multiplicative changes in odds and that risk differences may be easier to communicate when baseline risk is known.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Clinical Research Methods in R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/clinical-research-methods.html#exercises-short",
+    "href": "sessions/clinical-research-methods.html#exercises-short",
+    "title": "16  Clinical Research Methods in R",
+    "section": "16.6 Exercises (short)",
+    "text": "16.6 Exercises (short)\n\nFit the logistic model above and report the odds ratio for a 1-unit change in wt with its 95% CI; write one sentence interpreting the clinical meaning.\n\nHint: use glm(..., family=binomial), exp(coef()) and exp(confint.default()).\nAdditional Exercises\n\nFor longitudinal / repeated-measures examples, consider lme4::sleepstudy (as a worked example) or pick a publicly archived clinical longitudinal dataset from Dryad/Zenodo (check DOI before use); see data_sources.md for suggestions.\n\n\n\n\n\n\n\nExercise 8 — Note\n\n\n\n\n\n\nExercise 8 (longitudinal LMM): use lme4::sleepstudy or a public longitudinal clinical dataset (see data_sources.md).\nNo pre-prepared solution file is included here; run the Rmd and inspect outputs or use the inline examples.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Clinical Research Methods in R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/clinical-research-methods.html#instructor-notes",
+    "href": "sessions/clinical-research-methods.html#instructor-notes",
+    "title": "16  Clinical Research Methods in R",
+    "section": "16.7 Instructor notes",
+    "text": "16.7 Instructor notes\n\nTarget audience: clinicians with basic R familiarity; emphasize interpretation over p-values.\nEstimated time: 75–90 minutes (lecture + hands-on exercise).\nPre-run: ensure R/load-packages.R is sourced so required packages are available.\nSuggested assessment: short write-up interpreting logistic regression output for a clinical example.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Clinical Research Methods in R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/clinical-research-methods.html#worked-example-logistic-regression-concise",
+    "href": "sessions/clinical-research-methods.html#worked-example-logistic-regression-concise",
+    "title": "16  Clinical Research Methods in R",
+    "section": "16.8 Worked example — logistic regression (concise)",
+    "text": "16.8 Worked example — logistic regression (concise)\n\n# Minimal clinical-style logistic regression example using `mtcars`\nlibrary(dplyr)\nmtcars2 &lt;- datasets::mtcars %&gt;%\n    as_tibble(rownames = \"model\") %&gt;%\n    mutate(manual = factor(if_else(am == 1, \"Manual\", \"Automatic\")))\n\nfit_log &lt;- glm(manual ~ wt + hp, family = binomial(), data = mtcars2)\n\n# Tidy coefficients and compute odds ratios\nbroom::tidy(fit_log) %&gt;%\n    mutate(odds_ratio = exp(estimate))\n\n# Predicted probability for two example profiles\nnew_profiles &lt;- tibble(wt = c(2.5, 3.5), hp = c(100, 150))\npredict(fit_log, newdata = new_profiles, type = \"response\")",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Clinical Research Methods in R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/clinical-research-methods.html#short-exercise-clinical-case",
+    "href": "sessions/clinical-research-methods.html#short-exercise-clinical-case",
+    "title": "16  Clinical Research Methods in R",
+    "section": "16.9 Short exercise (clinical case)",
+    "text": "16.9 Short exercise (clinical case)\n\nRun the inline logistic example above or use a public clinical dataset from data_sources.md to fit a logistic model, compute odds ratios, and write a one-sentence clinical interpretation.\n\n\n\n\n\n\n\nExercise — Solution\n\n\n\n\n\n\nSolution files previously stored in dev_code_data have been removed; run the inline examples above or use datasets from data_sources.md.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Clinical Research Methods in R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/clinical-research-methods.html#further-reading",
+    "href": "sessions/clinical-research-methods.html#further-reading",
+    "title": "16  Clinical Research Methods in R",
+    "section": "16.10 Further reading",
+    "text": "16.10 Further reading\n\nClinical methods and applied workflows: Wickham and Grolemund (2017); Matloff (2011).\nModel selection and interactive model building: Henderson and Velleman (1981).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Clinical Research Methods in R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/clinical-research-methods.html#resources",
+    "href": "sessions/clinical-research-methods.html#resources",
+    "title": "16  Clinical Research Methods in R",
+    "section": "16.11 Resources",
+    "text": "16.11 Resources\n\nExercises and lecture notes: see data_sources.md for recommended datasets; lecture materials have been consolidated in the sessions/ folder.\n\n\n\n\n\nHenderson, H. V., and P. F. Velleman. 1981. “Building Multiple Regression Models Interactively.” Biometrics 37: 391–411.\n\n\nMatloff, Norman. 2011. The Art of r Programming: A Tour of Statistical Software Design. No Starch Press. https://nostarch.com/artofr.htm.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Clinical Research Methods in R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/survival-and-time-to-event.html",
+    "href": "sessions/survival-and-time-to-event.html",
+    "title": "17  Survival and Time-to-Event Analysis",
+    "section": "",
+    "text": "17.1 Introduction\nThis session covers survival analysis concepts such as Kaplan-Meier estimation and time-to-event modeling, with an emphasis on reproducible research practices.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Survival and Time-to-Event Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/survival-and-time-to-event.html#learning-outcomes",
+    "href": "sessions/survival-and-time-to-event.html#learning-outcomes",
+    "title": "17  Survival and Time-to-Event Analysis",
+    "section": "17.2 Learning outcomes",
+    "text": "17.2 Learning outcomes\n\nDescribe survival and censored data.\nFit Kaplan-Meier curves using R.\nInterpret survival summaries in clinical research.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Survival and Time-to-Event Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/survival-and-time-to-event.html#methods-covered-in-this-session",
+    "href": "sessions/survival-and-time-to-event.html#methods-covered-in-this-session",
+    "title": "17  Survival and Time-to-Event Analysis",
+    "section": "17.3 Methods covered in this session",
+    "text": "17.3 Methods covered in this session\n\nKaplan-Meier estimation for survival probability.\nStratified survival curves and group comparisons.\nLog-rank tests for comparing survival curves.\nCox proportional hazards regression for time-to-event modeling.\nInterpretation of hazard ratios, confidence intervals, and p-values.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Survival and Time-to-Event Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/survival-and-time-to-event.html#kaplanmeier-estimation-and-log-rank-test",
+    "href": "sessions/survival-and-time-to-event.html#kaplanmeier-estimation-and-log-rank-test",
+    "title": "17  Survival and Time-to-Event Analysis",
+    "section": "17.4 Kaplan–Meier estimation and log-rank test",
+    "text": "17.4 Kaplan–Meier estimation and log-rank test\nWe use the lung dataset from the survival package for examples.\n\nlibrary(survival)\n\nlung2 &lt;- survival::lung %&gt;% as_tibble() %&gt;%\n    mutate(status_event = (status == 2)) # TRUE when event (death) occurred\n\n# Kaplan-Meier by sex\nkm_sex &lt;- survfit(Surv(time, status_event) ~ sex, data = lung2)\nsummary(km_sex)\n\n# Plot the KM curves (base plot for simplicity)\nplot(km_sex, col = c(\"blue\", \"red\"), xlab = \"Days\", ylab = \"Survival probability\")\nlegend(\"topright\", legend = c(\"Male\",\"Female\"), col = c(\"blue\",\"red\"), lty = 1)\n\n# Log-rank test\nsurvdiff(Surv(time, status_event) ~ sex, data = lung2)\n\n\n17.4.1 How to explain KM and log-rank to a clinician\n\nKM: “Kaplan–Meier curves estimate the proportion of patients surviving beyond each time point, accounting for censoring.”\n\nLog-rank: “The log-rank test assesses whether survival curves differ across groups; report the p-value and consider reporting median survival times with CIs if available.”",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Survival and Time-to-Event Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/survival-and-time-to-event.html#cox-proportional-hazards-regression",
+    "href": "sessions/survival-and-time-to-event.html#cox-proportional-hazards-regression",
+    "title": "17  Survival and Time-to-Event Analysis",
+    "section": "17.5 Cox proportional hazards regression",
+    "text": "17.5 Cox proportional hazards regression\nCox regression estimates hazard ratios (HR) and adjusts for covariates.\n\ncox1 &lt;- coxph(Surv(time, status_event) ~ sex + age + ph.ecog, data = lung2)\nsummary(cox1)\n\n# Hazard ratios and 95% CI\nexp(coef(cox1))\nexp(confint.default(cox1))\n\n\n17.5.1 How to explain Cox results to a clinician\n\nReport: the hazard ratio with 95% CI and an interpretation in clinical terms (e.g., “HR=1.5 means a 50% higher instantaneous risk of event”).\n\nContext: note whether proportional hazards assumptions were checked and how adjustments change the effect estimates.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Survival and Time-to-Event Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/survival-and-time-to-event.html#short-exercise",
+    "href": "sessions/survival-and-time-to-event.html#short-exercise",
+    "title": "17  Survival and Time-to-Event Analysis",
+    "section": "17.6 Short exercise",
+    "text": "17.6 Short exercise\n\nPlot Kaplan–Meier curves by sex using lung; run a log-rank test and fit a Cox model adjusting for age. Interpret the hazard ratio for sex in one sentence.\n\nHint: use survfit(), survdiff(), and coxph(); convert status to an event indicator with status==2 for lung.\nExercises & Further Materials\n\nReproducible survival exercises: dev_code_data/Exercises-survival.Rmd and dev_code_data/Exercises-survival-with-code.Rmd contain worked survival exercises and code. Run the Rmds to reproduce Kaplan–Meier plots, log-rank tests, and Cox models.\nSee dev_code_data/SurvivalAnalysis.Rmd for a longer worked example and dev_code_data/class_survival_data.Rmd for class data and exercises.\n\n\n\n\n\n\n\nSurvival Exercises — Notes\n\n\n\n\n\n\nExercise files present worked code; no separate Solution*.pdf files are included for these survival Rmds in dev_code_data. Run the Rmds to view outputs and answers.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Survival and Time-to-Event Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/survival-and-time-to-event.html#further-reading",
+    "href": "sessions/survival-and-time-to-event.html#further-reading",
+    "title": "17  Survival and Time-to-Event Analysis",
+    "section": "17.7 Further reading",
+    "text": "17.7 Further reading\n\nSurvival analysis and Cox models: Matloff (2011); see CRAN survival package documentation.\nPractical survival examples: dev_code_data/SurvivalAnalysis.Rmd.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Survival and Time-to-Event Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/survival-and-time-to-event.html#resources",
+    "href": "sessions/survival-and-time-to-event.html#resources",
+    "title": "17  Survival and Time-to-Event Analysis",
+    "section": "17.8 Resources",
+    "text": "17.8 Resources\n\nSurvival exercises: dev_code_data/Exercises-survival.Rmd, dev_code_data/Exercises-survival-with-code.Rmd.\n\n\n\n\n\nMatloff, Norman. 2011. The Art of r Programming: A Tour of Statistical Software Design. No Starch Press. https://nostarch.com/artofr.htm.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Survival and Time-to-Event Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/explore-clinical-data.html",
+    "href": "sessions/explore-clinical-data.html",
+    "title": "Basic Statistics for Health Researchers - Exercise Day 1",
+    "section": "",
+    "text": "18.1 Introduction\nIn this session, we’ll dive into publicly available clinical and medical datasets, utilizing essential statistical tools to analyze and interpret complex data using R. With the help of dplyr for data manipulation and ggplot2 for visualization, participants will gain practical experience working with real-world datasets. This hands-on approach will not only enhance analytical skills but also contribute significantly to advancements in medical research. For some dtasets we have genrated simualted data when the data was not available.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Basic Statistics for Health Researchers - Exercise Day 1</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/explore-clinical-data.html#introduction",
+    "href": "sessions/explore-clinical-data.html#introduction",
+    "title": "Basic Statistics for Health Researchers - Exercise Day 1",
+    "section": "",
+    "text": "Important\n\n\n\nPlease install and load the dplyr ggplt2 packages before proceeding. If you have not done so already please do so.\n\n\n\n\n\n\n\n\nTip\n\n\n\niris data set is a famous real world data set that is available in R. It is a data set that contains information about iris. It contains 150 observations and 5 variables. The variables are sepal length, sepal width, petal length, petal width, and species. The species variable has three levels: setosa, versicolor, and virginica. The data set is available in R and can be loaded using the data() function. The data set is also available in CSV format on the internet.\n\n\n\n\n\n\n\n\nWant to know what the summary output means?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nExcercise 8: Click to see solution\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTip",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Basic Statistics for Health Researchers - Exercise Day 1</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/explore-clinical-data.html#dataset-overview",
+    "href": "sessions/explore-clinical-data.html#dataset-overview",
+    "title": "Basic Statistics for Health Researchers - Exercise Day 1",
+    "section": "19.1 Dataset Overview",
+    "text": "19.1 Dataset Overview\n\n19.1.1 Migraine Dataset\nThe migraine dataset is a clinical data collection used to analyze the distribution of migraine medication dosages among patients. It includes two main variables: the dosage levels of the medication (measured in milligrams) and the number of patients treated at each dosage level. This dataset is particularly useful for understanding how different dosages are administered in practice and for investigating the dose-response relationship in migraine treatment. It serves as a valuable resource for practicing data manipulation, visualization, and statistical analysis in R, making it an ideal tool for learners and researchers interested in clinical data analysis.\n\nlibrary(dplyr)\nlibrary(ggplot2)\n\n\n# Try to load a packaged or saved dataset named 'migraine'; if not found,\n# attempt to load from a local .rda or script, and finally create a\n# small simulated fallback so rendering does not fail.\nif (!exists(\"migraine\")) {\n  # 1) try data() (package datasets)\n  tryCatch({\n    data(migraine)\n  }, error = function(e) NULL)\n\n  # 2) try loading from data/migraine.rda\n  if (!exists(\"migraine\") && file.exists(here::here(\"data/migraine.rda\"))) {\n    load(here::here(\"data/migraine.rda\"))\n  }\n\n  # 3) try sourcing a script in dev_code_data\n  if (!exists(\"migraine\") && file.exists(here::here(\"dev_code_data/migraine.R\"))) {\n    tryCatch({ source(here::here(\"dev_code_data/migraine.R\")) }, error = function(e) NULL)\n  }\n\n  # 4) fallback: create a small simulated dataset matching expected columns\n  if (!exists(\"migraine\")) {\n    migraine &lt;- tibble::tibble(\n      dose = c(5, 10, 20, 40, 80),\n      ntrt = c(20, 20, 20, 20, 20),\n      painfree = c(2, 5, 8, 11, 14)\n    )\n  }\n}\n\nhead(migraine)\n\n\n\n19.1.2 Interpretation\nInterpretation of the Columns dose: This column helps in analyzing the dose-response relationship, which is crucial for determining the optimal dosage of medication that is effective in treating migraines with minimal side effects.\npainfree: By indicating how many patients became pain-free at each dosage level, this column allows for the assessment of the medication’s efficacy. Higher numbers in this column, relative to the total number of patients treated (ntrt), suggest a more effective dose.\nntrt: Reflecting the total number of patients treated at each dosage level, this column is essential for understanding the distribution of treatment across the study population. It helps in assessing the popularity or research focus on specific dosage levels.\n\n\n19.1.3 Analytical Insights\nWith these columns, the dataset can be analyzed to uncover insights such as:\n\nThe effectiveness of different dosages in providing relief from migraine symptoms.\nThe dosage level at which the highest proportion of patients reported being pain-free.\nThe relationship between dosage levels and the occurrence of effective relief, which can inform dosage recommendations and further research.\n\n\n\n19.1.4 Explore the Data\n\n\n19.1.5 Count number of patients in each doese group\n\n# Start by specifying the dataset and then piping it into ggplot for visualization\nmigraine %&gt;%\n  ggplot(aes(x = factor(dose), # Convert the dose variable to a factor for discrete x-axis values\n             y = ntrt,        # Use the number of patients for the y-axis values\n             fill = factor(dose))) + # Color code bars based on the dose for visual distinction\n  geom_bar(stat = \"identity\") + # Create a bar plot with heights equal to y-axis values (ntrt)\n  geom_text(aes(label = ntrt),  # Add text labels on bars showing the number of patients\n            vjust = -0.5,      # Adjust text vertically to appear just above the bars\n            position = position_dodge(width = 0.9)) + # Ensure text labels are centered over bars\n  labs(x = \"Dose (mg)\",         # Label for the x-axis\n       y = \"Number of patients\",# Label for the y-axis\n       fill = \"Dose\") +         # Label for the legend, explaining the color fill represents dose levels\n  theme_minimal()               # Use a minimalistic theme for a clean and focused visualization\n\n\n\n19.1.6 Convert patients count into frequencies\nWhile the bar plot above provides a clear view of the distribution of patients across different treatment doses, it can be further enhanced by transforming the raw patient counts into percentages. This transformation offers several advantages:\n\nFacilitates Fair Comparison: Transforming raw patient counts into percentages allows for equitable comparison across different treatment doses, highlighting trends and preferences in treatment practices without the bias of unequal group sizes.\nEnhances Interpretability: Using percentages makes the data more intuitive and accessible, enabling stakeholders to quickly grasp the distribution of patients across treatment doses without needing to parse raw numbers.\nInforms Clinical and Research Decisions: The visualized distribution offers insights into prescribing behaviors and patient demographics, guiding research focus on prevalent doses and optimizing patient care strategies based on observed treatment patterns.\n\n\n# Start with the migraine dataset\nmigraine %&gt;% \n  # Add a new column 'frequency' that calculates the percentage of patients for each dose\n  mutate(frequency = ntrt / sum(ntrt) * 100) %&gt;%\n  # Initialize a ggplot with 'dose' on the x-axis and the calculated 'frequency' on the y-axis\n  ggplot(aes(x = factor(dose), y = frequency, fill = factor(dose))) +\n  # Create a bar plot where the height of each bar corresponds to 'frequency' value\n  geom_bar(stat = \"identity\") +\n  # Add text labels on each bar to show the frequency percentage, formatted to one decimal place\n  geom_text(aes(label = sprintf(\"%.1f%%\", frequency)), # Format the frequency values as percentages\n            vjust = -0.5, # Vertically adjust the labels to sit above the bars\n            position = position_dodge(width = 0.9)) + # Position the text correctly even when bars are dodged\n  # Set labels for the axes and the legend\n  labs(x = \"Dose (mg)\", y = \"Patients (%)\", fill = \"Dose\") +\n  # Apply a minimalistic theme for a clean and uncluttered plot appearance\n  theme_minimal()\n\nTo gain analytical insights we can analyze the migraine dataset focusing on the effectiveness of different dosages, identifying the dosage level with the highest proportion of patients reporting relief (pain-free), and exploring the relationship between dosage levels and effective relief, we can use below steps and code snippets for each of these analyses:\n\nCalculate the effectiveness of different dosages:\n\nEffectiveness can be quantified as the proportion of patients who are pain-free at each dosage level.\n\n# Calculate the effectiveness of each dose in the migraine dataset\nmigraine_effectiveness &lt;- migraine %&gt;%\n  # Create a new column 'efficiency' by dividing the number of pain-free patients by total number of patients\n  mutate(efficiency = painfree / ntrt) %&gt;%\n  # Select only the 'dose' and the newly created 'efficiency' columns for further analysis\n  dplyr::select(dose, efficiency)\n\n# Identify the dose with the highest effectiveness\nhighest_effective_dose &lt;- migraine_effectiveness %&gt;%\n  # Arrange the dataset in descending order of efficiency to bring the highest value to the top\n  arrange(desc(efficiency)) %&gt;%\n  # Select the first row, which now represents the dose with the highest efficiency\n  slice(1)\n\n# Output the dose with the highest effectiveness\nprint(highest_effective_dose)\n\n\nVisual relationship between dosage levels and the occurrence of effective relief:\n\n\n# Create a plot to visualize the effectiveness of different dosages in the migraine dataset\nggplot(migraine, aes(x = dose, y = painfree / ntrt)) + # Initialize plot with dose on x-axis and proportion pain-free on y-axis\n  geom_line(group = 1, color = \"blue\") + # Draw a line connecting the points for visualizing trends, with a specified group and color\n  geom_point(color = \"red\") + # Add points to represent each data value, colored red for visibility\n  geom_text(aes(label = dose), vjust = -0.5, color = \"black\") + # Add text labels for each dose above the corresponding point\n  labs(x = \"Dose (mg)\", y = \"Proportion Pain-Free\", # Customize axis labels\n       title = \"Effectiveness of Different Dosages in Providing Relief from Migraine Symptoms\") + # Set the title of the plot\n  theme_minimal() # Use a minimal theme for a clean and modern look\n\n\nVisual Relationship: The graph illustrates how the proportion of pain-free patients varies with different dosages. This can help in identifying the optimal dosage that balances effectiveness with the potential for side effects, guiding dosage recommendations and future research.\n\nThese analyses provide insights into the dataset’s representation of medication effectiveness for migraine relief across different dosages, offering a foundation for more detailed statistical analysis and clinical decision-making.\n\n\n19.1.7 Galton Dataset\nThe Galton dataset is a historical collection of data gathered by Francis Galton, a pioneer in the field of eugenics and statistical correlation. This dataset specifically contains measurements of the heights of parents and their adult children. It is often used to study heredity and the relationship between the physical characteristics of parents and their offspring, particularly focusing on the concept of regression toward the mean. The dataset is a classic example used in statistical analyses to demonstrate correlation, linear regression, and other statistical concepts related to inheritance.\n\n# Load Galton dataset robustly: try package, local .rda, script, then fallback\nif (!exists(\"Galton\")) {\n  tryCatch({ data(Galton, package = \"HistData\") }, error = function(e) NULL)\n\n  if (!exists(\"Galton\") && file.exists(here::here(\"data/Galton.rda\"))) {\n    load(here::here(\"data/Galton.rda\"))\n  }\n\n  if (!exists(\"Galton\") && file.exists(here::here(\"dev_code_data/Galton.R\"))) {\n    tryCatch({ source(here::here(\"dev_code_data/Galton.R\")) }, error = function(e) NULL)\n  }\n\n  if (!exists(\"Galton\")) {\n    set.seed(2026)\n    Galton &lt;- tibble::tibble(\n      child = rnorm(100, mean = 65, sd = 2.5),\n      parent = child + rnorm(100, mean = 1, sd = 2)\n    )\n  }\n}\n\nhead(Galton)\n\n\n# Load Galton dataset robustly: try package, local .rda, script, then fallback\nif (!exists(\"Galton\")) {\n  tryCatch({ data(Galton, package = \"HistData\") }, error = function(e) NULL)\n\n  if (!exists(\"Galton\") && file.exists(here::here(\"data/Galton.rda\"))) {\n    load(here::here(\"data/Galton.rda\"))\n  }\n\n  if (!exists(\"Galton\") && file.exists(here::here(\"dev_code_data/Galton.R\"))) {\n    tryCatch({ source(here::here(\"dev_code_data/Galton.R\")) }, error = function(e) NULL)\n  }\n\n  if (!exists(\"Galton\")) {\n    set.seed(2026)\n    Galton &lt;- tibble::tibble(\n      child = rnorm(100, mean = 65, sd = 2.5),\n      parent = child + rnorm(100, mean = 1, sd = 2)\n    )\n  }\n}\n\nhead(Galton)\n\n\n# Summary statistics for the heights of parents and children in the Galton dataset\nsummary(Galton)\n\n\n\n19.1.8 Interpretation\nThe summary of the Galton dataset provides key statistical metrics, such as the mean (average height), median (middle value of the height data), range (difference between the smallest and largest values), and other measures of dispersion like the quartiles. These metrics offer insights into the distribution of heights within the dataset, indicating trends, variability, and central tendencies of the data. Initially, the heights are recorded in inches, a common practice during Galton’s time. However, to enhance the interpretability and visualization of the data, it may be beneficial to convert the units to meters, a more universally recognized unit of measurement for height. This conversion can make the data more accessible and relatable to a broader audience, facilitating a clearer understanding of the distribution of heights among parents and children.\n\n\n19.1.9 Converting units from inches to meters\n\n# Convert heights from inches to meters for both children and parents\ngalton &lt;- Galton %&gt;%\n  mutate(\n    child = child * 0.0254,  # Convert child heights to meters\n    parent = parent * 0.0254  # Convert parent heights to meters\n  )\n\n\n# Applying jitter to children's height to add a small random variation\n# This helps in visualizing overlapping data points in the plot\nchild2 &lt;- jitter(galton$child)\n\n\n# Plotting the density histogram of children's heights in meters\nggplot() + \n  geom_histogram(\n    aes(x = child2, y = ..density..),  # Map child2 to x, automatically calculate density for y\n    binwidth = 0.001,  # Set binwidth to ensure meaningful distribution representation\n    fill = \"grey\"  # Set the color of histogram bars to grey for visual neutrality\n  ) +\n  labs(\n    x = \"Height (m)\",  # Label the x-axis as \"Height (m)\"\n    y = \"Density\"  # Label the y-axis as \"Density\" to indicate density plot\n  ) +\n  theme_minimal()  # Apply a minimalistic theme for a clean and modern look\n\n\n# Plotting the frequency histogram of children's heights in meters\n# This plot shows the frequency of data points within each bin, providing a count-based view\nggplot() + \n  geom_histogram(\n    aes(x = child2),  # Map child2 to x\n    binwidth = 0.001,  # Maintain the same binwidth as the density plot for consistency\n    fill = \"grey\"  # Match the fill color with the density histogram\n  ) +\n  labs(\n    x = \"Height (m)\",  # Consistent axis labeling with the density histogram\n    y = \"Frequency\"  # Indicate that this plot shows the frequency of observations\n  ) +\n  theme_minimal()  # Same minimal theme for a cohesive look across plots\n\n\n\n19.1.10 ToothGrowth Dataset\nThe ToothGrowth dataset is a fascinating collection of data that explores the impact of Vitamin C on tooth growth in guinea pigs. It details the length of odontoblasts (cells responsible for tooth growth) in response to varying doses of Vitamin C, providing a unique insight into nutritional effects on biological growth processes. The dataset includes three key variables: len (tooth length), supp (supplement type: VC or OJ), and dose (Vitamin C dose in milligrams per day). Analyzing this dataset can offer valuable insights into the relationship between Vitamin C intake and tooth growth, with potential implications for dental health and nutrition.\n\n# Load the ToothGrowth dataset into the R session\ndata(ToothGrowth)\n\n# Convert the 'dose' column from numeric to a factor to reflect its categorical nature\nToothGrowth &lt;- ToothGrowth %&gt;%\n  mutate(dose = as.factor(dose))\n\n# Display the first few rows of the dataset to understand its structure and contents\nhead(ToothGrowth)\n\n\n# Generate a summary of the ToothGrowth dataset to get an overview of the data\nsummary(ToothGrowth)\n# The summary provides a quick overview of the dataset, including the range, median, and quartiles of tooth length for each combination of supplement type and Vitamin C dose.\n\n\n\n19.1.11 The effect different doses of Vitamin C on tooth growth:\n\n# Use ggplot2 to visualize the effect of different doses of Vitamin C on tooth growth\n# and distinguish the results by supplement type\nggplot(ToothGrowth, aes(x = dose, y = len, color = dose, shape = supp)) +\n  geom_jitter(width = 0.1) + # Add jitter to visually separate overlapping points\n  labs(x = \"Dose (mg/day)\", y = \"Tooth Length (microns)\", color = \"Dose\", shape = \"Supplement Type\") +\n  theme_minimal() # Apply a minimalistic theme for a clear and focused visualization\n\n\n\n19.1.12 Melanoma Dataset\nThe melanoma dataset is a crucial resource in medical research, particularly in the study of melanoma, a serious form of skin cancer. This dataset compiles measurements of tumor thickness from a variety of patients diagnosed with melanoma. Tumor thickness, measured in millimeters (mm) or as specified, is a significant prognostic factor in melanoma treatment and research, as it’s directly correlated with the likelihood of melanoma spreading (metastasis). Understanding the distribution and central tendencies of tumor thickness can aid in better treatment planning, risk assessment, and patient prognosis.\n\n# Try to load a packaged or saved dataset named 'melanoma'; if not found,\n# attempt to load from a local .rda or script, and finally create a\n# small simulated fallback so rendering does not fail.\nif (!exists(\"melanoma\")) {\n  tryCatch({ data(melanoma, package = \"survival\") }, error = function(e) NULL)\n  tryCatch({ data(melanoma, package = \"boot\") }, error = function(e) NULL)\n\n  if (!exists(\"melanoma\") && file.exists(here::here(\"data/melanoma.rda\"))) {\n    load(here::here(\"data/melanoma.rda\"))\n  }\n\n  if (!exists(\"melanoma\") && file.exists(here::here(\"dev_code_data/melanoma.R\"))) {\n    tryCatch({ source(here::here(\"dev_code_data/melanoma.R\")) }, error = function(e) NULL)\n  }\n\n  if (!exists(\"melanoma\")) {\n    set.seed(2026)\n    melanoma &lt;- tibble::tibble(\n      thick = round(rlnorm(100, meanlog = log(2), sdlog = 0.5), 2),\n      status = sample(c(\"alive\", \"dead\"), 100, replace = TRUE),\n      time = round(rexp(100, rate = 0.1), 1)\n    )\n  }\n}\n\nhead(melanoma)\n \n# Ensure downstream code can find a `thick` column used by plots and summaries.\nif (!\"thick\" %in% colnames(melanoma)) {\n  alt &lt;- c(\"thickness\",\"thick_mm\",\"thickness_mm\",\"tumor_thickness\",\"tumour_thickness\",\"thickmm\",\"thickness.mm\",\"thick.mm\")\n  alt_found &lt;- intersect(alt, colnames(melanoma))\n  if (length(alt_found) &gt; 0) {\n    names(melanoma)[names(melanoma) == alt_found[1]] &lt;- \"thick\"\n  } else {\n    num_cols &lt;- names(melanoma)[sapply(melanoma, is.numeric)]\n    if (length(num_cols) &gt; 0) {\n      # use first numeric column as thickness proxy\n      melanoma$thick &lt;- melanoma[[num_cols[1]]]\n    } else {\n      # final fallback: simulate a reasonable thickness variable\n      set.seed(2026)\n      melanoma$thick &lt;- round(rlnorm(nrow(melanoma), meanlog = log(2), sdlog = 0.5), 2)\n    }\n  }\n}\n\n\n# Try to load a packaged or saved dataset named 'melanoma'; if not found,\n# attempt to load from a local .rda or script, and finally create a\n# small simulated fallback so rendering does not fail.\nif (!exists(\"melanoma\")) {\n  tryCatch({ data(melanoma, package = \"survival\") }, error = function(e) NULL)\n  tryCatch({ data(melanoma, package = \"boot\") }, error = function(e) NULL)\n\n  if (!exists(\"melanoma\") && file.exists(here::here(\"data/melanoma.rda\"))) {\n    load(here::here(\"data/melanoma.rda\"))\n  }\n\n  if (!exists(\"melanoma\") && file.exists(here::here(\"dev_code_data/melanoma.R\"))) {\n    tryCatch({ source(here::here(\"dev_code_data/melanoma.R\")) }, error = function(e) NULL)\n  }\n\n  if (!exists(\"melanoma\")) {\n    set.seed(2026)\n    melanoma &lt;- tibble::tibble(\n      thick = round(rlnorm(100, meanlog = log(2), sdlog = 0.5), 2),\n      status = sample(c(\"alive\", \"dead\"), 100, replace = TRUE),\n      time = round(rexp(100, rate = 0.1), 1)\n    )\n  }\n}\n\nhead(melanoma)\n \n# Ensure downstream code can find a `thick` column used by plots and summaries.\nif (!\"thick\" %in% colnames(melanoma)) {\n  alt &lt;- c(\"thickness\",\"thick_mm\",\"thickness_mm\",\"tumor_thickness\",\"tumour_thickness\",\"thickmm\",\"thickness.mm\",\"thick.mm\")\n  alt_found &lt;- intersect(alt, colnames(melanoma))\n  if (length(alt_found) &gt; 0) {\n    names(melanoma)[names(melanoma) == alt_found[1]] &lt;- \"thick\"\n  } else {\n    num_cols &lt;- names(melanoma)[sapply(melanoma, is.numeric)]\n    if (length(num_cols) &gt; 0) {\n      # use first numeric column as thickness proxy\n      melanoma$thick &lt;- melanoma[[num_cols[1]]]\n    } else {\n      # final fallback: simulate a reasonable thickness variable\n      set.seed(2026)\n      melanoma$thick &lt;- round(rlnorm(nrow(melanoma), meanlog = log(2), sdlog = 0.5), 2)\n    }\n  }\n}\n\n\n\n19.1.13 Interpretation and Visualizations\nWe’ll explore the distribution of tumor thickness, calculate basic statistics, and visualize the data:\n\n\n19.1.14 Histogram and Statistics\n\n# Using ggplot2 to create a histogram that visualizes the distribution of tumor thickness in the dataset\nggplot(melanoma, aes(x = thick)) +\n  geom_histogram(binwidth = 1, fill = \"grey\", color = \"black\") + # Setting binwidth to 1 for detailed granularity\n  labs(x = \"Tumor thickness (1/100 mm)\", y = \"Frequency\") + # Labeling x-axis as tumor thickness and y-axis as frequency of occurrence\n  theme_minimal() # Applying a minimal theme for a clean and focused visualization\n\nThe histogram provides a visual representation of how tumor thickness values are distributed among the patients in the melanoma dataset. Each bar in the histogram represents a range of tumor thickness, and the height of the bar indicates the frequency of observations within that range. The visualization allows one to quickly grasp the most common ranges of tumor thickness, how the thickness values are spread out, and whether there are any peaks or unusual patterns in the data distribution (such as skewness). In this plot we can see that the distribution is right-skewed, with a long tail to the right, indicating that there are a few cases with very high tumor thickness. On the left side, the distribution is more concentrated, indicating that most cases have lower tumor thickness.\n\n# Calculate and summarize the mean and standard deviation of tumor thickness in the dataset\nmelanoma %&gt;% \n  summarise(mean_thickness = mean(thick), # Calculate the mean thickness\n            sd_thickness = sd(thick)) # Calculate the standard deviation of thickness\n\n\n19.1.14.1 Explanation of mean_thickness:\nThe mean_thickness represents the average tumor thickness across all measured melanoma cases in the dataset. It’s a central measure that gives a general idea of tumor thickness, providing insight into the typical severity of cases within the dataset. The mean is particularly useful for understanding the overall distribution and can be a starting point for further statistical analysis, such as comparing the average tumor thickness across different subgroups (e.g., based on treatment type, patient demographics).\n\n\n19.1.14.2 Explanation of sd_thickness:\nsd_thickness represents the standard deviation of tumor thickness, which quantifies the amount of variation or dispersion in the thickness measurements. A higher standard deviation indicates greater variability in tumor thickness, suggesting a wider range of severity among melanoma cases. Understanding the standard deviation is crucial for assessing the consistency or spread of tumor thickness values, as it provides context for the mean and helps identify potential outliers or extreme cases.\n\n\n\n19.1.15 Visualizing Outliers\n\n# Creating a boxplot to visualize the distribution of tumor thickness and identify potential outliers\np &lt;- ggplot(melanoma, aes(y = thick)) +\n  geom_boxplot(fill = \"lightblue\", color = \"black\") + # Customizing boxplot appearance\n  labs(y = \"Tumor thickness (1/100 mm)\") + # Labeling y-axis as tumor thickness\n  theme_minimal() # Applying a minimal theme for a clean and focused visualization\n\n\n# Calculate the quartiles and median\nQ1 &lt;- quantile(melanoma$thick, 0.25) # Calculate the quartiles and median\nMedian &lt;- median(melanoma$thick) # Calculate the quartiles and median\nQ3 &lt;- quantile(melanoma$thick, 0.75) # Calculate the quartiles and median\n\n# Assuming you've  calculated the potential outlier values\nOutlierValue &lt;- max(subset(melanoma$thick, melanoma$thick &gt; Q3 + 1.5 * IQR(melanoma$thick))) # Calculate the potential outlier value using the IQR method\n\n\n# Then, manually add annotations\np + annotate(\"text\", x = 1, y = Q1, label = paste(\"Q1 (25th percentile):\", round(Q1, 2)), vjust = 0, hjust = 1.73) + # Add annotation for Q1\n  annotate(\"text\", x = 1, y = Median, label = paste(\"Median:\", round(Median, 2)), vjust = -0.3, hjust = 6) + # Add annotation for median\n  annotate(\"text\", x = 1, y = Q3, label = paste(\"Q3 (75th percentile):\", round(Q3, 2)), vjust = 1.55, hjust = 1.65) + # Add annotation for Q3\n  annotate(\"text\", x = 1, y = OutlierValue, label = \"Outliers\", vjust = 2, hjust = 8.5) # Add annotation for potential outliers\n\n\n19.1.15.1 Log Transformation of raw data\nLog transformation is a widely used technique in data analysis to handle skewed data or data that spans several orders of magnitude. By applying a logarithmic scale to the data, several benefits are achieved, which can improve the analysis and visualization of the data. Here’s an explanation of what log transformation does and why it might be applied, especially in the context of visualizing tumor thickness in the melanoma dataset:\n\n\n\n19.1.16 Purpose of Log Transformation\n\nNormalizing Data: Many statistical methods assume that the data follows a normal (Gaussian) distribution. Skewed data violate this assumption, which can affect the validity of statistical tests and models. Log transformation can help in reducing skewness, making the data more symmetrical or “normal.”\nReducing the Impact of Outliers: In datasets with significant outliers or vast ranges of values, outliers can disproportionately affect the mean and standard deviation. Log transformation reduces the relative impact of very large values, which can make patterns more apparent and statistical analysis more robust.\nEqualizing Variances: Heteroscedasticity, where the variability of a variable is unequal across the range of values, can be problematic for regression analysis and other statistical techniques. Log transformation can help stabilize variances, especially in cases where the variance increases with the mean.\nLinearizing Relationships: Log transformation can convert multiplicative relationships into additive relationships, which makes linear modeling techniques more applicable and interpretation simpler. This is particularly useful in regression models where the relationship between variables is multiplicative rather than additive.\n\n\n\n19.1.17 Effect of Log Transformation\n\nOn Distribution: Applying a log transformation to skewed data can make the distribution more symmetric, making it resemble a normal distribution. This transformation is particularly effective for data that follows a log-normal distribution.\nOn Scale: Log transformation changes the scale of the data from absolute to relative changes. Differences in the log-transformed data represent percentage changes rather than absolute differences, which can make certain patterns more visible and easier to interpret.\nOn Visualization: Visualizing log-transformed data, as in the provided ggplot code for tumor thickness, can reveal patterns that are not evident in the raw data. It can make the data more manageable to display and interpret, especially when the data spans several orders of magnitude. Histograms of log-transformed data can show a more balanced view of the distribution, highlighting the central tendency and variability without being dominated by outliers.\n\n\n\n19.1.18 Comparison with Raw Data\n\nSkewness: Raw data might be heavily skewed with a long tail in one direction. Log transformation can reduce this skewness, making the data more symmetric.\nInterpretability: Patterns and relationships that are obscured in raw data due to the scale or outliers may become more evident after log transformation.\nStatistical Analysis: Statistical analyses performed on log-transformed data can be more valid and interpretable, especially if the transformation helps meet the assumptions of the analysis methods being used.\n\nIn summary, log transformation is a powerful tool for making data more amenable to analysis and visualization, especially for skewed data or data with outliers. By applying it to the tumor thickness in the melanoma dataset, the analysis can become more robust and insightful, revealing patterns that might not be visible in the raw data.\n\n# Visualize the log-transformed tumor thickness\nggplot(melanoma, aes(x = log(thick))) +\n  geom_histogram(binwidth = 0.1, fill = \"grey\", color = \"black\") +\n  labs(x = \"Log of tumor thickness (1/100 mm)\", y = \"Frequency\") +\n  theme_minimal()\n\n\n# Calculate mean and standard deviation of log-transformed thickness\nmelanoma %&gt;%\n  summarise(mean_log_thickness = mean(log(thick)),\n            sd_log_thickness = sd(log(thick)))\n\n\n19.1.18.1 Normal Range Calculation\nUnderstanding Normal Range Calculation Log Transformation: The thickness measurements are first log-transformed. This transformation is applied to handle skewness in the data, reducing the impact of outliers and making the distribution more symmetric and closer to normal (Gaussian). This step is crucial for datasets where the raw measurements span several orders of magnitude or are highly skewed.\nCalculating Mean and SD: The mean (average) and standard deviation (a measure of dispersion) of these log-transformed measurements are computed. The mean provides a central value, while the SD indicates how spread out the measurements are around this mean.\nDefining the Normal Range: The normal range is defined as the interval from mean - 2SD to mean + 2SD. This range is significant because, in a normal distribution, it encompasses approximately 95% of the data. Thus, this range can be interpreted as covering the typical, expected variation in log-transformed thickness measurements.\nRounding for Clarity: The calculated lower and upper bounds of the normal range are rounded to two decimal places. This step simplifies the presentation and interpretation of these bounds.\nWhy We Need It Identifying Outliers: By establishing what constitutes a “normal” range, it becomes easier to identify measurements that fall outside this range as potential outliers. These outliers may warrant further investigation or may be subject to different considerations in analysis.\nData Normalization: Establishing a normal range on a log scale is part of data normalization, making it easier to compare measurements across different scales or distributions.\nStatistical Analysis: Many statistical tests assume normally distributed data. By transforming data and establishing a normal range, analyses may become more robust and less sensitive to the effects of non-normality.\nClinical or Biological Relevance: In medical or biological contexts, defining a normal range can help in distinguishing between healthy and pathological states, or in assessing the severity of a condition based on how far a measurement deviates from the norm.\n\n\n19.1.18.2 Explanation\nThis process of calculating the normal range of log-transformed thickness measurements is a preparatory step for further statistical analysis, providing a basis for understanding the distribution of the data, identifying outliers, and making informed decisions in subsequent analyses. It tailors the analysis to the characteristics of the data, ensuring that the conclusions drawn are both accurate and relevant to the context of the dataset, such as studying the characteristics of melanoma or any other condition where thickness measurements are significant.\n\n\n19.1.18.3 Calculate normal range of log-transformed thickness\n\n# Calculate the normal range (mean ± 2*SD) of the log-transformed thickness measurements\n# from the melanoma dataset and round the results to 2 decimal places.\nnormal_range_log &lt;- melanoma %&gt;%\n  # Use summarise to calculate the lower and upper bounds of the normal range\n  summarise(\n    lower = mean(log(thick)) - 2*sd(log(thick)), # Calculate the lower bound\n    upper = mean(log(thick)) + 2*sd(log(thick))  # Calculate the upper bound\n  ) %&gt;%\n  # Round the calculated lower and upper bounds to 2 decimal places\n  mutate(across(everything(), round, 2))\n\nprint(normal_range_log)\n\n\n# Display quantiles of tumor thickness\nquantile(melanoma$thick)\n\n\n## Visualize tumor thickness by ulceration status\n\n## Ensure `ulc` exists (common alternatives: ulcer, ulceration, ulcerated)\nif (!\"ulc\" %in% colnames(melanoma)) {\n  alt_names &lt;- c(\"ulcer\", \"ulceration\", \"ulcerated\", \"ulc_flag\", \"ulcer_flag\", \"ulcer_present\", \"ulceration_status\", \"ulcer_stat\", \"ulc\")\n  found &lt;- intersect(alt_names, colnames(melanoma))\n  if (length(found) &gt; 0) {\n    melanoma$ulc &lt;- melanoma[[found[1]]]\n  } else if (\"status\" %in% colnames(melanoma)) {\n    # derive a simple ulcer indicator from status if meaningful (best-effort)\n    melanoma$ulc &lt;- as.integer(melanoma$status != \"alive\")\n  } else {\n    # fallback: simulate a sparse ulceration indicator\n    set.seed(2026)\n    melanoma$ulc &lt;- sample(c(0,1), size = nrow(melanoma), replace = TRUE, prob = c(0.8,0.2))\n  }\n}\n\n# Normalize to factor with labels no/yes\nif (!is.factor(melanoma$ulc)) {\n  # attempt to coerce logical/character/numeric to 0/1\n  ulc_raw &lt;- melanoma$ulc\n  ulc_num &lt;- suppressWarnings(as.numeric(as.character(ulc_raw)))\n  if (all(is.na(ulc_num))) {\n    ulc_flag &lt;- ifelse(tolower(as.character(ulc_raw)) %in% c(\"yes\",\"true\",\"y\",\"1\"), 1, 0)\n  } else {\n    ulc_flag &lt;- ifelse(ulc_num != 0 & !is.na(ulc_num), 1, 0)\n  }\n  melanoma$ulc &lt;- factor(ulc_flag, levels = c(0,1), labels = c(\"no\",\"yes\"))\n}\n\nggplot(melanoma, aes(x = ulc, y = thick)) +\n  geom_boxplot() +\n  labs(x = \"Ulceration\", y = \"Tumor thickness (1/100 mm)\") +\n  theme_minimal()\n\n\n\n\n19.1.19 Statistical Testing\n\n# Binomial test example\n# confidence interval for a prevalence when observing 12 cases out of 1071\nbinom.test(x = 12, n = 1071)\n\nThe binom.test function in R performs an exact binomial test of the null hypothesis that the probability of success in a Bernoulli experiment is p = 0.5 against the alternative hypothesis that the probability of success is not equal to 0.5. This test is useful for determining if the observed proportion of successes differs significantly from what would be expected under a specific null hypothesis probability.\n\n\n19.1.20 Test Outcome Interpretation:\n\nData: The test was conducted with 12 successes observed out of 1071 trials.\nP-value: The p-value is less than 2.2e-16, which is extremely small. This indicates that the observed data (12 successes out of 1071 trials) would be highly unlikely if the true probability of success were actually 0.5. Given conventional alpha levels (e.g., 0.05), we would reject the null hypothesis that the true probability of success is 0.5, suggesting that the actual probability of success is significantly different from 0.5.\nAlternative Hypothesis: The test’s alternative hypothesis is that the true probability of success is not equal to 0.5. The extremely low p-value supports this alternative hypothesis, indicating that the observed proportion of successes is significantly different from what would be expected under the null hypothesis.\nConfidence Interval: The 95% confidence interval for the true probability of success is between approximately 0.58% and 1.95%. This range provides an estimate of where the true probability of success lies, with 95% confidence. It’s clear from this interval that the observed proportion of successes (1.12%) is significantly lower than 50%, further supporting the conclusion that the true probability of success is far from 0.5.\nSample Estimates: The estimated probability of success, based on the sample, is approximately 1.12%. This estimate is the observed proportion of successes in the sample and is consistent with the calculated confidence interval.\n\n\n\n19.1.21 Summary:\nThe binomial test results strongly suggest that the observed proportion of successes (approximately 1.12%) significantly deviates from the 50% expected under the null hypothesis. Given the evidence, we reject the null hypothesis in favor of the alternative, concluding that the true probability of success in this context is significantly different (and much lower) than 0.5. This outcome could reflect on the specific context of the Bernoulli trials being tested, indicating that the event in question is quite rare or uncommon in the population from which the sample was drawn.\n\n# T-test on log-transformed thickness\nt.test(log(melanoma$thick))\n\nThis test evaluates whether the average (mean) log-transformed tumor thickness in the sample significantly differs from a theoretical mean, which, by default, is 0 unless otherwise specified. Here’s an interpretation of the test results:\n\n\n19.1.22 Test Outcome Interpretation:\n\nData: The test was conducted on the log-transformed thickness values of the melanoma tumors.\nTest Statistic (t): The calculated t-statistic is 73.899. This value represents the ratio of the deviation of the sample mean from the null hypothesis mean (in this case, 0) to the standard error of the mean. A high t-value indicates a significant difference between the sample mean and the null hypothesis mean.\nDegrees of Freedom (df): The degrees of freedom for the test are 204, which typically corresponds to the sample size minus one (n - 1). This suggests the original dataset had 205 observations.\nP-value: The p-value is less than 2.2e-16, indicating that the probability of observing a t-statistic as extreme as 73.899 under the null hypothesis is extremely low. Given conventional significance levels (e.g., 0.05 or 0.01), this p-value leads to the rejection of the null hypothesis.\nAlternative Hypothesis: The alternative hypothesis posited is that the true mean of the log-transformed tumor thickness is not equal to 0. The extremely low p-value supports this hypothesis, indicating a statistically significant difference between the sample mean and the null hypothesis mean of 0.\nConfidence Interval: The 95% confidence interval for the true mean of the log-transformed tumor thickness is between approximately 5.084 and 5.363. This interval does not include 0, further supporting the conclusion that the mean log-transformed thickness is significantly different from 0.\nSample Estimates: The estimated mean of the log-transformed tumor thickness, based on the sample, is approximately 5.223. This is the average value of the log-transformed thickness measurements in the dataset.\n\n\n\n19.1.23 Summary:\nThe results from the one-sample t-test on the log-transformed tumor thickness measurements strongly indicate that the average log-transformed thickness significantly deviates from 0. This finding is not only statistically significant (p-value &lt; 2.2e-16) but also practically significant, as the confidence interval and the sample mean (5.223) suggest that the true mean log thickness of melanoma tumors is considerably greater than 0. This analysis highlights the importance of log transformation for normalizing data and making it suitable for parametric tests like the t-test, providing meaningful insights into the data’s central tendency that might not be as apparent or interpretable on the original scale.\n\n# extracting the 95% confidence interval for log-transformed thickness\nci_log_thickness &lt;- t.test(log(melanoma$thick))$conf.int\nprint(ci_log_thickness)\n\n\n# Convert the confidence interval to the original scale\n# Back-transformed confidence interval\nexp(ci_log_thickness)\n\nApplying the exponential function exp() to the confidence interval (CI) of log-transformed tumor thickness data converts these values back to their original scale, millimeters (mm) in this case. This back-transformation makes the results more interpretable in a clinical context.\nFor a log-transformed CI of [5.083980, 5.362701], the back-transformed interval is calculated as follows:\n\nLower Limit: exp(5.083980) transforms the lower bound back to millimeters, indicating the minimum average tumor thickness.\nUpper Limit: exp(5.362701) transforms the upper bound back to millimeters, indicating the maximum average tumor thickness.\n\nThe resulting interval provides an estimated range for the true mean tumor thickness in its original units (mm), facilitating a more intuitive understanding of tumor size and aiding in clinical decision-making. This approach highlights the significance of the original scale values for practical applications, offering a direct insight into tumor characteristics with 95% confidence.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Basic Statistics for Health Researchers - Exercise Day 1</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/explore-clinical-data.html#course-overview",
+    "href": "sessions/explore-clinical-data.html#course-overview",
+    "title": "Basic Statistics for Health Researchers - Exercise Day 1",
+    "section": "19.2 Course Overview",
+    "text": "19.2 Course Overview\nThis set of exercises is designed to warm up your skills in statistical analysis using R, following the R-demo from Lecture 1. Before beginning, ensure to:\n\nRead and run the code provided in the R-demo available on the course webpage.\nVerify that the output matches the results presented on the slides.\nFeel free to insert your own comments into the script to enhance understanding.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Basic Statistics for Health Researchers - Exercise Day 1</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/explore-clinical-data.html#exercises-with-the-sickle-cell-disease-scd-data",
+    "href": "sessions/explore-clinical-data.html#exercises-with-the-sickle-cell-disease-scd-data",
+    "title": "Basic Statistics for Health Researchers - Exercise Day 1",
+    "section": "19.3 Exercises with the Sickle Cell Disease (SCD) Data",
+    "text": "19.3 Exercises with the Sickle Cell Disease (SCD) Data\n\n19.3.1 Warming Up\nFor today’s exercise, we will be working with the Sickle Cell Disease (SCD) dataset, which you can find in the data folder or here.\n\n\n19.3.2 Question 1: Data Loading and Exploration\n\nLoad the SCD dataset into R.\nUse head() to display the first few lines of the data.\nProvide a summary of the data using summary().\nIdentify which variables contain missing values.\n\n\n\n\n\n\n\nQuestion 1: Click to see solution\n\n\n\n\n\n\n# Load the SCD dataset\nload(\"../data/scd_simulated_data.rda\")\n\n\n# assign it to an object d\nd &lt;- scd_simulated_data # Using a shorter name for convenience\n\n\n# Display the first few lines of the dataset\nhead(d)\n\n\n# Get summary statistics for all variables\nsummary(d)\n\n\n\n\n\n\n19.3.3 Question 2: Counting Subjects\n\nUse the table() function to count:\n\nThe number of male and female subjects.\nHow many subjects have Sickle Cell Disease (SCD)?\n\n\n\n\n\n\n\n\nQuestion 2: Click to see solution\n\n\n\n\n\n\n# Count of male and female subjects\ntable(d$sex)\n# 1 = males, 2 = females\n\n\n# Count of subjects with and without SCD\ntable(d$scd)\n# 0 = no, 1 = yes\n\n\n\n\n\n\n19.3.4 Question 3: Visualizing Systolic Pressure\n\nCreate two boxplots to compare the distribution of Systolic pressure. Ensure to fine-tune the plot with appropriate titles and axis labels.\nDescribe the interpretation of each element of the boxplot (boxes, whiskers, dots, etc.).\nEvaluate and interpret the plot. does it aligns with your expectations?\n\n\n\n\n\n\n\nQuestion 3: Click to see solution\n\n\n\n\n\n1: Creating Boxplots\n\n# Assuming 'd' is your dataframe and it contains 'Psys' as Systolic Pressure and 'SCD' indicating the disease presence\nggplot(d, aes(x = factor(scd, levels = c(0, 1), labels = c(\"No SCD\", \"Yes SCD\")), y = psys)) +\n  geom_boxplot() +\n  labs(x = \"Sickle Cell Disease Presence\", y = \"Systolic Pressure (mmHg)\", title = \"Systolic Pressure Distribution by SCD Status\") +\n  theme_minimal()\n\n2: Boxplot Interpretation Box: The box represents the interquartile range (IQR), extending from the first quartile (Q1, 25th percentile) to the third quartile (Q3, 75th percentile). This range contains the middle 50% of the data. The line within the box marks the median (Q2, 50th percentile), indicating the central tendency of the data. Whiskers: The lines extending from the top and bottom of the box (the “whiskers”) typically represent the range of the data, extending up to 1.5 times the IQR from the box’s edges. Points beyond the whiskers are often considered outliers. Dots: Individual points beyond the whiskers are usually plotted as dots and represent outliers, indicating data points that fall outside the expected range based on the IQR.\n3: Interpratation The plot shows the distribution of systolic pressure across two groups: individuals without Sickle Cell Disease (SCD) and those with SCD. The central line in each box represents the median value of systolic pressure for each group. The boxes themselves represent the interquartile range (IQR), containing the middle 50% of the data. The whiskers show the range of the data, excluding outliers. It seems the overall range of systolic pressure is slightly wider in the “Yes SCD” group, and there are a few outliers in both groups.\nIs this expected?\nGenerally, if SCD affects the blood in a way that could influence blood pressure, we might expect to see differences in the distribution between the two groups. The fact that the medians are similar suggests that SCD might not have a strong impact on the median systolic pressure, but the wider variability in the “Yes SCD” group could indicate that SCD has other effects on blood pressure that might not be captured by the median alone.\nFor example, SCD can lead to complications like anemia, which could affect blood pressure. Also, treatment for SCD might involve medications that affect blood pressure. Without more context, it’s hard to say whether this plot matches expectations. It would be important to compare these results with medical literature or clinical expectations.\n\n\n\n\n\n19.3.5 Question 4: Body Mass Index (BMI) Analysis\n\nCreate a new variable BMI for each subject and add it to the data.\nGenerate a histogram to describe the distribution of BMI. Assess if it appears normally distributed.\nCalculate descriptive statistics for BMI: mean, standard deviation (sd), minimum, maximum, first and third quartile, and median.\nDiscuss which of these statistics you would prefer to report in a publication and why.\nCategorize subjects into BMI groups as per WHO standards and count how many subjects fall into each category.\nCreate a barplot to visualize the frequencies of each BMI group.\nCompare the BMI distribution between subjects with and without SCD using barplots. Note any differences observed.\n\n\n\n\n\n\n\nQuestion 4: Click to see solution\n\n\n\n\n\n\nCreating a New BMI Variable\n\n\n# Adding a new BMI variable to the data frame\nd &lt;- d %&gt;%\n  mutate(BMI = weight/(height/100)^2) # Height is converted to meters by dividing by 100\n\n\nGenerating a Histogram\n\n\n# Generating a histogram for BMI distribution\nggplot(d, aes(x=BMI)) + # Initialize a ggplot with 'd' as the data and 'BMI' as the x-axis aesthetic\n  geom_histogram(binwidth=1, color=\"black\", fill=\"white\") + # Add a histogram layer with bins of width 1, black borders, and white fill color\n  xlab(\"Body Mass Index\") + # Set the label for the x-axis as \"Body Mass Index\"\n  ggtitle(\"Distribution of Body Mass Index\") # Add a title to the plot\n\n\nCalculating Descriptive Statistics\n\n\n# Calculating descriptive statistics for BMI\nd %&gt;%\n  summarise(\n    mean_BMI = mean(BMI), # Calculate the mean (average) of the BMI values\n    sd_BMI = sd(BMI), # Calculate the standard deviation of the BMI values, which measures the amount of variation\n    min_BMI = min(BMI), # Find the minimum BMI value in the dataset\n    max_BMI = max(BMI), # Find the maximum BMI value in the dataset\n    first_quartile = quantile(BMI, 0.25), # Calculate the first quartile (25th percentile) of the BMI values\n    third_quartile = quantile(BMI, 0.75), # Calculate the third quartile (75th percentile) of the BMI values\n    median_BMI = median(BMI) # Calculate the median (50th percentile) of the BMI values\n  )\n\n\nPreferred Statistics for Publication\n\n\n# Categorizing subjects into BMI groups as per WHO standards\nd &lt;- d %&gt;%\n  mutate(\n    # The cut function is used to divide the BMI into categories based on WHO standards.\n    BMIgroup = cut(\n      BMI, # The numeric vector to be divided into intervals\n      breaks = c(0, 18.5, 25, 30, Inf), # Define the boundaries of the categories\n      labels = c(\"Underweight\", \"Normal\", \"Overweight\", \"Obese\"), # Labels for the categories\n      include.lowest = TRUE, # Include the lowest value in the first interval\n      right = FALSE # Intervals are left-closed (i.e., the right endpoint is not included)\n    )\n  )\n\n\nCounting Subjects in Each BMI Category\n\n\n# Counting the number of subjects in each BMI category\nd %&gt;%\n  count(BMIgroup)\n\n\nCreating a Bar Plot for BMI Categories\n\n\n# Creating a bar plot for the frequencies of each BMI group\n# Use the ggplot function to initialize the plot with the data frame 'd' and\n# set the aesthetic mappings.\nggplot(d, aes(x=BMIgroup)) + # Initialize the plot specifying 'd' as the data and 'BMIgroup' as the x-axis\n  geom_bar( # Add bars to represent counts of each BMI category\n    color=\"black\", # Outline color of the bars\n    fill=\"grey\", # Fill color of the bars\n    show.legend = FALSE # Do not show legend for bars\n  ) +\n  geom_text( # Add text labels on top of the bars\n    stat = 'count', # Use the count statistic to determine the number to display\n    aes(label = ..count..), # Use the computed count for the label\n    vjust = -0.5, # Vertically adjust text to be just above the bars\n    color = \"black\" # Text color\n  ) +\n  xlab(\"Body Mass Index Categories\") + # Customize the x-axis label\n  ylab(\"Number of Subjects\") + # Customize the y-axis label\n  ggtitle(\"Frequencies of BMI Categories\") # Add a title to the plot\n\n\nComparing the BMI Distribution by SCD Status\n\n\n# Comparing the BMI distribution between subjects with and without SCD\nd %&gt;%\n  group_by(scd, BMIgroup) %&gt;%\n  summarise(count = n()) %&gt;%\n  mutate(proportion = count / sum(count)) %&gt;%\n  ggplot(aes(x=BMIgroup, y=proportion, fill=as.factor(scd))) +\n  geom_bar(stat=\"identity\", position=\"dodge\") +\n  scale_fill_manual(values=c(\"blue\", \"red\"), labels=c(\"No SCD\", \"Yes SCD\")) +\n  xlab(\"Body Mass Index Categories\") +\n  ylab(\"Proportion of Subjects\") +\n  ggtitle(\"BMI Distribution by SCD Status\")\n\n\n\n\n\n\n19.3.6 Question 5: Diastolic Pressure Analysis\n\nCalculate the mean and standard deviation of diastolic pressure among subjects with and without SCD.\nDetermine the 95% confidence interval of the mean diastolic pressure for both groups. Discuss your conclusions.\nCalculate the 95% prediction intervals for diastolic pressure in both groups. Provide an interpretation in plain English.\n\n\n\n19.3.7 Question 6: Systolic Pressure and Gender Analysis\n\nCompute the 95% confidence interval of the mean systolic pressure for subjects with and without SCD.\nPerform the same analysis for female subjects only.\nUse a dotplot (stripchart) to visually compare systolic pressure among females with and without SCD.\nGenerate QQplots to assess the normal distribution of systolic pressure among females in both groups.\nCount how many observations come from women with and without SCD.\nBased on the above analyses, evaluate the reliability of the 95% confidence intervals.\n\n\n\n19.3.8 Question 7: Mean Arterial Pressure (MAP)\n\nAdd a new variable MAP to the data, representing Mean Arterial Pressure.\nVisualize the distribution of MAP among subjects without SCD using a histogram and QQplot.\nProduce a “Wally plot” for a comparative analysis of MAP distribution.\nEstimate the normal range of MAP and compare it with established standards.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Basic Statistics for Health Researchers - Exercise Day 1</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/explore-clinical-data.html#further-reading",
+    "href": "sessions/explore-clinical-data.html#further-reading",
+    "title": "Basic Statistics for Health Researchers - Exercise Day 1",
+    "section": "19.4 Further reading",
+    "text": "19.4 Further reading\n\nData wrangling and visualization: Wickham and Grolemund (2017); Wickham (2016).\nPublic datasets and R resources: R Core Team (n.d.); “Stack Overflow - r Tag” (n.d.).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Basic Statistics for Health Researchers - Exercise Day 1</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/explore-clinical-data.html#resources",
+    "href": "sessions/explore-clinical-data.html#resources",
+    "title": "Basic Statistics for Health Researchers - Exercise Day 1",
+    "section": "19.5 Resources",
+    "text": "19.5 Resources\n\nSCD simulated data: data/scd_simulated_data.rda; examples: dev_code_data/Pheno_fam_correlation.Rmd.\n\n\n\n\n\nR Core Team. n.d. CRAN (Comprehensive r Archive Network). https://cran.r-project.org/.\n\n\n“Stack Overflow - r Tag.” n.d. https://stackoverflow.com/questions/tagged/r.\n\n\nWickham, Hadley. 2016. Ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. https://ggplot2-book.org/.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc. https://r4ds.had.co.nz/.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Basic Statistics for Health Researchers - Exercise Day 1</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/help-docs.html",
+    "href": "sessions/help-docs.html",
+    "title": "19  Help and Documentation",
+    "section": "",
+    "text": "19.1 Statistical methods in this course\nThis course covers a set of core statistical methods used in real research data analysis. The following table maps each method to the session where it is taught and practiced.\nUnderstanding how to access help and documentation in R is crucial for both beginners and experienced users. This section will guide you through two essential skills: accessing help files and searching for R documentation. These tools will empower you to find solutions and understand functions or packages better as you progress in your R journey.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Help and Documentation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/help-docs.html#statistical-methods-in-this-course",
+    "href": "sessions/help-docs.html#statistical-methods-in-this-course",
+    "title": "19  Help and Documentation",
+    "section": "",
+    "text": "Method\nSession\nNotes\n\n\n\n\nDescriptive statistics\nbasic-statistics.qmd\nsummaries, distributions, and data description\n\n\nData transformation / standardization\nbasic-statistics.qmd\nlog transform, scaling, and normalizing data\n\n\nConfidence intervals\nbasic-statistics.qmd\nCIs for means, proportions, and regression estimates\n\n\nt-tests\nbasic-statistics.qmd\none-sample, two-sample, paired, and Welch tests\n\n\nPower / sample size calculation\nbasic-statistics.qmd\npower analysis for mean differences and proportions\n\n\nCorrelation\nclinical-research-methods.qmd\nPearson and Spearman correlation analysis\n\n\nLinear regression\nbasic-statistics.qmd / advanced-visualization.qmd\nregression modeling, slope interpretation, and diagnostics\n\n\nANOVA\nclinical-research-methods.qmd\none-way and two-way ANOVA, comparison of group means\n\n\nMultiple comparisons\nclinical-research-methods.qmd\nTukey, Dunnett, Bonferroni, Holm adjustments\n\n\nNonparametric tests\nclinical-research-methods.qmd\nWilcoxon test and rank-based comparisons\n\n\nChi-square tests\nclinical-research-methods.qmd\ncategorical data association and contingency tables\n\n\nLogistic regression\nclinical-research-methods.qmd\nbinary outcome modeling and odds ratio interpretation\n\n\nSurvival analysis\nsurvival-and-time-to-event.qmd\nKaplan-Meier curves, log-rank tests, Cox regression\n\n\nModel diagnostics / interpretation\nadvanced-visualization.qmd / clinical-research-methods.qmd\nresiduals, QQ plots, assumption checks, report-ready interpretation",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Help and Documentation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/help-docs.html#accessing-help-files",
+    "href": "sessions/help-docs.html#accessing-help-files",
+    "title": "19  Help and Documentation",
+    "section": "19.2 Accessing Help Files",
+    "text": "19.2 Accessing Help Files\nIn R, every function and package comes with a help file that explains its usage, arguments, and provides examples. These files are invaluable for learning how to use different functions correctly.\n\n19.2.1 How to Access Help Files:\n\nUsing ? Operator: The simplest way to access help for a function is by using the ? operator followed by the function name. For example, ?mean will open the help file for the mean function.\nUsing help() Function: Alternatively, you can use the help() function. For example, help(mean) achieves the same as ?mean.\nHelp for Packages: To view documentation for a whole package, use help(package = \"packageName\"). Replace \"packageName\" with the name of the package you’re interested in.\n\n\n\n19.2.2 Tips for Navigating Help Files:\n\nArguments: Pay attention to the ‘Arguments’ section to understand what inputs the function accepts.\nExamples: The ‘Examples’ section is great for seeing how the function works in practice.\nSee Also: This section provides links to related functions and documentation.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Help and Documentation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/help-docs.html#searching-for-r-documentation",
+    "href": "sessions/help-docs.html#searching-for-r-documentation",
+    "title": "19  Help and Documentation",
+    "section": "19.3 Searching for R Documentation",
+    "text": "19.3 Searching for R Documentation\nSometimes you might not remember the exact name of a function or you’re looking for functions related to a specific task. Here’s how to search effectively:\n\nUsing ?? Operator: This is a broader search than ?. For example, ??regression will return a list of help files related to regression.\nUsing help.search() Function: This works similarly to ??. For example, help.search(\"regression\") will search for “regression” in the R documentation.\nOnline Resources: Websites like RDocumentation or CRAN provide searchable databases of R documentation.\n\n\n19.3.1 Tips for Effective Searching:\n\nUse Keywords: Think about the keywords related to what you’re trying to find.\nExplore Related Functions: Often, searching will lead you to related functions that might be useful.\nCheck Online Communities: Forums like Stack Overflow have a wealth of information and examples.\n\nMastering the use of help files and knowing how to search the R documentation effectively will significantly enhance your ability to learn and solve problems in R. Remember, seeking help is an integral part of the learning process, and these tools are there to assist you every step of the way.\n\n\n\n\n\n\nTip\n\n\n\nAlways explore the examples given in the help files, as they often provide practical insights into how functions can be used.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Help and Documentation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/help-docs.html#further-reading",
+    "href": "sessions/help-docs.html#further-reading",
+    "title": "19  Help and Documentation",
+    "section": "19.4 Further reading",
+    "text": "19.4 Further reading\n\nR reference and documentation: R Core Team (2023); R Core Team (n.d.).\nCommunity Q&A and examples: “Stack Overflow - r Tag” (n.d.).",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Help and Documentation</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/help-docs.html#resources",
+    "href": "sessions/help-docs.html#resources",
+    "title": "19  Help and Documentation",
+    "section": "19.5 Resources",
+    "text": "19.5 Resources\n\nQuick links: CRAN (https://cran.r-project.org), RDocumentation, and Stack Overflow (dev_code_data/README.md for course-specific pointers).\n\n\n\n\n\nR Core Team. 2023. R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing. https://www.R-project.org/.\n\n\n———. n.d. CRAN (Comprehensive r Archive Network). https://cran.r-project.org/.\n\n\n“Stack Overflow - r Tag.” n.d. https://stackoverflow.com/questions/tagged/r.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Help and Documentation</span>"
+    ]
+  }
+]

@@ -7,24 +7,26 @@ source(here::here("R/functions.R"))
 source(here::here("R/load-packages.R"))
 ```
 
-Logistic regression models binary outcomes; coefficients exponentiated are
-odds ratios.
+Logistic regression models binary outcomes; coefficients exponentiated are odds ratios.
 
 ## When to use logistic regression
 
-Use logistic regression for binary outcomes (event / no event). Adjust for
-confounders when estimating associations.
+Use logistic regression for binary outcomes (event / no event). Adjust for confounders when estimating associations.
+
+## Data {.unnumbered}
+
+- Clinical example: Pima Indians Diabetes (public CSV) — suitable for logistic regression, classification, and model calibration examples. See `data_sources.md` for additional clinical datasets.
 
 ## Short code demo
 
 ```{r demo-glm, echo=TRUE}
-# example using mtcars: model probability of manual transmission (am)
-mtcars <- datasets::mtcars %>% as_tibble(rownames = "model") %>%
-  mutate(am = factor(am, labels = c("auto", "manual")))
+# load Pima diabetes dataset (public CSV)
+pima <- readr::read_csv('https://raw.githubusercontent.com/selva86/datasets/master/PimaIndiansDiabetes.csv')
+pima <- pima %>% mutate(diabetes = as.factor(diabetes))
 
-fit_log <- glm(am ~ wt + hp, family = binomial, data = mtcars)
+fit_log <- glm(diabetes ~ age + bmi, family = binomial, data = pima)
 
-# tidy coefficients and convert to odds ratios
+# tidy coefficients and approximate odds ratios
 broom::tidy(fit_log)
 exp(coef(fit_log))
 ```
@@ -36,22 +38,21 @@ exp(coef(fit_log))
 
 ## Short exercise
 
-- Fit a model with `am ~ wt` and compute predicted probability for two example weights.
+- Fit a model with `diabetes ~ bmi + age` and compute predicted probabilities for representative covariate values.
 
-**Hint:** use `predict(..., type = "response")` for probabilities.
+**Hint:** use `predict(..., type = 'response')` for probabilities.
 
 ## Packages used
 
-- `dplyr`, `broom`, `ggplot2`
+- `dplyr`, `readr`, `broom`, `ggplot2`
 
 **Exercises**
 
-- See `dev_code_data/excercise6.R` for worked logistic regression examples (model fitting, `publish()`, comparisons, and multiple testing with `multcomp`).
+- Example code is inline above; see `data_sources.md` for public datasets and suggested exercise replacements.
 
 ::: {.callout-tip collapse="true" title="Exercise 6 — Solution"}
-- Solution (PDF): `dev_code_data/Solution6.pdf`  
-- Solution script: `dev_code_data/Solution6.R`  
-Run: `Rscript dev_code_data/Solution6.R` or open the PDF in your browser/RStudio.
+- Solution files previously stored in `dev_code_data` have been removed.
+- Run the inline examples above or use one of the public datasets listed in `data_sources.md` for extended logistic exercises.
 :::
 
 ## Further reading
@@ -61,4 +62,4 @@ Run: `Rscript dev_code_data/Solution6.R` or open the PDF in your browser/RStudio
 
 ## Resources
 
-- Example script: `dev_code_data/excercise6.R` (model fitting and prediction examples).
+- Example scripts moved out of `dev_code_data`; see `data_sources.md` and inline examples above.

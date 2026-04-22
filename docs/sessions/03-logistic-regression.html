@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Sufyan Suleman">
-<meta name="author" content="Asmat Ullah">
 
-<title>Simple basic statistics concepts</title>
+<title>Simple basic statistics concepts - 11&nbsp; Logistic Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,26 +20,81 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./sessions/01-descriptive-statistics.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../sessions/model-building-and-diagnostics.html" rel="next">
+<link href="../sessions/06-multiple-regression.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -82,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Course Overview</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/03-logistic-regression.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistic Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -97,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Simple basic statistics concepts</a> 
+      <a href="../">Simple basic statistics concepts</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -109,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Course Overview</span></a>
   </div>
 </li>
@@ -124,121 +177,121 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Descriptive Statistics &amp; Exploratory Data Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/tidy-data-wrangling.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/tidy-data-wrangling.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Basic Statistics for Clinical Research</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/basic-visualization.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/basic-visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic Data Visualization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/advanced-visualization.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/advanced-visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hypothesis Testing: t-tests, nonparametrics, and multiple comparisons</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Categorical Data: Contingency Tables, Risks, and Chi-square Tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multiple Regression &amp; Confounding</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/05-anova.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power, Sample Size, and Study Design Considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/reproducible-research.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/reproducible-research.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Reproducible Research with Quarto and renv</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/packages-libraries.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/packages-libraries.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Clinical Research Methods in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Survival and Time-to-Event Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/explore-clinical-data.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/explore-clinical-data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Basic Statistics for Health Researchers - Exercise Day 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sessions/help-docs.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
@@ -254,53 +307,30 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#course-overview" id="toc-course-overview" class="nav-link active" data-scroll-target="#course-overview">Course Overview</a>
-  <ul class="collapse">
-  <li><a href="#what-you-will-learn" id="toc-what-you-will-learn" class="nav-link" data-scroll-target="#what-you-will-learn">What You Will Learn</a></li>
-  <li><a href="#methods-covered-in-this-course" id="toc-methods-covered-in-this-course" class="nav-link" data-scroll-target="#methods-covered-in-this-course">Methods covered in this course</a></li>
-  <li><a href="#why-this-course" id="toc-why-this-course" class="nav-link" data-scroll-target="#why-this-course">Why This Course</a></li>
-  </ul></li>
-  <li><a href="#Aims" id="toc-Aims" class="nav-link" data-scroll-target="#Aims">Aims</a></li>
-  <li><a href="#Learning-Objectives" id="toc-Learning-Objectives" class="nav-link" data-scroll-target="#Learning-Objectives">Learning Objectives</a></li>
-  <li><a href="#Prerequisites" id="toc-Prerequisites" class="nav-link" data-scroll-target="#Prerequisites">Prerequisites</a></li>
+  <li><a href="#when-to-use-logistic-regression" id="toc-when-to-use-logistic-regression" class="nav-link active" data-scroll-target="#when-to-use-logistic-regression"><span class="header-section-number">11.1</span> When to use logistic regression</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#short-code-demo" id="toc-short-code-demo" class="nav-link" data-scroll-target="#short-code-demo"><span class="header-section-number">11.2</span> Short code demo</a></li>
+  <li><a href="#how-to-explain-the-output-teacher-notes" id="toc-how-to-explain-the-output-teacher-notes" class="nav-link" data-scroll-target="#how-to-explain-the-output-teacher-notes"><span class="header-section-number">11.3</span> How to explain the output (teacher notes)</a></li>
+  <li><a href="#short-exercise" id="toc-short-exercise" class="nav-link" data-scroll-target="#short-exercise"><span class="header-section-number">11.4</span> Short exercise</a></li>
+  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used"><span class="header-section-number">11.5</span> Packages used</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">11.6</span> Further reading</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">11.7</span> Resources</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/03-logistic-regression.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistic Regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Simple basic statistics concepts</h1>
-<p class="subtitle lead">Foundations of statistical reasoning, data interpretation, and evidence-based decision making</p>
+<h1 class="title"><span id="logistic-regression" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></h1>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Authors</div>
-  <div class="quarto-title-meta-heading">Affiliations</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Sufyan Suleman </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Novo Nordisk Foundation Center for Basic Metabolic Research, University of Copenhagen Denmark
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Asmat Ullah </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Department of Biomedicine, Faculty of Health, Aarhus University Denmark
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
+    
   
     
   </div>
@@ -310,60 +340,99 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="course-overview" class="level1 unnumbered">
-<h1 class="unnumbered">Course Overview</h1>
-<p>Practical, short course on core statistical tools and interpreting results for clinical research. Focus: data summary, uncertainty, visualization, and clear communication.</p>
-<section id="what-you-will-learn" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="what-you-will-learn">What You Will Learn</h2>
+<p>Logistic regression models binary outcomes; coefficients exponentiated are odds ratios.</p>
+<section id="when-to-use-logistic-regression" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="when-to-use-logistic-regression"><span class="header-section-number">11.1</span> When to use logistic regression</h2>
+<p>Use logistic regression for binary outcomes (event / no event). Adjust for confounders when estimating associations.</p>
+</section>
+<section id="data" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="data">Data</h2>
 <ul>
-<li>Summarize and visualize data clearly.</li>
-<li>Quantify uncertainty with confidence intervals and tests.</li>
-<li>Fit and interpret basic regression and classification models.</li>
-<li>Report findings in plain language and produce reproducible analyses.</li>
+<li>Clinical example: Pima Indians Diabetes (public CSV) — suitable for logistic regression, classification, and model calibration examples. See <code>data_sources.md</code> for additional clinical datasets.</li>
 </ul>
 </section>
-<section id="methods-covered-in-this-course" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="methods-covered-in-this-course">Methods covered in this course</h2>
+<section id="short-code-demo" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="short-code-demo"><span class="header-section-number">11.2</span> Short code demo</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load Pima diabetes dataset (public CSV)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pima <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/selva86/datasets/master/PimaIndiansDiabetes.csv'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pima <span class="ot">&lt;-</span> pima <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">diabetes =</span> <span class="fu">as.factor</span>(diabetes))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>fit_log <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> age <span class="sc">+</span> bmi, <span class="at">family =</span> binomial, <span class="at">data =</span> pima)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy coefficients and approximate odds ratios</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(fit_log)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(fit_log))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="how-to-explain-the-output-teacher-notes" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="how-to-explain-the-output-teacher-notes"><span class="header-section-number">11.3</span> How to explain the output (teacher notes)</h2>
 <ul>
-<li>Descriptive statistics and data transformation</li>
-<li>Confidence intervals, hypothesis tests, t-tests, ANOVA</li>
-<li>Regression (linear, logistic) and model diagnostics</li>
-<li>Survival analysis and time-to-event methods</li>
-<li>Effective data visualization</li>
+<li><strong>Odds ratio:</strong> multiplicative change in odds for a one-unit predictor increase.</li>
+<li><strong>Predicted probabilities</strong> are usually easier to communicate than odds ratios.</li>
 </ul>
 </section>
-<section id="why-this-course" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="why-this-course">Why This Course</h2>
-<p>Helps clinicians and researchers interpret numerical results, decide when findings matter, and communicate conclusions clearly using reproducible R workflows.</p>
-</section>
-</section>
-<section id="Aims" class="level1">
-<h1>Aims</h1>
-<ol type="1">
-<li>Read and interpret statistical summaries and plots.</li>
-<li>Communicate uncertainty and clinical relevance.</li>
-<li>Build reproducible analysis reports.</li>
-</ol>
-</section>
-<section id="Learning-Objectives" class="level1">
-<h1>Learning Objectives</h1>
-<p>After this course you will be able to:</p>
-<ol type="1">
-<li>Summarize and visualize data to answer research questions.</li>
-<li>Quantify uncertainty and apply appropriate tests.</li>
-<li>Fit basic regression models and interpret coefficients.</li>
-<li>Produce clear, reproducible reports that explain results.</li>
-</ol>
-</section>
-<section id="Prerequisites" class="level1">
-<h1>Prerequisites</h1>
+<section id="short-exercise" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="short-exercise"><span class="header-section-number">11.4</span> Short exercise</h2>
 <ul>
-<li>Basic familiarity with statistics.</li>
-<li>Ability to install R packages; RStudio recommended.</li>
+<li>Fit a model with <code>diabetes ~ bmi + age</code> and compute predicted probabilities for representative covariate values.</li>
 </ul>
-<p>Follow the setup instructions in the course materials before starting the exercises.</p>
+<p><strong>Hint:</strong> use <code>predict(..., type = 'response')</code> for probabilities.</p>
+</section>
+<section id="packages-used" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="packages-used"><span class="header-section-number">11.5</span> Packages used</h2>
+<ul>
+<li><code>dplyr</code>, <code>readr</code>, <code>broom</code>, <code>ggplot2</code></li>
+</ul>
+<p><strong>Exercises</strong></p>
+<ul>
+<li>Example code is inline above; see <code>data_sources.md</code> for public datasets and suggested exercise replacements.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Exercise 6 — Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 6 — Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Solution files previously stored in <code>dev_code_data</code> have been removed.</li>
+<li>Run the inline examples above or use one of the public datasets listed in <code>data_sources.md</code> for extended logistic exercises.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="further-reading" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">11.6</span> Further reading</h2>
+<ul>
+<li>Logistic regression references and interpretation: <span class="citation" data-cites="Matloff-2011">Matloff (<a href="#ref-Matloff-2011" role="doc-biblioref">2011</a>)</span>; <span class="citation" data-cites="Henderson-Velleman-1981">Henderson and Velleman (<a href="#ref-Henderson-Velleman-1981" role="doc-biblioref">1981</a>)</span>.</li>
+<li>Practical modeling guidance: <span class="citation" data-cites="Wickham-Grolemund-2017">Wickham and Grolemund (<a href="#ref-Wickham-Grolemund-2017" role="doc-biblioref">2017</a>)</span>.</li>
+</ul>
+</section>
+<section id="resources" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="resources"><span class="header-section-number">11.7</span> Resources</h2>
+<ul>
+<li>Example scripts moved out of <code>dev_code_data</code>; see <code>data_sources.md</code> and inline examples above.</li>
+</ul>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Henderson-Velleman-1981" class="csl-entry" role="listitem">
+Henderson, H. V., and P. F. Velleman. 1981. <span>“Building Multiple Regression Models Interactively.”</span> <em>Biometrics</em> 37: 391–411.
+</div>
+<div id="ref-Matloff-2011" class="csl-entry" role="listitem">
+Matloff, Norman. 2011. <em>The Art of r Programming: A Tour of Statistical Software Design</em>. No Starch Press. <a href="https://nostarch.com/artofr.htm">https://nostarch.com/artofr.htm</a>.
+</div>
+<div id="ref-Wickham-Grolemund-2017" class="csl-entry" role="listitem">
+Wickham, Hadley, and Garrett Grolemund. 2017. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. O’Reilly Media, Inc. <a href="https://r4ds.had.co.nz/">https://r4ds.had.co.nz/</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -756,10 +825,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../sessions/06-multiple-regression.html" class="pagination-link  aria-label=" &lt;span="" regression="" &amp;="" confounding&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multiple Regression &amp; Confounding</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./sessions/01-descriptive-statistics.html" class="pagination-link" aria-label="<span class='chapter-number'>1</span>&nbsp; <span class='chapter-title'>Descriptive Statistics &amp; Exploratory Data Analysis</span>">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Descriptive Statistics &amp; Exploratory Data Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/model-building-and-diagnostics.html" class="pagination-link" aria-label="<span class='chapter-number'>12</span>&nbsp; <span class='chapter-title'>Model Building and Diagnostics</span>">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

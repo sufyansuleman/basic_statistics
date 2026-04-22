@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Simple basic statistics concepts - 7&nbsp; T-tests &amp; Group Comparisons</title>
+<title>Simple basic statistics concepts - 15&nbsp; R Packages and Libraries</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -84,8 +50,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../sessions/categorical-data-and-chi-square.html" rel="next">
-<link href="../sessions/hypothesis-testing.html" rel="prev">
+<link href="../sessions/clinical-research-methods.html" rel="next">
+<link href="../sessions/reproducible-research.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -135,7 +101,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/packages-libraries.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -213,7 +179,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link active">
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></a>
   </div>
 </li>
@@ -267,7 +233,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/packages-libraries.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/packages-libraries.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></a>
   </div>
 </li>
@@ -307,23 +273,36 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#when-to-use-t-tests" id="toc-when-to-use-t-tests" class="nav-link active" data-scroll-target="#when-to-use-t-tests"><span class="header-section-number">7.1</span> When to use t-tests</a></li>
-  <li><a href="#short-code-demo" id="toc-short-code-demo" class="nav-link" data-scroll-target="#short-code-demo"><span class="header-section-number">7.2</span> Short code demo</a></li>
-  <li><a href="#how-to-explain-the-output-teacher-notes" id="toc-how-to-explain-the-output-teacher-notes" class="nav-link" data-scroll-target="#how-to-explain-the-output-teacher-notes"><span class="header-section-number">7.3</span> How to explain the output (teacher notes)</a></li>
-  <li><a href="#short-exercise" id="toc-short-exercise" class="nav-link" data-scroll-target="#short-exercise"><span class="header-section-number">7.4</span> Short exercise</a></li>
-  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used"><span class="header-section-number">7.5</span> Packages used</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">7.6</span> Further reading</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">7.7</span> Resources</a></li>
+  <li><a href="#understanding-r-packages-and-libraries" id="toc-understanding-r-packages-and-libraries" class="nav-link active" data-scroll-target="#understanding-r-packages-and-libraries"><span class="header-section-number">15.1</span> Understanding R Packages and Libraries</a>
+  <ul class="collapse">
+  <li><a href="#what-are-r-packages" id="toc-what-are-r-packages" class="nav-link" data-scroll-target="#what-are-r-packages"><span class="header-section-number">15.1.1</span> What Are R Packages?</a></li>
+  <li><a href="#what-are-r-libraries" id="toc-what-are-r-libraries" class="nav-link" data-scroll-target="#what-are-r-libraries"><span class="header-section-number">15.1.2</span> What Are R Libraries?</a></li>
+  <li><a href="#where-are-libraries-stored" id="toc-where-are-libraries-stored" class="nav-link" data-scroll-target="#where-are-libraries-stored"><span class="header-section-number">15.1.3</span> Where Are Libraries Stored?</a></li>
+  </ul></li>
+  <li><a href="#installing-loading-and-managing-r-packages" id="toc-installing-loading-and-managing-r-packages" class="nav-link" data-scroll-target="#installing-loading-and-managing-r-packages"><span class="header-section-number">15.2</span> Installing, Loading, and Managing R Packages</a>
+  <ul class="collapse">
+  <li><a href="#what-are-the-sources-of-r-packages" id="toc-what-are-the-sources-of-r-packages" class="nav-link" data-scroll-target="#what-are-the-sources-of-r-packages"><span class="header-section-number">15.2.1</span> What Are the Sources of R Packages?</a></li>
+  </ul></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">15.3</span> Further reading</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">15.4</span> Resources</a>
+  <ul class="collapse">
+  <li><a href="#section-installing-and-loading-r-packages" id="toc-section-installing-and-loading-r-packages" class="nav-link" data-scroll-target="#section-installing-and-loading-r-packages"><span class="header-section-number">15.4.1</span> Section: Installing and Loading R Packages</a></li>
+  <li><a href="#installing-r-packages-from-cran" id="toc-installing-r-packages-from-cran" class="nav-link" data-scroll-target="#installing-r-packages-from-cran"><span class="header-section-number">15.4.2</span> Installing R Packages from CRAN</a></li>
+  <li><a href="#installing-packages-from-github" id="toc-installing-packages-from-github" class="nav-link" data-scroll-target="#installing-packages-from-github"><span class="header-section-number">15.4.3</span> Installing Packages from GitHub</a></li>
+  <li><a href="#installing-packages-from-bioconductor" id="toc-installing-packages-from-bioconductor" class="nav-link" data-scroll-target="#installing-packages-from-bioconductor"><span class="header-section-number">15.4.4</span> Installing Packages from Bioconductor</a></li>
+  <li><a href="#loading-packages-into-r-session" id="toc-loading-packages-into-r-session" class="nav-link" data-scroll-target="#loading-packages-into-r-session"><span class="header-section-number">15.4.5</span> Loading Packages into R Session</a></li>
+  <li><a href="#troubleshooting-package-installation" id="toc-troubleshooting-package-installation" class="nav-link" data-scroll-target="#troubleshooting-package-installation"><span class="header-section-number">15.4.6</span> Troubleshooting Package Installation</a></li>
+  </ul></li>
+  <li><a href="#exercise-7" id="toc-exercise-7" class="nav-link" data-scroll-target="#exercise-7"><span class="header-section-number">15.5</span> Exercise 7</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/packages-libraries.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="t-tests" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></h1>
+<h1 class="title"><span id="sec-packages-libraries" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></h1>
 </div>
 
 
@@ -340,95 +319,232 @@ div.csl-indent {
 </header>
 
 
-<p>This session covers one-sample, two-sample, and paired t-tests and when to use Welch’s correction.</p>
-<section id="when-to-use-t-tests" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="when-to-use-t-tests"><span class="header-section-number">7.1</span> When to use t-tests</h2>
-<p>Use t-tests to compare means between groups (one-sample, two-sample) or paired measurements on the same subjects (paired t-test). Use Welch’s t-test when variances are unequal.</p>
+<section id="understanding-r-packages-and-libraries" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="understanding-r-packages-and-libraries"><span class="header-section-number">15.1</span> Understanding R Packages and Libraries</h2>
+<p>When working with R, you’ll often hear about “packages” and “libraries.” It’s important to understand what these are and how they are used in the R programming environment.</p>
+<section id="what-are-r-packages" class="level3" data-number="15.1.1">
+<h3 data-number="15.1.1" class="anchored" data-anchor-id="what-are-r-packages"><span class="header-section-number">15.1.1</span> What Are R Packages?</h3>
+<p>Think of a package as a toolbox that contains a set of tools (functions), materials (data sets), and an instruction manual (documentation). Just as you might have different toolboxes for different types of work (like electrical work or carpentry), in R, you have different packages for different types of tasks, like creating graphs, analyzing statistical data, or manipulating text.</p>
+<p>Packages in R are created by the community: people like you and me who need a set of functions and decide to bundle them together for everyone to use. Once a package is created, it can be shared with others.</p>
 </section>
-<section id="short-code-demo" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="short-code-demo"><span class="header-section-number">7.2</span> Short code demo</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># two-sample example from ToothGrowth</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tg <span class="ot">&lt;-</span> datasets<span class="sc">::</span>ToothGrowth <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dose =</span> <span class="fu">factor</span>(dose))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tg_low <span class="ot">&lt;-</span> tg <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dose <span class="sc">==</span> <span class="fl">0.5</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># two-sample t-test comparing supplements</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>t_test_res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_low)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(t_test_res)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># paired example using built-in sleep dataset</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>paired_res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(extra <span class="sc">~</span> group, <span class="at">data =</span> datasets<span class="sc">::</span>sleep, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(paired_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="what-are-r-libraries" class="level3" data-number="15.1.2">
+<h3 data-number="15.1.2" class="anchored" data-anchor-id="what-are-r-libraries"><span class="header-section-number">15.1.2</span> What Are R Libraries?</h3>
+<p>Now, if packages are like toolboxes, then libraries are like the shelves where you store these toolboxes. In R, a library is a directory on your computer where packages are stored. When you install a package, it’s like putting a toolbox on one of these shelves. And when you want to use a package, you have to take it off the shelf and open it, which in R, you do by “loading” the package.</p>
 </section>
-<section id="how-to-explain-the-output-teacher-notes" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="how-to-explain-the-output-teacher-notes"><span class="header-section-number">7.3</span> How to explain the output (teacher notes)</h2>
-<ul>
-<li><strong>Report:</strong> mean difference and 95% CI. State whether CI includes zero.</li>
-<li><strong>Context:</strong> choose paired vs independent test based on study design.</li>
-</ul>
-</section>
-<section id="short-exercise" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="short-exercise"><span class="header-section-number">7.4</span> Short exercise</h2>
-<ul>
-<li>Select two groups from <code>mtcars</code> (e.g., <code>am</code> levels) and run an appropriate t-test; write a one-line interpretation.</li>
-</ul>
-<p><strong>Hint:</strong> use <code>t.test(..., var.equal = TRUE)</code> for pooled variance, omit for Welch.</p>
-</section>
-<section id="packages-used" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="packages-used"><span class="header-section-number">7.5</span> Packages used</h2>
-<ul>
-<li><code>broom</code>, <code>dplyr</code></li>
-</ul>
-</section>
-<section id="data" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="data">Data</h2>
-<ul>
-<li>Teaching example: <code>ToothGrowth</code> (plant growth experiment). For clinical examples, use <code>NHANES</code> subsets (blood pressure, labs) or <code>MASS::birthwt</code> for perinatal outcomes; see <code>data_sources.md</code> for links.</li>
-</ul>
-<p><strong>Exercises</strong></p>
-<ul>
-<li>Use the inline examples above or <code>data_sources.md</code> for clinical t-test datasets; older <code>dev_code_data</code> scripts have been removed.</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Exercise 2 — Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<section id="where-are-libraries-stored" class="level3" data-number="15.1.3">
+<h3 data-number="15.1.3" class="anchored" data-anchor-id="where-are-libraries-stored"><span class="header-section-number">15.1.3</span> Where Are Libraries Stored?</h3>
+<p>On your computer, the R libraries are stored in a place that R knows and can access when you ask it to. This is usually a folder named “R” in your system’s library folder or in a location that you specify. You don’t usually have to worry about where this is unless you’re managing multiple versions of R or you have special security settings on your computer.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 2 — Solution
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you want to check where the libraries are installed on computer run this command in your console <code>.libPaths()</code></p>
+</div>
+</div>
+</section>
+</section>
+<section id="installing-loading-and-managing-r-packages" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="installing-loading-and-managing-r-packages"><span class="header-section-number">15.2</span> Installing, Loading, and Managing R Packages</h2>
+<section id="what-are-the-sources-of-r-packages" class="level3" data-number="15.2.1">
+<h3 data-number="15.2.1" class="anchored" data-anchor-id="what-are-the-sources-of-r-packages"><span class="header-section-number">15.2.1</span> What Are the Sources of R Packages?</h3>
+<p>Packages can come from several places:</p>
+</section>
+</section>
+<section id="further-reading" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">15.3</span> Further reading</h2>
+<ul>
+<li>CRAN and package resources: <span class="citation" data-cites="CRAN">R Core Team (<a href="#ref-CRAN" role="doc-biblioref">n.d.</a>)</span>; <span class="citation" data-cites="R-Core-Team-2023">R Core Team (<a href="#ref-R-Core-Team-2023" role="doc-biblioref">2023</a>)</span>.</li>
+<li>Package recipes and guidance: <span class="citation" data-cites="Matloff-2011">Matloff (<a href="#ref-Matloff-2011" role="doc-biblioref">2011</a>)</span>.</li>
+</ul>
+</section>
+<section id="resources" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="resources"><span class="header-section-number">15.4</span> Resources</h2>
+<ul>
+<li>Examples and loaders: <code>dev_code_data/package-loading.R</code>, <code>R/load-packages.R</code>.</li>
+</ul>
+<ol type="1">
+<li><p><strong>CRAN (Comprehensive R Archive Network):</strong> This is the main repository where R packages are stored. Think of it as the official app store for R. When you use install.packages(), you’re usually downloading from CRAN.</p></li>
+<li><p><strong>Bioconductor:</strong> This is a repository that’s focused on bioinformatics packages.</p></li>
+<li><p><strong>GitHub:</strong> Some developers choose to put their packages on GitHub, a platform for developers to share code. These aren’t always officially released on CRAN, but you can still install them using tools like devtools. This requires first install devtools from <code>CRAN website</code>, load its libraries before using it install packages from Github</p></li>
+<li><p><strong>Local Files:</strong> Sometimes, you might have a package file (with a .tar.gz extension for Mac/Linux or .zip for Windows) on your computer that you can install directly.</p></li>
+</ol>
+<p><strong>Summary</strong></p>
+<ul>
+<li>A package is a collection of functions, data, and documentation that extends R’s capabilities.</li>
+<li>A library is a place on your computer where R packages are stored.</li>
+<li>You can get packages from places like CRAN, Bioconductor, GitHub, or even local files on your computer.</li>
+<li>Once you get the hold of installing and loading packages, you’ll have access to a vast world of tools that can help you do almost anything you can imagine with R.</li>
+</ul>
+<section id="section-installing-and-loading-r-packages" class="level3" data-number="15.4.1">
+<h3 data-number="15.4.1" class="anchored" data-anchor-id="section-installing-and-loading-r-packages"><span class="header-section-number">15.4.1</span> Section: Installing and Loading R Packages</h3>
+<p>In this section, we’ll cover the essential skills of installing and loading packages in R, a crucial step in leveraging the vast array of tools available for data analysis in R. R packages are collections of functions, data, and compiled code that extend the basic functionality of R.</p>
+<p>By the end of this section, students will be able to: 1. Install R packages from CRAN and other repositories. 2. Load packages into an R session. 3. Troubleshoot common issues related to package installation.</p>
+</section>
+<section id="installing-r-packages-from-cran" class="level3" data-number="15.4.2">
+<h3 data-number="15.4.2" class="anchored" data-anchor-id="installing-r-packages-from-cran"><span class="header-section-number">15.4.2</span> Installing R Packages from CRAN</h3>
+<p><strong>Accessing CRAN</strong> - CRAN (Comprehensive R Archive Network) is the main repository for R packages. - To install a package from CRAN, use the <code>install.packages()</code> function in R.</p>
+<p><strong>Example Command</strong> - For example, to install the package <code>ggplot2</code>, you would use the command: <code>install.packages("ggplot2")</code>.</p>
+<p><strong>Internet Connection</strong> - Ensure you have an active internet connection, as R will need to download the package files.</p>
+<p><strong>Dependencies</strong> - When installing a package, R automatically installs any other packages (dependencies) that are required.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you use the command <code>install.packages("ggdag package")</code>, to install a package of your choice <code>ggdag</code> as an example, and you get the following error message.</p>
+<p>Warning in install.packages : package ‘ggdag package’ is not available for this version of R</p>
+<p>A version of this package for your version of R might be available elsewhere, see the ideas at <code>https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages</code></p>
+<p>You will get this error message because the package is not available on CRAN repositiory. Search it on web and see where this package is available and then try the below two methods You can try installing it from GitHub using the <code>devtools</code> package or from Bioconductor.</p>
+</div>
+</div>
+</section>
+<section id="installing-packages-from-github" class="level3" data-number="15.4.3">
+<h3 data-number="15.4.3" class="anchored" data-anchor-id="installing-packages-from-github"><span class="header-section-number">15.4.3</span> Installing Packages from GitHub</h3>
+<p>*<strong>Using DevTools</strong> - The <code>devtools</code> package in R is designed to facilitate package development and installation from sources like GitHub. - First, install <code>devtools</code> from CRAN using <code>install.packages("devtools")</code>. - Then load the package using <code>library(devtools)</code>.</p>
+<p><strong>Install from GitHub</strong> - With <code>devtools</code> installed, and loaded you can use the <code>install_github()</code> function to install packages directly from GitHub. - The syntax is <code>devtools::install_github("username/repository")</code>, where <code>username</code> is the GitHub username and <code>repository</code> is the name of the repository.</p>
+<p><strong>Example Command</strong> - For instance, if you want to install a package named <code>leaflet</code> from a GitHub user <code>rstudio``, use:</code>devtools::install_github(“rstudio/leaflet”)`.</p>
+<p><strong>Note on Private Repositories</strong> - For private repositories, you may need to configure additional authentication settings.</p>
+</section>
+<section id="installing-packages-from-bioconductor" class="level3" data-number="15.4.4">
+<h3 data-number="15.4.4" class="anchored" data-anchor-id="installing-packages-from-bioconductor"><span class="header-section-number">15.4.4</span> Installing Packages from Bioconductor</h3>
+<p><strong>Bioconductor for Bioinformatics</strong> - Bioconductor is a project providing tools for the analysis and comprehension of high-throughput genomic data in R. - It has its own set of packages, particularly focused on bioinformatics.</p>
+<p><strong>Install Bioconductor Packages</strong> - To install packages from Bioconductor, first install the <code>BiocManager</code> package from CRAN using <code>install.packages("BiocManager")</code>. - Then, use <code>BiocManager::install()</code> to install packages from Bioconductor.</p>
+<p><strong>Example Command</strong> - For example, to install the <code>GenomicFeatures</code> package from Bioconductor, use: <code>BiocManager::install("GenomicFeatures")</code>.</p>
+<p><strong>Bioconductor Versioning</strong> - Bioconductor releases are semi-annual and tied to specific versions of R. Ensure that your version of R is compatible with the version of Bioconductor you are using.</p>
+</section>
+<section id="loading-packages-into-r-session" class="level3" data-number="15.4.5">
+<h3 data-number="15.4.5" class="anchored" data-anchor-id="loading-packages-into-r-session"><span class="header-section-number">15.4.5</span> Loading Packages into R Session</h3>
+<p><strong>Using <code>library()</code></strong> - Once a package is installed, load it into your R session using the <code>library()</code> function. - For example, to load <code>ggplot2</code>, use: <code>library(ggplot2)</code>.</p>
+<p><strong>Checking Installed Packages</strong> - Use <code>installed.packages()</code> to get a list of all packages installed in your R environment.</p>
+</section>
+<section id="troubleshooting-package-installation" class="level3" data-number="15.4.6">
+<h3 data-number="15.4.6" class="anchored" data-anchor-id="troubleshooting-package-installation"><span class="header-section-number">15.4.6</span> Troubleshooting Package Installation</h3>
+<p><strong>Error Messages</strong> - Pay close attention to any error messages during installation; they often provide clues about the issue.</p>
+<p><strong>Dependency Issues</strong> - If there are missing dependencies, try installing those packages separately.</p>
+<p><strong>Compatibility with R Version</strong> - Some packages may not be compatible with your current version of R. Check the package documentation for version requirements.</p>
+<p><strong>Internet Connection and Firewalls</strong> - Ensure a stable internet connection. Firewalls or network policies may sometimes block R from accessing external servers.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Additional Resources</strong> - Type the following commands into your R console and hit enter. This will open an R documentation window in the Files pane, specifically in the Help Tab. This window provides detailed information about these commands. At this stage, it’s not necessary to delve deeply into understanding every aspect of these commands. However, this method is a valuable tool for learning more about packages and functions in R as you progress. - For R documentation, use: <code>?install.packages</code> and <code>?library</code></p>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-7" class="level2" data-number="15.5">
+<h2 data-number="15.5" class="anchored" data-anchor-id="exercise-7"><span class="header-section-number">15.5</span> Exercise 7</h2>
+<p>This exercise is designed to familiarize you with the process of installing and loading R packages, and exploring their functions. You’ll get hands-on experience with some of the basic data analysis packages in R.</p>
+<ol type="1">
+<li><strong>Install Package</strong>:
+<ul>
+<li>Install the following popular R packages for data analysis:
+<ul>
+<li><code>ggplot2</code> for data visualization.</li>
+<li><code>readr</code> for reading rectangular data.</li>
+</ul></li>
+<li>Install your chosen package using the command <code>install.packages("packageName")</code>, replacing <code>"packageName"</code> with the name of the package.</li>
+<li>We will use these two packages in next two sections</li>
+</ul></li>
+<li><strong>Load the Package</strong>:
+<ul>
+<li>Load the package into your R session using <code>library(packageName)</code>.</li>
+</ul></li>
+<li><strong>Explore Package Functions</strong>:</li>
+</ol>
+<ul>
+<li>Using RStudio’s Help Tab:</li>
+</ul>
+<p>In RStudio, locate the Help tab, which is typically found in the lower right panel in the File pane. Type the name of the package or a specific function from the package in the search bar. Press enter, and a new page will open, displaying detailed information about the package or function.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Excercise 7: Click to see solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Excercise 7: Click to see solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>Install</strong></li>
+</ol>
+<p>Install one by one</p>
+<p><code>install.packages("ggplot2")</code></p>
+<p><code>install.packages("readr")</code></p>
+<p>OR install in one go</p>
+<p><code>install.packages("ggplot2", "readr")</code></p>
+<p>When you run the above codes you will see the following text (or something similar) in your console It may take sometime if it is also installing the dependencies (other packages required for ggplot2)</p>
+<p><code>trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.6/ggplot2_3.2.1.zip</code> <code>Content type 'application/zip' length 3976166 bytes (3.8 MB)</code> <code>downloaded 3.8 MB</code></p>
+<p><code>package ‘ggplot2’ successfully unpacked and MD5 sums checked</code></p>
+<p><code>The downloaded binary packages are in</code> <code>C:\Users\...\your\directory</code></p>
+<p>If you see this message it means that the package is installed successfully. Do not be afraid of the text in red color that mostly symbolize the Error or Warning message.</p>
+<ol start="2" type="1">
+<li><strong>Load the packages</strong></li>
+</ol>
+<p>Use the library() function to load the packages ggplot2 and readr as shown below</p>
+<p><code>library(ggplot2)</code></p>
+<p><code>library(readr)</code></p>
+<p>When you run these commands, they should execute without any errors or warning messages, and typically, you won’t see any output in the console. If the packages are loaded successfully, R proceeds silently, indicating that everything is functioning correctly.</p>
+<ol start="3" type="1">
+<li><strong>Explore</strong></li>
+</ol>
+<p>Using RStudio’s Help Tab</p>
+<ol type="1">
+<li><strong>Locating the Help Tab</strong>:
 <ul>
-<li>Solution files previously stored in <code>dev_code_data</code> have been removed.</li>
-<li>Run the inline examples above or use public datasets listed in <code>data_sources.md</code> for clinical t-test exercises.</li>
+<li>In RStudio, find the Help tab in the lower right panel, typically under the File pane.</li>
+</ul></li>
+<li><strong>Searching for Package or Function Documentation</strong>:
+<ul>
+<li><p>In the search bar, type <code>ggplot2</code> and press enter. A new documentation page opens, showing detailed information about the <code>ggplot2</code> package. It has its own webpage and GitHub page; please click on the ggplot2 website <a href="https://ggplot2.tidyverse.org">ggplot2 website</a> to explore more about ggplot usage.</p></li>
+<li><p>In the search bar, type <code>ggplot</code>, which is a function in the <code>ggplot2</code>, package and press enter. A new documentation page opens with Description, Usage, Arguments, Details and Exxamples on information page.</p></li>
+<li><p>In the search bar, type <code>readr</code> and press enter. You will see again a page open up with links to web pages. You can click on the readr website <a href="https://readr.tidyverse.org">readr website</a> to get more information on the readr package.</p></li>
+<li><p>In the search bar, type <code>read_csv</code> and press enter. You will see again a page open up with information all <code>read</code> function available in the <code>readr</code> package.</p></li>
+</ul></li>
+</ol>
+<p>Navigate down and find the <code>read_csv</code> function and read the arguments it can take.</p>
+<p><img src="../images/read_csv_help.PNG" class="img-fluid"></p>
+<p>Here <code>read_csv()</code> is function that performs a specific task. Everything inside the <code>read_csv()</code> within the small closed brackets, separated by comma is an argument. For example <code>col_names</code> is an argument and it can take logical values either <code>TRUE</code> or <code>FALSE</code>. If you do not specify the argument, it will take the default value. For example, if you do not specify the argument <code>col_names</code> it will take the default value <code>FALSE</code> and will not read the first row of the data as column names.</p>
+<p><strong>Summary</strong></p>
+<ul>
+<li>Through the Help tab, you can access a wealth of information about R packages and their functions.</li>
+<li>This process helps in understanding how specific functions work, including their required inputs (arguments) and what they return.</li>
+<li>By exploring these resources, you gain insights into how to effectively use these packages in your R programming tasks.</li>
 </ul>
 </div>
 </div>
 </div>
-</section>
-<section id="further-reading" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">7.6</span> Further reading</h2>
-<ul>
-<li>Testing and nonparametrics: <span class="citation" data-cites="Teetor-2011">Teetor (<a href="#ref-Teetor-2011" role="doc-biblioref">2011</a>)</span>; <span class="citation" data-cites="Wickham-Grolemund-2017">Wickham and Grolemund (<a href="#ref-Wickham-Grolemund-2017" role="doc-biblioref">2017</a>)</span>.</li>
-</ul>
-</section>
-<section id="resources" class="level2" data-number="7.7">
-<h2 data-number="7.7" class="anchored" data-anchor-id="resources"><span class="header-section-number">7.7</span> Resources</h2>
-<ul>
-<li>Example scripts moved from <code>dev_code_data</code>; use inline examples above or consult <code>data_sources.md</code> for public dataset alternatives.</li>
-</ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Teetor-2011" class="csl-entry" role="listitem">
-Teetor, Paul. 2011. <em>R Cookbook: Proven Recipes for Data Analysis, Statistics, and Graphics</em>. O’Reilly Media.
+<div id="ref-Matloff-2011" class="csl-entry" role="listitem">
+Matloff, Norman. 2011. <em>The Art of r Programming: A Tour of Statistical Software Design</em>. No Starch Press. <a href="https://nostarch.com/artofr.htm">https://nostarch.com/artofr.htm</a>.
 </div>
-<div id="ref-Wickham-Grolemund-2017" class="csl-entry" role="listitem">
-Wickham, Hadley, and Garrett Grolemund. 2017. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. O’Reilly Media, Inc. <a href="https://r4ds.had.co.nz/">https://r4ds.had.co.nz/</a>.
+<div id="ref-R-Core-Team-2023" class="csl-entry" role="listitem">
+R Core Team. 2023. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-CRAN" class="csl-entry" role="listitem">
+———. n.d. <em>CRAN (Comprehensive r Archive Network)</em>. <a href="https://cran.r-project.org/">https://cran.r-project.org/</a>.
 </div>
 </div>
 </section>
@@ -823,13 +939,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/hypothesis-testing.html" class="pagination-link  aria-label=" &lt;span="" testing:="" t-tests,="" nonparametrics,="" and="" multiple="" comparisons&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hypothesis Testing: t-tests, nonparametrics, and multiple comparisons</span></span>
+      <a href="../sessions/reproducible-research.html" class="pagination-link  aria-label=" &lt;span="" research="" with="" quarto="" and="" renv&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Reproducible Research with Quarto and renv</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/categorical-data-and-chi-square.html" class="pagination-link" aria-label="<span class='chapter-number'>8</span>&nbsp; <span class='chapter-title'>Categorical Data: Contingency Tables, Risks, and Chi-square Tests</span>">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Categorical Data: Contingency Tables, Risks, and Chi-square Tests</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/clinical-research-methods.html" class="pagination-link" aria-label="<span class='chapter-number'>16</span>&nbsp; <span class='chapter-title'>Clinical Research Methods in R</span>">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Clinical Research Methods in R</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

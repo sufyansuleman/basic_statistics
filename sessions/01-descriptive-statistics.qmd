@@ -12,6 +12,11 @@ data analysis (EDA) with a focus on interpretation for clinical
 research. Each section shows when to use the method, a short code demo,
 how to read the output, and a short exercise for practice.
 
+## Data {.unnumbered}
+
+- `survival::pbc`: clinical dataset (primary biliary cirrhosis) with labs and demographics; useful for demonstrating distributional summaries and missingness.
+- Local fallback: `data/scd_simulated_data.rda` (simulated SCD data) if present in `data/` — useful when a small in-repo example is preferred.
+
 ## Learning outcomes
 
 - Compute and report descriptive summaries (means, medians, IQRs, and missingness).
@@ -56,7 +61,7 @@ pbc %>%
 ## Worked example: assess bilirubin distribution and missingness
 
 ```{r worked-example, echo=TRUE}
-# Re-create a minimal workflow from dev_code_data/excercise1.R
+# Re-create a minimal workflow using `survival::pbc` or local data (see `data_sources.md`)
 library(dplyr)
 library(ggplot2)
 
@@ -129,8 +134,13 @@ rm(list=ls())
 #'
 #' We load the data and have a look a the first lines.
 ## -----------------------------------------------------------------------------
-load(url("http://paulblanche.com/files/SCD.rda"))
-d <- SCD # shorter name, just for convenience
+## Prefer local simulated SCD (data/scd_simulated_data.rda) otherwise use `survival::pbc`
+if (file.exists(here::here('data','scd_simulated_data.rda'))) {
+  load(here::here('data','scd_simulated_data.rda'))
+  d <- scd_simulated_data
+} else {
+  d <- survival::pbc %>% as_tibble()
+}
 head(d)
 
 #'
@@ -323,4 +333,4 @@ compute summaries; `sum(is.na(bili))/n()` gives proportion missing.
 
 ## Resources
 
-- Example scripts: `dev_code_data/excercise1.R` (descriptive examples).
+- Example scripts: moved from `dev_code_data` — use inline examples above or see `data_sources.md` for public dataset load snippets.

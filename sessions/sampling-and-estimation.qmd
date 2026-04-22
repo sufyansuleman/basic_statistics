@@ -20,8 +20,7 @@ This session covers sampling concepts, point estimation, and confidence interval
 
 **Hands-on / Examples**
 
-- See the worked examples in `dev_code_data/excercise1.R` (descriptive summaries, means, CI, prediction intervals).
-- To run the example locally: `source("dev_code_data/excercise1.R")` and inspect the sections labelled "Question 4" and the t.test outputs.
+- Example scripts previously in `dev_code_data` were moved; use the inline examples above or see `scripts/excercise1.R` if present, otherwise consult `data_sources.md` for recommended public datasets and load snippets.
 
 **Exercises**
 
@@ -50,8 +49,14 @@ rm(list=ls())
 #'
 #' We load the data and have a look a the first lines.
 ## -----------------------------------------------------------------------------
-load(url("http://paulblanche.com/files/SCD.rda"))
-d <- SCD # shorter name, just for convenience
+## Prefer local simulated SCD (data/scd_simulated_data.rda) otherwise use `survival::pbc`
+if (file.exists(here::here('data','scd_simulated_data.rda'))) {
+        load(here::here('data','scd_simulated_data.rda'))
+        d <- scd_simulated_data
+} else {
+        d <- survival::pbc %>% as_tibble()
+}
+head(d)
 head(d)
 
 #'
@@ -235,4 +240,4 @@ abline(0,1,col="red",lty=2,lwd=3)
 
 ## Resources
 
-- Primary example: `dev_code_data/excercise1.R` (Questions 1–7 and appendix code).
+- Primary example materials were moved from `dev_code_data`; see `scripts/` for canonical exercise scripts or `data_sources.md` for dataset load snippets and replacements.
