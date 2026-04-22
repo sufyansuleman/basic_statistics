@@ -1,4 +1,4 @@
-Canonical session → public datasets (dev_code_data replaced)
+Canonical session → public datasets (legacy script references replaced)
 
 1. 01-descriptive-statistics.qmd
      - Datasets:
@@ -104,5 +104,5 @@ Key public dataset URLs (stable examples):
 - Pima Diabetes CSV: https://raw.githubusercontent.com/selva86/datasets/master/PimaIndiansDiabetes.csv
 
 Notes:
-- `dev_code_data` has been removed; canonical example scripts should be migrated into `R/` or `scripts/` and reference public datasets or package datasets as above.
+- Legacy script references have been replaced; canonical example scripts should use `R/` or `scripts/` and reference public datasets or package datasets as above.
 - If you want, I can (a) replace file references in each QMD with `readr::read_csv(URL)` calls, (b) add small cleaned CSV(s) to `data/` for any private simulated data to keep in-repo, or (c) generate a `data_sources.md` with direct download and citation instructions.

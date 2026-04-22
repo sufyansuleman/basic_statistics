@@ -313,7 +313,6 @@ div.csl-indent {
   <li><a href="#short-code-demo" id="toc-short-code-demo" class="nav-link" data-scroll-target="#short-code-demo">Short code demo</a></li>
   <li><a href="#how-to-explain-the-output-teacher-notes" id="toc-how-to-explain-the-output-teacher-notes" class="nav-link" data-scroll-target="#how-to-explain-the-output-teacher-notes">How to explain the output (teacher notes)</a></li>
   <li><a href="#short-exercise" id="toc-short-exercise" class="nav-link" data-scroll-target="#short-exercise">Short exercise</a></li>
-  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used">Packages used</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul></li>
@@ -357,10 +356,28 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> datasets<span class="sc">::</span>PlantGrowth <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pg_aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(weight <span class="sc">~</span> group, <span class="at">data =</span> pg)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pg_aov)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Tukey pairwise comparisons</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(pg_aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pg_aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)  
+group        2  3.766  1.8832   4.846 0.0159 *
+Residuals   27 10.492  0.3886                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tukey pairwise comparisons</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(pg_aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = weight ~ group, data = pg)
+
+$group
+            diff        lwr       upr     p adj
+trt1-ctrl -0.371 -1.0622161 0.3202161 0.3908711
+trt2-ctrl  0.494 -0.1972161 1.1852161 0.1979960
+trt2-trt1  0.865  0.1737839 1.5562161 0.0120064</code></pre>
+</div>
 </div>
 </section>
 <section id="how-to-explain-the-output-teacher-notes" class="level2">
@@ -376,15 +393,9 @@ div.csl-indent {
 <li>Run the ANOVA and report which groups differ using Tukey’s test; write a one-line conclusion.</li>
 </ul>
 <p><strong>Hint:</strong> use <code>TukeyHSD()</code> on the fitted <code>aov</code> object.</p>
-</section>
-<section id="packages-used" class="level2">
-<h2 class="anchored" data-anchor-id="packages-used">Packages used</h2>
-<ul>
-<li><code>dplyr</code></li>
-</ul>
 <p><strong>Exercises</strong></p>
 <ul>
-<li>Use the inline example above or pick a Dryad/Zenodo animal dataset (DOI) — see <code>data_sources.md</code> for curated links. <code>dev_code_data</code> scripts were removed.</li>
+<li>Use the inline example above or pick a Dryad/Zenodo animal dataset (DOI) — see <code>data_sources.md</code> for curated links. Older exercise scripts have been removed.</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled" title="Exercise 4 — Solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -399,7 +410,7 @@ Exercise 4 — Solution
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Solution files previously stored in <code>dev_code_data</code> have been removed.</li>
+<li>Instructor solution files are not published here.</li>
 <li>Run the inline examples above or use a public dataset listed in <code>data_sources.md</code> for extended exercises.</li>
 </ul>
 </div>
@@ -415,7 +426,7 @@ Exercise 4 — Solution
 <section id="resources" class="level2">
 <h2 class="anchored" data-anchor-id="resources">Resources</h2>
 <ul>
-<li>Example scripts moved from <code>dev_code_data</code>; use inline examples or <code>data_sources.md</code> for dataset alternatives.</li>
+<li>Example scripts are provided inline above; use <code>data_sources.md</code> for dataset alternatives.</li>
 </ul>
 
 

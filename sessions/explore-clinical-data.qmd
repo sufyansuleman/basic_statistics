@@ -110,7 +110,7 @@ if (!exists("migraine")) {
     load(here::here("data/migraine.rda"))
   }
 
-  # 3) try sourcing a script in `scripts/` (moved from dev_code_data)
+  # 3) try sourcing a script in `scripts/`
   if (!exists("migraine") && file.exists(here::here("scripts/migraine.R"))) {
     tryCatch({ source(here::here("scripts/migraine.R")) }, error = function(e) NULL)
   }
@@ -1236,5 +1236,5 @@ standards.
 
 ## Resources
 
-- SCD simulated data: `data/scd_simulated_data.rda`; example materials previously in `dev_code_data` have been moved to `scripts/` or `R/` where appropriate — see `data_sources.md` for suggested scripts and load snippets.
+- SCD simulated data: `data/scd_simulated_data.rda`; example materials have been moved to `scripts/` or `R/` where appropriate — see `data_sources.md` for suggested scripts and load snippets.
 

@@ -42,12 +42,18 @@ data(NHANES) # package contains a curated sample dataset
 ```
 
 4) Pima Indians Diabetes (clinical classification)
-- URL: https://raw.githubusercontent.com/selva86/datasets/master/PimaIndiansDiabetes.csv
-- Description: Modern re-hosting of a diabetes cohort; suitable for logistic regression, predictive modelling, ROC curves.
+- URL: https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv
+- Description: Classic diabetes cohort from UCI; suitable for logistic regression, predictive modelling, ROC curves.
 - Relevance: logistic regression, classification metrics, calibration, feature selection.
 - Load (R):
 ```r
-pima <- readr::read_csv('https://raw.githubusercontent.com/selva86/datasets/master/PimaIndiansDiabetes.csv')
+pima <- readr::read_csv(
+  'https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv',
+  col_names = c(
+    'pregnant', 'glucose', 'pressure', 'triceps', 'insulin',
+    'bmi', 'pedigree', 'age', 'diabetes'
+  )
+)
 ```
 
 5) Survival datasets (built-in / small public samples)
