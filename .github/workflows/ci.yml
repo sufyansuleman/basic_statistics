@@ -25,31 +25,7 @@ jobs:
         with:
           r-version: '4.3'
 
-      - name: Install Quarto CLI
-        run: |
-          set -euo pipefail
-          echo "Installing Quarto CLI"
-          # Primary: direct latest asset link
-          PRIMARY_URL="https://github.com/quarto-dev/quarto-cli/releases/latest/download/quarto-linux-amd64.tar.gz"
-          # Try primary URL first (follow redirects), otherwise query GitHub API for the latest tag and attempt explicit download
-          if curl -fSL "$PRIMARY_URL" -o /tmp/quarto.tar.gz; then
-            echo "Downloaded Quarto (latest asset)."
-          else
-            echo "Primary download failed; falling back to GitHub API lookup for latest tag..."
-            TAG=$(curl -sSL https://api.github.com/repos/quarto-dev/quarto-cli/releases/latest | grep -m1 '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-            if [ -z "$TAG" ]; then
-              echo "Unable to determine latest Quarto tag from GitHub API" >&2
-              exit 1
-            fi
-            ASSET="quarto-${TAG}-linux-amd64.tar.gz"
-            URL="https://github.com/quarto-dev/quarto-cli/releases/download/${TAG}/${ASSET}"
-            echo "Attempting to download $URL"
-            curl -fSL "$URL" -o /tmp/quarto.tar.gz
-          fi
-          tar -xzf /tmp/quarto.tar.gz -C /tmp
-          sudo mv /tmp/quarto-* /opt/quarto
-          sudo ln -sf /opt/quarto/bin/quarto /usr/local/bin/quarto
-          quarto --version
+
 
       - name: Install R packages
         run: |
