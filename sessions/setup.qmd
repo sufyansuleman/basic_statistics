@@ -1,0 +1,181 @@
+# Before You Begin: Setup {#sec-setup .unnumbered}
+
+```{r setup}
+#| include: false
+#| eval: false
+```
+
+This page tells you everything you need to do **once**, before starting the course. The setup takes about 10–15 minutes. After that, each session just works.
+
+---
+
+## Step 1: Install R and RStudio
+
+You need two things on your computer:
+
+| Software | What it is | Download |
+|---|---|---|
+| **R** (version ≥ 4.2) | The statistical computing language | [cran.r-project.org](https://cran.r-project.org) |
+| **RStudio Desktop** | The editor you will use to write and run R code | [posit.co/download/rstudio-desktop](https://posit.co/download/rstudio-desktop/) |
+
+Install R first, then RStudio. On Windows, accept all defaults during installation.
+
+To check your R version, run this in the RStudio Console:
+
+```{r}
+#| eval: false
+R.version.string
+```
+
+---
+
+## Step 2: Install Course Packages (CRAN)
+
+Copy and paste the block below into your **RStudio Console** and press Enter. This installs every package used across all sessions in one go. It will take a few minutes — you only need to do this once.
+
+```{r}
+#| eval: false
+install.packages(c(
+  # Core data wrangling and visualization (used in every session)
+  "tidyverse",
+  "patchwork",
+  "plotly",
+
+  # Exploration and summary tables
+  "skimr",
+  "gtsummary",
+  "GGally",
+  "nhanesA",
+
+  # Data import
+  "readxl",
+  "palmerpenguins",
+
+  # Missing data
+  "naniar",
+  "mice",
+
+  # Survival analysis
+  "survival",
+  "ggsurvfit",
+
+  # Regression and modeling
+  "broom",
+  "broom.mixed",
+  "car",
+  "lme4",
+  "glmnet",
+  "performance",
+  "pROC",
+  "AER",
+
+  # Causal inference
+  "dagitty",
+  "ggdag",
+
+  # Inference and testing
+  "pwr",
+
+  # Reproducibility
+  "reprex"
+))
+```
+
+::: {.callout-tip}
+### If a package fails to install
+Run `install.packages("packagename")` individually to see the specific error message. On Windows, restart RStudio and try again — some packages need RTools. On macOS, you may need to install Xcode Command Line Tools first: `xcode-select --install` in the Terminal.
+:::
+
+---
+
+## Step 3: Install Bioconductor Packages
+
+Some sessions in Part 5 (Omics Statistics, Advanced Visualization) use packages from Bioconductor. Install them with:
+
+```{r}
+#| eval: false
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+BiocManager::install(c(
+  "limma",          # differential expression (omics-statistics session)
+  "clusterProfiler", # pathway analysis (omics-statistics session)
+  "org.Mm.eg.db",   # mouse gene annotations (omics-statistics session)
+  "GEOquery"        # fetching GEO datasets (advanced-visualization session)
+))
+```
+
+::: {.callout-note}
+Bioconductor packages can take 5–10 minutes to install. If you are not doing the Omics Statistics or Advanced Visualization sessions, you can skip this step.
+:::
+
+---
+
+## Step 4: Install TwoSampleMR (GitHub)
+
+The Mendelian Randomization session uses a package hosted on GitHub:
+
+```{r}
+#| eval: false
+if (!requireNamespace("remotes", quietly = TRUE))
+  install.packages("remotes")
+
+remotes::install_github("MRCIEU/TwoSampleMR")
+```
+
+::: {.callout-note}
+This requires an internet connection. If you are not doing the Mendelian Randomization session, you can skip this step.
+:::
+
+---
+
+## Step 5: Verify Your Setup
+
+Run this block to confirm the core packages are installed. You should see no errors.
+
+```{r}
+#| eval: false
+core_pkgs <- c(
+  "tidyverse", "patchwork", "skimr", "gtsummary", "broom",
+  "survival", "ggsurvfit", "lme4", "broom.mixed", "car",
+  "glmnet", "performance", "pROC", "mice", "naniar",
+  "pwr", "dagitty", "ggdag", "GGally", "nhanesA",
+  "palmerpenguins", "AER", "reprex", "plotly"
+)
+
+missing <- core_pkgs[!sapply(core_pkgs, requireNamespace, quietly = TRUE)]
+
+if (length(missing) == 0) {
+  message("All core packages are installed. You are ready to start.")
+} else {
+  message("Missing packages: ", paste(missing, collapse = ", "))
+  message("Run: install.packages(c(", paste0('"', missing, '"', collapse = ", "), "))")
+}
+```
+
+---
+
+## Quick Reference: Which Session Uses Which Package
+
+| Package | Sessions |
+|---|---|
+| `tidyverse` | All sessions |
+| `survival`, `broom` | Most Part 3–5 sessions |
+| `gtsummary`, `skimr` | Descriptive Statistics, Explore Clinical Data |
+| `ggsurvfit` | Survival Analysis |
+| `lme4`, `broom.mixed`, `performance` | Mixed Models |
+| `mice`, `naniar` | Data Imputation; Tidy Data |
+| `glmnet` | Model Building and Diagnostics |
+| `pROC` | Logistic Regression |
+| `car` | Multiple Regression; Model Diagnostics |
+| `GGally` | Correlation and Association |
+| `dagitty`, `ggdag` | Causal Inference |
+| `AER` | Mendelian Randomization |
+| `TwoSampleMR` | Mendelian Randomization |
+| `pwr` | Power and Sample Size |
+| `limma`, `clusterProfiler`, `org.Mm.eg.db` | Omics Statistics |
+| `GEOquery` | Advanced Visualization |
+| `nhanesA` | Descriptive Statistics; Tidy Data; Explore Clinical Data |
+| `palmerpenguins` | Multiple sessions (practice data) |
+| `plotly` | Vectors (interactive plots) |
+| `reprex` | Getting Help |
