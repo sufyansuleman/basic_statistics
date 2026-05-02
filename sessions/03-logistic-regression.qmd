@@ -1,67 +1,302 @@
-# Logistic Regression {#logistic-regression}
+﻿# Logistic Regression {#sec-logistic-regression}
 
 ```{r setup}
 #| include: false
 #| eval: true
-source(here::here("R/functions.R"))
-source(here::here("R/load-packages.R"))
+library(tidyverse)
+library(survival)
+library(broom)
 ```
 
-Logistic regression models binary outcomes; coefficients exponentiated are odds ratios.
+## When Do You Use This? {.callout-tip}
 
-## When to use logistic regression
+> You want to know which clinical variables predict whether a PBC patient died from liver disease — a binary outcome (yes/no). Or you want to predict the probability that a mouse tumour responds to treatment. Logistic regression models a binary outcome as a function of one or more predictors and gives you odds ratios with confidence intervals.
 
-Use logistic regression for binary outcomes (event / no event). Adjust for confounders when estimating associations.
+## Learning Objectives
 
-## Data {.unnumbered}
+After completing this session you will be able to:
 
-- Clinical example: Pima Indians Diabetes (public CSV) — suitable for logistic regression, classification, and model calibration examples. See `data_sources.md` for additional clinical datasets.
+- Explain the logistic model and why ordinary linear regression is not appropriate for binary outcomes
+- Fit a logistic regression with `glm(..., family = binomial)` in R
+- Interpret odds ratios and convert them to probabilities
+- Assess model calibration and discrimination with ROC curves and the C-statistic
+- Build a multivariable logistic model and adjust for confounders
 
-## Short code demo
+---
 
-```{r demo-glm, echo=TRUE}
-# load Pima diabetes dataset (public CSV)
-pima <- readr::read_csv(
-  'https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv',
-  col_names = c(
-    'pregnant', 'glucose', 'pressure', 'triceps', 'insulin',
-    'bmi', 'pedigree', 'age', 'diabetes'
+## Background: The Logistic Model
+
+A binary outcome $Y \in \{0, 1\}$ cannot be modelled by a straight line — predicted values could fall below 0 or above 1. Instead, we model the **log-odds** (logit) of the outcome:
+
+$$\log\left(\frac{P(Y=1)}{1-P(Y=1)}\right) = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p$$
+
+Exponentiating the coefficients gives **odds ratios (OR)**:
+
+$$OR = e^{\beta_j}$$
+
+An OR > 1 means the odds of the event increase with $X_j$; OR < 1 means they decrease.
+
+Converting OR to probability requires knowing the baseline probability. The **predicted probability** for a patient is:
+
+$$\hat{P} = \frac{1}{1 + e^{-(\hat{\beta}_0 + \hat{\beta}_1 X_1 + \cdots)}}$$
+
+**Key distinction:** The OR is *not* the relative risk (RR). For rare outcomes (< 10%), they are approximately equal. For common outcomes, the OR exaggerates the association. When reporting, specify which measure you used.
+
+---
+
+## Worked Example 1: Clinical Data (PBC)
+
+### Predict Mortality from Bilirubin
+
+```{r pbc-setup}
+pbc <- survival::pbc |>
+  as_tibble() |>
+  janitor::clean_names() |>
+  mutate(
+    died      = as.integer(status == 2),          # 1 = died from liver disease
+    log_bili  = log(bili),
+    log_proto = log(protime),
+    sex       = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
+    stage     = factor(stage, levels = 1:4, labels = paste("Stage", 1:4)),
+    trt       = factor(trt, levels = c(1, 2), labels = c("D-penicillamine", "Placebo"))
+  ) |>
+  filter(!is.na(bili), !is.na(protime), !is.na(albumin), !is.na(stage))
+```
+
+Always visualise first:
+
+```{r pbc-plot}
+pbc |>
+  ggplot(aes(x = log_bili, y = died)) +
+  geom_jitter(height = 0.05, alpha = 0.3, size = 1.5) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"),
+              color = "tomato", se = TRUE) +
+  labs(title = "Probability of death by log(bilirubin)",
+       x = "log(Bilirubin)", y = "Died (0/1)") +
+  theme_bw()
+```
+
+```{r glm-fit}
+fit_log <- glm(died ~ log_bili, data = pbc, family = binomial)
+summary(fit_log)
+```
+
+### Extracting Odds Ratios
+
+```{r or-table}
+# Odds ratios with 95% CI from profile likelihood
+tidy(fit_log, conf.int = TRUE, exponentiate = TRUE) |>
+  select(term, estimate, conf.low, conf.high, p.value)
+```
+
+**Interpreting the OR:** Each one-unit increase in log(bilirubin) multiplies the odds of death by [OR]. Because log_bili is on a log scale, this corresponds to a 2.7-fold increase in bilirubin on the original scale.
+
+### Predicted Probabilities
+
+```{r predicted-probs}
+# Probability of death at bilirubin = 1, 2, 5, 10, 20 mg/dL
+new_d <- tibble(log_bili = log(c(1, 2, 5, 10, 20)))
+new_d |>
+  mutate(
+    pred_prob = predict(fit_log, newdata = new_d, type = "response")
   )
-)
-pima <- pima %>% mutate(diabetes = as.factor(diabetes))
-
-fit_log <- glm(diabetes ~ age + bmi, family = binomial, data = pima)
-
-# tidy coefficients and approximate odds ratios
-broom::tidy(fit_log)
-exp(coef(fit_log))
 ```
 
-## How to explain the output (teacher notes)
+### Multivariable Logistic Model
 
-- **Odds ratio:** multiplicative change in odds for a one-unit predictor increase.
-- **Predicted probabilities** are usually easier to communicate than odds ratios.
+```{r multi-logistic}
+fit_multi <- glm(died ~ log_bili + log_proto + albumin + stage,
+                 data = pbc, family = binomial)
 
-## Short exercise
+tidy(fit_multi, conf.int = TRUE, exponentiate = TRUE) |>
+  select(term, estimate, conf.low, conf.high, p.value) |>
+  mutate(across(where(is.numeric), ~ round(.x, 3)))
+```
 
-- Fit a model with `diabetes ~ bmi + age` and compute predicted probabilities for representative covariate values.
+### Model Discrimination: ROC Curve and C-statistic
 
-**Hint:** use `predict(..., type = 'response')` for probabilities.
+The **C-statistic** (area under the ROC curve) measures how well the model separates cases from non-cases. C = 0.5 is random; C = 1.0 is perfect discrimination.
 
-**Exercises**
+```{r roc}
+library(pROC)
 
-- Example code is inline above; see `data_sources.md` for public datasets and suggested exercise replacements.
+pred_prob <- predict(fit_multi, type = "response")
+roc_obj   <- roc(pbc$died, pred_prob, quiet = TRUE)
 
-::: {.callout-tip collapse="true" title="Exercise 6 — Solution"}
-- Instructor solution files are not published here.
-- Run the inline examples above or use one of the public datasets listed in `data_sources.md` for extended logistic exercises.
+cat("C-statistic:", round(auc(roc_obj), 3), "\n")
+
+ggroc(roc_obj, color = "steelblue", linewidth = 1) +
+  geom_abline(intercept = 1, slope = 1, linetype = "dashed", color = "grey60") +
+  labs(title = paste("ROC curve — AUC =", round(auc(roc_obj), 3)),
+       x = "1 - Specificity", y = "Sensitivity") +
+  theme_bw()
+```
+
+### Goodness of Fit
+
+```{r hosmer}
+glance(fit_multi)   # null deviance, residual deviance, AIC
+```
+
+A large drop from null to residual deviance indicates good model fit. Compare AIC between models to choose the best specification.
+
+---
+
+## Worked Example 2: Animal Data (boot::melanoma)
+
+We predict melanoma mortality from tumour thickness and ulceration.
+
+```{r mel-setup}
+library(boot)
+mel <- boot::melanoma |>
+  as_tibble() |>
+  mutate(
+    died = as.integer(status == 1),              # 1 = died from melanoma
+    ulceration = factor(ulcer, levels = c(0, 1), labels = c("No", "Yes")),
+    sex = factor(sex, levels = c(0, 1), labels = c("Female", "Male")),
+    log_thick = log(thickness)
+  )
+
+fit_mel <- glm(died ~ log_thick + ulceration + sex,
+               data = mel, family = binomial)
+
+tidy(fit_mel, conf.int = TRUE, exponentiate = TRUE) |>
+  select(term, estimate, conf.low, conf.high, p.value)
+```
+
+```{r mel-plot}
+mel |>
+  ggplot(aes(x = log_thick, y = died, color = ulceration)) +
+  geom_jitter(height = 0.05, alpha = 0.4, size = 1.5) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = TRUE) +
+  scale_color_manual(values = c("steelblue", "tomato")) +
+  labs(title = "Melanoma mortality by tumour thickness and ulceration",
+       x = "log(Thickness)", y = "Died from melanoma (0/1)") +
+  theme_bw()
+```
+
+---
+
+## Where to Find Data Like This {.callout-note}
+
+**PBC dataset:** `survival::pbc` — binary mortality outcome with multiple continuous and categorical predictors.
+
+**boot::melanoma:** Binary mortality with tumour characteristics; good for a smaller worked example.
+
+**MASS::birthwt:** Low birth weight (binary) with maternal predictors — commonly used in logistic regression teaching.
+
+**medicaldata package:** Multiple clean clinical trial datasets with binary outcomes.
+
+---
+
+## What Can Go Wrong {.callout-warning}
+
+**Separation (complete or quasi-complete)**
+If a predictor perfectly separates the outcome (all events on one side), the algorithm fails to converge and produces extreme coefficients with huge SEs. Check with a contingency table or histogram. Use Firth's penalised logistic regression (`logistf` package) as a remedy.
+
+**Interpreting ORs as relative risks for common outcomes**
+When the outcome prevalence is > 15–20%, OR > RR substantially. If you report ORs, state them clearly and note that they do not equal relative risks.
+
+**Events per variable (EPV) rule of thumb**
+Logistic models require approximately 10–20 events per predictor variable for stable estimates. With 50 deaths and 6 predictors, you have EPV ≈ 8 — borderline. Consider reducing predictors or using penalised methods.
+
+**Not checking calibration**
+A high C-statistic does not guarantee good calibration (that predicted probabilities match observed proportions). Use a calibration plot (`val.prob()` from the `rms` package) for clinical prediction models.
+
+---
+
+## Exercises
+
+### Exercise 1 (Guided): Univariable Predictors of Mortality
+
+Using `pbc`:
+
+1. Fit separate logistic regressions for each of: `log_bili`, `albumin`, `log_proto`, `stage`.
+2. Report OR (95% CI) and p-value for each.
+3. Which single predictor has the largest OR?
+
+::: {.callout-tip collapse="true"}
+### Exercise 1: Solution
+
+```{r}
+predictors <- c("log_bili", "albumin", "log_proto")
+
+results <- map_dfr(predictors, function(pred) {
+  f  <- as.formula(paste("died ~", pred))
+  m  <- glm(f, data = pbc, family = binomial)
+  tidy(m, conf.int = TRUE, exponentiate = TRUE) |>
+    filter(term != "(Intercept)") |>
+    mutate(predictor = pred)
+})
+
+results |>
+  select(predictor, estimate, conf.low, conf.high, p.value) |>
+  arrange(p.value)
+
+# Stage
+fit_s <- glm(died ~ stage, data = pbc, family = binomial)
+tidy(fit_s, conf.int = TRUE, exponentiate = TRUE)
+```
 :::
 
-## Further reading
+### Exercise 2 (Semi-guided): Multivariable Melanoma Model
 
-- Logistic regression references and interpretation: @Matloff-2011; @Henderson-Velleman-1981.
-- Practical modeling guidance: @Wickham-Grolemund-2017.
+Using `boot::melanoma`:
 
-## Resources
+1. Fit a univariable model: `died ~ log_thick`.
+2. Add `ulceration`. How does the OR for thickness change?
+3. Add `sex`. Is it a significant predictor?
+4. Compare all three models by AIC.
 
-- Example scripts are provided inline above; see `data_sources.md` for public dataset and exercise suggestions.
+::: {.callout-tip collapse="true"}
+### Exercise 2: Solution
+
+```{r}
+m1 <- glm(died ~ log_thick,               data = mel, family = binomial)
+m2 <- glm(died ~ log_thick + ulceration,  data = mel, family = binomial)
+m3 <- glm(died ~ log_thick + ulceration + sex, data = mel, family = binomial)
+
+# OR for thickness in each model
+bind_rows(
+  tidy(m1, exponentiate = TRUE) |> mutate(model = "1: thickness"),
+  tidy(m2, exponentiate = TRUE) |> mutate(model = "2: + ulceration"),
+  tidy(m3, exponentiate = TRUE) |> mutate(model = "3: + sex")
+) |>
+  filter(term == "log_thick") |>
+  select(model, estimate, p.value)
+
+# AIC comparison
+AIC(m1, m2, m3)
+```
+:::
+
+### Exercise 3 (Open-ended)
+
+Using your own data, identify a binary outcome and at least two predictors. Fit a multivariable logistic regression. Report: ORs with 95% CIs, C-statistic, and a calibration check. Write a one-paragraph Methods section and a one-paragraph Results section as you would for a clinical paper.
+
+---
+
+## Comprehension Check
+
+1. You fit logistic regression and get a coefficient of 0.8 for log_bili. What is the odds ratio, and what does it mean?
+2. Your outcome occurs in 40% of the study sample. A colleague reports OR = 2.5 as "roughly a doubling of risk." Is this correct?
+3. You have 30 events and want to include 8 predictors. What is the concern?
+4. C-statistic = 0.75. Is this a good model? What additional checks should you do?
+5. Your model fails to converge. The output shows a coefficient of 25 with SE = 1000 for one predictor. What is likely happening, and what should you do?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. OR = exp(0.8) = 2.23. Each one-unit increase in log(bilirubin) is associated with 2.23 times higher odds of the event (e.g., death), holding other predictors constant.
+2. No. When the outcome is common (40%), OR ≠ RR. OR = 2.5 for a 40% baseline corresponds to a RR considerably less than 2.5. The colleague is conflating the odds ratio with the risk ratio — a common error. Use `prop.table()` or the formula $RR = OR / (1 - P_0 + P_0 \times OR)$ to convert.
+3. With EPV = 30/8 = 3.75, the model is severely underpowered. Coefficients will be unstable and confidence intervals very wide. You should reduce the number of predictors to at most 2–3, or use Firth's penalised logistic regression.
+4. C = 0.75 indicates moderate discrimination — the model correctly ranks 75% of case-control pairs. However, a high C-statistic does not guarantee good calibration. You should also produce a calibration plot (observed vs predicted proportions across deciles of risk) to confirm the model gives accurate probabilities.
+5. This is (quasi-)complete separation: the predictor almost perfectly predicts the outcome, so the algorithm tries to push the coefficient to ±∞ and fails. Check by tabulating the predictor against the outcome. Remedy: use Firth's penalised logistic regression (`logistf::logistf()`), which regularises the likelihood and produces finite, stable estimates.
+:::
+
+## Further Reading
+
+- @Hosmer-2013 --- *Applied Logistic Regression*, the standard reference
+- @Bland-2015 --- Logistic regression in *An Introduction to Medical Statistics*
+- `?glm` in R — full documentation for generalised linear models
+- `pROC` package vignette for ROC analysis
+- `logistf` package for Firth's penalised logistic regression

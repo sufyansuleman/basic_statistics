@@ -1,20 +1,343 @@
+﻿# Power Analysis and Sample Size {#sec-power}
+
+```{r setup}
+#| include: false
+#| eval: true
+library(tidyverse)
+library(pwr)
+```
+
+## When Do You Use This? {.callout-tip}
+
+> You are designing a mouse experiment to test whether a new drug reduces tumour volume. You expect a 20% reduction and want to know: *how many mice do I need?* Power analysis answers this before you collect a single data point — and prevents you from running an underpowered study where a real effect would go undetected.
+
+## Learning Objectives
+
+After completing this session you will be able to:
+
+- Define statistical power and explain the relationship between power, sample size, effect size, and significance level
+- Calculate required sample sizes for t-tests and proportion comparisons in R
+- Compute Cohen's d and Cohen's h as standardised effect sizes
+- Produce a power curve and interpret it
+- Identify the key planning decisions and their consequences for study design
+
 ---
-title: "Power, Sample Size, and Study Design Considerations"
+
+## Background: Power and Its Components
+
+**Statistical power** ($1 - \beta$) is the probability of detecting a true effect when one exists. A study with 80% power will correctly reject $H_0$ in 80% of repeated experiments when the true effect is real.
+
+Four quantities are connected; fix three and you can determine the fourth:
+
+| Quantity | Symbol | Typical choice |
+|---|---|---|
+| Significance level | $\alpha$ | 0.05 |
+| Power | $1-\beta$ | 0.80 |
+| Effect size | $d$, $h$, etc. | From pilot data or literature |
+| Sample size | $n$ | **What you want to find** |
+
+**Effect size:** The standardised difference between groups, removing units.
+
+For a two-sample t-test:
+$$d = \frac{\mu_1 - \mu_2}{\sigma_{\text{pooled}}}$$
+
+Cohen's rough benchmarks: small $d = 0.2$, medium $d = 0.5$, large $d = 0.8$.
+
+**What happens when you change each quantity:**
+
+| Change | Effect on required n |
+|---|---|
+| More stringent $\alpha$ (0.05 → 0.01) | ↑ n needed |
+| Higher power (80% → 90%) | ↑ n needed |
+| Smaller effect size | ↑ n needed |
+| One-sided vs two-sided test | ↓ n if one-sided |
+
 ---
 
-**Overview**
+## Worked Example 1: Clinical Trial (Two-Sample t-test)
 
-This session introduces concepts of statistical power, type I/II errors, and sample size calculations for common designs. Readings: @Matloff-2011; @Teetor-2011.
+We plan to compare albumin between two treatment groups. From prior data, we expect:
 
-**Learning Objectives**
+- Group difference: 0.3 g/dL
+- Pooled SD: 0.4 g/dL (so Cohen's d ≈ 0.75)
+- $\alpha = 0.05$, power = 0.80
 
-- Define power and its relation to sample size and effect size.
-- Perform simple sample size and power calculations for t-tests and proportions.
+```{r power-ttest}
+# Base R: power.t.test
+power.t.test(
+  delta = 0.3,     # expected difference in means
+  sd    = 0.4,     # pooled standard deviation
+  sig.level = 0.05,
+  power = 0.80,
+  type  = "two.sample",
+  alternative = "two.sided"
+)
+```
 
-**Hands-on / Examples**
+```{r power-pwr}
+library(pwr)
 
-- Practical examples and formulas are discussed; use the inline examples above or consult `data_sources.md` for current sample size and power design guidance.
+# Cohen's d
+d <- 0.3 / 0.4
 
-**Exercises**
+# pwr package
+pwr.t.test(
+  d = d,
+  sig.level = 0.05,
+  power = 0.80,
+  type = "two.sample",
+  alternative = "two.sided"
+)
+```
 
-- Compute required sample size for detecting a mean difference of interest given desired power and alpha; implement with `power.t.test()` in R.
+Both functions agree: we need approximately **n per group**. Always round up.
+
+### Power Curve: n vs Power
+
+Plotting power as a function of sample size reveals the trade-off and helps justify your choice.
+
+```{r power-curve}
+n_seq <- seq(10, 100, by = 5)
+
+power_vals <- map_dbl(n_seq, ~ pwr.t.test(
+  n = .x,
+  d = d,
+  sig.level = 0.05,
+  type = "two.sample",
+  alternative = "two.sided"
+)$power)
+
+tibble(n = n_seq, power = power_vals) |>
+  ggplot(aes(x = n, y = power)) +
+  geom_line(linewidth = 1, color = "steelblue") +
+  geom_hline(yintercept = 0.80, linetype = "dashed", color = "tomato") +
+  annotate("text", x = 100, y = 0.81, label = "80% power", hjust = 1, color = "tomato") +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+  labs(title = "Power curve: two-sample t-test (d = 0.75)",
+       x = "n per group", y = "Power") +
+  theme_bw()
+```
+
+### Sensitivity Analysis: Varying Effect Size
+
+It is often uncertain how large the true effect is. Show how the required $n$ changes across a plausible range of effect sizes:
+
+```{r sensitivity}
+d_seq <- seq(0.3, 1.0, by = 0.1)
+
+n_required <- map_dbl(d_seq, ~ ceiling(pwr.t.test(
+  d = .x,
+  sig.level = 0.05,
+  power = 0.80,
+  type = "two.sample"
+)$n))
+
+tibble(d = d_seq, n_per_group = n_required) |>
+  ggplot(aes(x = d, y = n_per_group)) +
+  geom_line(linewidth = 1, color = "steelblue") +
+  geom_point(size = 3) +
+  labs(title = "Required sample size by effect size (α=0.05, power=80%)",
+       x = "Cohen's d", y = "n per group") +
+  theme_bw()
+```
+
+---
+
+## Worked Example 2: Animal Experiment (Two Proportions)
+
+You expect the control group to have a 40% tumour response rate, and you want to detect an increase to 65% with the treatment. How many mice per group do you need?
+
+```{r power-prop}
+# Cohen's h for proportions
+h <- ES.h(0.65, 0.40)
+cat("Cohen's h:", round(h, 3), "\n")
+
+# Sample size
+pwr.2p.test(
+  h = h,
+  sig.level = 0.05,
+  power = 0.80,
+  alternative = "two.sided"
+)
+```
+
+```{r power-prop-base}
+# Alternative: base R
+power.prop.test(
+  p1 = 0.40,
+  p2 = 0.65,
+  sig.level = 0.05,
+  power = 0.80
+)
+```
+
+### Power Curve for Proportions
+
+```{r power-prop-curve}
+n_seq2 <- seq(5, 80, by = 5)
+
+pow2 <- map_dbl(n_seq2, ~ pwr.2p.test(
+  n = .x,
+  h = h,
+  sig.level = 0.05,
+  alternative = "two.sided"
+)$power)
+
+tibble(n = n_seq2, power = pow2) |>
+  ggplot(aes(x = n, y = power)) +
+  geom_line(linewidth = 1, color = "steelblue") +
+  geom_hline(yintercept = 0.80, linetype = "dashed", color = "tomato") +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+  labs(title = "Power curve: two-proportion test (h = 0.51)",
+       x = "n per group", y = "Power") +
+  theme_bw()
+```
+
+---
+
+## Where to Find Data Like This {.callout-note}
+
+**Pilot data:** The best source for expected effect sizes is your own pilot experiment. Even n = 5 per group can give a rough SD estimate to inform power calculations.
+
+**Literature values:** Meta-analyses and prior published studies in your field often report effect sizes or mean differences and SDs. These should be adjusted conservatively — published effects are often inflated by publication bias.
+
+**`pwr` package:** `pwr.t.test()`, `pwr.2p.test()`, `pwr.chisq.test()`, `pwr.anova.test()` — covers most common tests.
+
+**G*Power software:** Free standalone tool (gpower.hhu.de) popular in clinical and behavioural research.
+
+---
+
+## What Can Go Wrong {.callout-warning}
+
+**Using a too-optimistic effect size**
+Published effect sizes are often inflated by publication bias. If you power your study using an unrealistically large d, you will be underpowered when the true effect is smaller. Be conservative or use the lower bound of a pilot confidence interval.
+
+**Powering for the wrong test**
+If you plan to use a Wilcoxon test (because your data will be non-normal), power calculations based on `power.t.test()` are approximate. The `pwr` package and simulation-based approaches are more accurate for nonparametric tests.
+
+**Forgetting to account for dropout or missing data**
+Calculate the required $n$, then inflate by an expected dropout fraction. If you expect 15% dropout, divide your required $n$ by 0.85.
+
+**Multiple primary outcomes**
+If you have several primary outcomes, adjust $\alpha$ (e.g., Bonferroni) before running the power calculation. Powering for each outcome at $\alpha = 0.05$ without correction is overly optimistic.
+
+**Confusing power for a one-sided vs two-sided test**
+A one-sided test requires fewer participants for the same power. Only use a one-sided test if you have a strong, pre-registered directional hypothesis and would not care about an effect in the other direction.
+
+---
+
+## Exercises
+
+### Exercise 1 (Guided): Sample Size for a Bilirubin Comparison
+
+You plan a study comparing log(bilirubin) between two treatment groups. From `pbc` data, estimate the pooled SD and assume you want to detect a 0.4-unit difference on the log scale.
+
+1. Calculate the pooled SD from `pbc` (filter to randomised patients only).
+2. Compute Cohen's d.
+3. Run `pwr.t.test()` at α = 0.05, power = 0.80.
+4. Plot the power curve.
+
+::: {.callout-tip collapse="true"}
+### Exercise 1: Solution
+
+```{r}
+pbc <- survival::pbc |>
+  as_tibble() |>
+  janitor::clean_names() |>
+  mutate(trt = factor(trt))
+
+pbc_rand <- pbc |> filter(!is.na(trt), !is.na(bili))
+
+sd_vals <- pbc_rand |>
+  group_by(trt) |>
+  summarise(sd = sd(log(bili)), n = n())
+print(sd_vals)
+
+# Pooled SD
+n1 <- sd_vals$n[1]; s1 <- sd_vals$sd[1]
+n2 <- sd_vals$n[2]; s2 <- sd_vals$sd[2]
+sd_pool <- sqrt(((n1 - 1) * s1^2 + (n2 - 1) * s2^2) / (n1 + n2 - 2))
+d_bili  <- 0.4 / sd_pool
+cat("Pooled SD:", round(sd_pool, 3), " Cohen's d:", round(d_bili, 3), "\n")
+
+# Sample size
+pwr.t.test(d = d_bili, sig.level = 0.05, power = 0.80, type = "two.sample")
+
+# Power curve
+n_seq <- seq(5, 100, by = 5)
+pw <- map_dbl(n_seq, ~ pwr.t.test(n = .x, d = d_bili, sig.level = 0.05,
+                                   type = "two.sample")$power)
+tibble(n = n_seq, power = pw) |>
+  ggplot(aes(n, power)) +
+  geom_line(color = "steelblue", linewidth = 1) +
+  geom_hline(yintercept = 0.8, linetype = "dashed", color = "tomato") +
+  scale_y_continuous(labels = scales::percent) +
+  labs(x = "n per group", y = "Power") + theme_bw()
+```
+:::
+
+### Exercise 2 (Semi-guided): Mouse Experiment Planning
+
+You are designing a survival experiment: control group expected to have 30% survival, treated group expected to have 55% survival.
+
+1. Compute Cohen's h using `ES.h(0.55, 0.30)`.
+2. Calculate n per group at α = 0.05, power = 0.80.
+3. You expect 20% cage dropout. How many mice should you enrol?
+4. How does the required n change if you increase power to 90%?
+
+::: {.callout-tip collapse="true"}
+### Exercise 2: Solution
+
+```{r}
+h_mouse <- ES.h(0.55, 0.30)
+cat("Cohen's h:", round(h_mouse, 3), "\n")
+
+# n at 80%
+res80 <- pwr.2p.test(h = h_mouse, sig.level = 0.05, power = 0.80)
+n80 <- ceiling(res80$n)
+cat("n per group (80% power):", n80, "\n")
+
+# With 20% dropout
+cat("Enrol per group:", ceiling(n80 / 0.80), "\n")
+
+# At 90% power
+res90 <- pwr.2p.test(h = h_mouse, sig.level = 0.05, power = 0.90)
+cat("n per group (90% power):", ceiling(res90$n), "\n")
+```
+:::
+
+### Exercise 3 (Open-ended)
+
+For your next planned experiment or study, define:
+
+1. The primary outcome and the comparison you will make
+2. Expected means/proportions and SD in each group (from pilot data or literature)
+3. $\alpha$ and desired power
+
+Run the power calculation and produce a power curve. Write one paragraph suitable for an ethics committee submission justifying your sample size.
+
+---
+
+## Comprehension Check
+
+1. What is statistical power? What does "80% power" mean in plain language?
+2. You calculate that you need n = 25 per group. You expect 10% dropout. How many participants should you recruit?
+3. A researcher uses a Cohen's d of 1.2 from a single published paper with n = 10 per group to power their study. What is the concern?
+4. All else equal, does a one-sided test require more or fewer participants than a two-sided test for the same power?
+5. Your power calculation gives n = 12 per group, but you can only recruit n = 8. What are your options?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. Statistical power is the probability of correctly rejecting the null hypothesis when the alternative is true. "80% power" means that if the true effect is as assumed, your study will detect it (i.e., return a significant result) in 80% of repeated experiments of the same design.
+2. Divide by the expected retention fraction: $25 / 0.90 = 28$, so recruit 28 per group (round up).
+3. Single small studies overestimate effect sizes due to sampling variability and publication bias. Using d = 1.2 from a study with n = 10 is likely to be inflated. The true d may be considerably smaller, and the actual study will be underpowered.
+4. A one-sided test requires fewer participants. It allocates the full α to one tail, making the critical threshold easier to reach — but only valid when you have a strong directional hypothesis and would not act on an effect in the opposite direction.
+5. Options: (1) Accept lower power (< 80%) and acknowledge the limitation; (2) increase the effect size you are trying to detect (e.g., only detect a large effect); (3) decrease α (less stringent threshold, increasing power); (4) use a paired design or block on a covariate to reduce within-group variability; (5) pool data across experiments.
+:::
+
+## Further Reading
+
+- @Cohen-1988 --- *Statistical Power Analysis for the Behavioral Sciences* — the original reference for effect sizes and power tables
+- @Bland-2015 --- Sample size chapters in *An Introduction to Medical Statistics*
+- `vignette("pwr-vignette", package = "pwr")` — comprehensive `pwr` package tutorial
+- G*Power manual at gpower.hhu.de

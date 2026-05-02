@@ -1,63 +1,292 @@
-# Linear Regression {#linear-regression}
+﻿# Simple Linear Regression {#sec-linear-regression}
 
 ```{r setup}
 #| include: false
 #| eval: true
-source(here::here("R/functions.R"))
-source(here::here("R/load-packages.R"))
+library(tidyverse)
+library(survival)
+library(broom)
 ```
 
-This short session introduces simple linear regression for continuous outcomes.
+## When Do You Use This? {.callout-tip}
 
-## When to use linear regression
+> You want to predict serum albumin from bilirubin — or quantify how much albumin changes for each unit increase in bilirubin. Simple linear regression gives you a straight-line model of a continuous outcome as a function of one predictor, including a confidence interval for the slope.
 
-Use linear regression to model a continuous outcome as a function of one or
-more predictors when the outcome is approximately continuous and residuals are
-reasonably well-behaved.
+## Learning Objectives
 
-## Short code demo
+After completing this session you will be able to:
 
-```{r demo-lm, echo=TRUE}
-# load example data and fit a simple model
-mtcars <- datasets::mtcars %>% as_tibble(rownames = "model")
-lm_fit <- lm(mpg ~ wt, data = mtcars)
+- Fit a simple linear regression model with `lm()` in R
+- Interpret the intercept, slope, standard error, and $R^2$
+- Check the four key regression assumptions using diagnostic plots
+- Extract and present results with `broom::tidy()` and `broom::glance()`
+- Predict new values with `predict()` and plot the regression line with uncertainty
 
-# tidy coefficient table and model summary
-broom::tidy(lm_fit)
-broom::glance(lm_fit)
+---
+
+## Background: The Linear Model
+
+A simple linear regression models the relationship between a continuous outcome $Y$ and a single predictor $X$:
+
+$$Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i \quad \varepsilon_i \sim N(0, \sigma^2)$$
+
+- $\beta_0$: **intercept** — the expected value of $Y$ when $X = 0$
+- $\beta_1$: **slope** — the expected change in $Y$ for a one-unit increase in $X$
+- $\varepsilon_i$: **residual** — what the model does not explain
+
+The model is fitted by minimising the sum of squared residuals (ordinary least squares, OLS).
+
+**Assumptions (LINE):**
+
+| Assumption | How to check |
+|---|---|
+| **L**inearity | Residuals vs fitted plot — no pattern |
+| **I**ndependence | Study design — cannot check from data alone |
+| **N**ormality of residuals | QQ-plot of residuals |
+| **E**qual variance (homoscedasticity) | Scale-location plot — flat red line |
+
+---
+
+## Worked Example 1: Clinical Data (PBC)
+
+### Predict Albumin from Log(Bilirubin)
+
+Bilirubin is right-skewed; we log-transform it to achieve a more linear relationship.
+
+```{r pbc-setup}
+pbc <- survival::pbc |>
+  as_tibble() |>
+  janitor::clean_names() |>
+  filter(!is.na(albumin), !is.na(bili)) |>
+  mutate(log_bili = log(bili))
 ```
 
-## Data {.unnumbered}
+Always plot first:
 
-- Built-in: `mtcars` — compact example for regression demonstrations (vehicle MPG vs weight). For clinical regression examples use `survival::pbc` or `gapminder` for population-level analyses (see `data_sources.md`).
+```{r pbc-plot}
+pbc |>
+  ggplot(aes(x = log_bili, y = albumin)) +
+  geom_point(alpha = 0.4, size = 1.5) +
+  geom_smooth(method = "lm", color = "tomato", se = TRUE) +
+  labs(title = "Albumin vs log(bilirubin) in PBC",
+       x = "log(Bilirubin)", y = "Albumin (g/dL)") +
+  theme_bw()
+```
 
+```{r fit-lm}
+fit <- lm(albumin ~ log_bili, data = pbc)
+summary(fit)
+```
 
-## How to interpret the output (teacher notes)
+### Interpreting the Output
 
-- **Slope:** expected change in the outcome per one-unit increase in the predictor.
-- **Intercept:** expected outcome when predictors equal zero (context dependent).
-- **R-squared:** fraction of variance explained by the model; interpret with caution.
+```{r tidy-output}
+# Coefficients table
+tidy(fit, conf.int = TRUE)
 
-## Short exercise
+# Model-level statistics
+glance(fit)
+```
 
-- Fit `mpg ~ wt + hp` and report the coefficient for `wt` with a one-sentence interpretation.
+**Reading the coefficients:**
+- **Intercept (4.15):** Expected albumin when log(bilirubin) = 0 (i.e., bilirubin = 1 mg/dL) is 4.15 g/dL.
+- **Slope (−0.34):** For each one-unit increase in log(bilirubin), albumin decreases by 0.34 g/dL on average.
+- **$R^2$ (0.22):** Log(bilirubin) explains 22% of the variability in albumin.
 
-**Hint:** use `lm()` and `broom::tidy()`; consider whether effect sizes are clinically meaningful.
+### Checking Assumptions
 
-**Exercises**
+```{r diagnostics}
+par(mfrow = c(2, 2))
+plot(fit)
+par(mfrow = c(1, 1))
+```
 
-- Example code is inline above; see `data_sources.md` for public datasets and suggested script replacements.
+**Residuals vs Fitted:** Should show no pattern. A curve suggests non-linearity.
 
-::: {.callout-tip collapse="true" title="Exercise 3 — Solution"}
-- Instructor solution files are not published here.
-- Run the inline examples above or use one of the public datasets listed in `data_sources.md` for extended regression exercises.
+**QQ-plot:** Residuals should follow the diagonal line. Heavy tails indicate non-normality.
+
+**Scale-Location:** Should be flat. An upward slope indicates heteroscedasticity (variance increases with fitted values).
+
+**Cook's Distance:** Identifies influential observations. Points labeled by row number warrant investigation.
+
+### Predictions
+
+```{r predictions}
+# Predict albumin for bilirubin = 2, 5, 10 mg/dL
+new_data <- tibble(log_bili = log(c(2, 5, 10)))
+predict(fit, newdata = new_data, interval = "confidence")
+```
+
+```{r prediction-plot}
+# Plot with prediction band
+pred_df <- tibble(
+  log_bili = seq(min(pbc$log_bili), max(pbc$log_bili), length.out = 100)
+)
+pred_df <- bind_cols(pred_df, as_tibble(predict(fit, newdata = pred_df, interval = "prediction")))
+
+pbc |>
+  ggplot(aes(x = log_bili, y = albumin)) +
+  geom_ribbon(data = pred_df, aes(y = fit, ymin = lwr, ymax = upr),
+              alpha = 0.15, fill = "steelblue") +
+  geom_line(data = pred_df, aes(y = fit), color = "steelblue", linewidth = 1) +
+  geom_point(alpha = 0.3, size = 1.5) +
+  labs(title = "Linear regression with 95% prediction interval",
+       x = "log(Bilirubin)", y = "Albumin (g/dL)") +
+  theme_bw()
+```
+
+---
+
+## Worked Example 2: Animal Data (palmerpenguins)
+
+We predict body mass from flipper length — a practical calibration question in ecology and animal research.
+
+```{r penguin-lm}
+library(palmerpenguins)
+
+peng <- penguins |>
+  drop_na(body_mass_g, flipper_length_mm)
+
+fit_p <- lm(body_mass_g ~ flipper_length_mm, data = peng)
+tidy(fit_p, conf.int = TRUE)
+glance(fit_p)
+```
+
+```{r penguin-plot}
+peng |>
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species), alpha = 0.6) +
+  geom_smooth(method = "lm", color = "black", se = TRUE) +
+  scale_color_manual(values = c("steelblue", "tomato", "seagreen")) +
+  labs(title = "Body mass predicted by flipper length",
+       x = "Flipper length (mm)", y = "Body mass (g)") +
+  theme_bw()
+```
+
+```{r penguin-diagnostics}
+par(mfrow = c(2, 2))
+plot(fit_p)
+par(mfrow = c(1, 1))
+```
+
+Notice that the residuals may cluster by species — a sign that species confounds the relationship. This motivates multiple regression (see next session).
+
+---
+
+## Where to Find Data Like This {.callout-note}
+
+**PBC dataset:** `survival::pbc` — multiple continuous variables with clinically interpretable relationships.
+
+**palmerpenguins:** `palmerpenguins::penguins` — clean morphological measurements, ideal for regression with a natural grouping structure.
+
+**MASS::Boston:** Housing data commonly used to teach regression; however, contains a problematic racial variable — examine the data carefully before use.
+
+---
+
+## What Can Go Wrong {.callout-warning}
+
+**Extrapolation**
+A regression line is only valid within the range of the observed data. Predicting outside this range (extrapolation) can produce nonsensical values — e.g., negative albumin.
+
+**Ignoring non-linearity**
+If the Residuals vs Fitted plot shows a U-shape or arc, the linear model is misspecified. Try a log-transformation of X, or consider polynomial or spline terms.
+
+**Heteroscedasticity**
+If variance increases with fitted values (fan-shaped residuals), OLS standard errors are incorrect. Consider transforming Y, or use heteroscedasticity-consistent (robust) standard errors.
+
+**Confounding**
+A simple regression coefficient is not causal. A third variable may drive both X and Y (see [Multiple Regression](06-multiple-regression.qmd) and [Correlation and Association](correlation-and-association.qmd)).
+
+**Outliers and influential points**
+Check Cook's distance. Points with Cook's D > 1 (or > 4/n) exert disproportionate influence on the fitted line. Investigate them — they may be data errors or genuinely unusual cases.
+
+---
+
+## Exercises
+
+### Exercise 1 (Guided): Prothrombin Time Predicts Albumin
+
+1. Plot albumin (y) vs prothrombin time (x) in `pbc`. Log-transform prothrombin time.
+2. Fit `lm(albumin ~ log(protime), data = pbc)`. Interpret the slope.
+3. Check all four diagnostic plots.
+4. Report the slope, 95% CI, and $R^2$.
+
+::: {.callout-tip collapse="true"}
+### Exercise 1: Solution
+
+```{r}
+pbc2 <- pbc |> filter(!is.na(protime))
+
+# 1. Plot
+pbc2 |>
+  ggplot(aes(x = log(protime), y = albumin)) +
+  geom_point(alpha = 0.4) + geom_smooth(method = "lm", color = "tomato") +
+  labs(x = "log(Prothrombin time)", y = "Albumin (g/dL)") + theme_bw()
+
+# 2. Fit and interpret
+fit2 <- lm(albumin ~ I(log(protime)), data = pbc2)
+tidy(fit2, conf.int = TRUE)
+glance(fit2)
+
+# 3. Diagnostics
+par(mfrow = c(2, 2)); plot(fit2); par(mfrow = c(1, 1))
+```
 :::
 
-## Further reading
+### Exercise 2 (Semi-guided): Bill Length Predicts Body Mass (Penguins)
 
-- Practical regression and diagnostics: @Henderson-Velleman-1981; @Matloff-2011.
-- Applied examples and tidy workflows: @Wickham-Grolemund-2017.
+1. Fit `lm(body_mass_g ~ bill_length_mm, data = penguins)`.
+2. Does the model meet the assumptions? Check the diagnostic plots.
+3. Now fit the model separately for each species. Compare the slopes. How do they differ from the overall model?
 
-## Resources
+::: {.callout-tip collapse="true"}
+### Exercise 2: Solution
 
-- Example scripts are provided inline above; see `data_sources.md` for public dataset alternatives.
+```{r}
+peng2 <- penguins |> drop_na()
+
+# 1. Overall model
+fit_all <- lm(body_mass_g ~ bill_length_mm, data = peng2)
+tidy(fit_all, conf.int = TRUE)
+
+# 2. Diagnostics
+par(mfrow = c(2, 2)); plot(fit_all); par(mfrow = c(1, 1))
+
+# 3. By species
+peng2 |>
+  group_by(species) |>
+  do(tidy(lm(body_mass_g ~ bill_length_mm, data = .), conf.int = TRUE)) |>
+  filter(term == "bill_length_mm") |>
+  select(species, estimate, conf.low, conf.high, p.value)
+```
+:::
+
+### Exercise 3 (Open-ended)
+
+In your own research, identify a continuous outcome and a single continuous predictor you expect to be linearly related. Fit a simple linear regression, check all assumptions, and write a Results paragraph including: the slope (95% CI), the $R^2$, and a sentence on whether the assumptions are satisfied.
+
+---
+
+## Comprehension Check
+
+1. You fit `lm(albumin ~ log_bili)` and get slope = −0.34, SE = 0.03. Interpret the slope in plain language.
+2. The QQ-plot of residuals shows a heavy right tail. Is this a problem? What would you do?
+3. $R^2 = 0.05$. Does this mean the model is useless?
+4. You predict albumin = 2.1 g/dL for a patient with bilirubin = 80 mg/dL. The maximum observed bilirubin in your data is 28 mg/dL. Should you trust this prediction?
+5. What does the intercept represent in `lm(albumin ~ log_bili)` when many patients have bilirubin values far from 1 mg/dL?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. For every one-unit increase in log(bilirubin) — roughly a 2.7-fold increase in bilirubin on the original scale — albumin is expected to be 0.34 g/dL lower, on average, after accounting for the uncertainty in this estimate.
+2. A heavy right tail in the QQ-plot indicates that large positive residuals occur more often than expected under normality. For inference (t-tests, CIs), mild non-normality is acceptable with large samples (CLT). For severe non-normality, try a log-transformation of the outcome or use robust standard errors.
+3. $R^2 = 0.05$ means the predictor explains 5% of the outcome's variability. Whether this is "useful" depends on context. In complex biological systems, a single biomarker explaining even 5% of variance may be scientifically meaningful. The slope and CI are more informative than $R^2$ alone.
+4. No. A bilirubin of 80 mg/dL is well outside the range of the data used to fit the model (max = 28). Extrapolation is unreliable — the linear relationship may not hold at extreme values.
+5. The intercept is the predicted albumin when log(bilirubin) = 0, i.e., when bilirubin = 1 mg/dL. If few patients have bilirubin near 1 mg/dL, the intercept is an extrapolation with high uncertainty and limited clinical meaning. It is mainly a mathematical artefact of the model parameterisation.
+:::
+
+## Further Reading
+
+- @Dalgaard-2008 --- Chapter on linear models in *Introductory Statistics with R*
+- @Bland-2015 --- Regression chapters in *An Introduction to Medical Statistics*
+- `?lm`, `?predict.lm` in R — full documentation
+- `broom` package vignette for tidy model output

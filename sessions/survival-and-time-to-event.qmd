@@ -1,96 +1,322 @@
-# Survival and Time-to-Event Analysis {#sec-survival}
+﻿# Survival Analysis and Time-to-Event Data {#sec-survival}
 
 ```{r setup}
 #| include: false
 #| eval: true
-source(here::here("R/functions.R"))
-source(here::here("R/load-packages.R"))
-```
-
-## Introduction
-
-This session covers survival analysis concepts such as Kaplan-Meier
-estimation and time-to-event modeling, with an emphasis on reproducible
-research practices.
-
-## Learning outcomes
-
-- Describe survival and censored data.
-- Fit Kaplan-Meier curves using R.
-- Interpret survival summaries in clinical research.
-
-## Methods covered in this session
-
-- Kaplan-Meier estimation for survival probability.
-- Stratified survival curves and group comparisons.
-- Log-rank tests for comparing survival curves.
-- Cox proportional hazards regression for time-to-event modeling.
-- Interpretation of hazard ratios, confidence intervals, and p-values.
-
-## Kaplan–Meier estimation and log-rank test
-
-We use the `lung` dataset from the `survival` package for examples.
-
-```{r km-logrank}
+library(tidyverse)
 library(survival)
-
-lung2 <- survival::lung %>% as_tibble() %>%
-	mutate(status_event = (status == 2)) # TRUE when event (death) occurred
-
-# Kaplan-Meier by sex
-km_sex <- survfit(Surv(time, status_event) ~ sex, data = lung2)
-summary(km_sex)
-
-# Plot the KM curves (base plot for simplicity)
-plot(km_sex, col = c("blue", "red"), xlab = "Days", ylab = "Survival probability")
-legend("topright", legend = c("Male","Female"), col = c("blue","red"), lty = 1)
-
-# Log-rank test
-survdiff(Surv(time, status_event) ~ sex, data = lung2)
+library(broom)
+library(ggsurvfit)
 ```
 
-### How to explain KM and log-rank to a clinician
+## When Do You Use This? {.callout-tip}
 
-- **KM:** "Kaplan–Meier curves estimate the proportion of patients surviving beyond each time point, accounting for censoring."  
-- **Log-rank:** "The log-rank test assesses whether survival curves differ across groups; report the p-value and consider reporting median survival times with CIs if available."
+> You followed 418 PBC patients for up to 12 years. Some died, others were censored — they received a transplant, were lost to follow-up, or were still alive at the end of the study. You cannot analyse time to death with a t-test or logistic regression because censoring means you only know a patient survived *at least* to the censoring time, not their exact death time. Survival analysis handles this correctly.
 
-## Cox proportional hazards regression
+## Learning Objectives
 
-Cox regression estimates hazard ratios (HR) and adjusts for covariates.
+After completing this session you will be able to:
 
-```{r cox-example}
-cox1 <- coxph(Surv(time, status_event) ~ sex + age + ph.ecog, data = lung2)
-summary(cox1)
+- Explain censoring and why ordinary regression cannot handle it
+- Estimate and plot Kaplan-Meier survival curves and compare groups with the log-rank test
+- Fit a Cox proportional hazards model and interpret hazard ratios
+- Check the proportional hazards assumption using Schoenfeld residuals
+- Extend the model to stratified and time-varying coefficient analyses
 
-# Hazard ratios and 95% CI
-exp(coef(cox1))
-exp(confint.default(cox1))
+---
+
+## Background: Key Concepts
+
+### Time-to-event data
+
+Each patient contributes:
+- **Event time** $T_i$: the time from study entry to the event (death, relapse, etc.)
+- **Event indicator** $\delta_i$: 1 if the event occurred, 0 if censored
+
+**Right censoring** is the most common type: the event has not happened by the time we stop observing the patient.
+
+### The Survival and Hazard Functions
+
+The **survival function** $S(t)$ is the probability of surviving past time $t$:
+
+$$S(t) = P(T > t)$$
+
+The **hazard function** $h(t)$ is the instantaneous rate of the event at time $t$, given survival to $t$:
+
+$$h(t) = \lim_{\Delta t \to 0} \frac{P(t \leq T < t + \Delta t \mid T \geq t)}{\Delta t}$$
+
+### The Cox Proportional Hazards Model
+
+The Cox model relates covariates to the hazard:
+
+$$h(t \mid X) = h_0(t) \cdot \exp(\beta_1 X_1 + \cdots + \beta_p X_p)$$
+
+The **hazard ratio (HR)** for a one-unit increase in $X_j$ is $e^{\beta_j}$. HR > 1 means increased risk; HR < 1 means reduced risk. The baseline hazard $h_0(t)$ is left unspecified — this is the "semi-parametric" nature of the Cox model.
+
+**Proportional hazards assumption:** The ratio of hazards between any two covariate patterns is constant over time. This must be checked.
+
+---
+
+## Worked Example 1: Clinical Data (PBC)
+
+### Prepare the Data
+
+```{r pbc-setup}
+pbc <- survival::pbc |>
+  as_tibble() |>
+  janitor::clean_names() |>
+  mutate(
+    died      = as.integer(status == 2),
+    trt       = factor(trt, levels = c(1, 2), labels = c("D-penicillamine", "Placebo")),
+    sex       = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
+    stage     = factor(stage, levels = 1:4, labels = paste("Stage", 1:4)),
+    log_bili  = log(bili),
+    log_proto = log(protime)
+  ) |>
+  filter(!is.na(trt))    # 312 randomised patients
 ```
 
-### How to explain Cox results to a clinician
+### Kaplan-Meier Survival Curves
 
-- **Report:** the hazard ratio with 95% CI and an interpretation in clinical terms (e.g., "HR=1.5 means a 50% higher instantaneous risk of event").  
-- **Context:** note whether proportional hazards assumptions were checked and how adjustments change the effect estimates.
+```{r km-fit}
+km_trt <- survfit(Surv(time, died) ~ trt, data = pbc)
+summary(km_trt, times = c(365, 730, 1460, 2920))
+```
 
-## Short exercise
+```{r km-plot}
+km_trt |>
+  ggsurvfit(linewidth = 1) +
+  add_confidence_interval() +
+  add_risktable() +
+  scale_color_manual(values = c("steelblue", "tomato")) +
+  labs(title = "Kaplan-Meier survival curves by treatment",
+       x = "Time (days)", y = "Survival probability") +
+  theme_bw()
+```
 
-- Plot Kaplan–Meier curves by sex using `lung`; run a log-rank test and fit a Cox model adjusting for age. Interpret the hazard ratio for `sex` in one sentence.
+### Log-Rank Test
 
-**Hint:** use `survfit()`, `survdiff()`, and `coxph()`; convert `status` to an event indicator with `status==2` for `lung`.
+```{r logrank}
+survdiff(Surv(time, died) ~ trt, data = pbc)
+```
 
-**Exercises & Further Materials**
+The log-rank test compares overall survival curves between groups. A significant p-value means survival differs at some point over follow-up.
 
-- Reproducible survival exercises and example scripts are provided inline or in `scripts/`; consult `data_sources.md` for dataset load snippets and recommended public survival datasets.
+### Estimating Median Survival
 
-::: {.callout-tip collapse="true" title="Survival Exercises — Notes"}
-- Exercise files present worked code; no separate `Solution*.pdf` files are included in this course material. Run the Rmds to view outputs and answers.
+```{r median-surv}
+km_trt
+```
+
+The median survival is the time at which $S(t) = 0.5$. If the curve does not drop below 0.5, the median is not reached within the study period.
+
+---
+
+### Cox Proportional Hazards Model
+
+#### Univariable Cox Models
+
+```{r cox-uni}
+cox1 <- coxph(Surv(time, died) ~ trt,      data = pbc)
+cox2 <- coxph(Surv(time, died) ~ log_bili, data = pbc)
+cox3 <- coxph(Surv(time, died) ~ albumin,  data = pbc)
+
+bind_rows(
+  tidy(cox1, conf.int = TRUE, exponentiate = TRUE),
+  tidy(cox2, conf.int = TRUE, exponentiate = TRUE),
+  tidy(cox3, conf.int = TRUE, exponentiate = TRUE)
+) |>
+  select(term, estimate, conf.low, conf.high, p.value)
+```
+
+#### Multivariable Cox Model
+
+```{r cox-multi}
+cox_full <- coxph(
+  Surv(time, died) ~ trt + log_bili + albumin + log_proto + stage,
+  data = pbc
+)
+tidy(cox_full, conf.int = TRUE, exponentiate = TRUE) |>
+  select(term, estimate, conf.low, conf.high, p.value) |>
+  mutate(across(where(is.numeric), ~ round(.x, 3)))
+```
+
+```{r cox-glance}
+glance(cox_full)   # concordance (C-statistic), log-likelihood, AIC
+```
+
+**Interpreting hazard ratios:**
+- **log_bili:** Each one-unit increase in log(bilirubin) multiplies the hazard of death by [HR].
+- **albumin:** Each 1 g/dL increase in albumin is associated with HR < 1 — protective.
+- **stageStage 4:** Patients in Stage 4 have [HR] times the hazard of Stage 1 patients, after adjustment.
+
+---
+
+### Checking the Proportional Hazards Assumption
+
+```{r ph-test}
+ph_test <- cox.zph(cox_full)
+print(ph_test)
+```
+
+```{r ph-plot}
+par(mfrow = c(2, 3))
+plot(ph_test)
+par(mfrow = c(1, 1))
+```
+
+A significant p-value for a term indicates the hazard ratio for that variable changes over time (non-proportional hazards). If the Schoenfeld residual plot shows a systematic trend, consider:
+- **Stratification:** `coxph(... + strata(stage), ...)` — allows separate baseline hazards by stage, not estimating a stage HR
+- **Time-varying coefficients:** `tt()` in `coxph`
+- **Restricted mean survival time** as an alternative summary measure
+
+---
+
+## Worked Example 2: Animal Data (boot::melanoma)
+
+Melanoma patients with known follow-up time and vital status.
+
+```{r mel-survival}
+library(boot)
+mel <- boot::melanoma |>
+  as_tibble() |>
+  mutate(
+    died_mel   = as.integer(status == 1),
+    ulceration = factor(ulcer, levels = c(0, 1), labels = c("No", "Yes")),
+    sex        = factor(sex,   levels = c(0, 1), labels = c("Female", "Male")),
+    log_thick  = log(thickness)
+  )
+
+# KM by ulceration
+km_ulc <- survfit(Surv(time, died_mel) ~ ulceration, data = mel)
+
+km_ulc |>
+  ggsurvfit(linewidth = 1) +
+  add_confidence_interval() +
+  add_risktable() +
+  scale_color_manual(values = c("steelblue", "tomato")) +
+  labs(title = "Melanoma survival by ulceration status",
+       x = "Time (days)", y = "Survival probability") +
+  theme_bw()
+```
+
+```{r mel-cox}
+cox_mel <- coxph(Surv(time, died_mel) ~ log_thick + ulceration + sex,
+                 data = mel)
+tidy(cox_mel, conf.int = TRUE, exponentiate = TRUE) |>
+  select(term, estimate, conf.low, conf.high, p.value)
+```
+
+---
+
+## Where to Find Data Like This {.callout-note}
+
+**`survival::pbc`:** 418 PBC patients with time-to-transplant/death, multiple clinical covariates — the primary teaching dataset for this session.
+
+**`survival::lung`:** Lung cancer patients with ECOG performance scores — commonly used for Cox model examples.
+
+**`boot::melanoma`:** 205 melanoma patients with thickness, ulceration, and survival time.
+
+**`survival::ovarian`, `survival::veteran`:** Further classic teaching datasets in the `survival` package.
+
+---
+
+## What Can Go Wrong {.callout-warning}
+
+**Ignoring censoring (using logistic or linear regression)**
+Using a binary "did they die?" outcome discards timing information and biases estimates when follow-up lengths differ. Always use time-to-event methods when censoring is present.
+
+**Assuming proportional hazards without checking**
+Cox models assume constant hazard ratios over time. If treatment benefit wanes or emerges late, HRs averaged over the whole follow-up are misleading. Always run `cox.zph()`.
+
+**Immortal time bias**
+If covariates are recorded after study entry (e.g., "did the patient receive surgery?"), misclassifying the period before surgery as exposed creates an artificial survival advantage. Use landmark analysis or time-varying covariates to address this.
+
+**Competing risks**
+If patients can die from liver disease *or* be transplanted, transplant is a competing risk for death. Treating transplant as censoring overestimates the probability of death. Use the `cmprsk` or `tidycmprsk` package for competing risks analysis.
+
+---
+
+## Exercises
+
+### Exercise 1 (Guided): KM Curves by Disease Stage
+
+Using `pbc`, plot Kaplan-Meier survival curves separately for each disease stage. Use `add_risktable()`. Then run the log-rank test. Which stages have significantly different survival?
+
+::: {.callout-tip collapse="true"}
+### Exercise 1: Solution
+
+```{r}
+km_stage <- survfit(Surv(time, died) ~ stage, data = pbc)
+
+km_stage |>
+  ggsurvfit(linewidth = 0.8) +
+  add_confidence_interval(alpha = 0.15) +
+  add_risktable() +
+  labs(title = "Survival by disease stage",
+       x = "Time (days)", y = "Survival probability") +
+  theme_bw()
+
+survdiff(Surv(time, died) ~ stage, data = pbc)
+```
 :::
 
-## Further reading
+### Exercise 2 (Semi-guided): Adjusted Cox Model for Melanoma
 
-- Survival analysis and Cox models: @Matloff-2011; see CRAN survival package documentation.
-- Practical survival examples are documented in course materials and supporting scripts.
+Using `boot::melanoma`:
 
-## Resources
+1. Fit a univariable Cox model for `log_thick`.
+2. Add `ulceration`. How does the HR for thickness change?
+3. Add `sex`. Compare AIC.
+4. Check proportional hazards with `cox.zph()`. Is any variable problematic?
 
-- Survival exercises and worked examples were consolidated into the course sessions and supporting scripts; see `data_sources.md` for suggested datasets and scripts.
+::: {.callout-tip collapse="true"}
+### Exercise 2: Solution
+
+```{r}
+m1 <- coxph(Surv(time, died_mel) ~ log_thick,              data = mel)
+m2 <- coxph(Surv(time, died_mel) ~ log_thick + ulceration, data = mel)
+m3 <- coxph(Surv(time, died_mel) ~ log_thick + ulceration + sex, data = mel)
+
+bind_rows(
+  tidy(m1, exponentiate = TRUE) |> mutate(model = "1: thickness"),
+  tidy(m2, exponentiate = TRUE) |> mutate(model = "2: + ulceration"),
+  tidy(m3, exponentiate = TRUE) |> mutate(model = "3: + sex")
+) |>
+  filter(term == "log_thick") |>
+  select(model, estimate, p.value)
+
+AIC(m1, m2, m3)
+cox.zph(m3)
+```
+:::
+
+### Exercise 3 (Open-ended)
+
+Using `survival::lung`, fit a multivariable Cox model predicting death from ECOG performance score, age, sex, and weight loss. Check proportional hazards. Write a Results paragraph reporting HRs with 95% CIs for each predictor, as you would in a clinical paper. Include a KM plot stratified by ECOG category.
+
+---
+
+## Comprehension Check
+
+1. A patient is censored at 800 days with `died = 0`. What does this mean, and how does the Cox model use this data point?
+2. You compare two KM curves with the log-rank test and get p = 0.04. What exactly is being tested?
+3. The HR for log_bili is 2.1 (95% CI 1.7–2.6). Interpret this in plain language.
+4. `cox.zph()` gives p = 0.007 for stage. What is the problem, and what are your options?
+5. Your study has 200 patients, of whom 120 were transplanted before dying. Why is treating transplant as censoring a problem?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. The patient was alive (or otherwise event-free) at 800 days when observation ended — whether by end of study, loss to follow-up, or administrative censoring. The Cox model uses this as a partial likelihood contribution: the patient was in the risk set at all times up to 800 days and did not have the event. Their data provides information about who was at risk but does not contribute a completed failure time.
+2. The log-rank test evaluates the null hypothesis that the two survival curves are identical over the entire follow-up period — i.e., the expected and observed numbers of deaths are equal across all time points simultaneously. p = 0.04 means the evidence against identical survival curves reaches conventional significance. It does not specify where the curves diverge or by how much.
+3. Each 2.72-fold increase in bilirubin (one unit on the log scale) is associated with a 2.1-times higher instantaneous rate of dying (hazard), after adjustment for other variables. Patients with bilirubin 2.72 times higher are estimated to die at 2.1 times the rate of otherwise similar patients.
+4. The proportional hazards assumption is violated for stage — the hazard ratio between stages is not constant over time. Options: (1) stratify by stage using `strata(stage)`, which allows separate baseline hazards per stage but does not estimate a stage HR; (2) include a `stage:log(time)` interaction term to model the time-varying hazard ratio; (3) use restricted mean survival time (RMST) as an alternative summary that does not assume proportionality.
+5. Transplant is a **competing risk** for death from liver disease — a patient who receives a transplant can no longer die from the disease. Treating transplant as censoring falsely assumes these patients had the same underlying risk as uncensored patients, which overestimates the cumulative incidence of disease-specific death. The correct analysis uses cumulative incidence functions and the Fine-Gray or cause-specific Cox model to account for transplant as a competing event.
+:::
+
+## Further Reading
+
+- @Therneau-2000 --- *Modeling Survival Data: Extending the Cox Model*
+- `vignette("survival", package = "survival")` — comprehensive package vignette
+- `ggsurvfit` package documentation for publication-quality KM plots
+- @Royston-2011 --- *Restricted mean survival time: an alternative to the hazard ratio* (Statistics in Medicine)

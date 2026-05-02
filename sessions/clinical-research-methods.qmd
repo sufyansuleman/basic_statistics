@@ -1,141 +1,293 @@
-# Clinical Research Methods in R {#sec-clinical-methods}
+﻿# Clinical Research Methods {#sec-clinical-methods}
 
 ```{r setup}
 #| include: false
 #| eval: true
-source(here::here("R/functions.R"))
-source(here::here("R/load-packages.R"))
+library(tidyverse)
+library(survival)
+library(broom)
+library(gtsummary)
 ```
 
-## Introduction
+## When Do You Use This? {.callout-tip}
 
-This session introduces clinical research modeling concepts such as
-comparative analysis, cohort studies, and hypothesis testing for research.
+> You want to design a study to determine whether a new treatment reduces liver transplantation rates in primary biliary cholangitis. Before you can choose your statistical test, you need to decide: Should this be an RCT or a cohort study? What biases might affect your results? How do you translate a clinical question into an estimand? This session equips you to answer those questions.
 
-## Learning outcomes
+## Learning Objectives
 
-- Understand study design and research questions.
-- Translate clinical data questions into analysis plans.
- - Translate clinical data questions into analysis plans.
- - Implement analytic workflows with modern R tools for data wrangling and visualization.
+After completing this session you will be able to:
 
-## Data {.unnumbered}
+- Distinguish study designs (RCT, cohort, case-control, cross-sectional) and identify their strengths and limitations
+- Define and identify selection bias, information bias, and confounding in clinical research
+- Describe the Bradford Hill criteria for causal inference from observational data
+- Translate a PICO clinical question into an analysis plan
+- Produce a Table 1 and interpret the results of an adjusted analysis
 
-- Use public clinical datasets such as `survival::pbc` for liver-related examples, `NHANES` subsets for population health demonstrations, or local small datasets in `data/` for classroom exercises (see `data_sources.md`).
+---
 
-## Methods covered in this session
+## Background: Study Design
 
-- Correlation analysis for variable association.
-- One-way and two-way ANOVA for group comparisons.
-- Multiple comparison adjustments (Tukey, Dunnett, Bonferroni, Holm).
-- Chi-square tests for categorical data relationships.
-- Logistic regression for binary outcomes and risk interpretation.
-- Model diagnostics and interpretation of fitted models.
+### From Question to Design
 
-## One-way and two-way ANOVA with multiple comparisons
+Every clinical study starts with a **PICO** question:
 
-ANOVA tests whether group means differ; use `glht` from `multcomp` to
-extract adjusted comparisons (Tukey, Dunnett).
+| Element | Description | Example |
+|---------|-------------|---------|
+| **P** | Population | Adults with primary biliary cholangitis (PBC) |
+| **I** | Intervention / Exposure | D-penicillamine treatment |
+| **C** | Comparator | Placebo |
+| **O** | Outcome | Death or liver transplantation at 10 years |
 
-```{r anova-glht}
-pg <- datasets::PlantGrowth %>% as_tibble()
+### Types of Study Design
 
-pg_lm <- lm(weight ~ group, data = pg)
-summary(pg_lm)
+| Design | Key feature | Strengths | Limitations |
+|--------|------------|-----------|-------------|
+| **RCT** | Randomised allocation | Eliminates confounding; gold standard for causality | Expensive; ethical limits; short follow-up |
+| **Prospective cohort** | Follow exposed/unexposed forward in time | Natural exposure; long follow-up | Confounding; dropout; expensive |
+| **Retrospective cohort** | Use existing records | Fast; cheap | Data quality; selection bias |
+| **Case-control** | Start from outcome; look back at exposure | Efficient for rare outcomes | Recall bias; selection of controls |
+| **Cross-sectional** | One-time snapshot | Fast; cheap | Cannot determine temporality |
+| **Systematic review / meta-analysis** | Synthesise multiple studies | Highest level of evidence | Publication bias; heterogeneity |
 
-library(multcomp)
-pg_glht <- glht(pg_lm, linfct = mcp(group = "Tukey"))
-summary(pg_glht)
-confint(pg_glht)
+### Hierarchy of Evidence
+
+Randomised evidence sits above observational evidence because randomisation distributes confounders equally across groups. However, observational designs are essential for:
+- Rare diseases (small RCT is underpowered)
+- Long-term outcomes
+- Questions where randomisation is unethical (e.g., smoking causes cancer)
+
+---
+
+## Background: Bias in Clinical Research
+
+### Three Core Biases
+
+**Selection bias** occurs when study participants are not representative of the target population, or when selection into the study depends on both exposure and outcome.
+
+*Example:* A hospital-based case-control study of smoking and MI — hospital controls may include more smokers (Berkson's bias), inflating the apparent association.
+
+**Information bias** arises from systematic errors in measuring exposure or outcome.
+
+*Types:*
+- **Recall bias:** Cases remember exposures more vividly than controls (common in case-control studies)
+- **Misclassification:** Non-differential (random, attenuates association) vs differential (one group mismeasured, can bias any direction)
+
+**Confounding** occurs when a variable is associated with both the exposure and outcome, and is not on the causal pathway.
+
+*Classic confound:* Alcohol is associated with lung cancer, but the real confounders are smoking (associated with both heavy drinking and cancer). Adjusting for smoking removes the confounded association.
+
+### The Bradford Hill Criteria
+
+Nine criteria for judging whether an observed association is causal:
+
+1. **Strength** — strong associations are less likely to be entirely explained by bias
+2. **Consistency** — replicated across settings and populations
+3. **Specificity** — one exposure, one disease
+4. **Temporality** — exposure precedes outcome (essential)
+5. **Biological gradient** — dose-response relationship
+6. **Plausibility** — biologically sensible mechanism
+7. **Coherence** — fits existing knowledge
+8. **Experiment** — removal of exposure reduces disease
+9. **Analogy** — similar associations exist for similar factors
+
+---
+
+## Worked Example 1: Table 1 and Adjusted Analysis in PBC
+
+We use the `survival::pbc` dataset (418 patients, primary biliary cholangitis trial).
+
+```{r pbc-table1}
+data(pbc, package = "survival")
+
+# Clean and prepare
+pbc_clean <- pbc |>
+  mutate(
+    status_bin = if_else(status == 2, 1L, 0L),   # 1 = died
+    trt_label  = factor(trt, labels = c("D-penicillamine", "Placebo")),
+    stage      = factor(stage)
+  ) |>
+  filter(!is.na(trt))                              # randomised patients only
+
+# Table 1: baseline characteristics by treatment group
+pbc_clean |>
+  select(trt_label, age, sex, bili, albumin, stage, status_bin) |>
+  tbl_summary(
+    by       = trt_label,
+    label    = list(
+      age        ~ "Age (years)",
+      sex        ~ "Sex",
+      bili       ~ "Serum bilirubin (mg/dL)",
+      albumin    ~ "Albumin (g/dL)",
+      stage      ~ "Histologic stage",
+      status_bin ~ "Died during follow-up"
+    ),
+    statistic = list(
+      all_continuous()  ~ "{mean} ({sd})",
+      all_categorical() ~ "{n} ({p}%)"
+    )
+  ) |>
+  add_p() |>
+  bold_labels()
 ```
 
-How to explain to a clinician
+A balanced Table 1 (no significant p-values) suggests randomisation worked — baseline confounders are similar across treatment groups.
 
-- **Report:** "ANOVA tests whether any group differs; Tukey shows pairwise differences with CIs adjusted for multiplicity."  
-- **Context:** emphasize effect sizes and which pairwise contrasts are clinically meaningful rather than only p-values.
+### Unadjusted Analysis
 
-## Logistic regression and odds ratios
-
-Logistic regression models the log-odds of a binary outcome; exponentiated coefficients are odds ratios.
-
-```{r logistic-example}
-mtcars <- datasets::mtcars %>% as_tibble(rownames = "model") %>%
-	mutate(manual = if_else(am == 1, 1, 0))
-
-fit_log <- glm(manual ~ wt + hp, family = binomial, data = mtcars)
-summary(fit_log)
-
-# Odds ratios and 95% CI
-exp(coef(fit_log))
-exp(confint.default(fit_log))
-
-# Predicted probabilities for example profiles
-new_profiles <- tibble(wt = c(2.5, 3.5), hp = c(100, 150))
-new_profiles$pred_prob <- predict(fit_log, newdata = new_profiles, type = "response")
-new_profiles
+```{r unadjusted}
+fit_unadj <- glm(status_bin ~ trt_label, data = pbc_clean, family = binomial)
+tidy(fit_unadj, exponentiate = TRUE, conf.int = TRUE) |>
+  filter(term != "(Intercept)")
 ```
 
-How to explain to a clinician
+### Adjusted Analysis
 
-- **Report:** present the odds ratio with 95% CI and an example probability change: "A patient with wt=X and hp=Y has predicted probability Z% (95% CI [L%, U%])."  
-- **Context:** clarify that odds ratios are multiplicative changes in odds and that risk differences may be easier to communicate when baseline risk is known.
+```{r adjusted}
+fit_adj <- glm(status_bin ~ trt_label + age + bili + albumin + factor(stage),
+               data = pbc_clean, family = binomial)
+tidy(fit_adj, exponentiate = TRUE, conf.int = TRUE) |>
+  filter(term != "(Intercept)") |>
+  select(term, estimate, conf.low, conf.high, p.value)
+```
 
-## Exercises (short)
+Compare the treatment odds ratio before and after adjustment. In a well-randomised trial, adjustment should not materially change the estimate — but it can improve precision.
 
-- Fit the logistic model above and report the odds ratio for a 1-unit change in `wt` with its 95% CI; write one sentence interpreting the clinical meaning.
+---
 
-**Hint:** use `glm(..., family=binomial)`, `exp(coef())` and `exp(confint.default())`.
+## Worked Example 2: Observational Study — Confounding
 
-**Additional Exercises**
+In this example we simulate an observational study where the exposure-outcome association is entirely confounded.
 
-- For longitudinal / repeated-measures examples, consider `lme4::sleepstudy` (as a worked example) or pick a publicly archived clinical longitudinal dataset from Dryad/Zenodo (check DOI before use); see `data_sources.md` for suggestions.
+```{r confounding-sim}
+set.seed(2024)
+n <- 1000
 
-::: {.callout-tip collapse="true" title="Exercise 8 — Note"}
-- Exercise 8 (longitudinal LMM): use `lme4::sleepstudy` or a public longitudinal clinical dataset (see `data_sources.md`).
-- No pre-prepared solution file is included here; run the Rmd and inspect outputs or use the inline examples.
+# Confounder: socioeconomic status (SES; high = 1)
+SES <- rbinom(n, 1, 0.4)
+
+# Exposure: physical exercise — SES causes exercise
+exercise <- rbinom(n, 1, 0.3 + 0.4 * SES)
+
+# Outcome: HbA1c — SES causes HbA1c (not exercise)
+HbA1c <- 7.5 - 0.5 * SES + rnorm(n, 0, 0.8)
+# Exercise has NO direct effect on HbA1c in this simulation
+
+obs <- tibble(SES, exercise, HbA1c)
+
+# Unadjusted: exercise appears protective
+fit_unconf <- lm(HbA1c ~ exercise, data = obs)
+tidy(fit_unconf, conf.int = TRUE) |> filter(term == "exercise")
+```
+
+```{r confounding-adjusted}
+# Adjusted: true effect (null) restored
+fit_conf <- lm(HbA1c ~ exercise + SES, data = obs)
+tidy(fit_conf, conf.int = TRUE) |> filter(term == "exercise")
+```
+
+In the unadjusted model, exercise appears to lower HbA1c — but this is entirely explained by SES (richer people exercise more **and** have lower HbA1c). Adjusting for SES removes the confounded association.
+
+---
+
+## Where to Find Data Like This {.callout-note}
+
+**`survival::pbc`:** RCT in primary biliary cholangitis — 418 patients, 17 variables, continuous follow-up. Ideal for survival analysis and clinical regression.
+
+**`MASS::birthwt`:** 189 births — birth weight, risk factors (smoking, hypertension, race). Good for logistic regression teaching.
+
+**NHANES:** US population health survey, accessible via `nhanesA` package. Rich observational dataset for confounding and epidemiology examples.
+
+**Epidemiological methods textbooks:** Often provide study datasets. @Rothman-2012 includes worked examples from case-control and cohort designs.
+
+---
+
+## What Can Go Wrong {.callout-warning}
+
+**Immortal time bias**
+In retrospective cohort studies, if patients must survive long enough to receive a treatment, the treatment group has immortal follow-up time before exposure begins. Ignoring this biases results in favour of the treated group.
+
+**Collider bias**
+Adjusting for a variable on the causal pathway (a collider) can open a spurious association between exposure and outcome. See @sec-causal for a worked example.
+
+**Ecological fallacy**
+Associations observed at the group level (e.g., country-level sodium intake and stroke mortality) do not necessarily hold at the individual level.
+
+**Over-adjusting for intermediates**
+Adjusting for a mediator (a variable on the causal pathway from exposure to outcome) removes the effect you are trying to estimate. For example, adjusting for BMI when studying the effect of a dietary intervention on diabetes.
+
+---
+
+## Exercises
+
+### Exercise 1 (Guided): Identify Bias
+
+Read the following study description and identify the likely bias:
+
+*"A case-control study of dietary fat intake and breast cancer. Cases were women diagnosed with breast cancer in the past 2 years. Controls were recruited from the same hospital with other conditions. Diet was assessed by interview."*
+
+1. What type of study is this?
+2. What biases are most likely? (Hint: think about control selection and exposure measurement.)
+3. If cases over-report fat intake because they are searching for an explanation for their illness, what type of bias is this? Would it bias the OR upward or downward?
+
+::: {.callout-tip collapse="true"}
+### Exercise 1: Answers
+1. Case-control study.
+2. (a) **Selection bias (Berkson's bias):** Hospital controls may not represent the general population — they may have conditions related to diet that are common in the hospital (e.g., cardiovascular disease), which could distort the apparent fat-cancer association. Population-based controls would be better. (b) **Recall bias:** Cases who know they have cancer may search their memory more carefully for dietary risk factors — they may over-report fat intake compared with controls who are not "searching for a cause."
+3. **Differential recall bias** (or differential misclassification). Because misclassification differs between cases and controls, the OR will be biased — if cases over-report fat intake, the association between fat and cancer will be inflated (biased upward).
 :::
 
-## Instructor notes
+### Exercise 2 (Semi-guided): Table 1 and Confounding
 
-- Target audience: clinicians with basic R familiarity; emphasize interpretation over p-values.
-- Estimated time: 75–90 minutes (lecture + hands-on exercise).
-- Pre-run: ensure `R/load-packages.R` is sourced so required packages are available.
-- Suggested assessment: short write-up interpreting logistic regression output for a clinical example.
+Using `MASS::birthwt`:
 
-## Worked example — logistic regression (concise)
-
-```{r clinical-worked-logistic, echo=TRUE}
-# Minimal clinical-style logistic regression example using `mtcars`
-library(dplyr)
-mtcars2 <- datasets::mtcars %>%
-	as_tibble(rownames = "model") %>%
-	mutate(manual = factor(if_else(am == 1, "Manual", "Automatic")))
-
-fit_log <- glm(manual ~ wt + hp, family = binomial(), data = mtcars2)
-
-# Tidy coefficients and compute odds ratios
-broom::tidy(fit_log) %>%
-	mutate(odds_ratio = exp(estimate))
-
-# Predicted probability for two example profiles
-new_profiles <- tibble(wt = c(2.5, 3.5), hp = c(100, 150))
-predict(fit_log, newdata = new_profiles, type = "response")
+```{r birthwt-ex}
+library(MASS)
+data(birthwt)
+birthwt <- as_tibble(birthwt) |>
+  mutate(
+    low    = factor(low, labels = c("Normal weight", "Low birth weight")),
+    smoke  = factor(smoke, labels = c("Non-smoker", "Smoker")),
+    race   = factor(race, labels = c("White", "Black", "Other"))
+  )
 ```
 
-## Short exercise (clinical case)
+1. Create a Table 1 comparing maternal characteristics between low and normal birth weight groups.
+2. Fit an unadjusted logistic regression: `low ~ smoke`.
+3. Fit an adjusted model: `low ~ smoke + age + race + lwt` (lwt = mother's weight at last menstrual period).
+4. How does the smoking odds ratio change after adjustment? What does this tell you about confounding?
 
+### Exercise 3 (Open-ended)
 
-- Run the inline logistic example above or use a public clinical dataset from `data_sources.md` to fit a logistic model, compute odds ratios, and write a one-sentence clinical interpretation.
+Identify a published observational study in your research area. Write a one-page critical appraisal covering:
 
-::: {.callout-tip collapse="true" title="Exercise — Solution"}
-- Instructor solution files are not published here; run the inline examples above or use datasets from `data_sources.md`.
+1. Study design and PICO question
+2. The main exposure and outcome
+3. Three specific biases that could affect the results
+4. Whether the statistical analysis adequately adjusted for confounders
+5. Whether the Bradford Hill criteria support a causal interpretation
+
+---
+
+## Comprehension Check
+
+1. What is the key advantage of an RCT over a prospective cohort study?
+2. A study finds that coffee drinking is associated with reduced risk of Parkinson's disease. A confounder is proposed: smokers drink more coffee and are less likely to develop Parkinson's (due to nicotine's neuroprotective effects). Is this a confounder? Explain why or why not.
+3. In a case-control study, cases and controls are recruited from different hospitals. What bias might this introduce?
+4. What does "non-differential misclassification" mean, and which direction does it typically bias the association?
+5. A cohort study uses data from 2010–2020. Patients are classified as "treated" if they received a statin at any point. However, many patients only started statins after having a cardiovascular event. What bias does this introduce?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. Randomisation distributes measured and unmeasured confounders equally across treatment groups — something observational studies cannot achieve. In an RCT, any observed difference in outcome can be attributed to the treatment with much greater confidence. Cohort studies, even with careful adjustment, can only control for *measured* confounders; unknown or unmeasured confounders may still distort the estimate.
+2. Yes, this is a confounder. Smoking satisfies all three criteria: (1) it is associated with the exposure (coffee drinking — smokers drink more coffee); (2) it is independently associated with the outcome (smoking is associated with reduced Parkinson's risk via nicotine); (3) it is not on the causal pathway from coffee to Parkinson's. Failure to adjust for smoking would make coffee drinking appear protective, when some of the apparent protection actually comes from smoking. Note: this is a real phenomenon and a genuine methodological challenge in coffee/Parkinson's research.
+3. Berkson's (hospital admission) bias. Patients admitted to different hospitals may differ systematically by severity, comorbidities, or healthcare-seeking behaviour. Using controls from a different hospital means they may not be representative of the same source population as the cases, potentially creating a spurious association (or masking a true one).
+4. Non-differential misclassification means the measurement error does not differ between exposure groups or between cases and controls — it is equally likely to misclassify anyone. This typically biases the association toward the null (i.e., it attenuates the observed effect size). A true association is made to look smaller. Differential misclassification (which differs between cases and controls) can bias in any direction.
+5. Immortal time bias. Patients who start statins after a cardiovascular event were at risk of that event *before* starting treatment, but they are classified as "treated" throughout the follow-up period. This means the treated group has a period of follow-up before exposure starts (an immortal period when they could not have had the event). This artefactually makes the treated group appear healthier. The correct design is time-varying exposure analysis (Cox model with time-varying statin use) or an intention-to-treat design from a clear index date.
 :::
 
-## Further reading
+## Further Reading
 
-- Clinical methods and applied workflows: @Wickham-Grolemund-2017; @Matloff-2011.
-- Model selection and interactive model building: @Henderson-Velleman-1981.
-
-## Resources
-
-- Exercises and lecture notes: see `data_sources.md` for recommended datasets; lecture materials have been consolidated in the `sessions/` folder.
+- @Rothman-2012 --- *Epidemiology: An Introduction* — authoritative text on study design and confounding
+- @Hernan-Robins-2020 --- *Causal Inference: What If* — free online textbook on observational causal inference
+- @Szklo-Nieto-2014 --- *Epidemiology: Beyond the Basics* — bias, confounding, effect modification
+- @Grimes-Schulz-2002 --- *Cohort studies: marching towards outcomes* (Lancet series on study design)

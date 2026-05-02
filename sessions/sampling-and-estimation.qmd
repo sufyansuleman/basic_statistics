@@ -1,240 +1,321 @@
----
-title: "Sampling, Estimation, and Confidence Intervals"
----
+﻿# Sampling, Estimation, and Confidence Intervals {#sec-sampling}
 
-**Overview**
-
-This session covers sampling concepts, point estimation, and confidence intervals for common summary measures (means, proportions). Readings: @R-Core-Team-2023; @Wickham-Grolemund-2017.
-
-**Learning Objectives**
-
-- Understand sampling, bias, and variability.
-- Compute and interpret point estimates and standard errors.
-- Construct and interpret confidence intervals for means and proportions.
-
-**Key Concepts**
-
-- Sampling variability and standard error
-- Central Limit Theorem and its role for inference
-- Confidence intervals (Wald, exact/binomial, and bootstrap)
-
-**Hands-on / Examples**
-
-- Use the inline examples above or see `data_sources.md` for recommended public datasets and load snippets.
-
-**Exercises**
-
-- Compute 95% confidence intervals for BMI and interpret them using the inline examples or a recommended dataset from `data_sources.md`.
-
-::: {.callout-tip collapse="true" title="Exercise 1 — Solution"}
-Run the solution code directly in an R session or within Quarto.
-
-```r
-#' ---
-#' title: "Exercise 1 - solution"
-#' author: "Paul Blanche"
-#' output: pdf_document
-#' fontsize: 12pt
-#' ---
-#'
-## ----setup, include=FALSE-----------------------------------------------------
-knitr::opts_chunk$set(echo = TRUE)
-rm(list=ls())
-
-#'
-#' ## Question 1
-#'
-#' We load the data and have a look a the first lines.
-## -----------------------------------------------------------------------------
-## Prefer local simulated SCD (data/scd_simulated_data.rda) otherwise use `survival::pbc`
-if (file.exists(here::here('data','scd_simulated_data.rda'))) {
-        load(here::here('data','scd_simulated_data.rda'))
-        d <- scd_simulated_data
-} else {
-        d <- survival::pbc %>% as_tibble()
-}
-head(d)
-head(d)
-
-#'
-#' We get summary statistics for all variables.
-## -----------------------------------------------------------------------------
-summary(d)
-
-#'
-#' The variables HCT, Creat and Hb have missing values.
-#'
-#' ## Question 2
-#'
-## -----------------------------------------------------------------------------
-table(d$sex)
-
-#' There are 82 women and 94 men.
-#'
-## -----------------------------------------------------------------------------
-table(d$SCD)
-
-#' There are 88 subjects with and 88 without Sickle Cell Disease.
-#'
-#' ## Question 3
-#'
-## ---- fig.height=5------------------------------------------------------------
-boxplot(d$Psys~factor(d$SCD,levels=c(0,1),labels=c("no","yes")),
-                      xlab="Sickle Cell Disease",
-                      ylab="Diastolic pressure (mmHg)")
-
-#'
-#'
-#' **Interpretation:**
-#'
-#' * Box:
-#'    + middle line: median Q2 (50%)
-#'    + bottom: first quartile Q1 (25%)
-#'    + top: third quartile Q3 (75%)
-#' * Whiskers:  size is 1.5 times the height of the box, but not exceeding minimum and maximum.
-#' * Dots: observations beyond whiskers
-#'
-#' The overall interpretation seems to make sense: lower values are observed for subjects with SCD (median for SCD patients is approximately Q1 for subjects without SCD).
-#'
-#'
-#' **Note:** some **experienced** students might prefer to use an alternative code, using the packages **dplyr** and **ggplot2**. See appendix for such a code.
-#'
-#'
-#' ## Question 4
-#' First we create the BMI variable and add it to the data.
-## -----------------------------------------------------------------------------
-d$BMI <- d$weight/(d$height/100)^2
-
-#' Note that we divide the height by 100 because we want the height unit to be meters, not centimeters.
-## ---- fig.height=5------------------------------------------------------------
-hist(d$BMI,xlab="Body Mass Index",main="")
-
-#'
-#' BMI does not look normally distributed because the distribution does not seem symmetric around the mean/median.
-#'
-#' Mean of BMI:
-## -----------------------------------------------------------------------------
-mean(d$BMI)
-
-#' Sdandard deviation of BMI:
-## -----------------------------------------------------------------------------
-sd(d$BMI)
-
-#' Minimum of BMI:
-## -----------------------------------------------------------------------------
-min(d$BMI)
-
-#' Maximum of BMI:
-## -----------------------------------------------------------------------------
-max(d$BMI)
-
-#' First and third quartiles of BMI (25% and 75%):
-## -----------------------------------------------------------------------------
-quantile(d$BMI)
-
-#'
-#' or:
-## -----------------------------------------------------------------------------
-quantile(d$BMI, 0.25)
-quantile(d$BMI, 0.75)
-
-#'
-#'
-#' Median of BMI has already been computed (50% above). Alternatively:
-## -----------------------------------------------------------------------------
-median(d$BMIgroup <- cut(d$BMI,
-                  breaks=c(0,18.5,25,30,Inf),
-                  include.lowest=TRUE,right=FALSE)
-table(d$BMIgroup)
-
-#' Because the variable is far from being normally distributed, it is generally more informative to report the median and the first and third quartiles rather than mean and sd.
-#' We now compute the frequencies for each BMI group.
-## -----------------------------------------------------------------------------
-
-
-#' We observe 32 subjects "underweight", 112 "normal", 23 "overweight" and 9 "obese". Graphically:
-## ---- fig.height=4------------------------------------------------------------
-barplot(table(d$BMIgroup),xlab="Body Mass Index",ylab="Number of subjects")
-
-#'
-#' We now do the same, but separately for subjects with and without SCD. However, we now report proportions instead of counts, to facilitate the comparison between the two groups. We make sure that the y-axis is the same for both plots to facilitate the comparison.
-## ---- fig.width=10------------------------------------------------------------
-par(mfrow=c(1,2))
-barplot(table(d$BMIgroup[d$SCD==0])/sum(table(d$BMIgroup[d$SCD==0])),
-        main="No SCD",
-        ylim=c(0,0.7))
-barplot(table(d$BMIgroup[d$SCD==1])/sum(table(d$BMIgroup[d$SCD==1])),
-        main="SCD",
-        ylim=c(0,0.7))
-
-
-#' We observe somewhat lower BMI for subjects with SCD (less overweight and less obese subjects).
-#'
-#' ## Question 5
-#' We compute the mean and sd for subjects with (SCD=1) and without (SCD=0) SCD.
-## -----------------------------------------------------------------------------
-mean(d$Pdias[d$SCD==1])
-mean(d$Pdias[d$SCD==0])
-sd(d$Pdias[d$SCD==1])
-sd(d$Pdias[d$SCD==0])
-
-#'
-#'
-#'
-#' Next, we use the t.test function to compute 95% confidence interval for the mean diastolic pressure in the two populations of subjects with and without SCD.
-## -----------------------------------------------------------------------------
-t.test(d$Pdias[d$SCD==1])
-t.test(d$Pdias[d$SCD==0])
-
-#' The confidence intervals are [60.3;63.3] and [67.8;72.4] for subjects with and without SCD, respectively. They do not overlap, hence we can conclude to a significant difference in mean diastolic pressure between the two groups (at the usual 5% level for the type-I error control).
-#'
-#' We now compute the 95% **prediction** interval for the diastolic pressure in the two populations of subjects with and without SCD.
-## -----------------------------------------------------------------------------
-predict(lm(d$Pdias[d$SCD==0]~1),interval="prediction")[1,]
-predict(lm(d$Pdias[d$SCD==1]~1),interval="prediction")[1,]
-
-#' Under the assumption that the diastolic pressure is (approximately) normally distributed in each population (which should be checked using e.g. a QQplot!) then we can expect that (close to) 95% of the subjects without SCD (and similar to that of the study) have a diastolic pressure between 48.4 and 91.7. For subjects with SCD, between 47.9 and 75.7.
-#'
-#'
-#' ## Question 6
-#'
-## -----------------------------------------------------------------------------
-t.test(d$Psys[d$SCD==1])
-t.test(d$Psys[d$SCD==0])
-
-#' The confidence intervals are [115.9;120.8] and [124.1;129.7]. They do not overlap, hence a significant difference.
-## -----------------------------------------------------------------------------
-t.test(d$Psys[d$SCD==1 & d$sex==2])
-t.test(d$Psys[d$SCD==0 & d$sex==2])
-
-#' The confidence intervals are [113.9;119.9] and [119.9;127.2]. They do overlap (although very little), hence **we cannot rigorously say whether there is a significant difference**. We need to perform a two-sample t-test to rigorously conclude (see course Day 2).
-#'
-#' We now produce a dotplot to display the individual observations.
-## ---- fig.width=5-------------------------------------------------------------
-stripchart(d$Psys~factor(d$SCD,levels=c(0,1),labels=c("No SCD","SCD")),
-           vertical=TRUE,
-           method="jitter",
-           xlab="",
-           ylab="Systolic blood pressure (mmHg)",
-           pch=19,
-           col=c("forestgreen","red"))
-
-#'
-#' Now we produce QQplots for each group.
-## ---- fig.width=10------------------------------------------------------------
-par(mfrow=c(1,2))
-qqnorm(scale(d$Psys[d$SCD==1 & d$sex==2]),main="SCD")
-abline(0,1,col="red",lty=2,lwd=3)
-qqnorm(scale(d$Psys[d$SCD==0 & d$sex==2]),main="No SCD")
-abline(0,1,col="red",lty=2,lwd=3)
+```{r setup}
+#| include: false
+#| eval: true
+library(tidyverse)
+library(survival)
+library(boot)
 ```
+
+## When Do You Use This? {.callout-tip}
+
+> You measure albumin in 50 patients from a clinic. You want to know the mean albumin in **all** patients with this condition --- not just the 50 you measured. Estimation is the process of making that generalisation, and a confidence interval tells you how precise your estimate is given your sample size.
+
+## Learning Objectives
+
+After completing this session you will be able to:
+
+- Explain what a sampling distribution and standard error are
+- State the Central Limit Theorem and explain why it matters for inference
+- Compute confidence intervals for means and proportions in R
+- Interpret a 95% confidence interval correctly
+- Distinguish between a confidence interval and a prediction interval
+- Use bootstrap resampling when distributional assumptions are uncertain
+
+---
+
+## Background: From Sample to Population
+
+You can never measure every person, mouse, or cell. You measure a **sample** and use it to estimate a **population** quantity. Three ideas underpin all of this:
+
+**Point estimate:** Your best single guess at the population value (e.g., the sample mean).
+
+**Standard error (SE):** How much your point estimate would vary if you drew many different samples of the same size. Smaller SE = more precise estimate. SE shrinks as sample size grows.
+
+**Confidence interval (CI):** A range of plausible values for the population parameter, constructed so that (in repeated sampling) the specified percentage of intervals would contain the true value.
+
+$$SE(\bar{x}) = \frac{s}{\sqrt{n}}$$
+
+$$95\% \text{ CI for } \mu \approx \bar{x} \pm 1.96 \times SE(\bar{x})$$
+
+### The Central Limit Theorem
+
+The **Central Limit Theorem (CLT)** states: regardless of the shape of the original distribution, the sampling distribution of the mean becomes approximately normal as sample size increases.
+
+This is why t-tests and confidence intervals work even when individual measurements are not normally distributed — as long as the **sample size is large enough** (roughly $n \geq 30$ for mildly skewed data; larger for heavily skewed data).
+
+---
+
+## Worked Example 1: Clinical Data (PBC)
+
+```{r pbc-setup}
+pbc <- survival::pbc |>
+  as_tibble() |>
+  janitor::clean_names() |>
+  mutate(
+    sex   = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
+    trt   = factor(trt, levels = c(1, 2),     labels = c("D-penicillamine", "Placebo"))
+  )
+```
+
+### Estimating Mean Albumin
+
+```{r albumin-ci}
+albumin_est <- pbc |>
+  filter(!is.na(albumin)) |>
+  summarise(
+    n        = n(),
+    mean     = mean(albumin),
+    sd       = sd(albumin),
+    se       = sd / sqrt(n),
+    ci_lower = mean - qt(0.975, df = n - 1) * se,
+    ci_upper = mean + qt(0.975, df = n - 1) * se
+  )
+albumin_est
+```
+
+**Interpretation:** We estimate the mean serum albumin to be `r round(albumin_est$mean, 2)` g/dL (95% CI: `r round(albumin_est$ci_lower, 2)` to `r round(albumin_est$ci_upper, 2)`). If we were to repeat this study 100 times with different samples of the same size, approximately 95 of the resulting intervals would contain the true population mean.
+
+### Quicker with `t.test()`
+
+```{r albumin-ttest}
+t.test(pbc$albumin)
+```
+
+`t.test()` on a single vector returns the 95% CI for the mean without needing a hypothesis (the default null $\mu = 0$ is irrelevant here; we only want the interval).
+
+### Confidence Interval for a Proportion
+
+What proportion of patients are female?
+
+```{r prop-ci}
+n_female <- sum(pbc$sex == "Female", na.rm = TRUE)
+n_total  <- sum(!is.na(pbc$sex))
+
+prop.test(x = n_female, n = n_total, conf.level = 0.95)
+```
+
+The Wilson interval from `prop.test()` is better than the simple Wald interval for proportions, especially when the proportion is near 0 or 1.
+
+### Comparing Estimates Across Groups
+
+```{r group-ci}
+pbc |>
+  filter(!is.na(trt), !is.na(albumin)) |>
+  group_by(trt) |>
+  summarise(
+    n        = n(),
+    mean     = mean(albumin),
+    se       = sd(albumin) / sqrt(n),
+    ci_lower = mean - qt(0.975, df = n - 1) * se,
+    ci_upper = mean + qt(0.975, df = n - 1) * se
+  )
+```
+
+### Visualising the Estimates
+
+```{r ci-plot}
+pbc |>
+  filter(!is.na(trt), !is.na(albumin)) |>
+  group_by(trt) |>
+  summarise(
+    n        = n(),
+    mean     = mean(albumin),
+    se       = sd(albumin) / sqrt(n),
+    ci_lower = mean - qt(0.975, df = n - 1) * se,
+    ci_upper = mean + qt(0.975, df = n - 1) * se
+  ) |>
+  ggplot(aes(x = trt, y = mean, ymin = ci_lower, ymax = ci_upper)) +
+  geom_point(size = 4, color = "steelblue") +
+  geom_errorbar(width = 0.1, color = "steelblue", linewidth = 1) +
+  labs(
+    title = "Mean serum albumin by treatment group",
+    subtitle = "Points = mean; error bars = 95% CI",
+    x = NULL,
+    y = "Albumin (g/dL)"
+  ) +
+  theme_bw()
+```
+
+---
+
+## Worked Example 2: Animal Data (Mouse Weights)
+
+Suppose we measure body weight in a small experiment: 20 mice in each of two treatment groups.
+
+```{r mouse-data}
+set.seed(2024)
+mice <- tibble(
+  group  = rep(c("Control", "Treatment"), each = 20),
+  weight = c(rnorm(20, mean = 28, sd = 3),
+             rnorm(20, mean = 25, sd = 3))
+)
+
+mice |>
+  group_by(group) |>
+  summarise(n = n(), mean = mean(weight), sd = sd(weight),
+            se = sd / sqrt(n),
+            ci_lower = mean - qt(0.975, df = n - 1) * se,
+            ci_upper = mean + qt(0.975, df = n - 1) * se)
+```
+
+### Bootstrap Confidence Intervals
+
+When the distribution is non-normal or the sample is small, bootstrap CIs are more reliable. The `boot` package resamples the data with replacement many times to build an empirical sampling distribution.
+
+```{r bootstrap}
+# Bootstrap 95% CI for mean weight in control mice
+ctrl_weights <- mice$weight[mice$group == "Control"]
+
+boot_mean <- boot(data  = ctrl_weights,
+                  statistic = function(x, i) mean(x[i]),
+                  R     = 1000)
+
+boot.ci(boot_mean, type = "perc")
+```
+
+The percentile bootstrap CI takes the 2.5th and 97.5th percentile of the bootstrapped means as the interval bounds — no distributional assumptions required.
+
+---
+
+## Where to Find Data Like This {.callout-note}
+
+**PBC dataset:** `survival::pbc` — built in, no download needed.
+
+**Simulating data for teaching:**
+```{r}
+#| eval: false
+# Balanced two-group experiment
+set.seed(42)
+dat <- tibble(
+  group  = rep(c("A", "B"), each = 30),
+  value  = c(rnorm(30, mean = 10, sd = 2),
+             rnorm(30, mean = 12, sd = 2))
+)
+```
+
+**Boot package datasets:** `boot::melanoma`, `boot::aircondit` and others contain real datasets useful for bootstrap demonstrations.
+
+---
+
+## What Can Go Wrong {.callout-warning}
+
+**Misinterpreting a confidence interval**
+A 95% CI does **not** mean "there is a 95% probability the true mean lies in this interval." The true mean either is or is not in the interval — it is not random. The correct interpretation is: "if we repeated the study many times, 95% of such intervals would contain the true mean."
+
+**Using a z-interval when n is small**
+The formula $\bar{x} \pm 1.96 \times SE$ uses the normal quantile 1.96. For small samples, use the t-distribution quantile: `qt(0.975, df = n - 1)`. `t.test()` does this automatically.
+
+**Ignoring missing data**
+If you compute `mean(x)` without `na.rm = TRUE`, R returns `NA`. Worse, if missing values are not random (e.g., sicker patients more likely to have missing labs), your estimate will be biased.
+
+**Treating overlapping CIs as proof of no difference**
+Non-overlapping CIs do imply a significant difference (at approximately p < 0.05). But **overlapping CIs do not prove no difference** — you need a proper two-sample test. The 95% CI for each group mean is not the same as the 95% CI for their difference.
+
+---
+
+## Exercises
+
+### Exercise 1 (Guided): CI for Bilirubin
+
+Using `survival::pbc`:
+
+1. Compute the sample mean, SD, SE, and 95% CI for serum bilirubin (`bili`).
+2. Bilirubin is right-skewed. Repeat using `log(bili)`. Report the geometric mean by back-transforming with `exp()`.
+3. Compare the raw and geometric means. Which better represents the "typical" patient?
+
+::: {.callout-tip collapse="true"}
+### Exercise 1: Solution
+
+```{r}
+# Raw bilirubin
+pbc |>
+  filter(!is.na(bili)) |>
+  summarise(
+    n        = n(),
+    mean     = mean(bili),
+    se       = sd(bili) / sqrt(n),
+    ci_lower = mean - qt(0.975, df = n - 1) * se,
+    ci_upper = mean + qt(0.975, df = n - 1) * se
+  )
+
+# Log-transformed
+log_est <- pbc |>
+  filter(!is.na(bili)) |>
+  summarise(
+    n        = n(),
+    log_mean = mean(log(bili)),
+    se       = sd(log(bili)) / sqrt(n),
+    ci_lower = log_mean - qt(0.975, df = n - 1) * se,
+    ci_upper = log_mean + qt(0.975, df = n - 1) * se
+  )
+
+# Back-transform to original scale
+log_est |>
+  mutate(across(c(log_mean, ci_lower, ci_upper), exp))
+```
+
+The geometric mean is lower than the arithmetic mean, because the arithmetic mean is pulled upward by extreme values. The geometric mean better represents the median patient in a right-skewed distribution.
 :::
 
-## Further reading
+### Exercise 2 (Semi-guided): Bootstrap vs t-interval
 
-- Sampling and inference concepts: @R-Core-Team-2023; @Wickham-Grolemund-2017.
-- Practical statistics recipes: @Teetor-2011.
+Using the mouse weight data created above (or simulate your own 15 observations from a skewed distribution):
 
-## Resources
+1. Compute the t-interval for the mean using the formula and verify it matches `t.test()`.
+2. Compute a bootstrap percentile CI using `boot()`.
+3. Are the two intervals similar? If the distribution were more skewed, which would you trust more?
 
-- Primary example materials are provided inline above; see `scripts/` for canonical exercise scripts or `data_sources.md` for dataset load snippets and replacements.
+::: {.callout-tip collapse="true"}
+### Exercise 2: Solution
+
+```{r}
+set.seed(2024)
+weights <- rnorm(15, mean = 28, sd = 4)
+
+# t-interval
+n <- length(weights)
+m <- mean(weights); s <- sd(weights)
+ci_t <- c(m - qt(0.975, df = n-1) * s/sqrt(n),
+          m + qt(0.975, df = n-1) * s/sqrt(n))
+ci_t
+t.test(weights)$conf.int
+
+# bootstrap
+library(boot)
+b <- boot(weights, function(x, i) mean(x[i]), R = 2000)
+boot.ci(b, type = "perc")$percent[4:5]
+```
+
+For normal data, both intervals are similar. For skewed data or small samples, the bootstrap is more reliable because it makes no normality assumption.
+:::
+
+### Exercise 3 (Open-ended)
+
+Using a dataset from your own research, compute 95% confidence intervals for the key outcome variable, separately by group. Produce an error-bar plot. Write a one-paragraph interpretation as you would for a Results section.
+
+---
+
+## Comprehension Check
+
+1. What is the standard error of the mean, and how does it change as sample size increases?
+2. A study reports: "mean albumin 3.5 g/dL (95% CI: 3.3 to 3.7)." What does this mean?
+3. Why does the Central Limit Theorem matter for confidence intervals even when the data are not normally distributed?
+4. You have a sample of 10 mice with a skewed weight distribution. Should you use a t-interval or a bootstrap CI? Why?
+5. Two groups have CIs of [10.0, 12.0] and [11.5, 13.5]. They overlap at [11.5, 12.0]. Can you conclude there is no significant difference between the groups?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. The standard error is $SE = s / \sqrt{n}$, where $s$ is the sample standard deviation. It measures how precisely the sample mean estimates the population mean. SE decreases as $n$ increases (as $1/\sqrt{n}$) --- doubling the sample size reduces the SE by a factor of $\sqrt{2} \approx 1.41$.
+2. Our best estimate of the mean population albumin is 3.5 g/dL. If we repeated this study many times with samples of the same size, 95% of the resulting confidence intervals would contain the true population mean.
+3. The CLT guarantees that for sufficiently large samples, the sampling distribution of the mean is approximately normal regardless of the original distribution shape. This allows us to use the normal (or t) distribution to construct valid CIs even for skewed data.
+4. With only 10 mice and skewed data, the normality assumption underlying the t-interval is suspect. Use a bootstrap CI, which makes no distributional assumption.
+5. No. Overlapping CIs do not imply no significant difference. The CI for each group mean is not the CI for their difference. You need a two-sample t-test (or equivalent) to formally test whether the groups differ.
+:::
+
+## Further Reading
+
+- [R for Data Science](https://r4ds.hadley.nz) --- Wickham & Grolemund
+- [Introduction to the Bootstrap](https://link.springer.com/book/10.1007/978-1-4612-4380-9) --- Efron & Tibshirani (1993)
+- @Bland-2015 --- Statistics textbook written for clinical researchers

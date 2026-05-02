@@ -1,13 +1,24 @@
-# Vectors and Factors {#sec-vectors}
+# Vectors, Data Frames, and Factors {#sec-vectors}
 
 ```{r setup}
 #| include: false
 #| eval: true
-source(here::here("R/functions.R"))
-source(here::here("R/load-packages.R"))
+library(tidyverse)
 ```
 
-## Creating and Manipulating Vectors
+## When Do You Use This? {.callout-tip}
+
+> Everything in R is stored as a vector, a data frame, or a factor. Before you can clean data, run a t-test, or draw a plot, you need to understand these building blocks. This session covers what they are and how to work with them.
+
+## Learning Objectives
+
+After completing this session you will be able to:
+
+- Create and manipulate numeric, character, and logical vectors
+- Understand factors and their role in statistical analysis
+- Create and work with data frames and tibbles
+- Select, filter, and modify columns and rows in a data frame
+- Control factor levels and reference groups for regression
 
 Vectors are fundamental data structures in R, which allow you to store
 multiple values in a single variable. These values should be of the same
@@ -436,4 +447,223 @@ char_vector  # Output: "Low" "Medium" "High" "Medium" "Low"
 
 ```
 :::
+
+---
+
+## Data Frames and Tibbles
+
+A vector stores a single column of values. A **data frame** stores many columns together — like a spreadsheet where every column can have a different type. This is how you will actually store and work with your research data in R.
+
+A **tibble** is a modern version of a data frame from the `tidyverse`. It behaves the same way but has slightly better defaults (it never converts character columns to factors automatically, and it prints more neatly).
+
+### Creating a Data Frame
+
+```{r}
+# A simple data frame with three columns
+mouse_data <- data.frame(
+  mouse_id   = c("M01", "M02", "M03", "M04", "M05"),
+  group      = c("control", "control", "treatment", "treatment", "treatment"),
+  body_weight = c(24.1, 23.8, 28.5, 27.2, 29.0)
+)
+
+mouse_data
+```
+
+### Viewing the Structure
+
+```{r}
+# nrow and ncol tell you the dimensions
+nrow(mouse_data)
+ncol(mouse_data)
+
+# str() shows column types — very useful for diagnosing problems
+str(mouse_data)
+
+# head() shows the first 6 rows (useful for large datasets)
+head(mouse_data)
+```
+
+### Accessing Columns
+
+There are three ways to get a single column. All three give the same result.
+
+```{r}
+# Dollar sign: the most common approach
+mouse_data$body_weight
+
+# Double brackets with column name
+mouse_data[["body_weight"]]
+
+# Double brackets with column index number
+mouse_data[[3]]
+```
+
+### Accessing Rows and Cells
+
+Data frames use `[row, column]` indexing.
+
+```{r}
+# Row 2, all columns
+mouse_data[2, ]
+
+# All rows, column 3
+mouse_data[, 3]
+
+# Row 2, column 3
+mouse_data[2, 3]
+```
+
+### Creating a Tibble
+
+```{r}
+library(tibble)
+
+# tibble() works exactly like data.frame() but prints more neatly
+mouse_tibble <- tibble(
+  mouse_id    = c("M01", "M02", "M03", "M04", "M05"),
+  group       = c("control", "control", "treatment", "treatment", "treatment"),
+  body_weight = c(24.1, 23.8, 28.5, 27.2, 29.0)
+)
+
+mouse_tibble
+```
+
+::: callout-note
+When you import data with `read_csv()` from the `readr` package, it returns a tibble automatically. When you import with `read.csv()` (base R), it returns a data frame. Either works, but tibbles are generally easier to work with.
+:::
+
+### Adding and Modifying Columns
+
+```{r}
+# Add a new column using the dollar sign
+mouse_data$weight_kg <- mouse_data$body_weight / 1000
+
+# Modify an existing column
+mouse_data$body_weight <- round(mouse_data$body_weight, 0)
+
+mouse_data
+```
+
+---
+
+## Controlling Factor Levels for Statistical Analysis
+
+When you use a factor in a regression model or an ANOVA, R automatically treats the first level alphabetically as the **reference group**. This affects how coefficients are interpreted. Controlling the level order is an important practical skill.
+
+### Why Level Order Matters
+
+```{r}
+# R chooses "control" as reference automatically (alphabetical)
+group_factor <- factor(c("treatment", "control", "treatment", "control"))
+levels(group_factor)  # "control" comes first = reference group
+
+# In a regression, the coefficient for "treatment" is relative to "control"
+# This is what you want — but it happens to be correct here by accident
+```
+
+### Setting the Reference Level with `relevel()`
+
+```{r}
+# Explicitly set "control" as the reference group
+group_factor <- relevel(group_factor, ref = "control")
+levels(group_factor)
+```
+
+### Using `forcats` for More Control
+
+The `forcats` package (part of the `tidyverse`) gives you powerful tools for reordering factor levels. This is important for plots (which group appears first) and for regression (which group is the reference).
+
+```{r}
+library(forcats)
+
+# fct_relevel: move specific levels to the front
+diet_group <- factor(c("high_fat", "low_fat", "control", "high_fat", "control"))
+diet_reordered <- fct_relevel(diet_group, "control", "low_fat", "high_fat")
+levels(diet_reordered)
+
+# fct_recode: rename levels
+diet_renamed <- fct_recode(diet_group,
+  "Control diet"   = "control",
+  "Low-fat diet"   = "low_fat",
+  "High-fat diet"  = "high_fat"
+)
+levels(diet_renamed)
+
+# fct_infreq: order by frequency (most common first) — useful for bar charts
+diet_by_freq <- fct_infreq(diet_group)
+levels(diet_by_freq)
+```
+
+::: callout-tip
+**Rule of thumb:** Always check `levels()` on your factor columns before running a regression. Confirm that the reference group is what you intend it to be. If it is not, use `fct_relevel()` or `relevel()` to fix it.
+:::
+
+---
+
+## Exercise 5
+
+Practice building and working with a data frame that represents a real experiment.
+
+**Scenario:** You ran an experiment with 8 mice in three groups: control, low-dose treatment, and high-dose treatment. You measured body weight and blood glucose.
+
+1. Create a data frame with these columns: `mouse_id` (M01–M08), `group` (assign mice to three groups as you like), `body_weight` (make up realistic values in grams, roughly 22–32g), `glucose` (roughly 5–12 mmol/L).
+2. Convert `group` to a factor with levels ordered: `"control"`, `"low_dose"`, `"high_dose"`.
+3. Print the levels of the `group` factor. Is the reference group correct?
+4. Calculate the mean body weight for each group using `tapply()`:  `tapply(df$body_weight, df$group, mean)`.
+5. Add a new column called `glucose_category` that is `"normal"` if glucose < 7 and `"elevated"` if glucose >= 7.
+
+::: {.callout-tip collapse="true"}
+### Exercise 5: Solution
+
+```{r}
+# 1. Create the data frame
+mice <- data.frame(
+  mouse_id    = paste0("M0", 1:8),
+  group       = c("control", "control", "control",
+                  "low_dose", "low_dose",
+                  "high_dose", "high_dose", "high_dose"),
+  body_weight = c(23.5, 24.1, 22.8, 26.3, 27.0, 29.5, 30.1, 28.8),
+  glucose     = c(5.2, 5.8, 5.5, 7.1, 6.9, 9.3, 10.2, 8.7)
+)
+
+# 2. Convert group to an ordered factor
+mice$group <- factor(mice$group,
+                     levels = c("control", "low_dose", "high_dose"))
+
+# 3. Check levels
+levels(mice$group)  # "control" is the reference — correct
+
+# 4. Mean body weight per group
+tapply(mice$body_weight, mice$group, mean)
+
+# 5. Add glucose category
+mice$glucose_category <- ifelse(mice$glucose < 7, "normal", "elevated")
+mice
+```
+:::
+
+---
+
+## Comprehension Check
+
+1. You create a vector with `c(1, 2, "three")`. What type is the result, and why?
+2. What does `levels(my_factor)` return?
+3. You have a column `treatment` with values `"A"`, `"B"`, `"C"`. In a regression, R uses `"A"` as the reference. How do you change the reference to `"B"`?
+4. What is the difference between a data frame and a tibble?
+5. You want the third row and second column of a data frame called `df`. What code do you write?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. Character. In R, if you mix types in a vector, everything is converted to the most general type. Numbers become character strings here (`"1"`, `"2"`, `"three"`).
+2. The unique categories (levels) of the factor, in the order R will use them.
+3. `treatment <- relevel(treatment, ref = "B")` or `treatment <- fct_relevel(treatment, "B")` using `forcats`.
+4. A tibble is a modern version of a data frame from the `tidyverse`. It prints more neatly and never silently converts string columns to factors. For statistical analysis, they behave identically.
+5. `df[3, 2]`
+:::
+
+## Further Reading
+
+- [Tibbles in R for Data Science](https://r4ds.hadley.nz/tibbles.html) — Hadley Wickham's explanation of tibbles
+- [forcats documentation](https://forcats.tidyverse.org/) — full guide to factor manipulation
+- [R Data Structures cheat sheet](https://rstudio.github.io/cheatsheets/base-r.pdf) — quick reference for vectors, matrices, lists, and data frames
 

@@ -1,59 +1,293 @@
-## Data {.unnumbered}
-
-- Teaching example: `PlantGrowth` (standard small experiment). For modern animal experiment datasets consider Dryad or Zenodo archives (choose by DOI) — see `data_sources.md` for suggestions and DOIs.
-
-# ANOVA & Multiple Comparisons {#anova}
+﻿# ANOVA: Comparing Means Across Groups {#sec-anova}
 
 ```{r setup}
 #| include: false
 #| eval: true
-source(here::here("R/functions.R"))
-source(here::here("R/load-packages.R"))
+library(tidyverse)
+library(survival)
+library(broom)
 ```
 
-One-way ANOVA compares means across three or more groups; use post-hoc
-comparisons to identify which groups differ.
+## When Do You Use This? {.callout-tip}
 
-## When to use ANOVA
+> You recorded albumin levels in 418 PBC patients at four stages of disease (Stage 1–4). You want to know whether albumin differs across these stages simultaneously — running six separate t-tests would inflate your Type I error. ANOVA tests all groups at once.
 
-Use ANOVA for group mean comparisons when the outcome is continuous and you
-have three or more groups. Follow with a multiplicity-corrected post-hoc test
-if you need pairwise contrasts.
+## Learning Objectives
 
-## Short code demo
+After completing this session you will be able to:
 
-```{r demo-anova, echo=TRUE}
-pg <- datasets::PlantGrowth %>% as_tibble()
-pg_aov <- aov(weight ~ group, data = pg)
-summary(pg_aov)
+- Explain what ANOVA tests and when it is the right choice
+- Run a one-way ANOVA in R and interpret the F-statistic and p-value
+- Conduct post-hoc pairwise comparisons with Tukey's HSD
+- Run a two-way ANOVA and interpret a significant interaction term
+- Check ANOVA assumptions: normality of residuals, homogeneity of variance
 
-# Tukey pairwise comparisons
-TukeyHSD(pg_aov)
+---
+
+## Background: The Idea Behind ANOVA
+
+A t-test compares two group means. ANOVA (**AN**alysis **O**f **VA**riance) generalises this to $k$ groups. Despite the name, ANOVA tests means, not variances.
+
+**How it works:** ANOVA partitions total variability into:
+- **Between-group** variability (signal): differences between group means
+- **Within-group** variability (noise): natural variation within each group
+
+The **F-statistic** is the ratio of these two quantities:
+
+$$F = \frac{\text{Mean square between groups}}{\text{Mean square within groups}}$$
+
+A large F means group differences are large relative to the within-group scatter. Under the null hypothesis that all group means are equal, F follows an F-distribution.
+
+**ANOVA assumptions:**
+1. Independence: observations are independent
+2. Normality: residuals (within-group deviations) are approximately normal
+3. Homogeneity of variance: all groups have similar variance (Levene's test)
+
+---
+
+## Worked Example 1: Clinical Data (PBC)
+
+### One-Way ANOVA: Albumin by Disease Stage
+
+Does albumin decline across the four disease stages?
+
+```{r pbc-setup}
+pbc <- survival::pbc |>
+  as_tibble() |>
+  janitor::clean_names() |>
+  mutate(
+    stage = factor(stage, levels = 1:4, labels = paste("Stage", 1:4)),
+    trt   = factor(trt, levels = c(1, 2), labels = c("D-penicillamine", "Placebo"))
+  )
+
+pbc_stage <- pbc |> filter(!is.na(stage), !is.na(albumin))
 ```
 
-## How to explain the output (teacher notes)
+Always visualise first:
 
-- **Report:** global F-test result and pairwise comparisons (adjusted CIs).
-- **Context:** emphasize effect sizes and which contrasts are clinically meaningful.
+```{r pbc-anova-plot}
+pbc_stage |>
+  ggplot(aes(x = stage, y = albumin, fill = stage)) +
+  geom_boxplot(alpha = 0.7, outlier.shape = NA) +
+  geom_jitter(width = 0.15, alpha = 0.3, size = 1.5) +
+  scale_fill_brewer(palette = "Blues") +
+  labs(title = "Serum albumin by disease stage",
+       x = NULL, y = "Albumin (g/dL)") +
+  theme_bw() + theme(legend.position = "none")
+```
 
-## Short exercise
+```{r pbc-anova}
+fit_aov <- aov(albumin ~ stage, data = pbc_stage)
+summary(fit_aov)
+```
 
-- Run the ANOVA and report which groups differ using Tukey's test; write a one-line conclusion.
+**Interpreting the output:**
+- `Df`: degrees of freedom (between groups = $k-1 = 3$; within groups = $n-k$)
+- `Sum Sq`: sum of squares for between-group and within-group variation
+- `Mean Sq`: sum of squares divided by degrees of freedom
+- `F value`: ratio of the two mean squares
+- `Pr(>F)`: p-value; if small, at least one pair of means differs
 
-**Hint:** use `TukeyHSD()` on the fitted `aov` object.
+### Post-Hoc Comparisons: Tukey's HSD
 
-**Exercises**
+A significant ANOVA only tells you *some* groups differ. Tukey's Honestly Significant Difference (HSD) test identifies *which* pairs:
 
-- Use the inline example above or pick a Dryad/Zenodo animal dataset (DOI) — see `data_sources.md` for curated links. Older exercise scripts have been removed.
+```{r tukey}
+TukeyHSD(fit_aov) |> tidy() |>
+  select(contrast, estimate, conf.low, conf.high, adj.p.value) |>
+  arrange(adj.p.value)
+```
 
-::: {.callout-tip collapse="true" title="Exercise 4 — Solution"}
-- Instructor solution files are not published here.
-- Run the inline examples above or use a public dataset listed in `data_sources.md` for extended exercises.
+### Checking Assumptions
+
+```{r anova-diagnostics}
+# Residual plot and QQ-plot
+par(mfrow = c(1, 2))
+plot(fit_aov, which = c(1, 2))
+par(mfrow = c(1, 1))
+```
+
+```{r levene}
+# Levene's test for homogeneity of variance
+pbc_stage |>
+  group_by(stage) |>
+  summarise(n = n(), mean = mean(albumin), sd = sd(albumin))
+```
+
+If the standard deviations differ substantially (rule of thumb: max/min > 2), consider Welch's ANOVA (`oneway.test()`) or a nonparametric alternative (Kruskal-Wallis).
+
+### Welch's ANOVA (Relaxing Equal Variance Assumption)
+
+```{r welch-anova}
+oneway.test(albumin ~ stage, data = pbc_stage, var.equal = FALSE)
+```
+
+---
+
+## Worked Example 2: Animal Data (Two-Way ANOVA)
+
+The `ToothGrowth` dataset is a 2×3 factorial experiment: two Vitamin C delivery methods × three dose levels. Two-way ANOVA tests for the effect of each factor *and* their interaction.
+
+```{r tg-setup}
+tg <- ToothGrowth |>
+  as_tibble() |>
+  mutate(
+    supp = factor(supp, levels = c("VC", "OJ"),
+                  labels = c("Ascorbic acid", "Orange juice")),
+    dose = factor(dose)
+  )
+```
+
+```{r tg-interaction-plot}
+tg |>
+  group_by(supp, dose) |>
+  summarise(mean_len = mean(len), se_len = sd(len) / sqrt(n()), .groups = "drop") |>
+  ggplot(aes(x = dose, y = mean_len, color = supp, group = supp)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = mean_len - se_len, ymax = mean_len + se_len), width = 0.1) +
+  scale_color_manual(values = c("steelblue", "tomato")) +
+  labs(title = "Interaction plot: dose × supplement",
+       x = "Dose (mg/day)", y = "Mean tooth length (μm)", color = "Supplement") +
+  theme_bw()
+```
+
+If the lines cross or have markedly different slopes, there is a **dose × supplement interaction**: the effect of dose depends on which supplement was used.
+
+```{r two-way-anova}
+fit2 <- aov(len ~ supp * dose, data = tg)
+summary(fit2)
+tidy(fit2)
+```
+
+**Reading the output:**
+- `supp`: main effect of supplement type
+- `dose`: main effect of dose
+- `supp:dose`: interaction term — does the effect of dose differ between the two supplements?
+
+When the interaction is significant, the main effects alone do not tell the full story. Report the interaction and plot it.
+
+```{r two-way-posthoc}
+# Post-hoc: all pairwise combinations
+TukeyHSD(fit2) |> tidy() |>
+  arrange(adj.p.value) |>
+  head(10)
+```
+
+---
+
+## Where to Find Data Like This {.callout-note}
+
+**PBC dataset:** `survival::pbc` — four-stage disease data, ideal for one-way ANOVA.
+
+**ToothGrowth:** `datasets::ToothGrowth` — built-in factorial experiment, ideal for two-way ANOVA.
+
+**PlantGrowth:** `datasets::PlantGrowth` — simple three-group ANOVA.
+
+**agridat package:** Many balanced factorial agricultural/animal experiments suitable for two-way ANOVA.
+
+---
+
+## What Can Go Wrong {.callout-warning}
+
+**Running multiple t-tests instead of ANOVA**
+If you test all pairs of groups with separate t-tests, you inflate the Type I error rate. With 4 groups, there are 6 comparisons. At α = 0.05, you expect 0.3 false positives even with no real effects. Use ANOVA followed by a single post-hoc procedure.
+
+**Ignoring a significant interaction**
+If the interaction term is significant in a two-way ANOVA, the main effects are misleading. For example, supplement A may be better only at low doses. Always plot the interaction.
+
+**Not checking the equal variance assumption**
+ANOVA is reasonably robust to mild variance inequality, but not severe inequality. Check residual plots and use Welch's ANOVA (`oneway.test()`) or Kruskal-Wallis if variances are very unequal.
+
+**Using ANOVA on very small, non-normal groups**
+With small samples (< 10 per group) and clearly non-normal residuals, use Kruskal-Wallis instead.
+
+---
+
+## Exercises
+
+### Exercise 1 (Guided): One-Way ANOVA for Bilirubin by Stage
+
+Using `survival::pbc`, test whether log(bilirubin) differs by stage.
+
+1. Plot log(bilirubin) by stage.
+2. Run `aov(log(bili) ~ stage, ...)`. What do you conclude?
+3. Run Tukey's HSD. Which stage pairs differ?
+4. Check residual normality with a QQ-plot.
+
+::: {.callout-tip collapse="true"}
+### Exercise 1: Solution
+
+```{r}
+pbc_s <- pbc |> filter(!is.na(stage), !is.na(bili))
+
+pbc_s |>
+  ggplot(aes(x = stage, y = log(bili), fill = stage)) +
+  geom_boxplot(alpha = 0.7) +
+  scale_fill_brewer(palette = "Blues") +
+  labs(x = NULL, y = "log(Bilirubin)") + theme_bw() + theme(legend.position = "none")
+
+fit_bili <- aov(log(bili) ~ stage, data = pbc_s)
+summary(fit_bili)
+TukeyHSD(fit_bili) |> tidy() |> arrange(adj.p.value)
+
+qqnorm(residuals(fit_bili)); qqline(residuals(fit_bili), col = "red")
+```
 :::
-## Further reading
 
-- ANOVA and multiple comparisons: @Teetor-2011; @Matloff-2011.
+### Exercise 2 (Semi-guided): Two-Way ANOVA for PlantGrowth
 
-## Resources
+Using `datasets::PlantGrowth`, run a one-way ANOVA comparing weight across the three groups.
 
-- Example scripts are provided inline above; use `data_sources.md` for dataset alternatives.
+1. Visualise weight by group.
+2. Run `aov(weight ~ group, ...)`.
+3. Post-hoc with Tukey's HSD.
+4. Is the assumption of equal variance plausible? Use `leveneTest()` from the `car` package or compare group SDs.
+
+::: {.callout-tip collapse="true"}
+### Exercise 2: Solution
+
+```{r}
+pg <- PlantGrowth |> as_tibble()
+
+pg |>
+  ggplot(aes(x = group, y = weight, fill = group)) +
+  geom_boxplot(alpha = 0.7) + geom_jitter(width = 0.1, alpha = 0.5) +
+  theme_bw() + theme(legend.position = "none")
+
+fit_pg <- aov(weight ~ group, data = pg)
+summary(fit_pg)
+TukeyHSD(fit_pg) |> tidy()
+
+pg |> group_by(group) |> summarise(sd = sd(weight))
+```
+:::
+
+### Exercise 3 (Open-ended)
+
+Using a dataset from your own research, identify a continuous outcome and a categorical grouping variable (≥ 3 groups). Run a one-way ANOVA. Check the assumptions. Write a Methods section (one paragraph) and a Results section (two sentences) suitable for a journal paper.
+
+---
+
+## Comprehension Check
+
+1. What is the null hypothesis in a one-way ANOVA? What does a significant result tell you?
+2. Why should you run Tukey's HSD after a significant ANOVA rather than multiple t-tests?
+3. In a two-way ANOVA output, the `supp:dose` row is significant. What does this mean, and how should you proceed?
+4. Your residual QQ-plot shows clear non-normality. Your groups have n = 8 each. What should you do?
+5. ANOVA tests variances according to its name, so it assumes the group variances are equal. True or false?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. The null hypothesis is that all group population means are equal: $H_0: \mu_1 = \mu_2 = \ldots = \mu_k$. A significant result means at least one group mean differs from at least one other — but not which pairs differ.
+2. Running $\binom{k}{2}$ t-tests independently inflates the family-wise error rate. With $k = 4$ groups there are 6 pairs; at α = 0.05 you expect false positives. Tukey's HSD controls the family-wise error rate by adjusting the p-value for the number of comparisons.
+3. A significant interaction means the effect of supplement depends on dose (or vice versa). The main effects alone are misleading. You should plot the interaction (an interaction plot) and report group-specific means rather than marginal means.
+4. With small non-normal groups, use Kruskal-Wallis (a nonparametric ANOVA alternative that is robust to non-normality).
+5. **False.** Despite the name, ANOVA tests whether group *means* are equal, not variances. However, it does *assume* that the within-group variances are equal (homogeneity of variance). The name refers to the technique of partitioning total variance into components.
+:::
+
+## Further Reading
+
+- @Dalgaard-2008 --- Chapter on ANOVA in *Introductory Statistics with R*
+- @Bland-2015 --- One-way and two-way ANOVA in *An Introduction to Medical Statistics*
+- `?aov`, `?TukeyHSD`, `?oneway.test` in R — built-in documentation

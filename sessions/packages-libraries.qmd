@@ -3,9 +3,20 @@
 ```{r setup}
 #| include: false
 #| eval: true
-source(here::here("R/functions.R"))
-source(here::here("R/load-packages.R"))
 ```
+
+## When Do You Use This? {.callout-tip}
+
+> Every statistical method in R lives inside a package. Before you can run a t-test, build a regression model, or draw a plot, you need to know how to find, install, and load the right package. This session gives you that skill once — and you will use it in every session that follows.
+
+## Learning Objectives
+
+After completing this session you will be able to:
+
+- Explain what an R package is and where packages come from
+- Install packages from CRAN, Bioconductor, and GitHub
+- Load packages into an R session and troubleshoot common errors
+- Identify the key packages used throughout this course
 
 ## Understanding R Packages and Libraries
 
@@ -59,10 +70,6 @@ Packages can come from several places:
 
 - CRAN and package resources: @CRAN; @R-Core-Team-2023.
 - Package recipes and guidance: @Matloff-2011.
-
-## Resources
-
-- Examples and loaders: `R/load-packages.R` (canonical); see `scripts/` and `R/` for current loader scripts and `data_sources.md` for recommended usage.
 
 1.  **CRAN (Comprehensive R Archive Network):** This is the main
     repository where R packages are stored. Think of it as the official
@@ -206,14 +213,10 @@ connection. Firewalls or network policies may sometimes block R from
 accessing external servers.
 
 ::: callout-tip
-**Additional Resources** - Type the following commands into your R
-console and hit enter. This will open an R documentation window in the
-Files pane, specifically in the Help Tab. This window provides detailed
-information about these commands. At this stage, it's not necessary to
-delve deeply into understanding every aspect of these commands. However,
-this method is a valuable tool for learning more about packages and
-functions in R as you progress. - For R documentation, use:
-`?install.packages` and `?library`
+**Additional Resources** — Type the following commands into your R console and hit enter. This will open the R documentation window in the Help tab.
+
+- `?install.packages` — documentation for the install function
+- `?library` — documentation for loading packages
 :::
 
 ## Exercise 7
@@ -337,3 +340,164 @@ and will not read the first row of the data as column names.
 -   By exploring these resources, you gain insights into how to
     effectively use these packages in your R programming tasks.
 :::
+
+## Packages Used in This Course
+
+The table below lists every package you will need across the six parts of
+this course. You do not need to install all of them now. Each session
+tells you which packages to load at the start. However, running the
+install code below once at the beginning will save you time later.
+
+### Core Packages (Used in Almost Every Session)
+
+```{r}
+#| eval: false
+
+# The tidyverse installs ggplot2, dplyr, tidyr, readr, and several others in one step
+install.packages("tidyverse")
+
+# here makes file paths work reliably regardless of where your project folder is
+install.packages("here")
+
+# skimr and gtsummary produce clean summary tables
+install.packages("skimr")
+install.packages("gtsummary")
+```
+
+### Data Import and Cleaning
+
+```{r}
+#| eval: false
+
+install.packages("readxl")    # reading Excel files
+install.packages("janitor")   # cleaning column names, removing empty rows
+install.packages("palmerpenguins")  # teaching dataset with realistic missing values
+install.packages("naniar")    # visualizing and diagnosing missing data
+```
+
+### Visualization
+
+```{r}
+#| eval: false
+
+install.packages("ggthemes")  # additional ggplot2 themes
+install.packages("patchwork") # combining multiple plots into one figure
+install.packages("scales")    # formatting axis labels (percentages, currencies)
+install.packages("ggpubr")    # publication-ready plot helpers
+install.packages("corrplot")  # correlation matrices
+install.packages("GGally")    # pair plots and exploratory association plots
+```
+
+### Statistical Testing
+
+```{r}
+#| eval: false
+
+install.packages("effsize")   # Cohen's d and other effect sizes
+install.packages("dunn.test") # Dunn post-hoc test after Kruskal-Wallis
+install.packages("car")       # Levene's test, VIF for collinearity
+install.packages("emmeans")   # estimated marginal means and contrasts after ANOVA
+install.packages("rstatix")   # tidy statistical test output
+install.packages("epitools")  # risk ratios and odds ratios for 2x2 tables
+install.packages("vcd")       # mosaic plots for categorical data
+install.packages("pwr")       # power and sample size calculations
+```
+
+### Regression and Modeling
+
+```{r}
+#| eval: false
+
+install.packages("broom")     # tidy model output as data frames
+install.packages("lmtest")    # likelihood ratio tests for model comparison
+install.packages("pROC")      # ROC curves and AUC for logistic regression
+install.packages("mice")      # multiple imputation for missing data
+install.packages("lme4")      # mixed models (random effects)
+install.packages("lmerTest")  # p-values for fixed effects in lme4 models
+install.packages("broom.mixed")  # tidy output from mixed models
+```
+
+### Survival Analysis
+
+```{r}
+#| eval: false
+
+install.packages("survival")  # core survival analysis (comes with R but update it)
+install.packages("survminer")  # Kaplan-Meier plots and survival visualizations
+```
+
+### Causal Inference
+
+```{r}
+#| eval: false
+
+install.packages("dagitty")   # drawing and analysing DAGs
+install.packages("ggdag")     # visualizing DAGs with ggplot2
+install.packages("MatchIt")   # propensity score matching
+```
+
+### Mendelian Randomization
+
+```{r}
+#| eval: false
+
+# TwoSampleMR is on GitHub, not CRAN — install via remotes
+install.packages("remotes")
+remotes::install_github("MRCIEU/TwoSampleMR")
+```
+
+### Genomics and Public Health Data
+
+```{r}
+#| eval: false
+
+# Bioconductor packages — install via BiocManager
+install.packages("BiocManager")
+BiocManager::install("GEOquery")  # access Gene Expression Omnibus datasets
+
+# NHANES data access
+install.packages("nhanesA")
+
+# Agricultural datasets for plant/field experiments
+install.packages("agridat")
+```
+
+::: {.callout-note}
+### How to Check if a Package Is Already Installed
+
+```{r}
+#| eval: false
+
+# Check whether a specific package is installed
+"ggplot2" %in% installed.packages()[, "Package"]
+
+# List all installed packages
+installed.packages()[, "Package"]
+```
+:::
+
+## Comprehension Check
+
+Answer these questions to check your understanding. Answers are in the
+collapsed box below.
+
+1. What is the difference between installing a package and loading a package?
+2. You want to install the `survival` package. Which function do you use?
+3. Which repository should you use to install bioinformatics packages like `GEOquery`?
+4. A colleague sends you a package file ending in `.tar.gz`. How do you install it?
+5. You installed `ggplot2` but when you run `ggplot(...)` you get an error saying the function is not found. What is most likely wrong?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. Installing downloads the package files to your computer (done once). Loading with `library()` makes the package available in your current R session (done every time you start R).
+2. `install.packages("survival")`
+3. Bioconductor, accessed via `BiocManager::install()`. First install `BiocManager` from CRAN if you do not have it.
+4. `install.packages("path/to/file.tar.gz", repos = NULL, type = "source")`
+5. You installed it but did not load it. Run `library(ggplot2)` before using the package.
+:::
+
+## Further Reading
+
+- [CRAN Task Views](https://cran.r-project.org/web/views/) — curated lists of packages by topic (clinical trials, survival, genomics, etc.)
+- [Bioconductor package search](https://www.bioconductor.org/packages/) — browse all bioinformatics packages
+- [TwoSampleMR documentation](https://mrcieu.github.io/TwoSampleMR/) — Mendelian randomization with MR-Base

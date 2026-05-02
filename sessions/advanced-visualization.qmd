@@ -3,86 +3,70 @@
 ```{r setup}
 #| include: false
 #| eval: true
-source(here::here("R/functions.R"))
-source(here::here("R/load-packages.R"))
-pbc <- survival::pbc %>%
-  as_tibble() %>%
-  janitor::clean_names() %>%
+library(tidyverse)
+library(patchwork)
+library(survival)
+
+pbc <- survival::pbc |>
+  as_tibble() |>
+  janitor::clean_names() |>
   mutate(
-    sex = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
+    sex   = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
     stage = factor(stage, labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4"))
   )
 ```
 
-## Introduction
+## When Do You Use This? {.callout-tip}
 
-This session shows how research figures support statistical interpretation.
-A strong plot does more than display data: it answers a question, shows
-uncertainty, and makes the result easier to explain.
+> You have a result and you need to communicate it clearly — in a grant proposal, a paper, or a lab meeting. Basic plots work for exploration; advanced visualization works for communication. This session teaches you to combine regression lines and uncertainty bands, compare subgroups with facets, check model assumptions visually, and build figures that are ready for journal submission.
 
-## Learning outcomes
+## Learning Objectives
 
-- Choose visual forms that fit a research question.
-- Interpret trend lines, confidence bands, and subgroup comparisons.
-- Create layered and faceted plots with `ggplot2`.
-- Use annotation and labels to communicate the key message.
-- Build figures that support evidence-based conclusions.
+After completing this session you will be able to:
 
-## Methods covered in this session
+- Layer raw data, trend lines, and confidence bands in a single figure
+- Use facets to compare the same pattern across subgroups
+- Visualize model residuals and identify assumption violations
+- Add annotations, subtitles, and labels that communicate the key message
+- Build a publication-ready multi-panel figure with `patchwork`
 
-- Regression line visualization and interpretation
-- Confidence and prediction interval plotting
-- Group comparisons using color and facets
-- Model diagnostics and residual visualization
-- Communicating uncertainty with plots
+---
 
-## 1. Design principles for research plots
+## Background: Design Principles for Research Figures
 
 A useful research figure is:
 
-- **Clear**: the main message is easy to read.
-- **Accurate**: the visual reflects the underlying data.
-- **Informative**: it answers a specific question.
-- **Interpretable**: it helps readers draw the right conclusion.
-- **Honest**: it shows uncertainty and avoids misleading design.
+- **Clear** — the main message is easy to read at a glance
+- **Accurate** — the visual honestly reflects the data
+- **Informative** — it answers a specific research question
+- **Honest** — it shows uncertainty and does not hide variability
 
-## 2. Use a consistent dataset for interpretation
+The questions to ask before making any figure:
+1. What is the one thing I want the reader to take away?
+2. Does the visual form match the data type and the question?
+3. Does it show uncertainty (error bars, confidence bands)?
+4. Is the axis range honest (does it start at zero if appropriate)?
 
-We use the `pbc` dataset from the `survival` package in this session.
-That allows us to connect visualization directly to clinical research
-questions about bilirubin, age, and sex.
+---
 
-```{r pbc-summary}
-pbc %>%
-  summarize(
-    n = n(),
-    mean_age = mean(age, na.rm = TRUE),
-    mean_bili = mean(bili, na.rm = TRUE),
-    prop_female = mean(sex == "Female")
-  )
-```
+## 1. Layered Plots: Raw Data + Trend + Uncertainty
 
-This dataset is useful because it includes both continuous and categorical
-variables, which lets us practice different plot types.
-
-## 3. Layered plotting with ggplot2
-
-Layered plots let us combine raw data, trend lines, and uncertainty in one
-figure.
+Layered plots let you combine raw observations, a trend line, and uncertainty bands in one figure.
 
 ```{r layered-plot}
-pbc %>%
+pbc |>
   ggplot(aes(x = age, y = bili, color = sex)) +
-  geom_point(alpha = 0.6, size = 2) +
-  geom_smooth(method = "lm", se = TRUE, linetype = "dashed") +
+  geom_point(alpha = 0.5, size = 2) +
+  geom_smooth(method = "lm", se = TRUE) +
+  scale_color_manual(values = c("Female" = "steelblue", "Male" = "tomato")) +
   labs(
-    title = "Bilirubin and age by sex",
+    title    = "Bilirubin and age by sex",
     subtitle = "Trend lines with 95% uncertainty bands",
-    x = "Age (years)",
-    y = "Bilirubin (mg/dL)",
-    color = "Sex"
+    x        = "Age (years)",
+    y        = "Bilirubin (mg/dL)",
+    color    = "Sex"
   ) +
-  theme_minimal(base_size = 14)
+  theme_bw(base_size = 13)
 ```
 
 ### What this figure tells us
@@ -92,12 +76,13 @@ pbc %>%
 - The shaded bands show uncertainty around those estimates.
 - If the bands overlap, the difference between groups is less certain.
 
-## 4. Faceting to compare subgroups
+## 2. Faceting to Compare Subgroups
 
-Faceting makes it easy to compare the same relationship across groups.
+Faceting repeats the same plot for each level of a variable. Use it when
+the research question asks: "is this pattern consistent across subgroups?"
 
 ```{r faceting}
-pbc %>%
+pbc |>
   ggplot(aes(x = age, y = bili)) +
   geom_point(alpha = 0.6, color = "steelblue") +
   facet_wrap(~ sex) +
@@ -114,35 +99,12 @@ Faceting is useful when the research question asks whether a pattern is
 consistent across groups. It highlights differences in slope, spread, and
 uncertainty.
 
-## 5. Visualizing uncertainty
+## 3. Annotating for Communication
 
-A key strength of research graphics is showing how precise the estimates are.
-
-```{r uncertainty}
-pbc %>%
-  ggplot(aes(x = age, y = bili)) +
-  geom_point(color = "steelblue", alpha = 0.6) +
-  geom_smooth(method = "lm", se = TRUE, fill = "lightblue") +
-  labs(
-    title = "Age and bilirubin with uncertainty band",
-    x = "Age (years)",
-    y = "Bilirubin (mg/dL)"
-  ) +
-  theme_minimal()
-```
-
-The ribbon shows a confidence band around the trend line. Wider bands
-indicate more uncertainty, which is especially important when the data are
-noisy or sparse.
-
-## 6. Annotation and narrative
-
-The best figures include titles, subtitles, and axis labels that explain
-the message. Good annotations help a reader see the conclusion without
-needing to inspect every detail.
+The best figures include titles and subtitles that state the conclusion, not just describe the data.
 
 ```{r theme-annotation}
-pbc %>%
+pbc |>
   ggplot(aes(x = age, y = bili, color = sex)) +
   geom_point(size = 2, alpha = 0.7) +
   geom_smooth(method = "lm", se = FALSE) +
@@ -164,23 +126,13 @@ pbc %>%
 This figure is prepared for a report because it has a clear title and a
 subtitle that state the main conclusion.
 
-## 7. Exercise: refine an analysis plot
+## 4. Model Diagnostics and Prediction Visualization
 
-1. Use the `pbc` dataset from the `survival` package.
-2. Plot `bili` versus `age`.
-3. Add a smooth line and uncertainty band.
-4. Separate by `sex` using color or facets.
-5. Write a one-sentence summary of what the plot shows.
-
-## 8. Model diagnostics and prediction visualization
-
-Checking model assumptions and visualizing predictions are essential
-steps before turning plots into clinical messages.
+Checking model assumptions visually is an essential step before reporting results.
 
 ```{r diagnostics-predictions}
-# Fit a simple linear model and inspect residuals
 lm_bili_age <- lm(bili ~ age + sex, data = pbc)
-pbc_diag <- pbc %>%
+pbc_diag <- pbc |>
   mutate(fitted = fitted(lm_bili_age), resid = residuals(lm_bili_age))
 
 # Residuals vs fitted values
@@ -198,9 +150,10 @@ ggplot(pbc_diag, aes(sample = resid)) +
   theme_minimal()
 
 # Prediction ribbon across age
-new_age <- expand.grid(age = seq(min(pbc$age, na.rm = TRUE), max(pbc$age, na.rm = TRUE), length.out = 100),
-                       sex = levels(pbc$sex)) %>%
-  as_tibble()
+new_age <- expand.grid(
+  age = seq(min(pbc$age, na.rm = TRUE), max(pbc$age, na.rm = TRUE), length.out = 100),
+  sex = levels(pbc$sex)
+) |> as_tibble()
 preds_conf <- predict(lm_bili_age, newdata = new_age, interval = "confidence")
 preds_df <- bind_cols(new_age, as_tibble(preds_conf))
 
@@ -208,29 +161,169 @@ ggplot(preds_df, aes(x = age, y = fit, color = sex, fill = sex)) +
   geom_line() +
   geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.15, color = NA) +
   facet_wrap(~ sex) +
-  labs(title = "Predicted mean bilirubin by age with 95% CI", y = "Predicted bilirubin (mg/dL)") +
-  theme_minimal()
+  labs(title = "Predicted mean bilirubin by age with 95% CI",
+       y = "Predicted bilirubin (mg/dL)") +
+  theme_bw()
 ```
 
-### How to explain diagnostics and predictions to a clinician
+---
 
-- **Diagnostics:** "I checked residuals and a QQ-plot to assess whether model assumptions (linearity, homoscedasticity, approximate normality of residuals) are reasonable. If residuals show systematic patterns, consider transformation or robust methods."  
-- **Predictions:** "Report predicted mean values for representative ages with 95% confidence intervals, and give prediction intervals when discussing individual patient-level expectations. Confidence bands show uncertainty of the mean estimate; prediction intervals are wider and capture individual variability."
+## 5. Building a Multi-Panel Publication Figure
 
-## 8. Key takeaways
+For a journal submission you typically need a single figure with panels labelled A, B, C. `patchwork` handles this cleanly.
 
-Advanced visualization is not about making plots more complex. It is about
-making research findings easier to understand, more accurate, and more
-persuasive.
+```{r multi-panel}
+p_hist <- ggplot(pbc, aes(x = bili)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  labs(title = "A", x = "Bilirubin (mg/dL)", y = "Count") +
+  theme_classic(base_size = 12)
 
-A good research figure answers a question, shows uncertainty, and helps a
-reader draw the right conclusion.
+p_box <- pbc |>
+  filter(!is.na(stage)) |>
+  ggplot(aes(x = stage, y = bili, fill = stage)) +
+  geom_boxplot(alpha = 0.7, outlier.shape = NA) +
+  geom_jitter(width = 0.15, alpha = 0.3, size = 1) +
+  scale_fill_brewer(palette = "Blues") +
+  labs(title = "B", x = NULL, y = "Bilirubin (mg/dL)") +
+  theme_classic(base_size = 12) +
+  theme(legend.position = "none")
 
-## Further reading
+p_scatter <- ggplot(pbc, aes(x = age, y = bili, color = sex)) +
+  geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "lm", se = TRUE) +
+  scale_color_manual(values = c("steelblue", "tomato")) +
+  labs(title = "C", x = "Age (years)", y = "Bilirubin (mg/dL)") +
+  theme_classic(base_size = 12) +
+  theme(legend.position = "bottom")
 
-- Advanced plotting and scientific communication: @Wickham-2016-ggplot2; @Chang-2018.
-- Tidy workflows for visualization: @Wickham-Grolemund-2017.
+(p_hist + p_box) / p_scatter
+```
 
-## Resources
+---
 
-- Example demos are provided inline above; see `data_sources.md` for dataset choices and suggested demo scripts.
+## Where to Find Data Like This {.callout-note}
+
+**PBC dataset:** `survival::pbc` --- built into the `survival` package, no download needed.
+
+**Other clinical datasets in `survival`:** `veteran`, `diabetic`, `colon`, `lung` --- all real clinical trial and registry datasets.
+
+**GEOquery for gene expression data:**
+```{r}
+#| eval: false
+BiocManager::install("GEOquery")
+library(GEOquery)
+# Download a dataset from Gene Expression Omnibus
+gse <- getGEO("GSE12345")
+```
+
+---
+
+## What Can Go Wrong {.callout-warning}
+
+**Over-smoothing with `geom_smooth()`**
+`geom_smooth()` with `method = "loess"` can fit a curve that follows noise rather than signal. Use `method = "lm"` unless you have a specific reason to use a non-linear smoother, and always check whether the curve makes biological sense.
+
+**Prediction intervals confused with confidence intervals**
+A 95% confidence band on a trend line is the uncertainty around the *mean* prediction. A prediction interval (wider) captures where *individual observations* are likely to fall. Report which one you are showing.
+
+**Residual plots that look fine on a transformed scale but not the original**
+If you log-transform a variable for the model, check residuals on the log scale --- but present predictions back-transformed to the original scale for clinical interpretability.
+
+**Misleading y-axis truncation**
+Truncating the y-axis (not starting at zero) can make small differences look large. This is sometimes appropriate (e.g., for tightly clustered lab values) but must be deliberate and noted.
+
+---
+
+## Exercises
+
+### Exercise 1 (Guided): Layered Regression Figure
+
+Using `survival::pbc`:
+
+1. Plot `age` (x) vs `albumin` (y) coloured by `sex`.
+2. Add `geom_smooth(method = "lm", se = TRUE)` for each sex.
+3. Add a subtitle stating the main finding.
+4. Use `theme_classic(base_size = 13)` and export with `ggsave()`.
+
+::: {.callout-tip collapse="true"}
+### Exercise 1: Solution
+
+```{r}
+ggplot(pbc, aes(x = age, y = albumin, color = sex)) +
+  geom_point(alpha = 0.5, size = 2) +
+  geom_smooth(method = "lm", se = TRUE) +
+  scale_color_manual(values = c("Female" = "steelblue", "Male" = "tomato")) +
+  labs(
+    title    = "Serum albumin and age by sex",
+    subtitle = "Albumin declines slightly with age in both sexes",
+    x = "Age (years)", y = "Albumin (g/dL)", color = "Sex"
+  ) +
+  theme_classic(base_size = 13)
+
+# ggsave("albumin_age.pdf", width = 6, height = 4)
+```
+:::
+
+### Exercise 2 (Semi-guided): Residual Diagnostics
+
+Fit a linear model: `albumin ~ age + sex` in the `pbc` dataset.
+
+1. Add fitted values and residuals to the data frame.
+2. Plot residuals vs fitted values. Do you see any pattern?
+3. Make a QQ-plot of residuals. Do they look approximately normal?
+4. Write one sentence on whether linear regression assumptions seem satisfied.
+
+::: {.callout-tip collapse="true"}
+### Exercise 2: Solution
+
+```{r}
+fit <- lm(albumin ~ age + sex, data = pbc)
+diag_df <- pbc |>
+  filter(!is.na(albumin)) |>
+  mutate(fitted = fitted(fit), resid = residuals(fit))
+
+# Residuals vs fitted
+ggplot(diag_df, aes(x = fitted, y = resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Residuals vs Fitted", x = "Fitted", y = "Residuals") +
+  theme_bw()
+
+# QQ plot
+ggplot(diag_df, aes(sample = resid)) +
+  stat_qq() + stat_qq_line(color = "red") +
+  labs(title = "QQ Plot of Residuals") + theme_bw()
+```
+
+Residuals show some slight positive skew in the tails (expected for albumin), but the overall pattern is acceptable for a linear model with this sample size.
+:::
+
+### Exercise 3 (Open-ended)
+
+Choose any model you have previously fitted (or fit a new one). Build a three-panel publication figure: panel A shows the raw data, panel B shows predicted values with confidence bands, and panel C shows residual diagnostics. Use `patchwork` to assemble the panels and `theme_classic()` throughout.
+
+---
+
+## Comprehension Check
+
+1. What is the difference between a 95% confidence band on a regression line and a 95% prediction interval?
+2. You see a U-shaped pattern in a residuals vs fitted plot. What does this indicate?
+3. You want to compare bilirubin vs age for female and male patients in separate panels. What `ggplot2` function do you use?
+4. In `patchwork`, how do you place three plots in a 2-row layout (two on top, one on bottom spanning both columns)?
+5. What does a QQ-plot show, and what pattern indicates that residuals are approximately normally distributed?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. The confidence band shows uncertainty around the *estimated mean* at each x value --- how precisely the trend line is estimated. The prediction interval is wider and shows where *individual observations* are expected to fall with 95% probability.
+2. A U-shaped pattern in residuals vs fitted values indicates non-linearity --- the model is systematically underpredicting in the middle range and overpredicting at the extremes. Consider adding a quadratic term or transforming the outcome.
+3. `facet_wrap(~ sex)` or `facet_grid(. ~ sex)`.
+4. `(p1 + p2) / p3` in `patchwork`. The `/` operator stacks rows; `p3` occupies the full second row.
+5. A QQ-plot plots quantiles of your data against quantiles of a theoretical normal distribution. If residuals are approximately normal, the points follow the straight diagonal reference line closely. Departures at the tails indicate skewness or heavy tails.
+:::
+
+## Further Reading
+
+- [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org) --- Wickham's book, free online
+- [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/) --- Claus Wilke's visualization principles
+- [patchwork documentation](https://patchwork.data-imaginist.com) --- multi-panel figures
+- @Wickham-2016-ggplot2; @Chang-2018

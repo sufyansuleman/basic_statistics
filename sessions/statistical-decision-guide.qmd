@@ -1,0 +1,255 @@
+﻿# Statistical Decision Guide {#sec-statistical-decision-guide}
+
+```{r setup}
+#| include: false
+#| eval: true
+library(tidyverse)
+```
+
+## When Do You Use This? {.callout-tip}
+
+> You have data from a clinical study and need to choose the right test. Should you use a t-test or Mann-Whitney? Logistic regression or a chi-square test? This guide helps you navigate from your research question and data type to the appropriate method — and links you to the session where you can learn it properly.
+
+## Learning Objectives
+
+After completing this session you will be able to:
+
+- Map any standard research question to an appropriate statistical method
+- Identify the scale and distribution assumptions that determine test choice
+- Recognise when assumptions are violated and choose a non-parametric alternative
+- Find the relevant course session for every method covered
+
+---
+
+## The Decision Framework
+
+Every statistical test choice starts with three questions:
+
+1. **What is your outcome variable?** (continuous, binary, ordered, count, time-to-event)
+2. **What are you comparing?** (one group vs reference, two groups, ≥3 groups, association/correlation, prediction)
+3. **Are assumptions met?** (normality, equal variance, independence, sample size)
+
+---
+
+## Decision Tables by Question Type
+
+### Question 1: Comparing Two Groups
+
+| Outcome | Assumptions met? | Method | Session |
+|---------|-----------------|--------|---------|
+| Continuous | Normal, equal variance | Independent t-test | @sec-ttests |
+| Continuous | Normal, unequal variance | Welch t-test | @sec-ttests |
+| Continuous | Non-normal or n < 30 | Mann-Whitney U | @sec-nonparametric |
+| Continuous, paired | Normal differences | Paired t-test | @sec-ttests |
+| Continuous, paired | Non-normal differences | Wilcoxon signed-rank | @sec-nonparametric |
+| Binary | Counts ≥ 5 per cell | Chi-square / Fisher's | @sec-chisquare |
+| Ordinal | — | Mann-Whitney U | @sec-nonparametric |
+
+### Question 2: Comparing Three or More Groups
+
+| Outcome | Assumptions met? | Method | Session |
+|---------|-----------------|--------|---------|
+| Continuous | Normal, equal variance | One-way ANOVA | @sec-anova |
+| Continuous | Non-normal or unequal variance | Kruskal-Wallis | @sec-nonparametric |
+| Continuous, two factors | Normal | Two-way ANOVA | @sec-anova |
+| Continuous, repeated | Normal | Repeated-measures ANOVA / LMM | @sec-mixed-models |
+| Binary | Counts ≥ 5 | Chi-square (k × 2 table) | @sec-chisquare |
+
+### Question 3: Association / Correlation
+
+| Outcome | Method | Session |
+|---------|--------|---------|
+| Continuous–Continuous, linear | Pearson r | @sec-correlation |
+| Continuous–Continuous, non-linear / ordinal | Spearman ρ | @sec-correlation |
+| Binary–Binary | Phi coefficient / chi-square | @sec-chisquare |
+| Time series / autocorrelated | Check session on multiple regression | @sec-multiple-regression |
+
+### Question 4: Prediction
+
+| Outcome | Model | Session |
+|---------|-------|---------|
+| Continuous | Linear regression | @sec-linear-regression |
+| Continuous, multiple predictors | Multiple regression | @sec-multiple-regression |
+| Binary | Logistic regression | @sec-logistic-regression |
+| Ordered categorical | Ordinal logistic regression | @sec-logistic-regression |
+| Count | Poisson / negative binomial regression | @sec-multiple-regression |
+| Time-to-event | Cox proportional hazards | @sec-survival |
+| Correlated / hierarchical | Mixed models (LMM / GLMM) | @sec-mixed-models |
+
+### Question 5: Comparing Proportions (One Group vs Reference)
+
+| What you want | Method | Session |
+|---------------|--------|---------|
+| One proportion vs known value | One-sample z-test / binomial test | @sec-hypothesis-testing |
+| Two proportions | Chi-square / Fisher's exact | @sec-chisquare |
+| Relative risk / odds ratio | Logistic regression | @sec-logistic-regression |
+
+---
+
+## Worked Example: Navigating to the Right Test
+
+**Scenario:** A clinical trial randomises 40 patients to drug vs placebo. You measure systolic blood pressure (continuous) before and after treatment. Which test?
+
+```{r decision-example}
+# Step 1: Outcome = continuous (systolic BP)
+# Step 2: Two paired groups (same patients before/after)
+# Step 3: Check normality of differences
+
+set.seed(42)
+before <- rnorm(20, 140, 15)
+after  <- before + rnorm(20, -8, 10)   # drug lowers BP ~8 mmHg
+diff   <- after - before
+
+# Shapiro-Wilk test of normality
+shapiro.test(diff)
+```
+
+```{r decision-test}
+# Normal? → paired t-test
+t.test(after, before, paired = TRUE)
+```
+
+**Decision path:** Continuous outcome → Paired groups → Normal differences → **Paired t-test** → @sec-ttests
+
+---
+
+## Worked Example 2: Binary Outcome — Choosing Between Chi-Square and Logistic Regression
+
+**Scenario:** You want to know if NAFLD diagnosis (yes/no) differs between males and females in a cohort of 200 patients.
+
+```{r binary-example}
+set.seed(2024)
+n <- 200
+sex   <- sample(c("Male", "Female"), n, replace = TRUE)
+# Males have ~35% NAFLD, females ~20%
+nafld <- rbinom(n, 1, ifelse(sex == "Male", 0.35, 0.20))
+dat   <- tibble(sex, nafld = factor(nafld, labels = c("No", "Yes")))
+
+# Chi-square for unadjusted association
+chisq.test(table(dat$sex, dat$nafld))
+```
+
+If you need to **adjust for age and BMI**, switch to logistic regression:
+
+```{r binary-logistic}
+age <- rnorm(n, 50, 10)
+bmi <- rnorm(n, 27, 4)
+dat2 <- dat |> mutate(nafld_num = as.integer(nafld) - 1, age, bmi, sex = factor(sex))
+glm(nafld_num ~ sex + age + bmi, data = dat2, family = binomial) |>
+  broom::tidy(exponentiate = TRUE, conf.int = TRUE) |>
+  select(term, estimate, conf.low, conf.high, p.value)
+```
+
+**Decision path:** Binary outcome → Association with one predictor → **Chi-square** (unadjusted). Add covariates → **Logistic regression** → @sec-logistic-regression
+
+---
+
+## Assumption Checking Quick Reference
+
+| Assumption | Test / Plot | What to do if violated |
+|------------|-------------|------------------------|
+| Normality | Shapiro-Wilk, QQ plot | Non-parametric alternative |
+| Equal variance | Levene's / Bartlett's | Welch t-test / Welch ANOVA |
+| Independence | Study design | Mixed model for clustering |
+| Proportional hazards (Cox) | `cox.zph()` | Stratified Cox or time-varying HR |
+| Linearity (regression) | Residual vs fitted | Polynomial or log transform |
+| No influential outliers | Cook's distance | Robust regression |
+
+---
+
+## Method × Assumption Summary
+
+```{r method-table}
+tribble(
+  ~Method, ~Outcome, ~Key_Assumption, ~Non_parametric_Alternative,
+  "Independent t-test",  "Continuous", "Normal, equal variance", "Mann-Whitney U",
+  "Paired t-test",       "Continuous", "Normal differences", "Wilcoxon signed-rank",
+  "One-way ANOVA",       "Continuous", "Normal, equal variance", "Kruskal-Wallis",
+  "Pearson r",           "Continuous", "Bivariate normal, linear", "Spearman rho",
+  "Chi-square",          "Categorical", "Expected count >= 5", "Fisher's exact",
+  "Linear regression",   "Continuous", "Normal residuals", "Robust regression",
+  "Logistic regression", "Binary",  "Sufficient events/predictor", "—",
+  "Cox regression",      "Time-to-event", "Proportional hazards", "Stratified Cox"
+) |>
+  knitr::kable()
+```
+
+---
+
+## What Can Go Wrong {.callout-warning}
+
+**Choosing based on p-value alone**
+Never choose the test that gives the most significant result. Test choice must be determined by the research question and data type, not by the outcome.
+
+**Ignoring paired structure**
+Using a two-sample t-test when data are paired wastes statistical power (you ignore the within-subject correlation). Always account for the study design.
+
+**Multiple testing without correction**
+Running 20 tests and reporting the significant ones inflates the type I error. Apply FDR or Bonferroni correction when testing multiple outcomes. See @sec-omics for omics-scale correction.
+
+**Treating ordinal as continuous**
+Likert scales (1–5) are ordinal. Means are interpretable but formal inference should use ordinal tests or models unless scales are well-validated and items are summed.
+
+---
+
+## Exercises
+
+### Exercise 1 (Guided): Test Selection
+
+For each scenario below, name the appropriate statistical test and state why:
+
+1. Comparing mean HbA1c in three treatment groups (normal distribution, equal variance, n = 30 per group).
+2. Comparing median C-reactive protein between responders and non-responders (right-skewed, small n = 12 per group).
+3. Assessing whether smoking status (yes/no) is associated with COPD diagnosis (yes/no) in 500 patients.
+4. Predicting 5-year cardiovascular event (yes/no) from age, sex, and LDL in 1,000 patients.
+5. Estimating time to relapse from surgery, comparing two chemotherapy regimens.
+
+::: {.callout-tip collapse="true"}
+### Exercise 1: Answers
+1. One-way ANOVA (continuous outcome, ≥3 groups, normality met, equal variance).
+2. Mann-Whitney U (continuous outcome, 2 groups, non-normal / small n — non-parametric).
+3. Chi-square test (binary × binary, large n; use Fisher's exact if any expected count < 5).
+4. Logistic regression (binary outcome, multiple predictors, prediction goal).
+5. Log-rank test + Cox proportional hazards (time-to-event outcome, two groups; Cox for adjusted estimate).
+:::
+
+### Exercise 2 (Semi-guided): Assumption Check and Decision
+
+You have expression levels of a biomarker in healthy (n = 15) vs disease (n = 18) patients. The data look right-skewed with a few large values.
+
+1. Plot the distribution (histogram and QQ plot).
+2. Run a Shapiro-Wilk test.
+3. Based on your test, choose between Welch t-test and Mann-Whitney U.
+4. Report the result including the effect size (Cohen's d or rank-biserial r).
+
+### Exercise 3 (Open-ended)
+
+Take a published paper from your field. For each analysis reported:
+1. Identify the outcome type and comparison being made.
+2. Assess whether the correct test was used based on the decision tables above.
+3. Note one assumption that the authors did or did not check, and state how it could affect the conclusions.
+
+---
+
+## Comprehension Check
+
+1. A researcher measures body weight (continuous) in mice at three time points (baseline, week 4, week 8). They analyse each time point separately with t-tests. What is wrong with this approach?
+2. You want to test whether a new drug reduces blood pressure. Patients are measured before and after treatment. Should you use a paired or unpaired test? Why?
+3. A chi-square test returns a p-value of 0.03 comparing smoking rates by sex. A colleague says "logistic regression would be better." When would they be correct?
+4. You run Shapiro-Wilk and get p = 0.04, but your sample size is n = 200. Should you automatically switch to a non-parametric test?
+5. What is the difference between a test of association (chi-square, correlation) and a test of prediction (regression)?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. Running separate t-tests at each time point ignores the repeated-measures structure (the same mice are measured three times). This inflates type I error (multiple comparisons) and ignores within-mouse correlation. The correct approach is repeated-measures ANOVA or a linear mixed model with time as a factor and mouse as a random effect.
+2. Paired test. The same patient is measured twice — the within-patient change in blood pressure is the quantity of interest. Using a paired test accounts for between-patient variability and is more powerful than an unpaired t-test. Use paired t-test (if differences are normal) or Wilcoxon signed-rank (if not).
+3. The colleague is correct when you need to adjust for confounders (e.g., age, deprivation, comorbidities). Chi-square tests a bivariate association; logistic regression allows you to estimate the sex–smoking association adjusted for other variables, gives odds ratios, and supports prediction. For a simple unadjusted two-by-two table, chi-square is perfectly valid.
+4. Not necessarily. With n = 200, the Shapiro-Wilk test is highly sensitive — it will detect trivial, practically irrelevant deviations from normality. With large samples, the t-test is robust to non-normality (central limit theorem). Check the QQ plot visually: if the tails are only mildly heavy, the t-test is fine. Only switch to a non-parametric test if the distribution is highly skewed or has extreme outliers.
+5. A test of *association* asks: are two variables related? (Chi-square, Pearson r). A test of *prediction* models the outcome as a function of predictors, estimates the size of effects, and can be used to predict new observations. Regression also allows adjustment for confounders, which association tests cannot. Use association tests for simple screening; use regression for explanatory modelling or confounding adjustment.
+:::
+
+## Further Reading
+
+- @Field-2013 --- *Discovering Statistics Using R* — practical test selection guidance
+- @Glantz-2002 --- *Primer of Biostatistics* — clear, clinically-oriented decision guide
+- [UCLA Statistical Consulting: Which Statistical Test?](https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/) — online decision aid

@@ -1,30 +1,288 @@
+﻿# Correlation and Association {#sec-correlation}
+
+```{r setup}
+#| include: false
+#| eval: true
+library(tidyverse)
+library(survival)
+library(broom)
+library(GGally)
+```
+
+## When Do You Use This? {.callout-tip}
+
+> Before fitting a regression model, you want to understand the pairwise relationships in your data: does albumin decline as bilirubin rises? Is there a linear relationship between platelet count and prothrombin time? Correlation quantifies the direction and strength of these relationships before you commit to a model.
+
+## Learning Objectives
+
+After completing this session you will be able to:
+
+- Distinguish Pearson, Spearman, and Kendall correlation coefficients and choose appropriately
+- Calculate correlations and test their significance in R
+- Visualise correlation matrices with `GGally::ggpairs()`
+- Explain why correlation does not imply causation
+- Recognise spurious correlation from confounding
+
 ---
-title: "Correlation and Measures of Association"
+
+## Background: Measuring Linear Association
+
+**Pearson's r** measures the strength and direction of a *linear* relationship between two continuous variables:
+
+$$r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \sum (y_i - \bar{y})^2}}$$
+
+$r$ ranges from −1 (perfect negative) to +1 (perfect positive). $r = 0$ means no *linear* association.
+
+**When not to use Pearson's r:**
+- One or both variables are heavily skewed or contain outliers
+- The relationship is clearly non-linear (e.g., exponential)
+- Data are ordinal (ranked categories)
+
+**Spearman's $\rho$** and **Kendall's $\tau$** work on the *ranks* of the data. They detect any monotonic relationship (not just linear) and are robust to outliers.
+
+| Coefficient | Assumes | Best for |
+|---|---|---|
+| Pearson $r$ | Linearity, approximately bivariate normal | Continuous, symmetric variables |
+| Spearman $\rho$ | Monotonic relationship | Skewed data, small n, ordinal |
+| Kendall $\tau$ | Monotonic relationship | Small n, many ties |
+
 ---
 
-**Overview**
+## Worked Example 1: Clinical Data (PBC)
 
-This short session covers measures of association for quantitative variables (Pearson and Spearman correlation), interpretation, and visual diagnostics. Readings: @Wickham-Grolemund-2017; @Wickham-2016-ggplot2.
+### Pairwise Correlations
 
-**Learning Objectives**
+```{r pbc-setup}
+pbc <- survival::pbc |>
+  as_tibble() |>
+  janitor::clean_names() |>
+  filter(!is.na(albumin), !is.na(bili), !is.na(protime), !is.na(platelet))
+```
 
-- Compute and interpret Pearson and Spearman correlations.
-- Visualize associations with scatterplots, smoothing, and diagnostics.
+```{r cor-pair}
+# Pearson correlation: albumin vs bilirubin
+cor.test(pbc$albumin, log(pbc$bili), method = "pearson")
+```
 
-**Hands-on / Examples**
+```{r cor-spearman}
+# Spearman: more appropriate given bilirubin's skew
+cor.test(pbc$albumin, pbc$bili, method = "spearman")
+tidy(cor.test(pbc$albumin, pbc$bili, method = "spearman"))
+```
 
-- Use `survival::pbc` or the local `data/scd_simulated_data.rda` (if present) for scatterplots and simple regression diagnostics; see `data_sources.md` for load snippets.
+**Why log-transform before Pearson?** Bilirubin is heavily right-skewed. Pearson's r is sensitive to extreme values; log-transforming makes the relationship more linear and the correlation estimate more meaningful.
 
-## Data {.unnumbered}
+### Scatter Plot with Smooth
 
-- `survival::pbc`: clinical dataset with labs and demographics, useful to illustrate correlation between lab values and age. Local fallback: `data/scd_simulated_data.rda` for teaching with a small in-repo example.
+```{r scatter}
+pbc |>
+  ggplot(aes(x = log(bili), y = albumin)) +
+  geom_point(alpha = 0.4, size = 1.5) +
+  geom_smooth(method = "lm", color = "tomato", se = TRUE) +
+  labs(title = "Albumin vs log(bilirubin) in PBC",
+       x = "log(Bilirubin)", y = "Albumin (g/dL)") +
+  theme_bw()
+```
 
-**Exercises**
+### Correlation Matrix
 
-**Exercises**
+```{r cor-matrix}
+pbc_num <- pbc |>
+  mutate(log_bili = log(bili)) |>
+  select(albumin, log_bili, protime, platelet)
 
-- Compute Pearson and Spearman correlation for `MAP` and `age` in the chosen dataset (e.g., `pbc` or `scd_simulated_data`) and explain differences, if any.
+cor(pbc_num, use = "complete.obs", method = "spearman") |>
+  round(2)
+```
 
-::: {.callout-tip collapse="true" title="Exercise 3 — Solution"}
-- Instructor solution files are not published here; run the inline examples above or use datasets from `data_sources.md`.
+```{r ggpairs}
+#| fig-height: 6
+ggpairs(
+  pbc_num,
+  lower = list(continuous = wrap("points", alpha = 0.3, size = 0.8)),
+  upper = list(continuous = wrap("cor", method = "spearman")),
+  diag  = list(continuous = wrap("densityDiag"))
+) +
+  theme_bw(base_size = 10)
+```
+
+`GGally::ggpairs()` gives you scatterplots (lower triangle), Spearman correlations (upper triangle), and density plots (diagonal) in one call.
+
+### Testing Multiple Correlations
+
+```{r multi-cor}
+# tidy approach: all pairs
+pbc_num |>
+  pivot_longer(-albumin, names_to = "variable", values_to = "value") |>
+  group_by(variable) |>
+  summarise(
+    r    = cor(albumin, value, use = "complete.obs", method = "spearman"),
+    tidy(cor.test(albumin, value, method = "spearman"))
+  ) |>
+  select(variable, r, p.value) |>
+  mutate(p_adj = p.adjust(p.value, method = "holm"))
+```
+
+---
+
+## Worked Example 2: Animal Data (palmerpenguins)
+
+The penguin dataset provides a clean example of correlation *within groups* versus *across groups* — a useful lesson about confounding.
+
+```{r penguins}
+library(palmerpenguins)
+
+penguins_clean <- penguins |>
+  drop_na(bill_length_mm, bill_depth_mm, body_mass_g, flipper_length_mm, species)
+```
+
+```{r penguin-overall}
+# Overall correlation (ignoring species)
+cor.test(penguins_clean$bill_length_mm, penguins_clean$bill_depth_mm,
+         method = "pearson")
+```
+
+```{r penguin-species}
+# Within-species correlations
+penguins_clean |>
+  group_by(species) |>
+  summarise(
+    r = cor(bill_length_mm, bill_depth_mm, method = "pearson"),
+    n = n()
+  )
+```
+
+```{r penguin-plot}
+penguins_clean |>
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("steelblue", "tomato", "seagreen")) +
+  labs(title = "Simpson's Paradox: bill dimensions in penguins",
+       subtitle = "Overall correlation is negative; within-species it is positive",
+       x = "Bill length (mm)", y = "Bill depth (mm)") +
+  theme_bw()
+```
+
+This is **Simpson's Paradox**: the overall (marginal) correlation is negative, but within each species it is positive. The species variable confounds the relationship. Always check whether a third variable explains an unexpected correlation.
+
+---
+
+## Where to Find Data Like This {.callout-note}
+
+**PBC dataset:** `survival::pbc` — multiple continuous clinical variables (albumin, bilirubin, protime, platelet, etc.) with known clinical correlations.
+
+**palmerpenguins:** `palmerpenguins::penguins` — body measurements with a clear grouping variable for demonstrating confounding.
+
+**NHANES:** `nhanesA` or `nhanes` package — population-level continuous variables (blood pressure, cholesterol, BMI, age).
+
+---
+
+## What Can Go Wrong {.callout-warning}
+
+**Correlation ≠ causation**
+Two variables can correlate strongly because they share a common cause, not because one causes the other. Always think mechanistically.
+
+**Using Pearson's r with skewed data or outliers**
+A single extreme outlier can drive a large r. Always plot your data before computing a correlation. Use Spearman's ρ for robustness.
+
+**Multiple comparisons in correlation matrices**
+Testing all $p(p-1)/2$ pairs from a correlation matrix inflates Type I error. Adjust p-values with `p.adjust()` when reporting multiple correlations.
+
+**Range restriction**
+If you select subjects based on one of the variables (e.g., only patients with bilirubin > 5), the correlation in that subset will differ from the population correlation — usually attenuated.
+
+**Ecological correlation**
+Correlations computed on group averages (e.g., countries, hospitals) are typically stronger than individual-level correlations. Do not interpret ecological correlations as individual-level associations.
+
+---
+
+## Exercises
+
+### Exercise 1 (Guided): Albumin and Prothrombin Time
+
+1. Plot albumin vs prothrombin time in `pbc`. Does the relationship look linear?
+2. Compute Pearson and Spearman correlations. Which is higher? Why?
+3. Compute Pearson correlation after log-transforming prothrombin time.
+4. Report: r, 95% CI, and p-value for your chosen method.
+
+::: {.callout-tip collapse="true"}
+### Exercise 1: Solution
+
+```{r}
+# 1. Plot
+pbc |>
+  ggplot(aes(x = protime, y = albumin)) +
+  geom_point(alpha = 0.4, size = 1.5) +
+  geom_smooth(method = "loess", color = "tomato") +
+  labs(x = "Prothrombin time (s)", y = "Albumin (g/dL)") + theme_bw()
+
+# 2. Both correlations
+tidy(cor.test(pbc$albumin, pbc$protime, method = "pearson"))
+tidy(cor.test(pbc$albumin, pbc$protime, method = "spearman"))
+
+# 3. After log transform
+tidy(cor.test(pbc$albumin, log(pbc$protime), method = "pearson"))
+```
 :::
+
+### Exercise 2 (Semi-guided): Penguin Correlation Matrix
+
+Using `palmerpenguins::penguins`, produce a correlation matrix for the four continuous measurements.
+
+1. Compute a Spearman correlation matrix using `cor()`.
+2. Plot with `ggpairs()`.
+3. Run the analysis separately for each species. Do any correlations change sign?
+
+::: {.callout-tip collapse="true"}
+### Exercise 2: Solution
+
+```{r}
+peng <- penguins |> drop_na()
+
+# 1. Spearman matrix
+peng_num <- peng |> select(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
+cor(peng_num, method = "spearman") |> round(2)
+
+# 2. ggpairs
+ggpairs(peng_num,
+        upper = list(continuous = wrap("cor", method = "spearman")),
+        lower = list(continuous = wrap("points", alpha = 0.3, size = 0.8))) +
+  theme_bw()
+
+# 3. By species
+peng |>
+  group_by(species) |>
+  summarise(r_bl_bd = cor(bill_length_mm, bill_depth_mm, method = "spearman"))
+```
+:::
+
+### Exercise 3 (Open-ended)
+
+Using your own data, identify two continuous variables you expect to be related. Plot them, compute the appropriate correlation, and test the significance. Write a two-sentence result. Now think of a third variable that might confound the relationship — how would you check for it?
+
+---
+
+## Comprehension Check
+
+1. When should you use Spearman's ρ instead of Pearson's r?
+2. You compute r = 0.85, p < 0.001 between two blood biomarkers. Can you conclude one biomarker causes changes in the other?
+3. A correlation matrix of 10 variables has 45 pairwise tests. Three are significant at p < 0.05. Is this noteworthy?
+4. You observe a strong negative correlation between overall bill length and bill depth in penguins, but a positive correlation within each species. What is this called, and what causes it?
+5. You want to correlate a Likert-scale pain score (1–10) with serum CRP. Which coefficient should you use?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. Use Spearman when (1) one or both variables are skewed or contain outliers, (2) the relationship is monotonic but not necessarily linear, or (3) one variable is ordinal.
+2. No. Correlation describes the strength of association, not direction of causation. The two biomarkers may both reflect a third underlying process (confounding), or the direction of causality could run either way.
+3. Not necessarily. With 45 tests at α = 0.05, you expect 45 × 0.05 = 2.25 false positives by chance. Three significant results is only slightly above the expected false-positive count. Adjust for multiple testing and scrutinise the findings carefully.
+4. This is Simpson's Paradox. The species variable is a confounder: different species have distinct bill morphologies, and within each species the relationship is positive. The overall correlation is dominated by between-species variation, which moves in the opposite direction.
+5. Spearman's ρ (or Kendall's τ). Pain scores are ordinal — the difference between 4 and 5 is not necessarily the same as between 7 and 8 — so rank-based methods are more appropriate than Pearson's r.
+:::
+
+## Further Reading
+
+- @Bland-2015 --- Correlation in *An Introduction to Medical Statistics*
+- @Dalgaard-2008 --- Chapter on correlation and regression
+- `?cor.test` in R — documentation covering all three methods
+- `GGally::ggpairs()` vignette for visualising multivariate relationships

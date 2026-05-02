@@ -1,65 +1,295 @@
-# T-tests & Group Comparisons {#t-tests}
+﻿# T-tests and Group Comparisons {#sec-t-tests}
 
 ```{r setup}
 #| include: false
 #| eval: true
-source(here::here("R/functions.R"))
-source(here::here("R/load-packages.R"))
+library(tidyverse)
+library(survival)
+library(broom)
 ```
 
-This session covers one-sample, two-sample, and paired t-tests and when to
-use Welch's correction.
+## When Do You Use This? {.callout-tip}
 
-## When to use t-tests
+> You measured haemoglobin before and after treatment in 30 patients. Or you measured body weight in 20 control mice and 20 treated mice. A t-test tells you whether the observed difference is larger than you would expect by chance if there were no real effect.
 
-Use t-tests to compare means between groups (one-sample, two-sample) or
-paired measurements on the same subjects (paired t-test). Use Welch's t-test
-when variances are unequal.
+## Learning Objectives
 
-## Short code demo
+After completing this session you will be able to:
 
-```{r demo-ttest, echo=TRUE}
-# two-sample example from ToothGrowth
-tg <- datasets::ToothGrowth %>% as_tibble() %>% mutate(dose = factor(dose))
-tg_low <- tg %>% filter(dose == 0.5)
+- Choose the right t-test variant (one-sample, two-sample, paired)
+- Decide whether to use Welch's or Student's t-test
+- Check the normality assumption and know when the test is still valid
+- Perform all three variants in R and interpret the output
+- Report t-test results correctly in a manuscript
 
-# two-sample t-test comparing supplements
-t_test_res <- t.test(len ~ supp, data = tg_low)
-broom::tidy(t_test_res)
+---
 
-# paired example using built-in sleep dataset
-paired_res <- t.test(extra ~ group, data = datasets::sleep, paired = TRUE)
-broom::tidy(paired_res)
+## Background: Which t-test?
+
+| Situation | Test | R function |
+|---|---|---|
+| Compare sample mean to a known value | One-sample t-test | `t.test(x, mu = value)` |
+| Compare means of two independent groups | Two-sample t-test | `t.test(y ~ group, data = df)` |
+| Compare two measurements on the same subjects | Paired t-test | `t.test(x, y, paired = TRUE)` |
+
+**Welch vs Student:** Always use Welch's t-test (default in R: `var.equal = FALSE`) unless you have a specific reason to assume equal variances. Welch's test is more robust and the cost in power is negligible.
+
+**Normality:** The t-test assumes the *sampling distribution of the mean* is normal, not the raw data. By the CLT, this holds for $n \geq 30$ even with moderately skewed data. For small samples with heavily skewed data, use a nonparametric test (see [Nonparametric Tests](nonparametric-tests.qmd)).
+
+---
+
+## Worked Example 1: Clinical Data (PBC)
+
+### One-Sample: Is Mean Albumin Below a Clinical Threshold?
+
+Normal serum albumin is ≥ 3.5 g/dL. Is the mean albumin in PBC patients at this threshold?
+
+```{r pbc-setup}
+pbc <- survival::pbc |>
+  as_tibble() |>
+  janitor::clean_names() |>
+  mutate(
+    sex = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
+    trt = factor(trt, levels = c(1, 2), labels = c("D-penicillamine", "Placebo"))
+  )
 ```
 
-## How to explain the output (teacher notes)
+```{r one-sample}
+# H0: mean albumin = 3.5 g/dL
+# H1: mean albumin != 3.5 g/dL
+t.test(pbc$albumin, mu = 3.5)
+```
 
-- **Report:** mean difference and 95% CI. State whether CI includes zero.
-- **Context:** choose paired vs independent test based on study design.
+```{r one-sample-tidy}
+tidy(t.test(pbc$albumin, mu = 3.5))
+```
 
-## Short exercise
+`broom::tidy()` extracts the key numbers into a data frame, useful for piping into tables or inline reporting.
 
-- Select two groups from `mtcars` (e.g., `am` levels) and run an appropriate t-test; write a one-line interpretation.
+### Two-Sample: Does Albumin Differ Between Treatment Groups?
 
-**Hint:** use `t.test(..., var.equal = TRUE)` for pooled variance, omit for Welch.
+```{r two-sample}
+pbc_rand <- pbc |> filter(!is.na(trt), !is.na(albumin))
 
-## Data {.unnumbered}
+# Visualise first
+pbc_rand |>
+  ggplot(aes(x = trt, y = albumin, fill = trt)) +
+  geom_boxplot(alpha = 0.7, outlier.shape = NA) +
+  geom_jitter(width = 0.15, alpha = 0.3, size = 1.5) +
+  scale_fill_manual(values = c("steelblue", "tomato")) +
+  labs(title = "Serum albumin by treatment group",
+       x = NULL, y = "Albumin (g/dL)") +
+  theme_bw() + theme(legend.position = "none")
+```
 
-- Teaching example: `ToothGrowth` (plant growth experiment). For clinical examples, use `NHANES` subsets (blood pressure, labs) or `MASS::birthwt` for perinatal outcomes; see `data_sources.md` for links.
+```{r two-sample-test}
+t_res <- t.test(albumin ~ trt, data = pbc_rand, var.equal = FALSE)
+tidy(t_res)
+```
 
-**Exercises**
+**Reporting:** "Mean albumin was `r round(mean(pbc_rand$albumin[pbc_rand$trt == "D-penicillamine"], na.rm=TRUE), 2)` g/dL in the D-penicillamine group and `r round(mean(pbc_rand$albumin[pbc_rand$trt == "Placebo"], na.rm=TRUE), 2)` g/dL in the placebo group. There was no statistically significant difference (Welch's two-sample t-test: t = [value], df = [df], p = [p]; 95% CI for difference: [CI])."
 
-- Use the inline examples above or `data_sources.md` for clinical t-test datasets; older exercise scripts have been removed.
+### Paired: Change in Albumin Before and After (Hypothetical)
 
-::: {.callout-tip collapse="true" title="Exercise 2 — Solution"}
-- Instructor solution files are not published here.
-- Run the inline examples above or use public datasets listed in `data_sources.md` for clinical t-test exercises.
+In a paired design, each subject provides two measurements (e.g., baseline and follow-up). We need the difference per subject, not the group means.
+
+```{r paired-example}
+# Simulate: 50 patients with paired albumin measurements
+set.seed(2024)
+paired_dat <- tibble(
+  patient    = 1:50,
+  albumin_t0 = rnorm(50, mean = 3.5, sd = 0.5),
+  albumin_t1 = albumin_t0 + rnorm(50, mean = -0.3, sd = 0.3)  # slight decline
+)
+
+# Visualise the paired differences
+paired_dat |>
+  mutate(diff = albumin_t1 - albumin_t0) |>
+  ggplot(aes(x = diff)) +
+  geom_histogram(bins = 20, fill = "steelblue", color = "white") +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Change in albumin (t1 − t0)",
+       x = "Change (g/dL)", y = "Count") +
+  theme_bw()
+```
+
+```{r paired-test}
+t.test(paired_dat$albumin_t1, paired_dat$albumin_t0, paired = TRUE)
+```
+
+The paired t-test reduces variability by removing between-patient differences, making it more powerful than a two-sample test for this design.
+
+---
+
+## Worked Example 2: Animal Data (ToothGrowth)
+
+The `ToothGrowth` dataset compares two Vitamin C delivery methods in guinea pigs.
+
+```{r toothgrowth}
+tg <- ToothGrowth |>
+  as_tibble() |>
+  mutate(
+    supp = factor(supp, levels = c("VC", "OJ"),
+                  labels = c("Ascorbic acid", "Orange juice")),
+    dose = factor(dose)
+  )
+
+# Compare at the 1.0 mg/day dose only
+tg_1mg <- tg |> filter(dose == "1")
+
+tg_1mg |>
+  ggplot(aes(x = supp, y = len, fill = supp)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.1, alpha = 0.5, size = 2) +
+  scale_fill_manual(values = c("steelblue", "tomato")) +
+  labs(title = "Tooth length by supplement type at 1.0 mg/day",
+       x = NULL, y = "Odontoblast length (μm)") +
+  theme_bw() + theme(legend.position = "none")
+```
+
+```{r toothgrowth-test}
+tidy(t.test(len ~ supp, data = tg_1mg, var.equal = FALSE))
+```
+
+---
+
+## Checking Assumptions: QQ-plots
+
+For small samples ($n < 30$), check that data are approximately normal using a QQ-plot.
+
+```{r qq-plot}
+pbc_rand |>
+  ggplot(aes(sample = albumin)) +
+  stat_qq() +
+  stat_qq_line(color = "red") +
+  facet_wrap(~ trt) +
+  labs(title = "QQ-plot of albumin by treatment group") +
+  theme_bw()
+```
+
+Points falling close to the diagonal line indicate approximate normality. With $n \approx 150$ per group, slight deviations are not a concern for the t-test.
+
+---
+
+## Where to Find Data Like This {.callout-note}
+
+**PBC dataset:** `survival::pbc` — built in, no download needed.
+
+**Sleep dataset (paired):** `datasets::sleep` — built into base R. Contains the effect of two sleep drugs on 10 patients (classic paired t-test example).
+
+**MASS::birthwt:** birth weight data with clinical predictors; good for comparing birth weight between groups.
+
+```{r}
+#| eval: false
+data(birthwt, package = "MASS")
+t.test(bwt ~ smoke, data = birthwt)
+```
+
+---
+
+## What Can Go Wrong {.callout-warning}
+
+**Using a paired test when data are independent (or vice versa)**
+The paired t-test requires one-to-one matching. If you use it on independent group data, you will get wrong degrees of freedom and an incorrect p-value.
+
+**Testing normality with a formal test**
+Shapiro-Wilk (`shapiro.test()`) is not a reliable guide for choosing a t-test. With small samples it has low power; with large samples it rejects normality for trivially small deviations. Use a QQ-plot and think about the biology instead.
+
+**Reporting only the p-value**
+Always report the mean difference and 95% CI alongside the p-value. "p = 0.03" tells the reader almost nothing about the size or direction of the effect.
+
+**Not accounting for unequal variances**
+If the two groups have very different standard deviations, Welch's t-test (default in R) is the right choice. Using `var.equal = TRUE` when variances differ inflates the Type I error rate.
+
+---
+
+## Exercises
+
+### Exercise 1 (Guided): One-Sample Test for Bilirubin
+
+The upper limit of normal for bilirubin is about 1.2 mg/dL.
+
+1. Plot the bilirubin distribution. Is it normal?
+2. Log-transform bilirubin. Test whether mean log-bilirubin equals `log(1.2)`.
+3. Report: mean, 95% CI, t-statistic, df, p-value, and a one-sentence interpretation.
+
+::: {.callout-tip collapse="true"}
+### Exercise 1: Solution
+
+```{r}
+# 1. Distribution
+ggplot(pbc, aes(x = bili)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  labs(x = "Bilirubin (mg/dL)", y = "Count") + theme_bw()
+
+# 2. One-sample test on log scale
+res <- t.test(log(pbc$bili), mu = log(1.2))
+tidy(res)
+
+# 3. Back-transform the CI
+exp(res$conf.int)
+```
+
+The geometric mean bilirubin is well above 1.2 mg/dL (the upper limit of normal), and this difference is highly statistically significant (p << 0.001). This confirms that PBC patients have elevated bilirubin, consistent with cholestatic liver disease.
 :::
 
-## Further reading
+### Exercise 2 (Semi-guided): Two-Sample Comparison
 
-- Testing and nonparametrics: @Teetor-2011; @Wickham-Grolemund-2017.
+Using `ToothGrowth`, test whether tooth length differs by supplement type across **all** dose levels (not just 1 mg/day).
 
-## Resources
+1. Run a two-sample Welch's t-test.
+2. Is the test valid? Check sample sizes and a QQ-plot.
+3. Run the test also on log-transformed tooth length. Do the conclusions differ?
 
-- Example scripts are provided inline above; consult `data_sources.md` for public dataset alternatives.
+::: {.callout-tip collapse="true"}
+### Exercise 2: Solution
+
+```{r}
+tg_all <- ToothGrowth |>
+  as_tibble() |>
+  mutate(supp = factor(supp))
+
+# Two-sample test
+tidy(t.test(len ~ supp, data = tg_all))
+
+# QQ-plot by group
+tg_all |>
+  ggplot(aes(sample = len)) +
+  stat_qq() + stat_qq_line(color = "red") +
+  facet_wrap(~ supp) + theme_bw()
+
+# Log scale
+tidy(t.test(log(len) ~ supp, data = tg_all))
+```
+
+With 30 observations per group, the CLT applies. The QQ-plot shows approximate normality. The raw and log-transformed tests give similar conclusions.
+:::
+
+### Exercise 3 (Open-ended)
+
+Use a dataset from your own research. Identify a comparison where a t-test is appropriate. Run the test, check assumptions, and write a Methods + Results paragraph as you would for a journal submission.
+
+---
+
+## Comprehension Check
+
+1. What is the difference between a one-sample, two-sample, and paired t-test? Give a biomedical example for each.
+2. When should you use Welch's t-test instead of Student's t-test?
+3. A QQ-plot of your data shows points diverging from the line at the upper tail. The sample size is n = 12. What should you do?
+4. You run a two-sample t-test and get p = 0.04, 95% CI for difference: (−0.01 g/dL to 2.1 g/dL). Is this a convincing result? What would you report?
+5. A colleague says "I tested normality with Shapiro-Wilk (p = 0.06) so the data are normal." What is wrong with this reasoning?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. **One-sample:** compare a sample mean to a known or hypothetical value (e.g., "Is mean haemoglobin in my patients below 12 g/dL?"). **Two-sample:** compare means of two independent groups (e.g., "Does albumin differ between treatment and control mice?"). **Paired:** compare two measurements on the same subjects (e.g., "Did blood pressure change from baseline to 6 weeks?").
+2. Use Welch's when the two groups may have different population variances. It is the default in R (`var.equal = FALSE`) and is almost always appropriate. Student's t-test (equal variance assumed) is rarely preferred.
+3. With n = 12 and non-normality, use a nonparametric Wilcoxon test (see next session) instead of a t-test.
+4. The result is statistically significant (p = 0.04), but the CI is very wide: the true difference could be essentially zero (−0.01) or moderately large (2.1 g/dL). Report both the p-value and the full CI, and discuss whether the upper end of the CI is clinically meaningful.
+5. Shapiro-Wilk with p = 0.06 is not evidence that data are normal; it means you failed to detect non-normality at the 5% level. With n = 12, the test has low power and would miss moderate non-normality. Use a QQ-plot and domain knowledge instead.
+:::
+
+## Further Reading
+
+- @Welch-1947 --- Original Welch t-test paper
+- @Bland-2015 --- Chapter on t-tests in *An Introduction to Medical Statistics*
+- `?t.test` in R — the help page has a detailed description of all options

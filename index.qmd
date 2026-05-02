@@ -1,46 +1,102 @@
-# Course Overview {.unnumbered}
+# Welcome {.unnumbered}
 
-Practical, short course on core statistical tools and interpreting results for clinical research. Focus: data summary, uncertainty, visualization, and clear communication.
+This course teaches statistics the way research actually works — starting with your data, not a textbook formula. Every method is introduced with a concrete lab scenario, explained in plain language, and then demonstrated step-by-step in R.
 
-## What You Will Learn {.unnumbered}
+The course is designed for PhD students in biomedical and clinical research. That includes people working with human patient data, mouse and animal experiments, genomics, survey data, or longitudinal studies. You do not need to be an expert in R or statistics to start — but you do need R and RStudio installed on your computer.
 
-- Summarize and visualize data clearly.
-- Quantify uncertainty with confidence intervals and tests.
-- Fit and interpret basic regression and classification models.
-- Report findings in plain language and produce reproducible analyses.
+## What You Will Be Able to Do {.unnumbered}
 
-## Methods covered in this course {.unnumbered}
+After completing this course you will be able to:
 
-- Descriptive statistics and data transformation
-- Confidence intervals, hypothesis tests, t-tests, ANOVA
-- Regression (linear, logistic) and model diagnostics
-- Survival analysis and time-to-event methods
-- Effective data visualization
+1. **Analyze your own lab data** — choose the right statistical method, run the analysis in R, and interpret the output correctly.
+2. **Read papers critically** — understand what statistical methods were used, whether they were appropriate, and what the results actually mean.
+3. **Produce a reproducible analysis report** — write a Quarto document that anyone can re-run and get the same results.
 
-## Why This Course {.unnumbered}
+## How the Course Is Organized {.unnumbered}
 
-Helps clinicians and researchers interpret numerical results, decide when findings matter, and communicate conclusions clearly using reproducible R workflows.
+The course has six parts. Each part builds on the previous one.
 
-# Aims {#Aims}
+::: {.callout-tip}
+### Your Quick Reference
+The **Statistical Decision Guide** in Part 6 is a reference card you can return to at any point. It tells you which method to use for any research question, with links back to the relevant session. Bookmark it now.
+:::
 
-1. Read and interpret statistical summaries and plots.
-2. Communicate uncertainty and clinical relevance.
-3. Build reproducible analysis reports.
+### Part 1: Getting Started in R {.unnumbered}
 
-# Learning Objectives {#Learning-Objectives}
+Before you can analyze data, you need the right tools and the right habits. Part 1 covers R packages, data structures, importing and cleaning data, and how to set up a reproducible project. If you already know R well, you can move through Part 1 quickly.
 
-After this course you will be able to:
+- R packages and libraries — what they are and how to install them
+- Vectors, data frames, and factors — the building blocks of R data
+- Importing, reshaping, and cleaning data with `dplyr` and `tidyr`
+- Reproducible research with Quarto and `renv`
 
-1. Summarize and visualize data to answer research questions.
-2. Quantify uncertainty and apply appropriate tests.
-3. Fit basic regression models and interpret coefficients.
-4. Produce clear, reproducible reports that explain results.
+### Part 2: Describing and Visualizing Data {.unnumbered}
 
-# Prerequisites {#Prerequisites}
+Always look at your data before running any test. Part 2 teaches you to summarize and visualize data so you understand its structure, spot problems, and communicate findings clearly.
 
-- Basic familiarity with statistics.
-- Ability to install R packages; RStudio recommended.
+- Descriptive statistics: means, medians, distributions, missing data
+- Basic visualization with `ggplot2`
+- Advanced visualization for publications and presentations
+- Exploring real clinical datasets end-to-end
 
-Follow the setup instructions in the course materials before starting the exercises.
+### Part 3: Inference — Testing and Estimation {.unnumbered}
+
+This is the conceptual heart of statistics. What does a p-value actually mean? When is a result real versus noise? How many samples do you need? Part 3 answers these questions for the most common testing situations.
+
+- Sampling, confidence intervals, and the central limit theorem
+- Hypothesis testing: the full framework — p-values, effect sizes, Type I/II errors
+- t-tests for comparing groups
+- Non-parametric tests for when your data violates assumptions
+- ANOVA for comparing three or more groups
+- Categorical data: chi-square and Fisher's exact tests
+- Power and sample size: how to design a well-powered study
+
+### Part 4: Regression and Modeling {.unnumbered}
+
+Regression is how you predict outcomes and understand relationships between variables. Part 4 covers the full modeling cycle — fit, diagnose, interpret, communicate — for the most common model types in biomedical research.
+
+- Correlation and association
+- Linear regression — predicting continuous outcomes
+- Multiple regression — multiple predictors and confounding
+- Logistic regression — predicting binary outcomes (yes/no)
+- Model building and diagnostics — how to check if your model is any good
+- Handling missing data with multiple imputation
+- Mixed models for repeated measurements and clustered data
+
+### Part 5: Advanced Methods {.unnumbered}
+
+Part 5 covers methods that are increasingly important in PhD-level research but are rarely taught in introductory statistics courses. These sessions assume you have completed Parts 1–4.
+
+- Survival analysis and time-to-event data
+- Causal inference: DAGs, confounders, and observational studies
+- Mendelian randomization: using genetics to infer causality
+- Statistical concepts in omics and high-dimensional data
+
+### Part 6: Reference and Resources {.unnumbered}
+
+The final part is not new statistical methods — it is tools for thinking and tools for your research career.
+
+- Statistical Decision Guide — a complete "which test when" reference
+- Clinical research methods — study designs and their statistical implications
+- Help and documentation — how to find answers when you are stuck
+
+## Prerequisites {.unnumbered}
+
+- R and RStudio installed on your computer
+- No prior statistics knowledge is assumed beyond high-school level
+- Basic ability to run R code in RStudio (if you cannot do this yet, start with Part 1, Session 1)
+
+## How to Use This Course {.unnumbered}
+
+Each session follows the same structure:
+
+1. **When do you use this?** — A concrete scenario from your field
+2. **Background** — Why the method works, in plain language
+3. **Worked examples** — Step-by-step R code on real datasets
+4. **What can go wrong** — Common mistakes and how to avoid them
+5. **Exercises** — Practice problems with solutions
+6. **Comprehension check** — Self-check quiz questions
+
+You can work through the course week by week, or jump to a specific method when you need it. If you are unsure which method to use, go to the [Statistical Decision Guide](sessions/statistical-decision-guide.qmd) in Part 6.
 
 

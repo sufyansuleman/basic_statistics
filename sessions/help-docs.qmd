@@ -1,83 +1,294 @@
-# Help and Documentation {#sec-help-docs}
+﻿# Help and Documentation {#sec-help-docs}
 
 ```{r setup}
 #| include: false
 #| eval: true
-source(here::here("R/functions.R"))
-source(here::here("R/load-packages.R"))
+library(tidyverse)
 ```
 
+## When Do You Use This? {.callout-tip}
 
+> You are halfway through an analysis and get an error message you don't understand. Or you can't remember the exact arguments for a function. This session is your reference guide: how to get help inside R, how to read error messages, how to find the right function for a task, and where to turn when you're stuck.
 
+## Learning Objectives
 
-## Statistical methods in this course
+After completing this session you will be able to:
 
-This course covers a set of core statistical methods used in real research data analysis. The following table maps each method to the session where it is taught and practiced.
+- Use R's built-in help system to look up any function
+- Interpret common R error and warning messages
+- Search for packages and functions you don't know the name of
+- Find the right online resources for R and statistics questions
+- Locate the relevant session in this course for any statistical method
 
-| Method | Session | Notes |
-|---|---|---|
-| Descriptive statistics | `basic-statistics.qmd` | summaries, distributions, and data description |
-| Data transformation / standardization | `basic-statistics.qmd` | log transform, scaling, and normalizing data |
-| Confidence intervals | `basic-statistics.qmd` | CIs for means, proportions, and regression estimates |
-| t-tests | `basic-statistics.qmd` | one-sample, two-sample, paired, and Welch tests |
-| Power / sample size calculation | `basic-statistics.qmd` | power analysis for mean differences and proportions |
-| Correlation | `clinical-research-methods.qmd` | Pearson and Spearman correlation analysis |
-| Linear regression | `basic-statistics.qmd` / `advanced-visualization.qmd` | regression modeling, slope interpretation, and diagnostics |
-| ANOVA | `clinical-research-methods.qmd` | one-way and two-way ANOVA, comparison of group means |
-| Multiple comparisons | `clinical-research-methods.qmd` | Tukey, Dunnett, Bonferroni, Holm adjustments |
-| Nonparametric tests | `clinical-research-methods.qmd` | Wilcoxon test and rank-based comparisons |
-| Chi-square tests | `clinical-research-methods.qmd` | categorical data association and contingency tables |
-| Logistic regression | `clinical-research-methods.qmd` | binary outcome modeling and odds ratio interpretation |
-| Survival analysis | `survival-and-time-to-event.qmd` | Kaplan-Meier curves, log-rank tests, Cox regression |
-| Model diagnostics / interpretation | `advanced-visualization.qmd` / `clinical-research-methods.qmd` | residuals, QQ plots, assumption checks, report-ready interpretation |
+---
 
-Understanding how to access help and documentation in R is crucial for both beginners and experienced users. This section will guide you through two essential skills: accessing help files and searching for R documentation. These tools will empower you to find solutions and understand functions or packages better as you progress in your R journey.
+## Getting Help Inside R
 
-## Accessing Help Files
+### The `?` Operator and `help()`
 
-In R, every function and package comes with a help file that explains its usage, arguments, and provides examples. These files are invaluable for learning how to use different functions correctly.
+```{r help-basics}
+#| eval: false
+# Access help for a function you know the name of
+?mean
+help(mean)
 
-### How to Access Help Files:
+# Access help for an operator
+?`+`
 
-1. **Using `?` Operator**: The simplest way to access help for a function is by using the `?` operator followed by the function name. For example, `?mean` will open the help file for the mean function.
+# Access help for a whole package
+help(package = "survival")
+```
 
-2. **Using `help()` Function**: Alternatively, you can use the `help()` function. For example, `help(mean)` achieves the same as `?mean`.
+### Help When You Don't Know the Name
 
-3. **Help for Packages**: To view documentation for a whole package, use `help(package = "packageName")`. Replace `"packageName"` with the name of the package you're interested in.
+```{r help-search}
+#| eval: false
+# Fuzzy search: returns all help pages matching the keyword
+??regression
+help.search("regression")
 
-### Tips for Navigating Help Files:
+# Find a function by name fragment
+apropos("glm")
+```
 
-- **Arguments**: Pay attention to the 'Arguments' section to understand what inputs the function accepts.
-- **Examples**: The 'Examples' section is great for seeing how the function works in practice.
-- **See Also**: This section provides links to related functions and documentation.
+### Reading a Help Page
 
-## Searching for R Documentation
+Every R help page has the same structure:
 
-Sometimes you might not remember the exact name of a function or you're looking for functions related to a specific task. Here's how to search effectively:
+| Section | What it tells you |
+|---------|------------------|
+| **Description** | What the function does in one sentence |
+| **Usage** | Function signature — all arguments with defaults |
+| **Arguments** | What each argument expects |
+| **Value** | What the function returns |
+| **Examples** | Copy-paste these first to understand the function |
+| **See Also** | Related functions — often more useful than the main function |
 
-1. **Using `??` Operator**: This is a broader search than `?`. For example, `??regression` will return a list of help files related to regression.
+**Tip:** Jump straight to **Examples** when learning a new function. Run them interactively to see what the function does before applying it to your own data.
 
-2. **Using `help.search()` Function**: This works similarly to `??`. For example, `help.search("regression")` will search for "regression" in the R documentation.
+---
 
-3. **Online Resources**: Websites like [RDocumentation](https://www.rdocumentation.org/) or [CRAN](https://cran.r-project.org/) provide searchable databases of R documentation.
+## Common Error Messages
 
-### Tips for Effective Searching:
+### Object Not Found
 
-- **Use Keywords**: Think about the keywords related to what you're trying to find.
-- **Explore Related Functions**: Often, searching will lead you to related functions that might be useful.
-- **Check Online Communities**: Forums like Stack Overflow have a wealth of information and examples.
+```r
+Error in plot(my_data) : object 'my_data' not found
+```
 
-Mastering the use of help files and knowing how to search the R documentation effectively will significantly enhance your ability to learn and solve problems in R. Remember, seeking help is an integral part of the learning process, and these tools are there to assist you every step of the way.
+**Cause:** The object does not exist in your environment. You may have forgotten to run the line that creates it, or you misspelled the name. R is case-sensitive: `mydata` ≠ `MyData`.
 
-:::{.callout-tip}
-Always explore the examples given in the help files, as they often provide practical insights into how functions can be used.
+**Fix:** Check `ls()` to list all objects in your environment. Re-run the code that creates the object.
+
+---
+
+### Unexpected Symbol / Unexpected Input
+
+```r
+Error: unexpected ')' in "mean(x, na.rm = TRUE))"
+```
+
+**Cause:** A syntax error — mismatched brackets, a missing comma, or an unclosed string.
+
+**Fix:** Count your opening and closing brackets. In RStudio, click inside the bracket to see its matching partner highlighted.
+
+---
+
+### Package Not Found
+
+```r
+Error in library(ggplot2) : there is no package called 'ggplot2'
+```
+
+**Cause:** The package is not installed.
+
+**Fix:**
+
+```{r install-fix}
+#| eval: false
+install.packages("ggplot2")   # install once
+library(ggplot2)               # load every session
+```
+
+---
+
+### NA / NaN Warnings
+
+```r
+Warning message: NAs produced by coercion
+```
+
+**Cause:** R cannot convert a non-numeric value (e.g., `"N/A"`, `"."`, or `""`) to a number. These become `NA`.
+
+**Fix:** Check what non-numeric strings are in your column before coercing:
+
+```{r na-debug}
+x <- c("1", "2", "N/A", "4")
+which(is.na(as.numeric(x)))   # which elements became NA?
+x[is.na(as.numeric(x))]       # what are they?
+```
+
+---
+
+### Subscript Out of Bounds
+
+```r
+Error in x[[5]] : subscript out of bounds
+```
+
+**Cause:** You are trying to access an element that does not exist (e.g., the 5th column of a data frame that only has 4 columns).
+
+**Fix:** Check dimensions: `dim(df)`, `length(x)`, `nrow(df)`, `ncol(df)`.
+
+---
+
+### Factor Level Mismatch
+
+```r
+Error in model.frame.default : factor has new levels: XYZ
+```
+
+**Cause:** You are predicting with new data that contains a factor level not seen during model fitting.
+
+**Fix:** Ensure new data factor levels match training data. Use `droplevels()` or re-encode factor levels consistently.
+
+---
+
+## Warnings vs Errors
+
+| Message type | Meaning | Action needed? |
+|-------------|---------|---------------|
+| `Error` | R stopped — no result produced | Yes — must fix |
+| `Warning` | R produced a result, but something may be wrong | Check — often important |
+| `Message` | Informational only (e.g., from packages loading) | No — usually safe to ignore |
+
+**Key warning to never ignore:**
+
+```r
+Warning message: In glm.fit() : fitted probabilities numerically 0 or 1 occurred
+```
+
+This means your logistic regression has complete separation — a predictor perfectly separates outcomes. The model is unreliable; see @sec-logistic-regression.
+
+---
+
+## Useful Functions for Debugging
+
+```{r debug-functions}
+#| eval: false
+# What is in my environment?
+ls()
+
+# What class is this object?
+class(my_object)
+typeof(my_object)
+
+# What is the structure?
+str(my_data)
+glimpse(my_data)
+
+# Check for missing values
+sum(is.na(my_data))
+colSums(is.na(my_data))
+
+# View first/last rows
+head(my_data)
+tail(my_data)
+
+# Check column names and types
+names(my_data)
+sapply(my_data, class)
+```
+
+---
+
+## Online Resources
+
+### Finding Answers
+
+| Resource | Best for | URL |
+|----------|---------|-----|
+| **Stack Overflow** | Specific error messages and code questions | [stackoverflow.com/questions/tagged/r](https://stackoverflow.com/questions/tagged/r) |
+| **RDocumentation** | Searchable R function and package documentation | [rdocumentation.org](https://www.rdocumentation.org) |
+| **CRAN Task Views** | Finding the right package for a statistical task | [cran.r-project.org/web/views/](https://cran.r-project.org/web/views/) |
+| **Posit Community** | Tidyverse and RStudio questions | [community.rstudio.com](https://community.rstudio.com) |
+| **R-bloggers** | Tutorials and use cases | [r-bloggers.com](https://www.r-bloggers.com) |
+
+### Asking Good Questions
+
+When posting to Stack Overflow or asking a colleague, always provide a **minimal reproducible example (reprex)**:
+
+```{r reprex}
+#| eval: false
+library(reprex)
+reprex({
+  x <- c(1, 2, NA, 4)
+  mean(x)               # what did you get?
+  mean(x, na.rm = TRUE) # what do you expect?
+})
+```
+
+A reprex is a small, self-contained snippet of code that demonstrates the problem. Remove anything not essential to reproducing the error.
+
+---
+
+## Course Method Map
+
+The table below maps every statistical method covered in this course to its session. Use this to quickly navigate when you need to recall a method.
+
+| Method | Session |
+|--------|---------|
+| Setting up R and packages | @sec-packages |
+| Vectors and basic data types | @sec-vectors |
+| Data wrangling (dplyr, tidyr) | @sec-wrangling |
+| Reproducible reports (Quarto) | @sec-reproducible |
+| Descriptive statistics | @sec-descriptive |
+| Basic visualisation (ggplot2) | @sec-basic-viz |
+| Advanced visualisation | @sec-advanced-viz |
+| Exploring clinical data | @sec-explore-clinical |
+| Sampling and estimation | @sec-sampling |
+| Hypothesis testing framework | @sec-hypothesis |
+| t-tests | @sec-ttests |
+| Non-parametric tests | @sec-nonparametric |
+| ANOVA | @sec-anova |
+| Categorical data and chi-square | @sec-chisquare |
+| Power and sample size | @sec-power |
+| Correlation and association | @sec-correlation |
+| Linear regression | @sec-linear-regression |
+| Multiple regression | @sec-multiple-regression |
+| Logistic regression | @sec-logistic-regression |
+| Model building and diagnostics | @sec-model-diagnostics |
+| Missing data imputation | @sec-imputation |
+| Mixed models | @sec-mixed-models |
+| Survival analysis | @sec-survival |
+| Causal inference and DAGs | @sec-causal |
+| Mendelian randomisation | @sec-mr |
+| Statistics for omics | @sec-omics |
+| Statistical decision guide | @sec-statistical-decision-guide |
+| Clinical research methods | @sec-clinical-methods |
+
+---
+
+## Comprehension Check
+
+1. You run `lm(y ~ x, data = mydata)` and get `Error: object 'y' not found`. What are two likely causes?
+2. What is the difference between an R error and a warning? Give an example of a warning you should not ignore.
+3. You want to do a survival analysis but don't know which function to use. How would you search for relevant functions in R?
+4. A colleague's code throws `Error in model.frame : factor has new levels`. What does this mean, and how would you fix it?
+5. You get a message `Warning: 152 rows removed due to missing values`. Should you be concerned? What would you check?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. (a) The column `y` does not exist in `mydata` — check column names with `names(mydata)`. A common cause is a typo or capitalisation mismatch (R is case-sensitive: `Y` ≠ `y`). (b) The object `mydata` itself does not exist in the environment — run `ls()` to check, and re-run the code that creates `mydata`.
+2. An **error** stops execution and produces no output — you must fix it before R will continue. A **warning** means R completed the computation but flagged something potentially problematic. Warnings you should not ignore include: fitted probabilities of 0 or 1 in logistic regression (complete separation); NAs introduced by coercion (unexpected missing data); rank-deficient fits (collinearity in regression). A warning you can usually ignore: `package 'X' was built under R version Y.Z` — just means the package was built with a slightly different R version.
+3. Two approaches: (1) `help.search("survival")` or `??survival` searches all help pages for the keyword; (2) Look at the **CRAN Task View for Survival Analysis** at [https://cran.r-project.org/web/views/Survival.html](https://cran.r-project.org/web/views/Survival.html) — this lists all packages and key functions for survival analysis. The `survival` package and its `Surv()`, `survfit()`, `coxph()` functions are the standard starting point.
+4. The model was trained on data where a factor had certain levels (e.g., `race`: "White", "Black"), but the new data contains a level not seen during training (e.g., "Other"). R cannot encode this new level. Fix: ensure all factor levels in new data are present in the training data — use `levels(new_data$race) <- levels(training_data$race)` or use consistent factor encoding before splitting into train/test sets.
+5. Yes, be concerned. 152 missing values could mean: (a) a column has systematic missingness — check `colSums(is.na(df))` to identify which variable; (b) the missing data is not missing at random (MCAR) — if missingness is related to the outcome or exposure, complete-case analysis will be biased. Steps: identify which variables have missing data, check whether missingness is associated with the outcome, and consider whether imputation is needed (see @sec-imputation).
 :::
 
-## Further reading
+## Further Reading
 
-- R reference and documentation: @R-Core-Team-2023; @CRAN.
-- Community Q&A and examples: @StackOverflow-R.
-
-## Resources
-
-- Quick links: CRAN (https://cran.r-project.org), RDocumentation, and Stack Overflow. See the course README and `data_sources.md` for course-specific pointers and recommended datasets.
+- @Grolemund-2015 --- *Hands-On Programming with R* — getting started, debugging, and help
+- @Wickham-2019 --- *Advanced R* — chapter on debugging and performance: [adv-r.hadley.nz](https://adv-r.hadley.nz/)
+- [Happy Git and GitHub for the useR](https://happygitwithr.com/) — version control with R
+- [R for Data Science (2nd ed.)](https://r4ds.hadley.nz/) — canonical reference for the tidyverse workflow

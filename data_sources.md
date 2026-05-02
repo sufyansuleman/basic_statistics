@@ -4,8 +4,18 @@ This file lists curated, modern, publicly available datasets (clinical, animal, 
 
 ## How to use
 - Prefer loading data from stable URLs or CRAN/Bioconductor packages.
-- For private or simulated datasets keep a small cleaned CSV under `data/` (versioned in the repo).
+- For private or simulated datasets, keep a small cleaned CSV under `data/` (versioned in the repo).
 - Citations and data license notes should be added where needed.
+
+## Packages and resource guidance
+- Use package datasets when available to keep examples reproducible and dependency-driven. Example package datasets include `survival::pbc`, `nycflights13::flights`, `MASS::birthwt`, `ToothGrowth`, and `plantgrowth`.
+- Install only CRAN packages needed for the lesson and document them clearly in session setup code.
+- If a dataset comes from an external URL, note the source and cache a copy in `data/` where the course requires repeatable local access.
+- For session resources, prefer these package categories:
+  - data import and cleaning: `readr`, `janitor`, `tidyverse`
+  - visualization: `ggplot2`, `gganimate`, `patchwork`
+  - modeling: `survival`, `broom`, `modelr`, `tidymodels`, `lme4`, `pwr`
+  - clinical/public-health: `NHANES`, `palmerpenguins`, `nycflights13`
 
 ---
 
@@ -58,7 +68,7 @@ pima <- readr::read_csv(
 
 5) Survival datasets (built-in / small public samples)
 - Examples: `survival::lung`, `survival::ovarian`, `survival::pbc`
-- Description: Well-documented clinical survival datasets for time-to-event methods. `pbc` shows liver disease covariates; `lung` contains oncology patients.
+- Description: Well-documented clinical survival datasets for time-to-event methods. `pbc` shows liver disease covariates and is built into the `survival` package; `lung` contains oncology patients.
 - Relevance: Kaplan–Meier, log-rank test, Cox proportional hazards, model diagnostics.
 - Load (R):
 ```r
@@ -66,6 +76,10 @@ library(survival)
 data(lung)
 # or
 pbc <- survival::pbc
+```
+- Local fallback: if the course repository includes `data/scd_simulated_data.rda`, load it with:
+```r
+load(here::here("data","scd_simulated_data.rda"))
 ```
 
 6) HHS / OWID / US aggregated public health data (hospitalizations, vaccinations)
@@ -117,33 +131,48 @@ gapminder <- readr::read_csv('https://raw.githubusercontent.com/resbaz/r-novice-
 
 ---
 
-## Guidance for replacing old or broken links (practical steps)
+## Session → dataset mapping (current 29-session course)
 
-- Replace broken `load(url(...SCD.rda))` patterns with a small NHANES subset (for blood labs) or a `pbc` example from `survival` if the aim is liver/bilirubin analysis. Example replacement code for SCD solution block:
+### Part 1: Getting Started in R
+- `packages-libraries.qmd` — no dataset; conceptual
+- `vectors.qmd` — `palmerpenguins::penguins` (introduced)
+- `tidy-data-wrangling.qmd` — `palmerpenguins::penguins`, simulated mouse weight data
+- `reproducible-research.qmd` — `palmerpenguins::penguins`
 
-```r
-# Option A: NHANES example (hemoglobin / hematocrit)
-install.packages('NHANES')
-library(NHANES)
-# NHANES contains many lab variables — subset and clean for the lesson
-nh <- NHANES::NHANES %>% dplyr::select(PERSONID = SEQN, Gender = Gender, Age = AgeDecade, BMI, BPDia = BPDia, Ht = Ht, Wt)
+### Part 2: Describing and Visualizing Data
+- `01-descriptive-statistics.qmd` — `survival::pbc`, `palmerpenguins::penguins`
+- `basic-visualization.qmd` — `survival::pbc`, `palmerpenguins::penguins`
+- `advanced-visualization.qmd` — `survival::pbc`, `palmerpenguins::penguins`
+- `explore-clinical-data.qmd` — `survival::pbc`, `lme4::sleepstudy`
 
-# Option B: use a small in-repo simulated CSV (add to data/), or use survival::pbc for liver lab examples
-pbc <- survival::pbc %>% as_tibble()
-```
+### Part 3: Inference — Testing and Estimation
+- `sampling-and-estimation.qmd` — `survival::pbc`, simulated sampling
+- `hypothesis-testing.qmd` — `survival::pbc`, simulated two-group data
+- `04-t-tests.qmd` — `survival::pbc` (bilirubin by sex), simulated mouse glucose
+- `nonparametric-tests.qmd` — `survival::pbc`, `boot::melanoma`
+- `05-anova.qmd` — simulated mouse body weight × diet, `survival::pbc`
+- `categorical-data-and-chi-square.qmd` — `survival::pbc` (treatment × stage)
+- `power-and-sample-size.qmd` — simulation only; `pwr` package
 
-- For exercise/example scripts (`dev_code_data/*`) move canonical R scripts into `scripts/` or `R/` and update QMDs to call them with `source(here::here('scripts/exercise1.R'))`.
+### Part 4: Regression and Modeling
+- `correlation-and-association.qmd` — `survival::pbc`, `palmerpenguins::penguins`
+- `02-linear-regression.qmd` — `survival::pbc`, simulated mouse insulin
+- `06-multiple-regression.qmd` — `survival::pbc`, simulated energy expenditure
+- `03-logistic-regression.qmd` — `survival::pbc`, `MASS::birthwt`
+- `model-building-and-diagnostics.qmd` — `survival::pbc`, simulated lipid data
+- `data-imputation.qmd` — `survival::pbc` (has native missingness), simulated MAR data
+- `mixed-models.qmd` — `lme4::sleepstudy`, simulated longitudinal mouse data
 
-- When using PhysioNet or MIMIC, add explicit notes about account requirements and provide a small pre-processed sample `data/` CSV for classroom use.
+### Part 5: Advanced Methods
+- `survival-and-time-to-event.qmd` — `survival::pbc`, `boot::melanoma`
+- `causal-inference.qmd` — `survival::pbc`, simulated collider bias
+- `mendelian-randomization.qmd` — simulated one-sample MR; `TwoSampleMR` (eval: false)
+- `omics-statistics.qmd` — simulated gene expression matrix; `limma`
 
----
-
-## Suggested session → dataset mapping (quick)
-- `01-descriptive-statistics.qmd`: `survival::pbc` (clinical labs) or NHANES (blood labs). Describe sample size and clinical relevance before code.
-- `sampling-and-estimation.qmd`: `gapminder` or OWID COVID (rates & intervals).
-- `tidy-data-wrangling.qmd`: `nycflights13::flights` or `palmerpenguins` for tidy transformations.
-- `basic-visualization.qmd`: `penguins`, `gapminder`, OWID COVID.
-- `advanced-visualization.qmd`: `gapminder` (time-series faceting), OWID COVID (maps/time series).
+### Part 6: Reference and Resources
+- `statistical-decision-guide.qmd` — small simulated examples
+- `clinical-research-methods.qmd` — `survival::pbc`, `MASS::birthwt`, simulated confounding
+- `help-docs.qmd` — no dataset
 - `hypothesis-testing.qmd` / `04-t-tests.qmd` / `05-anova.qmd`: `NHANES` subsets, `PlantGrowth` or small experimental animal datasets from Dryad.
 - `02-linear-regression.qmd` / `06-multiple-regression.qmd`: `mtcars`, `pbc`, or `gapminder` GDP-life expectancy relationships.
 - `03-logistic-regression.qmd`: Pima Diabetes dataset.

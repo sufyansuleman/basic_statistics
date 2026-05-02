@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Simple basic statistics concepts - 15&nbsp; R Packages and Libraries</title>
+<title>Simple basic statistics concepts - 1&nbsp; R Packages and Libraries</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -50,8 +84,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../sessions/clinical-research-methods.html" rel="next">
-<link href="../sessions/reproducible-research.html" rel="prev">
+<link href="../sessions/vectors.html" rel="next">
+<link href="../index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -101,7 +135,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/packages-libraries.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/packages-libraries.html">Part 1: Getting Started in R</a></li><li class="breadcrumb-item"><a href="../sessions/packages-libraries.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -129,13 +163,13 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Course Overview</span></a>
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Sessions</span></a>
+ <span class="menu-text">Part 1: Getting Started in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -143,122 +177,231 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Descriptive Statistics &amp; Exploratory Data Analysis</span></span></a>
+  <a href="../sessions/packages-libraries.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span></a>
+  <a href="../sessions/vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Vectors, Data Frames, and Factors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/tidy-data-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Basic Statistics for Clinical Research</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/basic-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic Data Visualization</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/advanced-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hypothesis Testing: t-tests, nonparametrics, and multiple comparisons</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">T-tests &amp; Group Comparisons</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Categorical Data: Contingency Tables, Risks, and Chi-square Tests</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multiple Regression &amp; Confounding</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power, Sample Size, and Study Design Considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/reproducible-research.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Reproducible Research with Quarto and renv</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Part 2: Describing and Visualizing Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Descriptive Statistics and Exploratory Data Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/packages-libraries.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></a>
+  <a href="../sessions/basic-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Clinical Research Methods in R</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Survival and Time-to-Event Analysis</span></span></a>
+  <a href="../sessions/advanced-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/explore-clinical-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Basic Statistics for Health Researchers - Exercise Day 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Part 3: Inference — Testing and Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/nonparametric-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Part 4: Regression and Modeling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/data-imputation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Part 5: Advanced Methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/causal-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/mendelian-randomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/omics-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Part 6: Reference and Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
   </div>
 </li>
       </ul>
@@ -273,36 +416,51 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#understanding-r-packages-and-libraries" id="toc-understanding-r-packages-and-libraries" class="nav-link active" data-scroll-target="#understanding-r-packages-and-libraries"><span class="header-section-number">15.1</span> Understanding R Packages and Libraries</a>
+  <li><a href="#when-do-you-use-this" id="toc-when-do-you-use-this" class="nav-link active" data-scroll-target="#when-do-you-use-this"><span class="header-section-number">1.1</span> When Do You Use This?</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">1.2</span> Learning Objectives</a></li>
+  <li><a href="#understanding-r-packages-and-libraries" id="toc-understanding-r-packages-and-libraries" class="nav-link" data-scroll-target="#understanding-r-packages-and-libraries"><span class="header-section-number">1.3</span> Understanding R Packages and Libraries</a>
   <ul class="collapse">
-  <li><a href="#what-are-r-packages" id="toc-what-are-r-packages" class="nav-link" data-scroll-target="#what-are-r-packages"><span class="header-section-number">15.1.1</span> What Are R Packages?</a></li>
-  <li><a href="#what-are-r-libraries" id="toc-what-are-r-libraries" class="nav-link" data-scroll-target="#what-are-r-libraries"><span class="header-section-number">15.1.2</span> What Are R Libraries?</a></li>
-  <li><a href="#where-are-libraries-stored" id="toc-where-are-libraries-stored" class="nav-link" data-scroll-target="#where-are-libraries-stored"><span class="header-section-number">15.1.3</span> Where Are Libraries Stored?</a></li>
+  <li><a href="#what-are-r-packages" id="toc-what-are-r-packages" class="nav-link" data-scroll-target="#what-are-r-packages"><span class="header-section-number">1.3.1</span> What Are R Packages?</a></li>
+  <li><a href="#what-are-r-libraries" id="toc-what-are-r-libraries" class="nav-link" data-scroll-target="#what-are-r-libraries"><span class="header-section-number">1.3.2</span> What Are R Libraries?</a></li>
+  <li><a href="#where-are-libraries-stored" id="toc-where-are-libraries-stored" class="nav-link" data-scroll-target="#where-are-libraries-stored"><span class="header-section-number">1.3.3</span> Where Are Libraries Stored?</a></li>
   </ul></li>
-  <li><a href="#installing-loading-and-managing-r-packages" id="toc-installing-loading-and-managing-r-packages" class="nav-link" data-scroll-target="#installing-loading-and-managing-r-packages"><span class="header-section-number">15.2</span> Installing, Loading, and Managing R Packages</a>
+  <li><a href="#installing-loading-and-managing-r-packages" id="toc-installing-loading-and-managing-r-packages" class="nav-link" data-scroll-target="#installing-loading-and-managing-r-packages"><span class="header-section-number">1.4</span> Installing, Loading, and Managing R Packages</a>
   <ul class="collapse">
-  <li><a href="#what-are-the-sources-of-r-packages" id="toc-what-are-the-sources-of-r-packages" class="nav-link" data-scroll-target="#what-are-the-sources-of-r-packages"><span class="header-section-number">15.2.1</span> What Are the Sources of R Packages?</a></li>
+  <li><a href="#what-are-the-sources-of-r-packages" id="toc-what-are-the-sources-of-r-packages" class="nav-link" data-scroll-target="#what-are-the-sources-of-r-packages"><span class="header-section-number">1.4.1</span> What Are the Sources of R Packages?</a></li>
   </ul></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">15.3</span> Further reading</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">15.4</span> Resources</a>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">1.5</span> Further reading</a>
   <ul class="collapse">
-  <li><a href="#section-installing-and-loading-r-packages" id="toc-section-installing-and-loading-r-packages" class="nav-link" data-scroll-target="#section-installing-and-loading-r-packages"><span class="header-section-number">15.4.1</span> Section: Installing and Loading R Packages</a></li>
-  <li><a href="#installing-r-packages-from-cran" id="toc-installing-r-packages-from-cran" class="nav-link" data-scroll-target="#installing-r-packages-from-cran"><span class="header-section-number">15.4.2</span> Installing R Packages from CRAN</a></li>
-  <li><a href="#installing-packages-from-github" id="toc-installing-packages-from-github" class="nav-link" data-scroll-target="#installing-packages-from-github"><span class="header-section-number">15.4.3</span> Installing Packages from GitHub</a></li>
-  <li><a href="#installing-packages-from-bioconductor" id="toc-installing-packages-from-bioconductor" class="nav-link" data-scroll-target="#installing-packages-from-bioconductor"><span class="header-section-number">15.4.4</span> Installing Packages from Bioconductor</a></li>
-  <li><a href="#loading-packages-into-r-session" id="toc-loading-packages-into-r-session" class="nav-link" data-scroll-target="#loading-packages-into-r-session"><span class="header-section-number">15.4.5</span> Loading Packages into R Session</a></li>
-  <li><a href="#troubleshooting-package-installation" id="toc-troubleshooting-package-installation" class="nav-link" data-scroll-target="#troubleshooting-package-installation"><span class="header-section-number">15.4.6</span> Troubleshooting Package Installation</a></li>
+  <li><a href="#section-installing-and-loading-r-packages" id="toc-section-installing-and-loading-r-packages" class="nav-link" data-scroll-target="#section-installing-and-loading-r-packages"><span class="header-section-number">1.5.1</span> Section: Installing and Loading R Packages</a></li>
+  <li><a href="#installing-r-packages-from-cran" id="toc-installing-r-packages-from-cran" class="nav-link" data-scroll-target="#installing-r-packages-from-cran"><span class="header-section-number">1.5.2</span> Installing R Packages from CRAN</a></li>
+  <li><a href="#installing-packages-from-github" id="toc-installing-packages-from-github" class="nav-link" data-scroll-target="#installing-packages-from-github"><span class="header-section-number">1.5.3</span> Installing Packages from GitHub</a></li>
+  <li><a href="#installing-packages-from-bioconductor" id="toc-installing-packages-from-bioconductor" class="nav-link" data-scroll-target="#installing-packages-from-bioconductor"><span class="header-section-number">1.5.4</span> Installing Packages from Bioconductor</a></li>
+  <li><a href="#loading-packages-into-r-session" id="toc-loading-packages-into-r-session" class="nav-link" data-scroll-target="#loading-packages-into-r-session"><span class="header-section-number">1.5.5</span> Loading Packages into R Session</a></li>
+  <li><a href="#troubleshooting-package-installation" id="toc-troubleshooting-package-installation" class="nav-link" data-scroll-target="#troubleshooting-package-installation"><span class="header-section-number">1.5.6</span> Troubleshooting Package Installation</a></li>
   </ul></li>
-  <li><a href="#exercise-7" id="toc-exercise-7" class="nav-link" data-scroll-target="#exercise-7"><span class="header-section-number">15.5</span> Exercise 7</a></li>
+  <li><a href="#exercise-7" id="toc-exercise-7" class="nav-link" data-scroll-target="#exercise-7"><span class="header-section-number">1.6</span> Exercise 7</a></li>
+  <li><a href="#packages-used-in-this-course" id="toc-packages-used-in-this-course" class="nav-link" data-scroll-target="#packages-used-in-this-course"><span class="header-section-number">1.7</span> Packages Used in This Course</a>
+  <ul class="collapse">
+  <li><a href="#core-packages-used-in-almost-every-session" id="toc-core-packages-used-in-almost-every-session" class="nav-link" data-scroll-target="#core-packages-used-in-almost-every-session"><span class="header-section-number">1.7.1</span> Core Packages (Used in Almost Every Session)</a></li>
+  <li><a href="#data-import-and-cleaning" id="toc-data-import-and-cleaning" class="nav-link" data-scroll-target="#data-import-and-cleaning"><span class="header-section-number">1.7.2</span> Data Import and Cleaning</a></li>
+  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization"><span class="header-section-number">1.7.3</span> Visualization</a></li>
+  <li><a href="#statistical-testing" id="toc-statistical-testing" class="nav-link" data-scroll-target="#statistical-testing"><span class="header-section-number">1.7.4</span> Statistical Testing</a></li>
+  <li><a href="#regression-and-modeling" id="toc-regression-and-modeling" class="nav-link" data-scroll-target="#regression-and-modeling"><span class="header-section-number">1.7.5</span> Regression and Modeling</a></li>
+  <li><a href="#survival-analysis" id="toc-survival-analysis" class="nav-link" data-scroll-target="#survival-analysis"><span class="header-section-number">1.7.6</span> Survival Analysis</a></li>
+  <li><a href="#causal-inference" id="toc-causal-inference" class="nav-link" data-scroll-target="#causal-inference"><span class="header-section-number">1.7.7</span> Causal Inference</a></li>
+  <li><a href="#mendelian-randomization" id="toc-mendelian-randomization" class="nav-link" data-scroll-target="#mendelian-randomization"><span class="header-section-number">1.7.8</span> Mendelian Randomization</a></li>
+  <li><a href="#genomics-and-public-health-data" id="toc-genomics-and-public-health-data" class="nav-link" data-scroll-target="#genomics-and-public-health-data"><span class="header-section-number">1.7.9</span> Genomics and Public Health Data</a></li>
+  </ul></li>
+  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">1.8</span> Comprehension Check</a></li>
+  <li><a href="#further-reading-1" id="toc-further-reading-1" class="nav-link" data-scroll-target="#further-reading-1"><span class="header-section-number">1.9</span> Further Reading</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/01-descriptive-statistics.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/packages-libraries.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/packages-libraries.html">Part 1: Getting Started in R</a></li><li class="breadcrumb-item"><a href="../sessions/packages-libraries.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-packages-libraries" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></h1>
+<h1 class="title"><span id="sec-packages-libraries" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></h1>
 </div>
 
 
@@ -319,20 +477,36 @@ div.csl-indent {
 </header>
 
 
-<section id="understanding-r-packages-and-libraries" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="understanding-r-packages-and-libraries"><span class="header-section-number">15.1</span> Understanding R Packages and Libraries</h2>
+<section id="when-do-you-use-this" class="level2 callout-tip" data-number="1.1">
+<h2 class="callout-tip anchored" data-number="1.1" data-anchor-id="when-do-you-use-this"><span class="header-section-number">1.1</span> When Do You Use This?</h2>
+<blockquote class="blockquote">
+<p>Every statistical method in R lives inside a package. Before you can run a t-test, build a regression model, or draw a plot, you need to know how to find, install, and load the right package. This session gives you that skill once — and you will use it in every session that follows.</p>
+</blockquote>
+</section>
+<section id="learning-objectives" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1.2</span> Learning Objectives</h2>
+<p>After completing this session you will be able to:</p>
+<ul>
+<li>Explain what an R package is and where packages come from</li>
+<li>Install packages from CRAN, Bioconductor, and GitHub</li>
+<li>Load packages into an R session and troubleshoot common errors</li>
+<li>Identify the key packages used throughout this course</li>
+</ul>
+</section>
+<section id="understanding-r-packages-and-libraries" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="understanding-r-packages-and-libraries"><span class="header-section-number">1.3</span> Understanding R Packages and Libraries</h2>
 <p>When working with R, you’ll often hear about “packages” and “libraries.” It’s important to understand what these are and how they are used in the R programming environment.</p>
-<section id="what-are-r-packages" class="level3" data-number="15.1.1">
-<h3 data-number="15.1.1" class="anchored" data-anchor-id="what-are-r-packages"><span class="header-section-number">15.1.1</span> What Are R Packages?</h3>
+<section id="what-are-r-packages" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="what-are-r-packages"><span class="header-section-number">1.3.1</span> What Are R Packages?</h3>
 <p>Think of a package as a toolbox that contains a set of tools (functions), materials (data sets), and an instruction manual (documentation). Just as you might have different toolboxes for different types of work (like electrical work or carpentry), in R, you have different packages for different types of tasks, like creating graphs, analyzing statistical data, or manipulating text.</p>
 <p>Packages in R are created by the community: people like you and me who need a set of functions and decide to bundle them together for everyone to use. Once a package is created, it can be shared with others.</p>
 </section>
-<section id="what-are-r-libraries" class="level3" data-number="15.1.2">
-<h3 data-number="15.1.2" class="anchored" data-anchor-id="what-are-r-libraries"><span class="header-section-number">15.1.2</span> What Are R Libraries?</h3>
+<section id="what-are-r-libraries" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="what-are-r-libraries"><span class="header-section-number">1.3.2</span> What Are R Libraries?</h3>
 <p>Now, if packages are like toolboxes, then libraries are like the shelves where you store these toolboxes. In R, a library is a directory on your computer where packages are stored. When you install a package, it’s like putting a toolbox on one of these shelves. And when you want to use a package, you have to take it off the shelf and open it, which in R, you do by “loading” the package.</p>
 </section>
-<section id="where-are-libraries-stored" class="level3" data-number="15.1.3">
-<h3 data-number="15.1.3" class="anchored" data-anchor-id="where-are-libraries-stored"><span class="header-section-number">15.1.3</span> Where Are Libraries Stored?</h3>
+<section id="where-are-libraries-stored" class="level3" data-number="1.3.3">
+<h3 data-number="1.3.3" class="anchored" data-anchor-id="where-are-libraries-stored"><span class="header-section-number">1.3.3</span> Where Are Libraries Stored?</h3>
 <p>On your computer, the R libraries are stored in a place that R knows and can access when you ask it to. This is usually a folder named “R” in your system’s library folder or in a location that you specify. You don’t usually have to worry about where this is unless you’re managing multiple versions of R or you have special security settings on your computer.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -349,24 +523,18 @@ Tip
 </div>
 </section>
 </section>
-<section id="installing-loading-and-managing-r-packages" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="installing-loading-and-managing-r-packages"><span class="header-section-number">15.2</span> Installing, Loading, and Managing R Packages</h2>
-<section id="what-are-the-sources-of-r-packages" class="level3" data-number="15.2.1">
-<h3 data-number="15.2.1" class="anchored" data-anchor-id="what-are-the-sources-of-r-packages"><span class="header-section-number">15.2.1</span> What Are the Sources of R Packages?</h3>
+<section id="installing-loading-and-managing-r-packages" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="installing-loading-and-managing-r-packages"><span class="header-section-number">1.4</span> Installing, Loading, and Managing R Packages</h2>
+<section id="what-are-the-sources-of-r-packages" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="what-are-the-sources-of-r-packages"><span class="header-section-number">1.4.1</span> What Are the Sources of R Packages?</h3>
 <p>Packages can come from several places:</p>
 </section>
 </section>
-<section id="further-reading" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">15.3</span> Further reading</h2>
+<section id="further-reading" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">1.5</span> Further reading</h2>
 <ul>
 <li>CRAN and package resources: <span class="citation" data-cites="CRAN">R Core Team (<a href="#ref-CRAN" role="doc-biblioref">n.d.</a>)</span>; <span class="citation" data-cites="R-Core-Team-2023">R Core Team (<a href="#ref-R-Core-Team-2023" role="doc-biblioref">2023</a>)</span>.</li>
 <li>Package recipes and guidance: <span class="citation" data-cites="Matloff-2011">Matloff (<a href="#ref-Matloff-2011" role="doc-biblioref">2011</a>)</span>.</li>
-</ul>
-</section>
-<section id="resources" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="resources"><span class="header-section-number">15.4</span> Resources</h2>
-<ul>
-<li>Examples and loaders: <code>R/load-packages.R</code> (canonical); see <code>scripts/</code> and <code>R/</code> for current loader scripts and <code>data_sources.md</code> for recommended usage.</li>
 </ul>
 <ol type="1">
 <li><p><strong>CRAN (Comprehensive R Archive Network):</strong> This is the main repository where R packages are stored. Think of it as the official app store for R. When you use install.packages(), you’re usually downloading from CRAN.</p></li>
@@ -381,13 +549,13 @@ Tip
 <li>You can get packages from places like CRAN, Bioconductor, GitHub, or even local files on your computer.</li>
 <li>Once you get the hold of installing and loading packages, you’ll have access to a vast world of tools that can help you do almost anything you can imagine with R.</li>
 </ul>
-<section id="section-installing-and-loading-r-packages" class="level3" data-number="15.4.1">
-<h3 data-number="15.4.1" class="anchored" data-anchor-id="section-installing-and-loading-r-packages"><span class="header-section-number">15.4.1</span> Section: Installing and Loading R Packages</h3>
+<section id="section-installing-and-loading-r-packages" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="section-installing-and-loading-r-packages"><span class="header-section-number">1.5.1</span> Section: Installing and Loading R Packages</h3>
 <p>In this section, we’ll cover the essential skills of installing and loading packages in R, a crucial step in leveraging the vast array of tools available for data analysis in R. R packages are collections of functions, data, and compiled code that extend the basic functionality of R.</p>
 <p>By the end of this section, students will be able to: 1. Install R packages from CRAN and other repositories. 2. Load packages into an R session. 3. Troubleshoot common issues related to package installation.</p>
 </section>
-<section id="installing-r-packages-from-cran" class="level3" data-number="15.4.2">
-<h3 data-number="15.4.2" class="anchored" data-anchor-id="installing-r-packages-from-cran"><span class="header-section-number">15.4.2</span> Installing R Packages from CRAN</h3>
+<section id="installing-r-packages-from-cran" class="level3" data-number="1.5.2">
+<h3 data-number="1.5.2" class="anchored" data-anchor-id="installing-r-packages-from-cran"><span class="header-section-number">1.5.2</span> Installing R Packages from CRAN</h3>
 <p><strong>Accessing CRAN</strong> - CRAN (Comprehensive R Archive Network) is the main repository for R packages. - To install a package from CRAN, use the <code>install.packages()</code> function in R.</p>
 <p><strong>Example Command</strong> - For example, to install the package <code>ggplot2</code>, you would use the command: <code>install.packages("ggplot2")</code>.</p>
 <p><strong>Internet Connection</strong> - Ensure you have an active internet connection, as R will need to download the package files.</p>
@@ -409,27 +577,27 @@ Note
 </div>
 </div>
 </section>
-<section id="installing-packages-from-github" class="level3" data-number="15.4.3">
-<h3 data-number="15.4.3" class="anchored" data-anchor-id="installing-packages-from-github"><span class="header-section-number">15.4.3</span> Installing Packages from GitHub</h3>
+<section id="installing-packages-from-github" class="level3" data-number="1.5.3">
+<h3 data-number="1.5.3" class="anchored" data-anchor-id="installing-packages-from-github"><span class="header-section-number">1.5.3</span> Installing Packages from GitHub</h3>
 <p>*<strong>Using DevTools</strong> - The <code>devtools</code> package in R is designed to facilitate package development and installation from sources like GitHub. - First, install <code>devtools</code> from CRAN using <code>install.packages("devtools")</code>. - Then load the package using <code>library(devtools)</code>.</p>
 <p><strong>Install from GitHub</strong> - With <code>devtools</code> installed, and loaded you can use the <code>install_github()</code> function to install packages directly from GitHub. - The syntax is <code>devtools::install_github("username/repository")</code>, where <code>username</code> is the GitHub username and <code>repository</code> is the name of the repository.</p>
 <p><strong>Example Command</strong> - For instance, if you want to install a package named <code>leaflet</code> from a GitHub user <code>rstudio``, use:</code>devtools::install_github(“rstudio/leaflet”)`.</p>
 <p><strong>Note on Private Repositories</strong> - For private repositories, you may need to configure additional authentication settings.</p>
 </section>
-<section id="installing-packages-from-bioconductor" class="level3" data-number="15.4.4">
-<h3 data-number="15.4.4" class="anchored" data-anchor-id="installing-packages-from-bioconductor"><span class="header-section-number">15.4.4</span> Installing Packages from Bioconductor</h3>
+<section id="installing-packages-from-bioconductor" class="level3" data-number="1.5.4">
+<h3 data-number="1.5.4" class="anchored" data-anchor-id="installing-packages-from-bioconductor"><span class="header-section-number">1.5.4</span> Installing Packages from Bioconductor</h3>
 <p><strong>Bioconductor for Bioinformatics</strong> - Bioconductor is a project providing tools for the analysis and comprehension of high-throughput genomic data in R. - It has its own set of packages, particularly focused on bioinformatics.</p>
 <p><strong>Install Bioconductor Packages</strong> - To install packages from Bioconductor, first install the <code>BiocManager</code> package from CRAN using <code>install.packages("BiocManager")</code>. - Then, use <code>BiocManager::install()</code> to install packages from Bioconductor.</p>
 <p><strong>Example Command</strong> - For example, to install the <code>GenomicFeatures</code> package from Bioconductor, use: <code>BiocManager::install("GenomicFeatures")</code>.</p>
 <p><strong>Bioconductor Versioning</strong> - Bioconductor releases are semi-annual and tied to specific versions of R. Ensure that your version of R is compatible with the version of Bioconductor you are using.</p>
 </section>
-<section id="loading-packages-into-r-session" class="level3" data-number="15.4.5">
-<h3 data-number="15.4.5" class="anchored" data-anchor-id="loading-packages-into-r-session"><span class="header-section-number">15.4.5</span> Loading Packages into R Session</h3>
+<section id="loading-packages-into-r-session" class="level3" data-number="1.5.5">
+<h3 data-number="1.5.5" class="anchored" data-anchor-id="loading-packages-into-r-session"><span class="header-section-number">1.5.5</span> Loading Packages into R Session</h3>
 <p><strong>Using <code>library()</code></strong> - Once a package is installed, load it into your R session using the <code>library()</code> function. - For example, to load <code>ggplot2</code>, use: <code>library(ggplot2)</code>.</p>
 <p><strong>Checking Installed Packages</strong> - Use <code>installed.packages()</code> to get a list of all packages installed in your R environment.</p>
 </section>
-<section id="troubleshooting-package-installation" class="level3" data-number="15.4.6">
-<h3 data-number="15.4.6" class="anchored" data-anchor-id="troubleshooting-package-installation"><span class="header-section-number">15.4.6</span> Troubleshooting Package Installation</h3>
+<section id="troubleshooting-package-installation" class="level3" data-number="1.5.6">
+<h3 data-number="1.5.6" class="anchored" data-anchor-id="troubleshooting-package-installation"><span class="header-section-number">1.5.6</span> Troubleshooting Package Installation</h3>
 <p><strong>Error Messages</strong> - Pay close attention to any error messages during installation; they often provide clues about the issue.</p>
 <p><strong>Dependency Issues</strong> - If there are missing dependencies, try installing those packages separately.</p>
 <p><strong>Compatibility with R Version</strong> - Some packages may not be compatible with your current version of R. Check the package documentation for version requirements.</p>
@@ -444,13 +612,17 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Additional Resources</strong> - Type the following commands into your R console and hit enter. This will open an R documentation window in the Files pane, specifically in the Help Tab. This window provides detailed information about these commands. At this stage, it’s not necessary to delve deeply into understanding every aspect of these commands. However, this method is a valuable tool for learning more about packages and functions in R as you progress. - For R documentation, use: <code>?install.packages</code> and <code>?library</code></p>
+<p><strong>Additional Resources</strong> — Type the following commands into your R console and hit enter. This will open the R documentation window in the Help tab.</p>
+<ul>
+<li><code>?install.packages</code> — documentation for the install function</li>
+<li><code>?library</code> — documentation for loading packages</li>
+</ul>
 </div>
 </div>
 </section>
 </section>
-<section id="exercise-7" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="exercise-7"><span class="header-section-number">15.5</span> Exercise 7</h2>
+<section id="exercise-7" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="exercise-7"><span class="header-section-number">1.6</span> Exercise 7</h2>
 <p>This exercise is designed to familiarize you with the process of installing and loading R packages, and exploring their functions. You’ll get hands-on experience with some of the basic data analysis packages in R.</p>
 <ol type="1">
 <li><strong>Install Package</strong>:
@@ -534,6 +706,166 @@ Excercise 7: Click to see solution
 </div>
 </div>
 </div>
+</section>
+<section id="packages-used-in-this-course" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="packages-used-in-this-course"><span class="header-section-number">1.7</span> Packages Used in This Course</h2>
+<p>The table below lists every package you will need across the six parts of this course. You do not need to install all of them now. Each session tells you which packages to load at the start. However, running the install code below once at the beginning will save you time later.</p>
+<section id="core-packages-used-in-almost-every-session" class="level3" data-number="1.7.1">
+<h3 data-number="1.7.1" class="anchored" data-anchor-id="core-packages-used-in-almost-every-session"><span class="header-section-number">1.7.1</span> Core Packages (Used in Almost Every Session)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The tidyverse installs ggplot2, dplyr, tidyr, readr, and several others in one step</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># here makes file paths work reliably regardless of where your project folder is</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"here"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># skimr and gtsummary produce clean summary tables</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"skimr"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"gtsummary"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-import-and-cleaning" class="level3" data-number="1.7.2">
+<h3 data-number="1.7.2" class="anchored" data-anchor-id="data-import-and-cleaning"><span class="header-section-number">1.7.2</span> Data Import and Cleaning</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readxl"</span>)    <span class="co"># reading Excel files</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"janitor"</span>)   <span class="co"># cleaning column names, removing empty rows</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"palmerpenguins"</span>)  <span class="co"># teaching dataset with realistic missing values</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"naniar"</span>)    <span class="co"># visualizing and diagnosing missing data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="visualization" class="level3" data-number="1.7.3">
+<h3 data-number="1.7.3" class="anchored" data-anchor-id="visualization"><span class="header-section-number">1.7.3</span> Visualization</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggthemes"</span>)  <span class="co"># additional ggplot2 themes</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"patchwork"</span>) <span class="co"># combining multiple plots into one figure</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"scales"</span>)    <span class="co"># formatting axis labels (percentages, currencies)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggpubr"</span>)    <span class="co"># publication-ready plot helpers</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"corrplot"</span>)  <span class="co"># correlation matrices</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"GGally"</span>)    <span class="co"># pair plots and exploratory association plots</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="statistical-testing" class="level3" data-number="1.7.4">
+<h3 data-number="1.7.4" class="anchored" data-anchor-id="statistical-testing"><span class="header-section-number">1.7.4</span> Statistical Testing</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"effsize"</span>)   <span class="co"># Cohen's d and other effect sizes</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dunn.test"</span>) <span class="co"># Dunn post-hoc test after Kruskal-Wallis</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"car"</span>)       <span class="co"># Levene's test, VIF for collinearity</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"emmeans"</span>)   <span class="co"># estimated marginal means and contrasts after ANOVA</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rstatix"</span>)   <span class="co"># tidy statistical test output</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"epitools"</span>)  <span class="co"># risk ratios and odds ratios for 2x2 tables</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"vcd"</span>)       <span class="co"># mosaic plots for categorical data</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"pwr"</span>)       <span class="co"># power and sample size calculations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="regression-and-modeling" class="level3" data-number="1.7.5">
+<h3 data-number="1.7.5" class="anchored" data-anchor-id="regression-and-modeling"><span class="header-section-number">1.7.5</span> Regression and Modeling</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"broom"</span>)     <span class="co"># tidy model output as data frames</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"lmtest"</span>)    <span class="co"># likelihood ratio tests for model comparison</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"pROC"</span>)      <span class="co"># ROC curves and AUC for logistic regression</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"mice"</span>)      <span class="co"># multiple imputation for missing data</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"lme4"</span>)      <span class="co"># mixed models (random effects)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"lmerTest"</span>)  <span class="co"># p-values for fixed effects in lme4 models</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"broom.mixed"</span>)  <span class="co"># tidy output from mixed models</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="survival-analysis" class="level3" data-number="1.7.6">
+<h3 data-number="1.7.6" class="anchored" data-anchor-id="survival-analysis"><span class="header-section-number">1.7.6</span> Survival Analysis</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"survival"</span>)  <span class="co"># core survival analysis (comes with R but update it)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"survminer"</span>)  <span class="co"># Kaplan-Meier plots and survival visualizations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="causal-inference" class="level3" data-number="1.7.7">
+<h3 data-number="1.7.7" class="anchored" data-anchor-id="causal-inference"><span class="header-section-number">1.7.7</span> Causal Inference</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dagitty"</span>)   <span class="co"># drawing and analysing DAGs</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggdag"</span>)     <span class="co"># visualizing DAGs with ggplot2</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"MatchIt"</span>)   <span class="co"># propensity score matching</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="mendelian-randomization" class="level3" data-number="1.7.8">
+<h3 data-number="1.7.8" class="anchored" data-anchor-id="mendelian-randomization"><span class="header-section-number">1.7.8</span> Mendelian Randomization</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># TwoSampleMR is on GitHub, not CRAN — install via remotes</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"MRCIEU/TwoSampleMR"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="genomics-and-public-health-data" class="level3" data-number="1.7.9">
+<h3 data-number="1.7.9" class="anchored" data-anchor-id="genomics-and-public-health-data"><span class="header-section-number">1.7.9</span> Genomics and Public Health Data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bioconductor packages — install via BiocManager</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"GEOquery"</span>)  <span class="co"># access Gene Expression Omnibus datasets</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># NHANES data access</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"nhanesA"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Agricultural datasets for plant/field experiments</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"agridat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How to Check if a Package Is Already Installed
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check whether a specific package is installed</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">"ggplot2"</span> <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">"Package"</span>]</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List all installed packages</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">installed.packages</span>()[, <span class="st">"Package"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="comprehension-check" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">1.8</span> Comprehension Check</h2>
+<p>Answer these questions to check your understanding. Answers are in the collapsed box below.</p>
+<ol type="1">
+<li>What is the difference between installing a package and loading a package?</li>
+<li>You want to install the <code>survival</code> package. Which function do you use?</li>
+<li>Which repository should you use to install bioinformatics packages like <code>GEOquery</code>?</li>
+<li>A colleague sends you a package file ending in <code>.tar.gz</code>. How do you install it?</li>
+<li>You installed <code>ggplot2</code> but when you run <code>ggplot(...)</code> you get an error saying the function is not found. What is most likely wrong?</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Installing downloads the package files to your computer (done once). Loading with <code>library()</code> makes the package available in your current R session (done every time you start R).</li>
+<li><code>install.packages("survival")</code></li>
+<li>Bioconductor, accessed via <code>BiocManager::install()</code>. First install <code>BiocManager</code> from CRAN if you do not have it.</li>
+<li><code>install.packages("path/to/file.tar.gz", repos = NULL, type = "source")</code></li>
+<li>You installed it but did not load it. Run <code>library(ggplot2)</code> before using the package.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="further-reading-1" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="further-reading-1"><span class="header-section-number">1.9</span> Further Reading</h2>
+<ul>
+<li><a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> — curated lists of packages by topic (clinical trials, survival, genomics, etc.)</li>
+<li><a href="https://www.bioconductor.org/packages/">Bioconductor package search</a> — browse all bioinformatics packages</li>
+<li><a href="https://mrcieu.github.io/TwoSampleMR/">TwoSampleMR documentation</a> — Mendelian randomization with MR-Base</li>
+</ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -939,13 +1271,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/reproducible-research.html" class="pagination-link  aria-label=" &lt;span="" research="" with="" quarto="" and="" renv&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Reproducible Research with Quarto and renv</span></span>
+      <a href="../index.html" class="pagination-link  aria-label=" welcome"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/clinical-research-methods.html" class="pagination-link" aria-label="<span class='chapter-number'>16</span>&nbsp; <span class='chapter-title'>Clinical Research Methods in R</span>">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Clinical Research Methods in R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/vectors.html" class="pagination-link" aria-label="<span class='chapter-number'>2</span>&nbsp; <span class='chapter-title'>Vectors, Data Frames, and Factors</span>">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Vectors, Data Frames, and Factors</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
