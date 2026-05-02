@@ -2,32 +2,31 @@
 .Rhistory
 .RData
 .Ruserdata
+
+# Quarto build cache and artifacts
+/_freeze/
+/.quarto/
+/_book/
+
+# Quarto render artifacts
+rendered.log
+*.log
+
+# RStudio project file (local IDE settings)
 *.Rproj
 
-# development-only folder: ignore raw dev scripts and data
+# Dev/internal files not part of the published course
+/R/
+/scripts/
 /dev_code_data/
+course-improvement-plan.md
+audit-report.md
 
-# renv vendor libraries and caches (also mirrored in renv/.gitignore)
-/renv/library/
-/renv/local/
-/renv/cellar/
-/renv/python/
-/renv/sandbox/
-/renv/staging/
+# renv vendor libraries (not needed since renv is dropped)
+/renv/
+renv.lock
 
-# Quarto / slides build artifacts
-/slides/_slides_files/
-/slides/_slides.html
-/_slides_files/
-/_slides.html
-/_book/
-/_freeze/
-
-# RStudio / OS
+# OS artifacts
 .DS_Store
 Thumbs.db
 
-# Optional: binary course data - uncomment after review if you want to ignore
-#/data/*.rda
-
-/.quarto/
