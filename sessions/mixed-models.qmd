@@ -1,4 +1,4 @@
-ï»¿# Mixed Models: Random Effects and Repeated Measures {#sec-mixed-models}
+# Mixed Models: Random Effects and Repeated Measures {#sec-mixed-models}
 
 ```{r setup}
 #| include: false
@@ -15,7 +15,7 @@ Mixed models extend linear regression to handle repeated measures and clustered 
 
 ## When Do You Use This? {.callout-tip}
 
-> You measure albumin in 100 PBC patients at four clinic visits. The four measurements within the same patient are not independent â€” they share that patient's baseline level. Ignoring this correlation inflates your Type I error. A mixed model handles this by estimating a random intercept for each patient, so that repeated measurements within a patient are treated correctly.
+> You measure albumin in 100 PBC patients at four clinic visits. The four measurements within the same patient are not independent — they share that patient's baseline level. Ignoring this correlation inflates your Type I error. A mixed model handles this by estimating a random intercept for each patient, so that repeated measurements within a patient are treated correctly.
 
 ## Learning Objectives
 
@@ -27,11 +27,10 @@ After completing this session you will be able to:
 - Calculate the intraclass correlation coefficient (ICC)
 - Compare models with different random effects structures using AIC
 
----
 
 ## Background: Fixed Effects, Random Effects, and Correlation Structure
 
-**Fixed effects** are the predictors you care about â€” the treatment, time, or exposure. They estimate the population-average relationship between a predictor and the outcome.
+**Fixed effects** are the predictors you care about — the treatment, time, or exposure. They estimate the population-average relationship between a predictor and the outcome.
 
 **Random effects** model the variation between higher-level units (patients, litters, hospitals) that introduces correlation within those units. A **random intercept** allows each unit to have its own baseline level; a **random slope** allows the relationship between a predictor and the outcome to vary by unit.
 
@@ -47,7 +46,6 @@ $$ICC = \frac{\sigma_b^2}{\sigma_b^2 + \sigma^2}$$
 
 ICC = 0.4 means 40% of the total outcome variance is attributable to between-patient differences. High ICC means you strongly need the random effect.
 
----
 
 ## Worked Example 1: Repeated Measures in PBC Patients
 
@@ -66,7 +64,7 @@ pbc_long <- tibble(
   trt     = rep(sample(c("Drug", "Placebo"), n_patients, replace = TRUE), each = n_visits),
   # True random intercept per patient
   u_i     = rep(rnorm(n_patients, 0, 0.35), each = n_visits)
-) |>
+) %>%
   mutate(
     albumin = 3.8
       - 0.015 * time                               # decline over time
@@ -82,7 +80,7 @@ head(pbc_long, 8)
 ### Visualise the Longitudinal Data
 
 ```{r spaghetti}
-pbc_long |>
+pbc_long %>%
   ggplot(aes(x = time, y = albumin, group = id, color = trt)) +
   geom_line(alpha = 0.3) +
   geom_smooth(aes(group = trt), method = "lm", se = TRUE, linewidth = 1.5) +
@@ -100,13 +98,13 @@ summary(fit_ri)
 ```
 
 ```{r lmer-tidy}
-tidy(fit_ri, conf.int = TRUE) |>
+tidy(fit_ri, conf.int = TRUE) %>%
   select(effect, term, estimate, conf.low, conf.high)
 ```
 
 **Reading the output:**
 
-- **Fixed effects (`effect = "fixed"`):** The population-average trend â€” time coefficient and treatment effect.
+- **Fixed effects (`effect = "fixed"`):** The population-average trend — time coefficient and treatment effect.
 - **Random effects (`effect = "ran_pars"`):** `sd__(Intercept)` is $\sigma_b$ (between-patient SD); `sd__Observation` is $\sigma$ (residual SD).
 
 ### Calculating the ICC
@@ -135,9 +133,8 @@ If the random-slope model has substantially lower AIC (> 2 units), the rate of c
 anova(fit_ri, fit_rs)
 ```
 
----
 
-## Worked Example 2: Animal Data â€” Litter Effects in Mice
+## Worked Example 2: Animal Data — Litter Effects in Mice
 
 Mice from the same litter share a genetic and early-environment background. Body weight measurements from the same litter are not independent.
 
@@ -152,7 +149,7 @@ mouse_data <- tibble(
   mouse_id  = 1:(n_litters * mice_per),
   treatment = rep(sample(c("Control", "HFD"), n_litters, replace = TRUE), each = mice_per),
   litter_re = rep(rnorm(n_litters, 0, 1.5), each = mice_per)
-) |>
+) %>%
   mutate(
     weight_g = 22
       + 4.5 * (treatment == "HFD")
@@ -171,20 +168,20 @@ fit_litter <- lmer(weight_g ~ treatment + (1 | litter), data = mouse_data, REML 
 
 # Compare treatment effect estimates
 bind_rows(
-  broom::tidy(fit_naive, conf.int = TRUE) |>
-    filter(term == "treatmentHFD") |>
+  broom::tidy(fit_naive, conf.int = TRUE) %>%
+    filter(term == "treatmentHFD") %>%
     mutate(model = "OLS (ignores litter)"),
-  tidy(fit_litter, conf.int = TRUE, effects = "fixed") |>
-    filter(term == "treatmentHFD") |>
+  tidy(fit_litter, conf.int = TRUE, effects = "fixed") %>%
+    filter(term == "treatmentHFD") %>%
     mutate(model = "Mixed model (random litter)")
-) |>
+) %>%
   select(model, estimate, conf.low, conf.high, p.value)
 ```
 
 The mixed model correctly accounts for within-litter correlation, giving appropriately calibrated standard errors.
 
 ```{r litter-plot}
-mouse_data |>
+mouse_data %>%
   ggplot(aes(x = treatment, y = weight_g, color = factor(litter))) +
   geom_jitter(width = 0.15, alpha = 0.6, size = 2) +
   geom_line(aes(group = litter), stat = "summary", fun = mean,
@@ -199,25 +196,23 @@ mouse_data |>
 
 ```{r ranef}
 # How much does each litter deviate from the grand mean?
-ranef(fit_litter)$litter |>
-  tibble::rownames_to_column("litter") |>
-  arrange(desc(`(Intercept)`)) |>
+ranef(fit_litter)$litter %>%
+  tibble::rownames_to_column("litter") %>%
+  arrange(desc(`(Intercept)`)) %>%
   head(8)
 ```
 
----
 
 ## Where to Find Data Like This {.callout-note}
 
-**`lme4::sleepstudy`:** Reaction time measured on 18 subjects over 10 days of sleep deprivation â€” the canonical random-slope example.
+**`lme4::sleepstudy`:** Reaction time measured on 18 subjects over 10 days of sleep deprivation — the canonical random-slope example.
 
-**`nlme::Orthodont`:** Growth measurements in children over time â€” classic repeated-measures dataset.
+**`nlme::Orthodont`:** Growth measurements in children over time — classic repeated-measures dataset.
 
 **`survival::pbc`:** Simulate longitudinal data from the cross-sectional baseline as shown above, or use `pbcseq` for a real longitudinal extension.
 
 **Your own data:** Any experiment with repeated measures per subject (cell line, animal, patient) or a hierarchy (animals within litters, patients within clinics) is a candidate for a mixed model.
 
----
 
 ## What Can Go Wrong {.callout-warning}
 
@@ -228,12 +223,11 @@ These simpler methods cannot adjust for continuous covariates or handle unbalanc
 Fitting a random slope for every predictor often leads to singular fits (variance estimate collapses to zero) or convergence failures. Start with a random intercept and add random slopes only if theoretically motivated and if the model converges.
 
 **Singular fit warning**
-`lmer()` warns "singular fit" when the random effects variance is estimated as zero or the correlation between random effects is Â±1. This usually means the model is overparameterised for your data. Simplify the random effects structure.
+`lmer()` warns "singular fit" when the random effects variance is estimated as zero or the correlation between random effects is ±1. This usually means the model is overparameterised for your data. Simplify the random effects structure.
 
 **Interpreting the ICC as a nuisance**
-High ICC is not a problem to solve â€” it is a finding. It tells you there is substantial patient-level (or litter-level) variation that your predictors do not explain. Report it and consider whether it has scientific meaning.
+High ICC is not a problem to solve — it is a finding. It tells you there is substantial patient-level (or litter-level) variation that your predictors do not explain. Report it and consider whether it has scientific meaning.
 
----
 
 ## Exercises
 
@@ -279,8 +273,8 @@ ml2 <- lmer(weight_g ~ treatment + (1 + treatment | litter),   data = mouse_data
 
 AIC(ml1, ml2)
 
-ranef(ml1)$litter |>
-  tibble::rownames_to_column("litter") |>
+ranef(ml1)$litter %>%
+  tibble::rownames_to_column("litter") %>%
   arrange(desc(abs(`(Intercept)`)))
 ```
 :::
@@ -296,23 +290,22 @@ Using `lme4::sleepstudy`, fit a random-intercept and then a random-slope model f
 
 Write a Methods paragraph as you would in a neuroscience paper.
 
----
 
 ## Comprehension Check
 
 1. You have 50 mice from 10 litters (5 per litter). Your outcome is tumour volume and your predictor is drug dose. Why should you use a mixed model rather than simple regression?
 2. The ICC in your model is 0.55. What does this mean?
 3. `lmer()` gives a "singular fit" warning. What should you do?
-4. The fixed effect for time is âˆ’0.015 (SE = 0.004) in your mixed model. Interpret this estimate.
+4. The fixed effect for time is -0.015 (SE = 0.004) in your mixed model. Interpret this estimate.
 5. You want to know whether the *slope* of albumin over time differs by treatment. How would you specify this model?
 
 ::: {.callout-note collapse="true"}
 ### Answers
 1. Mice from the same litter share genetic background and early environment, making their tumour volumes correlated within litter. Ignoring this within-litter correlation treats 50 mice as 50 independent observations, but the effective sample size is closer to 10 (litters). Simple regression will produce standard errors that are too small, inflating Type I error. A random intercept per litter accounts for this correlation.
-2. ICC = 0.55 means 55% of the total outcome variance is explained by between-patient (or between-litter) differences. 45% is within-patient noise. High ICC indicates substantial clustering â€” the random effect is important and cannot be ignored.
-3. Singular fit means one variance component is estimated as zero or a correlation is Â±1 â€” the model is too complex for your data. First, check whether the random slope or random correlation term is the issue (`isSingular(fit)` details). Simplify the random effects structure: remove random slopes, set correlations to zero with `(0 + time | id)`, or use only a random intercept.
+2. ICC = 0.55 means 55% of the total outcome variance is explained by between-patient (or between-litter) differences. 45% is within-patient noise. High ICC indicates substantial clustering — the random effect is important and cannot be ignored.
+3. Singular fit means one variance component is estimated as zero or a correlation is ±1 — the model is too complex for your data. First, check whether the random slope or random correlation term is the issue (`isSingular(fit)` details). Simplify the random effects structure: remove random slopes, set correlations to zero with `(0 + time | id)`, or use only a random intercept.
 4. Holding treatment constant, albumin declines by 0.015 g/dL per month on average across patients. This is the population-average rate of decline (fixed effect), not the rate for any individual patient.
-5. Specify a treatment Ã— time interaction in the fixed effects and a random slope for time: `lmer(albumin ~ time * trt + (1 + time | id), data = ..., REML = FALSE)`. The interaction term `time:trtDrug` gives the difference in slope between Drug and Placebo. The random slope `(1 + time | id)` allows individual patients to have their own rate of change.
+5. Specify a treatment × time interaction in the fixed effects and a random slope for time: `lmer(albumin ~ time * trt + (1 + time | id), data = ..., REML = FALSE)`. The interaction term `time:trtDrug` gives the difference in slope between Drug and Placebo. The random slope `(1 + time | id)` allows individual patients to have their own rate of change.
 :::
 
 ## Further Reading

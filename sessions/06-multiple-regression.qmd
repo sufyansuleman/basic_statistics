@@ -1,4 +1,4 @@
-ï»¿# Multiple Linear Regression {#sec-multiple-regression}
+# Multiple Linear Regression {#sec-multiple-regression}
 
 ```{r setup}
 #| include: false
@@ -15,7 +15,7 @@ This session extends simple linear regression to multiple predictors. If you hav
 
 ## When Do You Use This? {.callout-tip}
 
-> Bilirubin and prothrombin time both predict albumin â€” but they are correlated with each other. Multiple regression lets you ask: "What is the effect of bilirubin on albumin, *holding prothrombin time constant*?" It adjusts for confounders and allows you to model a continuous outcome with several predictors simultaneously.
+> Bilirubin and prothrombin time both predict albumin — but they are correlated with each other. Multiple regression lets you ask: "What is the effect of bilirubin on albumin, *holding prothrombin time constant*?" It adjusts for confounders and allows you to model a continuous outcome with several predictors simultaneously.
 
 ## Learning Objectives
 
@@ -27,7 +27,6 @@ After completing this session you will be able to:
 - Compare nested models using AIC and likelihood ratio tests
 - Interpret and report interaction terms
 
----
 
 ## Background: Extending the Linear Model
 
@@ -43,9 +42,8 @@ Each $\beta_j$ is the **partial effect** of $X_j$ on $Y$, holding all other pred
 
 $$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 (X_1 \times X_2) + \varepsilon$$
 
-**Multicollinearity:** When predictors are highly correlated, their coefficients become unstable. Variance Inflation Factor (VIF) > 5â€“10 signals a problem.
+**Multicollinearity:** When predictors are highly correlated, their coefficients become unstable. Variance Inflation Factor (VIF) > 5–10 signals a problem.
 
----
 
 ## Worked Example 1: Clinical Data (PBC)
 
@@ -54,10 +52,10 @@ $$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 (X_1 \times X_2) + \varepsil
 We predict albumin from bilirubin, prothrombin time, and disease stage.
 
 ```{r pbc-setup}
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
-  filter(!is.na(albumin), !is.na(bili), !is.na(protime), !is.na(stage)) |>
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
+  filter(!is.na(albumin), !is.na(bili), !is.na(protime), !is.na(stage)) %>%
   mutate(
     log_bili   = log(bili),
     log_proto  = log(protime),
@@ -79,25 +77,25 @@ tidy(fit_full, conf.int = TRUE)
 ```{r glance-compare}
 # Compare model fit
 bind_rows(
-  glance(fit1) |> mutate(model = "log_bili only"),
-  glance(fit2) |> mutate(model = "log_proto only"),
-  glance(fit3) |> mutate(model = "stage only"),
-  glance(fit_full) |> mutate(model = "full model")
-) |>
+  glance(fit1) %>% mutate(model = "log_bili only"),
+  glance(fit2) %>% mutate(model = "log_proto only"),
+  glance(fit3) %>% mutate(model = "stage only"),
+  glance(fit_full) %>% mutate(model = "full model")
+) %>%
   select(model, r.squared, adj.r.squared, AIC, BIC)
 ```
 
 ### Interpreting Partial Coefficients
 
 ```{r coef-table}
-tidy(fit_full, conf.int = TRUE) |>
-  select(term, estimate, conf.low, conf.high, p.value) |>
+tidy(fit_full, conf.int = TRUE) %>%
+  select(term, estimate, conf.low, conf.high, p.value) %>%
   mutate(across(where(is.numeric), ~ round(.x, 3)))
 ```
 
 **Reading the output:**
-- **log_bili (âˆ’0.22):** After adjusting for prothrombin time and stage, each one-unit increase in log(bilirubin) is associated with 0.22 g/dL lower albumin.
-- **stageStage 2 (âˆ’0.09):** Patients in Stage 2 have 0.09 g/dL lower albumin than Stage 1 patients, after adjusting for bilirubin and prothrombin time.
+- **log_bili (-0.22):** After adjusting for prothrombin time and stage, each one-unit increase in log(bilirubin) is associated with 0.22 g/dL lower albumin.
+- **stageStage 2 (-0.09):** Patients in Stage 2 have 0.09 g/dL lower albumin than Stage 1 patients, after adjusting for bilirubin and prothrombin time.
 
 The coefficients change from the simple models because predictors share variance. Comparing univariable and multivariable estimates reveals confounding.
 
@@ -118,7 +116,7 @@ fit_reduced <- lm(albumin ~ log_bili + log_proto, data = pbc)
 anova(fit_reduced, fit_full)
 ```
 
-A significant F-test means the full model fits significantly better than the reduced model â€” stage adds explanatory value beyond bilirubin and prothrombin time.
+A significant F-test means the full model fits significantly better than the reduced model — stage adds explanatory value beyond bilirubin and prothrombin time.
 
 ### Including an Interaction
 
@@ -126,14 +124,13 @@ Does the effect of bilirubin on albumin differ by disease stage?
 
 ```{r interaction}
 fit_int <- lm(albumin ~ log_bili * stage, data = pbc)
-tidy(fit_int, conf.int = TRUE) |>
-  filter(str_starts(term, "log_bili")) |>
+tidy(fit_int, conf.int = TRUE) %>%
+  filter(str_starts(term, "log_bili")) %>%
   select(term, estimate, conf.low, conf.high, p.value)
 ```
 
 The interaction terms `log_bili:stageStage X` represent how much the slope of bilirubin differs in Stage X compared to Stage 1. If the CIs include zero, the slope does not differ significantly across stages.
 
----
 
 ## Worked Example 2: Animal Data (palmerpenguins)
 
@@ -142,7 +139,7 @@ Flipper length and bill length both predict body mass. Adding species as a covar
 ```{r penguin-multi}
 library(palmerpenguins)
 
-peng <- penguins |>
+peng <- penguins %>%
   drop_na(body_mass_g, flipper_length_mm, bill_length_mm, species)
 
 # Unadjusted
@@ -152,10 +149,10 @@ fit_unadj <- lm(body_mass_g ~ flipper_length_mm, data = peng)
 fit_adj <- lm(body_mass_g ~ flipper_length_mm + species, data = peng)
 
 bind_rows(
-  tidy(fit_unadj, conf.int = TRUE) |> mutate(model = "unadjusted"),
-  tidy(fit_adj,   conf.int = TRUE) |> mutate(model = "adjusted for species")
-) |>
-  filter(term == "flipper_length_mm") |>
+  tidy(fit_unadj, conf.int = TRUE) %>% mutate(model = "unadjusted"),
+  tidy(fit_adj,   conf.int = TRUE) %>% mutate(model = "adjusted for species")
+) %>%
+  filter(term == "flipper_length_mm") %>%
   select(model, estimate, conf.low, conf.high, p.value)
 ```
 
@@ -163,7 +160,7 @@ Adding species to the model changes the flipper length coefficient. This is conf
 
 ```{r penguin-interaction-plot}
 # Visualise: separate lines per species (equivalent to interaction)
-peng |>
+peng %>%
   ggplot(aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
   geom_point(alpha = 0.5) +
   geom_smooth(method = "lm", se = FALSE) +
@@ -173,22 +170,20 @@ peng |>
   theme_bw()
 ```
 
----
 
 ## Where to Find Data Like This {.callout-note}
 
-**PBC dataset:** `survival::pbc` â€” multiple correlated clinical predictors with a continuous outcome, ideal for demonstrating confounding and model building.
+**PBC dataset:** `survival::pbc` — multiple correlated clinical predictors with a continuous outcome, ideal for demonstrating confounding and model building.
 
-**palmerpenguins:** `palmerpenguins::penguins` â€” biological measurements with species as a natural confounder.
+**palmerpenguins:** `palmerpenguins::penguins` — biological measurements with species as a natural confounder.
 
 **NHANES:** Many continuous health outcomes (blood pressure, cholesterol) with multiple demographic and clinical predictors.
 
----
 
 ## What Can Go Wrong {.callout-warning}
 
 **Overfitting**
-Adding more predictors always increases $R^2$. Use adjusted $R^2$, AIC, or cross-validation to compare models â€” not raw $R^2$.
+Adding more predictors always increases $R^2$. Use adjusted $R^2$, AIC, or cross-validation to compare models — not raw $R^2$.
 
 **Multicollinearity**
 Highly correlated predictors produce inflated standard errors and unstable coefficients. Check VIF before interpreting a model with many predictors.
@@ -200,9 +195,8 @@ Adjusting for a variable on the causal pathway between exposure and outcome (a m
 Selecting predictors based on p-values from exploratory analysis, then reporting the final model as if it were pre-specified, produces overfitted models with inflated associations. Pre-register your model or use a penalised method (ridge, lasso).
 
 **Interpreting coefficients in models with interactions**
-When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference category â€” not the marginal effect. Always evaluate interactions at meaningful covariate values.
+When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference category — not the marginal effect. Always evaluate interactions at meaningful covariate values.
 
----
 
 ## Exercises
 
@@ -225,10 +219,10 @@ m2 <- lm(albumin ~ log_bili + log_proto, data = pbc)
 m3 <- lm(albumin ~ log_bili + log_proto + stage, data = pbc)
 
 bind_rows(
-  glance(m1) |> mutate(model = "1: log_bili"),
-  glance(m2) |> mutate(model = "2: + log_proto"),
-  glance(m3) |> mutate(model = "3: + stage")
-) |>
+  glance(m1) %>% mutate(model = "1: log_bili"),
+  glance(m2) %>% mutate(model = "2: + log_proto"),
+  glance(m3) %>% mutate(model = "3: + stage")
+) %>%
   select(model, adj.r.squared, AIC)
 
 anova(m2, m3)
@@ -247,14 +241,14 @@ Using `palmerpenguins::penguins`, fit a model predicting body mass from flipper 
 ### Exercise 2: Solution
 
 ```{r}
-peng3 <- penguins |> drop_na()
+peng3 <- penguins %>% drop_na()
 fit_i  <- lm(body_mass_g ~ flipper_length_mm * species, data = peng3)
 fit_no <- lm(body_mass_g ~ flipper_length_mm + species,  data = peng3)
 
 anova(fit_no, fit_i)
 
-tidy(fit_i, conf.int = TRUE) |>
-  filter(str_detect(term, "flipper")) |>
+tidy(fit_i, conf.int = TRUE) %>%
+  filter(str_detect(term, "flipper")) %>%
   select(term, estimate, conf.low, conf.high, p.value)
 ```
 :::
@@ -263,22 +257,21 @@ tidy(fit_i, conf.int = TRUE) |>
 
 In your own research, identify a continuous outcome with at least two potential predictors. Fit univariable and multivariable models. Compare the coefficients: do they change after adjustment? Interpret any changes as confounding and write a Methods section justifying your final model.
 
----
 
 ## Comprehension Check
 
-1. You fit a simple regression and get slope = âˆ’0.5 for log_bili. In the multivariable model with protime and stage, the slope is âˆ’0.2. What happened, and what does this tell you?
+1. You fit a simple regression and get slope = -0.5 for log_bili. In the multivariable model with protime and stage, the slope is -0.2. What happened, and what does this tell you?
 2. VIF for two of your predictors is 12 and 11. What is the problem, and what are your options?
 3. You compare two models with `anova()` and get p = 0.0003. What does this mean?
 4. A colleague says "AIC is lower for Model B, so Model B is definitely correct." Is this right?
-5. An interaction term has estimate = 0.15, 95% CI (âˆ’0.02, 0.32), p = 0.08. Should you include it in the final model?
+5. An interaction term has estimate = 0.15, 95% CI (-0.02, 0.32), p = 0.08. Should you include it in the final model?
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. The simple regression slope was confounded: bilirubin was acting partly as a proxy for prothrombin time and disease stage. After adjustment, the partial effect of bilirubin is smaller (âˆ’0.2), reflecting the unique contribution of bilirubin over and above the other predictors.
+1. The simple regression slope was confounded: bilirubin was acting partly as a proxy for prothrombin time and disease stage. After adjustment, the partial effect of bilirubin is smaller (-0.2), reflecting the unique contribution of bilirubin over and above the other predictors.
 2. VIF > 10 indicates severe multicollinearity. The two predictors are so highly correlated that their individual coefficients are unreliable (large SEs, may flip sign). Options: (1) remove one of the correlated predictors; (2) combine them into a composite score; (3) use ridge regression, which handles multicollinearity by regularisation.
-3. The F-test comparing the two models is highly significant â€” the larger model fits significantly better than the smaller model. At least one of the additional predictors contributes meaningfully.
-4. No. AIC is a relative measure of model quality penalised for complexity. Lower AIC means better fit-to-complexity balance among the models compared â€” but it does not guarantee the model is "correct" in an absolute sense. The true model could be something neither model captures.
+3. The F-test comparing the two models is highly significant — the larger model fits significantly better than the smaller model. At least one of the additional predictors contributes meaningfully.
+4. No. AIC is a relative measure of model quality penalised for complexity. Lower AIC means better fit-to-complexity balance among the models compared — but it does not guarantee the model is "correct" in an absolute sense. The true model could be something neither model captures.
 5. The evidence is weak and the CI includes zero. Whether to include it depends on context: if it was pre-specified and has a plausible biological rationale, you might retain it and acknowledge the marginal evidence. If it was data-driven, it is safer to use the main-effects model and note the trend.
 :::
 
@@ -287,4 +280,4 @@ In your own research, identify a continuous outcome with at least two potential 
 - @Dalgaard-2008 --- Multiple regression chapter in *Introductory Statistics with R*
 - @Bland-2015 --- Multivariable regression in *An Introduction to Medical Statistics*
 - `?lm`, `?vif` (from `car`), `?anova.lm` in R
-- @Harrell-2015 --- *Regression Modeling Strategies* â€” comprehensive reference for clinical regression
+- @Harrell-2015 --- *Regression Modeling Strategies* — comprehensive reference for clinical regression

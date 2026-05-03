@@ -7,9 +7,9 @@ library(tidyverse)
 library(patchwork)
 library(survival)
 
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
   mutate(
     sex   = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
     stage = factor(stage, labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4"))
@@ -30,7 +30,6 @@ After completing this session you will be able to:
 - Add annotations, subtitles, and labels that communicate the key message
 - Build a publication-ready multi-panel figure with `patchwork`
 
----
 
 ## Background: Design Principles for Research Figures
 
@@ -47,14 +46,13 @@ The questions to ask before making any figure:
 3. Does it show uncertainty (error bars, confidence bands)?
 4. Is the axis range honest (does it start at zero if appropriate)?
 
----
 
 ## 1. Layered Plots: Raw Data + Trend + Uncertainty
 
 Layered plots let you combine raw observations, a trend line, and uncertainty bands in one figure.
 
 ```{r layered-plot}
-pbc |>
+pbc %>%
   ggplot(aes(x = age, y = bili, color = sex)) +
   geom_point(alpha = 0.5, size = 2) +
   geom_smooth(method = "lm", se = TRUE) +
@@ -82,7 +80,7 @@ Faceting repeats the same plot for each level of a variable. Use it when
 the research question asks: "is this pattern consistent across subgroups?"
 
 ```{r faceting}
-pbc |>
+pbc %>%
   ggplot(aes(x = age, y = bili)) +
   geom_point(alpha = 0.6, color = "steelblue") +
   facet_wrap(~ sex) +
@@ -104,7 +102,7 @@ uncertainty.
 The best figures include titles and subtitles that state the conclusion, not just describe the data.
 
 ```{r theme-annotation}
-pbc |>
+pbc %>%
   ggplot(aes(x = age, y = bili, color = sex)) +
   geom_point(size = 2, alpha = 0.7) +
   geom_smooth(method = "lm", se = FALSE) +
@@ -132,7 +130,7 @@ Checking model assumptions visually is an essential step before reporting result
 
 ```{r diagnostics-predictions}
 lm_bili_age <- lm(bili ~ age + sex, data = pbc)
-pbc_diag <- pbc |>
+pbc_diag <- pbc %>%
   mutate(fitted = fitted(lm_bili_age), resid = residuals(lm_bili_age))
 
 # Residuals vs fitted values
@@ -153,7 +151,7 @@ ggplot(pbc_diag, aes(sample = resid)) +
 new_age <- expand.grid(
   age = seq(min(pbc$age, na.rm = TRUE), max(pbc$age, na.rm = TRUE), length.out = 100),
   sex = levels(pbc$sex)
-) |> as_tibble()
+) %>% as_tibble()
 preds_conf <- predict(lm_bili_age, newdata = new_age, interval = "confidence")
 preds_df <- bind_cols(new_age, as_tibble(preds_conf))
 
@@ -166,7 +164,6 @@ ggplot(preds_df, aes(x = age, y = fit, color = sex, fill = sex)) +
   theme_bw()
 ```
 
----
 
 ## 5. Building a Multi-Panel Publication Figure
 
@@ -178,8 +175,8 @@ p_hist <- ggplot(pbc, aes(x = bili)) +
   labs(title = "A", x = "Bilirubin (mg/dL)", y = "Count") +
   theme_classic(base_size = 12)
 
-p_box <- pbc |>
-  filter(!is.na(stage)) |>
+p_box <- pbc %>%
+  filter(!is.na(stage)) %>%
   ggplot(aes(x = stage, y = bili, fill = stage)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, alpha = 0.3, size = 1) +
@@ -199,7 +196,6 @@ p_scatter <- ggplot(pbc, aes(x = age, y = bili, color = sex)) +
 wrap_plots(p_hist, p_box) / p_scatter
 ```
 
----
 
 ## Where to Find Data Like This {.callout-note}
 
@@ -216,7 +212,6 @@ library(GEOquery)
 gse <- getGEO("GSE12345")
 ```
 
----
 
 ## What Can Go Wrong {.callout-warning}
 
@@ -232,7 +227,6 @@ If you log-transform a variable for the model, check residuals on the log scale 
 **Misleading y-axis truncation**
 Truncating the y-axis (not starting at zero) can make small differences look large. This is sometimes appropriate (e.g., for tightly clustered lab values) but must be deliberate and noted.
 
----
 
 ## Exercises
 
@@ -278,8 +272,8 @@ Fit a linear model: `albumin ~ age + sex` in the `pbc` dataset.
 
 ```{r}
 fit <- lm(albumin ~ age + sex, data = pbc)
-diag_df <- pbc |>
-  filter(!is.na(albumin)) |>
+diag_df <- pbc %>%
+  filter(!is.na(albumin)) %>%
   mutate(fitted = fitted(fit), resid = residuals(fit))
 
 # Residuals vs fitted
@@ -302,7 +296,6 @@ Residuals show some slight positive skew in the tails (expected for albumin), bu
 
 Choose any model you have previously fitted (or fit a new one). Build a three-panel publication figure: panel A shows the raw data, panel B shows predicted values with confidence bands, and panel C shows residual diagnostics. Use `patchwork` to assemble the panels and `theme_classic()` throughout.
 
----
 
 ## Comprehension Check
 

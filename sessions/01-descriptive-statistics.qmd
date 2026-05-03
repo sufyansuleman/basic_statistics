@@ -23,7 +23,6 @@ After completing this session you will be able to:
 - Recognize skewed distributions and apply log transformations
 - Write a plain-English interpretation of a descriptive summary
 
----
 
 ## Background: The EDA Mindset
 
@@ -36,7 +35,6 @@ The questions to answer in any EDA:
 4. What is the distribution of each continuous variable (symmetric, skewed, bimodal)?
 5. Are there any values that seem implausible (outliers, data entry errors)?
 
----
 
 ## Worked Example 1: Primary Biliary Cholangitis (Clinical)
 
@@ -45,9 +43,9 @@ The questions to answer in any EDA:
 The `pbc` dataset from the `survival` package contains clinical and laboratory data on 418 patients with primary biliary cholangitis. This is a real clinical trial dataset.
 
 ```{r load-pbc}
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
   mutate(
     sex   = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
     stage = factor(stage, levels = 1:4, labels = paste("Stage", 1:4)),
@@ -65,7 +63,7 @@ nrow(pbc)
 ncol(pbc)
 
 # How many missing per column?
-colSums(is.na(pbc)) |> sort(decreasing = TRUE) |> head(10)
+colSums(is.na(pbc)) %>% sort(decreasing = TRUE) %>% head(10)
 ```
 
 ### Step 2: Quick Overview with `skimr`
@@ -82,16 +80,16 @@ In clinical research, Table 1 shows baseline characteristics split by treatment 
 
 ```{r table1}
 tbl_summary(
-  pbc |> select(age, sex, bili, albumin, protime, stage, trt),
+  pbc %>% select(age, sex, bili, albumin, protime, stage, trt),
   by       = trt,
   statistic = list(
     all_continuous()  ~ "{mean} ({sd})",
     all_categorical() ~ "{n} ({p}%)"
   ),
   missing = "ifany"
-) |>
-  add_p() |>
-  add_overall() |>
+) %>%
+  add_p() %>%
+  add_overall() %>%
   bold_labels()
 ```
 
@@ -110,7 +108,7 @@ The distribution is strongly right-skewed. This is common for lab values (biliru
 
 ```{r bilirubin-log}
 # Compare raw vs log-transformed
-pbc_plot <- pbc |> filter(!is.na(bili))
+pbc_plot <- pbc %>% filter(!is.na(bili))
 
 p1 <- ggplot(pbc_plot, aes(x = bili)) +
   geom_histogram(bins = 30, fill = "steelblue", color = "white") +
@@ -129,8 +127,8 @@ wrap_plots(p1, p2)
 ### Step 5: Bilirubin by Disease Stage
 
 ```{r boxplot-stage}
-pbc |>
-  filter(!is.na(stage)) |>
+pbc %>%
+  filter(!is.na(stage)) %>%
   ggplot(aes(x = stage, y = bili, fill = stage)) +
   geom_boxplot(alpha = 0.7) +
   geom_jitter(width = 0.15, alpha = 0.3, size = 1.2) +
@@ -144,9 +142,9 @@ pbc |>
 ### Step 6: Group Summary Table
 
 ```{r group-summary}
-pbc |>
-  filter(!is.na(stage)) |>
-  group_by(stage) |>
+pbc %>%
+  filter(!is.na(stage)) %>%
+  group_by(stage) %>%
   summarise(
     n            = n(),
     pct_missing  = round(mean(is.na(bili)) * 100, 1),
@@ -159,7 +157,6 @@ pbc |>
 
 Median bilirubin rises consistently from Stage 1 to Stage 4, from roughly 0.7 mg/dL to over 5 mg/dL. This pattern is consistent with progressive liver dysfunction: bilirubin is cleared by the liver, so rising serum levels reflect worsening hepatic function. The IQR also widens in later stages, indicating more heterogeneity among patients with advanced disease.
 
----
 
 ## Worked Example 2: Plant Growth Study (Lab Data)
 
@@ -168,8 +165,8 @@ Not all research is clinical. This example demonstrates EDA on a simple designed
 ```{r plantgrowth}
 data("PlantGrowth")
 
-PlantGrowth |>
-  group_by(group) |>
+PlantGrowth %>%
+  group_by(group) %>%
   summarise(
     n      = n(),
     mean   = round(mean(weight), 2),
@@ -182,7 +179,7 @@ PlantGrowth |>
 ```
 
 ```{r plantgrowth-plot}
-PlantGrowth |>
+PlantGrowth %>%
   ggplot(aes(x = group, y = weight, fill = group)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, size = 2, alpha = 0.7) +
@@ -195,7 +192,6 @@ PlantGrowth |>
   theme(legend.position = "none")
 ```
 
----
 
 ## Where to Find Data Like This {.callout-note}
 
@@ -215,7 +211,6 @@ body_meas <- nhanes("BMX_J")   # body measurements, 2017-2018 cycle
 **Mouse phenotyping data:**
 [Mouse Phenome Database](https://phenome.jax.org) — downloadable `.csv` files.
 
----
 
 ## What Can Go Wrong {.callout-warning}
 
@@ -231,7 +226,6 @@ Disease stage (1, 2, 3, 4) looks numeric but is an ordered factor. Treat it as a
 **Table 1 with wrong test choice**
 `gtsummary` defaults are sensible but check: does the p-value use a t-test when the variable is skewed? Use `add_p(test = list(all_continuous() ~ "kruskal.test"))` when distributions are non-normal.
 
----
 
 ## Exercises
 
@@ -247,8 +241,8 @@ Using the `pbc` dataset:
 ::: {.callout-tip collapse="true" title="Exercise 1 — Solution"}
 ```{r}
 # Step 1: Summary by treatment group
-pbc |>
-  group_by(trt) |>
+pbc %>%
+  group_by(trt) %>%
   summarise(
     n           = n(),
     pct_missing = round(mean(is.na(albumin)) * 100, 1),
@@ -266,8 +260,8 @@ ggplot(pbc, aes(x = albumin)) +
   theme_bw()
 
 # Step 3: Boxplot by treatment group
-pbc |>
-  filter(!is.na(trt)) |>
+pbc %>%
+  filter(!is.na(trt)) %>%
   ggplot(aes(x = trt, y = albumin, fill = trt)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, alpha = 0.4, size = 1.5) +
@@ -293,8 +287,8 @@ Albumin is roughly normally distributed (mound-shaped histogram, symmetric). Med
 data("PlantGrowth")
 
 # Summary
-PlantGrowth |>
-  group_by(group) |>
+PlantGrowth %>%
+  group_by(group) %>%
   summarise(
     n      = n(),
     mean   = round(mean(weight), 2),
@@ -318,7 +312,6 @@ With only 10 observations per group it is hard to assess normality definitively,
 
 Choose any dataset you are currently working with or a public dataset from the Mouse Phenome Database or NHANES. Run a complete EDA: check dimensions and missingness, produce a `skim()` summary, plot at least one continuous variable, and produce a group summary table. Write a paragraph describing what you found and what it implies for any subsequent analysis.
 
----
 
 ## Comprehension Check
 

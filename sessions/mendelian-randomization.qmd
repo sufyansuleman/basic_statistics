@@ -1,4 +1,4 @@
-ï»¿# Mendelian Randomisation {#sec-mr}
+# Mendelian Randomisation {#sec-mr}
 
 ```{r setup}
 #| include: false
@@ -9,7 +9,7 @@ library(broom)
 
 ## When Do You Use This? {.callout-tip}
 
-> You want to know whether high LDL cholesterol causally increases the risk of liver disease. Observational studies are confounded â€” sick people may both have elevated LDL and worse liver function. An RCT randomising people to high or low LDL is impossible. Mendelian randomisation uses genetic variants that naturally raise LDL as a randomisation instrument: because genotype is assigned at conception, it cannot be confounded by lifestyle or disease state.
+> You want to know whether high LDL cholesterol causally increases the risk of liver disease. Observational studies are confounded — sick people may both have elevated LDL and worse liver function. An RCT randomising people to high or low LDL is impossible. Mendelian randomisation uses genetic variants that naturally raise LDL as a randomisation instrument: because genotype is assigned at conception, it cannot be confounded by lifestyle or disease state.
 
 ## Learning Objectives
 
@@ -21,7 +21,6 @@ After completing this session you will be able to:
 - Interpret MR effect estimates and report them correctly
 - Recognise horizontal pleiotropy and apply sensitivity analyses (MR-Egger, weighted median, MR-PRESSO)
 
----
 
 ## Background: Mendelian Randomisation as an Instrument
 
@@ -32,7 +31,7 @@ An **instrumental variable (IV)** $Z$ satisfies three assumptions:
 | Assumption | Condition | How to check |
 |------------|-----------|--------------|
 | **Relevance** | $Z$ is associated with the exposure $X$ | F-statistic > 10 in first stage |
-| **Independence (exchangeability)** | $Z$ is not associated with confounders $U$ | By Mendel's laws â€” genes assigned randomly at meiosis |
+| **Independence (exchangeability)** | $Z$ is not associated with confounders $U$ | By Mendel's laws — genes assigned randomly at meiosis |
 | **Exclusion restriction** | $Z$ affects the outcome $Y$ *only* through $X$ | Untestable; violated by horizontal pleiotropy |
 
 In MR, the IV is a **genetic variant (SNP)** associated with the exposure. Because genotype is determined before disease and is largely orthogonal to environmental confounders, it approximates a natural randomisation.
@@ -45,7 +44,6 @@ $$\hat{\beta}_{MR} = \frac{\hat{\beta}_{ZY}}{\hat{\beta}_{ZX}}$$
 
 where $\hat{\beta}_{ZY}$ is the SNP-outcome association and $\hat{\beta}_{ZX}$ is the SNP-exposure association. Both are obtained from GWAS summary statistics (or individual-level regression in one-sample MR).
 
----
 
 ## Worked Example 1: Simulated One-Sample MR
 
@@ -58,7 +56,7 @@ n <- 5000
 # Simulate genetic score (standardised polygenic score for LDL)
 G <- rbinom(n, 2, 0.3)          # 0/1/2 copies of effect allele
 
-# Simulate confounder (BMI) â€” NOT associated with G (by Mendel's laws)
+# Simulate confounder (BMI) — NOT associated with G (by Mendel's laws)
 BMI <- rnorm(n, 25, 4)
 
 # LDL causally affected by G and BMI
@@ -75,7 +73,7 @@ sim <- tibble(G, BMI, LDL, ALT)
 ```{r naive-ols}
 # OLS is biased because BMI confounds LDL-ALT association
 fit_ols <- lm(ALT ~ LDL, data = sim)
-tidy(fit_ols, conf.int = TRUE) |> filter(term == "LDL")
+tidy(fit_ols, conf.int = TRUE) %>% filter(term == "LDL")
 ```
 
 The OLS estimate is inflated because BMI raises both LDL and ALT.
@@ -83,14 +81,14 @@ The OLS estimate is inflated because BMI raises both LDL and ALT.
 ### Wald Ratio MR
 
 ```{r wald-ratio}
-# First stage: SNP â†’ LDL (relevance check)
+# First stage: SNP ? LDL (relevance check)
 fit_z_x <- lm(LDL ~ G, data = sim)
 beta_zx  <- coef(fit_z_x)["G"]
 se_zx    <- summary(fit_z_x)$coefficients["G", "Std. Error"]
 f_stat   <- (beta_zx / se_zx)^2
 cat("First-stage F-statistic:", round(f_stat, 1), "\n")
 
-# Reduced form: SNP â†’ ALT
+# Reduced form: SNP ? ALT
 fit_z_y <- lm(ALT ~ G, data = sim)
 beta_zy  <- coef(fit_z_y)["G"]
 se_zy    <- summary(fit_z_y)$coefficients["G", "Std. Error"]
@@ -111,12 +109,11 @@ cat("True causal effect: 0.3\n")
 ```{r tsls}
 library(AER)   # ivreg()
 fit_iv <- ivreg(ALT ~ LDL | G, data = sim)
-tidy(fit_iv, conf.int = TRUE) |> filter(term == "LDL")
+tidy(fit_iv, conf.int = TRUE) %>% filter(term == "LDL")
 ```
 
 2SLS is the multi-instrument generalisation of the Wald ratio. The result should match the Wald ratio when only one instrument is used.
 
----
 
 ## Worked Example 2: Summary-Level Two-Sample MR
 
@@ -130,7 +127,7 @@ Here we use the `TwoSampleMR` package to query the MR-Base database.
 #| eval: false
 library(TwoSampleMR)
 
-# Example: LDL â†’ coronary artery disease (publicly available data)
+# Example: LDL ? coronary artery disease (publicly available data)
 exposure <- extract_instruments("ieu-a-300")     # LDL from GLGC GWAS
 outcome  <- extract_outcome_data(
   snps    = exposure$SNP,
@@ -140,11 +137,11 @@ dat <- harmonise_data(exposure, outcome)
 
 # Primary MR methods
 res <- mr(dat)
-res |> select(method, b, se, pval, lo_ci, up_ci)
+res %>% select(method, b, se, pval, lo_ci, up_ci)
 ```
 
 The output reports:
-- **IVW (inverse-variance weighted):** Main estimate â€” assumes no directional pleiotropy
+- **IVW (inverse-variance weighted):** Main estimate — assumes no directional pleiotropy
 - **MR-Egger:** Allows for pleiotropy; the intercept tests for it
 - **Weighted median:** Consistent estimate if >50% of instruments are valid
 - **MR-PRESSO:** Detects and corrects for outlier pleiotropy
@@ -158,30 +155,28 @@ n_snps  <- 20
 beta_x  <- rnorm(n_snps, 0.05, 0.02)        # SNP-LDL effects
 beta_y  <- 0.3 * beta_x + rnorm(n_snps, 0, 0.008)  # SNP-outcome (no pleiotropy)
 
-tibble(beta_x, beta_y) |>
+tibble(beta_x, beta_y) %>%
   ggplot(aes(x = beta_x, y = beta_y)) +
   geom_point(size = 2, color = "steelblue") +
   geom_smooth(method = "lm", se = TRUE, color = "tomato") +
   geom_hline(yintercept = 0, linetype = "dashed") +
   labs(title = "MR scatter plot: SNP effects on exposure vs outcome",
-       x = "SNPâ€“Exposure (LDL) effect",
-       y = "SNPâ€“Outcome (ALT) effect") +
+       x = "SNP–Exposure (LDL) effect",
+       y = "SNP–Outcome (ALT) effect") +
   theme_bw()
 ```
 
----
 
 ## Where to Find Data Like This {.callout-note}
 
-**MR-Base (IEU Open GWAS):** `TwoSampleMR::available_outcomes()` â€” thousands of GWAS summary datasets freely accessible via the `TwoSampleMR` package.
+**MR-Base (IEU Open GWAS):** `TwoSampleMR::available_outcomes()` — thousands of GWAS summary datasets freely accessible via the `TwoSampleMR` package.
 
 **UK Biobank GWAS:** Downloadable summary statistics for thousands of traits at [https://www.ukbiobank.ac.uk](https://www.ukbiobank.ac.uk).
 
-**FinnGen:** European biobank GWAS summary data â€” [https://www.finngen.fi](https://www.finngen.fi).
+**FinnGen:** European biobank GWAS summary data — [https://www.finngen.fi](https://www.finngen.fi).
 
-**PhenoScanner:** Query SNP associations across thousands of traits â€” [http://www.phenoscanner.medschl.cam.ac.uk](http://www.phenoscanner.medschl.cam.ac.uk).
+**PhenoScanner:** Query SNP associations across thousands of traits — [http://www.phenoscanner.medschl.cam.ac.uk](http://www.phenoscanner.medschl.cam.ac.uk).
 
----
 
 ## What Can Go Wrong {.callout-warning}
 
@@ -197,7 +192,6 @@ Using the same dataset to select instruments and to estimate the causal effect i
 **Confounding by population stratification**
 If the exposure and outcome GWAS come from populations with different ancestry, SNP effects may differ by ancestry and confound the MR estimate. Use ancestry-matched datasets or multi-ancestry sensitivity analyses.
 
----
 
 ## Exercises
 
@@ -215,7 +209,7 @@ Using the simulated `sim` dataset:
 ```{r}
 fit1 <- lm(LDL ~ G, data = sim)
 f    <- summary(fit1)$fstatistic["value"]
-cat("F-statistic:", round(f, 1), "â€” strong if > 10\n")
+cat("F-statistic:", round(f, 1), "— strong if > 10\n")
 
 # Weak instrument
 G_weak  <- rbinom(nrow(sim), 2, 0.05)
@@ -253,11 +247,10 @@ cat("Wald ratio with pleiotropy:", round(wald_p, 3), "\n")
 
 Identify a trait relevant to your research that has publicly available GWAS summary data (check MR-Base or GWAS Catalog). Design an MR study:
 
-1. State your causal hypothesis (exposure â†’ outcome).
+1. State your causal hypothesis (exposure ? outcome).
 2. List the MR assumptions and how they might be violated for your chosen instrument.
 3. Specify which sensitivity analyses you would run and what conclusions you could draw if they disagree with the IVW result.
 
----
 
 ## Comprehension Check
 
@@ -269,16 +262,16 @@ Identify a trait relevant to your research that has publicly available GWAS summ
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. Genetic variants are assigned at conception by the random process of meiosis â€” effectively a natural randomisation that is independent of most environmental confounders, reverse causation (genes precede disease), and confounders that develop over the life course. This mimics the randomised assignment in an RCT, though only for the specific exposure pathway affected by those variants.
+1. Genetic variants are assigned at conception by the random process of meiosis — effectively a natural randomisation that is independent of most environmental confounders, reverse causation (genes precede disease), and confounders that develop over the life course. This mimics the randomised assignment in an RCT, though only for the specific exposure pathway affected by those variants.
 2. F < 10 indicates a weak instrument. Weak instruments lead to inflated standard errors, low power, and in one-sample MR, bias toward the OLS estimate. Options: add more SNPs to construct a stronger polygenic score, or restrict to SNPs from larger GWAS with better power. Do not proceed with MR if the instrument is too weak.
-3. A significant MR-Egger intercept means that the SNP effects on the outcome have a direction-dependent offset after regressing on SNP-exposure effects â€” evidence of directional (systematic) horizontal pleiotropy. The IVW estimate is biased. The MR-Egger slope provides a pleiotropy-corrected estimate, but it is less precise than IVW.
+3. A significant MR-Egger intercept means that the SNP effects on the outcome have a direction-dependent offset after regressing on SNP-exposure effects — evidence of directional (systematic) horizontal pleiotropy. The IVW estimate is biased. The MR-Egger slope provides a pleiotropy-corrected estimate, but it is less precise than IVW.
 4. The IVW assumes all instruments are valid; if some SNPs are pleiotropic, the IVW is biased. The weighted median is consistent if at least 50% of the instrument weight comes from valid SNPs. A large discrepancy (0.4 vs 0.1) suggests substantial pleiotropy. Report all estimates, run MR-PRESSO to identify outlier SNPs, and interpret cautiously. The true causal effect is probably closer to the more conservative weighted-median estimate.
-5. This is the **one-sample overlap** problem. When instrument selection and causal estimation use the same dataset, the winner's curse inflates the apparent instrument strength, and the 2SLS estimate is biased toward the OLS (confounded) estimate in proportion to the instrument's weakness. A two-sample design â€” instrument-exposure association from one independent GWAS, instrument-outcome association from another â€” avoids this.
+5. This is the **one-sample overlap** problem. When instrument selection and causal estimation use the same dataset, the winner's curse inflates the apparent instrument strength, and the 2SLS estimate is biased toward the OLS (confounded) estimate in proportion to the instrument's weakness. A two-sample design — instrument-exposure association from one independent GWAS, instrument-outcome association from another — avoids this.
 :::
 
 ## Further Reading
 
-- @Davey-Smith-2003 --- *Mendelian randomization: can genetic epidemiology contribute to understanding environmental determinants of disease?* (IJE â€” the original MR paper)
-- @Bowden-2015 --- *Mendelian Randomization with invalid instruments* â€” MR-Egger paper
+- @Davey-Smith-2003 --- *Mendelian randomization: can genetic epidemiology contribute to understanding environmental determinants of disease?* (IJE — the original MR paper)
+- @Bowden-2015 --- *Mendelian Randomization with invalid instruments* — MR-Egger paper
 - `TwoSampleMR` package vignette (MR-Base documentation)
 - @Hemani-2018 --- *The MR-Base platform supports systematic causal inference across the human phenome* (eLife)

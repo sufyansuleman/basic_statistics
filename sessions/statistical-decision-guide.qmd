@@ -19,7 +19,6 @@ After completing this session you will be able to:
 - Recognise when assumptions are violated and choose a non-parametric alternative
 - Find the relevant course session for every method covered
 
----
 
 ## The Decision Framework
 
@@ -29,7 +28,6 @@ Every statistical test choice starts with three questions:
 2. **What are you comparing?** (one group vs reference, two groups, =3 groups, association/correlation, prediction)
 3. **Are assumptions met?** (normality, equal variance, independence, sample size)
 
----
 
 ## Decision Tables by Question Type
 
@@ -84,7 +82,6 @@ Every statistical test choice starts with three questions:
 | Two proportions | Chi-square / Fisher's exact | @sec-categorical |
 | Relative risk / odds ratio | Logistic regression | @sec-logistic-regression |
 
----
 
 ## Worked Example: Navigating to the Right Test
 
@@ -111,7 +108,6 @@ t.test(after, before, paired = TRUE)
 
 **Decision path:** Continuous outcome ? Paired groups ? Normal differences ? **Paired t-test** ? @sec-t-tests
 
----
 
 ## Worked Example 2: Binary Outcome — Choosing Between Chi-Square and Logistic Regression
 
@@ -134,15 +130,14 @@ If you need to **adjust for age and BMI**, switch to logistic regression:
 ```{r binary-logistic}
 age <- rnorm(n, 50, 10)
 bmi <- rnorm(n, 27, 4)
-dat2 <- dat |> mutate(nafld_num = as.integer(nafld) - 1, age, bmi, sex = factor(sex))
-glm(nafld_num ~ sex + age + bmi, data = dat2, family = binomial) |>
-  broom::tidy(exponentiate = TRUE, conf.int = TRUE) |>
+dat2 <- dat %>% mutate(nafld_num = as.integer(nafld) - 1, age, bmi, sex = factor(sex))
+glm(nafld_num ~ sex + age + bmi, data = dat2, family = binomial) %>%
+  broom::tidy(exponentiate = TRUE, conf.int = TRUE) %>%
   select(term, estimate, conf.low, conf.high, p.value)
 ```
 
 **Decision path:** Binary outcome ? Association with one predictor ? **Chi-square** (unadjusted). Add covariates ? **Logistic regression** ? @sec-logistic-regression
 
----
 
 ## Assumption Checking Quick Reference
 
@@ -155,7 +150,6 @@ glm(nafld_num ~ sex + age + bmi, data = dat2, family = binomial) |>
 | Linearity (regression) | Residual vs fitted | Polynomial or log transform |
 | No influential outliers | Cook's distance | Robust regression |
 
----
 
 ## Method × Assumption Summary
 
@@ -170,11 +164,10 @@ tribble(
   "Linear regression",   "Continuous", "Normal residuals", "Robust regression",
   "Logistic regression", "Binary",  "Sufficient events/predictor", "—",
   "Cox regression",      "Time-to-event", "Proportional hazards", "Stratified Cox"
-) |>
+) %>%
   knitr::kable()
 ```
 
----
 
 ## What Can Go Wrong {.callout-warning}
 
@@ -190,7 +183,6 @@ Running 20 tests and reporting the significant ones inflates the type I error. A
 **Treating ordinal as continuous**
 Likert scales (1–5) are ordinal. Means are interpretable but formal inference should use ordinal tests or models unless scales are well-validated and items are summed.
 
----
 
 ## Exercises
 
@@ -229,7 +221,6 @@ Take a published paper from your field. For each analysis reported:
 2. Assess whether the correct test was used based on the decision tables above.
 3. Note one assumption that the authors did or did not check, and state how it could affect the conclusions.
 
----
 
 ## Comprehension Check
 

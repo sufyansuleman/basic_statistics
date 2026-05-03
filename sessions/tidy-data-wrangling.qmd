@@ -1,4 +1,4 @@
-﻿# Importing, Cleaning, and Reshaping Data {#sec-tidy-data-wrangling}
+# Importing, Cleaning, and Reshaping Data {#sec-tidy-data-wrangling}
 
 ```{r setup}
 #| include: false
@@ -43,7 +43,7 @@ wide <- tibble(
   Week3    = c(22.8, 23.1)
 )
 
-long <- wide |>
+long <- wide %>%
   pivot_longer(cols = starts_with("Week"),
                names_to = "week",
                values_to = "body_weight")
@@ -58,7 +58,6 @@ print(long)
 The key rule of tidy data: **one row = one observation**. For a mouse measured weekly, each mouse-week combination is a separate observation.
 :::
 
----
 
 ## Worked Example 1: Mouse Body Weight Study
 
@@ -109,7 +108,7 @@ glimpse(mouse_wide)
 ### Reshape: Wide to Long with `pivot_longer()`
 
 ```{r}
-mouse_long <- mouse_wide |>
+mouse_long <- mouse_wide %>%
   pivot_longer(
     cols      = starts_with("Week"),
     names_to  = "week",
@@ -124,7 +123,7 @@ The data now has **40 rows** (10 mice x 4 time points). This is the format `ggpl
 ### Clean: Extract the Week Number
 
 ```{r}
-mouse_long <- mouse_long |>
+mouse_long <- mouse_long %>%
   mutate(week_num = as.numeric(str_remove(week, "Week")))
 ```
 
@@ -132,15 +131,15 @@ mouse_long <- mouse_long |>
 
 ```{r}
 # Filter: only high-fat mice from Week 8 onwards
-hfd_late <- mouse_long |>
+hfd_late <- mouse_long %>%
   filter(group == "high_fat", week_num >= 8)
 
 # Select: keep only the columns needed
-analysis_cols <- mouse_long |>
+analysis_cols <- mouse_long %>%
   select(mouse_id, group, week_num, body_weight)
 
 # Mutate: set factor levels and add a derived column
-mouse_long <- mouse_long |>
+mouse_long <- mouse_long %>%
   mutate(
     group     = factor(group, levels = c("control", "high_fat")),
     weight_kg = body_weight / 1000
@@ -150,8 +149,8 @@ mouse_long <- mouse_long |>
 ### Summarise by Group
 
 ```{r}
-mouse_long |>
-  group_by(group, week_num) |>
+mouse_long %>%
+  group_by(group, week_num) %>%
   summarise(
     n           = n(),
     mean_weight = mean(body_weight, na.rm = TRUE),
@@ -165,8 +164,8 @@ mouse_long |>
 ```{r}
 #| fig-cap: "Mean body weight over time. Error bars show +/-1 SD."
 
-mouse_summary <- mouse_long |>
-  group_by(group, week_num) |>
+mouse_summary <- mouse_long %>%
+  group_by(group, week_num) %>%
   summarise(
     mean_weight = mean(body_weight),
     sd_weight   = sd(body_weight),
@@ -186,7 +185,6 @@ ggplot(mouse_summary, aes(x = week_num, y = mean_weight,
   theme_bw()
 ```
 
----
 
 ## Worked Example 2: Penguin Data
 
@@ -211,13 +209,13 @@ The `vis_miss()` plot shows the location and proportion of missing data across y
 ### Drop, Rename, and Summarise
 
 ```{r}
-penguins_clean <- penguins |>
-  drop_na() |>
+penguins_clean <- penguins %>%
+  drop_na() %>%
   rename(bill_len = bill_length_mm, bill_dep = bill_depth_mm,
          flipper = flipper_length_mm, mass_g = body_mass_g)
 
-penguins_clean |>
-  group_by(species, sex) |>
+penguins_clean %>%
+  group_by(species, sex) %>%
   summarise(
     n            = n(),
     mean_mass    = round(mean(mass_g), 1),
@@ -233,13 +231,12 @@ penguins_clean |>
 ### Reshape: Long to Wide with `pivot_wider()`
 
 ```{r}
-penguins_clean |>
-  group_by(species, island) |>
-  summarise(mean_mass = round(mean(mass_g), 0), .groups = "drop") |>
+penguins_clean %>%
+  group_by(species, island) %>%
+  summarise(mean_mass = round(mean(mass_g), 0), .groups = "drop") %>%
   pivot_wider(names_from = island, values_from = mean_mass)
 ```
 
----
 
 ## Joining Data Frames
 
@@ -271,7 +268,6 @@ combined
 Use `left_join()` by default. Always check `nrow()` before and after to confirm no rows were unexpectedly dropped or duplicated.
 :::
 
----
 
 ## Where to Find Data Like This {.callout-note}
 
@@ -289,12 +285,11 @@ library(nhanesA)
 demo <- nhanes("DEMO_J")   # 2017-2018 demographics cycle
 ```
 
----
 
 ## What Can Go Wrong {.callout-warning}
 
 **Column names with spaces or special characters**
-Use `janitor::clean_names()` immediately after import: `df <- read_csv("file.csv") |> clean_names()`
+Use `janitor::clean_names()` immediately after import: `df <- read_csv("file.csv") %>% clean_names()`
 
 **Silent type coercion**
 If a numeric column has a stray `"N/A"` string, `read_csv()` imports it as character. Always check with `glimpse()` and fix with `mutate(col = as.numeric(col))`.
@@ -302,7 +297,6 @@ If a numeric column has a stray `"N/A"` string, `read_csv()` imports it as chara
 **Row count changes after a join**
 If the key is not unique in both tables, `left_join()` can duplicate rows. Run `nrow(result) == nrow(original)` after every join.
 
----
 
 ## Exercises
 
@@ -328,12 +322,12 @@ hr_wide <- tibble(
 ### Exercise 1: Solution
 
 ```{r}
-hr_long <- hr_wide |>
-  pivot_longer(starts_with("Week"), names_to = "timepoint", values_to = "heart_rate") |>
+hr_long <- hr_wide %>%
+  pivot_longer(starts_with("Week"), names_to = "timepoint", values_to = "heart_rate") %>%
   mutate(week_num = as.numeric(str_remove(timepoint, "Week")))
 
-hr_summary <- hr_long |>
-  group_by(treatment, week_num) |>
+hr_summary <- hr_long %>%
+  group_by(treatment, week_num) %>%
   summarise(mean_hr = mean(heart_rate), se = sd(heart_rate)/sqrt(n()), .groups = "drop")
 
 ggplot(hr_summary, aes(x = week_num, y = mean_hr, color = treatment, group = treatment)) +
@@ -356,11 +350,11 @@ ggplot(hr_summary, aes(x = week_num, y = mean_hr, color = treatment, group = tre
 ### Exercise 2: Solution
 
 ```{r}
-penguins |>
-  drop_na(sex) |>
-  filter(species %in% c("Adelie", "Chinstrap")) |>
-  mutate(mass_kg = body_mass_g / 1000) |>
-  group_by(species, sex) |>
+penguins %>%
+  drop_na(sex) %>%
+  filter(species %in% c("Adelie", "Chinstrap")) %>%
+  mutate(mass_kg = body_mass_g / 1000) %>%
+  group_by(species, sex) %>%
   summarise(mean_mass = round(mean(body_mass_g), 1),
             sd_mass = round(sd(body_mass_g), 1),
             n = n(), .groups = "drop")
@@ -371,7 +365,6 @@ penguins |>
 
 Take a wide-format dataset from your own research or download one from the Mouse Phenome Database. Import it into R, reshape to long format, and produce one summary table and one plot. Write 2-3 sentences interpreting what you see.
 
----
 
 ## Comprehension Check
 

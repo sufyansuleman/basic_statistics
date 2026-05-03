@@ -1,4 +1,4 @@
-ï»¿# Model Building and Diagnostics {#sec-model-building}
+# Model Building and Diagnostics {#sec-model-building}
 
 ```{r setup}
 #| include: false
@@ -28,7 +28,6 @@ After completing this session you will be able to:
 - Evaluate model performance: $R^2$, AIC, cross-validation RMSE
 - Apply penalised regression (ridge, lasso) when variable selection is needed
 
----
 
 ## Background: A Model-Building Framework
 
@@ -36,27 +35,26 @@ Good regression modelling is a structured process, not a p-value fishing expedit
 
 **Steps:**
 
-1. **Define the research question** â€” outcome, predictors, and target population
-2. **Explore the data** â€” distributions, missingness, correlations
-3. **Pre-specify the model** â€” driven by domain knowledge, not by initial results
-4. **Fit and assess assumptions** â€” residuals, influential points
-5. **Compare models** â€” use AIC/BIC or likelihood ratio tests, not step-wise
-6. **Validate** â€” internal (bootstrap) or external (hold-out data)
-7. **Report** â€” all results, including assumption checks
+1. **Define the research question** — outcome, predictors, and target population
+2. **Explore the data** — distributions, missingness, correlations
+3. **Pre-specify the model** — driven by domain knowledge, not by initial results
+4. **Fit and assess assumptions** — residuals, influential points
+5. **Compare models** — use AIC/BIC or likelihood ratio tests, not step-wise
+6. **Validate** — internal (bootstrap) or external (hold-out data)
+7. **Report** — all results, including assumption checks
 
 **The selection problem:** Choosing predictors based on their p-values from the same data you use to estimate coefficients inflates the apparent significance and overfits the model. Pre-specification and penalised methods address this.
 
----
 
 ## Worked Example 1: Linear Regression Diagnostics (PBC)
 
 ### Fit a Model
 
 ```{r pbc-fit}
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
-  filter(!is.na(albumin), !is.na(bili), !is.na(protime), !is.na(stage)) |>
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
+  filter(!is.na(albumin), !is.na(bili), !is.na(protime), !is.na(stage)) %>%
   mutate(
     log_bili  = log(bili),
     log_proto = log(protime),
@@ -78,28 +76,28 @@ par(mfrow = c(1, 1))
 
 - **Residuals vs Fitted:** Should be a horizontal cloud around zero. Any pattern suggests non-linearity or omitted predictors.
 - **Normal QQ:** Residuals should follow the diagonal. Systematic deviation from the line indicates non-normality.
-- **Scale-Location (âˆš|residuals| vs fitted):** Should be flat. An upward slope indicates heteroscedasticity.
+- **Scale-Location (v|residuals| vs fitted):** Should be flat. An upward slope indicates heteroscedasticity.
 - **Residuals vs Leverage:** Points in the upper/lower right are high-leverage *and* high-residual (influential). Cook's distance contours (dashed lines) mark the boundary.
 
 ### Augmenting Data with Diagnostics
 
 ```{r augment}
-diag_df <- augment(fit) |>
+diag_df <- augment(fit) %>%
   mutate(.row = row_number())
 
 # High Cook's distance
-diag_df |>
-  arrange(desc(.cooksd)) |>
-  select(.row, albumin, log_bili, .fitted, .resid, .cooksd, .hat) |>
+diag_df %>%
+  arrange(desc(.cooksd)) %>%
+  select(.row, albumin, log_bili, .fitted, .resid, .cooksd, .hat) %>%
   head(10)
 ```
 
 ```{r cook-plot}
-diag_df |>
+diag_df %>%
   ggplot(aes(x = .row, y = .cooksd)) +
   geom_col(fill = "steelblue", alpha = 0.7) +
   geom_hline(yintercept = 4 / nrow(pbc), linetype = "dashed", color = "tomato") +
-  labs(title = "Cook's distance â€” influential observations",
+  labs(title = "Cook's distance — influential observations",
        x = "Observation", y = "Cook's distance") +
   theme_bw()
 ```
@@ -120,16 +118,15 @@ ncvTest(fit)   # Breusch-Pagan test from car package
 
 A significant p-value indicates heteroscedasticity. Consider transforming Y or using heteroscedasticity-consistent (HC) standard errors.
 
----
 
 ## Worked Example 2: Logistic Regression Diagnostics (PBC Mortality)
 
 ```{r logistic-fit}
-pbc2 <- pbc |>
+pbc2 <- pbc %>%
   mutate(
     died = as.integer(status == 2),
     sex  = factor(sex, levels = c("f", "m"), labels = c("Female", "Male"))
-  ) |>
+  ) %>%
   filter(!is.na(died))
 
 fit_log <- glm(died ~ log_bili + log_proto + albumin + stage,
@@ -142,7 +139,7 @@ fit_log <- glm(died ~ log_bili + log_proto + albumin + stage,
 diag_log <- augment(fit_log, type.predict = "response")
 
 # Deviance residuals vs fitted probabilities
-diag_log |>
+diag_log %>%
   ggplot(aes(x = .fitted, y = .resid)) +
   geom_point(alpha = 0.4, size = 1.5) +
   geom_hline(yintercept = 0, linetype = "dashed") +
@@ -153,12 +150,12 @@ diag_log |>
 ```
 
 ```{r logistic-cook}
-diag_log |>
-  mutate(row = row_number()) |>
+diag_log %>%
+  mutate(row = row_number()) %>%
   ggplot(aes(x = row, y = .cooksd)) +
   geom_col(fill = "steelblue", alpha = 0.7) +
   geom_hline(yintercept = 4 / nrow(pbc2), linetype = "dashed", color = "tomato") +
-  labs(title = "Cook's distance â€” logistic model",
+  labs(title = "Cook's distance — logistic model",
        x = "Observation", y = "Cook's distance") +
   theme_bw()
 ```
@@ -171,14 +168,13 @@ m2 <- glm(died ~ log_bili + log_proto,             data = pbc2, family = binomia
 m3 <- glm(died ~ log_bili + log_proto + albumin,   data = pbc2, family = binomial)
 m4 <- glm(died ~ log_bili + log_proto + albumin + stage, data = pbc2, family = binomial)
 
-AIC(m1, m2, m3, m4) |>
-  tibble::rownames_to_column("model") |>
+AIC(m1, m2, m3, m4) %>%
+  tibble::rownames_to_column("model") %>%
   arrange(AIC)
 ```
 
 Choose the model with the lowest AIC that aligns with your pre-specified hypotheses.
 
----
 
 ## Worked Example 3: Penalised Regression (Lasso)
 
@@ -187,8 +183,8 @@ When you have many candidate predictors and want data-driven selection, lasso (L
 ```{r lasso}
 library(glmnet)
 
-pbc_mat <- pbc |>
-  select(albumin, log_bili, log_proto, platelet, bili, protime) |>
+pbc_mat <- pbc %>%
+  select(albumin, log_bili, log_proto, platelet, bili, protime) %>%
   drop_na()
 
 X <- model.matrix(albumin ~ log_bili + log_proto + platelet, data = pbc_mat)[, -1]
@@ -205,17 +201,15 @@ coef(cv_lasso, s = "lambda.min")
 
 Lasso selects predictors by shrinking small coefficients to zero. It is useful for exploratory modelling with many candidates, but coefficients are biased (shrunk toward zero) and should not be interpreted as effect estimates without post-selection inference.
 
----
 
 ## Where to Find Data Like This {.callout-note}
 
-**PBC dataset:** `survival::pbc` â€” multiple correlated continuous and categorical predictors; good for demonstrating overfitting, VIF, and model selection.
+**PBC dataset:** `survival::pbc` — multiple correlated continuous and categorical predictors; good for demonstrating overfitting, VIF, and model selection.
 
 **MASS::Boston (or updated `BostonHousing2` from `mlbench`):** Housing data with correlated predictors, commonly used for penalised regression examples.
 
-**Any of your prior datasets** â€” model building and diagnostics are always applied to real data from a research question, not synthetic datasets.
+**Any of your prior datasets** — model building and diagnostics are always applied to real data from a research question, not synthetic datasets.
 
----
 
 ## What Can Go Wrong {.callout-warning}
 
@@ -231,7 +225,6 @@ Influential observations may be genuine extreme cases, not errors. Removing them
 **Confusing in-sample fit with predictive performance**
 $R^2$ and AIC measure in-sample fit. A model that fits the data well may not predict new observations accurately (overfitting). Use cross-validation or a hold-out test set to estimate predictive performance.
 
----
 
 ## Exercises
 
@@ -254,10 +247,10 @@ fit_ex <- lm(albumin ~ log_bili + log_proto + stage, data = pbc)
 par(mfrow = c(2, 2)); plot(fit_ex); par(mfrow = c(1, 1))
 
 # 2. Top Cook's distances
-augment(fit_ex) |>
-  mutate(.row = row_number()) |>
-  arrange(desc(.cooksd)) |>
-  select(.row, albumin, log_bili, .resid, .cooksd) |>
+augment(fit_ex) %>%
+  mutate(.row = row_number()) %>%
+  arrange(desc(.cooksd)) %>%
+  select(.row, albumin, log_bili, .resid, .cooksd) %>%
   head(5)
 
 # 3. VIF
@@ -281,11 +274,11 @@ a2 <- glm(died ~ log_bili + albumin, data = pbc2, family = binomial)
 a3 <- glm(died ~ log_bili + albumin + log_proto, data = pbc2, family = binomial)
 a4 <- glm(died ~ log_bili + albumin + log_proto + stage, data = pbc2, family = binomial)
 
-AIC(a1, a2, a3, a4) |> tibble::rownames_to_column() |> arrange(AIC)
+AIC(a1, a2, a3, a4) %>% tibble::rownames_to_column() %>% arrange(AIC)
 
 # Cook's for best model
-augment(a4, type.predict = "response") |>
-  arrange(desc(.cooksd)) |>
+augment(a4, type.predict = "response") %>%
+  arrange(desc(.cooksd)) %>%
   head(5)
 ```
 :::
@@ -294,7 +287,6 @@ augment(a4, type.predict = "response") |>
 
 Take a model from your own research and apply the full diagnostic workflow: residual plots, QQ-plot, influence analysis, VIF. Write a one-paragraph Supplementary Methods section documenting your model-checking process and how you handled any issues found.
 
----
 
 ## Comprehension Check
 
@@ -306,16 +298,16 @@ Take a model from your own research and apply the full diagnostic workflow: resi
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. A U-shape indicates non-linearity â€” the linear model misses a curved relationship. Check whether X needs to be log-transformed, squared, or modelled with a spline. You can also try a LOESS smoother on the data to visualise the true shape.
-2. No â€” influential observations should be investigated, not automatically removed. Check whether the observation is a data entry error (correct it) or a genuinely extreme but valid case (keep it and report sensitivity analyses with and without that observation).
+1. A U-shape indicates non-linearity — the linear model misses a curved relationship. Check whether X needs to be log-transformed, squared, or modelled with a spline. You can also try a LOESS smoother on the data to visualise the true shape.
+2. No — influential observations should be investigated, not automatically removed. Check whether the observation is a data entry error (correct it) or a genuinely extreme but valid case (keep it and report sensitivity analyses with and without that observation).
 3. VIF = 9.2 for one predictor indicates it is highly collinear with other predictors. Its coefficient estimate is unreliable (large SE, may flip sign). Options: (1) remove the collinear predictor if it is not the predictor of primary interest; (2) combine correlated predictors into a composite score; (3) use ridge regression.
-4. The third model (AIC = 307) is preferred â€” it has the lowest AIC, indicating the best balance of fit and complexity. However, the difference from model 2 (AIC = 308) is only 1, which is not a meaningful improvement. Models within 2 AIC units of the minimum are considered roughly equivalent.
-5. No. Lasso coefficients are biased toward zero by the penalty. After lasso selects variables, you should refit the model using ordinary regression on those selected variables to obtain unbiased coefficient estimates and valid CIs. Even then, some caution is needed because variable selection inflates Type I error â€” ideally, use pre-specified variables and treat lasso as exploratory.
+4. The third model (AIC = 307) is preferred — it has the lowest AIC, indicating the best balance of fit and complexity. However, the difference from model 2 (AIC = 308) is only 1, which is not a meaningful improvement. Models within 2 AIC units of the minimum are considered roughly equivalent.
+5. No. Lasso coefficients are biased toward zero by the penalty. After lasso selects variables, you should refit the model using ordinary regression on those selected variables to obtain unbiased coefficient estimates and valid CIs. Even then, some caution is needed because variable selection inflates Type I error — ideally, use pre-specified variables and treat lasso as exploratory.
 :::
 
 ## Further Reading
 
-- @Harrell-2015 --- *Regression Modeling Strategies* â€” the definitive reference for clinical regression
-- @Fox-2019 --- *An R Companion to Applied Regression* â€” covers all diagnostics in R
+- @Harrell-2015 --- *Regression Modeling Strategies* — the definitive reference for clinical regression
+- @Fox-2019 --- *An R Companion to Applied Regression* — covers all diagnostics in R
 - `?plot.lm`, `?augment`, `?vif` in R
 - `glmnet` package vignette for penalised regression

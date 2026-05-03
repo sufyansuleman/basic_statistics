@@ -20,7 +20,6 @@ After completing this session you will be able to:
 - Find the right online resources for R and statistics questions
 - Locate the relevant session in this course for any statistical method
 
----
 
 ## Getting Help Inside R
 
@@ -66,7 +65,6 @@ Every R help page has the same structure:
 
 **Tip:** Jump straight to **Examples** when learning a new function. Run them interactively to see what the function does before applying it to your own data.
 
----
 
 ## Common Error Messages
 
@@ -80,7 +78,6 @@ Error in plot(my_data) : object 'my_data' not found
 
 **Fix:** Check `ls()` to list all objects in your environment. Re-run the code that creates the object.
 
----
 
 ### Unexpected Symbol / Unexpected Input
 
@@ -92,7 +89,6 @@ Error: unexpected ')' in "mean(x, na.rm = TRUE))"
 
 **Fix:** Count your opening and closing brackets. In RStudio, click inside the bracket to see its matching partner highlighted.
 
----
 
 ### Package Not Found
 
@@ -110,7 +106,6 @@ install.packages("ggplot2")   # install once
 library(ggplot2)               # load every session
 ```
 
----
 
 ### NA / NaN Warnings
 
@@ -128,7 +123,6 @@ which(is.na(as.numeric(x)))   # which elements became NA?
 x[is.na(as.numeric(x))]       # what are they?
 ```
 
----
 
 ### Subscript Out of Bounds
 
@@ -140,7 +134,6 @@ Error in x[[5]] : subscript out of bounds
 
 **Fix:** Check dimensions: `dim(df)`, `length(x)`, `nrow(df)`, `ncol(df)`.
 
----
 
 ### Factor Level Mismatch
 
@@ -152,7 +145,6 @@ Error in model.frame.default : factor has new levels: XYZ
 
 **Fix:** Ensure new data factor levels match training data. Use `droplevels()` or re-encode factor levels consistently.
 
----
 
 ## Warnings vs Errors
 
@@ -170,7 +162,6 @@ Warning message: In glm.fit() : fitted probabilities numerically 0 or 1 occurred
 
 This means your logistic regression has complete separation — a predictor perfectly separates outcomes. The model is unreliable; see @sec-logistic-regression.
 
----
 
 ## Useful Functions for Debugging
 
@@ -200,7 +191,6 @@ names(my_data)
 sapply(my_data, class)
 ```
 
----
 
 ## Online Resources
 
@@ -230,7 +220,6 @@ reprex({
 
 A reprex is a small, self-contained snippet of code that demonstrates the problem. Remove anything not essential to reproducing the error.
 
----
 
 ## Course Method Map
 
@@ -266,7 +255,6 @@ The table below maps every statistical method covered in this course to its sess
 | Statistical decision guide | @sec-statistical-decision-guide |
 | Clinical research methods | @sec-clinical-methods |
 
----
 
 ## Comprehension Check
 

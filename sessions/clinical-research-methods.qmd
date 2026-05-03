@@ -23,7 +23,6 @@ After completing this session you will be able to:
 - Translate a PICO clinical question into an analysis plan
 - Produce a Table 1 and interpret the results of an adjusted analysis
 
----
 
 ## Background: Study Design
 
@@ -56,7 +55,6 @@ Randomised evidence sits above observational evidence because randomisation dist
 - Long-term outcomes
 - Questions where randomisation is unethical (e.g., smoking causes cancer)
 
----
 
 ## Background: Bias in Clinical Research
 
@@ -90,7 +88,6 @@ Nine criteria for judging whether an observed association is causal:
 8. **Experiment** — removal of exposure reduces disease
 9. **Analogy** — similar associations exist for similar factors
 
----
 
 ## Worked Example 1: Table 1 and Adjusted Analysis in PBC
 
@@ -100,17 +97,17 @@ We use the `survival::pbc` dataset (418 patients, primary biliary cholangitis tr
 data(pbc, package = "survival")
 
 # Clean and prepare
-pbc_clean <- pbc |>
+pbc_clean <- pbc %>%
   mutate(
     status_bin = if_else(status == 2, 1L, 0L),   # 1 = died
     trt_label  = factor(trt, labels = c("D-penicillamine", "Placebo")),
     stage      = factor(stage)
-  ) |>
+  ) %>%
   filter(!is.na(trt))                              # randomised patients only
 
 # Table 1: baseline characteristics by treatment group
-pbc_clean |>
-  select(trt_label, age, sex, bili, albumin, stage, status_bin) |>
+pbc_clean %>%
+  select(trt_label, age, sex, bili, albumin, stage, status_bin) %>%
   tbl_summary(
     by       = trt_label,
     label    = list(
@@ -125,8 +122,8 @@ pbc_clean |>
       all_continuous()  ~ "{mean} ({sd})",
       all_categorical() ~ "{n} ({p}%)"
     )
-  ) |>
-  add_p() |>
+  ) %>%
+  add_p() %>%
   bold_labels()
 ```
 
@@ -136,7 +133,7 @@ A balanced Table 1 (no significant p-values) suggests randomisation worked — bas
 
 ```{r unadjusted}
 fit_unadj <- glm(status_bin ~ trt_label, data = pbc_clean, family = binomial)
-tidy(fit_unadj, exponentiate = TRUE, conf.int = TRUE) |>
+tidy(fit_unadj, exponentiate = TRUE, conf.int = TRUE) %>%
   filter(term != "(Intercept)")
 ```
 
@@ -145,14 +142,13 @@ tidy(fit_unadj, exponentiate = TRUE, conf.int = TRUE) |>
 ```{r adjusted}
 fit_adj <- glm(status_bin ~ trt_label + age + bili + albumin + factor(stage),
                data = pbc_clean, family = binomial)
-tidy(fit_adj, exponentiate = TRUE, conf.int = TRUE) |>
-  filter(term != "(Intercept)") |>
+tidy(fit_adj, exponentiate = TRUE, conf.int = TRUE) %>%
+  filter(term != "(Intercept)") %>%
   select(term, estimate, conf.low, conf.high, p.value)
 ```
 
 Compare the treatment odds ratio before and after adjustment. In a well-randomised trial, adjustment should not materially change the estimate — but it can improve precision.
 
----
 
 ## Worked Example 2: Observational Study — Confounding
 
@@ -176,18 +172,17 @@ obs <- tibble(SES, exercise, HbA1c)
 
 # Unadjusted: exercise appears protective
 fit_unconf <- lm(HbA1c ~ exercise, data = obs)
-tidy(fit_unconf, conf.int = TRUE) |> filter(term == "exercise")
+tidy(fit_unconf, conf.int = TRUE) %>% filter(term == "exercise")
 ```
 
 ```{r confounding-adjusted}
 # Adjusted: true effect (null) restored
 fit_conf <- lm(HbA1c ~ exercise + SES, data = obs)
-tidy(fit_conf, conf.int = TRUE) |> filter(term == "exercise")
+tidy(fit_conf, conf.int = TRUE) %>% filter(term == "exercise")
 ```
 
 In the unadjusted model, exercise appears to lower HbA1c — but this is entirely explained by SES (richer people exercise more **and** have lower HbA1c). Adjusting for SES removes the confounded association.
 
----
 
 ## Where to Find Data Like This {.callout-note}
 
@@ -199,7 +194,6 @@ In the unadjusted model, exercise appears to lower HbA1c — but this is entirely 
 
 **Epidemiological methods textbooks:** Often provide study datasets. sRothman-2012 includes worked examples from case-control and cohort designs.
 
----
 
 ## What Can Go Wrong {.callout-warning}
 
@@ -215,7 +209,6 @@ Associations observed at the group level (e.g., country-level sodium intake and 
 **Over-adjusting for intermediates**
 Adjusting for a mediator (a variable on the causal pathway from exposure to outcome) removes the effect you are trying to estimate. For example, adjusting for BMI when studying the effect of a dietary intervention on diabetes.
 
----
 
 ## Exercises
 
@@ -243,7 +236,7 @@ Using `MASS::birthwt`:
 ```{r birthwt-ex}
 library(MASS)
 data(birthwt)
-birthwt <- as_tibble(birthwt) |>
+birthwt <- as_tibble(birthwt) %>%
   mutate(
     low    = factor(low, labels = c("Normal weight", "Low birth weight")),
     smoke  = factor(smoke, labels = c("Non-smoker", "Smoker")),
@@ -266,7 +259,6 @@ Identify a published observational study in your research area. Write a one-page
 4. Whether the statistical analysis adequately adjusted for confounders
 5. Whether the Bradford Hill criteria support a causal interpretation
 
----
 
 ## Comprehension Check
 

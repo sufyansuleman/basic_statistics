@@ -1,4 +1,4 @@
-ï»¿# Statistics for Omics Data {#sec-omics}
+# Statistics for Omics Data {#sec-omics}
 
 ```{r setup}
 #| include: false
@@ -21,7 +21,6 @@ After completing this session you will be able to:
 - Perform pathway enrichment analysis with `clusterProfiler`
 - Understand the key differences between bulk RNA-seq, microarray, and proteomics analysis workflows
 
----
 
 ## Background: The Multiple Testing Problem
 
@@ -29,7 +28,7 @@ After completing this session you will be able to:
 
 With $m = 20,000$ tests and $\alpha = 0.05$, the expected number of false positives is $0.05 \times 20,000 = 1,000$ even when no gene is truly differentially expressed. The **family-wise error rate (FWER)** controls the probability of *any* false positive: Bonferroni correction sets $\alpha^* = 0.05 / m$. This is very conservative for omics.
 
-The **false discovery rate (FDR)** controls the *proportion* of discoveries that are false positives â€” a more powerful approach for exploratory omics. The Benjamini-Hochberg (BH) procedure adjusts p-values to **q-values**: a q-value of 0.05 means 5% of genes called significant at that threshold are expected to be false positives.
+The **false discovery rate (FDR)** controls the *proportion* of discoveries that are false positives — a more powerful approach for exploratory omics. The Benjamini-Hochberg (BH) procedure adjusts p-values to **q-values**: a q-value of 0.05 means 5% of genes called significant at that threshold are expected to be false positives.
 
 $$\text{q-value}_i = \frac{p_{(i)} \cdot m}{i}$$
 
@@ -37,13 +36,12 @@ $$\text{q-value}_i = \frac{p_{(i)} \cdot m}{i}$$
 
 ### Moderated Tests in Genomics
 
-With small sample sizes (n = 3â€“6 per group), gene-wise variance estimates are noisy. `limma` (microarray/RNA-seq) and `DESeq2` (RNA-seq counts) stabilise variance estimates by:
+With small sample sizes (n = 3–6 per group), gene-wise variance estimates are noisy. `limma` (microarray/RNA-seq) and `DESeq2` (RNA-seq counts) stabilise variance estimates by:
 - **Empirical Bayes shrinkage:** Borrowing information across genes to shrink each gene's variance toward a common prior
 - **Negative binomial model (DESeq2):** Accounting for overdispersion in count data
 
 This produces more powerful and stable differential expression (DE) calls than simple t-tests.
 
----
 
 ## Worked Example 1: Simulated RNA-seq Differential Expression
 
@@ -111,7 +109,7 @@ de_results <- tibble(
   sig   = qval < 0.05 & abs(fc) > 0.5
 )
 
-de_results |>
+de_results %>%
   ggplot(aes(x = fc, y = -log10(pval), color = sig)) +
   geom_point(alpha = 0.5, size = 1) +
   scale_color_manual(values = c("grey70", "tomato"),
@@ -126,7 +124,6 @@ de_results |>
   theme(legend.position = "bottom")
 ```
 
----
 
 ## Worked Example 2: Limma Workflow (Empirical Bayes)
 
@@ -141,16 +138,16 @@ fit  <- lmFit(expr, design)
 fit2 <- eBayes(fit)     # empirical Bayes moderation
 
 # Extract top DE genes
-top_genes <- topTable(fit2, coef = "groupTreated", n = Inf, sort.by = "P") |>
-  tibble::rownames_to_column("gene") |>
+top_genes <- topTable(fit2, coef = "groupTreated", n = Inf, sort.by = "P") %>%
+  tibble::rownames_to_column("gene") %>%
   as_tibble()
 
 head(top_genes, 10)
 ```
 
 ```{r limma-volcano}
-top_genes |>
-  mutate(sig = adj.P.Val < 0.05 & abs(logFC) > 0.5) |>
+top_genes %>%
+  mutate(sig = adj.P.Val < 0.05 & abs(logFC) > 0.5) %>%
   ggplot(aes(x = logFC, y = -log10(P.Value), color = sig)) +
   geom_point(alpha = 0.5, size = 1) +
   scale_color_manual(values = c("grey70", "tomato")) +
@@ -162,7 +159,6 @@ top_genes |>
 
 **Comparing naive t-test vs limma:** The limma moderated t-statistics are more stable for genes with low expression variance, and the eBayes step improves ranking of true positives.
 
----
 
 ## Worked Example 3: Pathway Enrichment
 
@@ -174,8 +170,8 @@ library(clusterProfiler)
 library(org.Mm.eg.db)   # mouse gene annotation
 
 # Significant DE genes
-sig_genes <- top_genes |>
-  filter(adj.P.Val < 0.05, logFC > 0.5) |>
+sig_genes <- top_genes %>%
+  filter(adj.P.Val < 0.05, logFC > 0.5) %>%
   pull(gene)
 
 # Over-representation analysis (ORA) using Gene Ontology
@@ -193,19 +189,17 @@ dotplot(ego, showCategory = 15)
 
 **Gene Set Enrichment Analysis (GSEA):** Instead of a binary DE/non-DE split, GSEA uses the full ranked gene list to test whether genes in a pathway tend to be up- or down-regulated.
 
----
 
 ## Where to Find Data Like This {.callout-note}
 
-**GEO (Gene Expression Omnibus):** [https://www.ncbi.nlm.nih.gov/geo/](https://www.ncbi.nlm.nih.gov/geo/) â€” thousands of publicly available microarray and RNA-seq datasets.
+**GEO (Gene Expression Omnibus):** [https://www.ncbi.nlm.nih.gov/geo/](https://www.ncbi.nlm.nih.gov/geo/) — thousands of publicly available microarray and RNA-seq datasets.
 
 **Bioconductor:** `BiocManager::install("GEOquery")` to download GEO datasets directly into R.
 
-**`pasilla` and `airway` packages:** Standard RNA-seq benchmark datasets included with Bioconductor â€” used in DESeq2 and edgeR vignettes.
+**`pasilla` and `airway` packages:** Standard RNA-seq benchmark datasets included with Bioconductor — used in DESeq2 and edgeR vignettes.
 
 **`curatedMetagenomicData`:** Processed microbiome datasets ready for R analysis.
 
----
 
 ## What Can Go Wrong {.callout-warning}
 
@@ -221,7 +215,6 @@ A 10-fold change is meaningless if expression is near-zero in both groups (high 
 **Misinterpreting enrichment results**
 ORA depends on the gene universe (background). If you use all measured genes as universe, results are more stringent than if you use only protein-coding genes. Report your universe and software version.
 
----
 
 ## Exercises
 
@@ -272,8 +265,8 @@ Using the `expr` matrix from Worked Example 1:
 design2 <- model.matrix(~ group)
 fit_ex  <- lmFit(expr, design2)
 fit_ex2 <- eBayes(fit_ex)
-tbl_ex  <- topTable(fit_ex2, coef = 2, n = Inf, sort.by = "P") |>
-  tibble::rownames_to_column("gene") |>
+tbl_ex  <- topTable(fit_ex2, coef = 2, n = Inf, sort.by = "P") %>%
+  tibble::rownames_to_column("gene") %>%
   as_tibble()
 
 cat("Limma FDR < 5%:", sum(tbl_ex$adj.P.Val < 0.05), "\n")
@@ -283,7 +276,7 @@ cat("Naive FDR < 5%:", sum(qvals < 0.05), "\n")
 
 ### Exercise 3 (Open-ended)
 
-Download a public RNA-seq dataset from GEO using `GEOquery` (e.g., `GSE93819` â€” mouse liver after high-fat diet). Apply a full differential expression workflow:
+Download a public RNA-seq dataset from GEO using `GEOquery` (e.g., `GSE93819` — mouse liver after high-fat diet). Apply a full differential expression workflow:
 
 1. Download and load the data.
 2. Filter low-expression genes (at least 10 counts in at least 3 samples).
@@ -292,7 +285,6 @@ Download a public RNA-seq dataset from GEO using `GEOquery` (e.g., `GSE93819` â€
 5. Produce a volcano plot and report the top 20 DE genes.
 6. Perform Gene Ontology enrichment and interpret the biological pathways.
 
----
 
 ## Comprehension Check
 
@@ -304,16 +296,16 @@ Download a public RNA-seq dataset from GEO using `GEOquery` (e.g., `GSE93819` â€
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. The Bonferroni correction controls the family-wise error rate (FWER) â€” the probability that *any* test produces a false positive. For omics, this is very conservative and has low power. The alternative is the **false discovery rate (FDR)**, controlled by the Benjamini-Hochberg procedure. FDR allows a small *proportion* of false positives among significant results (e.g., 5% FDR means ~5% of called DE genes are expected to be false positives). BH is more powerful and more appropriate for exploratory omics analyses.
-2. No. p = 0.8 means the fold change is not statistically distinguishable from noise with the available sample size. A large fold change with a non-significant p-value typically reflects low statistical power â€” either the gene is highly variable or the sample size is too small. Report both fold change and significance; do not highlight genes that are not statistically significant.
-3. This is a **batch effect** â€” technical variation from sequencing batches dominates the biological signal. Without correction, any DE analysis will be confounded: genes that vary between batches will appear differentially expressed between biological groups if batches are correlated with groups. Fixes: (1) include batch as a covariate in the design matrix (`~ batch + group`); (2) apply `ComBat` batch correction if groups are not perfectly confounded with batches; (3) if batches are perfectly confounded with groups, the study is uninterpretable and must be repeated.
+1. The Bonferroni correction controls the family-wise error rate (FWER) — the probability that *any* test produces a false positive. For omics, this is very conservative and has low power. The alternative is the **false discovery rate (FDR)**, controlled by the Benjamini-Hochberg procedure. FDR allows a small *proportion* of false positives among significant results (e.g., 5% FDR means ~5% of called DE genes are expected to be false positives). BH is more powerful and more appropriate for exploratory omics analyses.
+2. No. p = 0.8 means the fold change is not statistically distinguishable from noise with the available sample size. A large fold change with a non-significant p-value typically reflects low statistical power — either the gene is highly variable or the sample size is too small. Report both fold change and significance; do not highlight genes that are not statistically significant.
+3. This is a **batch effect** — technical variation from sequencing batches dominates the biological signal. Without correction, any DE analysis will be confounded: genes that vary between batches will appear differentially expressed between biological groups if batches are correlated with groups. Fixes: (1) include batch as a covariate in the design matrix (`~ batch + group`); (2) apply `ComBat` batch correction if groups are not perfectly confounded with batches; (3) if batches are perfectly confounded with groups, the study is uninterpretable and must be repeated.
 4. Ribosome biogenesis appearing as the top pathway may be meaningful (rapidly proliferating treated cells produce more ribosomes) or may be an artefact (ribosomal genes are often highly expressed and variable, dominating enrichment analyses). Check: are ribosomal genes actually in your DE gene list, or are they just abundant in your background? Consider removing ribosomal genes from the universe or interpreting with caution.
-5. At FDR 5%, approximately 5% Ã— 2000 = 100 genes in the list are expected to be false positives. The FDR is a statement about the long-run proportion of false positives among discoveries, not a guarantee about this specific list. Importantly, the FDR does not indicate the direction or magnitude of effects â€” the 1,900 true positives may range widely in effect size, and many may be biologically trivial despite statistical significance.
+5. At FDR 5%, approximately 5% × 2000 = 100 genes in the list are expected to be false positives. The FDR is a statement about the long-run proportion of false positives among discoveries, not a guarantee about this specific list. Importantly, the FDR does not indicate the direction or magnitude of effects — the 1,900 true positives may range widely in effect size, and many may be biologically trivial despite statistical significance.
 :::
 
 ## Further Reading
 
 - @Ritchie-2015 --- *limma powers differential expression analyses for RNA-sequencing and microarray studies* (NAR)
 - @Love-2014 --- *DESeq2: moderated estimation of fold change and dispersion for RNA-seq data* (Genome Biology)
-- @Benjamini-1995 --- *Controlling the False Discovery Rate* (JRSS-B â€” the original BH paper)
+- @Benjamini-1995 --- *Controlling the False Discovery Rate* (JRSS-B — the original BH paper)
 - Bioconductor workflows: [https://bioconductor.org/packages/release/BiocViews.html#___Workflow](https://bioconductor.org/packages/release/BiocViews.html#___Workflow)

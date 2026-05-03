@@ -1,4 +1,4 @@
-ï»¿# Hypothesis Testing: Concepts and Framework {#sec-hypothesis-testing}
+# Hypothesis Testing: Concepts and Framework {#sec-hypothesis-testing}
 
 ```{r setup}
 #| include: false
@@ -22,7 +22,6 @@ After completing this session you will be able to:
 - Apply multiple testing corrections and explain when each is appropriate
 - Relate hypothesis testing to confidence intervals
 
----
 
 ## Background: The Logic of Hypothesis Testing
 
@@ -61,16 +60,15 @@ Power increases when:
 - Variability is smaller
 - $\alpha$ is larger (but this increases Type I error)
 
----
 
 ## Worked Example 1: Clinical Data (PBC)
 
 Does serum albumin differ between patients who received D-penicillamine versus placebo?
 
 ```{r pbc-setup}
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
   mutate(
     trt = factor(trt, levels = c(1, 2), labels = c("D-penicillamine", "Placebo"))
   )
@@ -86,14 +84,14 @@ This is a two-sided test (we have no prior reason to expect a specific direction
 ### Step 2: Explore the Data
 
 ```{r explore}
-pbc |>
-  filter(!is.na(trt), !is.na(albumin)) |>
-  group_by(trt) |>
+pbc %>%
+  filter(!is.na(trt), !is.na(albumin)) %>%
+  group_by(trt) %>%
   summarise(n = n(), mean = mean(albumin), sd = sd(albumin),
             median = median(albumin))
 
-pbc |>
-  filter(!is.na(trt), !is.na(albumin)) |>
+pbc %>%
+  filter(!is.na(trt), !is.na(albumin)) %>%
   ggplot(aes(x = trt, y = albumin, fill = trt)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, alpha = 0.3, size = 1.5) +
@@ -116,7 +114,7 @@ With ~150 patients per group, the CLT ensures approximate normality of the means
 
 ```{r ttest}
 t.test(albumin ~ trt,
-       data   = pbc |> filter(!is.na(trt)),
+       data   = pbc %>% filter(!is.na(trt)),
        var.equal = FALSE)   # Welch's t-test (default, recommended)
 ```
 
@@ -124,7 +122,6 @@ t.test(albumin ~ trt,
 
 The p-value is the probability of observing a difference this large (or larger) if the treatment groups had the same true mean albumin. We report: the t-test (Welch's) result, the p-value, the 95% CI for the difference, and the group means.
 
----
 
 ## Worked Example 2: Multiple Testing in a Gene Expression Context
 
@@ -155,11 +152,10 @@ sum(p_bh < 0.05)
 - **None**: only appropriate when testing a single pre-specified hypothesis.
 :::
 
----
 
 ## Where to Find Data Like This {.callout-note}
 
-**Clinical trial data:** `survival::pbc`, `survival::veteran`, `survival::lung` â€” all built-in, no download needed.
+**Clinical trial data:** `survival::pbc`, `survival::veteran`, `survival::lung` — all built-in, no download needed.
 
 **Gene expression / omics data:**
 ```{r}
@@ -171,7 +167,6 @@ BiocManager::install("limma")
 
 **Simulation for teaching:** `set.seed()` + `rnorm()` or `runif()` allow reproducible simulation examples.
 
----
 
 ## What Can Go Wrong {.callout-warning}
 
@@ -187,7 +182,6 @@ One-sided tests are more powerful but only appropriate when you have a strong pr
 **Assuming equal variances**
 The standard two-sample t-test assumes both groups have the same variance. Use Welch's t-test (`var.equal = FALSE`, the default in R) unless you have specific reason to believe variances are equal.
 
----
 
 ## Exercises
 
@@ -208,8 +202,8 @@ Using `survival::pbc`, test whether bilirubin (`bili`) differs between the D-pen
 # H1: it is not equal (two-sided)
 
 # 2. Plot
-pbc |>
-  filter(!is.na(trt)) |>
+pbc %>%
+  filter(!is.na(trt)) %>%
   ggplot(aes(x = trt, y = log(bili), fill = trt)) +
   geom_boxplot(alpha = 0.7) +
   labs(x = NULL, y = "log(Bilirubin)") +
@@ -217,7 +211,7 @@ pbc |>
 
 # 3. Welch's t-test on log scale
 t.test(log(bili) ~ trt,
-       data = pbc |> filter(!is.na(trt)))
+       data = pbc %>% filter(!is.na(trt)))
 ```
 
 The two groups have similar log-bilirubin at baseline (as expected in a well-randomised trial). Report: "There was no significant difference in bilirubin between treatment groups at baseline (Welch's t-test; report p and CI from output)."
@@ -260,7 +254,6 @@ For a clinical trial with 5 endpoints: use Bonferroni (or pre-specify a primary 
 
 Find a paper in your area that reports multiple hypothesis tests (common in omics or clinical studies). Does the paper apply any multiple testing correction? Is the correction appropriate for the context? Write a paragraph critique.
 
----
 
 ## Comprehension Check
 
@@ -274,7 +267,7 @@ Find a paper in your area that reports multiple hypothesis tests (common in omic
 ### Answers
 1. If the null hypothesis were true (i.e., there is no real effect), the probability of observing a test statistic as extreme as (or more extreme than) the one we observed is 0.04 (4%). It does not mean there is a 4% chance the null is true.
 2. A Type I error (false positive) is incorrectly rejecting a true null hypothesis. The conventional threshold is $\alpha = 0.05$, meaning we accept a 5% chance of a Type I error.
-3. Statistical significance does not equal clinical importance. A 0.5 mmHg reduction in blood pressure, while statistically significant in a large trial, is likely not clinically meaningful (typical treatments aim for reductions of 5â€“10 mmHg). Report the effect size and CI alongside the p-value.
+3. Statistical significance does not equal clinical importance. A 0.5 mmHg reduction in blood pressure, while statistically significant in a large trial, is likely not clinically meaningful (typical treatments aim for reductions of 5–10 mmHg). Report the effect size and CI alongside the p-value.
 4. $500 \times 0.05 = 25$ false positives expected by chance. This is why multiple testing corrections are essential in high-dimensional data.
 5. Bonferroni: when any false positive is costly (e.g., clinical trial with pre-specified endpoints, regulatory decision-making). FDR (BH): when you are screening many hypotheses and accept some false positives in exchange for more power (e.g., genomics, proteomics, metabolomics).
 :::

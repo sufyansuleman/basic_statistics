@@ -1,4 +1,4 @@
-﻿# T-tests and Group Comparisons {#sec-t-tests}
+# T-tests and Group Comparisons {#sec-t-tests}
 
 ```{r setup}
 #| include: false
@@ -22,7 +22,6 @@ After completing this session you will be able to:
 - Perform all three variants in R and interpret the output
 - Report t-test results correctly in a manuscript
 
----
 
 ## Background: Which t-test?
 
@@ -36,18 +35,17 @@ After completing this session you will be able to:
 
 **Normality:** The t-test assumes the *sampling distribution of the mean* is normal, not the raw data. By the CLT, this holds for $n \geq 30$ even with moderately skewed data. For small samples with heavily skewed data, use a nonparametric test (see [Nonparametric Tests](nonparametric-tests.qmd)).
 
----
 
 ## Worked Example 1: Clinical Data (PBC)
 
 ### One-Sample: Is Mean Albumin Below a Clinical Threshold?
 
-Normal serum albumin is ≥ 3.5 g/dL. Is the mean albumin in PBC patients at this threshold?
+Normal serum albumin is = 3.5 g/dL. Is the mean albumin in PBC patients at this threshold?
 
 ```{r pbc-setup}
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
   mutate(
     sex = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
     trt = factor(trt, levels = c(1, 2), labels = c("D-penicillamine", "Placebo"))
@@ -69,10 +67,10 @@ tidy(t.test(pbc$albumin, mu = 3.5))
 ### Two-Sample: Does Albumin Differ Between Treatment Groups?
 
 ```{r two-sample}
-pbc_rand <- pbc |> filter(!is.na(trt), !is.na(albumin))
+pbc_rand <- pbc %>% filter(!is.na(trt), !is.na(albumin))
 
 # Visualise first
-pbc_rand |>
+pbc_rand %>%
   ggplot(aes(x = trt, y = albumin, fill = trt)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, alpha = 0.3, size = 1.5) +
@@ -103,12 +101,12 @@ paired_dat <- tibble(
 )
 
 # Visualise the paired differences
-paired_dat |>
-  mutate(diff = albumin_t1 - albumin_t0) |>
+paired_dat %>%
+  mutate(diff = albumin_t1 - albumin_t0) %>%
   ggplot(aes(x = diff)) +
   geom_histogram(bins = 20, fill = "steelblue", color = "white") +
   geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
-  labs(title = "Change in albumin (t1 − t0)",
+  labs(title = "Change in albumin (t1 - t0)",
        x = "Change (g/dL)", y = "Count") +
   theme_bw()
 ```
@@ -119,15 +117,14 @@ t.test(paired_dat$albumin_t1, paired_dat$albumin_t0, paired = TRUE)
 
 The paired t-test reduces variability by removing between-patient differences, making it more powerful than a two-sample test for this design.
 
----
 
 ## Worked Example 2: Animal Data (ToothGrowth)
 
 The `ToothGrowth` dataset compares two Vitamin C delivery methods in guinea pigs.
 
 ```{r toothgrowth}
-tg <- ToothGrowth |>
-  as_tibble() |>
+tg <- ToothGrowth %>%
+  as_tibble() %>%
   mutate(
     supp = factor(supp, levels = c("VC", "OJ"),
                   labels = c("Ascorbic acid", "Orange juice")),
@@ -135,15 +132,15 @@ tg <- ToothGrowth |>
   )
 
 # Compare at the 1.0 mg/day dose only
-tg_1mg <- tg |> filter(dose == "1")
+tg_1mg <- tg %>% filter(dose == "1")
 
-tg_1mg |>
+tg_1mg %>%
   ggplot(aes(x = supp, y = len, fill = supp)) +
   geom_boxplot(alpha = 0.7) +
   geom_jitter(width = 0.1, alpha = 0.5, size = 2) +
   scale_fill_manual(values = c("steelblue", "tomato")) +
   labs(title = "Tooth length by supplement type at 1.0 mg/day",
-       x = NULL, y = "Odontoblast length (μm)") +
+       x = NULL, y = "Odontoblast length (�m)") +
   theme_bw() + theme(legend.position = "none")
 ```
 
@@ -151,14 +148,13 @@ tg_1mg |>
 tidy(t.test(len ~ supp, data = tg_1mg, var.equal = FALSE))
 ```
 
----
 
 ## Checking Assumptions: QQ-plots
 
 For small samples ($n < 30$), check that data are approximately normal using a QQ-plot.
 
 ```{r qq-plot}
-pbc_rand |>
+pbc_rand %>%
   ggplot(aes(sample = albumin)) +
   stat_qq() +
   stat_qq_line(color = "red") +
@@ -169,13 +165,12 @@ pbc_rand |>
 
 Points falling close to the diagonal line indicate approximate normality. With $n \approx 150$ per group, slight deviations are not a concern for the t-test.
 
----
 
 ## Where to Find Data Like This {.callout-note}
 
-**PBC dataset:** `survival::pbc` — built in, no download needed.
+**PBC dataset:** `survival::pbc` � built in, no download needed.
 
-**Sleep dataset (paired):** `datasets::sleep` — built into base R. Contains the effect of two sleep drugs on 10 patients (classic paired t-test example).
+**Sleep dataset (paired):** `datasets::sleep` � built into base R. Contains the effect of two sleep drugs on 10 patients (classic paired t-test example).
 
 **MASS::birthwt:** birth weight data with clinical predictors; good for comparing birth weight between groups.
 
@@ -185,7 +180,6 @@ data(birthwt, package = "MASS")
 t.test(bwt ~ smoke, data = birthwt)
 ```
 
----
 
 ## What Can Go Wrong {.callout-warning}
 
@@ -201,7 +195,6 @@ Always report the mean difference and 95% CI alongside the p-value. "p = 0.03" t
 **Not accounting for unequal variances**
 If the two groups have very different standard deviations, Welch's t-test (default in R) is the right choice. Using `var.equal = TRUE` when variances differ inflates the Type I error rate.
 
----
 
 ## Exercises
 
@@ -245,15 +238,15 @@ Using `ToothGrowth`, test whether tooth length differs by supplement type across
 ### Exercise 2: Solution
 
 ```{r}
-tg_all <- ToothGrowth |>
-  as_tibble() |>
+tg_all <- ToothGrowth %>%
+  as_tibble() %>%
   mutate(supp = factor(supp))
 
 # Two-sample test
 tidy(t.test(len ~ supp, data = tg_all))
 
 # QQ-plot by group
-tg_all |>
+tg_all %>%
   ggplot(aes(sample = len)) +
   stat_qq() + stat_qq_line(color = "red") +
   facet_wrap(~ supp) + theme_bw()
@@ -269,14 +262,13 @@ With 30 observations per group, the CLT applies. The QQ-plot shows approximate n
 
 Use a dataset from your own research. Identify a comparison where a t-test is appropriate. Run the test, check assumptions, and write a Methods + Results paragraph as you would for a journal submission.
 
----
 
 ## Comprehension Check
 
 1. What is the difference between a one-sample, two-sample, and paired t-test? Give a biomedical example for each.
 2. When should you use Welch's t-test instead of Student's t-test?
 3. A QQ-plot of your data shows points diverging from the line at the upper tail. The sample size is n = 12. What should you do?
-4. You run a two-sample t-test and get p = 0.04, 95% CI for difference: (−0.01 g/dL to 2.1 g/dL). Is this a convincing result? What would you report?
+4. You run a two-sample t-test and get p = 0.04, 95% CI for difference: (-0.01 g/dL to 2.1 g/dL). Is this a convincing result? What would you report?
 5. A colleague says "I tested normality with Shapiro-Wilk (p = 0.06) so the data are normal." What is wrong with this reasoning?
 
 ::: {.callout-note collapse="true"}
@@ -284,7 +276,7 @@ Use a dataset from your own research. Identify a comparison where a t-test is ap
 1. **One-sample:** compare a sample mean to a known or hypothetical value (e.g., "Is mean haemoglobin in my patients below 12 g/dL?"). **Two-sample:** compare means of two independent groups (e.g., "Does albumin differ between treatment and control mice?"). **Paired:** compare two measurements on the same subjects (e.g., "Did blood pressure change from baseline to 6 weeks?").
 2. Use Welch's when the two groups may have different population variances. It is the default in R (`var.equal = FALSE`) and is almost always appropriate. Student's t-test (equal variance assumed) is rarely preferred.
 3. With n = 12 and non-normality, use a nonparametric Wilcoxon test (see next session) instead of a t-test.
-4. The result is statistically significant (p = 0.04), but the CI is very wide: the true difference could be essentially zero (−0.01) or moderately large (2.1 g/dL). Report both the p-value and the full CI, and discuss whether the upper end of the CI is clinically meaningful.
+4. The result is statistically significant (p = 0.04), but the CI is very wide: the true difference could be essentially zero (-0.01) or moderately large (2.1 g/dL). Report both the p-value and the full CI, and discuss whether the upper end of the CI is clinically meaningful.
 5. Shapiro-Wilk with p = 0.06 is not evidence that data are normal; it means you failed to detect non-normality at the 5% level. With n = 12, the test has low power and would miss moderate non-normality. Use a QQ-plot and domain knowledge instead.
 :::
 
@@ -292,4 +284,4 @@ Use a dataset from your own research. Identify a comparison where a t-test is ap
 
 - @Welch-1947 --- Original Welch t-test paper
 - @Bland-2015 --- Chapter on t-tests in *An Introduction to Medical Statistics*
-- `?t.test` in R — the help page has a detailed description of all options
+- `?t.test` in R � the help page has a detailed description of all options

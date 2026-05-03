@@ -1,4 +1,4 @@
-﻿# Basic Data Visualization {#sec-basic-visualization}
+# Basic Data Visualization {#sec-basic-visualization}
 
 ```{r setup}
 #| include: false
@@ -23,7 +23,6 @@ After completing this session you will be able to:
 - Add axis labels, titles, and themes appropriate for publications
 - Choose the right plot type for a given research question
 
----
 
 ## Background: The Grammar of Graphics
 
@@ -40,16 +39,15 @@ After completing this session you will be able to:
 
 You build a plot by adding layers with `+`. Each layer can see the same data, or its own.
 
----
 
 ## Worked Example 1: Clinical Data (PBC)
 
 We use the `pbc` dataset throughout --- 418 patients with primary biliary cholangitis, a real clinical trial.
 
 ```{r load-pbc}
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
   mutate(
     sex   = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
     stage = factor(stage, levels = 1:4, labels = paste("Stage", 1:4))
@@ -95,8 +93,8 @@ ggplot(pbc, aes(x = bili, fill = sex)) +
 Use a boxplot when you want to compare a continuous variable across two or more groups.
 
 ```{r boxplot}
-pbc |>
-  filter(!is.na(stage)) |>
+pbc %>%
+  filter(!is.na(stage)) %>%
   ggplot(aes(x = stage, y = bili, fill = stage)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, alpha = 0.3, size = 1.2) +
@@ -144,8 +142,8 @@ ggplot(pbc, aes(x = age, y = bili, color = sex)) +
 Use a bar chart when you want to show counts or proportions across categories.
 
 ```{r bar-chart}
-pbc |>
-  filter(!is.na(stage)) |>
+pbc %>%
+  filter(!is.na(stage)) %>%
   ggplot(aes(x = stage, fill = sex)) +
   geom_bar(position = "fill") +
   scale_y_continuous(labels = scales::percent_format()) +
@@ -161,14 +159,13 @@ pbc |>
 
 `position = "fill"` rescales bars to 100%, making proportional comparisons easier than raw counts.
 
----
 
 ## Worked Example 2: Animal Data (Penguins)
 
 The `palmerpenguins` dataset is a clean multi-species penguin dataset, useful as a stand-in for animal experiment data with groups and continuous measurements.
 
 ```{r penguin-setup}
-penguins_clean <- penguins |> drop_na()
+penguins_clean <- penguins %>% drop_na()
 ```
 
 ### Combining Plot Types: Violin + Boxplot
@@ -226,7 +223,6 @@ wrap_plots(p1, p2)   # side by side
 
 `patchwork` uses `+` to place plots side by side, `/` to stack them, and `(p1 + p2) / p3` for more complex arrangements.
 
----
 
 ## Publication-Ready Themes
 
@@ -237,7 +233,7 @@ For journal submissions, choose a clean theme and increase the base font size.
 # theme_classic() -- no gridlines, clean axes (common in biology journals)
 # theme_minimal() -- minimal decoration
 
-ggplot(pbc |> filter(!is.na(stage)),
+ggplot(pbc %>% filter(!is.na(stage)),
        aes(x = stage, y = albumin, fill = stage)) +
   geom_boxplot(alpha = 0.7) +
   scale_fill_brewer(palette = "Set3") +
@@ -256,7 +252,6 @@ ggplot(pbc |> filter(!is.na(stage)),
 - Export with `ggsave("figure1.pdf", width = 6, height = 4)` for vector-format output
 :::
 
----
 
 ## Where to Find Data Like This {.callout-note}
 
@@ -276,7 +271,6 @@ Gorman et al. (2014), collected at Palmer Station Antarctica.
 - [R Graph Gallery](https://r-graph-gallery.com) --- searchable by plot type
 - [ggplot2 extension gallery](https://exts.ggplot2.tidyverse.org) --- specialist plot types
 
----
 
 ## What Can Go Wrong {.callout-warning}
 
@@ -292,7 +286,6 @@ A bar chart that shows only group means hides the distribution. Use boxplots, vi
 **Choosing colours that are not colourblind-safe**
 About 8% of men have red-green colour blindness. Use `scale_colour_brewer(palette = "Set1")` or the `viridis` scale: `scale_colour_viridis_d()`.
 
----
 
 ## Exercises
 
@@ -309,7 +302,7 @@ Using `survival::pbc`:
 ### Exercise 1: Solution
 
 ```{r}
-pbc |>
+pbc %>%
   ggplot(aes(x = protime)) +
   geom_histogram(bins = 25, fill = "steelblue", color = "white") +
   labs(title = "Prothrombin time", x = "PT (seconds)", y = "Count") +
@@ -321,14 +314,14 @@ ggplot(pbc, aes(x = protime, fill = sex)) +
   labs(title = "Prothrombin time by sex", x = "PT (seconds)") +
   theme_bw()
 
-pbc |> filter(!is.na(stage)) |>
+pbc %>% filter(!is.na(stage)) %>%
   ggplot(aes(x = stage, y = protime, fill = stage)) +
   geom_boxplot(alpha = 0.7) +
   labs(x = NULL, y = "PT (seconds)") +
   theme_bw() + theme(legend.position = "none")
 
 # Check skewness
-pbc |> summarise(mean_pt = mean(protime, na.rm = TRUE),
+pbc %>% summarise(mean_pt = mean(protime, na.rm = TRUE),
                   median_pt = median(protime, na.rm = TRUE))
 ```
 
@@ -348,8 +341,8 @@ Using `palmerpenguins::penguins`:
 ### Exercise 2: Solution
 
 ```{r}
-penguins |>
-  drop_na() |>
+penguins %>%
+  drop_na() %>%
   ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
   geom_point(alpha = 0.6) +
   geom_smooth(method = "lm", se = FALSE) +
@@ -367,7 +360,6 @@ Within each species, bill length and bill depth are positively associated (longe
 
 Take a dataset from your own research or download one from the Mouse Phenome Database. Create three plots: one showing the distribution of a continuous variable, one comparing that variable across groups, and one scatter plot of two continuous variables. Choose `theme_classic()` and write a one-paragraph figure legend for each plot as you would for a journal submission.
 
----
 
 ## Comprehension Check
 
