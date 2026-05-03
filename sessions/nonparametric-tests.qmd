@@ -35,7 +35,7 @@ Parametric tests (t-tests, ANOVA) make assumptions about the distribution of the
 | One-sample t-test | Wilcoxon signed-rank test | n small, distribution non-normal |
 | Two-sample t-test | Wilcoxon rank-sum (Mann-Whitney) | Two independent groups, n small or skewed |
 | Paired t-test | Wilcoxon signed-rank test | Paired data, n small or non-normal |
-| One-way ANOVA | Kruskal-Wallis test | = 3 groups, normality violated |
+| One-way ANOVA | Kruskal-Wallis test | â‰¥ 3 groups, normality violated |
 
 
 ## Worked Example 1: Clinical Data (PBC)
@@ -119,7 +119,7 @@ tumour %>%
   geom_jitter(width = 0.1, size = 3, alpha = 0.7) +
   scale_fill_manual(values = c("steelblue", "tomato")) +
   labs(title = "Tumour volume by treatment group (n=8/group)",
-       x = NULL, y = "Tumour volume (mm³)") +
+       x = NULL, y = "Tumour volume (mmï¿½)") +
   theme_bw() + theme(legend.position = "none")
 ```
 
@@ -148,11 +148,11 @@ wilcox.test(before_after$after, before_after$before, paired = TRUE)
 
 ## Where to Find Data Like This {.callout-note}
 
-**PBC dataset:** `survival::pbc` — built in, provides real clinical data with strongly skewed variables.
+**PBC dataset:** `survival::pbc` ï¿½ built in, provides real clinical data with strongly skewed variables.
 
-**PlantGrowth:** `datasets::PlantGrowth` — built in, three-group experiment suitable for Kruskal-Wallis demonstration.
+**PlantGrowth:** `datasets::PlantGrowth` ï¿½ built in, three-group experiment suitable for Kruskal-Wallis demonstration.
 
-**Mouse Phenome Database:** phenome.jax.org — many small-sample mouse phenotyping studies where nonparametric tests are appropriate.
+**Mouse Phenome Database:** phenome.jax.org ï¿½ many small-sample mouse phenotyping studies where nonparametric tests are appropriate.
 
 
 ## What Can Go Wrong {.callout-warning}
@@ -164,7 +164,7 @@ Nonparametric tests are not always better. When data are normally distributed, t
 Wilcoxon tests compare *distributions*, not means. Report medians and IQR, not means and SD, alongside a Wilcoxon test result.
 
 **Treating a non-significant Kruskal-Wallis as proof of no difference**
-A p > 0.05 from Kruskal-Wallis means the data are consistent with no group differences — but with small samples, power may be low. Report the effect size (e.g., median differences) and note if the study is underpowered.
+A p > 0.05 from Kruskal-Wallis means the data are consistent with no group differences ï¿½ but with small samples, power may be low. Report the effect size (e.g., median differences) and note if the study is underpowered.
 
 **Pairwise comparisons without correction**
 If Kruskal-Wallis is significant, doing all pairwise Wilcoxon tests without correction inflates the Type I error. Always apply `p.adjust.method = "bonferroni"` or `"holm"` in `pairwise.wilcox.test()`.
@@ -211,7 +211,7 @@ tidy(t.test(log(bili) ~ sex, data = pbc_sex))
 
 ### Exercise 2 (Semi-guided): Kruskal-Wallis for Stage
 
-Test whether bilirubin differs across disease stages (1–4) in `pbc`.
+Test whether bilirubin differs across disease stages (1ï¿½4) in `pbc`.
 
 1. Run `kruskal.test()`. Is the overall result significant?
 2. Run `pairwise.wilcox.test()` with Bonferroni correction. Which stage pairs differ?
@@ -268,4 +268,4 @@ From your own data, identify a continuous variable that is clearly non-normal (e
 
 - @Hollander-1999 --- *Nonparametric Statistical Methods*, comprehensive reference
 - @Bland-2015 --- Chapters on nonparametric methods in *An Introduction to Medical Statistics*
-- `?wilcox.test` and `?kruskal.test` in R — built-in documentation with examples
+- `?wilcox.test` and `?kruskal.test` in R ï¿½ built-in documentation with examples

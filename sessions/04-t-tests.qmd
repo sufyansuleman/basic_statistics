@@ -40,7 +40,7 @@ After completing this session you will be able to:
 
 ### One-Sample: Is Mean Albumin Below a Clinical Threshold?
 
-Normal serum albumin is = 3.5 g/dL. Is the mean albumin in PBC patients at this threshold?
+Normal serum albumin is ≥ 3.5 g/dL. Is the mean albumin in PBC patients below this threshold?
 
 ```{r pbc-setup}
 pbc <- survival::pbc %>%
@@ -84,6 +84,41 @@ pbc_rand %>%
 t_res <- t.test(albumin ~ trt, data = pbc_rand, var.equal = FALSE)
 tidy(t_res)
 ```
+
+::: {.callout-note}
+### Reading the t-test Output — Line by Line
+
+When you run `t.test()`, R prints several pieces of information. Here is what each one means, using the one-sample albumin test as a reference:
+
+```
+One Sample t-test
+
+t = -3.12, df = 417, p-value = 0.0019
+alternative hypothesis: true mean is not equal to 3.5
+95 percent confidence interval: 3.39  3.47
+sample estimates: mean of x = 3.43
+```
+
+| Output | What it means |
+|---|---|
+| **t = -3.12** | The test statistic: how many standard errors the sample mean is from the null value (3.5). Negative means the sample mean is *below* 3.5. |
+| **df = 417** | Degrees of freedom — roughly the sample size minus 1. Larger df = more reliable t distribution approximation. |
+| **p-value = 0.0019** | If the true mean were 3.5, there is a 0.19% chance of observing a sample mean this far from 3.5 just by chance. Since p < 0.05, we reject H₀. |
+| **95% confidence interval: 3.39 to 3.47** | We are 95% confident the true mean albumin in this population lies between 3.39 and 3.47 g/dL. It does not include 3.5 — consistent with the significant p-value. |
+| **mean of x = 3.43** | The observed sample mean — the point estimate you report. |
+
+**For the two-sample test**, `tidy(t_res)` gives you: `estimate` (the mean difference), `conf.low`/`conf.high` (95% CI for the difference), and `p.value`. Always report the mean difference and CI — not just the p-value.
+
+::: {.callout-tip}
+### What Does This Actually Tell Us?
+
+Translate the numbers into a sentence before you report:
+
+> *"Mean albumin was 3.43 g/dL in PBC patients (95% CI: 3.39–3.47), significantly below the clinical threshold of 3.5 g/dL (one-sample Welch t-test: t = −3.12, df = 417, p = 0.002). The difference of −0.07 g/dL is statistically significant but modest in magnitude."*
+
+Note: always ask yourself whether the difference is **clinically meaningful**, not just statistically significant. A 0.07 g/dL difference in albumin in a study of 418 patients may be real but irrelevant to treatment decisions.
+:::
+:::
 
 **Reporting:** "Mean albumin was `r round(mean(pbc_rand$albumin[pbc_rand$trt == "D-penicillamine"], na.rm=TRUE), 2)` g/dL in the D-penicillamine group and `r round(mean(pbc_rand$albumin[pbc_rand$trt == "Placebo"], na.rm=TRUE), 2)` g/dL in the placebo group. There was no statistically significant difference (Welch's two-sample t-test: t = [value], df = [df], p = [p]; 95% CI for difference: [CI])."
 
@@ -140,7 +175,7 @@ tg_1mg %>%
   geom_jitter(width = 0.1, alpha = 0.5, size = 2) +
   scale_fill_manual(values = c("steelblue", "tomato")) +
   labs(title = "Tooth length by supplement type at 1.0 mg/day",
-       x = NULL, y = "Odontoblast length (�m)") +
+       x = NULL, y = "Odontoblast length (�m)") +
   theme_bw() + theme(legend.position = "none")
 ```
 
@@ -168,9 +203,9 @@ Points falling close to the diagonal line indicate approximate normality. With $
 
 ## Where to Find Data Like This {.callout-note}
 
-**PBC dataset:** `survival::pbc` � built in, no download needed.
+**PBC dataset:** `survival::pbc` � built in, no download needed.
 
-**Sleep dataset (paired):** `datasets::sleep` � built into base R. Contains the effect of two sleep drugs on 10 patients (classic paired t-test example).
+**Sleep dataset (paired):** `datasets::sleep` � built into base R. Contains the effect of two sleep drugs on 10 patients (classic paired t-test example).
 
 **MASS::birthwt:** birth weight data with clinical predictors; good for comparing birth weight between groups.
 
@@ -194,6 +229,25 @@ Always report the mean difference and 95% CI alongside the p-value. "p = 0.03" t
 
 **Not accounting for unequal variances**
 If the two groups have very different standard deviations, Welch's t-test (default in R) is the right choice. Using `var.equal = TRUE` when variances differ inflates the Type I error rate.
+
+::: {.callout-warning}
+### Common Misinterpretations — Don't Make These Mistakes
+
+**"p = 0.04 means the difference is large"**
+No. With 400 patients, even a 0.05 g/dL difference (clinically trivial) can produce p = 0.04. Always report the mean difference and confidence interval so the reader can judge clinical relevance.
+
+**"p = 0.07 means the groups are the same"**
+No. It means your sample did not provide enough evidence to rule out chance at α = 0.05. With only 20 patients this may simply mean the study was underpowered. Never conclude "no difference" from a non-significant p-value alone.
+
+**"I should use a one-sided test to get a smaller p-value"**
+Only use a one-sided test if you genuinely predicted the direction of the effect *before collecting data*. Using a one-sided test because the data happened to go the right way is p-hacking and gives a false sense of significance.
+
+**"The paired t-test always gives a lower p-value"**
+The paired test is more powerful *only when* the within-subject measurements are correlated (e.g., before/after on the same patient). If your data are truly independent, using a paired test is wrong, not more powerful.
+
+**"t-tests require normally distributed data"**
+Not exactly. The t-test requires that the *sampling distribution of the mean* is approximately normal. By the Central Limit Theorem, this holds for n ≥ 30 even with skewed data. For very small samples with obviously non-normal data, use a nonparametric test instead.
+:::
 
 
 ## Exercises
@@ -268,7 +322,7 @@ Use a dataset from your own research. Identify a comparison where a t-test is ap
 1. What is the difference between a one-sample, two-sample, and paired t-test? Give a biomedical example for each.
 2. When should you use Welch's t-test instead of Student's t-test?
 3. A QQ-plot of your data shows points diverging from the line at the upper tail. The sample size is n = 12. What should you do?
-4. You run a two-sample t-test and get p = 0.04, 95% CI for difference: (-0.01 g/dL to 2.1 g/dL). Is this a convincing result? What would you report?
+4. You run a two-sample t-test and get p = 0.04, 95% CI for difference: (0.01 g/dL to 2.1 g/dL). Is this a convincing result? What would you report?
 5. A colleague says "I tested normality with Shapiro-Wilk (p = 0.06) so the data are normal." What is wrong with this reasoning?
 
 ::: {.callout-note collapse="true"}
@@ -276,7 +330,7 @@ Use a dataset from your own research. Identify a comparison where a t-test is ap
 1. **One-sample:** compare a sample mean to a known or hypothetical value (e.g., "Is mean haemoglobin in my patients below 12 g/dL?"). **Two-sample:** compare means of two independent groups (e.g., "Does albumin differ between treatment and control mice?"). **Paired:** compare two measurements on the same subjects (e.g., "Did blood pressure change from baseline to 6 weeks?").
 2. Use Welch's when the two groups may have different population variances. It is the default in R (`var.equal = FALSE`) and is almost always appropriate. Student's t-test (equal variance assumed) is rarely preferred.
 3. With n = 12 and non-normality, use a nonparametric Wilcoxon test (see next session) instead of a t-test.
-4. The result is statistically significant (p = 0.04), but the CI is very wide: the true difference could be essentially zero (-0.01) or moderately large (2.1 g/dL). Report both the p-value and the full CI, and discuss whether the upper end of the CI is clinically meaningful.
+4. The result is statistically significant (p = 0.04) and the 95% CI excludes zero (0.01 to 2.1 g/dL), but the CI is very wide. The true difference could be as small as 0.01 g/dL (negligible) or as large as 2.1 g/dL (potentially important). The p-value alone tells you almost nothing useful here — the CI is the critical information. Always report both, and note that a barely significant result with a wide CI is actually uninformative about effect size.
 5. Shapiro-Wilk with p = 0.06 is not evidence that data are normal; it means you failed to detect non-normality at the 5% level. With n = 12, the test has low power and would miss moderate non-normality. Use a QQ-plot and domain knowledge instead.
 :::
 
@@ -284,4 +338,4 @@ Use a dataset from your own research. Identify a comparison where a t-test is ap
 
 - @Welch-1947 --- Original Welch t-test paper
 - @Bland-2015 --- Chapter on t-tests in *An Introduction to Medical Statistics*
-- `?t.test` in R � the help page has a detailed description of all options
+- `?t.test` in R � the help page has a detailed description of all options
