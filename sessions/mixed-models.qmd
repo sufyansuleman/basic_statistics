@@ -15,7 +15,7 @@ Mixed models extend linear regression to handle repeated measures and clustered 
 
 ## When Do You Use This? {.callout-tip}
 
-> You measure albumin in 100 PBC patients at four clinic visits. The four measurements within the same patient are not independent � they share that patient's baseline level. Ignoring this correlation inflates your Type I error. A mixed model handles this by estimating a random intercept for each patient, so that repeated measurements within a patient are treated correctly.
+> Your data have a grouped or hierarchical structure — repeated measurements on the same individuals over time, participants nested within clinics, or samples from the same animal litter. Standard regression assumes all observations are independent, which is violated whenever observations share a common source. Mixed models handle this by estimating a random effect for each group, correctly accounting for within-group correlation and preventing inflated Type I error. For example: a biomarker measured at multiple clinic visits per patient, or body weight measurements across litters in an animal experiment.
 
 ## Learning Objectives
 

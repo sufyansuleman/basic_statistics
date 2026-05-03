@@ -10,7 +10,7 @@ library(mice)
 
 ## When Do You Use This? {.callout-tip}
 
-> Your PBC dataset has missing platelet counts for ~11% of patients. If you run a complete-case analysis, those patients are silently dropped. But are the missing values random? If sicker patients are more likely to have missing platelets, dropping them biases your estimate. Missing data methods let you use all available information and be transparent about uncertainty.
+> Your dataset has missing values. Simply dropping incomplete cases loses statistical power — and if the data are not missing at random, dropping them biases your estimates in ways that are difficult to detect. Missing data methods let you use all available information and make your assumptions about missingness explicit. For example: if sicker patients are more likely to have missing lab values, a complete-case analysis systematically excludes the most severely ill and distorts every downstream estimate.
 
 ## Learning Objectives
 
