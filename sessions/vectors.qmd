@@ -184,7 +184,6 @@ of each fruit type.
 :::
 
 ```{r fruit-plot-with-factors, echo=FALSE, message=FALSE}
-library(plotly)
 library(ggplot2)
 
 # Example dataset: Fruits and their counts
@@ -197,23 +196,13 @@ total_count <- sum(counts)
 # Create a data frame
 fruit_data <- data.frame(Fruit = factor(fruits, levels = fruits), Count = counts)
 
-# Use ggplot2 to create a bar plot with a custom tooltip
-ggplot_visual <- ggplot(fruit_data, aes(x = Fruit, y = Count, fill = Fruit,
-                                        text = paste("Fruit: ", Fruit, "<br>Count: ", Count,
-                                                     "<br>Total Count: ", total_count))) +
+# Use ggplot2 to create a bar plot
+ggplot(fruit_data, aes(x = Fruit, y = Count, fill = Fruit)) +
   geom_bar(stat = "identity") +
   scale_fill_brewer(palette = "Set3") +
   labs(x = "Fruit Type", y = "Count", title = "Fruits Count by factors") +
   theme_minimal() +
   theme(legend.position = "none")
-
-# Convert the ggplot to a plotly interactive plot with custom tooltip
-plotly_visual <- ggplotly(ggplot_visual, tooltip = "text")  # Only display the custom tooltip
-
-# Display the plotly interactive plot
-plotly_visual
-
-
 ```
 
 **Practical Example: Fruit Count Chart without factor levles** In this
@@ -228,8 +217,8 @@ rather than a detailed breakdown.
 # R code to plot all fruits as a single bar, ignoring individual counts
 
 # Example dataset: Fruits and their counts without factor levels
-fruits <- rep("Apple Banana Cherry Date Elderberry", 5) 
-counts <- c(23, 15, 19, 10, 5)  # The individual counts remain the same
+fruits <- rep("Apple Banana Cherry Date Elderberry", 5)
+counts <- c(23, 15, 19, 10, 5)
 
 # Calculate the total count
 total_count <- sum(counts)
@@ -238,20 +227,11 @@ total_count <- sum(counts)
 fruit_data_combined <- data.frame(Fruit = fruits, Count = total_count)
 
 # Use ggplot2 to create a bar plot with all fruits combined into a single bar
-ggplot_visual_2 <- ggplot(fruit_data_combined, aes(x = Fruit, y = Count, fill = Fruit,
-                                                   text = paste("Total Count: ", Count))) +
+ggplot(fruit_data_combined, aes(x = Fruit, y = Count, fill = Fruit)) +
   geom_bar(stat = "identity") +
-  scale_fill_brewer(palette = "Set3") +  # Single color since there's only one category
   labs(x = "", y = "Total Count", title = "Fruits count without factors") +
   theme_minimal() +
   theme(legend.position = "none")
-
-# Convert the ggplot to a plotly interactive plot with custom tooltip
-plotly_visual_2 <- ggplotly(ggplot_visual_2, tooltip = "text")  # Display the custom tooltip
-
-# Display the plotly interactive plot
-plotly_visual_2
-
 ```
 
 ### Creating and converting Factors

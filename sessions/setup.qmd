@@ -7,7 +7,11 @@
 
 This page tells you everything you need to do **once**, before starting the course. The setup takes about 10–15 minutes. After that, each session just works.
 
----
+::: {.callout-note}
+### Only here for the statistics — not learning R?
+If your goal is to understand statistical concepts and methods (not to learn R programming), you can **skip Parts 1 and 2** and start directly at **Part 3: Inference**. The statistics begins there. You can still follow the worked examples in each session by reading the code output without running it yourself — but you will still need R and the packages installed to run anything interactively.
+:::
+
 
 ## Step 1: Install R and RStudio
 
@@ -27,7 +31,24 @@ To check your R version, run this in the RStudio Console:
 R.version.string
 ```
 
----
+
+## Step 1b: Install Rtools (Windows Only) {.unnumbered}
+
+::: {.callout-important}
+### Windows users must do this before installing packages
+Many R packages compile C or Fortran code during installation. Without **Rtools**, Windows will silently install outdated pre-compiled versions of packages — which can cause version conflicts that break Quarto rendering later.
+
+1. Go to [cran.r-project.org/bin/windows/Rtools/](https://cran.r-project.org/bin/windows/Rtools/)
+2. Download and install the version that matches your R version (e.g., Rtools44 for R 4.4, Rtools43 for R 4.3)
+3. Accept all defaults — no changes needed
+4. Restart RStudio after installation
+
+To confirm Rtools is active, run this in the Console — you should see `TRUE`:
+```r
+pkgbuild::has_build_tools(debug = TRUE)
+```
+:::
+
 
 ## Step 2: Install Course Packages (CRAN)
 
@@ -41,10 +62,14 @@ Installing 25+ packages for the first time takes time. R will print a lot of out
 ```{r}
 #| eval: false
 install.packages(c(
+  # Quarto rendering essentials (must have current versions)
+  "knitr",
+  "rmarkdown",
+  "xfun",
+
   # Core data wrangling and visualization (used in every session)
   "tidyverse",
   "patchwork",
-  "plotly",
 
   # Exploration and summary tables
   "skimr",
@@ -91,7 +116,6 @@ install.packages(c(
 Run `install.packages("packagename")` individually to see the specific error message. On Windows, restart RStudio and try again — some packages need RTools. On macOS, you may need to install Xcode Command Line Tools first: `xcode-select --install` in the Terminal.
 :::
 
----
 
 ## Step 3: Install Bioconductor Packages
 
@@ -110,11 +134,19 @@ BiocManager::install(c(
 ))
 ```
 
+::: {.callout-warning}
+### When BiocManager asks about updates — press `a`
+During installation you may see:
+```
+Update all/some/none? [a/s/n]:
+```
+**Type `a` and press Enter.** This updates all dependent packages to compatible versions. Pressing `n` can leave you with mismatched package versions that cause errors later.
+:::
+
 ::: {.callout-note}
 Bioconductor packages can take 5–10 minutes to install. If you are not doing the Omics Statistics or Advanced Visualization sessions, you can skip this step.
 :::
 
----
 
 ## Step 4: Install TwoSampleMR (GitHub)
 
@@ -132,7 +164,6 @@ remotes::install_github("MRCIEU/TwoSampleMR")
 This requires an internet connection. If you are not doing the Mendelian Randomization session, you can skip this step.
 :::
 
----
 
 ## Step 5: Verify Your Setup
 
@@ -141,11 +172,12 @@ Run this block to confirm the core packages are installed. You should see no err
 ```{r}
 #| eval: false
 core_pkgs <- c(
+  "knitr", "rmarkdown", "xfun",
   "tidyverse", "patchwork", "skimr", "gtsummary", "broom",
   "survival", "ggsurvfit", "lme4", "broom.mixed", "car",
   "glmnet", "performance", "pROC", "mice", "naniar",
   "pwr", "dagitty", "ggdag", "GGally", "nhanesA",
-  "palmerpenguins", "AER", "reprex", "plotly"
+  "palmerpenguins", "AER", "reprex"
 )
 
 missing <- core_pkgs[!sapply(core_pkgs, requireNamespace, quietly = TRUE)]
@@ -158,7 +190,6 @@ if (length(missing) == 0) {
 }
 ```
 
----
 
 ## Quick Reference: Which Session Uses Which Package
 
@@ -182,5 +213,5 @@ if (length(missing) == 0) {
 | `GEOquery` | Advanced Visualization |
 | `nhanesA` | Descriptive Statistics; Tidy Data; Explore Clinical Data |
 | `palmerpenguins` | Multiple sessions (practice data) |
-| `plotly` | Vectors (interactive plots) |
+| `knitr`, `rmarkdown`, `xfun` | All sessions (Quarto rendering) |
 | `reprex` | Getting Help |

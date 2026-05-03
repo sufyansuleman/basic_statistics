@@ -196,7 +196,7 @@ p_scatter <- ggplot(pbc, aes(x = age, y = bili, color = sex)) +
   theme_classic(base_size = 12) +
   theme(legend.position = "bottom")
 
-(p_hist + p_box) / p_scatter
+wrap_plots(p_hist, p_box) / p_scatter
 ```
 
 ---

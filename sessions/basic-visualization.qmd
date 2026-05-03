@@ -221,7 +221,7 @@ p2 <- ggplot(penguins_clean, aes(x = flipper_length_mm)) +
   labs(title = "Flipper length", x = "mm", y = "Count") +
   theme_bw()
 
-p1 + p2   # side by side
+wrap_plots(p1, p2)   # side by side
 ```
 
 `patchwork` uses `+` to place plots side by side, `/` to stack them, and `(p1 + p2) / p3` for more complex arrangements.

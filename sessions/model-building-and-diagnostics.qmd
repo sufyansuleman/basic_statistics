@@ -84,19 +84,19 @@ par(mfrow = c(1, 1))
 ### Augmenting Data with Diagnostics
 
 ```{r augment}
-diag_df <- augment(fit)
+diag_df <- augment(fit) |>
+  mutate(.row = row_number())
 
 # High Cook's distance
 diag_df |>
   arrange(desc(.cooksd)) |>
-  select(.rownames, albumin, log_bili, .fitted, .resid, .cooksd, .hat) |>
+  select(.row, albumin, log_bili, .fitted, .resid, .cooksd, .hat) |>
   head(10)
 ```
 
 ```{r cook-plot}
 diag_df |>
-  mutate(row = as.integer(.rownames)) |>
-  ggplot(aes(x = row, y = .cooksd)) +
+  ggplot(aes(x = .row, y = .cooksd)) +
   geom_col(fill = "steelblue", alpha = 0.7) +
   geom_hline(yintercept = 4 / nrow(pbc), linetype = "dashed", color = "tomato") +
   labs(title = "Cook's distance — influential observations",
@@ -127,8 +127,8 @@ A significant p-value indicates heteroscedasticity. Consider transforming Y or u
 ```{r logistic-fit}
 pbc2 <- pbc |>
   mutate(
-    died      = as.integer(survival::pbc$status == 2),
-    sex       = factor(survival::pbc$sex, levels = c("f", "m"), labels = c("Female", "Male"))
+    died = as.integer(status == 2),
+    sex  = factor(sex, levels = c("f", "m"), labels = c("Female", "Male"))
   ) |>
   filter(!is.na(died))
 
@@ -255,8 +255,9 @@ par(mfrow = c(2, 2)); plot(fit_ex); par(mfrow = c(1, 1))
 
 # 2. Top Cook's distances
 augment(fit_ex) |>
+  mutate(.row = row_number()) |>
   arrange(desc(.cooksd)) |>
-  select(.rownames, albumin, log_bili, .resid, .cooksd) |>
+  select(.row, albumin, log_bili, .resid, .cooksd) |>
   head(5)
 
 # 3. VIF

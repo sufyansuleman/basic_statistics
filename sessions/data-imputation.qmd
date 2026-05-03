@@ -145,10 +145,11 @@ summary(pooled, conf.int = TRUE) |>
 ```{r compare}
 bind_rows(
   broom::tidy(fit_cc, conf.int = TRUE) |>
+    select(term, estimate, conf.low, conf.high, p.value) |>
     mutate(method = "Complete-case"),
   summary(pooled, conf.int = TRUE) |>
     as_tibble() |>
-    rename(estimate = estimate, conf.low = `2.5 %`, conf.high = `97.5 %`) |>
+    select(term, estimate, conf.low = `2.5 %`, conf.high = `97.5 %`, p.value) |>
     mutate(method = "Multiple imputation")
 ) |>
   filter(term %in% c("log_bili", "platelet", "stageStage 2", "stageStage 3", "stageStage 4")) |>

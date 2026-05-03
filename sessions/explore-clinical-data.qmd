@@ -4,6 +4,7 @@
 #| include: false
 #| eval: true
 library(tidyverse)
+library(patchwork)
 library(survival)
 library(gtsummary)
 library(skimr)
@@ -125,7 +126,7 @@ p_log <- ggplot(pbc, aes(x = log(bili))) +
   labs(title = "Log-transformed bilirubin", x = "log(mg/dL)", y = "Count") +
   theme_bw()
 
-p_raw + p_log
+wrap_plots(p_raw, p_log)
 ```
 
 After log transformation, the distribution is approximately symmetric. When you report results from a model fitted on log-bilirubin, back-transform to the original scale using `exp()` for clinical interpretability.
@@ -231,24 +232,24 @@ melanoma <- boot::melanoma |>
 ### Tumour Thickness Distribution
 
 ```{r melanoma-thickness}
-p1 <- ggplot(melanoma, aes(x = thick)) +
+p1 <- ggplot(melanoma, aes(x = thickness)) +
   geom_histogram(bins = 25, fill = "steelblue", color = "white") +
   labs(title = "Raw tumour thickness", x = "Thickness (1/100 mm)", y = "Count") +
   theme_bw()
 
-p2 <- ggplot(melanoma, aes(x = log(thick))) +
+p2 <- ggplot(melanoma, aes(x = log(thickness))) +
   geom_histogram(bins = 25, fill = "tomato", color = "white") +
   labs(title = "Log-transformed thickness", x = "log(thickness)", y = "Count") +
   theme_bw()
 
-p1 + p2
+wrap_plots(p1, p2)
 ```
 
 ### Thickness by Ulceration Status
 
 ```{r melanoma-ulceration}
 melanoma |>
-  ggplot(aes(x = ulceration, y = thick, fill = ulceration)) +
+  ggplot(aes(x = ulceration, y = thickness, fill = ulceration)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, alpha = 0.4) +
   scale_fill_manual(values = c("Absent" = "steelblue", "Present" = "tomato")) +

@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Simple basic statistics concepts - 26&nbsp; Statistical Decision Guide</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../sessions/clinical-research-methods.html" rel="next">
+<link href="../sessions/omics-statistics.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/statistical-decision-guide.html">Part 6: Reference and Resources</a></li><li class="breadcrumb-item"><a href="../sessions/statistical-decision-guide.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Simple basic statistics concepts</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Before You Begin: Setup</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Part 1: R Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/packages-libraries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Vectors, Data Frames, and Factors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/tidy-data-wrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Already know this?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Part 2: Describing and Visualizing Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Descriptive Statistics and Exploratory Data Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/basic-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/advanced-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/explore-clinical-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Part 3: Inference — Testing and Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/nonparametric-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Before You Start</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Part 4: Regression and Modeling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Before You Start</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Before You Start</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Before You Start</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/data-imputation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Before You Start</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Part 5: Advanced Methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Before You Start</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/causal-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/mendelian-randomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/omics-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Part 6: Reference and Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#when-do-you-use-this" id="toc-when-do-you-use-this" class="nav-link active" data-scroll-target="#when-do-you-use-this"><span class="header-section-number">26.1</span> When Do You Use This?</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">26.2</span> Learning Objectives</a></li>
+  <li><a href="#the-decision-framework" id="toc-the-decision-framework" class="nav-link" data-scroll-target="#the-decision-framework"><span class="header-section-number">26.3</span> The Decision Framework</a></li>
+  <li><a href="#decision-tables-by-question-type" id="toc-decision-tables-by-question-type" class="nav-link" data-scroll-target="#decision-tables-by-question-type"><span class="header-section-number">26.4</span> Decision Tables by Question Type</a>
+  <ul class="collapse">
+  <li><a href="#question-1-comparing-two-groups" id="toc-question-1-comparing-two-groups" class="nav-link" data-scroll-target="#question-1-comparing-two-groups"><span class="header-section-number">26.4.1</span> Question 1: Comparing Two Groups</a></li>
+  <li><a href="#question-2-comparing-three-or-more-groups" id="toc-question-2-comparing-three-or-more-groups" class="nav-link" data-scroll-target="#question-2-comparing-three-or-more-groups"><span class="header-section-number">26.4.2</span> Question 2: Comparing Three or More Groups</a></li>
+  <li><a href="#question-3-association-correlation" id="toc-question-3-association-correlation" class="nav-link" data-scroll-target="#question-3-association-correlation"><span class="header-section-number">26.4.3</span> Question 3: Association / Correlation</a></li>
+  <li><a href="#question-4-prediction" id="toc-question-4-prediction" class="nav-link" data-scroll-target="#question-4-prediction"><span class="header-section-number">26.4.4</span> Question 4: Prediction</a></li>
+  <li><a href="#question-5-comparing-proportions-one-group-vs-reference" id="toc-question-5-comparing-proportions-one-group-vs-reference" class="nav-link" data-scroll-target="#question-5-comparing-proportions-one-group-vs-reference"><span class="header-section-number">26.4.5</span> Question 5: Comparing Proportions (One Group vs Reference)</a></li>
+  </ul></li>
+  <li><a href="#worked-example-navigating-to-the-right-test" id="toc-worked-example-navigating-to-the-right-test" class="nav-link" data-scroll-target="#worked-example-navigating-to-the-right-test"><span class="header-section-number">26.5</span> Worked Example: Navigating to the Right Test</a></li>
+  <li><a href="#worked-example-2-binary-outcome-choosing-between-chi-square-and-logistic-regression" id="toc-worked-example-2-binary-outcome-choosing-between-chi-square-and-logistic-regression" class="nav-link" data-scroll-target="#worked-example-2-binary-outcome-choosing-between-chi-square-and-logistic-regression"><span class="header-section-number">26.6</span> Worked Example 2: Binary Outcome � Choosing Between Chi-Square and Logistic Regression</a></li>
+  <li><a href="#assumption-checking-quick-reference" id="toc-assumption-checking-quick-reference" class="nav-link" data-scroll-target="#assumption-checking-quick-reference"><span class="header-section-number">26.7</span> Assumption Checking Quick Reference</a></li>
+  <li><a href="#method-assumption-summary" id="toc-method-assumption-summary" class="nav-link" data-scroll-target="#method-assumption-summary"><span class="header-section-number">26.8</span> Method � Assumption Summary</a></li>
+  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">26.9</span> What Can Go Wrong</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">26.10</span> Exercises</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-guided-test-selection" id="toc-exercise-1-guided-test-selection" class="nav-link" data-scroll-target="#exercise-1-guided-test-selection"><span class="header-section-number">26.10.1</span> Exercise 1 (Guided): Test Selection</a></li>
+  <li><a href="#exercise-2-semi-guided-assumption-check-and-decision" id="toc-exercise-2-semi-guided-assumption-check-and-decision" class="nav-link" data-scroll-target="#exercise-2-semi-guided-assumption-check-and-decision"><span class="header-section-number">26.10.2</span> Exercise 2 (Semi-guided): Assumption Check and Decision</a></li>
+  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">26.10.3</span> Exercise 3 (Open-ended)</a></li>
+  </ul></li>
+  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">26.11</span> Comprehension Check</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">26.12</span> Further Reading</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/statistical-decision-guide.html">Part 6: Reference and Resources</a></li><li class="breadcrumb-item"><a href="../sessions/statistical-decision-guide.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-statistical-decision-guide" class="quarto-section-identifier"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="when-do-you-use-this" class="level2 callout-tip" data-number="26.1">
+<h2 class="callout-tip anchored" data-number="26.1" data-anchor-id="when-do-you-use-this"><span class="header-section-number">26.1</span> When Do You Use This?</h2>
+<blockquote class="blockquote">
+<p>You have data from a clinical study and need to choose the right test. Should you use a t-test or Mann-Whitney? Logistic regression or a chi-square test? This guide helps you navigate from your research question and data type to the appropriate method � and links you to the session where you can learn it properly.</p>
+</blockquote>
+</section>
+<section id="learning-objectives" class="level2" data-number="26.2">
+<h2 data-number="26.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">26.2</span> Learning Objectives</h2>
+<p>After completing this session you will be able to:</p>
+<ul>
+<li>Map any standard research question to an appropriate statistical method</li>
+<li>Identify the scale and distribution assumptions that determine test choice</li>
+<li>Recognise when assumptions are violated and choose a non-parametric alternative</li>
+<li>Find the relevant course session for every method covered</li>
+</ul>
+<hr>
+</section>
+<section id="the-decision-framework" class="level2" data-number="26.3">
+<h2 data-number="26.3" class="anchored" data-anchor-id="the-decision-framework"><span class="header-section-number">26.3</span> The Decision Framework</h2>
+<p>Every statistical test choice starts with three questions:</p>
+<ol type="1">
+<li><strong>What is your outcome variable?</strong> (continuous, binary, ordered, count, time-to-event)</li>
+<li><strong>What are you comparing?</strong> (one group vs reference, two groups, =3 groups, association/correlation, prediction)</li>
+<li><strong>Are assumptions met?</strong> (normality, equal variance, independence, sample size)</li>
+</ol>
+<hr>
+</section>
+<section id="decision-tables-by-question-type" class="level2" data-number="26.4">
+<h2 data-number="26.4" class="anchored" data-anchor-id="decision-tables-by-question-type"><span class="header-section-number">26.4</span> Decision Tables by Question Type</h2>
+<section id="question-1-comparing-two-groups" class="level3" data-number="26.4.1">
+<h3 data-number="26.4.1" class="anchored" data-anchor-id="question-1-comparing-two-groups"><span class="header-section-number">26.4.1</span> Question 1: Comparing Two Groups</h3>
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 39%">
+<col style="width: 18%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Outcome</th>
+<th>Assumptions met?</th>
+<th>Method</th>
+<th>Session</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Continuous</td>
+<td>Normal, equal variance</td>
+<td>Independent t-test</td>
+<td><a href="04-t-tests.html" class="quarto-xref"><span>Chapter 10</span></a></td>
+</tr>
+<tr class="even">
+<td>Continuous</td>
+<td>Normal, unequal variance</td>
+<td>Welch t-test</td>
+<td><a href="04-t-tests.html" class="quarto-xref"><span>Chapter 10</span></a></td>
+</tr>
+<tr class="odd">
+<td>Continuous</td>
+<td>Non-normal or n &lt; 30</td>
+<td>Mann-Whitney U</td>
+<td><a href="nonparametric-tests.html" class="quarto-xref"><span>Chapter 11</span></a></td>
+</tr>
+<tr class="even">
+<td>Continuous, paired</td>
+<td>Normal differences</td>
+<td>Paired t-test</td>
+<td><a href="04-t-tests.html" class="quarto-xref"><span>Chapter 10</span></a></td>
+</tr>
+<tr class="odd">
+<td>Continuous, paired</td>
+<td>Non-normal differences</td>
+<td>Wilcoxon signed-rank</td>
+<td><a href="nonparametric-tests.html" class="quarto-xref"><span>Chapter 11</span></a></td>
+</tr>
+<tr class="even">
+<td>Binary</td>
+<td>Counts = 5 per cell</td>
+<td>Chi-square / Fisher’s</td>
+<td><a href="categorical-data-and-chi-square.html" class="quarto-xref"><span>Chapter 13</span></a></td>
+</tr>
+<tr class="odd">
+<td>Ordinal</td>
+<td>�</td>
+<td>Mann-Whitney U</td>
+<td><a href="nonparametric-tests.html" class="quarto-xref"><span>Chapter 11</span></a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="question-2-comparing-three-or-more-groups" class="level3" data-number="26.4.2">
+<h3 data-number="26.4.2" class="anchored" data-anchor-id="question-2-comparing-three-or-more-groups"><span class="header-section-number">26.4.2</span> Question 2: Comparing Three or More Groups</h3>
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 39%">
+<col style="width: 18%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Outcome</th>
+<th>Assumptions met?</th>
+<th>Method</th>
+<th>Session</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Continuous</td>
+<td>Normal, equal variance</td>
+<td>One-way ANOVA</td>
+<td><a href="05-anova.html" class="quarto-xref"><span>Chapter 12</span></a></td>
+</tr>
+<tr class="even">
+<td>Continuous</td>
+<td>Non-normal or unequal variance</td>
+<td>Kruskal-Wallis</td>
+<td><a href="nonparametric-tests.html" class="quarto-xref"><span>Chapter 11</span></a></td>
+</tr>
+<tr class="odd">
+<td>Continuous, two factors</td>
+<td>Normal</td>
+<td>Two-way ANOVA</td>
+<td><a href="05-anova.html" class="quarto-xref"><span>Chapter 12</span></a></td>
+</tr>
+<tr class="even">
+<td>Continuous, repeated</td>
+<td>Normal</td>
+<td>Repeated-measures ANOVA / LMM</td>
+<td><a href="mixed-models.html" class="quarto-xref"><span>Chapter 21</span></a></td>
+</tr>
+<tr class="odd">
+<td>Binary</td>
+<td>Counts = 5</td>
+<td>Chi-square (k � 2 table)</td>
+<td><a href="categorical-data-and-chi-square.html" class="quarto-xref"><span>Chapter 13</span></a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="question-3-association-correlation" class="level3" data-number="26.4.3">
+<h3 data-number="26.4.3" class="anchored" data-anchor-id="question-3-association-correlation"><span class="header-section-number">26.4.3</span> Question 3: Association / Correlation</h3>
+<table class="table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 30%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Outcome</th>
+<th>Method</th>
+<th>Session</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Continuous�Continuous, linear</td>
+<td>Pearson r</td>
+<td><a href="correlation-and-association.html" class="quarto-xref"><span>Chapter 15</span></a></td>
+</tr>
+<tr class="even">
+<td>Continuous�Continuous, non-linear / ordinal</td>
+<td>Spearman ?</td>
+<td><a href="correlation-and-association.html" class="quarto-xref"><span>Chapter 15</span></a></td>
+</tr>
+<tr class="odd">
+<td>Binary�Binary</td>
+<td>Phi coefficient / chi-square</td>
+<td><a href="categorical-data-and-chi-square.html" class="quarto-xref"><span>Chapter 13</span></a></td>
+</tr>
+<tr class="even">
+<td>Time series / autocorrelated</td>
+<td>Check session on multiple regression</td>
+<td><a href="06-multiple-regression.html" class="quarto-xref"><span>Chapter 17</span></a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="question-4-prediction" class="level3" data-number="26.4.4">
+<h3 data-number="26.4.4" class="anchored" data-anchor-id="question-4-prediction"><span class="header-section-number">26.4.4</span> Question 4: Prediction</h3>
+<table class="table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 28%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Outcome</th>
+<th>Model</th>
+<th>Session</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Continuous</td>
+<td>Linear regression</td>
+<td><a href="02-linear-regression.html" class="quarto-xref"><span>Chapter 16</span></a></td>
+</tr>
+<tr class="even">
+<td>Continuous, multiple predictors</td>
+<td>Multiple regression</td>
+<td><a href="06-multiple-regression.html" class="quarto-xref"><span>Chapter 17</span></a></td>
+</tr>
+<tr class="odd">
+<td>Binary</td>
+<td>Logistic regression</td>
+<td><a href="03-logistic-regression.html" class="quarto-xref"><span>Chapter 18</span></a></td>
+</tr>
+<tr class="even">
+<td>Ordered categorical</td>
+<td>Ordinal logistic regression</td>
+<td><a href="03-logistic-regression.html" class="quarto-xref"><span>Chapter 18</span></a></td>
+</tr>
+<tr class="odd">
+<td>Count</td>
+<td>Poisson / negative binomial regression</td>
+<td><a href="06-multiple-regression.html" class="quarto-xref"><span>Chapter 17</span></a></td>
+</tr>
+<tr class="even">
+<td>Time-to-event</td>
+<td>Cox proportional hazards</td>
+<td><a href="survival-and-time-to-event.html" class="quarto-xref"><span>Chapter 22</span></a></td>
+</tr>
+<tr class="odd">
+<td>Correlated / hierarchical</td>
+<td>Mixed models (LMM / GLMM)</td>
+<td><a href="mixed-models.html" class="quarto-xref"><span>Chapter 21</span></a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="question-5-comparing-proportions-one-group-vs-reference" class="level3" data-number="26.4.5">
+<h3 data-number="26.4.5" class="anchored" data-anchor-id="question-5-comparing-proportions-one-group-vs-reference"><span class="header-section-number">26.4.5</span> Question 5: Comparing Proportions (One Group vs Reference)</h3>
+<table class="table">
+<colgroup>
+<col style="width: 46%">
+<col style="width: 25%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>What you want</th>
+<th>Method</th>
+<th>Session</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>One proportion vs known value</td>
+<td>One-sample z-test / binomial test</td>
+<td><a href="hypothesis-testing.html" class="quarto-xref"><span>Chapter 9</span></a></td>
+</tr>
+<tr class="even">
+<td>Two proportions</td>
+<td>Chi-square / Fisher’s exact</td>
+<td><a href="categorical-data-and-chi-square.html" class="quarto-xref"><span>Chapter 13</span></a></td>
+</tr>
+<tr class="odd">
+<td>Relative risk / odds ratio</td>
+<td>Logistic regression</td>
+<td><a href="03-logistic-regression.html" class="quarto-xref"><span>Chapter 18</span></a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="worked-example-navigating-to-the-right-test" class="level2" data-number="26.5">
+<h2 data-number="26.5" class="anchored" data-anchor-id="worked-example-navigating-to-the-right-test"><span class="header-section-number">26.5</span> Worked Example: Navigating to the Right Test</h2>
+<p><strong>Scenario:</strong> A clinical trial randomises 40 patients to drug vs placebo. You measure systolic blood pressure (continuous) before and after treatment. Which test?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Outcome = continuous (systolic BP)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Two paired groups (same patients before/after)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Check normality of differences</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>before <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">140</span>, <span class="dv">15</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>after  <span class="ot">&lt;-</span> before <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="sc">-</span><span class="dv">8</span>, <span class="dv">10</span>)   <span class="co"># drug lowers BP ~8 mmHg</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>diff   <span class="ot">&lt;-</span> after <span class="sc">-</span> before</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Shapiro-Wilk test of normality</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(diff)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  diff
+W = 0.97966, p-value = 0.9297</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Normal? ? paired t-test</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(after, before, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  after and before
+t = -4.3163, df = 19, p-value = 0.0003723
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ -15.903258  -5.516578
+sample estimates:
+mean difference 
+      -10.70992 </code></pre>
+</div>
+</div>
+<p><strong>Decision path:</strong> Continuous outcome ? Paired groups ? Normal differences ? <strong>Paired t-test</strong> ? <a href="04-t-tests.html" class="quarto-xref"><span>Chapter 10</span></a></p>
+<hr>
+</section>
+<section id="worked-example-2-binary-outcome-choosing-between-chi-square-and-logistic-regression" class="level2" data-number="26.6">
+<h2 data-number="26.6" class="anchored" data-anchor-id="worked-example-2-binary-outcome-choosing-between-chi-square-and-logistic-regression"><span class="header-section-number">26.6</span> Worked Example 2: Binary Outcome � Choosing Between Chi-Square and Logistic Regression</h2>
+<p><strong>Scenario:</strong> You want to know if NAFLD diagnosis (yes/no) differs between males and females in a cohort of 200 patients.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sex   <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Males have ~35% NAFLD, females ~20%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>nafld <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"Male"</span>, <span class="fl">0.35</span>, <span class="fl">0.20</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>dat   <span class="ot">&lt;-</span> <span class="fu">tibble</span>(sex, <span class="at">nafld =</span> <span class="fu">factor</span>(nafld, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>)))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Chi-square for unadjusted association</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(dat<span class="sc">$</span>sex, dat<span class="sc">$</span>nafld))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  table(dat$sex, dat$nafld)
+X-squared = 1.7904, df = 1, p-value = 0.1809</code></pre>
+</div>
+</div>
+<p>If you need to <strong>adjust for age and BMI</strong>, switch to logistic regression:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">50</span>, <span class="dv">10</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>bmi <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">27</span>, <span class="dv">4</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">nafld_num =</span> <span class="fu">as.integer</span>(nafld) <span class="sc">-</span> <span class="dv">1</span>, age, bmi, <span class="at">sex =</span> <span class="fu">factor</span>(sex))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(nafld_num <span class="sc">~</span> sex <span class="sc">+</span> age <span class="sc">+</span> bmi, <span class="at">data =</span> dat2, <span class="at">family =</span> binomial) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">exponentiate =</span> <span class="cn">TRUE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+  term        estimate conf.low conf.high p.value
+  &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 (Intercept)    0.608   0.0486      7.44   0.697
+2 sexMale        1.60    0.885       2.92   0.122
+3 age            1.01    0.976       1.04   0.665
+4 bmi            0.972   0.899       1.05   0.467</code></pre>
+</div>
+</div>
+<p><strong>Decision path:</strong> Binary outcome ? Association with one predictor ? <strong>Chi-square</strong> (unadjusted). Add covariates ? <strong>Logistic regression</strong> ? <a href="03-logistic-regression.html" class="quarto-xref"><span>Chapter 18</span></a></p>
+<hr>
+</section>
+<section id="assumption-checking-quick-reference" class="level2" data-number="26.7">
+<h2 data-number="26.7" class="anchored" data-anchor-id="assumption-checking-quick-reference"><span class="header-section-number">26.7</span> Assumption Checking Quick Reference</h2>
+<table class="table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 26%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Assumption</th>
+<th>Test / Plot</th>
+<th>What to do if violated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Normality</td>
+<td>Shapiro-Wilk, QQ plot</td>
+<td>Non-parametric alternative</td>
+</tr>
+<tr class="even">
+<td>Equal variance</td>
+<td>Levene’s / Bartlett’s</td>
+<td>Welch t-test / Welch ANOVA</td>
+</tr>
+<tr class="odd">
+<td>Independence</td>
+<td>Study design</td>
+<td>Mixed model for clustering</td>
+</tr>
+<tr class="even">
+<td>Proportional hazards (Cox)</td>
+<td><code>cox.zph()</code></td>
+<td>Stratified Cox or time-varying HR</td>
+</tr>
+<tr class="odd">
+<td>Linearity (regression)</td>
+<td>Residual vs fitted</td>
+<td>Polynomial or log transform</td>
+</tr>
+<tr class="even">
+<td>No influential outliers</td>
+<td>Cook’s distance</td>
+<td>Robust regression</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="method-assumption-summary" class="level2" data-number="26.8">
+<h2 data-number="26.8" class="anchored" data-anchor-id="method-assumption-summary"><span class="header-section-number">26.8</span> Method � Assumption Summary</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tribble</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>Method, <span class="sc">~</span>Outcome, <span class="sc">~</span>Key_Assumption, <span class="sc">~</span>Non_parametric_Alternative,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Independent t-test"</span>,  <span class="st">"Continuous"</span>, <span class="st">"Normal, equal variance"</span>, <span class="st">"Mann-Whitney U"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Paired t-test"</span>,       <span class="st">"Continuous"</span>, <span class="st">"Normal differences"</span>, <span class="st">"Wilcoxon signed-rank"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"One-way ANOVA"</span>,       <span class="st">"Continuous"</span>, <span class="st">"Normal, equal variance"</span>, <span class="st">"Kruskal-Wallis"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Pearson r"</span>,           <span class="st">"Continuous"</span>, <span class="st">"Bivariate normal, linear"</span>, <span class="st">"Spearman rho"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Chi-square"</span>,          <span class="st">"Categorical"</span>, <span class="st">"Expected count &gt;= 5"</span>, <span class="st">"Fisher's exact"</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Linear regression"</span>,   <span class="st">"Continuous"</span>, <span class="st">"Normal residuals"</span>, <span class="st">"Robust regression"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Logistic regression"</span>, <span class="st">"Binary"</span>,  <span class="st">"Sufficient events/predictor"</span>, <span class="st">"�"</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Cox regression"</span>,      <span class="st">"Time-to-event"</span>, <span class="st">"Proportional hazards"</span>, <span class="st">"Stratified Cox"</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 15%">
+<col style="width: 31%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Outcome</th>
+<th style="text-align: left;">Key_Assumption</th>
+<th style="text-align: left;">Non_parametric_Alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Independent t-test</td>
+<td style="text-align: left;">Continuous</td>
+<td style="text-align: left;">Normal, equal variance</td>
+<td style="text-align: left;">Mann-Whitney U</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Paired t-test</td>
+<td style="text-align: left;">Continuous</td>
+<td style="text-align: left;">Normal differences</td>
+<td style="text-align: left;">Wilcoxon signed-rank</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">One-way ANOVA</td>
+<td style="text-align: left;">Continuous</td>
+<td style="text-align: left;">Normal, equal variance</td>
+<td style="text-align: left;">Kruskal-Wallis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pearson r</td>
+<td style="text-align: left;">Continuous</td>
+<td style="text-align: left;">Bivariate normal, linear</td>
+<td style="text-align: left;">Spearman rho</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Chi-square</td>
+<td style="text-align: left;">Categorical</td>
+<td style="text-align: left;">Expected count &gt;= 5</td>
+<td style="text-align: left;">Fisher’s exact</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Linear regression</td>
+<td style="text-align: left;">Continuous</td>
+<td style="text-align: left;">Normal residuals</td>
+<td style="text-align: left;">Robust regression</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Logistic regression</td>
+<td style="text-align: left;">Binary</td>
+<td style="text-align: left;">Sufficient events/predictor</td>
+<td style="text-align: left;">�</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cox regression</td>
+<td style="text-align: left;">Time-to-event</td>
+<td style="text-align: left;">Proportional hazards</td>
+<td style="text-align: left;">Stratified Cox</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<hr>
+</section>
+<section id="what-can-go-wrong" class="level2 callout-warning" data-number="26.9">
+<h2 class="callout-warning anchored" data-number="26.9" data-anchor-id="what-can-go-wrong"><span class="header-section-number">26.9</span> What Can Go Wrong</h2>
+<p><strong>Choosing based on p-value alone</strong> Never choose the test that gives the most significant result. Test choice must be determined by the research question and data type, not by the outcome.</p>
+<p><strong>Ignoring paired structure</strong> Using a two-sample t-test when data are paired wastes statistical power (you ignore the within-subject correlation). Always account for the study design.</p>
+<p><strong>Multiple testing without correction</strong> Running 20 tests and reporting the significant ones inflates the type I error. Apply FDR or Bonferroni correction when testing multiple outcomes. See <a href="omics-statistics.html" class="quarto-xref"><span>Chapter 25</span></a> for omics-scale correction.</p>
+<p><strong>Treating ordinal as continuous</strong> Likert scales (1�5) are ordinal. Means are interpretable but formal inference should use ordinal tests or models unless scales are well-validated and items are summed.</p>
+<hr>
+</section>
+<section id="exercises" class="level2" data-number="26.10">
+<h2 data-number="26.10" class="anchored" data-anchor-id="exercises"><span class="header-section-number">26.10</span> Exercises</h2>
+<section id="exercise-1-guided-test-selection" class="level3" data-number="26.10.1">
+<h3 data-number="26.10.1" class="anchored" data-anchor-id="exercise-1-guided-test-selection"><span class="header-section-number">26.10.1</span> Exercise 1 (Guided): Test Selection</h3>
+<p>For each scenario below, name the appropriate statistical test and state why:</p>
+<ol type="1">
+<li>Comparing mean HbA1c in three treatment groups (normal distribution, equal variance, n = 30 per group).</li>
+<li>Comparing median C-reactive protein between responders and non-responders (right-skewed, small n = 12 per group).</li>
+<li>Assessing whether smoking status (yes/no) is associated with COPD diagnosis (yes/no) in 500 patients.</li>
+<li>Predicting 5-year cardiovascular event (yes/no) from age, sex, and LDL in 1,000 patients.</li>
+<li>Estimating time to relapse from surgery, comparing two chemotherapy regimens.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 1: Answers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>One-way ANOVA (continuous outcome, =3 groups, normality met, equal variance).</li>
+<li>Mann-Whitney U (continuous outcome, 2 groups, non-normal / small n � non-parametric).</li>
+<li>Chi-square test (binary � binary, large n; use Fisher’s exact if any expected count &lt; 5).</li>
+<li>Logistic regression (binary outcome, multiple predictors, prediction goal).</li>
+<li>Log-rank test + Cox proportional hazards (time-to-event outcome, two groups; Cox for adjusted estimate).</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2-semi-guided-assumption-check-and-decision" class="level3" data-number="26.10.2">
+<h3 data-number="26.10.2" class="anchored" data-anchor-id="exercise-2-semi-guided-assumption-check-and-decision"><span class="header-section-number">26.10.2</span> Exercise 2 (Semi-guided): Assumption Check and Decision</h3>
+<p>You have expression levels of a biomarker in healthy (n = 15) vs disease (n = 18) patients. The data look right-skewed with a few large values.</p>
+<ol type="1">
+<li>Plot the distribution (histogram and QQ plot).</li>
+<li>Run a Shapiro-Wilk test.</li>
+<li>Based on your test, choose between Welch t-test and Mann-Whitney U.</li>
+<li>Report the result including the effect size (Cohen’s d or rank-biserial r).</li>
+</ol>
+</section>
+<section id="exercise-3-open-ended" class="level3" data-number="26.10.3">
+<h3 data-number="26.10.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">26.10.3</span> Exercise 3 (Open-ended)</h3>
+<p>Take a published paper from your field. For each analysis reported: 1. Identify the outcome type and comparison being made. 2. Assess whether the correct test was used based on the decision tables above. 3. Note one assumption that the authors did or did not check, and state how it could affect the conclusions.</p>
+<hr>
+</section>
+</section>
+<section id="comprehension-check" class="level2" data-number="26.11">
+<h2 data-number="26.11" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">26.11</span> Comprehension Check</h2>
+<ol type="1">
+<li>A researcher measures body weight (continuous) in mice at three time points (baseline, week 4, week 8). They analyse each time point separately with t-tests. What is wrong with this approach?</li>
+<li>You want to test whether a new drug reduces blood pressure. Patients are measured before and after treatment. Should you use a paired or unpaired test? Why?</li>
+<li>A chi-square test returns a p-value of 0.03 comparing smoking rates by sex. A colleague says “logistic regression would be better.” When would they be correct?</li>
+<li>You run Shapiro-Wilk and get p = 0.04, but your sample size is n = 200. Should you automatically switch to a non-parametric test?</li>
+<li>What is the difference between a test of association (chi-square, correlation) and a test of prediction (regression)?</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Running separate t-tests at each time point ignores the repeated-measures structure (the same mice are measured three times). This inflates type I error (multiple comparisons) and ignores within-mouse correlation. The correct approach is repeated-measures ANOVA or a linear mixed model with time as a factor and mouse as a random effect.</li>
+<li>Paired test. The same patient is measured twice � the within-patient change in blood pressure is the quantity of interest. Using a paired test accounts for between-patient variability and is more powerful than an unpaired t-test. Use paired t-test (if differences are normal) or Wilcoxon signed-rank (if not).</li>
+<li>The colleague is correct when you need to adjust for confounders (e.g., age, deprivation, comorbidities). Chi-square tests a bivariate association; logistic regression allows you to estimate the sex�smoking association adjusted for other variables, gives odds ratios, and supports prediction. For a simple unadjusted two-by-two table, chi-square is perfectly valid.</li>
+<li>Not necessarily. With n = 200, the Shapiro-Wilk test is highly sensitive � it will detect trivial, practically irrelevant deviations from normality. With large samples, the t-test is robust to non-normality (central limit theorem). Check the QQ plot visually: if the tails are only mildly heavy, the t-test is fine. Only switch to a non-parametric test if the distribution is highly skewed or has extreme outliers.</li>
+<li>A test of <em>association</em> asks: are two variables related? (Chi-square, Pearson r). A test of <em>prediction</em> models the outcome as a function of predictors, estimates the size of effects, and can be used to predict new observations. Regression also allows adjustment for confounders, which association tests cannot. Use association tests for simple screening; use regression for explanatory modelling or confounding adjustment.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="further-reading" class="level2" data-number="26.12">
+<h2 data-number="26.12" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">26.12</span> Further Reading</h2>
+<ul>
+<li><span class="citation" data-cites="Field-2013">Field, Miles, and Field (<a href="#ref-Field-2013" role="doc-biblioref">2013</a>)</span> — <em>Discovering Statistics Using R</em> � practical test selection guidance</li>
+<li><span class="citation" data-cites="Glantz-2002">Glantz (<a href="#ref-Glantz-2002" role="doc-biblioref">2002</a>)</span> — <em>Primer of Biostatistics</em> � clear, clinically-oriented decision guide</li>
+<li><a href="https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/">UCLA Statistical Consulting: Which Statistical Test?</a> � online decision aid</li>
+</ul>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Field-2013" class="csl-entry" role="listitem">
+Field, Andy, Jeremy Miles, and Zoe Field. 2013. <em>Discovering Statistics Using r</em>. SAGE Publications.
+</div>
+<div id="ref-Glantz-2002" class="csl-entry" role="listitem">
+Glantz, Stanton A. 2002. <em>Primer of Biostatistics</em>. 5th ed. McGraw-Hill.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../sessions/omics-statistics.html" class="pagination-link  aria-label=" &lt;span="" do="" you="" use="" this?&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">When Do You Use This?</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../sessions/clinical-research-methods.html" class="pagination-link" aria-label="<span class='chapter-number'>27</span>&nbsp; <span class='chapter-title'>Clinical Research Methods</span>">
+        <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
