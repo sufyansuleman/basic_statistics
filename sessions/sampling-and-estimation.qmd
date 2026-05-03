@@ -1,4 +1,4 @@
-# Sampling, Estimation, and Confidence Intervals {#sec-sampling}
+ï»¿# Sampling, Estimation, and Confidence Intervals {#sec-sampling}
 
 ```{r setup}
 #| include: false
@@ -42,10 +42,10 @@ $$95\% \text{ CI for } \mu \approx \bar{x} \pm 1.96 \times SE(\bar{x})$$
 
 The **Central Limit Theorem (CLT)** states: regardless of the shape of the original distribution, the sampling distribution of the mean becomes approximately normal as sample size increases.
 
-This is why t-tests and confidence intervals work even when individual measurements are not normally distributed — as long as the **sample size is large enough** (roughly $n \geq 30$ for mildly skewed data; larger for heavily skewed data).
+This is why t-tests and confidence intervals work even when individual measurements are not normally distributed ï¿½ as long as the **sample size is large enough** (roughly $n \geq 30$ for mildly skewed data; larger for heavily skewed data).
 
 
-## Worked Example 1: Clinical Data (PBC)
+## Example 1: Clinical Data (PBC)
 
 ```{r pbc-setup}
 pbc <- survival::pbc %>%
@@ -137,7 +137,7 @@ pbc %>%
 ```
 
 
-## Worked Example 2: Animal Data (Mouse Weights)
+## Example 2: Animal Data (Mouse Weights)
 
 Suppose we measure body weight in a small experiment: 20 mice in each of two treatment groups.
 
@@ -172,12 +172,12 @@ boot_mean <- boot(data  = ctrl_weights,
 boot.ci(boot_mean, type = "perc")
 ```
 
-The percentile bootstrap CI takes the 2.5th and 97.5th percentile of the bootstrapped means as the interval bounds — no distributional assumptions required.
+The percentile bootstrap CI takes the 2.5th and 97.5th percentile of the bootstrapped means as the interval bounds ï¿½ no distributional assumptions required.
 
 
 ## Where to Find Data Like This {.callout-note}
 
-**PBC dataset:** `survival::pbc` — built in, no download needed.
+**PBC dataset:** `survival::pbc` ï¿½ built in, no download needed.
 
 **Simulating data for teaching:**
 ```{r}
@@ -197,7 +197,7 @@ dat <- tibble(
 ## What Can Go Wrong {.callout-warning}
 
 **Misinterpreting a confidence interval**
-A 95% CI does **not** mean "there is a 95% probability the true mean lies in this interval." The true mean either is or is not in the interval — it is not random. The correct interpretation is: "if we repeated the study many times, 95% of such intervals would contain the true mean."
+A 95% CI does **not** mean "there is a 95% probability the true mean lies in this interval." The true mean either is or is not in the interval ï¿½ it is not random. The correct interpretation is: "if we repeated the study many times, 95% of such intervals would contain the true mean."
 
 **Using a z-interval when n is small**
 The formula $\bar{x} \pm 1.96 \times SE$ uses the normal quantile 1.96. For small samples, use the t-distribution quantile: `qt(0.975, df = n - 1)`. `t.test()` does this automatically.
@@ -206,7 +206,7 @@ The formula $\bar{x} \pm 1.96 \times SE$ uses the normal quantile 1.96. For smal
 If you compute `mean(x)` without `na.rm = TRUE`, R returns `NA`. Worse, if missing values are not random (e.g., sicker patients more likely to have missing labs), your estimate will be biased.
 
 **Treating overlapping CIs as proof of no difference**
-Non-overlapping CIs do imply a significant difference (at approximately p < 0.05). But **overlapping CIs do not prove no difference** — you need a proper two-sample test. The 95% CI for each group mean is not the same as the 95% CI for their difference.
+Non-overlapping CIs do imply a significant difference (at approximately p < 0.05). But **overlapping CIs do not prove no difference** ï¿½ you need a proper two-sample test. The 95% CI for each group mean is not the same as the 95% CI for their difference.
 
 
 ## Exercises

@@ -1,4 +1,4 @@
-# Clinical Research Methods {#sec-clinical-methods}
+ï»¿# Clinical Research Methods {#sec-clinical-methods}
 
 ```{r setup}
 #| include: false
@@ -62,7 +62,7 @@ Randomised evidence sits above observational evidence because randomisation dist
 
 **Selection bias** occurs when study participants are not representative of the target population, or when selection into the study depends on both exposure and outcome.
 
-*Example:* A hospital-based case-control study of smoking and MI — hospital controls may include more smokers (Berkson's bias), inflating the apparent association.
+*Example:* A hospital-based case-control study of smoking and MI ï¿½ hospital controls may include more smokers (Berkson's bias), inflating the apparent association.
 
 **Information bias** arises from systematic errors in measuring exposure or outcome.
 
@@ -78,18 +78,18 @@ Randomised evidence sits above observational evidence because randomisation dist
 
 Nine criteria for judging whether an observed association is causal:
 
-1. **Strength** — strong associations are less likely to be entirely explained by bias
-2. **Consistency** — replicated across settings and populations
-3. **Specificity** — one exposure, one disease
-4. **Temporality** — exposure precedes outcome (essential)
-5. **Biological gradient** — dose-response relationship
-6. **Plausibility** — biologically sensible mechanism
-7. **Coherence** — fits existing knowledge
-8. **Experiment** — removal of exposure reduces disease
-9. **Analogy** — similar associations exist for similar factors
+1. **Strength** ï¿½ strong associations are less likely to be entirely explained by bias
+2. **Consistency** ï¿½ replicated across settings and populations
+3. **Specificity** ï¿½ one exposure, one disease
+4. **Temporality** ï¿½ exposure precedes outcome (essential)
+5. **Biological gradient** ï¿½ dose-response relationship
+6. **Plausibility** ï¿½ biologically sensible mechanism
+7. **Coherence** ï¿½ fits existing knowledge
+8. **Experiment** ï¿½ removal of exposure reduces disease
+9. **Analogy** ï¿½ similar associations exist for similar factors
 
 
-## Worked Example 1: Table 1 and Adjusted Analysis in PBC
+## Example 1: Table 1 and Adjusted Analysis in PBC
 
 We use the `survival::pbc` dataset (418 patients, primary biliary cholangitis trial).
 
@@ -127,7 +127,7 @@ pbc_clean %>%
   bold_labels()
 ```
 
-A balanced Table 1 (no significant p-values) suggests randomisation worked — baseline confounders are similar across treatment groups.
+A balanced Table 1 (no significant p-values) suggests randomisation worked ï¿½ baseline confounders are similar across treatment groups.
 
 ### Unadjusted Analysis
 
@@ -147,10 +147,10 @@ tidy(fit_adj, exponentiate = TRUE, conf.int = TRUE) %>%
   select(term, estimate, conf.low, conf.high, p.value)
 ```
 
-Compare the treatment odds ratio before and after adjustment. In a well-randomised trial, adjustment should not materially change the estimate — but it can improve precision.
+Compare the treatment odds ratio before and after adjustment. In a well-randomised trial, adjustment should not materially change the estimate ï¿½ but it can improve precision.
 
 
-## Worked Example 2: Observational Study — Confounding
+## Example 2: Observational Study ï¿½ Confounding
 
 In this example we simulate an observational study where the exposure-outcome association is entirely confounded.
 
@@ -161,10 +161,10 @@ n <- 1000
 # Confounder: socioeconomic status (SES; high = 1)
 SES <- rbinom(n, 1, 0.4)
 
-# Exposure: physical exercise — SES causes exercise
+# Exposure: physical exercise ï¿½ SES causes exercise
 exercise <- rbinom(n, 1, 0.3 + 0.4 * SES)
 
-# Outcome: HbA1c — SES causes HbA1c (not exercise)
+# Outcome: HbA1c ï¿½ SES causes HbA1c (not exercise)
 HbA1c <- 7.5 - 0.5 * SES + rnorm(n, 0, 0.8)
 # Exercise has NO direct effect on HbA1c in this simulation
 
@@ -181,18 +181,18 @@ fit_conf <- lm(HbA1c ~ exercise + SES, data = obs)
 tidy(fit_conf, conf.int = TRUE) %>% filter(term == "exercise")
 ```
 
-In the unadjusted model, exercise appears to lower HbA1c — but this is entirely explained by SES (richer people exercise more **and** have lower HbA1c). Adjusting for SES removes the confounded association.
+In the unadjusted model, exercise appears to lower HbA1c ï¿½ but this is entirely explained by SES (richer people exercise more **and** have lower HbA1c). Adjusting for SES removes the confounded association.
 
 
 ## Where to Find Data Like This {.callout-note}
 
-**`survival::pbc`:** RCT in primary biliary cholangitis — 418 patients, 17 variables, continuous follow-up. Ideal for survival analysis and clinical regression.
+**`survival::pbc`:** RCT in primary biliary cholangitis ï¿½ 418 patients, 17 variables, continuous follow-up. Ideal for survival analysis and clinical regression.
 
-**`MASS::birthwt`:** 189 births — birth weight, risk factors (smoking, hypertension, race). Good for logistic regression teaching.
+**`MASS::birthwt`:** 189 births ï¿½ birth weight, risk factors (smoking, hypertension, race). Good for logistic regression teaching.
 
 **NHANES:** US population health survey, accessible via `nhanesA` package. Rich observational dataset for confounding and epidemiology examples.
 
-**Epidemiological methods textbooks:** Often provide study datasets. sRothman-2012 includes worked examples from case-control and cohort designs.
+**Epidemiological methods textbooks:** Often provide study datasets. sRothman-2012 includes Examples from case-control and cohort designs.
 
 
 ## What Can Go Wrong {.callout-warning}
@@ -201,7 +201,7 @@ In the unadjusted model, exercise appears to lower HbA1c — but this is entirely 
 In retrospective cohort studies, if patients must survive long enough to receive a treatment, the treatment group has immortal follow-up time before exposure begins. Ignoring this biases results in favour of the treated group.
 
 **Collider bias**
-Adjusting for a variable on the causal pathway (a collider) can open a spurious association between exposure and outcome. See ssec-causal for a worked example.
+Adjusting for a variable on the causal pathway (a collider) can open a spurious association between exposure and outcome. See ssec-causal for a Example.
 
 **Ecological fallacy**
 Associations observed at the group level (e.g., country-level sodium intake and stroke mortality) do not necessarily hold at the individual level.
@@ -225,8 +225,8 @@ Read the following study description and identify the likely bias:
 ::: {.callout-tip collapse="true"}
 ### Exercise 1: Answers
 1. Case-control study.
-2. (a) **Selection bias (Berkson's bias):** Hospital controls may not represent the general population — they may have conditions related to diet that are common in the hospital (e.g., cardiovascular disease), which could distort the apparent fat-cancer association. Population-based controls would be better. (b) **Recall bias:** Cases who know they have cancer may search their memory more carefully for dietary risk factors — they may over-report fat intake compared with controls who are not "searching for a cause."
-3. **Differential recall bias** (or differential misclassification). Because misclassification differs between cases and controls, the OR will be biased — if cases over-report fat intake, the association between fat and cancer will be inflated (biased upward).
+2. (a) **Selection bias (Berkson's bias):** Hospital controls may not represent the general population ï¿½ they may have conditions related to diet that are common in the hospital (e.g., cardiovascular disease), which could distort the apparent fat-cancer association. Population-based controls would be better. (b) **Recall bias:** Cases who know they have cancer may search their memory more carefully for dietary risk factors ï¿½ they may over-report fat intake compared with controls who are not "searching for a cause."
+3. **Differential recall bias** (or differential misclassification). Because misclassification differs between cases and controls, the OR will be biased ï¿½ if cases over-report fat intake, the association between fat and cancer will be inflated (biased upward).
 :::
 
 ### Exercise 2 (Semi-guided): Table 1 and Confounding
@@ -266,20 +266,20 @@ Identify a published observational study in your research area. Write a one-page
 2. A study finds that coffee drinking is associated with reduced risk of Parkinson's disease. A confounder is proposed: smokers drink more coffee and are less likely to develop Parkinson's (due to nicotine's neuroprotective effects). Is this a confounder? Explain why or why not.
 3. In a case-control study, cases and controls are recruited from different hospitals. What bias might this introduce?
 4. What does "non-differential misclassification" mean, and which direction does it typically bias the association?
-5. A cohort study uses data from 2010–2020. Patients are classified as "treated" if they received a statin at any point. However, many patients only started statins after having a cardiovascular event. What bias does this introduce?
+5. A cohort study uses data from 2010ï¿½2020. Patients are classified as "treated" if they received a statin at any point. However, many patients only started statins after having a cardiovascular event. What bias does this introduce?
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. Randomisation distributes measured and unmeasured confounders equally across treatment groups — something observational studies cannot achieve. In an RCT, any observed difference in outcome can be attributed to the treatment with much greater confidence. Cohort studies, even with careful adjustment, can only control for *measured* confounders; unknown or unmeasured confounders may still distort the estimate.
-2. Yes, this is a confounder. Smoking satisfies all three criteria: (1) it is associated with the exposure (coffee drinking — smokers drink more coffee); (2) it is independently associated with the outcome (smoking is associated with reduced Parkinson's risk via nicotine); (3) it is not on the causal pathway from coffee to Parkinson's. Failure to adjust for smoking would make coffee drinking appear protective, when some of the apparent protection actually comes from smoking. Note: this is a real phenomenon and a genuine methodological challenge in coffee/Parkinson's research.
+1. Randomisation distributes measured and unmeasured confounders equally across treatment groups ï¿½ something observational studies cannot achieve. In an RCT, any observed difference in outcome can be attributed to the treatment with much greater confidence. Cohort studies, even with careful adjustment, can only control for *measured* confounders; unknown or unmeasured confounders may still distort the estimate.
+2. Yes, this is a confounder. Smoking satisfies all three criteria: (1) it is associated with the exposure (coffee drinking ï¿½ smokers drink more coffee); (2) it is independently associated with the outcome (smoking is associated with reduced Parkinson's risk via nicotine); (3) it is not on the causal pathway from coffee to Parkinson's. Failure to adjust for smoking would make coffee drinking appear protective, when some of the apparent protection actually comes from smoking. Note: this is a real phenomenon and a genuine methodological challenge in coffee/Parkinson's research.
 3. Berkson's (hospital admission) bias. Patients admitted to different hospitals may differ systematically by severity, comorbidities, or healthcare-seeking behaviour. Using controls from a different hospital means they may not be representative of the same source population as the cases, potentially creating a spurious association (or masking a true one).
-4. Non-differential misclassification means the measurement error does not differ between exposure groups or between cases and controls — it is equally likely to misclassify anyone. This typically biases the association toward the null (i.e., it attenuates the observed effect size). A true association is made to look smaller. Differential misclassification (which differs between cases and controls) can bias in any direction.
+4. Non-differential misclassification means the measurement error does not differ between exposure groups or between cases and controls ï¿½ it is equally likely to misclassify anyone. This typically biases the association toward the null (i.e., it attenuates the observed effect size). A true association is made to look smaller. Differential misclassification (which differs between cases and controls) can bias in any direction.
 5. Immortal time bias. Patients who start statins after a cardiovascular event were at risk of that event *before* starting treatment, but they are classified as "treated" throughout the follow-up period. This means the treated group has a period of follow-up before exposure starts (an immortal period when they could not have had the event). This artefactually makes the treated group appear healthier. The correct design is time-varying exposure analysis (Cox model with time-varying statin use) or an intention-to-treat design from a clear index date.
 :::
 
 ## Further Reading
 
-- sRothman-2012 --- *Epidemiology: An Introduction* — authoritative text on study design and confounding
-- sHernan-Robins-2020 --- *Causal Inference: What If* — free online textbook on observational causal inference
-- sSzklo-Nieto-2014 --- *Epidemiology: Beyond the Basics* — bias, confounding, effect modification
+- sRothman-2012 --- *Epidemiology: An Introduction* ï¿½ authoritative text on study design and confounding
+- sHernan-Robins-2020 --- *Causal Inference: What If* ï¿½ free online textbook on observational causal inference
+- sSzklo-Nieto-2014 --- *Epidemiology: Beyond the Basics* ï¿½ bias, confounding, effect modification
 - sGrimes-Schulz-2002 --- *Cohort studies: marching towards outcomes* (Lancet series on study design)

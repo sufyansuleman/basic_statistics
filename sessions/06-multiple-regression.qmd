@@ -1,4 +1,4 @@
-# Multiple Linear Regression {#sec-multiple-regression}
+﻿# Multiple Linear Regression {#sec-multiple-regression}
 
 ```{r setup}
 #| include: false
@@ -45,7 +45,7 @@ $$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 (X_1 \times X_2) + \varepsil
 **Multicollinearity:** When predictors are highly correlated, their coefficients become unstable. Variance Inflation Factor (VIF) > 5�10 signals a problem.
 
 
-## Worked Example 1: Clinical Data (PBC)
+## Example 1: Clinical Data (PBC)
 
 ### Build a Multivariable Model
 
@@ -161,7 +161,7 @@ tidy(fit_int, conf.int = TRUE) %>%
 The interaction terms `log_bili:stageStage X` represent how much the slope of bilirubin differs in Stage X compared to Stage 1. If the CIs include zero, the slope does not differ significantly across stages.
 
 
-## Worked Example 2: Animal Data (palmerpenguins)
+## Example 2: Animal Data (palmerpenguins)
 
 Flipper length and bill length both predict body mass. Adding species as a covariate adjusts for the confounding we identified in the correlation session.
 

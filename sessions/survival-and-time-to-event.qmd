@@ -1,4 +1,4 @@
-# Survival Analysis and Time-to-Event Data {#sec-survival}
+ï»¿# Survival Analysis and Time-to-Event Data {#sec-survival}
 
 ```{r setup}
 #| include: false
@@ -16,7 +16,7 @@ This session assumes you are comfortable with basic inference (hypothesis testin
 
 ## When Do You Use This? {.callout-tip}
 
-> You followed 418 PBC patients for up to 12 years. Some died, others were censored — they received a transplant, were lost to follow-up, or were still alive at the end of the study. You cannot analyse time to death with a t-test or logistic regression because censoring means you only know a patient survived *at least* to the censoring time, not their exact death time. Survival analysis handles this correctly.
+> You followed 418 PBC patients for up to 12 years. Some died, others were censored ï¿½ they received a transplant, were lost to follow-up, or were still alive at the end of the study. You cannot analyse time to death with a t-test or logistic regression because censoring means you only know a patient survived *at least* to the censoring time, not their exact death time. Survival analysis handles this correctly.
 
 ## Learning Objectives
 
@@ -55,12 +55,12 @@ The Cox model relates covariates to the hazard:
 
 $$h(t \mid X) = h_0(t) \cdot \exp(\beta_1 X_1 + \cdots + \beta_p X_p)$$
 
-The **hazard ratio (HR)** for a one-unit increase in $X_j$ is $e^{\beta_j}$. HR > 1 means increased risk; HR < 1 means reduced risk. The baseline hazard $h_0(t)$ is left unspecified — this is the "semi-parametric" nature of the Cox model.
+The **hazard ratio (HR)** for a one-unit increase in $X_j$ is $e^{\beta_j}$. HR > 1 means increased risk; HR < 1 means reduced risk. The baseline hazard $h_0(t)$ is left unspecified ï¿½ this is the "semi-parametric" nature of the Cox model.
 
 **Proportional hazards assumption:** The ratio of hazards between any two covariate patterns is constant over time. This must be checked.
 
 
-## Worked Example 1: Clinical Data (PBC)
+## Example 1: Clinical Data (PBC)
 
 ### Prepare the Data
 
@@ -149,7 +149,7 @@ glance(cox_full)   # concordance (C-statistic), log-likelihood, AIC
 
 **Interpreting hazard ratios:**
 - **log_bili:** Each one-unit increase in log(bilirubin) multiplies the hazard of death by [HR].
-- **albumin:** Each 1 g/dL increase in albumin is associated with HR < 1 — protective.
+- **albumin:** Each 1 g/dL increase in albumin is associated with HR < 1 ï¿½ protective.
 - **stageStage 4:** Patients in Stage 4 have [HR] times the hazard of Stage 1 patients, after adjustment.
 
 
@@ -167,12 +167,12 @@ par(mfrow = c(1, 1))
 ```
 
 A significant p-value for a term indicates the hazard ratio for that variable changes over time (non-proportional hazards). If the Schoenfeld residual plot shows a systematic trend, consider:
-- **Stratification:** `coxph(... + strata(stage), ...)` — allows separate baseline hazards by stage, not estimating a stage HR
+- **Stratification:** `coxph(... + strata(stage), ...)` ï¿½ allows separate baseline hazards by stage, not estimating a stage HR
 - **Time-varying coefficients:** `tt()` in `coxph`
 - **Restricted mean survival time** as an alternative summary measure
 
 
-## Worked Example 2: Animal Data (boot::melanoma)
+## Example 2: Animal Data (boot::melanoma)
 
 Melanoma patients with known follow-up time and vital status.
 
@@ -210,9 +210,9 @@ tidy(cox_mel, conf.int = TRUE, exponentiate = TRUE) %>%
 
 ## Where to Find Data Like This {.callout-note}
 
-**`survival::pbc`:** 418 PBC patients with time-to-transplant/death, multiple clinical covariates — the primary teaching dataset for this session.
+**`survival::pbc`:** 418 PBC patients with time-to-transplant/death, multiple clinical covariates ï¿½ the primary teaching dataset for this session.
 
-**`survival::lung`:** Lung cancer patients with ECOG performance scores — commonly used for Cox model examples.
+**`survival::lung`:** Lung cancer patients with ECOG performance scores ï¿½ commonly used for Cox model examples.
 
 **`boot::melanoma`:** 205 melanoma patients with thickness, ulceration, and survival time.
 
@@ -297,22 +297,22 @@ Using `survival::lung`, fit a multivariable Cox model predicting death from ECOG
 
 1. A patient is censored at 800 days with `died = 0`. What does this mean, and how does the Cox model use this data point?
 2. You compare two KM curves with the log-rank test and get p = 0.04. What exactly is being tested?
-3. The HR for log_bili is 2.1 (95% CI 1.7–2.6). Interpret this in plain language.
+3. The HR for log_bili is 2.1 (95% CI 1.7ï¿½2.6). Interpret this in plain language.
 4. `cox.zph()` gives p = 0.007 for stage. What is the problem, and what are your options?
 5. Your study has 200 patients, of whom 120 were transplanted before dying. Why is treating transplant as censoring a problem?
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. The patient was alive (or otherwise event-free) at 800 days when observation ended — whether by end of study, loss to follow-up, or administrative censoring. The Cox model uses this as a partial likelihood contribution: the patient was in the risk set at all times up to 800 days and did not have the event. Their data provides information about who was at risk but does not contribute a completed failure time.
-2. The log-rank test evaluates the null hypothesis that the two survival curves are identical over the entire follow-up period — i.e., the expected and observed numbers of deaths are equal across all time points simultaneously. p = 0.04 means the evidence against identical survival curves reaches conventional significance. It does not specify where the curves diverge or by how much.
+1. The patient was alive (or otherwise event-free) at 800 days when observation ended ï¿½ whether by end of study, loss to follow-up, or administrative censoring. The Cox model uses this as a partial likelihood contribution: the patient was in the risk set at all times up to 800 days and did not have the event. Their data provides information about who was at risk but does not contribute a completed failure time.
+2. The log-rank test evaluates the null hypothesis that the two survival curves are identical over the entire follow-up period ï¿½ i.e., the expected and observed numbers of deaths are equal across all time points simultaneously. p = 0.04 means the evidence against identical survival curves reaches conventional significance. It does not specify where the curves diverge or by how much.
 3. Each 2.72-fold increase in bilirubin (one unit on the log scale) is associated with a 2.1-times higher instantaneous rate of dying (hazard), after adjustment for other variables. Patients with bilirubin 2.72 times higher are estimated to die at 2.1 times the rate of otherwise similar patients.
-4. The proportional hazards assumption is violated for stage — the hazard ratio between stages is not constant over time. Options: (1) stratify by stage using `strata(stage)`, which allows separate baseline hazards per stage but does not estimate a stage HR; (2) include a `stage:log(time)` interaction term to model the time-varying hazard ratio; (3) use restricted mean survival time (RMST) as an alternative summary that does not assume proportionality.
-5. Transplant is a **competing risk** for death from liver disease — a patient who receives a transplant can no longer die from the disease. Treating transplant as censoring falsely assumes these patients had the same underlying risk as uncensored patients, which overestimates the cumulative incidence of disease-specific death. The correct analysis uses cumulative incidence functions and the Fine-Gray or cause-specific Cox model to account for transplant as a competing event.
+4. The proportional hazards assumption is violated for stage ï¿½ the hazard ratio between stages is not constant over time. Options: (1) stratify by stage using `strata(stage)`, which allows separate baseline hazards per stage but does not estimate a stage HR; (2) include a `stage:log(time)` interaction term to model the time-varying hazard ratio; (3) use restricted mean survival time (RMST) as an alternative summary that does not assume proportionality.
+5. Transplant is a **competing risk** for death from liver disease ï¿½ a patient who receives a transplant can no longer die from the disease. Treating transplant as censoring falsely assumes these patients had the same underlying risk as uncensored patients, which overestimates the cumulative incidence of disease-specific death. The correct analysis uses cumulative incidence functions and the Fine-Gray or cause-specific Cox model to account for transplant as a competing event.
 :::
 
 ## Further Reading
 
 - @Therneau-2000 --- *Modeling Survival Data: Extending the Cox Model*
-- `vignette("survival", package = "survival")` — comprehensive package vignette
+- `vignette("survival", package = "survival")` ï¿½ comprehensive package vignette
 - `ggsurvfit` package documentation for publication-quality KM plots
 - @Royston-2011 --- *Restricted mean survival time: an alternative to the hazard ratio* (Statistics in Medicine)
