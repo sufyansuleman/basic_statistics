@@ -62,6 +62,47 @@ pbc <- survival::pbc %>%
 cor.test(pbc$albumin, log(pbc$bili), method = "pearson")
 ```
 
+::: {.callout-note}
+### Reading the `cor.test()` Output — Line by Line
+
+```
+Pearson's product-moment correlation
+
+t = -8.4, df = 310, p-value < 0.001
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval: -0.45  -0.29
+sample estimates:
+   cor
+-0.37
+```
+
+| Output | What it means |
+|---|---|
+| **t = −8.4** | The test statistic used to test whether r ≠ 0. Calculated as r√(n−2) / √(1−r²). Large absolute value → strong evidence against r = 0. |
+| **df = 310** | Degrees of freedom = n − 2. Here n = 312 patients, so df = 310. |
+| **p-value < 0.001** | If the true correlation were zero, we would almost never see r this large by chance. |
+| **95% CI: −0.45 to −0.29** | The range of plausible values for the true population correlation. Excludes zero — consistent with the p-value. |
+| **cor = −0.37** | The Pearson r coefficient. Ranges from −1 (perfect negative) to +1 (perfect positive). 0 = no linear relationship. |
+
+**Effect size benchmarks (Cohen, 1988):**
+
+| |r| value | Interpretation |
+|---|---|
+| 0.10 | Small |
+| 0.30 | Medium |
+| 0.50 | Large |
+
+Note: r² = 0.37² = 0.14 — bilirubin explains 14% of the variance in albumin. Always report r² alongside r for a complete picture.
+
+::: {.callout-tip}
+### What Does This Actually Tell Us?
+
+> *"Higher bilirubin was moderately negatively correlated with albumin (Pearson r = −0.37, 95% CI: −0.45 to −0.29, p < 0.001). As bilirubin increased, albumin tended to be lower, consistent with progressive liver dysfunction."*
+
+An r of −0.37 is a **medium-to-large** correlation by conventional benchmarks, but in clinical data this is often as strong as you will see. Context matters: an r of 0.2 between a biomarker and an outcome may be clinically important if the biomarker is cheap and easy to measure.
+:::
+:::
+
 ```{r cor-spearman}
 # Spearman: more appropriate given bilirubin's skew
 cor.test(pbc$albumin, pbc$bili, method = "spearman")
@@ -124,7 +165,7 @@ pbc_num %>%
 
 ## Worked Example 2: Animal Data (palmerpenguins)
 
-The penguin dataset provides a clean example of correlation *within groups* versus *across groups* � a useful lesson about confounding.
+The penguin dataset provides a clean example of correlation *within groups* versus *across groups* � a useful lesson about confounding.
 
 ```{r penguins}
 library(palmerpenguins)
@@ -166,11 +207,11 @@ This is **Simpson's Paradox**: the overall (marginal) correlation is negative, b
 
 ## Where to Find Data Like This {.callout-note}
 
-**PBC dataset:** `survival::pbc` � multiple continuous clinical variables (albumin, bilirubin, protime, platelet, etc.) with known clinical correlations.
+**PBC dataset:** `survival::pbc` � multiple continuous clinical variables (albumin, bilirubin, protime, platelet, etc.) with known clinical correlations.
 
-**palmerpenguins:** `palmerpenguins::penguins` � body measurements with a clear grouping variable for demonstrating confounding.
+**palmerpenguins:** `palmerpenguins::penguins` � body measurements with a clear grouping variable for demonstrating confounding.
 
-**NHANES:** `nhanesA` or `nhanes` package � population-level continuous variables (blood pressure, cholesterol, BMI, age).
+**NHANES:** `nhanesA` or `nhanes` package � population-level continuous variables (blood pressure, cholesterol, BMI, age).
 
 
 ## What Can Go Wrong {.callout-warning}
@@ -185,10 +226,29 @@ A single extreme outlier can drive a large r. Always plot your data before compu
 Testing all $p(p-1)/2$ pairs from a correlation matrix inflates Type I error. Adjust p-values with `p.adjust()` when reporting multiple correlations.
 
 **Range restriction**
-If you select subjects based on one of the variables (e.g., only patients with bilirubin > 5), the correlation in that subset will differ from the population correlation � usually attenuated.
+If you select subjects based on one of the variables (e.g., only patients with bilirubin > 5), the correlation in that subset will differ from the population correlation � usually attenuated.
 
 **Ecological correlation**
 Correlations computed on group averages (e.g., countries, hospitals) are typically stronger than individual-level correlations. Do not interpret ecological correlations as individual-level associations.
+
+::: {.callout-warning}
+### Common Misinterpretations — Don't Make These Mistakes
+
+**"r = 0.37 means 37% of variance is explained"**
+No. The variance explained is r², not r. With r = 0.37, bilirubin explains r² = 0.14 = 14% of variance in albumin. Always report r² alongside r for a complete description of the relationship.
+
+**"A statistically significant correlation is a strong correlation"**
+With n = 400 patients, even r = 0.10 will be statistically significant (p ≈ 0.05). Statistical significance tells you that r ≠ 0; it does not tell you the association is clinically important. Always report the r value and confidence interval, not just "p < 0.05".
+
+**"Spearman r means the same as Pearson r"**
+Both range from −1 to +1, but they measure different things. Pearson measures linear association between the raw values. Spearman measures monotonic association using the ranked values. They are not interchangeable — do not compare Pearson r from one study to Spearman r from another.
+
+**"A high correlation matrix entry means I should include that predictor in regression"**
+High zero-order correlations can be misleading. After adjusting for other predictors, the partial effect may be much smaller. Use correlation matrices for exploration, not for selecting predictors.
+
+**"A negative correlation means the variables are inversely proportional"**
+A negative r means higher values of X tend to go with lower values of Y — that is all. It says nothing about proportionality, linearity beyond what the scatter plot shows, or whether the relationship is causal.
+:::
 
 
 ## Exercises
@@ -253,7 +313,7 @@ peng %>%
 
 ### Exercise 3 (Open-ended)
 
-Using your own data, identify two continuous variables you expect to be related. Plot them, compute the appropriate correlation, and test the significance. Write a two-sentence result. Now think of a third variable that might confound the relationship � how would you check for it?
+Using your own data, identify two continuous variables you expect to be related. Plot them, compute the appropriate correlation, and test the significance. Write a two-sentence result. Now think of a third variable that might confound the relationship � how would you check for it?
 
 
 ## Comprehension Check
@@ -262,20 +322,20 @@ Using your own data, identify two continuous variables you expect to be related.
 2. You compute r = 0.85, p < 0.001 between two blood biomarkers. Can you conclude one biomarker causes changes in the other?
 3. A correlation matrix of 10 variables has 45 pairwise tests. Three are significant at p < 0.05. Is this noteworthy?
 4. You observe a strong negative correlation between overall bill length and bill depth in penguins, but a positive correlation within each species. What is this called, and what causes it?
-5. You want to correlate a Likert-scale pain score (1�10) with serum CRP. Which coefficient should you use?
+5. You want to correlate a Likert-scale pain score (1�10) with serum CRP. Which coefficient should you use?
 
 ::: {.callout-note collapse="true"}
 ### Answers
 1. Use Spearman when (1) one or both variables are skewed or contain outliers, (2) the relationship is monotonic but not necessarily linear, or (3) one variable is ordinal.
 2. No. Correlation describes the strength of association, not direction of causation. The two biomarkers may both reflect a third underlying process (confounding), or the direction of causality could run either way.
-3. Not necessarily. With 45 tests at a = 0.05, you expect 45 � 0.05 = 2.25 false positives by chance. Three significant results is only slightly above the expected false-positive count. Adjust for multiple testing and scrutinise the findings carefully.
+3. Not necessarily. With 45 tests at a = 0.05, you expect 45 � 0.05 = 2.25 false positives by chance. Three significant results is only slightly above the expected false-positive count. Adjust for multiple testing and scrutinise the findings carefully.
 4. This is Simpson's Paradox. The species variable is a confounder: different species have distinct bill morphologies, and within each species the relationship is positive. The overall correlation is dominated by between-species variation, which moves in the opposite direction.
-5. Spearman's ? (or Kendall's t). Pain scores are ordinal � the difference between 4 and 5 is not necessarily the same as between 7 and 8 � so rank-based methods are more appropriate than Pearson's r.
+5. Spearman's ? (or Kendall's t). Pain scores are ordinal � the difference between 4 and 5 is not necessarily the same as between 7 and 8 � so rank-based methods are more appropriate than Pearson's r.
 :::
 
 ## Further Reading
 
 - @Bland-2015 --- Correlation in *An Introduction to Medical Statistics*
 - @Dalgaard-2008 --- Chapter on correlation and regression
-- `?cor.test` in R � documentation covering all three methods
+- `?cor.test` in R � documentation covering all three methods
 - `GGally::ggpairs()` vignette for visualising multivariate relationships

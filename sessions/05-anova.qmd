@@ -15,7 +15,7 @@ ANOVA extends the t-test to three or more groups. If you haven't already, comple
 
 ## When Do You Use This? {.callout-tip}
 
-> You recorded albumin levels in 418 PBC patients at four stages of disease (Stage 1–4). You want to know whether albumin differs across these stages simultaneously — running six separate t-tests would inflate your Type I error. ANOVA tests all groups at once.
+> You recorded albumin levels in 418 PBC patients at four stages of disease (Stage 1ï¿½4). You want to know whether albumin differs across these stages simultaneously ï¿½ running six separate t-tests would inflate your Type I error. ANOVA tests all groups at once.
 
 ## Learning Objectives
 
@@ -84,6 +84,34 @@ fit_aov <- aov(albumin ~ stage, data = pbc_stage)
 summary(fit_aov)
 ```
 
+::: {.callout-note}
+### Reading the ANOVA Output â€” Line by Line
+
+```
+          Df  Sum Sq  Mean Sq  F value   Pr(>F)
+stage      3   7.23    2.41    12.4     <0.001 ***
+Residuals 409  79.4    0.19
+```
+
+| Column | What it means |
+|---|---|
+| **Df (stage = 3)** | Degrees of freedom between groups = number of groups âˆ’ 1 = 4 âˆ’ 1 = 3 |
+| **Df (Residuals = 409)** | Degrees of freedom within groups = total observations âˆ’ number of groups |
+| **Sum Sq (stage = 7.23)** | How much of the total variation in albumin is *explained* by stage |
+| **Sum Sq (Residuals = 79.4)** | How much remains *unexplained* (individual variation within each stage) |
+| **Mean Sq** | Sum Sq Ã· Df â€” normalises for the number of groups and observations |
+| **F value = 12.4** | Mean Sq (stage) Ã· Mean Sq (Residuals). A large F means between-group differences are large relative to within-group noise. |
+| **Pr(>F) < 0.001** | The p-value. If the true group means were all equal, we would see F this large less than 0.1% of the time. We reject Hâ‚€: at least one stage differs. |
+
+::: {.callout-tip}
+### What Does This Actually Tell Us?
+
+> *"Serum albumin differed significantly across the four PBC disease stages (one-way ANOVA: F(3, 409) = 12.4, p < 0.001). However, ANOVA only tells us that the means are not all equal â€” it does not tell us which stages differ. See Tukey's post-hoc test below."*
+
+**Important:** A significant ANOVA is just the beginning. You always need post-hoc comparisons to say *which* groups differ, and you need to report the actual group means so the reader understands the direction and size of the effect.
+:::
+:::
+
 **Interpreting the output:**
 - `Df`: degrees of freedom (between groups = $k-1 = 3$; within groups = $n-k$)
 - `Sum Sq`: sum of squares for between-group and within-group variation
@@ -128,7 +156,7 @@ oneway.test(albumin ~ stage, data = pbc_stage, var.equal = FALSE)
 
 ## Worked Example 2: Animal Data (Two-Way ANOVA)
 
-The `ToothGrowth` dataset is a 2×3 factorial experiment: two Vitamin C delivery methods × three dose levels. Two-way ANOVA tests for the effect of each factor *and* their interaction.
+The `ToothGrowth` dataset is a 2ï¿½3 factorial experiment: two Vitamin C delivery methods ï¿½ three dose levels. Two-way ANOVA tests for the effect of each factor *and* their interaction.
 
 ```{r tg-setup}
 tg <- ToothGrowth %>%
@@ -149,12 +177,12 @@ tg %>%
   geom_point(size = 3) +
   geom_errorbar(aes(ymin = mean_len - se_len, ymax = mean_len + se_len), width = 0.1) +
   scale_color_manual(values = c("steelblue", "tomato")) +
-  labs(title = "Interaction plot: dose × supplement",
-       x = "Dose (mg/day)", y = "Mean tooth length (µm)", color = "Supplement") +
+  labs(title = "Interaction plot: dose ï¿½ supplement",
+       x = "Dose (mg/day)", y = "Mean tooth length (ï¿½m)", color = "Supplement") +
   theme_bw()
 ```
 
-If the lines cross or have markedly different slopes, there is a **dose × supplement interaction**: the effect of dose depends on which supplement was used.
+If the lines cross or have markedly different slopes, there is a **dose ï¿½ supplement interaction**: the effect of dose depends on which supplement was used.
 
 ```{r two-way-anova}
 fit2 <- aov(len ~ supp * dose, data = tg)
@@ -165,7 +193,7 @@ tidy(fit2)
 **Reading the output:**
 - `supp`: main effect of supplement type
 - `dose`: main effect of dose
-- `supp:dose`: interaction term — does the effect of dose differ between the two supplements?
+- `supp:dose`: interaction term ï¿½ does the effect of dose differ between the two supplements?
 
 When the interaction is significant, the main effects alone do not tell the full story. Report the interaction and plot it.
 
@@ -179,11 +207,11 @@ TukeyHSD(fit2) %>% tidy() %>%
 
 ## Where to Find Data Like This {.callout-note}
 
-**PBC dataset:** `survival::pbc` — four-stage disease data, ideal for one-way ANOVA.
+**PBC dataset:** `survival::pbc` ï¿½ four-stage disease data, ideal for one-way ANOVA.
 
-**ToothGrowth:** `datasets::ToothGrowth` — built-in factorial experiment, ideal for two-way ANOVA.
+**ToothGrowth:** `datasets::ToothGrowth` ï¿½ built-in factorial experiment, ideal for two-way ANOVA.
 
-**PlantGrowth:** `datasets::PlantGrowth` — simple three-group ANOVA.
+**PlantGrowth:** `datasets::PlantGrowth` ï¿½ simple three-group ANOVA.
 
 **agridat package:** Many balanced factorial agricultural/animal experiments suitable for two-way ANOVA.
 
@@ -201,6 +229,25 @@ ANOVA is reasonably robust to mild variance inequality, but not severe inequalit
 
 **Using ANOVA on very small, non-normal groups**
 With small samples (< 10 per group) and clearly non-normal residuals, use Kruskal-Wallis instead.
+
+::: {.callout-warning}
+### Common Misinterpretations â€” Don't Make These Mistakes
+
+**"Significant ANOVA means all groups differ from each other"**
+No. A significant F-test only tells you that *at least one* pair of means differs. You need Tukey's HSD (or another post-hoc test) to find out which pairs. Never claim "all groups differ" without doing post-hoc comparisons.
+
+**"I can run t-tests on all pairs instead of ANOVA"**
+With 4 groups there are 6 pairwise t-tests. At Î± = 0.05, the probability of at least one false positive is 1 âˆ’ 0.95â¶ â‰ˆ 26%. Use ANOVA + Tukey's HSD to control the family-wise error rate.
+
+**"Non-significant interaction means the main effects are straightforward"**
+A non-significant interaction p-value does not *prove* the effects are additive â€” it may simply be underpowered. Always plot the group means to see whether the pattern makes biological sense.
+
+**"F-statistic of 12.4 means a large effect"**
+The F-statistic is not an effect size measure â€” it depends on sample size. A large F in a large study may reflect a trivially small group difference. Report the group means, standard deviations, and Î·Â² (eta-squared = SS_between / SS_total) as the effect size.
+
+**"ANOVA requires equal group sizes"**
+One-way ANOVA works with unequal group sizes (it is still valid). However, very unequal groups combined with unequal variances can inflate Type I error â€” use Welch's ANOVA (`oneway.test()`) in that case.
+:::
 
 
 ## Exercises
@@ -277,7 +324,7 @@ Using a dataset from your own research, identify a continuous outcome and a cate
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. The null hypothesis is that all group population means are equal: $H_0: \mu_1 = \mu_2 = \ldots = \mu_k$. A significant result means at least one group mean differs from at least one other — but not which pairs differ.
+1. The null hypothesis is that all group population means are equal: $H_0: \mu_1 = \mu_2 = \ldots = \mu_k$. A significant result means at least one group mean differs from at least one other ï¿½ but not which pairs differ.
 2. Running $\binom{k}{2}$ t-tests independently inflates the family-wise error rate. With $k = 4$ groups there are 6 pairs; at a = 0.05 you expect false positives. Tukey's HSD controls the family-wise error rate by adjusting the p-value for the number of comparisons.
 3. A significant interaction means the effect of supplement depends on dose (or vice versa). The main effects alone are misleading. You should plot the interaction (an interaction plot) and report group-specific means rather than marginal means.
 4. With small non-normal groups, use Kruskal-Wallis (a nonparametric ANOVA alternative that is robust to non-normality).
@@ -288,4 +335,4 @@ Using a dataset from your own research, identify a continuous outcome and a cate
 
 - @Dalgaard-2008 --- Chapter on ANOVA in *Introductory Statistics with R*
 - @Bland-2015 --- One-way and two-way ANOVA in *An Introduction to Medical Statistics*
-- `?aov`, `?TukeyHSD`, `?oneway.test` in R — built-in documentation
+- `?aov`, `?TukeyHSD`, `?oneway.test` in R ï¿½ built-in documentation
