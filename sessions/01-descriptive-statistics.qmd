@@ -1,4 +1,4 @@
-﻿# Descriptive Statistics and Exploratory Data Analysis {#sec-descriptive-statistics}
+# Descriptive Statistics and Exploratory Data Analysis {#sec-descriptive-statistics}
 
 ```{r setup}
 #| include: false
@@ -11,36 +11,45 @@ library(survival)
 
 ## When Do You Use This? {.callout-tip}
 
-> You have just received a dataset from a collaborator — 400 patients, 15 variables, and no codebook. Before running a single statistical test, you need to know what is in the data: which variables are continuous vs categorical, how many values are missing, whether any distributions are skewed, and whether any values look like data entry errors. That process is exploratory data analysis (EDA), and this session teaches you how to do it systematically.
+> You have just received a dataset from a collaborator 400 patients, 15
+> variables, and no codebook. Before running a single statistical test,
+> you need to know what is in the data: which variables are continuous
+> vs categorical, how many values are missing, whether any distributions
+> are skewed, and whether any values look like data entry errors. That
+> process is exploratory data analysis (EDA), and this session teaches
+> you how to do it systematically.
 
 ## Learning Objectives
 
 After completing this session you will be able to:
 
-- Compute means, medians, standard deviations, IQRs, and missing value counts
-- Visualize distributions with histograms, boxplots, and density plots
-- Produce a publication-style Table 1 with `gtsummary`
-- Recognize skewed distributions and apply log transformations
-- Write a plain-English interpretation of a descriptive summary
-
+-   Compute means, medians, standard deviations, IQRs, and missing value
+    counts
+-   Visualize distributions with histograms, boxplots, and density plots
+-   Produce a publication-style Table 1 with `gtsummary`
+-   Recognize skewed distributions and apply log transformations
+-   Write a plain-English interpretation of a descriptive summary
 
 ## Background: The EDA Mindset
 
-Descriptive statistics summarize the data as it is. Inferential statistics make claims about a population. You must always do the first before the second.
+Descriptive statistics summarize the data as it is. Inferential
+statistics make claims about a population. You must always do the first
+before the second.
 
-The questions to answer in any EDA:
-1. How many observations and variables?
-2. What type is each variable (continuous, categorical, date)?
-3. How many values are missing, and which variables?
-4. What is the distribution of each continuous variable (symmetric, skewed, bimodal)?
-5. Are there any values that seem implausible (outliers, data entry errors)?
+The questions to answer in any EDA: 1. How many observations and
+variables? 2. What type is each variable (continuous, categorical,
+date)? 3. How many values are missing, and which variables? 4. What is
+the distribution of each continuous variable (symmetric, skewed,
+bimodal)? 5. Are there any values that seem implausible (outliers, data
+entry errors)?
 
-
-## Example 1: Primary Biliary Cholangitis (Clinical)
+## Worked Example 1: Primary Biliary Cholangitis (Clinical)
 
 ### The Data
 
-The `pbc` dataset from the `survival` package contains clinical and laboratory data on 418 patients with primary biliary cholangitis. This is a real clinical trial dataset.
+The `pbc` dataset from the `survival` package contains clinical and
+laboratory data on 418 patients with primary biliary cholangitis. This
+is a real clinical trial dataset.
 
 ```{r load-pbc}
 pbc <- survival::pbc %>%
@@ -68,7 +77,8 @@ colSums(is.na(pbc)) %>% sort(decreasing = TRUE) %>% head(10)
 
 ### Step 2: Quick Overview with `skimr`
 
-`skim()` gives you a structured one-page summary: n, n_missing, mean, SD, percentiles, and a mini histogram for every variable.
+`skim()` gives you a structured one-page summary: n, n_missing, mean,
+SD, percentiles, and a mini histogram for every variable.
 
 ```{r skim}
 skim(pbc)
@@ -76,7 +86,9 @@ skim(pbc)
 
 ### Step 3: Table 1 with `gtsummary`
 
-In clinical research, Table 1 shows baseline characteristics split by treatment group. `gtsummary` creates this automatically and handles continuous vs categorical variables correctly.
+In clinical research, Table 1 shows baseline characteristics split by
+treatment group. `gtsummary` creates this automatically and handles
+continuous vs categorical variables correctly.
 
 ```{r table1}
 tbl_summary(
@@ -93,7 +105,7 @@ tbl_summary(
   bold_labels()
 ```
 
-### Step 4: Examine a Key Variable — Bilirubin
+### Step 4: Examine a Key Variable Bilirubin
 
 ```{r bilirubin-hist}
 # Raw distribution
@@ -104,7 +116,8 @@ ggplot(pbc, aes(x = bili)) +
   theme_bw()
 ```
 
-The distribution is strongly right-skewed. This is common for lab values (bilirubin, ALT, creatinine). Log transformation often helps.
+The distribution is strongly right-skewed. This is common for lab values
+(bilirubin, ALT, creatinine). Log transformation often helps.
 
 ```{r bilirubin-log}
 # Compare raw vs log-transformed
@@ -155,12 +168,17 @@ pbc %>%
 
 ### Interpreting the Output
 
-Median bilirubin rises consistently from Stage 1 to Stage 4, from roughly 0.7 mg/dL to over 5 mg/dL. This pattern is consistent with progressive liver dysfunction: bilirubin is cleared by the liver, so rising serum levels reflect worsening hepatic function. The IQR also widens in later stages, indicating more heterogeneity among patients with advanced disease.
+Median bilirubin rises consistently from Stage 1 to Stage 4, from
+roughly 0.7 mg/dL to over 5 mg/dL. This pattern is consistent with
+progressive liver dysfunction: bilirubin is cleared by the liver, so
+rising serum levels reflect worsening hepatic function. The IQR also
+widens in later stages, indicating more heterogeneity among patients
+with advanced disease.
 
+## Worked Example 2: Plant Growth Study (Lab Data)
 
-## Example 2: Plant Growth Study (Lab Data)
-
-Not all research is clinical. This example demonstrates EDA on a simple designed experiment: three groups of plants treated differently.
+Not all research is clinical. This example demonstrates EDA on a simple
+designed experiment: three groups of plants treated differently.
 
 ```{r plantgrowth}
 data("PlantGrowth")
@@ -192,40 +210,42 @@ PlantGrowth %>%
   theme(legend.position = "none")
 ```
 
-
 ## Where to Find Data Like This {.callout-note}
 
-**Clinical trial and patient data:**
-The `survival` R package contains several classic clinical datasets:
-- `survival::pbc` — 418 patients with primary biliary cholangitis
-- `survival::veteran` — lung cancer clinical trial
-- `survival::diabetic` — diabetic retinopathy study
+**Clinical trial and patient data:** The `survival` R package contains
+several classic clinical datasets: - `survival::pbc` 418 patients with
+primary biliary cholangitis - `survival::veteran` lung cancer clinical
+trial - `survival::diabetic` diabetic retinopathy study
 
 **NHANES (US population health surveys):**
+
 ```{r}
 #| eval: false
 library(nhanesA)
 body_meas <- nhanes("BMX_J")   # body measurements, 2017-2018 cycle
 ```
 
-**Mouse phenotyping data:**
-[Mouse Phenome Database](https://phenome.jax.org) — downloadable `.csv` files.
-
+**Mouse phenotyping data:** [Mouse Phenome
+Database](https://phenome.jax.org) downloadable `.csv` files.
 
 ## What Can Go Wrong {.callout-warning}
 
-**Reporting means for skewed data**
-Lab values (bilirubin, ALT, creatinine) are nearly always right-skewed. Report median and IQR, not mean and SD, unless you have confirmed approximate normality.
+**Reporting means for skewed data** Lab values (bilirubin, ALT,
+creatinine) are nearly always right-skewed. Report median and IQR, not
+mean and SD, unless you have confirmed approximate normality.
 
-**Missing data ignored in summaries**
-`mean(x)` returns `NA` if any value is missing. Always use `mean(x, na.rm = TRUE)` — but also report how many values are missing.
+**Missing data ignored in summaries** `mean(x)` returns `NA` if any
+value is missing. Always use `mean(x, na.rm = TRUE)` but also report how
+many values are missing.
 
-**Treating ordered categories as continuous**
-Disease stage (1, 2, 3, 4) looks numeric but is an ordered factor. Treat it as a factor in plots and models unless you have a specific reason to assume linearity.
+**Treating ordered categories as continuous** Disease stage (1, 2, 3, 4)
+looks numeric but is an ordered factor. Treat it as a factor in plots
+and models unless you have a specific reason to assume linearity.
 
-**Table 1 with wrong test choice**
-`gtsummary` defaults are sensible but check: does the p-value use a t-test when the variable is skewed? Use `add_p(test = list(all_continuous() ~ "kruskal.test"))` when distributions are non-normal.
-
+**Table 1 with wrong test choice** `gtsummary` defaults are sensible but
+check: does the p-value use a t-test when the variable is skewed? Use
+`add_p(test = list(all_continuous() ~ "kruskal.test"))` when
+distributions are non-normal.
 
 ## Exercises
 
@@ -233,12 +253,14 @@ Disease stage (1, 2, 3, 4) looks numeric but is an ordered factor. Treat it as a
 
 Using the `pbc` dataset:
 
-1. Compute the mean, median, SD, IQR, and proportion missing for `albumin` by treatment group (`trt`).
-2. Plot the distribution of `albumin` as a histogram.
-3. Plot `albumin` by treatment group using a boxplot with jittered points.
-4. Write 2 sentences interpreting what you see.
+1.  Compute the mean, median, SD, IQR, and proportion missing for
+    `albumin` by treatment group (`trt`).
+2.  Plot the distribution of `albumin` as a histogram.
+3.  Plot `albumin` by treatment group using a boxplot with jittered
+    points.
+4.  Write 2 sentences interpreting what you see.
 
-::: {.callout-tip collapse="true" title="Exercise 1 — Solution"}
+::: {.callout-tip collapse="true" title="Exercise 1  Solution"}
 ```{r}
 # Step 1: Summary by treatment group
 pbc %>%
@@ -270,15 +292,18 @@ pbc %>%
   theme_bw() + theme(legend.position = "none")
 ```
 
-Albumin is roughly normally distributed (mound-shaped histogram, symmetric). Median values are similar between treatment groups, suggesting baseline balance.
+Albumin is roughly normally distributed (mound-shaped histogram,
+symmetric). Median values are similar between treatment groups,
+suggesting baseline balance.
 :::
 
 ### Exercise 2 (Semi-guided): EDA on Plant Growth Data
 
-1. Load `PlantGrowth` (built into R: `data("PlantGrowth")`).
-2. Compute mean, SD, median, and IQR for `weight` by `group`.
-3. Create a boxplot comparing the three groups.
-4. Is the distribution of plant weight in each group approximately symmetric, or skewed?
+1.  Load `PlantGrowth` (built into R: `data("PlantGrowth")`).
+2.  Compute mean, SD, median, and IQR for `weight` by `group`.
+3.  Create a boxplot comparing the three groups.
+4.  Is the distribution of plant weight in each group approximately
+    symmetric, or skewed?
 
 ::: {.callout-tip collapse="true"}
 ### Exercise 2: Solution
@@ -305,34 +330,60 @@ ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
   theme_bw() + theme(legend.position = "none")
 ```
 
-With only 10 observations per group it is hard to assess normality definitively, but the distributions look roughly symmetric (medians near means, boxes of similar size above and below the median line).
+With only 10 observations per group it is hard to assess normality
+definitively, but the distributions look roughly symmetric (medians near
+means, boxes of similar size above and below the median line).
 :::
 
 ### Exercise 3 (Open-ended)
 
-Choose any dataset you are currently working with or a public dataset from the Mouse Phenome Database or NHANES. Run a complete EDA: check dimensions and missingness, produce a `skim()` summary, plot at least one continuous variable, and produce a group summary table. Write a paragraph describing what you found and what it implies for any subsequent analysis.
-
+Choose any dataset you are currently working with or a public dataset
+from the Mouse Phenome Database or NHANES. Run a complete EDA: check
+dimensions and missingness, produce a `skim()` summary, plot at least
+one continuous variable, and produce a group summary table. Write a
+paragraph describing what you found and what it implies for any
+subsequent analysis.
 
 ## Comprehension Check
 
-1. A variable has a mean of 45 and a median of 28. What does this tell you about the distribution?
-2. Why should you use `mean(x, na.rm = TRUE)` rather than `mean(x)` in most clinical datasets?
-3. You want to compare baseline characteristics between two treatment arms in a clinical trial. What type of table do you produce, and which R function creates it?
-4. A lab value has a right-skewed distribution. Which summary statistics are most appropriate to report?
-5. What does `skim()` from the `skimr` package show you that `summary()` does not?
+1.  A variable has a mean of 45 and a median of 28. What does this tell
+    you about the distribution?
+2.  Why should you use `mean(x, na.rm = TRUE)` rather than `mean(x)` in
+    most clinical datasets?
+3.  You want to compare baseline characteristics between two treatment
+    arms in a clinical trial. What type of table do you produce, and
+    which R function creates it?
+4.  A lab value has a right-skewed distribution. Which summary
+    statistics are most appropriate to report?
+5.  What does `skim()` from the `skimr` package show you that
+    `summary()` does not?
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. The mean is much larger than the median, which indicates a right-skewed distribution — a small number of very large values pull the mean upward. The median is the better measure of centre here.
-2. Without `na.rm = TRUE`, R returns `NA` for any vector that contains a missing value. Most clinical datasets have at least some missing values, so the result would be `NA` without this argument.
-3. A Table 1 (baseline characteristics table). In R, `tbl_summary()` from the `gtsummary` package creates this.
-4. Median and IQR. For right-skewed distributions, the mean and SD are misleading because they are pulled upward by the extreme values.
-5. `skim()` provides mini histograms for every numeric variable, making it easy to spot skewness at a glance. It also clearly separates numeric and character/factor variables and shows complete vs missing counts.
+
+1.  The mean is much larger than the median, which indicates a
+    right-skewed distribution a small number of very large values pull
+    the mean upward. The median is the better measure of centre here.
+2.  Without `na.rm = TRUE`, R returns `NA` for any vector that contains
+    a missing value. Most clinical datasets have at least some missing
+    values, so the result would be `NA` without this argument.
+3.  A Table 1 (baseline characteristics table). In R, `tbl_summary()`
+    from the `gtsummary` package creates this.
+4.  Median and IQR. For right-skewed distributions, the mean and SD are
+    misleading because they are pulled upward by the extreme values.
+5.  `skim()` provides mini histograms for every numeric variable, making
+    it easy to spot skewness at a glance. It also clearly separates
+    numeric and character/factor variables and shows complete vs missing
+    counts.
 :::
 
 ## Further Reading
 
-- [R for Data Science: Data Exploration](https://r4ds.hadley.nz/eda.html) — Hadley Wickham's EDA chapter
-- [gtsummary documentation](https://www.danieldsjoberg.com/gtsummary/) — Table 1 and summary tables
-- [skimr documentation](https://docs.ropensci.org/skimr/) — fast data profiling
-- @Wickham-2016-ggplot2 — ggplot2 visualization
+-   [R for Data Science: Data
+    Exploration](https://r4ds.hadley.nz/eda.html) Hadley Wickham's EDA
+    chapter
+-   [gtsummary documentation](https://www.danieldsjoberg.com/gtsummary/)
+    Table 1 and summary tables
+-   [skimr documentation](https://docs.ropensci.org/skimr/) fast data
+    profiling
+-   @Wickham-2016-ggplot2 ggplot2 visualization
