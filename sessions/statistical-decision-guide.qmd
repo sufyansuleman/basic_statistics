@@ -1,4 +1,6 @@
-﻿# Statistical Decision Guide {#sec-statistical-decision-guide}
+﻿---
+title: "Statistical Decision Guide"
+---
 
 ```{r setup}
 #| include: false
@@ -6,9 +8,9 @@
 library(tidyverse)
 ```
 
-## When Do You Use This? {.callout-tip}
+## When Do You Use This? {#sec-statistical-decision-guide .callout-tip}
 
-> You have data from a clinical study and need to choose the right test. Should you use a t-test or Mann-Whitney? Logistic regression or a chi-square test? This guide helps you navigate from your research question and data type to the appropriate method � and links you to the session where you can learn it properly.
+> You have data from a clinical study and need to choose the right test. Should you use a t-test or Mann-Whitney? Logistic regression or a chi-square test? This guide helps you navigate from your research question and data type to the appropriate method ? and links you to the session where you can learn it properly.
 
 ## Learning Objectives
 
@@ -40,8 +42,8 @@ Every statistical test choice starts with three questions:
 | Continuous | Non-normal or n < 30 | Mann-Whitney U | @sec-nonparametric |
 | Continuous, paired | Normal differences | Paired t-test | @sec-t-tests |
 | Continuous, paired | Non-normal differences | Wilcoxon signed-rank | @sec-nonparametric |
-| Binary | Counts ≥ 5 per cell | Chi-square / Fisher's | @sec-categorical |
-| Ordinal | � | Mann-Whitney U | @sec-nonparametric |
+| Binary | Counts = 5 per cell | Chi-square / Fisher's | @sec-categorical |
+| Ordinal | ? | Mann-Whitney U | @sec-nonparametric |
 
 ### Question 2: Comparing Three or More Groups
 
@@ -51,15 +53,15 @@ Every statistical test choice starts with three questions:
 | Continuous | Non-normal or unequal variance | Kruskal-Wallis | @sec-nonparametric |
 | Continuous, two factors | Normal | Two-way ANOVA | @sec-anova |
 | Continuous, repeated | Normal | Repeated-measures ANOVA / LMM | @sec-mixed-models |
-| Binary | Counts ≥ 5 | Chi-square (k � 2 table) | @sec-categorical |
+| Binary | Counts = 5 | Chi-square (k ? 2 table) | @sec-categorical |
 
 ### Question 3: Association / Correlation
 
 | Outcome | Method | Session |
 |---------|--------|---------|
-| Continuous�Continuous, linear | Pearson r | @sec-correlation |
-| Continuous�Continuous, non-linear / ordinal | Spearman ? | @sec-correlation |
-| Binary�Binary | Phi coefficient / chi-square | @sec-categorical |
+| Continuous?Continuous, linear | Pearson r | @sec-correlation |
+| Continuous?Continuous, non-linear / ordinal | Spearman ? | @sec-correlation |
+| Binary?Binary | Phi coefficient / chi-square | @sec-categorical |
 | Time series / autocorrelated | Check session on multiple regression | @sec-multiple-regression |
 
 ### Question 4: Prediction
@@ -109,7 +111,7 @@ t.test(after, before, paired = TRUE)
 **Decision path:** Continuous outcome ? Paired groups ? Normal differences ? **Paired t-test** ? @sec-t-tests
 
 
-## Example 2: Binary Outcome � Choosing Between Chi-Square and Logistic Regression
+## Example 2: Binary Outcome ? Choosing Between Chi-Square and Logistic Regression
 
 **Scenario:** You want to know if NAFLD diagnosis (yes/no) differs between males and females in a cohort of 200 patients.
 
@@ -151,7 +153,7 @@ glm(nafld_num ~ sex + age + bmi, data = dat2, family = binomial) %>%
 | No influential outliers | Cook's distance | Robust regression |
 
 
-## Method � Assumption Summary
+## Method ? Assumption Summary
 
 ```{r method-table}
 tribble(
@@ -162,7 +164,7 @@ tribble(
   "Pearson r",           "Continuous", "Bivariate normal, linear", "Spearman rho",
   "Chi-square",          "Categorical", "Expected count >= 5", "Fisher's exact",
   "Linear regression",   "Continuous", "Normal residuals", "Robust regression",
-  "Logistic regression", "Binary",  "Sufficient events/predictor", "�",
+  "Logistic regression", "Binary",  "Sufficient events/predictor", "?",
   "Cox regression",      "Time-to-event", "Proportional hazards", "Stratified Cox"
 ) %>%
   knitr::kable()
@@ -181,7 +183,7 @@ Using a two-sample t-test when data are paired wastes statistical power (you ign
 Running 20 tests and reporting the significant ones inflates the type I error. Apply FDR or Bonferroni correction when testing multiple outcomes. See @sec-omics for omics-scale correction.
 
 **Treating ordinal as continuous**
-Likert scales (1�5) are ordinal. Means are interpretable but formal inference should use ordinal tests or models unless scales are well-validated and items are summed.
+Likert scales (1?5) are ordinal. Means are interpretable but formal inference should use ordinal tests or models unless scales are well-validated and items are summed.
 
 
 ## Exercises
@@ -198,9 +200,9 @@ For each scenario below, name the appropriate statistical test and state why:
 
 ::: {.callout-tip collapse="true"}
 ### Exercise 1: Answers
-1. One-way ANOVA (continuous outcome, ≥3 groups, normality met, equal variance).
-2. Mann-Whitney U (continuous outcome, 2 groups, non-normal / small n � non-parametric).
-3. Chi-square test (binary � binary, large n; use Fisher's exact if any expected count < 5).
+1. One-way ANOVA (continuous outcome, =3 groups, normality met, equal variance).
+2. Mann-Whitney U (continuous outcome, 2 groups, non-normal / small n ? non-parametric).
+3. Chi-square test (binary ? binary, large n; use Fisher's exact if any expected count < 5).
 4. Logistic regression (binary outcome, multiple predictors, prediction goal).
 5. Log-rank test + Cox proportional hazards (time-to-event outcome, two groups; Cox for adjusted estimate).
 :::
@@ -233,14 +235,14 @@ Take a published paper from your field. For each analysis reported:
 ::: {.callout-note collapse="true"}
 ### Answers
 1. Running separate t-tests at each time point ignores the repeated-measures structure (the same mice are measured three times). This inflates type I error (multiple comparisons) and ignores within-mouse correlation. The correct approach is repeated-measures ANOVA or a linear mixed model with time as a factor and mouse as a random effect.
-2. Paired test. The same patient is measured twice � the within-patient change in blood pressure is the quantity of interest. Using a paired test accounts for between-patient variability and is more powerful than an unpaired t-test. Use paired t-test (if differences are normal) or Wilcoxon signed-rank (if not).
-3. The colleague is correct when you need to adjust for confounders (e.g., age, deprivation, comorbidities). Chi-square tests a bivariate association; logistic regression allows you to estimate the sex�smoking association adjusted for other variables, gives odds ratios, and supports prediction. For a simple unadjusted two-by-two table, chi-square is perfectly valid.
-4. Not necessarily. With n = 200, the Shapiro-Wilk test is highly sensitive � it will detect trivial, practically irrelevant deviations from normality. With large samples, the t-test is robust to non-normality (central limit theorem). Check the QQ plot visually: if the tails are only mildly heavy, the t-test is fine. Only switch to a non-parametric test if the distribution is highly skewed or has extreme outliers.
+2. Paired test. The same patient is measured twice ? the within-patient change in blood pressure is the quantity of interest. Using a paired test accounts for between-patient variability and is more powerful than an unpaired t-test. Use paired t-test (if differences are normal) or Wilcoxon signed-rank (if not).
+3. The colleague is correct when you need to adjust for confounders (e.g., age, deprivation, comorbidities). Chi-square tests a bivariate association; logistic regression allows you to estimate the sex?smoking association adjusted for other variables, gives odds ratios, and supports prediction. For a simple unadjusted two-by-two table, chi-square is perfectly valid.
+4. Not necessarily. With n = 200, the Shapiro-Wilk test is highly sensitive ? it will detect trivial, practically irrelevant deviations from normality. With large samples, the t-test is robust to non-normality (central limit theorem). Check the QQ plot visually: if the tails are only mildly heavy, the t-test is fine. Only switch to a non-parametric test if the distribution is highly skewed or has extreme outliers.
 5. A test of *association* asks: are two variables related? (Chi-square, Pearson r). A test of *prediction* models the outcome as a function of predictors, estimates the size of effects, and can be used to predict new observations. Regression also allows adjustment for confounders, which association tests cannot. Use association tests for simple screening; use regression for explanatory modelling or confounding adjustment.
 :::
 
 ## Further Reading
 
-- @Field-2013 --- *Discovering Statistics Using R* � practical test selection guidance
-- @Glantz-2002 --- *Primer of Biostatistics* � clear, clinically-oriented decision guide
-- [UCLA Statistical Consulting: Which Statistical Test?](https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/) � online decision aid
+- @Field-2013 --- *Discovering Statistics Using R* ? practical test selection guidance
+- @Glantz-2002 --- *Primer of Biostatistics* ? clear, clinically-oriented decision guide
+- [UCLA Statistical Consulting: Which Statistical Test?](https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/) ? online decision aid

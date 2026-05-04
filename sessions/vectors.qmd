@@ -1,4 +1,6 @@
-# Vectors, Data Frames, and Factors {#sec-vectors}
+﻿---
+title: "Vectors, Data Frames, and Factors"
+---
 
 ```{r setup}
 #| include: false
@@ -11,7 +13,7 @@ library(tidyverse)
 If you are comfortable working with vectors, data frames, and factors in R — and you understand what `str()`, `class()`, and `as.factor()` do — skip ahead to the next session or go straight to **Part 2: Describing and Visualizing Data**.
 :::
 
-## When Do You Use This? {.callout-tip}
+## When Do You Use This? {#sec-vectors .callout-tip}
 
 > Everything in R is stored as a vector, a data frame, or a factor. Before you can clean data, run a t-test, or draw a plot, you need to understand these building blocks. This session covers what they are and how to work with them.
 
@@ -623,6 +625,110 @@ mice$glucose_category <- ifelse(mice$glucose < 7, "normal", "elevated")
 mice
 ```
 :::
+
+
+## Common Mistakes
+
+::: {.callout-warning}
+### What Can Go Wrong
+
+**Type coercion in vectors.** Mixing types in a single vector silently converts everything to the most general type: `c(1, 2, "three")` produces `c("1", "2", "three")` — all characters. Downstream arithmetic will then fail with confusing errors. Check with `class()` if a numeric column behaves strangely.
+
+**Factor levels in the wrong order.** R assigns factor levels alphabetically by default. In a regression, the first level is the reference. `"control"` becomes the reference only if it sorts first alphabetically — `"A"` would be the reference if your groups are `"A"`, `"B"`, `"control"`. Always set levels explicitly with `factor(..., levels = c("control", "low_dose", "high_dose"))`.
+
+**`[[` vs `[` indexing.** `df[, "col"]` returns a data frame; `df[["col"]]` (or `df$col`) returns the vector. Functions like `t.test()` expect a vector, not a one-column data frame. If you get "non-numeric argument" errors, this is often the cause.
+
+**`NA` propagation.** Arithmetic on a vector containing `NA` returns `NA`: `mean(c(1, 2, NA))` returns `NA`. Pass `na.rm = TRUE` to summary functions, or remove `NA` values deliberately with `na.omit()`.
+
+**Implicit recoding when coercing factors to numeric.** `as.numeric(factor(c("10", "20", "30")))` returns `1 2 3` — the level indices, not the original values. Use `as.numeric(as.character(my_factor))` to recover the original numbers.
+:::
+
+## Exercises
+
+### Exercise 1 (Guided): Exploring `ToothGrowth`
+
+`ToothGrowth` is built into R. This exercise practises the core skills: inspecting structure, checking types, filtering, and adding columns.
+
+1. Run `str(ToothGrowth)`. What are the column names and types?
+2. Convert the `supp` column to a factor with levels `c("VC", "OJ")` and labels `c("Ascorbic acid", "Orange juice")`. Check with `levels()`.
+3. Convert `dose` to an ordered factor with levels `0.5 < 1.0 < 2.0`.
+4. Use `[` indexing to extract all rows where `dose == 2.0` and `supp == "OJ"`.
+5. Add a column `len_cm` that converts `len` from micrometres to centimetres (divide by 10 000).
+
+::: {.callout-tip collapse="true"}
+### Exercise 1: Solution
+
+```{r}
+# 1. Structure
+str(ToothGrowth)
+
+# 2. Factor with labels
+tg <- ToothGrowth
+tg$supp <- factor(tg$supp,
+                  levels = c("VC", "OJ"),
+                  labels = c("Ascorbic acid", "Orange juice"))
+levels(tg$supp)
+
+# 3. Ordered dose factor
+tg$dose <- factor(tg$dose, levels = c(0.5, 1.0, 2.0), ordered = TRUE)
+levels(tg$dose)
+
+# 4. Subset with [
+tg[tg$dose == "2" & tg$supp == "Orange juice", ]
+
+# 5. New column
+tg$len_cm <- tg$len / 10000
+head(tg)
+```
+:::
+
+### Exercise 2 (Semi-guided): Factor Manipulation with `PlantGrowth`
+
+`PlantGrowth` has a `group` column with three levels: `ctrl`, `trt1`, `trt2`.
+
+1. Load `PlantGrowth` and inspect its structure with `str()`.
+2. What are the current levels of `group`? Which is the reference if you used this in a regression right now?
+3. Reorder the levels so `ctrl` is first, then `trt1`, then `trt2`.
+4. Use `fct_recode()` from `forcats` to rename `ctrl` → `"Control"`, `trt1` → `"Treatment 1"`, `trt2` → `"Treatment 2"`.
+5. Calculate the mean and SD of `weight` for each group using `tapply()`.
+
+::: {.callout-tip collapse="true"}
+### Exercise 2: Solution
+
+```{r}
+library(forcats)
+
+pg <- PlantGrowth
+
+# 1-2. Inspect
+str(pg)
+levels(pg$group)  # "ctrl" "trt1" "trt2" — ctrl is reference (first level)
+
+# 3. Reorder (already correct, but explicit is better)
+pg$group <- factor(pg$group, levels = c("ctrl", "trt1", "trt2"))
+
+# 4. Rename levels
+pg$group <- fct_recode(pg$group,
+  "Control"     = "ctrl",
+  "Treatment 1" = "trt1",
+  "Treatment 2" = "trt2"
+)
+levels(pg$group)
+
+# 5. Summary stats
+tapply(pg$weight, pg$group, mean)
+tapply(pg$weight, pg$group, sd)
+```
+:::
+
+### Exercise 3 (Open-ended)
+
+Using a dataset from your own research (or any built-in R dataset), complete the following:
+
+1. Identify one categorical column. Convert it to a factor and set the levels in a meaningful order (e.g., control before treatment, smallest dose before largest).
+2. Identify one numeric column. Check for `NA` values with `sum(is.na())` and compute the mean with `na.rm = TRUE`.
+3. Create a new derived column (e.g., a ratio, a log transform, or a binary category based on a threshold).
+4. Write two sentences describing what the dataset contains and what you found from the structure inspection — as you would in a Data section of a manuscript.
 
 
 ## Comprehension Check

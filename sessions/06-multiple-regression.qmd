@@ -1,4 +1,6 @@
-﻿# Multiple Linear Regression {#sec-multiple-regression}
+﻿---
+title: "Multiple Linear Regression"
+---
 
 ```{r setup}
 #| include: false
@@ -13,9 +15,9 @@ library(broom)
 This session extends simple linear regression to multiple predictors. If you haven't done so yet, complete the **Linear Regression** session first.
 :::
 
-## When Do You Use This? {.callout-tip}
+## When Do You Use This? {#sec-multiple-regression .callout-tip}
 
-> You have a continuous outcome and multiple predictors, some of which are correlated with each other. Multiple regression estimates each predictor's independent effect — holding the others constant — so you can adjust for confounders and identify which variables have a genuine association with the outcome. For example: estimating the effect of bilirubin on albumin after accounting for prothrombin time and age.
+> You have a continuous outcome and multiple predictors, some of which are correlated with each other. Multiple regression estimates each predictor's independent effect � holding the others constant � so you can adjust for confounders and identify which variables have a genuine association with the outcome. For example: estimating the effect of bilirubin on albumin after accounting for prothrombin time and age.
 
 ## Learning Objectives
 
@@ -42,7 +44,7 @@ Each $\beta_j$ is the **partial effect** of $X_j$ on $Y$, holding all other pred
 
 $$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 (X_1 \times X_2) + \varepsilon$$
 
-**Multicollinearity:** When predictors are highly correlated, their coefficients become unstable. Variance Inflation Factor (VIF) > 5�10 signals a problem.
+**Multicollinearity:** When predictors are highly correlated, their coefficients become unstable. Variance Inflation Factor (VIF) > 5?10 signals a problem.
 
 
 ## Example 1: Clinical Data (PBC)
@@ -100,7 +102,7 @@ tidy(fit_full, conf.int = TRUE) %>%
 The coefficients change from the simple models because predictors share variance. Comparing univariable and multivariable estimates reveals confounding.
 
 ::: {.callout-note}
-### Reading the Multiple Regression Output — Key Differences from Simple Regression
+### Reading the Multiple Regression Output � Key Differences from Simple Regression
 
 The `summary()` output looks the same as simple regression, but the interpretation changes fundamentally.
 
@@ -111,20 +113,20 @@ The coefficient for `log_bili` in a multivariable model is the effect of bilirub
 
 | Model | log_bili slope | What it means |
 |---|---|---|
-| Simple `lm(albumin ~ log_bili)` | −0.34 | Total association, including confounding |
-| Multiple `lm(albumin ~ log_bili + log_proto + stage)` | −0.22 | Effect of bilirubin, *adjusted for* prothrombin time and stage |
+| Simple `lm(albumin ~ log_bili)` | -0.34 | Total association, including confounding |
+| Multiple `lm(albumin ~ log_bili + log_proto + stage)` | -0.22 | Effect of bilirubin, *adjusted for* prothrombin time and stage |
 
-The coefficient shrank from −0.34 to −0.22. This means prothrombin time and stage were partially *confounding* the bilirubin–albumin relationship. The multivariable model gives the purer estimate.
+The coefficient shrank from -0.34 to -0.22. This means prothrombin time and stage were partially *confounding* the bilirubin�albumin relationship. The multivariable model gives the purer estimate.
 
 **Reference categories for factors**
-`stageStage 2` coefficient means: *"Stage 2 vs Stage 1 (the reference), after adjusting for the other predictors."* Stage 1 is absorbed into the intercept — it is not missing, it is the baseline.
+`stageStage 2` coefficient means: *"Stage 2 vs Stage 1 (the reference), after adjusting for the other predictors."* Stage 1 is absorbed into the intercept � it is not missing, it is the baseline.
 
 ::: {.callout-tip}
 ### What Does This Actually Tell Us?
 
-> *"After adjusting for prothrombin time and disease stage, each 2.7-fold increase in bilirubin was associated with 0.22 g/dL lower albumin (95% CI: −0.28 to −0.16, p < 0.001). Stage was independently associated with albumin, with patients in advanced stages having lower albumin than Stage 1 patients even after accounting for bilirubin and prothrombin time. The full model explained 35% of the variance in albumin (adjusted R² = 0.35)."*
+> *"After adjusting for prothrombin time and disease stage, each 2.7-fold increase in bilirubin was associated with 0.22 g/dL lower albumin (95% CI: -0.28 to -0.16, p < 0.001). Stage was independently associated with albumin, with patients in advanced stages having lower albumin than Stage 1 patients even after accounting for bilirubin and prothrombin time. The full model explained 35% of the variance in albumin (adjusted R� = 0.35)."*
 
-The key phrase is **"after adjusting for"** — this is what separates multiple regression from a simple comparison.
+The key phrase is **"after adjusting for"** � this is what separates multiple regression from a simple comparison.
 :::
 :::
 
@@ -145,7 +147,7 @@ fit_reduced <- lm(albumin ~ log_bili + log_proto, data = pbc)
 anova(fit_reduced, fit_full)
 ```
 
-A significant F-test means the full model fits significantly better than the reduced model � stage adds explanatory value beyond bilirubin and prothrombin time.
+A significant F-test means the full model fits significantly better than the reduced model ? stage adds explanatory value beyond bilirubin and prothrombin time.
 
 ### Including an Interaction
 
@@ -202,9 +204,9 @@ peng %>%
 
 ## Where to Find Data Like This {.callout-note}
 
-**PBC dataset:** `survival::pbc` � multiple correlated clinical predictors with a continuous outcome, ideal for demonstrating confounding and model building.
+**PBC dataset:** `survival::pbc` ? multiple correlated clinical predictors with a continuous outcome, ideal for demonstrating confounding and model building.
 
-**palmerpenguins:** `palmerpenguins::penguins` � biological measurements with species as a natural confounder.
+**palmerpenguins:** `palmerpenguins::penguins` ? biological measurements with species as a natural confounder.
 
 **NHANES:** Many continuous health outcomes (blood pressure, cholesterol) with multiple demographic and clinical predictors.
 
@@ -212,7 +214,7 @@ peng %>%
 ## What Can Go Wrong {.callout-warning}
 
 **Overfitting**
-Adding more predictors always increases $R^2$. Use adjusted $R^2$, AIC, or cross-validation to compare models � not raw $R^2$.
+Adding more predictors always increases $R^2$. Use adjusted $R^2$, AIC, or cross-validation to compare models ? not raw $R^2$.
 
 **Multicollinearity**
 Highly correlated predictors produce inflated standard errors and unstable coefficients. Check VIF before interpreting a model with many predictors.
@@ -224,12 +226,12 @@ Adjusting for a variable on the causal pathway between exposure and outcome (a m
 Selecting predictors based on p-values from exploratory analysis, then reporting the final model as if it were pre-specified, produces overfitted models with inflated associations. Pre-register your model or use a penalised method (ridge, lasso).
 
 **Interpreting coefficients in models with interactions**
-When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference category � not the marginal effect. Always evaluate interactions at meaningful covariate values.
+When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference category ? not the marginal effect. Always evaluate interactions at meaningful covariate values.
 ::: {.callout-warning}
-### Common Misinterpretations — Don't Make These Mistakes
+### Common Misinterpretations � Don't Make These Mistakes
 
 **"Adding more predictors always improves my model"**
-Raw R² always increases with more predictors even if they are noise. Use *adjusted* R², AIC, or cross-validation. A model with 20 predictors and 50 patients is almost certainly overfitted — it will fail on new data.
+Raw R� always increases with more predictors even if they are noise. Use *adjusted* R�, AIC, or cross-validation. A model with 20 predictors and 50 patients is almost certainly overfitted � it will fail on new data.
 
 **"My predictor is not significant so it has no effect"**
 With collinear predictors, both can become non-significant even if together they explain a lot of variance. Check VIF and consider whether the predictors should be modelled together or separately.
@@ -237,10 +239,10 @@ With collinear predictors, both can become non-significant even if together they
 **"The adjusted model is always more accurate than the unadjusted one"**
 Adjusting for a *collider* (a variable caused by both exposure and outcome) introduces bias that was not there in the unadjusted model. Think carefully about the causal structure before adding covariates. See the Causal Inference session.
 
-**"I can compare R² between models with different outcomes"**
-R² is not comparable across different outcome variables or different datasets. Only compare R² (or AIC) between models fitted to the same data with the same outcome.
+**"I can compare R� between models with different outcomes"**
+R� is not comparable across different outcome variables or different datasets. Only compare R� (or AIC) between models fitted to the same data with the same outcome.
 
-**"Stage 2 coefficient = −0.09 means Stage 2 patients have lower albumin"**
+**"Stage 2 coefficient = -0.09 means Stage 2 patients have lower albumin"**
 It means Stage 2 patients have 0.09 g/dL lower albumin than Stage 1 patients *after adjusting for other predictors in the model*. Change the reference category and the coefficient changes. Always state the reference group when reporting factor coefficients.
 :::
 
@@ -316,8 +318,8 @@ In your own research, identify a continuous outcome with at least two potential 
 ### Answers
 1. The simple regression slope was confounded: bilirubin was acting partly as a proxy for prothrombin time and disease stage. After adjustment, the partial effect of bilirubin is smaller (-0.2), reflecting the unique contribution of bilirubin over and above the other predictors.
 2. VIF > 10 indicates severe multicollinearity. The two predictors are so highly correlated that their individual coefficients are unreliable (large SEs, may flip sign). Options: (1) remove one of the correlated predictors; (2) combine them into a composite score; (3) use ridge regression, which handles multicollinearity by regularisation.
-3. The F-test comparing the two models is highly significant � the larger model fits significantly better than the smaller model. At least one of the additional predictors contributes meaningfully.
-4. No. AIC is a relative measure of model quality penalised for complexity. Lower AIC means better fit-to-complexity balance among the models compared � but it does not guarantee the model is "correct" in an absolute sense. The true model could be something neither model captures.
+3. The F-test comparing the two models is highly significant ? the larger model fits significantly better than the smaller model. At least one of the additional predictors contributes meaningfully.
+4. No. AIC is a relative measure of model quality penalised for complexity. Lower AIC means better fit-to-complexity balance among the models compared ? but it does not guarantee the model is "correct" in an absolute sense. The true model could be something neither model captures.
 5. The evidence is weak and the CI includes zero. Whether to include it depends on context: if it was pre-specified and has a plausible biological rationale, you might retain it and acknowledge the marginal evidence. If it was data-driven, it is safer to use the main-effects model and note the trend.
 :::
 
@@ -326,4 +328,4 @@ In your own research, identify a continuous outcome with at least two potential 
 - @Dalgaard-2008 --- Multiple regression chapter in *Introductory Statistics with R*
 - @Bland-2015 --- Multivariable regression in *An Introduction to Medical Statistics*
 - `?lm`, `?vif` (from `car`), `?anova.lm` in R
-- @Harrell-2015 --- *Regression Modeling Strategies* � comprehensive reference for clinical regression
+- @Harrell-2015 --- *Regression Modeling Strategies* ? comprehensive reference for clinical regression

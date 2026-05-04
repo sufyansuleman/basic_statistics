@@ -1,4 +1,6 @@
-﻿# Logistic Regression {#sec-logistic-regression}
+﻿---
+title: "Logistic Regression"
+---
 
 ```{r setup}
 #| include: false
@@ -13,9 +15,9 @@ library(broom)
 Logistic regression shares the same structure as linear regression but models a binary outcome. If you haven't done so yet, complete the **Linear Regression** session first.
 :::
 
-## When Do You Use This? {.callout-tip}
+## When Do You Use This? {#sec-logistic-regression .callout-tip}
 
-> Your outcome is binary — yes/no, alive/dead, event/no event — and you want to model how one or more predictors change the probability of that outcome. Logistic regression gives you odds ratios with confidence intervals and lets you adjust for confounders. For example: predicting whether a patient died from liver disease, or whether a tumour responded to treatment.
+> Your outcome is binary � yes/no, alive/dead, event/no event � and you want to model how one or more predictors change the probability of that outcome. Logistic regression gives you odds ratios with confidence intervals and lets you adjust for confounders. For example: predicting whether a patient died from liver disease, or whether a tumour responded to treatment.
 
 ## Learning Objectives
 
@@ -30,7 +32,7 @@ After completing this session you will be able to:
 
 ## Background: The Logistic Model
 
-A binary outcome $Y \in \{0, 1\}$ cannot be modelled by a straight line � predicted values could fall below 0 or above 1. Instead, we model the **log-odds** (logit) of the outcome:
+A binary outcome $Y \in \{0, 1\}$ cannot be modelled by a straight line ? predicted values could fall below 0 or above 1. Instead, we model the **log-odds** (logit) of the outcome:
 
 $$\log\left(\frac{P(Y=1)}{1-P(Y=1)}\right) = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p$$
 
@@ -85,7 +87,7 @@ summary(fit_log)
 ```
 
 ::: {.callout-note}
-### Reading the `summary()` Output for Logistic Regression — Line by Line
+### Reading the `summary()` Output for Logistic Regression � Line by Line
 
 Logistic regression output looks similar to linear regression but the numbers mean different things.
 
@@ -98,22 +100,22 @@ log_bili      0.89      0.09       9.8    <2e-16 ***
 
 | Column | What it means |
 |---|---|
-| **Estimate** | The log-odds coefficient. Not directly interpretable — exponentiate it to get an odds ratio. |
+| **Estimate** | The log-odds coefficient. Not directly interpretable � exponentiate it to get an odds ratio. |
 | **Std. Error** | Uncertainty in the estimate. |
-| **z value** | Estimate ÷ Std. Error (note: z, not t — logistic uses a normal approximation). |
-| **Pr(>\|z\|)** | p-value — same interpretation as in linear regression. |
+| **z value** | Estimate � Std. Error (note: z, not t � logistic uses a normal approximation). |
+| **Pr(>\|z\|)** | p-value � same interpretation as in linear regression. |
 
 **`(Dispersion parameter for binomial family taken to be 1)`**
-For binomial models this is always 1 — ignore it.
+For binomial models this is always 1 � ignore it.
 
 **`Null deviance: 487 on 374 degrees of freedom`**
-The deviance of a model with *no predictors* (intercept only). This is the baseline — how poorly the null model fits.
+The deviance of a model with *no predictors* (intercept only). This is the baseline � how poorly the null model fits.
 
 **`Residual deviance: 409 on 373 degrees of freedom`**
-The deviance of *your* model. A large drop from null to residual deviance means your predictor(s) explain a lot. Here: 487 − 409 = 78 units of deviance explained.
+The deviance of *your* model. A large drop from null to residual deviance means your predictor(s) explain a lot. Here: 487 - 409 = 78 units of deviance explained.
 
 **`AIC: 413`**
-Akaike Information Criterion. Lower = better fit (penalised for complexity). Use AIC to compare models — not to interpret a single model in isolation.
+Akaike Information Criterion. Lower = better fit (penalised for complexity). Use AIC to compare models � not to interpret a single model in isolation.
 
 ::: {.callout-tip}
 ### What Does This Actually Tell Us?
@@ -121,10 +123,10 @@ Akaike Information Criterion. Lower = better fit (penalised for complexity). Use
 The coefficient for `log_bili` is 0.89 on the log-odds scale. To interpret it:
 
 1. **Exponentiate** to get an odds ratio: $e^{0.89} \approx 2.4$
-2. **Translate**: Each one-unit increase in log(bilirubin) — roughly a 2.7-fold increase in bilirubin — multiplies the odds of death by **2.4** (95% CI from the OR table).
-3. **Write it up**: *"Higher bilirubin is strongly associated with mortality in PBC patients. Each 2.7-fold increase in bilirubin is associated with 2.4 times higher odds of death (OR = 2.4, 95% CI: [low]–[high], p < 0.001)."*
+2. **Translate**: Each one-unit increase in log(bilirubin) � roughly a 2.7-fold increase in bilirubin � multiplies the odds of death by **2.4** (95% CI from the OR table).
+3. **Write it up**: *"Higher bilirubin is strongly associated with mortality in PBC patients. Each 2.7-fold increase in bilirubin is associated with 2.4 times higher odds of death (OR = 2.4, 95% CI: [low]�[high], p < 0.001)."*
 
-Remember: odds ratios are **not** the same as relative risk. An OR of 2.4 does not mean the risk doubles. For rare outcomes (< 10%), OR ≈ RR; for common outcomes, OR exaggerates the association.
+Remember: odds ratios are **not** the same as relative risk. An OR of 2.4 does not mean the risk doubles. For rare outcomes (< 10%), OR � RR; for common outcomes, OR exaggerates the association.
 :::
 :::
 
@@ -174,7 +176,7 @@ cat("C-statistic:", round(auc(roc_obj), 3), "\n")
 
 ggroc(roc_obj, color = "steelblue", linewidth = 1) +
   geom_abline(intercept = 1, slope = 1, linetype = "dashed", color = "grey60") +
-  labs(title = paste("ROC curve � AUC =", round(auc(roc_obj), 3)),
+  labs(title = paste("ROC curve ? AUC =", round(auc(roc_obj), 3)),
        x = "1 - Specificity", y = "Sensitivity") +
   theme_bw()
 ```
@@ -224,11 +226,11 @@ mel %>%
 
 ## Where to Find Data Like This {.callout-note}
 
-**PBC dataset:** `survival::pbc` � binary mortality outcome with multiple continuous and categorical predictors.
+**PBC dataset:** `survival::pbc` ? binary mortality outcome with multiple continuous and categorical predictors.
 
 **boot::melanoma:** Binary mortality with tumour characteristics; good for a smaller Example.
 
-**MASS::birthwt:** Low birth weight (binary) with maternal predictors � commonly used in logistic regression teaching.
+**MASS::birthwt:** Low birth weight (binary) with maternal predictors ? commonly used in logistic regression teaching.
 
 **medicaldata package:** Multiple clean clinical trial datasets with binary outcomes.
 
@@ -239,16 +241,16 @@ mel %>%
 If a predictor perfectly separates the outcome (all events on one side), the algorithm fails to converge and produces extreme coefficients with huge SEs. Check with a contingency table or histogram. Use Firth's penalised logistic regression (`logistf` package) as a remedy.
 
 **Interpreting ORs as relative risks for common outcomes**
-When the outcome prevalence is > 15�20%, OR > RR substantially. If you report ORs, state them clearly and note that they do not equal relative risks.
+When the outcome prevalence is > 15?20%, OR > RR substantially. If you report ORs, state them clearly and note that they do not equal relative risks.
 
 **Events per variable (EPV) rule of thumb**
-Logistic models require approximately 10�20 events per predictor variable for stable estimates. With 50 deaths and 6 predictors, you have EPV � 8 � borderline. Consider reducing predictors or using penalised methods.
+Logistic models require approximately 10?20 events per predictor variable for stable estimates. With 50 deaths and 6 predictors, you have EPV ? 8 ? borderline. Consider reducing predictors or using penalised methods.
 
 **Not checking calibration**
 A high C-statistic does not guarantee good calibration (that predicted probabilities match observed proportions). Use a calibration plot (`val.prob()` from the `rms` package) for clinical prediction models.
 
 ::: {.callout-warning}
-### Common Misinterpretations — Don't Make These Mistakes
+### Common Misinterpretations � Don't Make These Mistakes
 
 **"OR = 2.4 means the risk is 2.4 times higher"**
 No. An odds ratio of 2.4 means the *odds* increased 2.4-fold, not the risk. When the outcome is common (> 15%), the OR substantially overestimates the relative risk. If you want relative risk, use a Poisson model with robust standard errors or a log-binomial model.
@@ -263,7 +265,7 @@ On the odds ratio scale, even small ORs can be meaningful for very common exposu
 Adjusting for more variables does not automatically remove confounding. You can only adjust for confounders you measured. Unmeasured confounders remain a threat in all observational studies.
 
 **"Quasi-complete separation means my predictor is too good"**
-Separation causes coefficient inflation and numerical instability — it does not mean the predictor is perfectly valid. It usually means you have too few events. Use Firth's penalised logistic regression.
+Separation causes coefficient inflation and numerical instability � it does not mean the predictor is perfectly valid. It usually means you have too few events. Use Firth's penalised logistic regression.
 :::
 
 
@@ -348,16 +350,16 @@ Using your own data, identify a binary outcome and at least two predictors. Fit 
 ::: {.callout-note collapse="true"}
 ### Answers
 1. OR = exp(0.8) = 2.23. Each one-unit increase in log(bilirubin) is associated with 2.23 times higher odds of the event (e.g., death), holding other predictors constant.
-2. No. When the outcome is common (40%), OR ? RR. OR = 2.5 for a 40% baseline corresponds to a RR considerably less than 2.5. The colleague is conflating the odds ratio with the risk ratio � a common error. Use `prop.table()` or the formula $RR = OR / (1 - P_0 + P_0 \times OR)$ to convert.
-3. With EPV = 30/8 = 3.75, the model is severely underpowered. Coefficients will be unstable and confidence intervals very wide. You should reduce the number of predictors to at most 2�3, or use Firth's penalised logistic regression.
-4. C = 0.75 indicates moderate discrimination � the model correctly ranks 75% of case-control pairs. However, a high C-statistic does not guarantee good calibration. You should also produce a calibration plot (observed vs predicted proportions across deciles of risk) to confirm the model gives accurate probabilities.
-5. This is (quasi-)complete separation: the predictor almost perfectly predicts the outcome, so the algorithm tries to push the coefficient to �8 and fails. Check by tabulating the predictor against the outcome. Remedy: use Firth's penalised logistic regression (`logistf::logistf()`), which regularises the likelihood and produces finite, stable estimates.
+2. No. When the outcome is common (40%), OR ? RR. OR = 2.5 for a 40% baseline corresponds to a RR considerably less than 2.5. The colleague is conflating the odds ratio with the risk ratio ? a common error. Use `prop.table()` or the formula $RR = OR / (1 - P_0 + P_0 \times OR)$ to convert.
+3. With EPV = 30/8 = 3.75, the model is severely underpowered. Coefficients will be unstable and confidence intervals very wide. You should reduce the number of predictors to at most 2?3, or use Firth's penalised logistic regression.
+4. C = 0.75 indicates moderate discrimination ? the model correctly ranks 75% of case-control pairs. However, a high C-statistic does not guarantee good calibration. You should also produce a calibration plot (observed vs predicted proportions across deciles of risk) to confirm the model gives accurate probabilities.
+5. This is (quasi-)complete separation: the predictor almost perfectly predicts the outcome, so the algorithm tries to push the coefficient to ?8 and fails. Check by tabulating the predictor against the outcome. Remedy: use Firth's penalised logistic regression (`logistf::logistf()`), which regularises the likelihood and produces finite, stable estimates.
 :::
 
 ## Further Reading
 
 - @Hosmer-2013 --- *Applied Logistic Regression*, the standard reference
 - @Bland-2015 --- Logistic regression in *An Introduction to Medical Statistics*
-- `?glm` in R � full documentation for generalised linear models
+- `?glm` in R ? full documentation for generalised linear models
 - `pROC` package vignette for ROC analysis
 - `logistf` package for Firth's penalised logistic regression

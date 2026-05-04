@@ -1,4 +1,6 @@
-# R Packages and Libraries {#sec-packages-libraries}
+﻿---
+title: "R Packages and Libraries"
+---
 
 ```{r setup}
 #| include: false
@@ -10,7 +12,7 @@
 If you already know how to install and load R packages with `install.packages()` and `library()`, skip ahead to the next session or go straight to **Part 2: Describing and Visualizing Data**.
 :::
 
-## When Do You Use This? {.callout-tip}
+## When Do You Use This? {#sec-packages-libraries .callout-tip}
 
 > Every statistical method in R lives inside a package. Before you can run a t-test, build a regression model, or draw a plot, you need to know how to find, install, and load the right package. This session gives you that skill once — and you will use it in every session that follows.
 
@@ -480,6 +482,59 @@ install.packages("agridat")
 installed.packages()[, "Package"]
 ```
 :::
+
+## Exercises
+
+### Exercise 1 (Guided): Install, Load, Explore
+
+1. Install the `palmerpenguins` package (if not already installed): `install.packages("palmerpenguins")`.
+2. Load it with `library(palmerpenguins)`.
+3. Run `?penguins` to open the help page. What are the column names and how many rows does the dataset have?
+4. Run `packageVersion("palmerpenguins")`. What version is installed?
+5. Run `citation("palmerpenguins")` and write out the full citation.
+
+::: {.callout-tip collapse="true"}
+### Exercise 1: Solution
+
+```{r}
+#| eval: false
+
+# 1-2. Install and load
+install.packages("palmerpenguins")
+library(palmerpenguins)
+
+# 3. Help page
+?penguins
+# The dataset has 344 rows and 8 columns:
+# species, island, bill_length_mm, bill_depth_mm,
+# flipper_length_mm, body_mass_g, sex, year
+
+# 4. Version
+packageVersion("palmerpenguins")
+
+# 5. Citation
+citation("palmerpenguins")
+```
+:::
+
+### Exercise 2 (Semi-guided): Navigate Package Documentation
+
+Pick any package you have installed (e.g., `survival`, `lme4`, or `broom`).
+
+1. Open the package index with `help(package = "survival")`. How many exported functions does it list?
+2. Find the help page for one function you haven't used before. What does it do? What are its main arguments?
+3. Check whether there is a vignette: `vignette(package = "survival")`. Open one with `vignette("timereg")` or another listed vignette.
+4. Use `::` to call a function from the package without loading it: e.g., `survival::Surv(1:5, c(1,0,1,1,0))`. What does the output look like?
+
+### Exercise 3 (Open-ended)
+
+Find a package relevant to your own research area that you have not used before.
+
+1. Search for it on CRAN (`https://cran.r-project.org`) or Bioconductor.
+2. Install it, load it, and explore its documentation (help index + at least one vignette if available).
+3. Run a minimal example from the documentation.
+4. Write two sentences describing what the package does and whether it would be useful for your work.
+
 
 ## Comprehension Check
 

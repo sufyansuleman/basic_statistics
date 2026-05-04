@@ -1,4 +1,6 @@
-﻿# Hypothesis Testing: Concepts and Framework {#sec-hypothesis-testing}
+﻿---
+title: "Hypothesis Testing: Concepts and Framework"
+---
 
 ```{r setup}
 #| include: false
@@ -7,7 +9,7 @@ library(tidyverse)
 library(survival)
 ```
 
-## When Do You Use This? {.callout-tip}
+## When Do You Use This? {#sec-hypothesis-testing .callout-tip}
 
 > You have two groups of patients and you want to know whether they differ on a lab value. Or you have a new treatment and you want to know whether it works better than placebo. Hypothesis testing gives you a principled framework for making decisions from data while controlling the rate of false positives.
 
@@ -119,7 +121,7 @@ t.test(albumin ~ trt,
 ```
 
 ::: {.callout-note}
-### Reading the Output — What Each Number Means
+### Reading the Output � What Each Number Means
 
 ```
 Welch Two Sample t-test
@@ -134,18 +136,18 @@ sample estimates:
 
 | Output | What it means |
 |---|---|
-| **t = 0.45** | The test statistic. Small absolute value → the observed difference is close to what you'd expect by chance under H₀. |
-| **df = 310** | Degrees of freedom. With Welch's test this is not simply n−2; it accounts for unequal group variances. |
-| **p-value = 0.65** | If there were truly no difference, we'd see a gap this large **or larger** 65% of the time just by chance. No evidence against H₀. |
-| **95% CI: −0.09 to 0.14** | The difference in means (drug minus placebo) is somewhere between −0.09 and +0.14 g/dL. The CI includes zero — consistent with p > 0.05. |
-| **Group means: 3.52 vs 3.50** | The actual means you compare. Always report these — not just the p-value. |
+| **t = 0.45** | The test statistic. Small absolute value ? the observed difference is close to what you'd expect by chance under H0. |
+| **df = 310** | Degrees of freedom. With Welch's test this is not simply n-2; it accounts for unequal group variances. |
+| **p-value = 0.65** | If there were truly no difference, we'd see a gap this large **or larger** 65% of the time just by chance. No evidence against H0. |
+| **95% CI: -0.09 to 0.14** | The difference in means (drug minus placebo) is somewhere between -0.09 and +0.14 g/dL. The CI includes zero � consistent with p > 0.05. |
+| **Group means: 3.52 vs 3.50** | The actual means you compare. Always report these � not just the p-value. |
 
 ::: {.callout-tip}
 ### What Does This Actually Tell Us?
 
-> *"Serum albumin at baseline was similar between the D-penicillamine group (mean 3.52 g/dL) and placebo group (mean 3.50 g/dL). There was no statistically significant difference (Welch's t-test: t = 0.45, df = 310, p = 0.65; mean difference 0.02 g/dL, 95% CI: −0.09 to 0.14)."*
+> *"Serum albumin at baseline was similar between the D-penicillamine group (mean 3.52 g/dL) and placebo group (mean 3.50 g/dL). There was no statistically significant difference (Welch's t-test: t = 0.45, df = 310, p = 0.65; mean difference 0.02 g/dL, 95% CI: -0.09 to 0.14)."*
 
-This is a **null result** — but null results matter. It tells us the groups were well-matched at baseline on albumin, which is reassuring for a randomised trial. The 95% CI shows the difference is small enough to be clinically unimportant regardless of the p-value.
+This is a **null result** � but null results matter. It tells us the groups were well-matched at baseline on albumin, which is reassuring for a randomised trial. The 95% CI shows the difference is small enough to be clinically unimportant regardless of the p-value.
 :::
 :::
 
@@ -186,7 +188,7 @@ sum(p_bh < 0.05)
 
 ## Where to Find Data Like This {.callout-note}
 
-**Clinical trial data:** `survival::pbc`, `survival::veteran`, `survival::lung` � all built-in, no download needed.
+**Clinical trial data:** `survival::pbc`, `survival::veteran`, `survival::lung` ? all built-in, no download needed.
 
 **Gene expression / omics data:**
 ```{r}
@@ -211,16 +213,16 @@ A p-value of 0.001 in a study of 10,000 patients does not mean the effect is cli
 One-sided tests are more powerful but only appropriate when you have a strong prior reason to expect an effect in a specific direction, and that direction was specified *before* looking at the data. Using a one-sided test because "the data happened to come out in the right direction" is p-hacking.
 
 ::: {.callout-warning}
-### Common Misinterpretations — Don't Make These Mistakes
+### Common Misinterpretations � Don't Make These Mistakes
 
-**"p = 0.05 is the magic threshold — below it means true, above it means false"**
+**"p = 0.05 is the magic threshold � below it means true, above it means false"**
 The 0.05 threshold is a convention, not a law of nature. p = 0.049 and p = 0.051 are essentially the same level of evidence. Report exact p-values and confidence intervals so readers can make their own judgement.
 
 **"The p-value is the probability my result is due to chance"**
-This is the most common misstatement in science. The p-value is the probability of observing your data (or more extreme) *if* H₀ were true. It is not the probability that H₀ is true. To get that you need Bayesian reasoning.
+This is the most common misstatement in science. The p-value is the probability of observing your data (or more extreme) *if* H0 were true. It is not the probability that H0 is true. To get that you need Bayesian reasoning.
 
 **"If the confidence interval is wide, the result is not significant"**
-Width and significance are related but not the same. A wide CI that excludes zero is still statistically significant. A narrow CI that includes zero is not. The CI tells you about precision; the p-value tells you about evidence against H₀.
+Width and significance are related but not the same. A wide CI that excludes zero is still statistically significant. A narrow CI that includes zero is not. The CI tells you about precision; the p-value tells you about evidence against H0.
 
 **"Bonferroni correction is always necessary"**
 Bonferroni is appropriate when false positives are very costly (clinical decisions, regulatory filings). For exploratory genomics analyses, it is over-conservative and you will miss real findings. Use Benjamini-Hochberg (FDR) correction instead.
@@ -314,9 +316,35 @@ Find a paper in your area that reports multiple hypothesis tests (common in omic
 ### Answers
 1. If the null hypothesis were true (i.e., there is no real effect), the probability of observing a test statistic as extreme as (or more extreme than) the one we observed is 0.04 (4%). It does not mean there is a 4% chance the null is true.
 2. A Type I error (false positive) is incorrectly rejecting a true null hypothesis. The conventional threshold is $\alpha = 0.05$, meaning we accept a 5% chance of a Type I error.
-3. Statistical significance does not equal clinical importance. A 0.5 mmHg reduction in blood pressure, while statistically significant in a large trial, is likely not clinically meaningful (typical treatments aim for reductions of 5�10 mmHg). Report the effect size and CI alongside the p-value.
+3. Statistical significance does not equal clinical importance. A 0.5 mmHg reduction in blood pressure, while statistically significant in a large trial, is likely not clinically meaningful (typical treatments aim for reductions of 5?10 mmHg). Report the effect size and CI alongside the p-value.
 4. $500 \times 0.05 = 25$ false positives expected by chance. This is why multiple testing corrections are essential in high-dimensional data.
 5. Bonferroni: when any false positive is costly (e.g., clinical trial with pre-specified endpoints, regulatory decision-making). FDR (BH): when you are screening many hypotheses and accept some false positives in exchange for more power (e.g., genomics, proteomics, metabolomics).
+:::
+
+## How to Report
+
+::: {.callout-note}
+### Reporting Hypothesis Test Results
+
+**In a Methods section:**
+
+> "A two-sample *t*-test was used to compare [outcome] between [group A] and [group B]. The significance threshold was set at α = 0.05. Where multiple comparisons were made, p-values were adjusted using the Benjamini–Hochberg method."
+
+**In a Results section:**
+
+> "Mean [outcome] was [value] in [group A] and [value] in [group B] (*t*(df) = X.XX, p = .YYY). [The difference was / was not] statistically significant at α = 0.05."
+
+**Always report:**
+- The test statistic and degrees of freedom (e.g., *t*(28) = 2.4)
+- The exact p-value (not "p < 0.05")
+- An effect size (Cohen's *d*, odds ratio, etc.)
+- A 95% confidence interval for the difference
+
+**Common reporting errors:**
+- Writing "p = 0.000" — use "p < 0.001" instead
+- Reporting only whether p < 0.05 without the actual value
+- Omitting the effect size and CI, which tell readers what the threshold crossed
+- Confusing statistical significance with clinical or practical significance
 :::
 
 ## Further Reading

@@ -1,4 +1,6 @@
-﻿# Nonparametric Tests {#sec-nonparametric}
+﻿---
+title: "Nonparametric Tests"
+---
 
 ```{r setup}
 #| include: false
@@ -8,7 +10,7 @@ library(survival)
 library(broom)
 ```
 
-## When Do You Use This? {.callout-tip}
+## When Do You Use This? {#sec-nonparametric .callout-tip}
 
 > You have only 8 mice per group and the outcome variable (e.g., tumour volume) is heavily right-skewed with an obvious outlier. A t-test requires approximate normality, and with $n = 8$ you cannot rely on the CLT. Nonparametric tests work on the *ranks* of the data rather than the raw values, so they are robust to non-normality and outliers.
 
@@ -35,17 +37,111 @@ Parametric tests (t-tests, ANOVA) make assumptions about the distribution of the
 | One-sample t-test | Wilcoxon signed-rank test | n small, distribution non-normal |
 | Two-sample t-test | Wilcoxon rank-sum (Mann-Whitney) | Two independent groups, n small or skewed |
 | Paired t-test | Wilcoxon signed-rank test | Paired data, n small or non-normal |
-| One-way ANOVA | Kruskal-Wallis test | ≥ 3 groups, normality violated |
+| One-way ANOVA | Kruskal-Wallis test | = 3 groups, normality violated |
 
 
-## Example 1: Clinical Data (PBC)
+## Example 1: Lab Data (Small Samples)
 
-Bilirubin is heavily right-skewed and contains extreme outliers. For a subgroup analysis with small numbers, a nonparametric test is prudent.
+These two real datasets have n = 10 per group --- too small to rely on the Central Limit Theorem.
+Checking normality first, then deciding between a t-test and a Wilcoxon test, is the key skill.
+
+### Two-Sample Wilcoxon: Tooth Growth at Low Dose (ToothGrowth)
+
+At 0.5 mg/day, OJ vs ascorbic acid comparison has only 10 guinea pigs per group.
+Before running a t-test, check normality --- if it fails, use the Wilcoxon rank-sum test.
+
+```{r tg-small}
+#| eval: true
+
+tg_05 <- ToothGrowth |>
+  as_tibble() |>
+  mutate(supp = factor(supp, levels = c("VC", "OJ"),
+                        labels = c("Ascorbic acid", "Orange juice"))) |>
+  filter(dose == 0.5)
+
+# QQ-plots: check normality before choosing the test
+tg_05 |>
+  ggplot(aes(sample = len)) +
+  stat_qq() + stat_qq_line(colour = "red") +
+  facet_wrap(~ supp) +
+  labs(title = "QQ-plot: tooth length at 0.5 mg/day (n = 10 per group)") +
+  theme_bw()
+```
+
+With n = 10 and some departure from the QQ line, the Wilcoxon test is the safer choice.
+
+```{r tg-wilcox}
+#| eval: true
+
+res_wilcox <- wilcox.test(len ~ supp, data = tg_05, exact = FALSE)
+tidy(res_wilcox)
+
+# Medians and IQR --- always report these, not means, with a Wilcoxon test
+tg_05 |>
+  group_by(supp) |>
+  summarise(
+    n      = n(),
+    median = median(len),
+    q1     = quantile(len, 0.25),
+    q3     = quantile(len, 0.75)
+  )
+```
+
+::: {.callout-tip}
+### Wilcoxon vs t-test: Same Data, Different Assumptions
+
+```{r tg-compare}
+#| eval: true
+
+bind_rows(
+  tidy(t.test(len ~ supp, data = tg_05)) |> mutate(test = "Welch t-test"),
+  tidy(wilcox.test(len ~ supp, data = tg_05, exact = FALSE)) |> mutate(test = "Wilcoxon")
+) |> select(test, statistic, p.value)
+```
+
+Both give a similar conclusion here. When they disagree, trust the Wilcoxon for small non-normal samples.
+:::
+
+### Paired Wilcoxon: Two Sleep Drugs (sleep dataset)
+
+The `sleep` dataset (base R) has 10 patients measured on two drugs. With n = 10 and a paired design,
+the paired Wilcoxon signed-rank test is appropriate if the differences are not normally distributed.
+
+```{r sleep-wilcox}
+#| eval: true
+
+sleepdat <- sleep |>
+  as_tibble() |>
+  rename(drug = group, extra_hours = extra) |>
+  mutate(drug = factor(drug, labels = c("Drug 1", "Drug 2")))
+
+sleep_wide <- sleepdat |>
+  tidyr::pivot_wider(names_from = drug, values_from = extra_hours, id_cols = ID)
+
+# Check normality of the DIFFERENCES
+diffs <- sleep_wide[["Drug 2"]] - sleep_wide[["Drug 1"]]
+qqnorm(diffs); qqline(diffs, col = "red")
+
+# Paired Wilcoxon signed-rank test
+res_sleep <- wilcox.test(sleep_wide[["Drug 2"]], sleep_wide[["Drug 1"]], paired = TRUE)
+tidy(res_sleep)
+```
+
+For the paired Wilcoxon, normality of the *differences* is what matters, not the raw values.
+With n = 10 the test is valid regardless, but checking gives confidence.
+
+
+## Example 2: Clinical Data (PBC)
+
+Bilirubin is heavily right-skewed and contains extreme outliers --- a genuine case where
+nonparametric tests are clearly more appropriate than t-tests regardless of sample size.
 
 ```{r pbc-setup}
-pbc <- survival::pbc %>%
-  as_tibble() %>%
-  janitor::clean_names() %>%
+#| eval: true
+
+pbc <- survival::pbc |>
+  as_tibble() |>
+  janitor::clean_names() |>
   mutate(
     sex   = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
     trt   = factor(trt, levels = c(1, 2), labels = c("D-penicillamine", "Placebo")),
@@ -53,13 +149,14 @@ pbc <- survival::pbc %>%
   )
 ```
 
-### Wilcoxon Rank-Sum (Mann-Whitney): Two Independent Groups
+### Wilcoxon Rank-Sum: Bilirubin by Treatment Group
 
-```{r wilcox-two-sample}
-pbc_rand <- pbc %>% filter(!is.na(trt), !is.na(bili))
+```{r pbc-wilcox}
+#| eval: true
 
-# Visualise
-pbc_rand %>%
+pbc_rand <- pbc |> filter(!is.na(trt), !is.na(bili))
+
+pbc_rand |>
   ggplot(aes(x = trt, y = bili, fill = trt)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, alpha = 0.3, size = 1.5) +
@@ -68,91 +165,45 @@ pbc_rand %>%
   labs(title = "Bilirubin by treatment group (log scale)",
        x = NULL, y = "Bilirubin (mg/dL, log scale)") +
   theme_bw() + theme(legend.position = "none")
-```
 
-```{r wilcox-test}
-wilcox.test(bili ~ trt, data = pbc_rand)
 tidy(wilcox.test(bili ~ trt, data = pbc_rand))
-```
 
-**Interpreting the output:** The p-value is from a permutation of ranks. The test statistic W is the number of times an observation from group 1 is greater than an observation from group 2. There is no mean difference in the output --- report medians and IQR.
-
-```{r wilcox-summary}
-pbc_rand %>%
-  group_by(trt) %>%
+pbc_rand |>
+  group_by(trt) |>
   summarise(median = median(bili), q1 = quantile(bili, 0.25), q3 = quantile(bili, 0.75))
 ```
+
+**Report medians and IQR, not means**, because the Wilcoxon test is based on ranks.
 
 ### Kruskal-Wallis: Three or More Groups
 
 ```{r kruskal}
-pbc_stage <- pbc %>% filter(!is.na(stage), !is.na(bili))
+#| eval: true
+
+pbc_stage <- pbc |> filter(!is.na(stage), !is.na(bili))
 
 kruskal.test(bili ~ stage, data = pbc_stage)
 ```
 
-The Kruskal-Wallis test tests whether at least one group has a different distribution. If the overall test is significant, follow up with pairwise Wilcoxon tests and Bonferroni correction:
+If the overall test is significant, follow up with pairwise Wilcoxon tests and Bonferroni correction:
 
 ```{r kruskal-posthoc}
+#| eval: true
+
 pairwise.wilcox.test(pbc_stage$bili, pbc_stage$stage,
                      p.adjust.method = "bonferroni")
 ```
 
 
-## Example 2: Animal Data (Small Experiment)
-
-Suppose we measure tumour volume in 8 mice per group. With such small samples, normality cannot be verified, so a Wilcoxon test is appropriate.
-
-```{r mouse-data}
-set.seed(2024)
-tumour <- tibble(
-  group  = rep(c("Control", "Treatment"), each = 8),
-  volume = c(
-    rlnorm(8, meanlog = 3.5, sdlog = 0.8),   # right-skewed
-    rlnorm(8, meanlog = 2.8, sdlog = 0.8)
-  )
-)
-
-tumour %>%
-  ggplot(aes(x = group, y = volume, fill = group)) +
-  geom_boxplot(alpha = 0.7) +
-  geom_jitter(width = 0.1, size = 3, alpha = 0.7) +
-  scale_fill_manual(values = c("steelblue", "tomato")) +
-  labs(title = "Tumour volume by treatment group (n=8/group)",
-       x = NULL, y = "Tumour volume (mm�)") +
-  theme_bw() + theme(legend.position = "none")
-```
-
-```{r mouse-wilcox}
-wilcox.test(volume ~ group, data = tumour)
-
-# Compare with t-test (for illustration)
-t.test(volume ~ group, data = tumour)
-```
-
-With only 8 observations per group and right-skewed data, the Wilcoxon test is more reliable. The t-test result should be treated with caution.
-
-### Paired Wilcoxon: Before-After Measurements
-
-```{r paired-wilcox}
-set.seed(2024)
-before_after <- tibble(
-  mouse   = 1:10,
-  before  = rlnorm(10, meanlog = 3, sdlog = 0.5),
-  after   = before * rnorm(10, mean = 0.7, sd = 0.2)  # treatment reduces volume
-)
-
-wilcox.test(before_after$after, before_after$before, paired = TRUE)
-```
-
-
 ## Where to Find Data Like This {.callout-note}
 
-**PBC dataset:** `survival::pbc` � built in, provides real clinical data with strongly skewed variables.
+**`ToothGrowth`** (base R, used in Example 1): Small groups (n=10) with dose-response design. Ideal for demonstrating the decision between a t-test and Wilcoxon test.
 
-**PlantGrowth:** `datasets::PlantGrowth` � built in, three-group experiment suitable for Kruskal-Wallis demonstration.
+**`sleep`** (base R, used in Example 1): 10 patients on two drugs. The paired Wilcoxon teaching example.
 
-**Mouse Phenome Database:** phenome.jax.org � many small-sample mouse phenotyping studies where nonparametric tests are appropriate.
+**`survival::pbc`** (used in Example 2): Right-skewed bilirubin values in a clinical trial. Classic nonparametric test application.
+
+**Mouse Phenome Database:** phenome.jax.org — many small-sample mouse phenotyping studies where nonparametric tests are appropriate.
 
 
 ## What Can Go Wrong {.callout-warning}
@@ -164,7 +215,7 @@ Nonparametric tests are not always better. When data are normally distributed, t
 Wilcoxon tests compare *distributions*, not means. Report medians and IQR, not means and SD, alongside a Wilcoxon test result.
 
 **Treating a non-significant Kruskal-Wallis as proof of no difference**
-A p > 0.05 from Kruskal-Wallis means the data are consistent with no group differences � but with small samples, power may be low. Report the effect size (e.g., median differences) and note if the study is underpowered.
+A p > 0.05 from Kruskal-Wallis means the data are consistent with no group differences ? but with small samples, power may be low. Report the effect size (e.g., median differences) and note if the study is underpowered.
 
 **Pairwise comparisons without correction**
 If Kruskal-Wallis is significant, doing all pairwise Wilcoxon tests without correction inflates the Type I error. Always apply `p.adjust.method = "bonferroni"` or `"holm"` in `pairwise.wilcox.test()`.
@@ -185,10 +236,18 @@ Using `survival::pbc`, test whether bilirubin differs between male and female pa
 ### Exercise 1: Solution
 
 ```{r}
-pbc_sex <- pbc %>% filter(!is.na(sex), !is.na(bili))
+pbc <- survival::pbc |>
+  as_tibble() |>
+  janitor::clean_names() |>
+  mutate(
+    sex   = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
+    trt   = factor(trt, levels = c(1, 2), labels = c("D-penicillamine", "Placebo")),
+    stage = factor(stage, levels = 1:4, labels = paste("Stage", 1:4))
+  )
 
-# 1. Plot
-pbc_sex %>%
+pbc_sex <- pbc |> filter(!is.na(sex), !is.na(bili))
+
+pbc_sex |>
   ggplot(aes(x = sex, y = bili, fill = sex)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, alpha = 0.3, size = 1) +
@@ -197,8 +256,8 @@ pbc_sex %>%
   labs(x = NULL, y = "Bilirubin (mg/dL, log scale)") + theme_bw()
 
 # 2. Medians
-pbc_sex %>%
-  group_by(sex) %>%
+pbc_sex |>
+  group_by(sex) |>
   summarise(median = median(bili), q1 = quantile(bili, 0.25), q3 = quantile(bili, 0.75))
 
 # 3. Wilcoxon test
@@ -211,7 +270,7 @@ tidy(t.test(log(bili) ~ sex, data = pbc_sex))
 
 ### Exercise 2 (Semi-guided): Kruskal-Wallis for Stage
 
-Test whether bilirubin differs across disease stages (1�4) in `pbc`.
+Test whether bilirubin differs across disease stages (1?4) in `pbc`.
 
 1. Run `kruskal.test()`. Is the overall result significant?
 2. Run `pairwise.wilcox.test()` with Bonferroni correction. Which stage pairs differ?
@@ -221,7 +280,7 @@ Test whether bilirubin differs across disease stages (1�4) in `pbc`.
 ### Exercise 2: Solution
 
 ```{r}
-pbc_s <- pbc %>% filter(!is.na(stage), !is.na(bili))
+pbc_s <- pbc |> filter(!is.na(stage), !is.na(bili))
 
 # 1. Overall test
 kruskal.test(bili ~ stage, data = pbc_s)
@@ -230,7 +289,7 @@ kruskal.test(bili ~ stage, data = pbc_s)
 pairwise.wilcox.test(pbc_s$bili, pbc_s$stage, p.adjust.method = "bonferroni")
 
 # 3. Boxplot
-pbc_s %>%
+pbc_s |>
   ggplot(aes(x = stage, y = bili, fill = stage)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, alpha = 0.3, size = 1) +
@@ -268,4 +327,4 @@ From your own data, identify a continuous variable that is clearly non-normal (e
 
 - @Hollander-1999 --- *Nonparametric Statistical Methods*, comprehensive reference
 - @Bland-2015 --- Chapters on nonparametric methods in *An Introduction to Medical Statistics*
-- `?wilcox.test` and `?kruskal.test` in R � built-in documentation with examples
+- `?wilcox.test` and `?kruskal.test` in R ? built-in documentation with examples

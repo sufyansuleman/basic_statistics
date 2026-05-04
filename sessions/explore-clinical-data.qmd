@@ -1,4 +1,6 @@
-﻿# Exploring Clinical and Medical Data with R {#sec-explore-clinical}
+﻿---
+title: "Exploring Clinical and Medical Data with R"
+---
 
 ```{r setup}
 #| include: false
@@ -10,7 +12,7 @@ library(gtsummary)
 library(skimr)
 ```
 
-## When Do You Use This? {.callout-tip}
+## When Do You Use This? {#sec-explore-clinical .callout-tip}
 
 > You download a clinical dataset for the first time. Before running a single test you need to understand what you have: how many patients, which variables, how much missing data, whether distributions look plausible, and whether there are obvious data quality issues. This session teaches that systematic exploration process.
 
@@ -27,15 +29,15 @@ After completing this session you will be able to:
 
 ## Background: Why Explore Before You Analyse?
 
-Exploratory data analysis (EDA) is not optional � it is the first analytic step for every dataset. Rushing to a regression or a t-test without first understanding the data leads to errors that are hard to detect later.
+Exploratory data analysis (EDA) is not optional ? it is the first analytic step for every dataset. Rushing to a regression or a t-test without first understanding the data leads to errors that are hard to detect later.
 
 The systematic EDA workflow is:
 
-1. **Structure** � how many rows, columns, variable types?
-2. **Missing data** � which variables have gaps, and do they appear at random?
-3. **Distributions** � continuous variables: symmetric or skewed? Categorical: any rare levels?
-4. **Plausibility** � are any values biologically implausible?
-5. **Group comparisons** � do key variables differ across groups as expected?
+1. **Structure** ? how many rows, columns, variable types?
+2. **Missing data** ? which variables have gaps, and do they appear at random?
+3. **Distributions** ? continuous variables: symmetric or skewed? Categorical: any rare levels?
+4. **Plausibility** ? are any values biologically implausible?
+5. **Group comparisons** ? do key variables differ across groups as expected?
 
 
 ## Example 1: Primary Biliary Cholangitis (PBC)
@@ -71,7 +73,7 @@ pbc %>%
   arrange(desc(n_missing))
 ```
 
-Several variables have missing data. Note that `trt` is `NA` for patients who were not randomised � they are valid observational cases but should be excluded from the treatment comparison.
+Several variables have missing data. Note that `trt` is `NA` for patients who were not randomised ? they are valid observational cases but should be excluded from the treatment comparison.
 
 ### Summary Table (Table 1)
 
@@ -91,7 +93,7 @@ pbc %>%
 
 ::: callout-note
 **Reading Table 1:**
-Continuous variables are summarised as median (IQR) because most are right-skewed. Categorical variables are shown as count (%). The p-values compare the two treatment groups � we would expect them to be non-significant for baseline variables in a properly randomised trial.
+Continuous variables are summarised as median (IQR) because most are right-skewed. Categorical variables are shown as count (%). The p-values compare the two treatment groups ? we would expect them to be non-significant for baseline variables in a properly randomised trial.
 :::
 
 ### Distributions of Key Lab Values
@@ -107,7 +109,7 @@ pbc %>%
   theme_bw()
 ```
 
-All four lab values are right-skewed. This is typical for biochemical markers � a few patients have very high values. When you run models with these variables, consider log-transforming them.
+All four lab values are right-skewed. This is typical for biochemical markers ? a few patients have very high values. When you run models with these variables, consider log-transforming them.
 
 ### Log Transformation
 
@@ -139,7 +141,7 @@ pbc %>%
   )
 ```
 
-The `back_transf` value is the **geometric mean** � the appropriate average for log-normal data.
+The `back_transf` value is the **geometric mean** ? the appropriate average for log-normal data.
 
 ### Group Comparison by Stage
 
@@ -159,7 +161,7 @@ pbc %>%
   theme(legend.position = "none")
 ```
 
-Bilirubin clearly increases with disease stage � a sensible finding that validates the data.
+Bilirubin clearly increases with disease stage ? a sensible finding that validates the data.
 
 
 ## Example 2: Vitamin C and Tooth Growth (Animal Experiment)
@@ -182,7 +184,7 @@ tg <- ToothGrowth %>%
 skim(tg)
 ```
 
-10 observations per dose-supplement combination � a balanced 3 x 2 factorial design.
+10 observations per dose-supplement combination ? a balanced 3 x 2 factorial design.
 
 ### Dose-Response Relationship
 
@@ -196,7 +198,7 @@ tg %>%
   labs(
     title = "Effect of Vitamin C on tooth growth in guinea pigs",
     x     = "Dose (mg/day)",
-    y     = "Odontoblast length (�m)",
+    y     = "Odontoblast length (?m)",
     fill  = "Supplement"
   ) +
   theme_bw()
@@ -207,7 +209,7 @@ tg %>%
 - Tooth growth increases with dose for both supplement types.
 - At lower doses (0.5 and 1.0 mg/day), orange juice produces more growth than ascorbic acid.
 - At the highest dose (2.0 mg/day), the two supplements are approximately equivalent.
-- This is an interaction � the effect of supplement type depends on dose level.
+- This is an interaction ? the effect of supplement type depends on dose level.
 
 
 ## Example 3: Melanoma Survival Data
@@ -258,18 +260,18 @@ melanoma %>%
   theme(legend.position = "none")
 ```
 
-Ulcerated tumours tend to be thicker � consistent with the known relationship between tumour thickness (Breslow depth) and aggressiveness.
+Ulcerated tumours tend to be thicker ? consistent with the known relationship between tumour thickness (Breslow depth) and aggressiveness.
 
 
 ## Where to Find Data Like This {.callout-note}
 
 **Built-in R datasets used in this session:**
-- `survival::pbc` � primary biliary cholangitis clinical trial, 418 patients
-- `boot::melanoma` � melanoma surgery outcomes, 205 patients
-- `datasets::ToothGrowth` � guinea pig tooth growth factorial experiment
+- `survival::pbc` ? primary biliary cholangitis clinical trial, 418 patients
+- `boot::melanoma` ? melanoma surgery outcomes, 205 patients
+- `datasets::ToothGrowth` ? guinea pig tooth growth factorial experiment
 
 **Other clinical datasets in the `survival` package:**
-`lung`, `veteran`, `colon`, `diabetic`, `udca` � all real datasets from clinical trials and registries.
+`lung`, `veteran`, `colon`, `diabetic`, `udca` ? all real datasets from clinical trials and registries.
 
 **NHANES (National Health and Nutrition Examination Survey):**
 ```{r}
@@ -279,7 +281,7 @@ library(nhanesA)
 nhanes("DEMO_J")   # demographic data from 2017-2018 cycle
 ```
 
-**Mouse Phenome Database:** phenome.jax.org � download CSV files of mouse phenotype data directly into R.
+**Mouse Phenome Database:** phenome.jax.org ? download CSV files of mouse phenotype data directly into R.
 
 
 ## What Can Go Wrong {.callout-warning}
@@ -344,7 +346,7 @@ Using `ToothGrowth`:
 
 1. How many observations are there per dose-supplement combination?
 2. Calculate the mean and SD of `len` for each group.
-3. Create a line plot showing mean length � SD by dose, with separate lines for each supplement.
+3. Create a line plot showing mean length ? SD by dose, with separate lines for each supplement.
 4. Write one sentence describing the interaction you see.
 
 ::: {.callout-tip collapse="true"}
@@ -371,8 +373,8 @@ tg %>%
   geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd), width = 0.1) +
   geom_point(size = 3) +
   scale_color_manual(values = c("steelblue", "tomato")) +
-  labs(title = "Mean tooth length � SD by dose and supplement",
-       x = "Dose (mg/day)", y = "Length (�m)", color = "Supplement") +
+  labs(title = "Mean tooth length ? SD by dose and supplement",
+       x = "Dose (mg/day)", y = "Length (?m)", color = "Supplement") +
   theme_bw()
 ```
 :::
@@ -387,15 +389,15 @@ Download a dataset from your own research or from NHANES. Perform a complete EDA
 1. You run `skim(pbc)` and see `n_missing = 106` for the `trt` variable. What is the most likely explanation, and what should you do before running a treatment comparison?
 2. A histogram of albumin values shows a roughly symmetric, bell-shaped distribution. A histogram of bilirubin values shows a long right tail. How should you handle these differently when fitting a linear model?
 3. Why is the geometric mean (back-transformed from log scale) more appropriate than the arithmetic mean for a right-skewed variable like bilirubin?
-4. You have 10 animals per group in a 2 � 3 factorial experiment (2 supplements � 3 dose levels). How many observations total? What does "balanced design" mean?
+4. You have 10 animals per group in a 2 ? 3 factorial experiment (2 supplements ? 3 dose levels). How many observations total? What does "balanced design" mean?
 5. A colleague creates a Table 1 that shows means and standard deviations for all continuous variables, including bilirubin (which is heavily right-skewed). What is wrong with this, and what should they report instead?
 
 ::: {.callout-note collapse="true"}
 ### Answers
 1. The 106 missing values in `trt` are patients who enrolled in the observational portion of the study and were not randomised. They are valid cases for some analyses but should be excluded with `filter(!is.na(trt))` when comparing treatment arms.
 2. Albumin is approximately normally distributed, so it can be entered into a model on its original scale. Bilirubin is right-skewed, so log-transform it before modelling: `log(bili)`. After modelling, back-transform coefficients and confidence intervals with `exp()`.
-3. The arithmetic mean is pulled upward by extreme high values in a right-skewed distribution, so it does not represent the "typical" patient. The geometric mean (exp(mean(log(x)))) is the value that, when raised to the power *n*, equals the product of all observations � it is a more robust central measure for log-normal data.
-4. 10 � 2 � 3 = 60 total observations. A balanced design has the same number of observations in every cell of the design, which simplifies analysis and maximises statistical power.
+3. The arithmetic mean is pulled upward by extreme high values in a right-skewed distribution, so it does not represent the "typical" patient. The geometric mean (exp(mean(log(x)))) is the value that, when raised to the power *n*, equals the product of all observations ? it is a more robust central measure for log-normal data.
+4. 10 ? 2 ? 3 = 60 total observations. A balanced design has the same number of observations in every cell of the design, which simplifies analysis and maximises statistical power.
 5. For a right-skewed variable, the mean and SD are misleading because extreme outliers inflate both. The correct summary is median and interquartile range (IQR), as the median is resistant to extreme values.
 :::
 

@@ -1,4 +1,6 @@
-﻿# Model Building and Diagnostics {#sec-model-building}
+﻿---
+title: "Model Building and Diagnostics"
+---
 
 ```{r setup}
 #| include: false
@@ -14,7 +16,7 @@ library(car)
 This session covers model selection and diagnostics for regression models. Complete **Linear Regression**, **Multiple Regression**, and **Logistic Regression** before starting here.
 :::
 
-## When Do You Use This? {.callout-tip}
+## When Do You Use This? {#sec-model-building .callout-tip}
 
 > You have fitted a regression model, but before trusting its conclusions you need to verify that the model is appropriate: are the assumptions met? Are there influential outliers? Is the model overfitted? Model building and diagnostics are the quality-control steps between fitting a model and reporting it.
 
@@ -35,13 +37,13 @@ Good regression modelling is a structured process, not a p-value fishing expedit
 
 **Steps:**
 
-1. **Define the research question** � outcome, predictors, and target population
-2. **Explore the data** � distributions, missingness, correlations
-3. **Pre-specify the model** � driven by domain knowledge, not by initial results
-4. **Fit and assess assumptions** � residuals, influential points
-5. **Compare models** � use AIC/BIC or likelihood ratio tests, not step-wise
-6. **Validate** � internal (bootstrap) or external (hold-out data)
-7. **Report** � all results, including assumption checks
+1. **Define the research question** ? outcome, predictors, and target population
+2. **Explore the data** ? distributions, missingness, correlations
+3. **Pre-specify the model** ? driven by domain knowledge, not by initial results
+4. **Fit and assess assumptions** ? residuals, influential points
+5. **Compare models** ? use AIC/BIC or likelihood ratio tests, not step-wise
+6. **Validate** ? internal (bootstrap) or external (hold-out data)
+7. **Report** ? all results, including assumption checks
 
 **The selection problem:** Choosing predictors based on their p-values from the same data you use to estimate coefficients inflates the apparent significance and overfits the model. Pre-specification and penalised methods address this.
 
@@ -97,7 +99,7 @@ diag_df %>%
   ggplot(aes(x = .row, y = .cooksd)) +
   geom_col(fill = "steelblue", alpha = 0.7) +
   geom_hline(yintercept = 4 / nrow(pbc), linetype = "dashed", color = "tomato") +
-  labs(title = "Cook's distance � influential observations",
+  labs(title = "Cook's distance ? influential observations",
        x = "Observation", y = "Cook's distance") +
   theme_bw()
 ```
@@ -155,7 +157,7 @@ diag_log %>%
   ggplot(aes(x = row, y = .cooksd)) +
   geom_col(fill = "steelblue", alpha = 0.7) +
   geom_hline(yintercept = 4 / nrow(pbc2), linetype = "dashed", color = "tomato") +
-  labs(title = "Cook's distance � logistic model",
+  labs(title = "Cook's distance ? logistic model",
        x = "Observation", y = "Cook's distance") +
   theme_bw()
 ```
@@ -204,11 +206,11 @@ Lasso selects predictors by shrinking small coefficients to zero. It is useful f
 
 ## Where to Find Data Like This {.callout-note}
 
-**PBC dataset:** `survival::pbc` � multiple correlated continuous and categorical predictors; good for demonstrating overfitting, VIF, and model selection.
+**PBC dataset:** `survival::pbc` ? multiple correlated continuous and categorical predictors; good for demonstrating overfitting, VIF, and model selection.
 
 **MASS::Boston (or updated `BostonHousing2` from `mlbench`):** Housing data with correlated predictors, commonly used for penalised regression examples.
 
-**Any of your prior datasets** � model building and diagnostics are always applied to real data from a research question, not synthetic datasets.
+**Any of your prior datasets** ? model building and diagnostics are always applied to real data from a research question, not synthetic datasets.
 
 
 ## What Can Go Wrong {.callout-warning}
@@ -298,16 +300,16 @@ Take a model from your own research and apply the full diagnostic workflow: resi
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. A U-shape indicates non-linearity � the linear model misses a curved relationship. Check whether X needs to be log-transformed, squared, or modelled with a spline. You can also try a LOESS smoother on the data to visualise the true shape.
-2. No � influential observations should be investigated, not automatically removed. Check whether the observation is a data entry error (correct it) or a genuinely extreme but valid case (keep it and report sensitivity analyses with and without that observation).
+1. A U-shape indicates non-linearity ? the linear model misses a curved relationship. Check whether X needs to be log-transformed, squared, or modelled with a spline. You can also try a LOESS smoother on the data to visualise the true shape.
+2. No ? influential observations should be investigated, not automatically removed. Check whether the observation is a data entry error (correct it) or a genuinely extreme but valid case (keep it and report sensitivity analyses with and without that observation).
 3. VIF = 9.2 for one predictor indicates it is highly collinear with other predictors. Its coefficient estimate is unreliable (large SE, may flip sign). Options: (1) remove the collinear predictor if it is not the predictor of primary interest; (2) combine correlated predictors into a composite score; (3) use ridge regression.
-4. The third model (AIC = 307) is preferred � it has the lowest AIC, indicating the best balance of fit and complexity. However, the difference from model 2 (AIC = 308) is only 1, which is not a meaningful improvement. Models within 2 AIC units of the minimum are considered roughly equivalent.
-5. No. Lasso coefficients are biased toward zero by the penalty. After lasso selects variables, you should refit the model using ordinary regression on those selected variables to obtain unbiased coefficient estimates and valid CIs. Even then, some caution is needed because variable selection inflates Type I error � ideally, use pre-specified variables and treat lasso as exploratory.
+4. The third model (AIC = 307) is preferred ? it has the lowest AIC, indicating the best balance of fit and complexity. However, the difference from model 2 (AIC = 308) is only 1, which is not a meaningful improvement. Models within 2 AIC units of the minimum are considered roughly equivalent.
+5. No. Lasso coefficients are biased toward zero by the penalty. After lasso selects variables, you should refit the model using ordinary regression on those selected variables to obtain unbiased coefficient estimates and valid CIs. Even then, some caution is needed because variable selection inflates Type I error ? ideally, use pre-specified variables and treat lasso as exploratory.
 :::
 
 ## Further Reading
 
-- @Harrell-2015 --- *Regression Modeling Strategies* � the definitive reference for clinical regression
-- @Fox-2019 --- *An R Companion to Applied Regression* � covers all diagnostics in R
+- @Harrell-2015 --- *Regression Modeling Strategies* ? the definitive reference for clinical regression
+- @Fox-2019 --- *An R Companion to Applied Regression* ? covers all diagnostics in R
 - `?plot.lm`, `?augment`, `?vif` in R
 - `glmnet` package vignette for penalised regression
