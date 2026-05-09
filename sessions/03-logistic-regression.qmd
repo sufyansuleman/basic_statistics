@@ -17,7 +17,7 @@ Logistic regression shares the same structure as linear regression but models a 
 
 ## When Do You Use This? {#sec-logistic-regression .callout-tip}
 
-> Your outcome is binary — yes/no, alive/dead, event/no event — and you want to model how one or more predictors change the probability of that outcome. Logistic regression gives you odds ratios with confidence intervals and lets you adjust for confounders. For example: predicting whether a patient died from liver disease, or whether a tumour responded to treatment.
+> Your outcome is binary  -  yes/no, alive/dead, event/no event  -  and you want to model how one or more predictors change the probability of that outcome. Logistic regression gives you odds ratios with confidence intervals and lets you adjust for confounders. For example: predicting whether a patient died from liver disease, or whether a tumour responded to treatment.
 
 ## Learning Objectives
 
@@ -87,7 +87,7 @@ summary(fit_log)
 ```
 
 ::: {.callout-note}
-### Reading the `summary()` Output for Logistic Regression — Line by Line
+### Reading the `summary()` Output for Logistic Regression  -  Line by Line
 
 Logistic regression output looks similar to linear regression but the numbers mean different things.
 
@@ -100,22 +100,22 @@ log_bili      0.89      0.09       9.8    <2e-16 ***
 
 | Column | What it means |
 |---|---|
-| **Estimate** | The log-odds coefficient. Not directly interpretable — exponentiate it to get an odds ratio. |
+| **Estimate** | The log-odds coefficient. Not directly interpretable  -  exponentiate it to get an odds ratio. |
 | **Std. Error** | Uncertainty in the estimate. |
-| **z value** | Estimate — Std. Error (note: z, not t — logistic uses a normal approximation). |
-| **Pr(>\|z\|)** | p-value — same interpretation as in linear regression. |
+| **z value** | Estimate  -  Std. Error (note: z, not t  -  logistic uses a normal approximation). |
+| **Pr(>\|z\|)** | p-value  -  same interpretation as in linear regression. |
 
 **`(Dispersion parameter for binomial family taken to be 1)`**
-For binomial models this is always 1 — ignore it.
+For binomial models this is always 1  -  ignore it.
 
 **`Null deviance: 487 on 374 degrees of freedom`**
-The deviance of a model with *no predictors* (intercept only). This is the baseline — how poorly the null model fits.
+The deviance of a model with *no predictors* (intercept only). This is the baseline  -  how poorly the null model fits.
 
 **`Residual deviance: 409 on 373 degrees of freedom`**
 The deviance of *your* model. A large drop from null to residual deviance means your predictor(s) explain a lot. Here: 487 - 409 = 78 units of deviance explained.
 
 **`AIC: 413`**
-Akaike Information Criterion. Lower = better fit (penalised for complexity). Use AIC to compare models — not to interpret a single model in isolation.
+Akaike Information Criterion. Lower = better fit (penalised for complexity). Use AIC to compare models  -  not to interpret a single model in isolation.
 
 ::: {.callout-tip}
 ### What Does This Actually Tell Us?
@@ -123,10 +123,10 @@ Akaike Information Criterion. Lower = better fit (penalised for complexity). Use
 The coefficient for `log_bili` is 0.89 on the log-odds scale. To interpret it:
 
 1. **Exponentiate** to get an odds ratio: $e^{0.89} \approx 2.4$
-2. **Translate**: Each one-unit increase in log(bilirubin) — roughly a 2.7-fold increase in bilirubin — multiplies the odds of death by **2.4** (95% CI from the OR table).
-3. **Write it up**: *"Higher bilirubin is strongly associated with mortality in PBC patients. Each 2.7-fold increase in bilirubin is associated with 2.4 times higher odds of death (OR = 2.4, 95% CI: [low]—[high], p < 0.001)."*
+2. **Translate**: Each one-unit increase in log(bilirubin)  -  roughly a 2.7-fold increase in bilirubin  -  multiplies the odds of death by **2.4** (95% CI from the OR table).
+3. **Write it up**: *"Higher bilirubin is strongly associated with mortality in PBC patients. Each 2.7-fold increase in bilirubin is associated with 2.4 times higher odds of death (OR = 2.4, 95% CI: [low] - [high], p < 0.001)."*
 
-Remember: odds ratios are **not** the same as relative risk. An OR of 2.4 does not mean the risk doubles. For rare outcomes (< 10%), OR — RR; for common outcomes, OR exaggerates the association.
+Remember: odds ratios are **not** the same as relative risk. An OR of 2.4 does not mean the risk doubles. For rare outcomes (< 10%), OR  -  RR; for common outcomes, OR exaggerates the association.
 :::
 :::
 
@@ -250,7 +250,7 @@ Logistic models require approximately 10?20 events per predictor variable for st
 A high C-statistic does not guarantee good calibration (that predicted probabilities match observed proportions). Use a calibration plot (`val.prob()` from the `rms` package) for clinical prediction models.
 
 ::: {.callout-warning}
-### Common Misinterpretations — Don't Make These Mistakes
+### Common Misinterpretations  -  Don't Make These Mistakes
 
 **"OR = 2.4 means the risk is 2.4 times higher"**
 No. An odds ratio of 2.4 means the *odds* increased 2.4-fold, not the risk. When the outcome is common (> 15%), the OR substantially overestimates the relative risk. If you want relative risk, use a Poisson model with robust standard errors or a log-binomial model.
@@ -265,7 +265,7 @@ On the odds ratio scale, even small ORs can be meaningful for very common exposu
 Adjusting for more variables does not automatically remove confounding. You can only adjust for confounders you measured. Unmeasured confounders remain a threat in all observational studies.
 
 **"Quasi-complete separation means my predictor is too good"**
-Separation causes coefficient inflation and numerical instability — it does not mean the predictor is perfectly valid. It usually means you have too few events. Use Firth's penalised logistic regression.
+Separation causes coefficient inflation and numerical instability  -  it does not mean the predictor is perfectly valid. It usually means you have too few events. Use Firth's penalised logistic regression.
 :::
 
 

@@ -59,11 +59,11 @@ Every R help page has the same structure:
 | Section | What it tells you |
 |---------|------------------|
 | **Description** | What the function does in one sentence |
-| **Usage** | Function signature — all arguments with defaults |
+| **Usage** | Function signature  -  all arguments with defaults |
 | **Arguments** | What each argument expects |
 | **Value** | What the function returns |
 | **Examples** | Copy-paste these first to understand the function |
-| **See Also** | Related functions — often more useful than the main function |
+| **See Also** | Related functions  -  often more useful than the main function |
 
 **Tip:** Jump straight to **Examples** when learning a new function. Run them interactively to see what the function does before applying it to your own data.
 
@@ -87,7 +87,7 @@ Error in plot(my_data) : object 'my_data' not found
 Error: unexpected ')' in "mean(x, na.rm = TRUE))"
 ```
 
-**Cause:** A syntax error — mismatched brackets, a missing comma, or an unclosed string.
+**Cause:** A syntax error  -  mismatched brackets, a missing comma, or an unclosed string.
 
 **Fix:** Count your opening and closing brackets. In RStudio, click inside the bracket to see its matching partner highlighted.
 
@@ -152,9 +152,9 @@ Error in model.frame.default : factor has new levels: XYZ
 
 | Message type | Meaning | Action needed? |
 |-------------|---------|---------------|
-| `Error` | R stopped — no result produced | Yes — must fix |
-| `Warning` | R produced a result, but something may be wrong | Check — often important |
-| `Message` | Informational only (e.g., from packages loading) | No — usually safe to ignore |
+| `Error` | R stopped  -  no result produced | Yes  -  must fix |
+| `Warning` | R produced a result, but something may be wrong | Check  -  often important |
+| `Message` | Informational only (e.g., from packages loading) | No  -  usually safe to ignore |
 
 **Key warning to never ignore:**
 
@@ -162,7 +162,7 @@ Error in model.frame.default : factor has new levels: XYZ
 Warning message: In glm.fit() : fitted probabilities numerically 0 or 1 occurred
 ```
 
-This means your logistic regression has complete separation — a predictor perfectly separates outcomes. The model is unreliable; see @sec-logistic-regression.
+This means your logistic regression has complete separation  -  a predictor perfectly separates outcomes. The model is unreliable; see @sec-logistic-regression.
 
 
 ## Useful Functions for Debugging
@@ -268,11 +268,11 @@ The table below maps every statistical method covered in this course to its sess
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. (a) The column `y` does not exist in `mydata` — check column names with `names(mydata)`. A common cause is a typo or capitalisation mismatch (R is case-sensitive: `Y` ? `y`). (b) The object `mydata` itself does not exist in the environment — run `ls()` to check, and re-run the code that creates `mydata`.
-2. An **error** stops execution and produces no output — you must fix it before R will continue. A **warning** means R completed the computation but flagged something potentially problematic. Warnings you should not ignore include: fitted probabilities of 0 or 1 in logistic regression (complete separation); NAs introduced by coercion (unexpected missing data); rank-deficient fits (collinearity in regression). A warning you can usually ignore: `package 'X' was built under R version Y.Z` — just means the package was built with a slightly different R version.
-3. Two approaches: (1) `help.search("survival")` or `??survival` searches all help pages for the keyword; (2) Look at the **CRAN Task View for Survival Analysis** at [https://cran.r-project.org/web/views/Survival.html](https://cran.r-project.org/web/views/Survival.html) — this lists all packages and key functions for survival analysis. The `survival` package and its `Surv()`, `survfit()`, `coxph()` functions are the standard starting point.
-4. The model was trained on data where a factor had certain levels (e.g., `race`: "White", "Black"), but the new data contains a level not seen during training (e.g., "Other"). R cannot encode this new level. Fix: ensure all factor levels in new data are present in the training data — use `levels(new_data$race) <- levels(training_data$race)` or use consistent factor encoding before splitting into train/test sets.
-5. Yes, be concerned. 152 missing values could mean: (a) a column has systematic missingness — check `colSums(is.na(df))` to identify which variable; (b) the missing data is not missing at random (MCAR) — if missingness is related to the outcome or exposure, complete-case analysis will be biased. Steps: identify which variables have missing data, check whether missingness is associated with the outcome, and consider whether imputation is needed (see @sec-imputation).
+1. (a) The column `y` does not exist in `mydata`  -  check column names with `names(mydata)`. A common cause is a typo or capitalisation mismatch (R is case-sensitive: `Y` ? `y`). (b) The object `mydata` itself does not exist in the environment  -  run `ls()` to check, and re-run the code that creates `mydata`.
+2. An **error** stops execution and produces no output  -  you must fix it before R will continue. A **warning** means R completed the computation but flagged something potentially problematic. Warnings you should not ignore include: fitted probabilities of 0 or 1 in logistic regression (complete separation); NAs introduced by coercion (unexpected missing data); rank-deficient fits (collinearity in regression). A warning you can usually ignore: `package 'X' was built under R version Y.Z`  -  just means the package was built with a slightly different R version.
+3. Two approaches: (1) `help.search("survival")` or `??survival` searches all help pages for the keyword; (2) Look at the **CRAN Task View for Survival Analysis** at [https://cran.r-project.org/web/views/Survival.html](https://cran.r-project.org/web/views/Survival.html)  -  this lists all packages and key functions for survival analysis. The `survival` package and its `Surv()`, `survfit()`, `coxph()` functions are the standard starting point.
+4. The model was trained on data where a factor had certain levels (e.g., `race`: "White", "Black"), but the new data contains a level not seen during training (e.g., "Other"). R cannot encode this new level. Fix: ensure all factor levels in new data are present in the training data  -  use `levels(new_data$race) <- levels(training_data$race)` or use consistent factor encoding before splitting into train/test sets.
+5. Yes, be concerned. 152 missing values could mean: (a) a column has systematic missingness  -  check `colSums(is.na(df))` to identify which variable; (b) the missing data is not missing at random (MCAR)  -  if missingness is related to the outcome or exposure, complete-case analysis will be biased. Steps: identify which variables have missing data, check whether missingness is associated with the outcome, and consider whether imputation is needed (see @sec-imputation).
 :::
 
 ## Common Pitfalls When Getting Help
@@ -291,7 +291,7 @@ The table below maps every statistical method covered in this course to its sess
 
 ## Further Reading
 
-- @Grolemund-2015 --- *Hands-On Programming with R* — getting started, debugging, and help
-- @Wickham-2019 --- *Advanced R* — chapter on debugging and performance: [adv-r.hadley.nz](https://adv-r.hadley.nz/)
-- [Happy Git and GitHub for the useR](https://happygitwithr.com/) — version control with R
-- [R for Data Science (2nd ed.)](https://r4ds.hadley.nz/) — canonical reference for the tidyverse workflow
+- @Grolemund-2015 --- *Hands-On Programming with R*  -  getting started, debugging, and help
+- @Wickham-2019 --- *Advanced R*  -  chapter on debugging and performance: [adv-r.hadley.nz](https://adv-r.hadley.nz/)
+- [Happy Git and GitHub for the useR](https://happygitwithr.com/)  -  version control with R
+- [R for Data Science (2nd ed.)](https://r4ds.hadley.nz/)  -  canonical reference for the tidyverse workflow

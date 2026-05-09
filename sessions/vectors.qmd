@@ -10,7 +10,7 @@ library(tidyverse)
 
 ::: {.callout-note}
 ## Already know this?
-If you are comfortable working with vectors, data frames, and factors in R — and you understand what `str()`, `class()`, and `as.factor()` do — skip ahead to the next session or go straight to **Part 2: Describing and Visualizing Data**.
+If you are comfortable working with vectors, data frames, and factors in R  -  and you understand what `str()`, `class()`, and `as.factor()` do  -  skip ahead to the next session or go straight to **Part 2: Describing and Visualizing Data**.
 :::
 
 ## When Do You Use This? {#sec-vectors .callout-tip}
@@ -438,7 +438,7 @@ char_vector  # Output: "Low" "Medium" "High" "Medium" "Low"
 
 ## Data Frames and Tibbles
 
-A vector stores a single column of values. A **data frame** stores many columns together — like a spreadsheet where every column can have a different type. This is how you will actually store and work with your research data in R.
+A vector stores a single column of values. A **data frame** stores many columns together  -  like a spreadsheet where every column can have a different type. This is how you will actually store and work with your research data in R.
 
 A **tibble** is a modern version of a data frame from the `tidyverse`. It behaves the same way but has slightly better defaults (it never converts character columns to factors automatically, and it prints more neatly).
 
@@ -462,7 +462,7 @@ mouse_data
 nrow(mouse_data)
 ncol(mouse_data)
 
-# str() shows column types — very useful for diagnosing problems
+# str() shows column types  -  very useful for diagnosing problems
 str(mouse_data)
 
 # head() shows the first 6 rows (useful for large datasets)
@@ -543,7 +543,7 @@ group_factor <- factor(c("treatment", "control", "treatment", "control"))
 levels(group_factor)  # "control" comes first = reference group
 
 # In a regression, the coefficient for "treatment" is relative to "control"
-# This is what you want — but it happens to be correct here by accident
+# This is what you want  -  but it happens to be correct here by accident
 ```
 
 ### Setting the Reference Level with `relevel()`
@@ -574,7 +574,7 @@ diet_renamed <- fct_recode(diet_group,
 )
 levels(diet_renamed)
 
-# fct_infreq: order by frequency (most common first) — useful for bar charts
+# fct_infreq: order by frequency (most common first)  -  useful for bar charts
 diet_by_freq <- fct_infreq(diet_group)
 levels(diet_by_freq)
 ```
@@ -615,7 +615,7 @@ mice$group <- factor(mice$group,
                      levels = c("control", "low_dose", "high_dose"))
 
 # 3. Check levels
-levels(mice$group)  # "control" is the reference — correct
+levels(mice$group)  # "control" is the reference  -  correct
 
 # 4. Mean body weight per group
 tapply(mice$body_weight, mice$group, mean)
@@ -632,15 +632,15 @@ mice
 ::: {.callout-warning}
 ### What Can Go Wrong
 
-**Type coercion in vectors.** Mixing types in a single vector silently converts everything to the most general type: `c(1, 2, "three")` produces `c("1", "2", "three")` — all characters. Downstream arithmetic will then fail with confusing errors. Check with `class()` if a numeric column behaves strangely.
+**Type coercion in vectors.** Mixing types in a single vector silently converts everything to the most general type: `c(1, 2, "three")` produces `c("1", "2", "three")`  -  all characters. Downstream arithmetic will then fail with confusing errors. Check with `class()` if a numeric column behaves strangely.
 
-**Factor levels in the wrong order.** R assigns factor levels alphabetically by default. In a regression, the first level is the reference. `"control"` becomes the reference only if it sorts first alphabetically — `"A"` would be the reference if your groups are `"A"`, `"B"`, `"control"`. Always set levels explicitly with `factor(..., levels = c("control", "low_dose", "high_dose"))`.
+**Factor levels in the wrong order.** R assigns factor levels alphabetically by default. In a regression, the first level is the reference. `"control"` becomes the reference only if it sorts first alphabetically  -  `"A"` would be the reference if your groups are `"A"`, `"B"`, `"control"`. Always set levels explicitly with `factor(..., levels = c("control", "low_dose", "high_dose"))`.
 
 **`[[` vs `[` indexing.** `df[, "col"]` returns a data frame; `df[["col"]]` (or `df$col`) returns the vector. Functions like `t.test()` expect a vector, not a one-column data frame. If you get "non-numeric argument" errors, this is often the cause.
 
 **`NA` propagation.** Arithmetic on a vector containing `NA` returns `NA`: `mean(c(1, 2, NA))` returns `NA`. Pass `na.rm = TRUE` to summary functions, or remove `NA` values deliberately with `na.omit()`.
 
-**Implicit recoding when coercing factors to numeric.** `as.numeric(factor(c("10", "20", "30")))` returns `1 2 3` — the level indices, not the original values. Use `as.numeric(as.character(my_factor))` to recover the original numbers.
+**Implicit recoding when coercing factors to numeric.** `as.numeric(factor(c("10", "20", "30")))` returns `1 2 3`  -  the level indices, not the original values. Use `as.numeric(as.character(my_factor))` to recover the original numbers.
 :::
 
 ## Exercises
@@ -702,7 +702,7 @@ pg <- PlantGrowth
 
 # 1-2. Inspect
 str(pg)
-levels(pg$group)  # "ctrl" "trt1" "trt2" — ctrl is reference (first level)
+levels(pg$group)  # "ctrl" "trt1" "trt2"  -  ctrl is reference (first level)
 
 # 3. Reorder (already correct, but explicit is better)
 pg$group <- factor(pg$group, levels = c("ctrl", "trt1", "trt2"))
@@ -728,7 +728,7 @@ Using a dataset from your own research (or any built-in R dataset), complete the
 1. Identify one categorical column. Convert it to a factor and set the levels in a meaningful order (e.g., control before treatment, smallest dose before largest).
 2. Identify one numeric column. Check for `NA` values with `sum(is.na())` and compute the mean with `na.rm = TRUE`.
 3. Create a new derived column (e.g., a ratio, a log transform, or a binary category based on a threshold).
-4. Write two sentences describing what the dataset contains and what you found from the structure inspection — as you would in a Data section of a manuscript.
+4. Write two sentences describing what the dataset contains and what you found from the structure inspection  -  as you would in a Data section of a manuscript.
 
 
 ## Comprehension Check
@@ -750,7 +750,7 @@ Using a dataset from your own research (or any built-in R dataset), complete the
 
 ## Further Reading
 
-- [Tibbles in R for Data Science](https://r4ds.hadley.nz/tibbles.html) — Hadley Wickham's explanation of tibbles
-- [forcats documentation](https://forcats.tidyverse.org/) — full guide to factor manipulation
-- [R Data Structures cheat sheet](https://rstudio.github.io/cheatsheets/base-r.pdf) — quick reference for vectors, matrices, lists, and data frames
+- [Tibbles in R for Data Science](https://r4ds.hadley.nz/tibbles.html)  -  Hadley Wickham's explanation of tibbles
+- [forcats documentation](https://forcats.tidyverse.org/)  -  full guide to factor manipulation
+- [R Data Structures cheat sheet](https://rstudio.github.io/cheatsheets/base-r.pdf)  -  quick reference for vectors, matrices, lists, and data frames
 

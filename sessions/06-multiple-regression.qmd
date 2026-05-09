@@ -17,7 +17,7 @@ This session extends simple linear regression to multiple predictors. If you hav
 
 ## When Do You Use This? {#sec-multiple-regression .callout-tip}
 
-> You have a continuous outcome and multiple predictors, some of which are correlated with each other. Multiple regression estimates each predictor's independent effect — holding the others constant — so you can adjust for confounders and identify which variables have a genuine association with the outcome. For example: estimating the effect of bilirubin on albumin after accounting for prothrombin time and age.
+> You have a continuous outcome and multiple predictors, some of which are correlated with each other. Multiple regression estimates each predictor's independent effect  -  holding the others constant  -  so you can adjust for confounders and identify which variables have a genuine association with the outcome. For example: estimating the effect of bilirubin on albumin after accounting for prothrombin time and age.
 
 ## Learning Objectives
 
@@ -102,7 +102,7 @@ tidy(fit_full, conf.int = TRUE) %>%
 The coefficients change from the simple models because predictors share variance. Comparing univariable and multivariable estimates reveals confounding.
 
 ::: {.callout-note}
-### Reading the Multiple Regression Output — Key Differences from Simple Regression
+### Reading the Multiple Regression Output  -  Key Differences from Simple Regression
 
 The `summary()` output looks the same as simple regression, but the interpretation changes fundamentally.
 
@@ -116,17 +116,17 @@ The coefficient for `log_bili` in a multivariable model is the effect of bilirub
 | Simple `lm(albumin ~ log_bili)` | -0.34 | Total association, including confounding |
 | Multiple `lm(albumin ~ log_bili + log_proto + stage)` | -0.22 | Effect of bilirubin, *adjusted for* prothrombin time and stage |
 
-The coefficient shrank from -0.34 to -0.22. This means prothrombin time and stage were partially *confounding* the bilirubin—albumin relationship. The multivariable model gives the purer estimate.
+The coefficient shrank from -0.34 to -0.22. This means prothrombin time and stage were partially *confounding* the bilirubin - albumin relationship. The multivariable model gives the purer estimate.
 
 **Reference categories for factors**
-`stageStage 2` coefficient means: *"Stage 2 vs Stage 1 (the reference), after adjusting for the other predictors."* Stage 1 is absorbed into the intercept — it is not missing, it is the baseline.
+`stageStage 2` coefficient means: *"Stage 2 vs Stage 1 (the reference), after adjusting for the other predictors."* Stage 1 is absorbed into the intercept  -  it is not missing, it is the baseline.
 
 ::: {.callout-tip}
 ### What Does This Actually Tell Us?
 
-> *"After adjusting for prothrombin time and disease stage, each 2.7-fold increase in bilirubin was associated with 0.22 g/dL lower albumin (95% CI: -0.28 to -0.16, p < 0.001). Stage was independently associated with albumin, with patients in advanced stages having lower albumin than Stage 1 patients even after accounting for bilirubin and prothrombin time. The full model explained 35% of the variance in albumin (adjusted R— = 0.35)."*
+> *"After adjusting for prothrombin time and disease stage, each 2.7-fold increase in bilirubin was associated with 0.22 g/dL lower albumin (95% CI: -0.28 to -0.16, p < 0.001). Stage was independently associated with albumin, with patients in advanced stages having lower albumin than Stage 1 patients even after accounting for bilirubin and prothrombin time. The full model explained 35% of the variance in albumin (adjusted R -  = 0.35)."*
 
-The key phrase is **"after adjusting for"** — this is what separates multiple regression from a simple comparison.
+The key phrase is **"after adjusting for"**  -  this is what separates multiple regression from a simple comparison.
 :::
 :::
 
@@ -228,10 +228,10 @@ Selecting predictors based on p-values from exploratory analysis, then reporting
 **Interpreting coefficients in models with interactions**
 When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference category ? not the marginal effect. Always evaluate interactions at meaningful covariate values.
 ::: {.callout-warning}
-### Common Misinterpretations — Don't Make These Mistakes
+### Common Misinterpretations  -  Don't Make These Mistakes
 
 **"Adding more predictors always improves my model"**
-Raw R— always increases with more predictors even if they are noise. Use *adjusted* R—, AIC, or cross-validation. A model with 20 predictors and 50 patients is almost certainly overfitted — it will fail on new data.
+Raw R -  always increases with more predictors even if they are noise. Use *adjusted* R - , AIC, or cross-validation. A model with 20 predictors and 50 patients is almost certainly overfitted  -  it will fail on new data.
 
 **"My predictor is not significant so it has no effect"**
 With collinear predictors, both can become non-significant even if together they explain a lot of variance. Check VIF and consider whether the predictors should be modelled together or separately.
@@ -239,8 +239,8 @@ With collinear predictors, both can become non-significant even if together they
 **"The adjusted model is always more accurate than the unadjusted one"**
 Adjusting for a *collider* (a variable caused by both exposure and outcome) introduces bias that was not there in the unadjusted model. Think carefully about the causal structure before adding covariates. See the Causal Inference session.
 
-**"I can compare R— between models with different outcomes"**
-R— is not comparable across different outcome variables or different datasets. Only compare R— (or AIC) between models fitted to the same data with the same outcome.
+**"I can compare R -  between models with different outcomes"**
+R -  is not comparable across different outcome variables or different datasets. Only compare R -  (or AIC) between models fitted to the same data with the same outcome.
 
 **"Stage 2 coefficient = -0.09 means Stage 2 patients have lower albumin"**
 It means Stage 2 patients have 0.09 g/dL lower albumin than Stage 1 patients *after adjusting for other predictors in the model*. Change the reference category and the coefficient changes. Always state the reference group when reporting factor coefficients.
