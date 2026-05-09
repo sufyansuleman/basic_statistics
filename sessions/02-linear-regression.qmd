@@ -31,9 +31,9 @@ A simple linear regression models the relationship between a continuous outcome 
 
 $$Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i \quad \varepsilon_i \sim N(0, \sigma^2)$$
 
-- $\beta_0$: **intercept** ? the expected value of $Y$ when $X = 0$
-- $\beta_1$: **slope** ? the expected change in $Y$ for a one-unit increase in $X$
-- $\varepsilon_i$: **residual** ? what the model does not explain
+- $\beta_0$: **intercept**: the expected value of $Y$ when $X = 0$
+- $\beta_1$: **slope**: the expected change in $Y$ for a one-unit increase in $X$
+- $\varepsilon_i$: **residual**: what the model does not explain
 
 The model is fitted by minimising the sum of squared residuals (ordinary least squares, OLS).
 
@@ -41,10 +41,10 @@ The model is fitted by minimising the sum of squared residuals (ordinary least s
 
 | Assumption | How to check |
 |---|---|
-| **L**inearity | Residuals vs fitted plot ? no pattern |
-| **I**ndependence | Study design ? cannot check from data alone |
+| **L**inearity | Residuals vs fitted plot → no pattern |
+| **I**ndependence | Study design → cannot check from data alone |
 | **N**ormality of residuals | QQ-plot of residuals |
-| **E**qual variance (homoscedasticity) | Scale-location plot ? flat red line |
+| **E**qual variance (homoscedasticity) | Scale-location plot → flat red line |
 
 
 ## Example 1: Clinical Data (PBC)
@@ -178,27 +178,27 @@ par(mfrow = c(1, 1))
 
 **Plot 1: Residuals vs Fitted**
 You are looking for a flat, horizontal cloud of points with no pattern.
-- ? **Good:** Points scattered randomly around the horizontal line at zero.
-- ? **Bad (U-shape or arc):** The relationship is non-linear; your straight line is the wrong shape. Try log-transforming X.
-- ? **Bad (funnel shape):** Variance increases with fitted values (heteroscedasticity). Try log-transforming Y.
+- ✓ **Good:** Points scattered randomly around the horizontal line at zero.
+- ✗ **Bad (U-shape or arc):** The relationship is non-linear; your straight line is the wrong shape. Try log-transforming X.
+- ✗ **Bad (funnel shape):** Variance increases with fitted values (heteroscedasticity). Try log-transforming Y.
 
 **Plot 2: Normal Q-Q**
 You are checking whether the residuals follow a normal distribution.
-- ? **Good:** Points follow the diagonal line closely.
-- ? **Bad (S-curve):** Residuals are skewed.
-- ? **Bad (heavy tails):** More extreme values than expected; the model underestimates rare large errors. Mild deviation is usually acceptable for large samples.
+- ✓ **Good:** Points follow the diagonal line closely.
+- ✗ **Bad (S-curve):** Residuals are skewed.
+- ✗ **Bad (heavy tails):** More extreme values than expected; the model underestimates rare large errors. Mild deviation is usually acceptable for large samples.
 
 **Plot 3: Scale-Location**
 Same as Plot 1 but using the square root of the absolute residuals, making it easier to spot unequal variance.
-- ? **Good:** Red line is flat, points evenly spread.
-- ? **Bad (upward slope):** Variance increases; patients with high predicted albumin also have more unpredictable albumin.
+- ✓ **Good:** Red line is flat, points evenly spread.
+- ✗ **Bad (upward slope):** Variance increases; patients with high predicted albumin also have more unpredictable albumin.
 
 **Plot 4: Cook's Distance / Residuals vs Leverage**
 Identifies observations that have a disproportionate effect on the fitted line.
 - **Leverage** = how unusual the X value is (extreme bilirubin, for example)
 - **Cook's D** = combined measure: unusual X *and* large residual
-- **Rule of thumb:** Cook's D > 4/n (here, 4/418  -  0.01) or > 1 flags cases to investigate
-- These are not automatically errors  -  they may be biologically interesting patients
+- **Rule of thumb:** Cook's D > 4/n (here, 4/418 ≈ 0.01) or > 1 flags cases to investigate
+- These are not automatically errors; they may be biologically interesting patients
 :::
 
 ### Predictions
@@ -230,7 +230,7 @@ pbc %>%
 
 ## Example 2: Animal Data (palmerpenguins)
 
-We predict body mass from flipper length ? a practical calibration question in ecology and animal research.
+We predict body mass from flipper length, a practical calibration question in ecology and animal research.
 
 ```{r penguin-lm}
 library(palmerpenguins)
@@ -260,7 +260,7 @@ plot(fit_p)
 par(mfrow = c(1, 1))
 ```
 
-Notice that the residuals may cluster by species ? a sign that species confounds the relationship. This motivates multiple regression (see next session).
+Notice that the residuals may cluster by species, a sign that species confounds the relationship. This motivates multiple regression (see next session).
 
 
 ## Where to Find Data Like This {.callout-note}
@@ -269,7 +269,7 @@ Notice that the residuals may cluster by species ? a sign that species confounds
 
 **palmerpenguins:** `palmerpenguins::penguins` ? clean morphological measurements, ideal for regression with a natural grouping structure.
 
-**MASS::Boston:** Housing data commonly used to teach regression; however, contains a problematic racial variable ? examine the data carefully before use.
+**MASS::Boston:** Housing data commonly used to teach regression; however, contains a problematic racial variable; examine the data carefully before use.
 
 
 ## What Can Go Wrong {.callout-warning}
@@ -287,7 +287,7 @@ If variance increases with fitted values (fan-shaped residuals), OLS standard er
 A simple regression coefficient is not causal. A third variable may drive both X and Y (see [Multiple Regression](06-multiple-regression.qmd) and [Correlation and Association](correlation-and-association.qmd)).
 
 **Outliers and influential points**
-Check Cook's distance. Points with Cook's D > 1 (or > 4/n) exert disproportionate influence on the fitted line. Investigate them ? they may be data errors or genuinely unusual cases.
+Check Cook's distance. Points with Cook's D > 1 (or > 4/n) exert disproportionate influence on the fitted line. Investigate them; they may be data errors or genuinely unusual cases.
 ::: {.callout-warning}
 ### Common Misinterpretations: Don't Make These Mistakes
 
@@ -381,10 +381,10 @@ In your own research, identify a continuous outcome and a single continuous pred
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. For every one-unit increase in log(bilirubin) ? roughly a 2.7-fold increase in bilirubin on the original scale ? albumin is expected to be 0.34 g/dL lower, on average, after accounting for the uncertainty in this estimate.
+1. For every one-unit increase in log(bilirubin), roughly a 2.7-fold increase in bilirubin on the original scale, and albumin is expected to be 0.34 g/dL lower, on average, after accounting for the uncertainty in this estimate.
 2. A heavy right tail in the QQ-plot indicates that large positive residuals occur more often than expected under normality. For inference (t-tests, CIs), mild non-normality is acceptable with large samples (CLT). For severe non-normality, try a log-transformation of the outcome or use robust standard errors.
 3. $R^2 = 0.05$ means the predictor explains 5% of the outcome's variability. Whether this is "useful" depends on context. In complex biological systems, a single biomarker explaining even 5% of variance may be scientifically meaningful. The slope and CI are more informative than $R^2$ alone.
-4. No. A bilirubin of 80 mg/dL is well outside the range of the data used to fit the model (max = 28). Extrapolation is unreliable ? the linear relationship may not hold at extreme values.
+4. No. A bilirubin of 80 mg/dL is well outside the range of the data used to fit the model (max = 28). Extrapolation is unreliable; the linear relationship may not hold at extreme values.
 5. The intercept is the predicted albumin when log(bilirubin) = 0, i.e., when bilirubin = 1 mg/dL. If few patients have bilirubin near 1 mg/dL, the intercept is an extrapolation with high uncertainty and limited clinical meaning. It is mainly a mathematical artefact of the model parameterisation.
 :::
 
@@ -412,5 +412,5 @@ In your own research, identify a continuous outcome and a single continuous pred
 
 - @Dalgaard-2008 --- Chapter on linear models in *Introductory Statistics with R*
 - @Bland-2015 --- Regression chapters in *An Introduction to Medical Statistics*
-- `?lm`, `?predict.lm` in R ? full documentation
+- `?lm`, `?predict.lm` in R: full documentation
 - `broom` package vignette for tidy model output

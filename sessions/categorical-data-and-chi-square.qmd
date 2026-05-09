@@ -212,7 +212,7 @@ R applies Yates' correction by default for 2?2 tables (`correct = TRUE`). This m
 With large samples, chi-square detects tiny, clinically irrelevant differences. Supplement the p-value with a measure of effect size: Cram?r's V (for tables), or relative risk / odds ratio (for 2?2 tables).
 
 **Forgetting that chi-square is non-directional**
-A significant chi-square tells you the variables are associated ? not which group has a higher proportion. Always report the contingency table or proportions alongside the test.
+A significant chi-square tells you the variables are associated; not which group has a higher proportion. Always report the contingency table or proportions alongside the test.
 
 
 ## Exercises
@@ -293,7 +293,7 @@ Find a binary or nominal outcome in your own data. Construct a contingency table
 ### Answers
 1. When any expected cell count is < 5. Fisher's exact test does not rely on the large-sample chi-square approximation and is valid for any sample size.
 2. The warning means at least one expected cell count is < 5, so the chi-square approximation is unreliable. Switch to `fisher.test()`.
-3. No. Chi-square is a non-directional test ? it tells you whether an association exists, not its direction or size. You must examine the contingency table or plot the proportions to see which group has higher rates.
+3. No. Chi-square is a non-directional test; it tells you whether an association exists, not its direction or size. You must examine the contingency table or plot the proportions to see which group has higher rates.
 4. Relative risk = (proportion in group A) / (proportion in group B). Odds ratio = (odds in group A) / (odds in group B). They are approximately equal when the event is rare (< 10?15% in both groups). For common outcomes, the OR exaggerates the association relative to the RR.
 5. Degrees of freedom = (rows - 1) ? (columns - 1) = (3 - 1) ? (4 - 1) = 6.
 :::
@@ -322,4 +322,4 @@ Find a binary or nominal outcome in your own data. Construct a contingency table
 
 - @Agresti-2019 --- *An Introduction to Categorical Data Analysis*, the standard reference
 - @Bland-2015 --- Chi-square and Fisher's test in *An Introduction to Medical Statistics*
-- `?chisq.test`, `?fisher.test`, `?prop.test` in R ? built-in documentation with examples
+- `?chisq.test`, `?fisher.test`, `?prop.test` in R: built-in documentation with examples

@@ -40,7 +40,7 @@ After completing this session you will be able to:
 ### Why Not Just Drop Missing Rows?
 
 Complete-case analysis:
-- Reduces sample size ? loss of power
+- Reduces sample size; loss of power
 - Is biased under MAR or MNAR
 - Implicitly assumes MCAR
 
@@ -85,7 +85,7 @@ pbc %>%
   theme_bw()
 ```
 
-If the distributions differ, missingness is related to bilirubin ? consistent with MAR rather than MCAR.
+If the distributions differ, missingness is related to bilirubin, consistent with MAR rather than MCAR.
 
 ### Little's MCAR Test
 
@@ -189,7 +189,7 @@ summary(pool(fit_peng), conf.int = TRUE)
 
 ## Where to Find Data Like This {.callout-note}
 
-**`survival::pbc`:** Real-world clinical data with informative missingness in laboratory values ? a classic MI teaching example.
+**`survival::pbc`:** Real-world clinical data with informative missingness in laboratory values, a classic MI teaching example.
 
 **`palmerpenguins`:** Minimal missingness; useful to practice the workflow without bias concerns.
 
@@ -202,7 +202,7 @@ summary(pool(fit_peng), conf.int = TRUE)
 Never include the outcome variable as a *predictor* in the imputation model if missingness in the outcome is not informative. If the outcome is partially missing, imputing it is only valid under strict assumptions. Report the proportion of missing outcomes and conduct a sensitivity analysis.
 
 **Too few imputed datasets**
-The rule of thumb is $m \geq$ the percentage of missing data (e.g., 20% missing ? $m \geq 20$). Five imputations is typically insufficient when missingness is substantial.
+The rule of thumb is $m \geq$ the percentage of missing data (e.g., 20% missing → $m \geq 20$). Five imputations is typically insufficient when missingness is substantial.
 
 **Using complete-case AIC to select variables before imputing**
 Model selection should be done within the multiply-imputed framework, not on complete cases only. Selecting variables on complete cases and then imputing introduces bias.

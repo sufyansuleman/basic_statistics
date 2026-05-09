@@ -32,7 +32,7 @@ After completing this session you will be able to:
 
 ## Background: Fixed Effects, Random Effects, and Correlation Structure
 
-**Fixed effects** are the predictors you care about ? the treatment, time, or exposure. They estimate the population-average relationship between a predictor and the outcome.
+**Fixed effects** are the predictors you care about: the treatment, time, or exposure. They estimate the population-average relationship between a predictor and the outcome.
 
 **Random effects** model the variation between higher-level units (patients, litters, hospitals) that introduces correlation within those units. A **random intercept** allows each unit to have its own baseline level; a **random slope** allows the relationship between a predictor and the outcome to vary by unit.
 
@@ -240,7 +240,7 @@ Fitting a random slope for every predictor often leads to singular fits (varianc
 `lmer()` warns "singular fit" when the random effects variance is estimated as zero or the correlation between random effects is ?1. This usually means the model is overparameterised for your data. Simplify the random effects structure.
 
 **Interpreting the ICC as a nuisance**
-High ICC is not a problem to solve ? it is a finding. It tells you there is substantial patient-level (or litter-level) variation that your predictors do not explain. Report it and consider whether it has scientific meaning.
+High ICC is not a problem to solve; it is a finding. It tells you there is substantial patient-level (or litter-level) variation that your predictors do not explain. Report it and consider whether it has scientific meaning.
 
 
 ## Exercises
@@ -317,9 +317,9 @@ Write a Methods paragraph as you would in a neuroscience paper.
 ### Answers
 1. Mice from the same litter share genetic background and early environment, making their tumour volumes correlated within litter. Ignoring this within-litter correlation treats 50 mice as 50 independent observations, but the effective sample size is closer to 10 (litters). Simple regression will produce standard errors that are too small, inflating Type I error. A random intercept per litter accounts for this correlation.
 2. ICC = 0.55 means 55% of the total outcome variance is explained by between-patient (or between-litter) differences. 45% is within-patient noise. High ICC indicates substantial clustering ? the random effect is important and cannot be ignored.
-3. Singular fit means one variance component is estimated as zero or a correlation is ?1 ? the model is too complex for your data. First, check whether the random slope or random correlation term is the issue (`isSingular(fit)` details). Simplify the random effects structure: remove random slopes, set correlations to zero with `(0 + time | id)`, or use only a random intercept.
+3. Singular fit means one variance component is estimated as zero or a correlation is ±1; the model is too complex for your data. First, check whether the random slope or random correlation term is the issue (`isSingular(fit)` details). Simplify the random effects structure: remove random slopes, set correlations to zero with `(0 + time | id)`, or use only a random intercept.
 4. Holding treatment constant, albumin declines by 0.015 g/dL per month on average across patients. This is the population-average rate of decline (fixed effect), not the rate for any individual patient.
-5. Specify a treatment ? time interaction in the fixed effects and a random slope for time: `lmer(albumin ~ time * trt + (1 + time | id), data = ..., REML = FALSE)`. The interaction term `time:trtDrug` gives the difference in slope between Drug and Placebo. The random slope `(1 + time | id)` allows individual patients to have their own rate of change.
+5. Specify a treatment × time interaction in the fixed effects and a random slope for time: `lmer(albumin ~ time * trt + (1 + time | id), data = ..., REML = FALSE)`. The interaction term `time:trtDrug` gives the difference in slope between Drug and Placebo. The random slope `(1 + time | id)` allows individual patients to have their own rate of change.
 :::
 
 

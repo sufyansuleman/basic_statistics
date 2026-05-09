@@ -147,7 +147,7 @@ fit_reduced <- lm(albumin ~ log_bili + log_proto, data = pbc)
 anova(fit_reduced, fit_full)
 ```
 
-A significant F-test means the full model fits significantly better than the reduced model ? stage adds explanatory value beyond bilirubin and prothrombin time.
+A significant F-test means the full model fits significantly better than the reduced model; stage adds explanatory value beyond bilirubin and prothrombin time.
 
 ### Including an Interaction
 
@@ -214,7 +214,7 @@ peng %>%
 ## What Can Go Wrong {.callout-warning}
 
 **Overfitting**
-Adding more predictors always increases $R^2$. Use adjusted $R^2$, AIC, or cross-validation to compare models ? not raw $R^2$.
+Adding more predictors always increases $R^2$. Use adjusted $R^2$, AIC, or cross-validation to compare models, not raw $R^2$.
 
 **Multicollinearity**
 Highly correlated predictors produce inflated standard errors and unstable coefficients. Check VIF before interpreting a model with many predictors.
@@ -226,7 +226,7 @@ Adjusting for a variable on the causal pathway between exposure and outcome (a m
 Selecting predictors based on p-values from exploratory analysis, then reporting the final model as if it were pre-specified, produces overfitted models with inflated associations. Pre-register your model or use a penalised method (ridge, lasso).
 
 **Interpreting coefficients in models with interactions**
-When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference category ? not the marginal effect. Always evaluate interactions at meaningful covariate values.
+When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference category, not the marginal effect. Always evaluate interactions at meaningful covariate values.
 ::: {.callout-warning}
 ### Common Misinterpretations: Don't Make These Mistakes
 
@@ -318,8 +318,8 @@ In your own research, identify a continuous outcome with at least two potential 
 ### Answers
 1. The simple regression slope was confounded: bilirubin was acting partly as a proxy for prothrombin time and disease stage. After adjustment, the partial effect of bilirubin is smaller (-0.2), reflecting the unique contribution of bilirubin over and above the other predictors.
 2. VIF > 10 indicates severe multicollinearity. The two predictors are so highly correlated that their individual coefficients are unreliable (large SEs, may flip sign). Options: (1) remove one of the correlated predictors; (2) combine them into a composite score; (3) use ridge regression, which handles multicollinearity by regularisation.
-3. The F-test comparing the two models is highly significant ? the larger model fits significantly better than the smaller model. At least one of the additional predictors contributes meaningfully.
-4. No. AIC is a relative measure of model quality penalised for complexity. Lower AIC means better fit-to-complexity balance among the models compared ? but it does not guarantee the model is "correct" in an absolute sense. The true model could be something neither model captures.
+3. The F-test comparing the two models is highly significant; the larger model fits significantly better than the smaller model. At least one of the additional predictors contributes meaningfully.
+4. No. AIC is a relative measure of model quality penalised for complexity. Lower AIC means better fit-to-complexity balance among the models compared, but it does not guarantee the model is "correct" in an absolute sense. The true model could be something neither model captures.
 5. The evidence is weak and the CI includes zero. Whether to include it depends on context: if it was pre-specified and has a plausible biological rationale, you might retain it and acknowledge the marginal evidence. If it was data-driven, it is safer to use the main-effects model and note the trend.
 :::
 

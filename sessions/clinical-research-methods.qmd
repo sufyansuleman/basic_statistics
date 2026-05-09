@@ -64,7 +64,7 @@ Randomised evidence sits above observational evidence because randomisation dist
 
 **Selection bias** occurs when study participants are not representative of the target population, or when selection into the study depends on both exposure and outcome.
 
-*Example:* A hospital-based case-control study of smoking and MI ? hospital controls may include more smokers (Berkson's bias), inflating the apparent association.
+*Example:* A hospital-based case-control study of smoking and MI; hospital controls may include more smokers (Berkson's bias), inflating the apparent association.
 
 **Information bias** arises from systematic errors in measuring exposure or outcome.
 
@@ -129,7 +129,7 @@ pbc_clean %>%
   bold_labels()
 ```
 
-A balanced Table 1 (no significant p-values) suggests randomisation worked ? baseline confounders are similar across treatment groups.
+A balanced Table 1 (no significant p-values) suggests randomisation worked; baseline confounders are similar across treatment groups.
 
 ### Unadjusted Analysis
 
@@ -149,10 +149,10 @@ tidy(fit_adj, exponentiate = TRUE, conf.int = TRUE) %>%
   select(term, estimate, conf.low, conf.high, p.value)
 ```
 
-Compare the treatment odds ratio before and after adjustment. In a well-randomised trial, adjustment should not materially change the estimate ? but it can improve precision.
+Compare the treatment odds ratio before and after adjustment. In a well-randomised trial, adjustment should not materially change the estimate, but it can improve precision.
 
 
-## Example 2: Observational Study ? Confounding
+## Example 2: Observational Study — Confounding
 
 In this example we simulate an observational study where the exposure-outcome association is entirely confounded.
 
@@ -183,14 +183,14 @@ fit_conf <- lm(HbA1c ~ exercise + SES, data = obs)
 tidy(fit_conf, conf.int = TRUE) %>% filter(term == "exercise")
 ```
 
-In the unadjusted model, exercise appears to lower HbA1c ? but this is entirely explained by SES (richer people exercise more **and** have lower HbA1c). Adjusting for SES removes the confounded association.
+In the unadjusted model, exercise appears to lower HbA1c, but this is entirely explained by SES (richer people exercise more **and** have lower HbA1c). Adjusting for SES removes the confounded association.
 
 
 ## Where to Find Data Like This {.callout-note}
 
-**`survival::pbc`:** RCT in primary biliary cholangitis ? 418 patients, 17 variables, continuous follow-up. Ideal for survival analysis and clinical regression.
+**`survival::pbc`:** RCT in primary : 418 patients, 17 variables, continuous follow-up. Ideal for survival analysis and clinical regression.
 
-**`MASS::birthwt`:** 189 births ? birth weight, risk factors (smoking, hypertension, race). Good for logistic regression teaching.
+**`MASS::birthwt`:** : birth weight, risk factors (smoking, hypertension, race). Good for logistic regression teaching.
 
 **NHANES:** US population health survey, accessible via `nhanesA` package. Rich observational dataset for confounding and epidemiology examples.
 
@@ -227,8 +227,8 @@ Read the following study description and identify the likely bias:
 ::: {.callout-tip collapse="true"}
 ### Exercise 1: Answers
 1. Case-control study.
-2. (a) **Selection bias (Berkson's bias):** Hospital controls may not represent the general population ? they may have conditions related to diet that are common in the hospital (e.g., cardiovascular disease), which could distort the apparent fat-cancer association. Population-based controls would be better. (b) **Recall bias:** Cases who know they have cancer may search their memory more carefully for dietary risk factors ? they may over-report fat intake compared with controls who are not "searching for a cause."
-3. **Differential recall bias** (or differential misclassification). Because misclassification differs between cases and controls, the OR will be biased ? if cases over-report fat intake, the association between fat and cancer will be inflated (biased upward).
+2. (a) **Selection bias (Berkson's bias):** Hospital controls may not represent the general population; they may have conditions related to diet that are common in the hospital (e.g., cardiovascular disease), which could distort the apparent fat-cancer association. Population-based controls would be better. (b) **Recall bias:** Cases who know they have cancer may search their memory more carefully for dietary risk factors ? they may over-report fat intake compared with controls who are not "searching for a cause."
+3. **Differential recall bias** (or differential misclassification). Because misclassification differs between cases and controls, the OR will be biased; if cases over-report fat intake, the association between fat and cancer will be inflated (biased upward).
 :::
 
 ### Exercise 2 (Semi-guided): Table 1 and Confounding
@@ -272,8 +272,8 @@ Identify a published observational study in your research area. Write a one-page
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. Randomisation distributes measured and unmeasured confounders equally across treatment groups ? something observational studies cannot achieve. In an RCT, any observed difference in outcome can be attributed to the treatment with much greater confidence. Cohort studies, even with careful adjustment, can only control for *measured* confounders; unknown or unmeasured confounders may still distort the estimate.
-2. Yes, this is a confounder. Smoking satisfies all three criteria: (1) it is associated with the exposure (coffee drinking ? smokers drink more coffee); (2) it is independently associated with the outcome (smoking is associated with reduced Parkinson's risk via nicotine); (3) it is not on the causal pathway from coffee to Parkinson's. Failure to adjust for smoking would make coffee drinking appear protective, when some of the apparent protection actually comes from smoking. Note: this is a real phenomenon and a genuine methodological challenge in coffee/Parkinson's research.
+1. Randomisation distributes measured and unmeasured confounders equally across treatment groups; something observational studies cannot achieve. In an RCT, any observed difference in outcome can be attributed to the treatment with much greater confidence. Cohort studies, even with careful adjustment, can only control for *measured* confounders; unknown or unmeasured confounders may still distort the estimate.
+2. Yes, this is a confounder. Smoking satisfies all three criteria: (1) it is associated with the exposure (coffee drinking; smokers drink more coffee); (2) it is independently associated with the outcome (smoking is associated with reduced Parkinson's risk via nicotine); (3) it is not on the causal pathway from coffee to Parkinson's. Failure to adjust for smoking would make coffee drinking appear protective, when some of the apparent protection actually comes from smoking. Note: this is a real phenomenon and a genuine methodological challenge in coffee/Parkinson's research.
 3. Berkson's (hospital admission) bias. Patients admitted to different hospitals may differ systematically by severity, comorbidities, or healthcare-seeking behaviour. Using controls from a different hospital means they may not be representative of the same source population as the cases, potentially creating a spurious association (or masking a true one).
 4. Non-differential misclassification means the measurement error does not differ between exposure groups or between cases and controls ? it is equally likely to misclassify anyone. This typically biases the association toward the null (i.e., it attenuates the observed effect size). A true association is made to look smaller. Differential misclassification (which differs between cases and controls) can bias in any direction.
 5. Immortal time bias. Patients who start statins after a cardiovascular event were at risk of that event *before* starting treatment, but they are classified as "treated" throughout the follow-up period. This means the treated group has a period of follow-up before exposure starts (an immortal period when they could not have had the event). This artefactually makes the treated group appear healthier. The correct design is time-varying exposure analysis (Cox model with time-varying statin use) or an intention-to-treat design from a clear index date.

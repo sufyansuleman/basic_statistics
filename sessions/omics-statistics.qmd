@@ -198,7 +198,7 @@ dotplot(ego, showCategory = 15)
 
 **Bioconductor:** `BiocManager::install("GEOquery")` to download GEO datasets directly into R.
 
-**`pasilla` and `airway` packages:** Standard RNA-seq benchmark datasets included with Bioconductor ? used in DESeq2 and edgeR vignettes.
+**`pasilla` and `airway` packages:** Standard RNA-seq benchmark datasets included with Bioconductor, used in DESeq2 and edgeR vignettes.
 
 **`curatedMetagenomicData`:** Processed microbiome datasets ready for R analysis.
 
@@ -302,7 +302,7 @@ Download a public RNA-seq dataset from GEO using `GEOquery` (e.g., `GSE93819` ? 
 2. No. p = 0.8 means the fold change is not statistically distinguishable from noise with the available sample size. A large fold change with a non-significant p-value typically reflects low statistical power ? either the gene is highly variable or the sample size is too small. Report both fold change and significance; do not highlight genes that are not statistically significant.
 3. This is a **batch effect** ? technical variation from sequencing batches dominates the biological signal. Without correction, any DE analysis will be confounded: genes that vary between batches will appear differentially expressed between biological groups if batches are correlated with groups. Fixes: (1) include batch as a covariate in the design matrix (`~ batch + group`); (2) apply `ComBat` batch correction if groups are not perfectly confounded with batches; (3) if batches are perfectly confounded with groups, the study is uninterpretable and must be repeated.
 4. Ribosome biogenesis appearing as the top pathway may be meaningful (rapidly proliferating treated cells produce more ribosomes) or may be an artefact (ribosomal genes are often highly expressed and variable, dominating enrichment analyses). Check: are ribosomal genes actually in your DE gene list, or are they just abundant in your background? Consider removing ribosomal genes from the universe or interpreting with caution.
-5. At FDR 5%, approximately 5% ? 2000 = 100 genes in the list are expected to be false positives. The FDR is a statement about the long-run proportion of false positives among discoveries, not a guarantee about this specific list. Importantly, the FDR does not indicate the direction or magnitude of effects ? the 1,900 true positives may range widely in effect size, and many may be biologically trivial despite statistical significance.
+5. At FDR 5%, approximately 5% × 2000 = 100 genes in the list are expected to be false positives. The FDR is a statement about the long-run proportion of false positives among discoveries, not a guarantee about this specific list. Importantly, the FDR does not indicate the direction or magnitude of effects ? the 1,900 true positives may range widely in effect size, and many may be biologically trivial despite statistical significance.
 :::
 
 ## How to Report
@@ -335,5 +335,5 @@ Download a public RNA-seq dataset from GEO using `GEOquery` (e.g., `GSE93819` ? 
 
 - @Ritchie-2015 --- *limma powers differential expression analyses for RNA-sequencing and microarray studies* (NAR)
 - @Love-2014 --- *DESeq2: moderated estimation of fold change and dispersion for RNA-seq data* (Genome Biology)
-- @Benjamini-1995 --- *Controlling the False Discovery Rate* (JRSS-B ? the original BH paper)
+- @Benjamini-1995 --- *Controlling the False Discovery Rate* (JRSS-B — the original BH paper)
 - Bioconductor workflows: [https://bioconductor.org/packages/release/BiocViews.html#___Workflow](https://bioconductor.org/packages/release/BiocViews.html#___Workflow)

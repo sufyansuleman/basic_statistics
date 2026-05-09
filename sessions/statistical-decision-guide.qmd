@@ -53,15 +53,15 @@ Every statistical test choice starts with three questions:
 | Continuous | Non-normal or unequal variance | Kruskal-Wallis | @sec-nonparametric |
 | Continuous, two factors | Normal | Two-way ANOVA | @sec-anova |
 | Continuous, repeated | Normal | Repeated-measures ANOVA / LMM | @sec-mixed-models |
-| Binary | Counts = 5 | Chi-square (k ? 2 table) | @sec-categorical |
+| Binary | Counts = 5 | Chi-square (k × 2 table) | @sec-categorical |
 
 ### Question 3: Association / Correlation
 
 | Outcome | Method | Session |
 |---------|--------|---------|
-| Continuous?Continuous, linear | Pearson r | @sec-correlation |
-| Continuous?Continuous, non-linear / ordinal | Spearman ? | @sec-correlation |
-| Binary?Binary | Phi coefficient / chi-square | @sec-categorical |
+| Continuous–Continuous, linear | Pearson r | @sec-correlation |
+| Continuous–Continuous, non-linear / ordinal | Spearman ρ | @sec-correlation |
+| Binary–Binary | Phi coefficient / chi-square | @sec-categorical |
 | Time series / autocorrelated | Check session on multiple regression | @sec-multiple-regression |
 
 ### Question 4: Prediction
@@ -108,7 +108,7 @@ shapiro.test(diff)
 t.test(after, before, paired = TRUE)
 ```
 
-**Decision path:** Continuous outcome ? Paired groups ? Normal differences ? **Paired t-test** ? @sec-t-tests
+**Decision path:** Continuous outcome → Paired groups → Normal differences → **Paired t-test** → @sec-t-tests
 
 
 ## Example 2: Binary Outcome ? Choosing Between Chi-Square and Logistic Regression
@@ -138,7 +138,7 @@ glm(nafld_num ~ sex + age + bmi, data = dat2, family = binomial) %>%
   select(term, estimate, conf.low, conf.high, p.value)
 ```
 
-**Decision path:** Binary outcome ? Association with one predictor ? **Chi-square** (unadjusted). Add covariates ? **Logistic regression** ? @sec-logistic-regression
+**Decision path:** Binary outcome → Association with one predictor → **Chi-square** (unadjusted). Add covariates → **Logistic regression** → @sec-logistic-regression
 
 
 ## Assumption Checking Quick Reference
@@ -201,8 +201,8 @@ For each scenario below, name the appropriate statistical test and state why:
 ::: {.callout-tip collapse="true"}
 ### Exercise 1: Answers
 1. One-way ANOVA (continuous outcome, =3 groups, normality met, equal variance).
-2. Mann-Whitney U (continuous outcome, 2 groups, non-normal / small n ? non-parametric).
-3. Chi-square test (binary ? binary, large n; use Fisher's exact if any expected count < 5).
+2. Mann-Whitney U (continuous outcome, 2 groups, non-normal / small n → non-parametric).
+3. Chi-square test (binary × binary, large n; use Fisher's exact if any expected count < 5).
 4. Logistic regression (binary outcome, multiple predictors, prediction goal).
 5. Log-rank test + Cox proportional hazards (time-to-event outcome, two groups; Cox for adjusted estimate).
 :::
@@ -235,9 +235,9 @@ Take a published paper from your field. For each analysis reported:
 ::: {.callout-note collapse="true"}
 ### Answers
 1. Running separate t-tests at each time point ignores the repeated-measures structure (the same mice are measured three times). This inflates type I error (multiple comparisons) and ignores within-mouse correlation. The correct approach is repeated-measures ANOVA or a linear mixed model with time as a factor and mouse as a random effect.
-2. Paired test. The same patient is measured twice ? the within-patient change in blood pressure is the quantity of interest. Using a paired test accounts for between-patient variability and is more powerful than an unpaired t-test. Use paired t-test (if differences are normal) or Wilcoxon signed-rank (if not).
+2. Paired test. The same patient is measured twice; the within-patient change in blood pressure is the quantity of interest. Using a paired test accounts for between-patient variability and is more powerful than an unpaired t-test. Use paired t-test (if differences are normal) or Wilcoxon signed-rank (if not).
 3. The colleague is correct when you need to adjust for confounders (e.g., age, deprivation, comorbidities). Chi-square tests a bivariate association; logistic regression allows you to estimate the sex?smoking association adjusted for other variables, gives odds ratios, and supports prediction. For a simple unadjusted two-by-two table, chi-square is perfectly valid.
-4. Not necessarily. With n = 200, the Shapiro-Wilk test is highly sensitive ? it will detect trivial, practically irrelevant deviations from normality. With large samples, the t-test is robust to non-normality (central limit theorem). Check the QQ plot visually: if the tails are only mildly heavy, the t-test is fine. Only switch to a non-parametric test if the distribution is highly skewed or has extreme outliers.
+4. Not necessarily. With n = 200, the Shapiro-Wilk test is highly sensitive; it will detect trivial, practically irrelevant deviations from normality. With large samples, the t-test is robust to non-normality (central limit theorem). Check the QQ plot visually: if the tails are only mildly heavy, the t-test is fine. Only switch to a non-parametric test if the distribution is highly skewed or has extreme outliers.
 5. A test of *association* asks: are two variables related? (Chi-square, Pearson r). A test of *prediction* models the outcome as a function of predictors, estimates the size of effects, and can be used to predict new observations. Regression also allows adjustment for confounders, which association tests cannot. Use association tests for simple screening; use regression for explanatory modelling or confounding adjustment.
 :::
 

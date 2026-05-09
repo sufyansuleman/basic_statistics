@@ -139,7 +139,7 @@ If not, use `oneway.test(weight ~ group, data = pg, var.equal = FALSE)` (Welch's
 
 ## Example 2: Animal Data (Two-Way ANOVA)
 
-The `ToothGrowth` dataset is a 2?3 factorial experiment: two Vitamin C delivery methods ? three dose levels. Two-way ANOVA tests for the effect of each factor *and* their interaction.
+The `ToothGrowth` dataset is a 2×3 factorial experiment: two Vitamin C delivery methods × three dose levels. Two-way ANOVA tests for the effect of each factor *and* their interaction.
 
 ```{r tg-setup}
 tg <- ToothGrowth %>%
@@ -165,7 +165,7 @@ tg %>%
   theme_bw()
 ```
 
-If the lines cross or have markedly different slopes, there is a **dose ? supplement interaction**: the effect of dose depends on which supplement was used.
+If the lines cross or have markedly different slopes, there is a **dose × supplement interaction**: the effect of dose depends on which supplement was used.
 
 ```{r two-way-anova}
 fit2 <- aov(len ~ supp * dose, data = tg)
@@ -176,7 +176,7 @@ tidy(fit2)
 **Reading the output:**
 - `supp`: main effect of supplement type
 - `dose`: main effect of dose
-- `supp:dose`: interaction term ? does the effect of dose differ between the two supplements?
+- `supp:dose`: interaction term — does the effect of dose differ between the two supplements?
 
 When the interaction is significant, the main effects alone do not tell the full story. Report the interaction and plot it.
 
@@ -354,4 +354,4 @@ Using a dataset from your own research, identify a continuous outcome and a cate
 
 - @Dalgaard-2008 --- Chapter on ANOVA in *Introductory Statistics with R*
 - @Bland-2015 --- One-way and two-way ANOVA in *An Introduction to Medical Statistics*
-- `?aov`, `?TukeyHSD`, `?oneway.test` in R ? built-in documentation
+- `?aov`, `?TukeyHSD`, `?oneway.test` in R: built-in documentation

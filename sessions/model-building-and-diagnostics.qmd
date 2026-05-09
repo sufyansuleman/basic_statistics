@@ -300,10 +300,10 @@ Take a model from your own research and apply the full diagnostic workflow: resi
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. A U-shape indicates non-linearity ? the linear model misses a curved relationship. Check whether X needs to be log-transformed, squared, or modelled with a spline. You can also try a LOESS smoother on the data to visualise the true shape.
-2. No ? influential observations should be investigated, not automatically removed. Check whether the observation is a data entry error (correct it) or a genuinely extreme but valid case (keep it and report sensitivity analyses with and without that observation).
+1. A U-shape indicates non-linearity; the linear model misses a curved relationship. Check whether X needs to be log-transformed, squared, or modelled with a spline. You can also try a LOESS smoother on the data to visualise the true shape.
+2. No; influential observations should be investigated, not automatically removed. Check whether the observation is a data entry error (correct it) or a genuinely extreme but valid case (keep it and report sensitivity analyses with and without that observation).
 3. VIF = 9.2 for one predictor indicates it is highly collinear with other predictors. Its coefficient estimate is unreliable (large SE, may flip sign). Options: (1) remove the collinear predictor if it is not the predictor of primary interest; (2) combine correlated predictors into a composite score; (3) use ridge regression.
-4. The third model (AIC = 307) is preferred ? it has the lowest AIC, indicating the best balance of fit and complexity. However, the difference from model 2 (AIC = 308) is only 1, which is not a meaningful improvement. Models within 2 AIC units of the minimum are considered roughly equivalent.
+4. The third model (AIC = 307) is preferred; it has the lowest AIC, indicating the best balance of fit and complexity. However, the difference from model 2 (AIC = 308) is only 1, which is not a meaningful improvement. Models within 2 AIC units of the minimum are considered roughly equivalent.
 5. No. Lasso coefficients are biased toward zero by the penalty. After lasso selects variables, you should refit the model using ordinary regression on those selected variables to obtain unbiased coefficient estimates and valid CIs. Even then, some caution is needed because variable selection inflates Type I error ? ideally, use pre-specified variables and treat lasso as exploratory.
 :::
 

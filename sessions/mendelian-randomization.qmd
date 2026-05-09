@@ -33,7 +33,7 @@ An **instrumental variable (IV)** $Z$ satisfies three assumptions:
 | Assumption | Condition | How to check |
 |------------|-----------|--------------|
 | **Relevance** | $Z$ is associated with the exposure $X$ | F-statistic > 10 in first stage |
-| **Independence (exchangeability)** | $Z$ is not associated with confounders $U$ | By Mendel's laws ? genes assigned randomly at meiosis |
+| **Independence (exchangeability)** | $Z$ is not associated with confounders $U$ | By Mendel's laws: genes assigned randomly at meiosis |
 | **Exclusion restriction** | $Z$ affects the outcome $Y$ *only* through $X$ | Untestable; violated by horizontal pleiotropy |
 
 In MR, the IV is a **genetic variant (SNP)** associated with the exposure. Because genotype is determined before disease and is largely orthogonal to environmental confounders, it approximates a natural randomisation.
@@ -143,7 +143,7 @@ res %>% select(method, b, se, pval, lo_ci, up_ci)
 ```
 
 The output reports:
-- **IVW (inverse-variance weighted):** Main estimate ? assumes no directional pleiotropy
+- **IVW (inverse-variance weighted):** Main estimate — assumes no directional pleiotropy
 - **MR-Egger:** Allows for pleiotropy; the intercept tests for it
 - **Weighted median:** Consistent estimate if >50% of instruments are valid
 - **MR-PRESSO:** Detects and corrects for outlier pleiotropy
@@ -175,9 +175,9 @@ tibble(beta_x, beta_y) %>%
 
 **UK Biobank GWAS:** Downloadable summary statistics for thousands of traits at [https://www.ukbiobank.ac.uk](https://www.ukbiobank.ac.uk).
 
-**FinnGen:** European biobank GWAS summary data ? [https://www.finngen.fi](https://www.finngen.fi).
+**FinnGen:** European biobank GWAS summary data: [https://www.finngen.fi](https://www.finngen.fi).
 
-**PhenoScanner:** Query SNP associations across thousands of traits ? [http://www.phenoscanner.medschl.cam.ac.uk](http://www.phenoscanner.medschl.cam.ac.uk).
+**PhenoScanner:** Query SNP associations across thousands of traits: [http://www.phenoscanner.medschl.cam.ac.uk](http://www.phenoscanner.medschl.cam.ac.uk).
 
 
 ## What Can Go Wrong {.callout-warning}
@@ -249,7 +249,7 @@ cat("Wald ratio with pleiotropy:", round(wald_p, 3), "\n")
 
 Identify a trait relevant to your research that has publicly available GWAS summary data (check MR-Base or GWAS Catalog). Design an MR study:
 
-1. State your causal hypothesis (exposure ? outcome).
+1. State your causal hypothesis (exposure → outcome).
 2. List the MR assumptions and how they might be violated for your chosen instrument.
 3. Specify which sensitivity analyses you would run and what conclusions you could draw if they disagree with the IVW result.
 
@@ -264,9 +264,9 @@ Identify a trait relevant to your research that has publicly available GWAS summ
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. Genetic variants are assigned at conception by the random process of meiosis ? effectively a natural randomisation that is independent of most environmental confounders, reverse causation (genes precede disease), and confounders that develop over the life course. This mimics the randomised assignment in an RCT, though only for the specific exposure pathway affected by those variants.
+1. Genetic variants are assigned at conception by the random process of meiosis, effectively a natural randomisation that is independent of most environmental confounders, reverse causation (genes precede disease), and confounders that develop over the life course. This mimics the randomised assignment in an RCT, though only for the specific exposure pathway affected by those variants.
 2. F < 10 indicates a weak instrument. Weak instruments lead to inflated standard errors, low power, and in one-sample MR, bias toward the OLS estimate. Options: add more SNPs to construct a stronger polygenic score, or restrict to SNPs from larger GWAS with better power. Do not proceed with MR if the instrument is too weak.
-3. A significant MR-Egger intercept means that the SNP effects on the outcome have a direction-dependent offset after regressing on SNP-exposure effects ? evidence of directional (systematic) horizontal pleiotropy. The IVW estimate is biased. The MR-Egger slope provides a pleiotropy-corrected estimate, but it is less precise than IVW.
+3. A significant MR-Egger intercept means that the SNP effects on the outcome have a direction-dependent offset after regressing on SNP-exposure effects, evidence of directional (systematic) horizontal pleiotropy. The IVW estimate is biased. The MR-Egger slope provides a pleiotropy-corrected estimate, but it is less precise than IVW.
 4. The IVW assumes all instruments are valid; if some SNPs are pleiotropic, the IVW is biased. The weighted median is consistent if at least 50% of the instrument weight comes from valid SNPs. A large discrepancy (0.4 vs 0.1) suggests substantial pleiotropy. Report all estimates, run MR-PRESSO to identify outlier SNPs, and interpret cautiously. The true causal effect is probably closer to the more conservative weighted-median estimate.
 5. This is the **one-sample overlap** problem. When instrument selection and causal estimation use the same dataset, the winner's curse inflates the apparent instrument strength, and the 2SLS estimate is biased toward the OLS (confounded) estimate in proportion to the instrument's weakness. A two-sample design ? instrument-exposure association from one independent GWAS, instrument-outcome association from another ? avoids this.
 :::

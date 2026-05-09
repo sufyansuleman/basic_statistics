@@ -251,7 +251,7 @@ pbc_num |>
 
 ## What Can Go Wrong {.callout-warning}
 
-**Correlation ? causation**
+**Correlation ≠ causation**
 Two variables can correlate strongly because they share a common cause, not because one causes the other. Always think mechanistically.
 
 **Using Pearson's r with skewed data or outliers**
@@ -382,7 +382,7 @@ Using your own data, identify two continuous variables you expect to be related.
 
 ## Comprehension Check
 
-1. When should you use Spearman's ? instead of Pearson's r?
+1. When should you use Spearman's ρ instead of Pearson's r?
 2. You compute r = 0.85, p < 0.001 between two blood biomarkers. Can you conclude one biomarker causes changes in the other?
 3. A correlation matrix of 10 variables has 45 pairwise tests. Three are significant at p < 0.05. Is this noteworthy?
 4. You observe a strong negative correlation between overall bill length and bill depth in penguins, but a positive correlation within each species. What is this called, and what causes it?
@@ -392,9 +392,9 @@ Using your own data, identify two continuous variables you expect to be related.
 ### Answers
 1. Use Spearman when (1) one or both variables are skewed or contain outliers, (2) the relationship is monotonic but not necessarily linear, or (3) one variable is ordinal.
 2. No. Correlation describes the strength of association, not direction of causation. The two biomarkers may both reflect a third underlying process (confounding), or the direction of causality could run either way.
-3. Not necessarily. With 45 tests at a = 0.05, you expect 45 ? 0.05 = 2.25 false positives by chance. Three significant results is only slightly above the expected false-positive count. Adjust for multiple testing and scrutinise the findings carefully.
+3. Not necessarily. With 45 tests at a = 0.05, you expect 45 × 0.05 = 2.25 false positives by chance. Three significant results is only slightly above the expected false-positive count. Adjust for multiple testing and scrutinise the findings carefully.
 4. This is Simpson's Paradox. The species variable is a confounder: different species have distinct bill morphologies, and within each species the relationship is positive. The overall correlation is dominated by between-species variation, which moves in the opposite direction.
-5. Spearman's ? (or Kendall's t). Pain scores are ordinal ? the difference between 4 and 5 is not necessarily the same as between 7 and 8 ? so rank-based methods are more appropriate than Pearson's r.
+5. Spearman's ρ (or Kendall's τ). Pain scores are ordinal; the difference between 4 and 5 is not necessarily the same as between 7 and 8; so rank-based methods are more appropriate than Pearson's r.
 :::
 
 
@@ -430,5 +430,5 @@ Using your own data, identify two continuous variables you expect to be related.
 
 - @Bland-2015 --- Correlation in *An Introduction to Medical Statistics*
 - @Dalgaard-2008 --- Chapter on correlation and regression
-- `?cor.test` in R ? documentation covering all three methods
+- `?cor.test` in R: documentation covering all three methods
 - `GGally::ggpairs()` vignette for visualising multivariate relationships

@@ -215,7 +215,7 @@ Nonparametric tests are not always better. When data are normally distributed, t
 Wilcoxon tests compare *distributions*, not means. Report medians and IQR, not means and SD, alongside a Wilcoxon test result.
 
 **Treating a non-significant Kruskal-Wallis as proof of no difference**
-A p > 0.05 from Kruskal-Wallis means the data are consistent with no group differences ? but with small samples, power may be low. Report the effect size (e.g., median differences) and note if the study is underpowered.
+A p > 0.05 from Kruskal-Wallis means the data are consistent with no group differences; but with small samples, power may be low. Report the effect size (e.g., median differences) and note if the study is underpowered.
 
 **Pairwise comparisons without correction**
 If Kruskal-Wallis is significant, doing all pairwise Wilcoxon tests without correction inflates the Type I error. Always apply `p.adjust.method = "bonferroni"` or `"holm"` in `pairwise.wilcox.test()`.
@@ -347,4 +347,4 @@ From your own data, identify a continuous variable that is clearly non-normal (e
 
 - @Hollander-1999 --- *Nonparametric Statistical Methods*, comprehensive reference
 - @Bland-2015 --- Chapters on nonparametric methods in *An Introduction to Medical Statistics*
-- `?wilcox.test` and `?kruskal.test` in R ? built-in documentation with examples
+- `?wilcox.test` and `?kruskal.test` in R: built-in documentation with examples
