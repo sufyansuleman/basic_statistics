@@ -121,7 +121,7 @@ t.test(albumin ~ trt,
 ```
 
 ::: {.callout-note}
-### Reading the Output � What Each Number Means
+### Reading the Output — What Each Number Means
 
 ```
 Welch Two Sample t-test
@@ -139,15 +139,15 @@ sample estimates:
 | **t = 0.45** | The test statistic. Small absolute value ? the observed difference is close to what you'd expect by chance under H0. |
 | **df = 310** | Degrees of freedom. With Welch's test this is not simply n-2; it accounts for unequal group variances. |
 | **p-value = 0.65** | If there were truly no difference, we'd see a gap this large **or larger** 65% of the time just by chance. No evidence against H0. |
-| **95% CI: -0.09 to 0.14** | The difference in means (drug minus placebo) is somewhere between -0.09 and +0.14 g/dL. The CI includes zero � consistent with p > 0.05. |
-| **Group means: 3.52 vs 3.50** | The actual means you compare. Always report these � not just the p-value. |
+| **95% CI: -0.09 to 0.14** | The difference in means (drug minus placebo) is somewhere between -0.09 and +0.14 g/dL. The CI includes zero — consistent with p > 0.05. |
+| **Group means: 3.52 vs 3.50** | The actual means you compare. Always report these — not just the p-value. |
 
 ::: {.callout-tip}
 ### What Does This Actually Tell Us?
 
 > *"Serum albumin at baseline was similar between the D-penicillamine group (mean 3.52 g/dL) and placebo group (mean 3.50 g/dL). There was no statistically significant difference (Welch's t-test: t = 0.45, df = 310, p = 0.65; mean difference 0.02 g/dL, 95% CI: -0.09 to 0.14)."*
 
-This is a **null result** � but null results matter. It tells us the groups were well-matched at baseline on albumin, which is reassuring for a randomised trial. The 95% CI shows the difference is small enough to be clinically unimportant regardless of the p-value.
+This is a **null result** — but null results matter. It tells us the groups were well-matched at baseline on albumin, which is reassuring for a randomised trial. The 95% CI shows the difference is small enough to be clinically unimportant regardless of the p-value.
 :::
 :::
 
@@ -213,9 +213,9 @@ A p-value of 0.001 in a study of 10,000 patients does not mean the effect is cli
 One-sided tests are more powerful but only appropriate when you have a strong prior reason to expect an effect in a specific direction, and that direction was specified *before* looking at the data. Using a one-sided test because "the data happened to come out in the right direction" is p-hacking.
 
 ::: {.callout-warning}
-### Common Misinterpretations � Don't Make These Mistakes
+### Common Misinterpretations — Don't Make These Mistakes
 
-**"p = 0.05 is the magic threshold � below it means true, above it means false"**
+**"p = 0.05 is the magic threshold — below it means true, above it means false"**
 The 0.05 threshold is a convention, not a law of nature. p = 0.049 and p = 0.051 are essentially the same level of evidence. Report exact p-values and confidence intervals so readers can make their own judgement.
 
 **"The p-value is the probability my result is due to chance"**

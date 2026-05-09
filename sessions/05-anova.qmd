@@ -17,7 +17,7 @@ ANOVA extends the t-test to three or more groups. If you haven't already, comple
 
 ## When Do You Use This? {#sec-anova .callout-tip}
 
-> You have a continuous outcome measured in three or more independent groups and want to know whether the group means differ � without the inflated false-positive rate that comes from running all possible pairwise t-tests. ANOVA tests all groups simultaneously in a single model. For example: comparing a lab value across four disease stages, or comparing cell counts across multiple treatment conditions.
+> You have a continuous outcome measured in three or more independent groups and want to know whether the group means differ — without the inflated false-positive rate that comes from running all possible pairwise t-tests. ANOVA tests all groups simultaneously in a single model. For example: comparing a lab value across four disease stages, or comparing cell counts across multiple treatment conditions.
 
 ## Learning Objectives
 
@@ -214,22 +214,22 @@ ANOVA is reasonably robust to mild variance inequality, but not severe inequalit
 With small samples (< 10 per group) and clearly non-normal residuals, use Kruskal-Wallis instead.
 
 ::: {.callout-warning}
-### Common Misinterpretations � Don't Make These Mistakes
+### Common Misinterpretations — Don't Make These Mistakes
 
 **"Significant ANOVA means all groups differ from each other"**
 No. A significant F-test only tells you that *at least one* pair of means differs. You need Tukey's HSD (or another post-hoc test) to find out which pairs. Never claim "all groups differ" without doing post-hoc comparisons.
 
 **"I can run t-tests on all pairs instead of ANOVA"**
-With 4 groups there are 6 pairwise t-tests. At a = 0.05, the probability of at least one false positive is 1 - 0.956 � 26%. Use ANOVA + Tukey's HSD to control the family-wise error rate.
+With 4 groups there are 6 pairwise t-tests. At a = 0.05, the probability of at least one false positive is 1 - 0.956 — 26%. Use ANOVA + Tukey's HSD to control the family-wise error rate.
 
 **"Non-significant interaction means the main effects are straightforward"**
-A non-significant interaction p-value does not *prove* the effects are additive � it may simply be underpowered. Always plot the group means to see whether the pattern makes biological sense.
+A non-significant interaction p-value does not *prove* the effects are additive — it may simply be underpowered. Always plot the group means to see whether the pattern makes biological sense.
 
 **"F-statistic of 12.4 means a large effect"**
-The F-statistic is not an effect size measure � it depends on sample size. A large F in a large study may reflect a trivially small group difference. Report the group means, standard deviations, and ?� (eta-squared = SS_between / SS_total) as the effect size.
+The F-statistic is not an effect size measure — it depends on sample size. A large F in a large study may reflect a trivially small group difference. Report the group means, standard deviations, and ?— (eta-squared = SS_between / SS_total) as the effect size.
 
 **"ANOVA requires equal group sizes"**
-One-way ANOVA works with unequal group sizes (it is still valid). However, very unequal groups combined with unequal variances can inflate Type I error � use Welch's ANOVA (`oneway.test()`) in that case.
+One-way ANOVA works with unequal group sizes (it is still valid). However, very unequal groups combined with unequal variances can inflate Type I error — use Welch's ANOVA (`oneway.test()`) in that case.
 :::
 
 
