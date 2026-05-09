@@ -255,7 +255,7 @@ Always report the mean difference and 95% CI alongside the p-value. "p = 0.03" t
 If the two groups have very different standard deviations, Welch's t-test (default in R) is the right choice. Using `var.equal = TRUE` when variances differ inflates the Type I error rate.
 
 ::: {.callout-warning}
-### Common Misinterpretations  -  Don't Make These Mistakes
+### Common Misinterpretations: Don't Make These Mistakes
 
 **"p = 0.04 means the difference is large"**
 No. With 400 patients, even a 0.05 g/dL difference (clinically trivial) can produce p = 0.04. Always report the mean difference and confidence interval so the reader can judge clinical relevance.
@@ -354,7 +354,7 @@ Use a dataset from your own research. Identify a comparison where a t-test is ap
 1. **One-sample:** compare a sample mean to a known or hypothetical value (e.g., "Is mean haemoglobin in my patients below 12 g/dL?"). **Two-sample:** compare means of two independent groups (e.g., "Does albumin differ between treatment and control mice?"). **Paired:** compare two measurements on the same subjects (e.g., "Did blood pressure change from baseline to 6 weeks?").
 2. Use Welch's when the two groups may have different population variances. It is the default in R (`var.equal = FALSE`) and is almost always appropriate. Student's t-test (equal variance assumed) is rarely preferred.
 3. With n = 12 and non-normality, use a nonparametric Wilcoxon test (see next session) instead of a t-test.
-4. The result is statistically significant (p = 0.04) and the 95% CI excludes zero (0.01 to 2.1 g/dL), but the CI is very wide. The true difference could be as small as 0.01 g/dL (negligible) or as large as 2.1 g/dL (potentially important). The p-value alone tells you almost nothing useful here  -  the CI is the critical information. Always report both, and note that a barely significant result with a wide CI is actually uninformative about effect size.
+4. The result is statistically significant (p = 0.04) and the 95% CI excludes zero (0.01 to 2.1 g/dL), but the CI is very wide. The true difference could be as small as 0.01 g/dL (negligible) or as large as 2.1 g/dL (potentially important). The p-value alone tells you almost nothing useful here; the CI is the critical information. Always report both, and note that a barely significant result with a wide CI is actually uninformative about effect size.
 5. Shapiro-Wilk with p = 0.06 is not evidence that data are normal; it means you failed to detect non-normality at the 5% level. With n = 12, the test has low power and would miss moderate non-normality. Use a QQ-plot and domain knowledge instead.
 :::
 

@@ -11,7 +11,7 @@ library(broom)
 
 ## When Do You Use This? {#sec-bayesian .callout-tip}
 
-> You are running a small mouse experiment with only 8 animals per group. A frequentist t-test gives p = 0.08  -  technically "not significant", but you have strong prior evidence from three previous experiments that the effect is real. Bayesian inference lets you incorporate that prior knowledge formally, combine it with your new data, and produce a probability statement about the effect size: "given everything we know, there is a 92% probability that the treatment reduces tumour volume by more than 10%."
+> You are running a small mouse experiment with only 8 animals per group. A frequentist t-test gives p = 0.08, technically "not significant", but you have strong prior evidence from three previous experiments that the effect is real. Bayesian inference lets you incorporate that prior knowledge formally, combine it with your new data, and produce a probability statement about the effect size: "given everything we know, there is a 92% probability that the treatment reduces tumour volume by more than 10%."
 
 ## Learning Objectives
 
@@ -47,13 +47,13 @@ The posterior is the answer Bayesian inference provides: not a single number, bu
 | **Parameter** | Fixed, unknown constant | Random variable with a distribution |
 | **Data** | Random (repeating the experiment would give different data) | Fixed (you have the data you have) |
 | **95% CI / CrI** | "95% of intervals from this procedure contain the true value" | "Given the data, there is a 95% probability $\theta$ lies in this interval" |
-| **p-value** | P(data this extreme \| $H_0$ is true) | Not used  -  probability of hypotheses is direct |
+| **p-value** | P(data this extreme \| $H_0$ is true) | Not applicable; probability of hypotheses is direct |
 | **Prior information** | Not incorporated | Formally incorporated |
 
 ::: {.callout-note}
 ### Bayesian credible interval vs. frequentist confidence interval
 
-The statement most researchers *want* to make  -  "there is a 95% probability the effect lies between A and B"  -  is only valid for a **Bayesian credible interval**. A frequentist confidence interval does *not* license this interpretation. This is one of the most common statistical misconceptions in biomedical research.
+The statement most researchers *want* to make, "there is a 95% probability the effect lies between A and B", is only valid for a **Bayesian credible interval**. A frequentist confidence interval does *not* license this interpretation. This is one of the most common statistical misconceptions in biomedical research.
 :::
 
 ### When Bayesian methods are particularly useful
@@ -137,7 +137,7 @@ We fit a Bayesian linear regression using `rstanarm`, estimating the association
 ```r
 install.packages("rstanarm")
 ```
-On first use it compiles Stan internally  -  this takes 3-5 minutes once.
+On first use it compiles Stan internally; this takes 3-5 minutes once.
 :::
 
 ```{r bayes-regression}
@@ -182,10 +182,10 @@ The key quantities from a Bayesian regression summary:
 
 | Output | Interpretation |
 |---|---|
-| `Median` | Posterior median  -  point estimate analogous to the frequentist coefficient |
-| `MAD_SD` | Median absolute deviation  -  uncertainty in the posterior (analogous to SE) |
-| `10%` / `90%` | 80% credible interval  -  the range of values with 80% posterior probability |
-| `Rhat` | Chain convergence diagnostic  -  values close to 1.0 indicate convergence |
+| `Median` | Posterior median: point estimate analogous to the frequentist coefficient |
+| `MAD_SD` | Median absolute deviation: uncertainty in the posterior (analogous to SE) |
+| `10%` / `90%` | 80% credible interval: the range of values with 80% posterior probability |
+| `Rhat` | Chain convergence diagnostic: values close to 1.0 indicate convergence |
 
 **Compare to frequentist:** Run `lm(albumin ~ log(bili), data = pbc)` alongside and compare coefficients. With weakly informative priors and ample data, the Bayesian and frequentist estimates are nearly identical. The difference appears with small samples or informative priors.
 
@@ -198,7 +198,7 @@ The key quantities from a Bayesian regression summary:
 
 **Prior sensitivity.** With small samples, the posterior is sensitive to the prior choice. Always report your priors explicitly and consider running a sensitivity analysis: how much do results change if you use a more or less informative prior?
 
-**Misinterpreting the credible interval.** A 95% credible interval *does* support the statement "there is a 95% probability $\theta$ is in this range"  -  but only conditional on the model and prior being correct. It is not a licence to ignore model assumptions.
+**Misinterpreting the credible interval.** A 95% credible interval *does* support the statement "there is a 95% probability $\theta$ is in this range", but only conditional on the model and prior being correct. It is not a licence to ignore model assumptions.
 
 **Convergence failure.** MCMC samplers can fail to converge. Check `Rhat` < 1.05 for all parameters. If `Rhat` is large, increase iterations or reparametrise the model.
 

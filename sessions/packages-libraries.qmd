@@ -14,7 +14,7 @@ If you already know how to install and load R packages with `install.packages()`
 
 ## When Do You Use This? {#sec-packages-libraries .callout-tip}
 
-> Every statistical method in R lives inside a package. Before you can run a t-test, build a regression model, or draw a plot, you need to know how to find, install, and load the right package. This session gives you that skill once  -  and you will use it in every session that follows.
+> Every statistical method in R lives inside a package. Before you can run a t-test, build a regression model, or draw a plot, you need to know how to find, install, and load the right package. This session gives you that skill once, and you will use it in every session that follows.
 
 ## Learning Objectives
 
@@ -122,17 +122,17 @@ session. 3. Troubleshoot common issues related to package installation.
 
 ### Installing R Packages from CRAN
 
-**Accessing CRAN** - CRAN (Comprehensive R Archive Network) is the main
-repository for R packages. - To install a package from CRAN, use the
+**Accessing CRAN**: CRAN (Comprehensive R Archive Network) is the main
+repository for R packages. To install a package from CRAN, use the
 `install.packages()` function in R.
 
-**Example Command** - For example, to install the package `ggplot2`, you
+**Example Command**: For example, to install the package `ggplot2`, you
 would use the command: `install.packages("ggplot2")`.
 
-**Internet Connection** - Ensure you have an active internet connection,
+**Internet Connection**: Ensure you have an active internet connection,
 as R will need to download the package files.
 
-**Dependencies** - When installing a package, R automatically installs
+**Dependencies**: When installing a package, R automatically installs
 any other packages (dependencies) that are required.
 
 ::: callout-note
@@ -155,67 +155,67 @@ from GitHub using the `devtools` package or from Bioconductor.
 
 ### Installing Packages from GitHub
 
-\***Using DevTools** - The `devtools` package in R is designed to
+\***Using DevTools**: The `devtools` package in R is designed to
 facilitate package development and installation from sources like
-GitHub. - First, install `devtools` from CRAN using
-`install.packages("devtools")`. - Then load the package using
+GitHub. First, install `devtools` from CRAN using
+`install.packages("devtools")`. Then load the package using
 `library(devtools)`.
 
-**Install from GitHub** - With `devtools` installed, and loaded you can
+**Install from GitHub**: With `devtools` installed, and loaded you can
 use the `install_github()` function to install packages directly from
-GitHub. - The syntax is
+GitHub. The syntax is
 `devtools::install_github("username/repository")`, where `username` is
 the GitHub username and `repository` is the name of the repository.
 
-**Example Command** - For instance, if you want to install a package
+**Example Command**: For instance, if you want to install a package
 named `leaflet` from a GitHub user
 ``` rstudio``, use: ```devtools::install_github("rstudio/leaflet")\`.
 
-**Note on Private Repositories** - For private repositories, you may
+**Note on Private Repositories**: For private repositories, you may
 need to configure additional authentication settings.
 
 ### Installing Packages from Bioconductor
 
-**Bioconductor for Bioinformatics** - Bioconductor is a project
+**Bioconductor for Bioinformatics**: Bioconductor is a project
 providing tools for the analysis and comprehension of high-throughput
-genomic data in R. - It has its own set of packages, particularly
+genomic data in R. It has its own set of packages, particularly
 focused on bioinformatics.
 
-**Install Bioconductor Packages** - To install packages from
+**Install Bioconductor Packages**: To install packages from
 Bioconductor, first install the `BiocManager` package from CRAN using
-`install.packages("BiocManager")`. - Then, use `BiocManager::install()`
+`install.packages("BiocManager")`. Then, use `BiocManager::install()`
 to install packages from Bioconductor.
 
-**Example Command** - For example, to install the `GenomicFeatures`
+**Example Command**: For example, to install the `GenomicFeatures`
 package from Bioconductor, use:
 `BiocManager::install("GenomicFeatures")`.
 
-**Bioconductor Versioning** - Bioconductor releases are semi-annual and
+**Bioconductor Versioning**: Bioconductor releases are semi-annual and
 tied to specific versions of R. Ensure that your version of R is
 compatible with the version of Bioconductor you are using.
 
 ### Loading Packages into R Session
 
-**Using `library()`** - Once a package is installed, load it into your R
-session using the `library()` function. - For example, to load
+**Using `library()`**: Once a package is installed, load it into your R
+session using the `library()` function. For example, to load
 `ggplot2`, use: `library(ggplot2)`.
 
-**Checking Installed Packages** - Use `installed.packages()` to get a
+**Checking Installed Packages**: Use `installed.packages()` to get a
 list of all packages installed in your R environment.
 
 ### Troubleshooting Package Installation
 
-**Error Messages** - Pay close attention to any error messages during
+**Error Messages**: Pay close attention to any error messages during
 installation; they often provide clues about the issue.
 
-**Dependency Issues** - If there are missing dependencies, try
+**Dependency Issues**: If there are missing dependencies, try
 installing those packages separately.
 
-**Compatibility with R Version** - Some packages may not be compatible
+**Compatibility with R Version**: Some packages may not be compatible
 with your current version of R. Check the package documentation for
 version requirements.
 
-**Internet Connection and Firewalls** - Ensure a stable internet
+**Internet Connection and Firewalls**: Ensure a stable internet
 connection. Firewalls or network policies may sometimes block R from
 accessing external servers.
 

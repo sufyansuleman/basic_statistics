@@ -10,8 +10,8 @@ title: "Before You Begin: Setup"
 This page tells you everything you need to do **once**, before starting the course. The setup takes about 10-15 minutes. After that, each session just works.
 
 ::: {.callout-note}
-### Only here for the statistics  -  not learning R?
-If your goal is to understand statistical concepts and methods (not to learn R programming), you can **skip Parts 1 and 2** and start directly at **Part 3: Inference**. The statistics begins there. You can still follow the Examples in each session by reading the code output without running it yourself  -  but you will still need R and the packages installed to run anything interactively.
+### Only here for the statistics, not learning R?
+If your goal is to understand statistical concepts and methods (not to learn R programming), you can **skip Parts 1 and 2** and start directly at **Part 3: Inference**. The statistics begins there. You can still follow the Examples in each session by reading the code output without running it yourself, but you will still need R and the packages installed to run anything interactively.
 :::
 
 
@@ -38,14 +38,14 @@ R.version.string
 
 ::: {.callout-important}
 ### Windows users must do this before installing packages
-Many R packages compile C or Fortran code during installation. Without **Rtools**, Windows will silently install outdated pre-compiled versions of packages  -  which can cause version conflicts that break Quarto rendering later.
+Many R packages compile C or Fortran code during installation. Without **Rtools**, Windows will silently install outdated pre-compiled versions of packages, which can cause version conflicts that break Quarto rendering later.
 
 1. Go to [cran.r-project.org/bin/windows/Rtools/](https://cran.r-project.org/bin/windows/Rtools/)
 2. Download and install the version that matches your R version (e.g., Rtools44 for R 4.4, Rtools43 for R 4.3)
-3. Accept all defaults  -  no changes needed
+3. Accept all defaults (no changes needed)
 4. Restart RStudio after installation
 
-To confirm Rtools is active, run this in the Console  -  you should see `TRUE`:
+To confirm Rtools is active, run this in the Console; you should see `TRUE`:
 ```r
 pkgbuild::has_build_tools(debug = TRUE)
 ```
@@ -57,7 +57,7 @@ pkgbuild::has_build_tools(debug = TRUE)
 Copy and paste the block below into your **RStudio Console** and press Enter. This installs every package used across all sessions in one go. You only need to do this once.
 
 ::: {.callout-warning}
-### This will take 10-20 minutes  -  that is normal
+### This will take 10-20 minutes (that is normal)
 Installing 25+ packages for the first time takes time. R will print a lot of output as it downloads and compiles each package. **Do not close RStudio and do not interrupt the process.** Just wait until you see the `>` prompt return in the Console. Go make a coffee.
 :::
 
@@ -115,7 +115,7 @@ install.packages(c(
 
 ::: {.callout-tip}
 ### If a package fails to install
-Run `install.packages("packagename")` individually to see the specific error message. On Windows, restart RStudio and try again  -  some packages need RTools. On macOS, you may need to install Xcode Command Line Tools first: `xcode-select --install` in the Terminal.
+Run `install.packages("packagename")` individually to see the specific error message. On Windows, restart RStudio and try again; some packages need RTools. On macOS, you may need to install Xcode Command Line Tools first: `xcode-select --install` in the Terminal.
 :::
 
 
@@ -137,7 +137,7 @@ BiocManager::install(c(
 ```
 
 ::: {.callout-warning}
-### When BiocManager asks about updates  -  press `a`
+### When BiocManager asks about updates, press `a`
 During installation you may see:
 ```
 Update all/some/none? [a/s/n]:

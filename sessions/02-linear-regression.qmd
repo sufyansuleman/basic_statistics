@@ -12,7 +12,7 @@ library(broom)
 
 ## When Do You Use This? {#sec-linear-regression .callout-tip}
 
-> You have a continuous outcome and a continuous predictor, and you want to quantify how much the outcome changes per unit increase in the predictor  -  and test whether that relationship is statistically meaningful. Simple linear regression gives you a straight-line model with an estimated slope and its confidence interval. For example: predicting serum albumin from bilirubin, or estimating how bill length changes with flipper length in penguins.
+> You have a continuous outcome and a continuous predictor, and you want to quantify how much the outcome changes per unit increase in the predictor, and test whether that relationship is statistically meaningful. Simple linear regression gives you a straight-line model with an estimated slope and its confidence interval. For example: predicting serum albumin from bilirubin, or estimating how bill length changes with flipper length in penguins.
 
 ## Learning Objectives
 
@@ -79,12 +79,12 @@ summary(fit)
 ```
 
 ::: {.callout-note}
-### Reading the `summary()` Output  -  Line by Line
+### Reading the `summary()` Output: Line by Line
 
 When you run `summary(fit)`, R prints several blocks. Here is what each one means.
 
 **`Call:`**
-Just echoes back the formula you used  -  `albumin ~ log_bili`. Confirms R fitted the right model.
+Just echoes back the formula you used: `albumin ~ log_bili`. Confirms R fitted the right model.
 
 **`Residuals:`**
 ```
@@ -105,20 +105,20 @@ log_bili     -0.34      0.03     -11.3    <2e-16 ***
 
 | Column | What it means |
 |---|---|
-| **Estimate** | The fitted value of the coefficient  -  the slope or intercept |
-| **Std. Error** | How uncertain the estimate is  -  smaller is more precise |
-| **t value** | Estimate  -  Std. Error  -  how many standard errors away from zero |
-| **Pr(>\|t\|)** | p-value  -  probability of seeing a t-value this large *if the true slope were zero* |
+| **Estimate** | The fitted value of the coefficient: the slope or intercept |
+| **Std. Error** | How uncertain the estimate is: smaller is more precise |
+| **t value** | Estimate / Std. Error: how many standard errors away from zero |
+| **Pr(>\|t\|)** | p-value: probability of seeing a t-value this large *if the true slope were zero* |
 | **Stars (\*\*\*)** | Just a shorthand: `***` = p < 0.001, `**` = p < 0.01, `*` = p < 0.05, `.` = p < 0.1 |
 
 **`Residual standard error: 0.43 on 416 degrees of freedom`**
-This is the typical size of a prediction error. On average, the model's albumin prediction is off by about 0.43 g/dL. Degrees of freedom = number of observations - number of parameters estimated (here, 418 - 2 = 416).
+This is the typical size of a prediction error. On average, the model's albumin prediction is off by about 0.43 g/dL. Degrees of freedom = number of observations minus number of parameters estimated (here, 418 - 2 = 416).
 
 **`Multiple R-squared: 0.22`**
 Log(bilirubin) explains **22% of the variability** in albumin across patients. The remaining 78% is explained by other factors not in this model.
 
 **`Adjusted R-squared: 0.22`**
-Almost the same as R -  here because we only have one predictor. It would drop relative to R -  if we had many predictors but most were uninformative. Prefer adjusted R -  when comparing models with different numbers of predictors.
+Almost the same as R² here because we only have one predictor. It would drop relative to R² if we had many predictors but most were uninformative. Prefer adjusted R² when comparing models with different numbers of predictors.
 
 **`F-statistic: 128 on 1 and 416 DF, p-value: < 2.2e-16`**
 Tests whether the *whole model* explains significantly more variance than just predicting the mean for everyone. With one predictor, this is equivalent to the t-test on the slope. If p < 0.05, at least one predictor is useful.
@@ -152,9 +152,9 @@ That is what you would write in a Results section. Notice:
 - You give the **magnitude** (0.34 g/dL)
 - You give the **uncertainty** (95% CI)
 - You give the **p-value**  -  but note it only tells you the effect is unlikely to be zero, not that it is large or clinically important
-- You give **R - ** to indicate how much of the outcome this one predictor explains
+- You give **R²** to indicate how much of the outcome this one predictor explains
 
-**Is 22% a good R - ?** In clinical and biological data, a single biomarker rarely explains more than 20-30% of an outcome  -  there are too many other factors involved. R -  = 0.22 is actually quite respectable here. R -  of 0.90+ is typical only in physics or engineering, not in medicine.
+**Is 22% a good R²?** In clinical and biological data, a single biomarker rarely explains more than 20-30% of an outcome, there are too many other factors involved. R² = 0.22 is actually quite respectable here. R² of 0.90+ is typical only in physics or engineering, not in medicine.
 :::
 
 ### Checking Assumptions
@@ -174,26 +174,26 @@ par(mfrow = c(1, 1))
 **Cook's Distance:** Identifies influential observations. Points labeled by row number warrant investigation.
 
 ::: {.callout-note}
-### How to Read Diagnostic Plots  -  What Good and Bad Look Like
+### How to Read Diagnostic Plots: What Good and Bad Look Like
 
-**Plot 1  -  Residuals vs Fitted**
+**Plot 1: Residuals vs Fitted**
 You are looking for a flat, horizontal cloud of points with no pattern.
 - ? **Good:** Points scattered randomly around the horizontal line at zero.
-- ? **Bad (U-shape or arc):** The relationship is non-linear  -  your straight line is the wrong shape. Try log-transforming X.
+- ? **Bad (U-shape or arc):** The relationship is non-linear; your straight line is the wrong shape. Try log-transforming X.
 - ? **Bad (funnel shape):** Variance increases with fitted values (heteroscedasticity). Try log-transforming Y.
 
-**Plot 2  -  Normal Q-Q**
+**Plot 2: Normal Q-Q**
 You are checking whether the residuals follow a normal distribution.
 - ? **Good:** Points follow the diagonal line closely.
 - ? **Bad (S-curve):** Residuals are skewed.
-- ? **Bad (heavy tails):** More extreme values than expected  -  the model underestimates rare large errors. Mild deviation is usually acceptable for large samples.
+- ? **Bad (heavy tails):** More extreme values than expected; the model underestimates rare large errors. Mild deviation is usually acceptable for large samples.
 
-**Plot 3  -  Scale-Location**
+**Plot 3: Scale-Location**
 Same as Plot 1 but using the square root of the absolute residuals, making it easier to spot unequal variance.
 - ? **Good:** Red line is flat, points evenly spread.
-- ? **Bad (upward slope):** Variance increases  -  patients with high predicted albumin also have more unpredictable albumin.
+- ? **Bad (upward slope):** Variance increases; patients with high predicted albumin also have more unpredictable albumin.
 
-**Plot 4  -  Cook's Distance / Residuals vs Leverage**
+**Plot 4: Cook's Distance / Residuals vs Leverage**
 Identifies observations that have a disproportionate effect on the fitted line.
 - **Leverage** = how unusual the X value is (extreme bilirubin, for example)
 - **Cook's D** = combined measure: unusual X *and* large residual
@@ -289,7 +289,7 @@ A simple regression coefficient is not causal. A third variable may drive both X
 **Outliers and influential points**
 Check Cook's distance. Points with Cook's D > 1 (or > 4/n) exert disproportionate influence on the fitted line. Investigate them ? they may be data errors or genuinely unusual cases.
 ::: {.callout-warning}
-### Common Misinterpretations  -  Don't Make These Mistakes
+### Common Misinterpretations: Don't Make These Mistakes
 
 **"p < 0.05 means the effect is large"**
 No. p < 0.05 means the effect is unlikely to be exactly zero given your sample size. A slope of -0.001 can be highly significant with 10,000 patients. Always report the *magnitude* (the estimate and CI), not just the p-value.
@@ -297,8 +297,8 @@ No. p < 0.05 means the effect is unlikely to be exactly zero given your sample s
 **"p = 0.06 means there is no effect"**
 No. It means you do not have enough evidence to rule out chance with this sample size. A study with 20 patients and p = 0.06 may simply be underpowered. Never say "no association" based on p > 0.05 alone.
 
-**"R -  = 0.05 means the model is useless"**
-Not necessarily. In medicine and biology, outcomes are driven by hundreds of factors. A single biomarker explaining 5% of variance may still be scientifically meaningful. Judge R -  relative to what is realistic in your field.
+**"R² = 0.05 means the model is useless"**
+Not necessarily. In medicine and biology, outcomes are driven by hundreds of factors. A single biomarker explaining 5% of variance may still be scientifically meaningful. Judge R² relative to what is realistic in your field.
 
 **"The intercept is always meaningful"**
 Only if X = 0 is a realistic value. In `lm(albumin ~ log_bili)`, the intercept is albumin when bilirubin = 1 mg/dL. If few patients have bilirubin near 1 mg/dL, the intercept is a mathematical anchor, not a clinically interpretable number.

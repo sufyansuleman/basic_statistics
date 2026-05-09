@@ -10,7 +10,7 @@ library(tidyverse)
 
 ::: {.callout-note}
 ## Already know this?
-If you are comfortable working with vectors, data frames, and factors in R  -  and you understand what `str()`, `class()`, and `as.factor()` do  -  skip ahead to the next session or go straight to **Part 2: Describing and Visualizing Data**.
+If you are comfortable working with vectors, data frames, and factors in R, and you understand what `str()`, `class()`, and `as.factor()` do, skip ahead to the next session or go straight to **Part 2: Describing and Visualizing Data**.
 :::
 
 ## When Do You Use This? {#sec-vectors .callout-tip}
@@ -438,7 +438,7 @@ char_vector  # Output: "Low" "Medium" "High" "Medium" "Low"
 
 ## Data Frames and Tibbles
 
-A vector stores a single column of values. A **data frame** stores many columns together  -  like a spreadsheet where every column can have a different type. This is how you will actually store and work with your research data in R.
+A vector stores a single column of values. A **data frame** stores many columns together, like a spreadsheet where every column can have a different type. This is how you will actually store and work with your research data in R.
 
 A **tibble** is a modern version of a data frame from the `tidyverse`. It behaves the same way but has slightly better defaults (it never converts character columns to factors automatically, and it prints more neatly).
 
@@ -632,15 +632,15 @@ mice
 ::: {.callout-warning}
 ### What Can Go Wrong
 
-**Type coercion in vectors.** Mixing types in a single vector silently converts everything to the most general type: `c(1, 2, "three")` produces `c("1", "2", "three")`  -  all characters. Downstream arithmetic will then fail with confusing errors. Check with `class()` if a numeric column behaves strangely.
+**Type coercion in vectors.** Mixing types in a single vector silently converts everything to the most general type: `c(1, 2, "three")` produces `c("1", "2", "three")`: all characters. Downstream arithmetic will then fail with confusing errors. Check with `class()` if a numeric column behaves strangely.
 
-**Factor levels in the wrong order.** R assigns factor levels alphabetically by default. In a regression, the first level is the reference. `"control"` becomes the reference only if it sorts first alphabetically  -  `"A"` would be the reference if your groups are `"A"`, `"B"`, `"control"`. Always set levels explicitly with `factor(..., levels = c("control", "low_dose", "high_dose"))`.
+**Factor levels in the wrong order.** R assigns factor levels alphabetically by default. In a regression, the first level is the reference. `"control"` becomes the reference only if it sorts first alphabetically; `"A"` would be the reference if your groups are `"A"`, `"B"`, `"control"`. Always set levels explicitly with `factor(..., levels = c("control", "low_dose", "high_dose"))`.
 
 **`[[` vs `[` indexing.** `df[, "col"]` returns a data frame; `df[["col"]]` (or `df$col`) returns the vector. Functions like `t.test()` expect a vector, not a one-column data frame. If you get "non-numeric argument" errors, this is often the cause.
 
 **`NA` propagation.** Arithmetic on a vector containing `NA` returns `NA`: `mean(c(1, 2, NA))` returns `NA`. Pass `na.rm = TRUE` to summary functions, or remove `NA` values deliberately with `na.omit()`.
 
-**Implicit recoding when coercing factors to numeric.** `as.numeric(factor(c("10", "20", "30")))` returns `1 2 3`  -  the level indices, not the original values. Use `as.numeric(as.character(my_factor))` to recover the original numbers.
+**Implicit recoding when coercing factors to numeric.** `as.numeric(factor(c("10", "20", "30")))` returns `1 2 3`: the level indices, not the original values. Use `as.numeric(as.character(my_factor))` to recover the original numbers.
 :::
 
 ## Exercises
@@ -728,7 +728,7 @@ Using a dataset from your own research (or any built-in R dataset), complete the
 1. Identify one categorical column. Convert it to a factor and set the levels in a meaningful order (e.g., control before treatment, smallest dose before largest).
 2. Identify one numeric column. Check for `NA` values with `sum(is.na())` and compute the mean with `na.rm = TRUE`.
 3. Create a new derived column (e.g., a ratio, a log transform, or a binary category based on a threshold).
-4. Write two sentences describing what the dataset contains and what you found from the structure inspection  -  as you would in a Data section of a manuscript.
+4. Write two sentences describing what the dataset contains and what you found from the structure inspection, as you would in a Data section of a manuscript.
 
 
 ## Comprehension Check
