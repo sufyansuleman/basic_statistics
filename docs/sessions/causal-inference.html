@@ -404,6 +404,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -418,19 +424,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -469,7 +475,8 @@ window.Quarto = {
   <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">24.8.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
   <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">24.9</span> Comprehension Check</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">24.10</span> Further Reading</a></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">24.10</span> How to Report</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">24.11</span> Further Reading</a></li>
   </ul>
 </nav>
     </div>
@@ -848,8 +855,33 @@ Answers
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="24.10">
-<h2 data-number="24.10" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">24.10</span> Further Reading</h2>
+<section id="how-to-report" class="level2" data-number="24.10">
+<h2 data-number="24.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">24.10</span> How to Report</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reporting a Causal Analysis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>In a Methods section:</strong></p>
+<blockquote class="blockquote">
+<p>“We used a directed acyclic graph (DAG) to identify confounders and determine the minimal sufficient adjustment set for estimating the effect of [exposure] on [outcome]. The DAG was constructed using <code>dagitty</code> (Textor et al., 2016). Confounders identified from the DAG were included as covariates in a multivariable [regression model type], yielding an adjusted [odds ratio / hazard ratio / coefficient] for [exposure].”</p>
+</blockquote>
+<p><strong>In a Results section:</strong></p>
+<blockquote class="blockquote">
+<p>“After adjustment for [list covariates from DAG], the association between [exposure] and [outcome] was [direction and magnitude]: adjusted OR = X.XX (95% CI: L.LL–U.UU, p = .YYY). The unadjusted association was OR = X.XX, suggesting [direction] confounding by [confounder(s)].”</p>
+</blockquote>
+<p><strong>Always report:</strong> - What confounders were adjusted for, and how they were identified (ideally via a DAG) - Both unadjusted and adjusted estimates (so readers can see the direction of confounding) - That mediators and colliders were <em>not</em> adjusted for (if relevant)</p>
+<p><strong>Common reporting errors:</strong> - Adjusting for all available covariates regardless of causal structure — this can introduce collider bias - Adjusting for mediators on the causal path — this blocks the effect you are trying to estimate - Describing a result as “causal” when it is observational without instrumental variable or experimental design</p>
+</div>
+</div>
+</section>
+<section id="further-reading" class="level2" data-number="24.11">
+<h2 data-number="24.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">24.11</span> Further Reading</h2>
 <ul>
 <li><span class="citation" data-cites="Hernan-2023">Hernan and Robins (<a href="#ref-Hernan-2023" role="doc-biblioref">2023</a>)</span> — <em>Causal Inference: What If</em> (free PDF: causalinferencebook.net)</li>
 <li><span class="citation" data-cites="Pearl-2009">Pearl (<a href="#ref-Pearl-2009" role="doc-biblioref">2009</a>)</span> — <em>Causality: Models, Reasoning, and Inference</em></li>

@@ -316,6 +316,26 @@ Choose any model you have previously fitted (or fit a new one). Build a three-pa
 5. A QQ-plot plots quantiles of your data against quantiles of a theoretical normal distribution. If residuals are approximately normal, the points follow the straight diagonal reference line closely. Departures at the tails indicate skewness or heavy tails.
 :::
 
+
+## How to Report
+
+### Describing and Captioning Figures
+
+::: {.callout-note}
+**Figure caption template:** "Figure X. [What is shown]. Data from [dataset], n = [N]. [Groups] are distinguished by [colour/shape]. Error bars represent [SD / SEM / 95% CI]. [Key observation highlighted in the figure]."
+
+**In results text:** Reference the figure without fully re-describing it: "Bilirubin distributions differed markedly across disease stages (Figure 1); stage IV patients showed substantially higher values and greater spread."
+
+**What every figure must include:**
+
+- Self-contained caption (a reader should understand the figure without reading the text)
+- Axis labels with units (e.g., "Body weight (g)", not "weight")
+- A legend if more than one group is shown
+- Clear statement of what error bars represent (SD, SEM, and 95% CI are not interchangeable)
+
+**Accessibility:** Use colour-blind-safe palettes (e.g., `scale_color_brewer(palette = "Set2")` or `scale_color_viridis_d()`). Never rely on colour alone --- use shape or linetype to distinguish groups.
+:::
+
 ## Further Reading
 
 - [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org) --- Wickham's book, free online

@@ -277,6 +277,23 @@ A Bayesian analysis of a clinical trial gives a posterior median treatment effec
 2. A reviewer writes: "This is not significant because the CI does not exclude zero." Is this criticism valid? Explain.
 3. What is the posterior probability that the treatment reduces blood pressure by at least 3 mmHg? (Hint: you need the posterior distribution, not just the CrI.)
 
+## Comprehension Check
+
+1. What is the key difference between a frequentist p-value and a Bayesian posterior probability?
+2. You set a prior Beta(2, 2) for a success probability. What belief does this encode? What happens to the posterior if you collect 100 successes and 10 failures?
+3. What does a 95% credible interval mean, and how does this differ from a 95% confidence interval?
+4. In the Beta-Binomial model, what is the role of the prior when the sample size is very large?
+5. A colleague says "the posterior is just a smoothed version of the data." When is this roughly true, and when is it not?
+
+::: {.callout-note collapse="true"}
+### Answers
+1. A p-value is the probability of observing results as extreme as those seen *if the null hypothesis is true* --- it does not tell you the probability that the null is true or false. A Bayesian posterior probability directly states the probability that a parameter takes a particular value (or range), given the data and prior.
+2. Beta(2, 2) encodes mild belief that the success probability is near 0.5 (symmetric, slightly peaked). With 100 successes and 10 failures, the posterior is Beta(102, 12), strongly concentrated near 0.89. The prior has almost no influence when n is large.
+3. A 95% credible interval means there is a 95% posterior probability that the true parameter lies within the interval --- a direct probability statement. A frequentist 95% confidence interval means that if you repeated the experiment many times, 95% of such intervals would contain the true value; any single CI either contains it or does not.
+4. When n is very large, the likelihood dominates and the posterior is almost entirely determined by the data regardless of the prior.
+5. This is roughly true when the prior is weakly informative and n is large. It is not true when n is small (the prior strongly shapes the posterior) or when the prior and likelihood are in conflict.
+:::
+
 ## Further Reading
 
 - @Gelman-2013 --- *Bayesian Data Analysis* (3rd ed.) — the definitive textbook

@@ -401,6 +401,26 @@ Download a dataset from your own research or from NHANES. Perform a complete EDA
 5. For a right-skewed variable, the mean and SD are misleading because extreme outliers inflate both. The correct summary is median and interquartile range (IQR), as the median is resistant to extreme values.
 :::
 
+
+## How to Report
+
+### Reporting Exploratory Analysis
+
+::: {.callout-note}
+**In a methods section:** "Descriptive statistics were calculated for all variables. Continuous variables were assessed for distributional shape using histograms and QQ-plots. Outliers were identified using boxplots and flagged for clinical review. No observations were excluded on the basis of the exploratory analysis alone."
+
+**In a Data section or Table 1:** "The study included N participants. [Variable] was approximately normally distributed; [other variable] was strongly right-skewed (median [IQR]). [N] participants had missing values for [variable] ([%])."
+
+**What to always include:**
+
+- Total sample size and the time period of data collection
+- Summary statistics for all key variables (mean/SD or median/IQR; n/% for categorical)
+- Any data quality issues found (outliers, missingness, implausible values)
+- Whether any transformations were applied (e.g., log transformation)
+
+**Important:** EDA does not confirm hypotheses. Always state that exploratory findings are hypothesis-generating and require pre-specified confirmatory analysis.
+:::
+
 ## Further Reading
 
 - [R for Data Science, Chapter 11: Exploratory Data Analysis](https://r4ds.hadley.nz/eda) --- Wickham & Grolemund

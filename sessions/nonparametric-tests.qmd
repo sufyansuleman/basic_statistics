@@ -323,6 +323,26 @@ From your own data, identify a continuous variable that is clearly non-normal (e
 5. Not quite. Nonparametric tests are more robust when normality is violated, but they are less powerful when data *are* approximately normal. Using them by default when a t-test would be valid loses statistical power unnecessarily.
 :::
 
+
+## How to Report
+
+### Reporting Nonparametric Test Results
+
+::: {.callout-note}
+**In a methods section:** "Because [outcome] was markedly non-normal (Shapiro-Wilk p < 0.05; confirmed by QQ-plot), the Wilcoxon rank-sum test was used to compare groups. For comparisons across three or more groups, the Kruskal-Wallis test was used, followed by Dunn's post-hoc test with Bonferroni correction."
+
+**In results:** "Median [outcome] was higher in [group A] than [group B] (median [IQR]: X [L, U] vs Y [L, U]; W = Z, p = P)."
+
+**What to always include:**
+
+- Medians and IQRs (not means and SDs --- you chose this test because the mean is inappropriate)
+- Test statistic (W for Wilcoxon, H for Kruskal-Wallis)
+- p-value
+- For Kruskal-Wallis: post-hoc method and correction applied
+
+**Internal consistency:** If you use a nonparametric test, report medians. Reporting the mean and then quoting a Wilcoxon p-value is internally contradictory.
+:::
+
 ## Further Reading
 
 - @Hollander-1999 --- *Nonparametric Statistical Methods*, comprehensive reference

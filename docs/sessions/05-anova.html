@@ -404,6 +404,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -418,19 +424,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -448,12 +454,11 @@ window.Quarto = {
   <li><a href="#sec-anova" id="toc-sec-anova" class="nav-link active" data-scroll-target="#sec-anova"><span class="header-section-number">13.1</span> When Do You Use This?</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">13.2</span> Learning Objectives</a></li>
   <li><a href="#background-the-idea-behind-anova" id="toc-background-the-idea-behind-anova" class="nav-link" data-scroll-target="#background-the-idea-behind-anova"><span class="header-section-number">13.3</span> Background: The Idea Behind ANOVA</a></li>
-  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">13.4</span> Example 1: Clinical Data (PBC)</a>
+  <li><a href="#example-1-plant-science-plantgrowth" id="toc-example-1-plant-science-plantgrowth" class="nav-link" data-scroll-target="#example-1-plant-science-plantgrowth"><span class="header-section-number">13.4</span> Example 1: Plant Science (PlantGrowth)</a>
   <ul class="collapse">
-  <li><a href="#one-way-anova-albumin-by-disease-stage" id="toc-one-way-anova-albumin-by-disease-stage" class="nav-link" data-scroll-target="#one-way-anova-albumin-by-disease-stage"><span class="header-section-number">13.4.1</span> One-Way ANOVA: Albumin by Disease Stage</a></li>
+  <li><a href="#one-way-anova-does-treatment-affect-dry-weight" id="toc-one-way-anova-does-treatment-affect-dry-weight" class="nav-link" data-scroll-target="#one-way-anova-does-treatment-affect-dry-weight"><span class="header-section-number">13.4.1</span> One-Way ANOVA: Does Treatment Affect Dry Weight?</a></li>
   <li><a href="#post-hoc-comparisons-tukeys-hsd" id="toc-post-hoc-comparisons-tukeys-hsd" class="nav-link" data-scroll-target="#post-hoc-comparisons-tukeys-hsd"><span class="header-section-number">13.4.2</span> Post-Hoc Comparisons: Tukey’s HSD</a></li>
   <li><a href="#checking-assumptions" id="toc-checking-assumptions" class="nav-link" data-scroll-target="#checking-assumptions"><span class="header-section-number">13.4.3</span> Checking Assumptions</a></li>
-  <li><a href="#welchs-anova-relaxing-equal-variance-assumption" id="toc-welchs-anova-relaxing-equal-variance-assumption" class="nav-link" data-scroll-target="#welchs-anova-relaxing-equal-variance-assumption"><span class="header-section-number">13.4.4</span> Welch’s ANOVA (Relaxing Equal Variance Assumption)</a></li>
   </ul></li>
   <li><a href="#example-2-animal-data-two-way-anova" id="toc-example-2-animal-data-two-way-anova" class="nav-link" data-scroll-target="#example-2-animal-data-two-way-anova"><span class="header-section-number">13.5</span> Example 2: Animal Data (Two-Way ANOVA)</a></li>
   <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">13.6</span> Where to Find Data Like This</a></li>
@@ -461,7 +466,7 @@ window.Quarto = {
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">13.8</span> Exercises</a>
   <ul class="collapse">
   <li><a href="#exercise-1-guided-one-way-anova-for-bilirubin-by-stage" id="toc-exercise-1-guided-one-way-anova-for-bilirubin-by-stage" class="nav-link" data-scroll-target="#exercise-1-guided-one-way-anova-for-bilirubin-by-stage"><span class="header-section-number">13.8.1</span> Exercise 1 (Guided): One-Way ANOVA for Bilirubin by Stage</a></li>
-  <li><a href="#exercise-2-semi-guided-two-way-anova-for-plantgrowth" id="toc-exercise-2-semi-guided-two-way-anova-for-plantgrowth" class="nav-link" data-scroll-target="#exercise-2-semi-guided-two-way-anova-for-plantgrowth"><span class="header-section-number">13.8.2</span> Exercise 2 (Semi-guided): Two-Way ANOVA for PlantGrowth</a></li>
+  <li><a href="#exercise-2-semi-guided-one-way-anova-for-albumin-by-disease-stage" id="toc-exercise-2-semi-guided-one-way-anova-for-albumin-by-disease-stage" class="nav-link" data-scroll-target="#exercise-2-semi-guided-one-way-anova-for-albumin-by-disease-stage"><span class="header-section-number">13.8.2</span> Exercise 2 (Semi-guided): One-Way ANOVA for Albumin by Disease Stage</a></li>
   <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">13.8.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
   <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">13.9</span> Comprehension Check</a></li>
@@ -530,47 +535,39 @@ Before You Start
 <p>A large F means group differences are large relative to the within-group scatter. Under the null hypothesis that all group means are equal, F follows an F-distribution.</p>
 <p><strong>ANOVA assumptions:</strong> 1. Independence: observations are independent 2. Normality: residuals (within-group deviations) are approximately normal 3. Homogeneity of variance: all groups have similar variance (Levene’s test)</p>
 </section>
-<section id="example-1-clinical-data-pbc" class="level2" data-number="13.4">
-<h2 data-number="13.4" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">13.4</span> Example 1: Clinical Data (PBC)</h2>
-<section id="one-way-anova-albumin-by-disease-stage" class="level3" data-number="13.4.1">
-<h3 data-number="13.4.1" class="anchored" data-anchor-id="one-way-anova-albumin-by-disease-stage"><span class="header-section-number">13.4.1</span> One-Way ANOVA: Albumin by Disease Stage</h3>
-<p>Does albumin decline across the four disease stages?</p>
+<section id="example-1-plant-science-plantgrowth" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="example-1-plant-science-plantgrowth"><span class="header-section-number">13.4</span> Example 1: Plant Science (PlantGrowth)</h2>
+<section id="one-way-anova-does-treatment-affect-dry-weight" class="level3" data-number="13.4.1">
+<h3 data-number="13.4.1" class="anchored" data-anchor-id="one-way-anova-does-treatment-affect-dry-weight"><span class="header-section-number">13.4.1</span> One-Way ANOVA: Does Treatment Affect Dry Weight?</h3>
+<p>The <code>PlantGrowth</code> dataset (base R) contains the dried weight of plants under three conditions: a control and two experimental treatments. Ten plants per group, perfectly balanced. This is the simplest one-way ANOVA design.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">stage =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Stage"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trt   =</span> <span class="fu">factor</span>(trt, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"D-penicillamine"</span>, <span class="st">"Placebo"</span>))</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pbc_stage <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stage), <span class="sc">!</span><span class="fu">is.na</span>(albumin))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Always visualise first:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pbc_stage <span class="sc">%&gt;%</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> stage, <span class="at">y =</span> albumin, <span class="at">fill =</span> stage)) <span class="sc">+</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Blues"</span>) <span class="sc">+</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Serum albumin by disease stage"</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> PlantGrowth <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pg <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"grey70"</span>, <span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Dried plant weight by treatment group"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Dry weight (g)"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-anova_files/figure-html/pbc-anova-plot-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05-anova_files/figure-html/pg-setup-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fit_aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(albumin <span class="sc">~</span> stage, <span class="at">data =</span> pbc_stage)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fit_pg <span class="ot">&lt;-</span> <span class="fu">aov</span>(weight <span class="sc">~</span> group, <span class="at">data =</span> pg)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_pg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-stage         3   8.88  2.9610   18.59 2.54e-11 ***
-Residuals   408  64.99  0.1593                     
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)  
+group        2  3.766  1.8832   4.846 0.0159 *
+Residuals   27 10.492  0.3886                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -581,13 +578,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Reading the ANOVA Output � Line by Line
+Reading the ANOVA Output Line by Line
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<pre><code>          Df  Sum Sq  Mean Sq  F value   Pr(&gt;F)
-stage      3   7.23    2.41    12.4     &lt;0.001 ***
-Residuals 409  79.4    0.19</code></pre>
+<pre><code>          Df  Sum Sq  Mean Sq  F value  Pr(&gt;F)
+group      2   3.77    1.88    4.85     0.016 *
+Residuals 27  10.49    0.39</code></pre>
 <table class="table">
 <colgroup>
 <col style="width: 50%">
@@ -601,145 +598,98 @@ Residuals 409  79.4    0.19</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Df (stage = 3)</strong></td>
-<td>Degrees of freedom between groups = number of groups - 1 = 4 - 1 = 3</td>
+<td><strong>Df (group = 2)</strong></td>
+<td>Groups - 1 = 3 - 1 = 2</td>
 </tr>
 <tr class="even">
-<td><strong>Df (Residuals = 409)</strong></td>
-<td>Degrees of freedom within groups = total observations - number of groups</td>
+<td><strong>Df (Residuals = 27)</strong></td>
+<td>Total observations - groups = 30 - 3 = 27</td>
 </tr>
 <tr class="odd">
-<td><strong>Sum Sq (stage = 7.23)</strong></td>
-<td>How much of the total variation in albumin is <em>explained</em> by stage</td>
+<td><strong>F = 4.85</strong></td>
+<td>Between-group variance is 4.85 times larger than within-group variance</td>
 </tr>
 <tr class="even">
-<td><strong>Sum Sq (Residuals = 79.4)</strong></td>
-<td>How much remains <em>unexplained</em> (individual variation within each stage)</td>
-</tr>
-<tr class="odd">
-<td><strong>Mean Sq</strong></td>
-<td>Sum Sq � Df � normalises for the number of groups and observations</td>
-</tr>
-<tr class="even">
-<td><strong>F value = 12.4</strong></td>
-<td>Mean Sq (stage) � Mean Sq (Residuals). A large F means between-group differences are large relative to within-group noise.</td>
-</tr>
-<tr class="odd">
-<td><strong>Pr(&gt;F) &lt; 0.001</strong></td>
-<td>The p-value. If the true group means were all equal, we would see F this large less than 0.1% of the time. We reject H0: at least one stage differs.</td>
+<td><strong>p = 0.016</strong></td>
+<td>Probability of seeing an F this large if all group means were equal: 1.6%</td>
 </tr>
 </tbody>
 </table>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-What Does This Actually Tell Us?
+<p>At least one treatment differs from the others, but ANOVA does not say which. Use Tukey’s HSD.</p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<blockquote class="blockquote">
-<p><em>“Serum albumin differed significantly across the four PBC disease stages (one-way ANOVA: F(3, 409) = 12.4, p &lt; 0.001). However, ANOVA only tells us that the means are not all equal � it does not tell us which stages differ. See Tukey’s post-hoc test below.”</em></p>
-</blockquote>
-<p><strong>Important:</strong> A significant ANOVA is just the beginning. You always need post-hoc comparisons to say <em>which</em> groups differ, and you need to report the actual group means so the reader understands the direction and size of the effect.</p>
-</div>
-</div>
-</div>
-</div>
-<p><strong>Interpreting the output:</strong> - <code>Df</code>: degrees of freedom (between groups = <span class="math inline">\(k-1 = 3\)</span>; within groups = <span class="math inline">\(n-k\)</span>) - <code>Sum Sq</code>: sum of squares for between-group and within-group variation - <code>Mean Sq</code>: sum of squares divided by degrees of freedom - <code>F value</code>: ratio of the two mean squares - <code>Pr(&gt;F)</code>: p-value; if small, at least one pair of means differs</p>
 </section>
 <section id="post-hoc-comparisons-tukeys-hsd" class="level3" data-number="13.4.2">
 <h3 data-number="13.4.2" class="anchored" data-anchor-id="post-hoc-comparisons-tukeys-hsd"><span class="header-section-number">13.4.2</span> Post-Hoc Comparisons: Tukey’s HSD</h3>
-<p>A significant ANOVA only tells you <em>some</em> groups differ. Tukey’s Honestly Significant Difference (HSD) test identifies <em>which</em> pairs:</p>
+<p>A significant ANOVA tells you <em>some</em> groups differ. Tukey’s Honestly Significant Difference test finds <em>which</em> pairs:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(fit_aov) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(contrast, estimate, conf.low, conf.high, adj.p.value) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(adj.p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(fit_pg) <span class="sc">|&gt;</span> <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(contrast, estimate, conf.low, conf.high, adj.p.value) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(adj.p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 5
-  contrast        estimate conf.low conf.high   adj.p.value
-  &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
-1 Stage 4-Stage 3  -0.290    -0.409    -0.171 0.00000000527
-2 Stage 4-Stage 2  -0.305    -0.442    -0.167 0.000000124  
-3 Stage 4-Stage 1  -0.403    -0.643    -0.162 0.000115     
-4 Stage 3-Stage 1  -0.113    -0.352     0.127 0.617        
-5 Stage 2-Stage 1  -0.0982   -0.347     0.151 0.740        
-6 Stage 3-Stage 2  -0.0147   -0.150     0.121 0.992        </code></pre>
+<pre><code># A tibble: 3 × 5
+  contrast  estimate conf.low conf.high adj.p.value
+  &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+1 trt2-trt1    0.865    0.174     1.56       0.0120
+2 trt2-ctrl    0.494   -0.197     1.19       0.198 
+3 trt1-ctrl   -0.371   -1.06      0.320      0.391 </code></pre>
 </div>
 </div>
+<p>The control-vs-trt1 and trt1-vs-trt2 differences drive the overall significance.</p>
 </section>
 <section id="checking-assumptions" class="level3" data-number="13.4.3">
 <h3 data-number="13.4.3" class="anchored" data-anchor-id="checking-assumptions"><span class="header-section-number">13.4.3</span> Checking Assumptions</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Residual plot and QQ-plot</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit_aov, <span class="at">which =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit_pg, <span class="at">which =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-anova_files/figure-html/anova-diagnostics-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05-anova_files/figure-html/pg-diagnostics-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Levene's test for homogeneity of variance</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pbc_stage <span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(stage) <span class="sc">%&gt;%</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">mean =</span> <span class="fu">mean</span>(albumin), <span class="at">sd =</span> <span class="fu">sd</span>(albumin))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pg <span class="sc">|&gt;</span> <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">mean =</span> <span class="fu">mean</span>(weight), <span class="at">sd =</span> <span class="fu">sd</span>(weight))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 4
-  stage       n  mean    sd
-  &lt;fct&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 Stage 1    21  3.71 0.349
-2 Stage 2    92  3.61 0.384
-3 Stage 3   155  3.59 0.376
-4 Stage 4   144  3.30 0.437</code></pre>
+<pre><code># A tibble: 3 × 4
+  group     n  mean    sd
+  &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 ctrl     10  5.03 0.583
+2 trt1     10  4.66 0.794
+3 trt2     10  5.53 0.443</code></pre>
 </div>
 </div>
-<p>If the standard deviations differ substantially (rule of thumb: max/min &gt; 2), consider Welch’s ANOVA (<code>oneway.test()</code>) or a nonparametric alternative (Kruskal-Wallis).</p>
-</section>
-<section id="welchs-anova-relaxing-equal-variance-assumption" class="level3" data-number="13.4.4">
-<h3 data-number="13.4.4" class="anchored" data-anchor-id="welchs-anova-relaxing-equal-variance-assumption"><span class="header-section-number">13.4.4</span> Welch’s ANOVA (Relaxing Equal Variance Assumption)</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oneway.test</span>(albumin <span class="sc">~</span> stage, <span class="at">data =</span> pbc_stage, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    One-way analysis of means (not assuming equal variances)
-
-data:  albumin and stage
-F = 17.093, num df = 3.000, denom df = 89.415, p-value = 7.393e-09</code></pre>
-</div>
-</div>
+<p>The group SDs are similar (max/min &lt; 2), so the equal-variance assumption holds here. If not, use <code>oneway.test(weight ~ group, data = pg, var.equal = FALSE)</code> (Welch’s ANOVA).</p>
 </section>
 </section>
 <section id="example-2-animal-data-two-way-anova" class="level2" data-number="13.5">
 <h2 data-number="13.5" class="anchored" data-anchor-id="example-2-animal-data-two-way-anova"><span class="header-section-number">13.5</span> Example 2: Animal Data (Two-Way ANOVA)</h2>
 <p>The <code>ToothGrowth</code> dataset is a 2?3 factorial experiment: two Vitamin C delivery methods ? three dose levels. Two-way ANOVA tests for the effect of each factor <em>and</em> their interaction.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tg <span class="ot">&lt;-</span> ToothGrowth <span class="sc">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">supp =</span> <span class="fu">factor</span>(supp, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"VC"</span>, <span class="st">"OJ"</span>),</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Ascorbic acid"</span>, <span class="st">"Orange juice"</span>)),</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">dose =</span> <span class="fu">factor</span>(dose)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tg <span class="ot">&lt;-</span> ToothGrowth <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">supp =</span> <span class="fu">factor</span>(supp, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"VC"</span>, <span class="st">"OJ"</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Ascorbic acid"</span>, <span class="st">"Orange juice"</span>)),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">dose =</span> <span class="fu">factor</span>(dose)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tg <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(supp, dose) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_len =</span> <span class="fu">mean</span>(len), <span class="at">se_len =</span> <span class="fu">sd</span>(len) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> dose, <span class="at">y =</span> mean_len, <span class="at">color =</span> supp, <span class="at">group =</span> supp)) <span class="sc">+</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean_len <span class="sc">-</span> se_len, <span class="at">ymax =</span> mean_len <span class="sc">+</span> se_len), <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Interaction plot: dose ? supplement"</span>,</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Dose (mg/day)"</span>, <span class="at">y =</span> <span class="st">"Mean tooth length (?m)"</span>, <span class="at">color =</span> <span class="st">"Supplement"</span>) <span class="sc">+</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tg <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(supp, dose) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_len =</span> <span class="fu">mean</span>(len), <span class="at">se_len =</span> <span class="fu">sd</span>(len) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> dose, <span class="at">y =</span> mean_len, <span class="at">color =</span> supp, <span class="at">group =</span> supp)) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean_len <span class="sc">-</span> se_len, <span class="at">ymax =</span> mean_len <span class="sc">+</span> se_len), <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Interaction plot: dose ? supplement"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Dose (mg/day)"</span>, <span class="at">y =</span> <span class="st">"Mean tooth length (?m)"</span>, <span class="at">color =</span> <span class="st">"Supplement"</span>) <span class="sc">+</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -750,8 +700,8 @@ F = 17.093, num df = 3.000, denom df = 89.415, p-value = 7.393e-09</code></pre>
 </div>
 <p>If the lines cross or have markedly different slopes, there is a <strong>dose ? supplement interaction</strong>: the effect of dose depends on which supplement was used.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(len <span class="sc">~</span> supp <span class="sc">*</span> dose, <span class="at">data =</span> tg)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(len <span class="sc">~</span> supp <span class="sc">*</span> dose, <span class="at">data =</span> tg)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 supp         1  205.4   205.4  15.572 0.000231 ***
@@ -761,7 +711,7 @@ Residuals   54  712.1    13.2
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 6
   term         df sumsq meansq statistic   p.value
@@ -775,10 +725,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p><strong>Reading the output:</strong> - <code>supp</code>: main effect of supplement type - <code>dose</code>: main effect of dose - <code>supp:dose</code>: interaction term ? does the effect of dose differ between the two supplements?</p>
 <p>When the interaction is significant, the main effects alone do not tell the full story. Report the interaction and plot it.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Post-hoc: all pairwise combinations</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(fit2) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(adj.p.value) <span class="sc">%&gt;%</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Post-hoc: all pairwise combinations</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(fit2) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(adj.p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 7
    term      contrast         null.value estimate conf.low conf.high adj.p.value
@@ -798,10 +748,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="where-to-find-data-like-this" class="level2 callout-note" data-number="13.6">
 <h2 class="callout-note anchored" data-number="13.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">13.6</span> Where to Find Data Like This</h2>
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> ? four-stage disease data, ideal for one-way ANOVA.</p>
-<p><strong>ToothGrowth:</strong> <code>datasets::ToothGrowth</code> ? built-in factorial experiment, ideal for two-way ANOVA.</p>
-<p><strong>PlantGrowth:</strong> <code>datasets::PlantGrowth</code> ? simple three-group ANOVA.</p>
-<p><strong>agridat package:</strong> Many balanced factorial agricultural/animal experiments suitable for two-way ANOVA.</p>
+<p><strong><code>PlantGrowth</code></strong> (base R, used in Example 1): Control + two treatments, 10 plants each. The simplest balanced one-way ANOVA.</p>
+<p><strong><code>ToothGrowth</code></strong> (base R, used in Example 2): 2 x 3 factorial experiment. Ideal for teaching two-way ANOVA and interactions.</p>
+<p><strong><code>survival::pbc</code></strong>: Four disease stages with many continuous biomarkers (bilirubin, albumin, etc.) suitable for clinical one-way ANOVA exercises.</p>
+<p><strong><code>agridat</code> package</strong>: Many balanced factorial agricultural/animal experiments suitable for two-way ANOVA.</p>
 </section>
 <section id="what-can-go-wrong" class="level2 callout-warning" data-number="13.7">
 <h2 class="callout-warning anchored" data-number="13.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">13.7</span> What Can Go Wrong</h2>
@@ -839,7 +789,7 @@ Common Misinterpretations � Don’t Make These Mistakes
 <li>Check residual normality with a QQ-plot.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -848,16 +798,21 @@ Exercise 1: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pbc_s <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stage), <span class="sc">!</span><span class="fu">is.na</span>(bili))</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>pbc_s <span class="sc">%&gt;%</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> stage, <span class="at">y =</span> <span class="fu">log</span>(bili), <span class="at">fill =</span> stage)) <span class="sc">+</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Blues"</span>) <span class="sc">+</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"log(Bilirubin)"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stage =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Stage"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>pbc_s <span class="ot">&lt;-</span> pbc <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stage), <span class="sc">!</span><span class="fu">is.na</span>(bili))</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>pbc_s <span class="sc">|&gt;</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> stage, <span class="at">y =</span> <span class="fu">log</span>(bili), <span class="at">fill =</span> stage)) <span class="sc">+</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Blues"</span>) <span class="sc">+</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"log(Bilirubin)"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -865,8 +820,8 @@ Exercise 1: Solution
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fit_bili <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="fu">log</span>(bili) <span class="sc">~</span> stage, <span class="at">data =</span> pbc_s)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_bili)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fit_bili <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="fu">log</span>(bili) <span class="sc">~</span> stage, <span class="at">data =</span> pbc_s)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_bili)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 stage         3   43.1  14.368   15.06 2.58e-09 ***
@@ -874,7 +829,7 @@ Residuals   408  389.3   0.954
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(fit_bili) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(adj.p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(fit_bili) <span class="sc">|&gt;</span> <span class="fu">tidy</span>() <span class="sc">|&gt;</span> <span class="fu">arrange</span>(adj.p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 7
   term  contrast        null.value estimate conf.low conf.high adj.p.value
@@ -886,7 +841,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 5 stage Stage 3-Stage 2          0    0.220  -0.112      0.551 0.320      
 6 stage Stage 2-Stage 1          0    0.319  -0.290      0.929 0.531      </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(fit_bili)); <span class="fu">qqline</span>(<span class="fu">residuals</span>(fit_bili), <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(fit_bili)); <span class="fu">qqline</span>(<span class="fu">residuals</span>(fit_bili), <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -899,17 +854,18 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-2-semi-guided-two-way-anova-for-plantgrowth" class="level3" data-number="13.8.2">
-<h3 data-number="13.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-two-way-anova-for-plantgrowth"><span class="header-section-number">13.8.2</span> Exercise 2 (Semi-guided): Two-Way ANOVA for PlantGrowth</h3>
-<p>Using <code>datasets::PlantGrowth</code>, run a one-way ANOVA comparing weight across the three groups.</p>
+<section id="exercise-2-semi-guided-one-way-anova-for-albumin-by-disease-stage" class="level3" data-number="13.8.2">
+<h3 data-number="13.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-one-way-anova-for-albumin-by-disease-stage"><span class="header-section-number">13.8.2</span> Exercise 2 (Semi-guided): One-Way ANOVA for Albumin by Disease Stage</h3>
+<p>Using <code>survival::pbc</code>, test whether serum albumin differs across the four disease stages.</p>
 <ol type="1">
-<li>Visualise weight by group.</li>
-<li>Run <code>aov(weight ~ group, ...)</code>.</li>
-<li>Post-hoc with Tukey’s HSD.</li>
-<li>Is the assumption of equal variance plausible? Use <code>leveneTest()</code> from the <code>car</code> package or compare group SDs.</li>
+<li>Create a clean PBC tibble with <code>stage</code> as an ordered factor (Stages 1-4) and filter out missing values.</li>
+<li>Plot albumin by stage (boxplot + jitter).</li>
+<li>Run <code>aov(albumin ~ stage, ...)</code>. Report the F-statistic, degrees of freedom, and p-value.</li>
+<li>Run Tukey’s HSD. Which stage pairs are significantly different?</li>
+<li>Check the residual QQ-plot. Is the normality assumption reasonable?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -918,15 +874,24 @@ Exercise 2: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> PlantGrowth <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>pg <span class="sc">%&gt;%</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span> <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stage =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Stage"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)))</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>pbc_s <span class="ot">&lt;-</span> pbc <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stage), <span class="sc">!</span><span class="fu">is.na</span>(albumin))</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>pbc_s <span class="sc">|&gt;</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> stage, <span class="at">y =</span> albumin, <span class="at">fill =</span> stage)) <span class="sc">+</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Blues"</span>) <span class="sc">+</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Serum albumin by disease stage"</span>,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -934,32 +899,35 @@ Exercise 2: Solution
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fit_pg <span class="ot">&lt;-</span> <span class="fu">aov</span>(weight <span class="sc">~</span> group, <span class="at">data =</span> pg)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_pg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fit_alb <span class="ot">&lt;-</span> <span class="fu">aov</span>(albumin <span class="sc">~</span> stage, <span class="at">data =</span> pbc_s)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_alb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)  
-group        2  3.766  1.8832   4.846 0.0159 *
-Residuals   27 10.492  0.3886                 
+<pre><code>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+stage         3   8.88  2.9610   18.59 2.54e-11 ***
+Residuals   408  64.99  0.1593                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(fit_pg) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(fit_alb) <span class="sc">|&gt;</span> <span class="fu">tidy</span>() <span class="sc">|&gt;</span> <span class="fu">arrange</span>(adj.p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 7
-  term  contrast  null.value estimate conf.low conf.high adj.p.value
-  &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-1 group trt1-ctrl          0   -0.371   -1.06      0.320      0.391 
-2 group trt2-ctrl          0    0.494   -0.197     1.19       0.198 
-3 group trt2-trt1          0    0.865    0.174     1.56       0.0120</code></pre>
+<pre><code># A tibble: 6 × 7
+  term  contrast        null.value estimate conf.low conf.high   adj.p.value
+  &lt;chr&gt; &lt;chr&gt;                &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+1 stage Stage 4-Stage 3          0  -0.290    -0.409    -0.171 0.00000000527
+2 stage Stage 4-Stage 2          0  -0.305    -0.442    -0.167 0.000000124  
+3 stage Stage 4-Stage 1          0  -0.403    -0.643    -0.162 0.000115     
+4 stage Stage 3-Stage 1          0  -0.113    -0.352     0.127 0.617        
+5 stage Stage 2-Stage 1          0  -0.0982   -0.347     0.151 0.740        
+6 stage Stage 3-Stage 2          0  -0.0147   -0.150     0.121 0.992        </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pg <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">sd =</span> <span class="fu">sd</span>(weight))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
-  group    sd
-  &lt;fct&gt; &lt;dbl&gt;
-1 ctrl  0.583
-2 trt1  0.794
-3 trt2  0.443</code></pre>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(fit_alb))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">residuals</span>(fit_alb), <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-anova_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -981,7 +949,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>ANOVA tests variances according to its name, so it assumes the group variances are equal. True or false?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -990,7 +958,7 @@ Answers
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>The null hypothesis is that all group population means are equal: <span class="math inline">\(H_0: \mu_1 = \mu_2 = \ldots = \mu_k\)</span>. A significant result means at least one group mean differs from at least one other ? but not which pairs differ.</li>

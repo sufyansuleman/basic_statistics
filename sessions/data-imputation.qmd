@@ -282,6 +282,27 @@ In your own dataset, identify variables with missing data. Determine whether the
 5. Imputing 60% missing is possible but requires careful consideration. The imputed values will be almost entirely model-driven with very little information, so results will be highly sensitive to the imputation model specification. You should perform sensitivity analyses, include many auxiliary variables in the imputation model to improve predictions, use $m \geq 60$ datasets, and consider whether data with 60% missingness can meaningfully contribute to the analysis ? or whether the question should be reframed.
 :::
 
+
+## How to Report
+
+### Reporting Missing Data and Imputation
+
+::: {.callout-note}
+**In a methods section:** "Missing data were handled using multiple imputation with chained equations (MICE), generating M = [number] imputed datasets. Variables used in the imputation model included [list]. Estimates were pooled across imputed datasets using Rubin's rules. A complete-case analysis was performed as a sensitivity analysis."
+
+**In results:** Report the missing data rates explicitly: "Data were missing for bilirubin (3.2%), albumin (1.4%), and copper (24.6%)."
+
+**What to always include:**
+
+- Percentage of missing data per key variable (as a table or in-text)
+- Missing data mechanism assumed (MCAR, MAR, or MNAR) and justification
+- Number of imputed datasets (M ³ 20 is recommended)
+- Variables included in the imputation model
+- Results of the sensitivity analysis (complete-case)
+
+**Avoid:** Simply writing "missing values were excluded" without reporting how many observations were affected or whether data were plausibly missing at random.
+:::
+
 ## Further Reading
 
 - @vanBuuren-2018 --- *Flexible Imputation of Missing Data* (free online: [https://stefvanbuuren.name/fimd/](https://stefvanbuuren.name/fimd/))

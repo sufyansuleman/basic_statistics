@@ -404,6 +404,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -418,19 +424,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -448,12 +454,12 @@ window.Quarto = {
   <li><a href="#sec-power" id="toc-sec-power" class="nav-link active" data-scroll-target="#sec-power"><span class="header-section-number">15.1</span> When Do You Use This?</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">15.2</span> Learning Objectives</a></li>
   <li><a href="#background-power-and-its-components" id="toc-background-power-and-its-components" class="nav-link" data-scroll-target="#background-power-and-its-components"><span class="header-section-number">15.3</span> Background: Power and Its Components</a></li>
-  <li><a href="#example-1-clinical-trial-two-sample-t-test" id="toc-example-1-clinical-trial-two-sample-t-test" class="nav-link" data-scroll-target="#example-1-clinical-trial-two-sample-t-test"><span class="header-section-number">15.4</span> Example 1: Clinical Trial (Two-Sample t-test)</a>
+  <li><a href="#example-1-mouse-experiment-two-sample-t-test" id="toc-example-1-mouse-experiment-two-sample-t-test" class="nav-link" data-scroll-target="#example-1-mouse-experiment-two-sample-t-test"><span class="header-section-number">15.4</span> Example 1: Mouse Experiment (Two-Sample t-test)</a>
   <ul class="collapse">
   <li><a href="#power-curve-n-vs-power" id="toc-power-curve-n-vs-power" class="nav-link" data-scroll-target="#power-curve-n-vs-power"><span class="header-section-number">15.4.1</span> Power Curve: n vs Power</a></li>
-  <li><a href="#sensitivity-analysis-varying-effect-size" id="toc-sensitivity-analysis-varying-effect-size" class="nav-link" data-scroll-target="#sensitivity-analysis-varying-effect-size"><span class="header-section-number">15.4.2</span> Sensitivity Analysis: Varying Effect Size</a></li>
+  <li><a href="#sensitivity-analysis-what-if-the-pilot-sd-was-underestimated" id="toc-sensitivity-analysis-what-if-the-pilot-sd-was-underestimated" class="nav-link" data-scroll-target="#sensitivity-analysis-what-if-the-pilot-sd-was-underestimated"><span class="header-section-number">15.4.2</span> Sensitivity Analysis: What If the Pilot SD Was Underestimated?</a></li>
   </ul></li>
-  <li><a href="#example-2-animal-experiment-two-proportions" id="toc-example-2-animal-experiment-two-proportions" class="nav-link" data-scroll-target="#example-2-animal-experiment-two-proportions"><span class="header-section-number">15.5</span> Example 2: Animal Experiment (Two Proportions)</a>
+  <li><a href="#example-2-clinical-trial-two-proportions" id="toc-example-2-clinical-trial-two-proportions" class="nav-link" data-scroll-target="#example-2-clinical-trial-two-proportions"><span class="header-section-number">15.5</span> Example 2: Clinical Trial (Two Proportions)</a>
   <ul class="collapse">
   <li><a href="#power-curve-for-proportions" id="toc-power-curve-for-proportions" class="nav-link" data-scroll-target="#power-curve-for-proportions"><span class="header-section-number">15.5.1</span> Power Curve for Proportions</a></li>
   </ul></li>
@@ -461,12 +467,13 @@ window.Quarto = {
   <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">15.7</span> What Can Go Wrong</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">15.8</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-guided-sample-size-for-a-bilirubin-comparison" id="toc-exercise-1-guided-sample-size-for-a-bilirubin-comparison" class="nav-link" data-scroll-target="#exercise-1-guided-sample-size-for-a-bilirubin-comparison"><span class="header-section-number">15.8.1</span> Exercise 1 (Guided): Sample Size for a Bilirubin Comparison</a></li>
-  <li><a href="#exercise-2-semi-guided-mouse-experiment-planning" id="toc-exercise-2-semi-guided-mouse-experiment-planning" class="nav-link" data-scroll-target="#exercise-2-semi-guided-mouse-experiment-planning"><span class="header-section-number">15.8.2</span> Exercise 2 (Semi-guided): Mouse Experiment Planning</a></li>
+  <li><a href="#exercise-1-guided-using-existing-data-to-plan-a-new-study" id="toc-exercise-1-guided-using-existing-data-to-plan-a-new-study" class="nav-link" data-scroll-target="#exercise-1-guided-using-existing-data-to-plan-a-new-study"><span class="header-section-number">15.8.1</span> Exercise 1 (Guided): Using Existing Data to Plan a New Study</a></li>
+  <li><a href="#exercise-2-semi-guided-mouse-tumour-response-experiment" id="toc-exercise-2-semi-guided-mouse-tumour-response-experiment" class="nav-link" data-scroll-target="#exercise-2-semi-guided-mouse-tumour-response-experiment"><span class="header-section-number">15.8.2</span> Exercise 2 (Semi-guided): Mouse Tumour Response Experiment</a></li>
   <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">15.8.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
   <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">15.9</span> Comprehension Check</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">15.10</span> Further Reading</a></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">15.10</span> How to Report</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">15.11</span> Further Reading</a></li>
   </ul>
 </nav>
     </div>
@@ -575,22 +582,22 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
-<section id="example-1-clinical-trial-two-sample-t-test" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="example-1-clinical-trial-two-sample-t-test"><span class="header-section-number">15.4</span> Example 1: Clinical Trial (Two-Sample t-test)</h2>
-<p>We plan to compare albumin between two treatment groups. From prior data, we expect:</p>
+<section id="example-1-mouse-experiment-two-sample-t-test" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="example-1-mouse-experiment-two-sample-t-test"><span class="header-section-number">15.4</span> Example 1: Mouse Experiment (Two-Sample t-test)</h2>
+<p>You are testing whether a new drug reduces tumour volume. From a pilot experiment (n = 5 per group), you estimate:</p>
 <ul>
-<li>Group difference: 0.3 g/dL</li>
-<li>Pooled SD: 0.4 g/dL (so Cohen’s d ? 0.75)</li>
-<li><span class="math inline">\(\alpha = 0.05\)</span>, power = 0.80</li>
+<li>Expected reduction in mean tumour volume: <strong>150 mm3</strong></li>
+<li>Pooled SD from pilot data: <strong>200 mm3</strong> (so Cohen’s d = 150/200 = 0.75)</li>
+<li>alpha = 0.05, power = 0.80, two-sided</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base R: power.t.test</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base R</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">delta =</span> <span class="fl">0.3</span>,     <span class="co"># expected difference in means</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd    =</span> <span class="fl">0.4</span>,     <span class="co"># pooled standard deviation</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">delta     =</span> <span class="dv">150</span>,    <span class="co"># expected difference in means (mm3)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd        =</span> <span class="dv">200</span>,    <span class="co"># pooled SD from pilot</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.80</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">type  =</span> <span class="st">"two.sample"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">power     =</span> <span class="fl">0.80</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">type      =</span> <span class="st">"two.sample"</span>,</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -598,8 +605,8 @@ window.Quarto = {
      Two-sample t test power calculation 
 
               n = 28.89962
-          delta = 0.3
-             sd = 0.4
+          delta = 150
+             sd = 200
       sig.level = 0.05
           power = 0.8
     alternative = two.sided
@@ -610,17 +617,14 @@ NOTE: n is number in *each* group</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pwr)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="sc">/</span> <span class="fl">0.4</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># pwr package</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.t.test</span>(</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">d =</span> d,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.80</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"two.sample"</span>,</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="dv">150</span> <span class="sc">/</span> <span class="dv">200</span>   <span class="co"># Cohen's d</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.t.test</span>(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">d         =</span> d,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">power     =</span> <span class="fl">0.80</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">type      =</span> <span class="st">"two.sample"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      Two-sample t test power calculation 
@@ -634,30 +638,32 @@ NOTE: n is number in *each* group</code></pre>
 NOTE: n is number in *each* group</code></pre>
 </div>
 </div>
-<p>Both functions agree: we need approximately <strong>n per group</strong>. Always round up.</p>
+<p>Both functions agree: approximately <strong>29 mice per group</strong> (round up). Always round up.</p>
 <section id="power-curve-n-vs-power" class="level3" data-number="15.4.1">
 <h3 data-number="15.4.1" class="anchored" data-anchor-id="power-curve-n-vs-power"><span class="header-section-number">15.4.1</span> Power Curve: n vs Power</h3>
-<p>Plotting power as a function of sample size reveals the trade-off and helps justify your choice.</p>
+<p>Plot power as a function of sample size to see the trade-off and justify your choice:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>power_vals <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(n_seq, <span class="sc">~</span> <span class="fu">pwr.t.test</span>(</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> .x,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">d =</span> d,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n         =</span> .x,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">d         =</span> d,</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"two.sample"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">type      =</span> <span class="st">"two.sample"</span>,</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)<span class="sc">$</span>power)</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">n =</span> n_seq, <span class="at">power =</span> power_vals) <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">n =</span> n_seq, <span class="at">power =</span> power_vals) <span class="sc">|&gt;</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> power)) <span class="sc">+</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.80</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">100</span>, <span class="at">y =</span> <span class="fl">0.81</span>, <span class="at">label =</span> <span class="st">"80% power"</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">colour =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.80</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">78</span>, <span class="at">y =</span> <span class="fl">0.81</span>, <span class="at">label =</span> <span class="st">"80% power"</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Power curve: two-sample t-test (d = 0.75)"</span>,</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"n per group"</span>, <span class="at">y =</span> <span class="st">"Power"</span>) <span class="sc">+</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Power curve: two-sample t-test (d = 0.75, mouse tumour experiment)"</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"n per group"</span>, <span class="at">y =</span> <span class="st">"Power"</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -667,26 +673,31 @@ NOTE: n is number in *each* group</code></pre>
 </div>
 </div>
 </section>
-<section id="sensitivity-analysis-varying-effect-size" class="level3" data-number="15.4.2">
-<h3 data-number="15.4.2" class="anchored" data-anchor-id="sensitivity-analysis-varying-effect-size"><span class="header-section-number">15.4.2</span> Sensitivity Analysis: Varying Effect Size</h3>
-<p>It is often uncertain how large the true effect is. Show how the required <span class="math inline">\(n\)</span> changes across a plausible range of effect sizes:</p>
+<section id="sensitivity-analysis-what-if-the-pilot-sd-was-underestimated" class="level3" data-number="15.4.2">
+<h3 data-number="15.4.2" class="anchored" data-anchor-id="sensitivity-analysis-what-if-the-pilot-sd-was-underestimated"><span class="header-section-number">15.4.2</span> Sensitivity Analysis: What If the Pilot SD Was Underestimated?</h3>
+<p>Pilot studies often underestimate variability. Show how required n grows if SD is larger:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>d_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.3</span>, <span class="fl">1.0</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>n_required <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(d_seq, <span class="sc">~</span> <span class="fu">ceiling</span>(<span class="fu">pwr.t.test</span>(</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">d =</span> .x,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.80</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"two.sample"</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>)<span class="sc">$</span>n))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">d =</span> d_seq, <span class="at">n_per_group =</span> n_required) <span class="sc">%&gt;%</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> d, <span class="at">y =</span> n_per_group)) <span class="sc">+</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Required sample size by effect size (a=0.05, power=80%)"</span>,</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Cohen's d"</span>, <span class="at">y =</span> <span class="st">"n per group"</span>) <span class="sc">+</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># d decreases as SD grows (fixed delta = 150)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sd_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">150</span>, <span class="dv">350</span>, <span class="at">by =</span> <span class="dv">25</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>n_required <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(sd_seq, <span class="sc">~</span> <span class="fu">ceiling</span>(<span class="fu">pwr.t.test</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">d         =</span> <span class="dv">150</span> <span class="sc">/</span> .x,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">power     =</span> <span class="fl">0.80</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">type      =</span> <span class="st">"two.sample"</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>)<span class="sc">$</span>n))</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">sd =</span> sd_seq, <span class="at">n_per_group =</span> n_required) <span class="sc">|&gt;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sd, <span class="at">y =</span> n_per_group)) <span class="sc">+</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">colour =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">200</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">202</span>, <span class="at">y =</span> <span class="dv">200</span>, <span class="at">label =</span> <span class="st">"Pilot estimate"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"n required as SD increases (delta = 150, alpha = 0.05, power = 80%)"</span>,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Pooled SD (mm3)"</span>, <span class="at">y =</span> <span class="st">"n per group"</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -695,11 +706,12 @@ NOTE: n is number in *each* group</code></pre>
 </div>
 </div>
 </div>
+<p>If the true SD is 300 (not 200), you need more than twice as many mice. <strong>Be conservative with your SD estimate.</strong></p>
 </section>
 </section>
-<section id="example-2-animal-experiment-two-proportions" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="example-2-animal-experiment-two-proportions"><span class="header-section-number">15.5</span> Example 2: Animal Experiment (Two Proportions)</h2>
-<p>You expect the control group to have a 40% tumour response rate, and you want to detect an increase to 65% with the treatment. How many mice per group do you need?</p>
+<section id="example-2-clinical-trial-two-proportions" class="level2" data-number="15.5">
+<h2 data-number="15.5" class="anchored" data-anchor-id="example-2-clinical-trial-two-proportions"><span class="header-section-number">15.5</span> Example 2: Clinical Trial (Two Proportions)</h2>
+<p>You are planning a clinical trial of a new treatment. The control response rate is 40%; you want to detect an increase to 65% with 80% power at alpha = 0.05.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's h for proportions</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">ES.h</span>(<span class="fl">0.65</span>, <span class="fl">0.40</span>)</span>
@@ -709,9 +721,9 @@ NOTE: n is number in *each* group</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample size</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.2p.test</span>(</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">h =</span> h,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">h         =</span> h,</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.80</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">power     =</span> <span class="fl">0.80</span>,</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -728,12 +740,12 @@ NOTE: same sample sizes</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative: base R</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-check with base R</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">power.prop.test</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">p1 =</span> <span class="fl">0.40</span>,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">p2 =</span> <span class="fl">0.65</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">p1        =</span> <span class="fl">0.40</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">p2        =</span> <span class="fl">0.65</span>,</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.80</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">power     =</span> <span class="fl">0.80</span></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -752,23 +764,25 @@ NOTE: n is number in *each* group</code></pre>
 <section id="power-curve-for-proportions" class="level3" data-number="15.5.1">
 <h3 data-number="15.5.1" class="anchored" data-anchor-id="power-curve-for-proportions"><span class="header-section-number">15.5.1</span> Power Curve for Proportions</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>n_seq2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>n_seq2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>pow2 <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(n_seq2, <span class="sc">~</span> <span class="fu">pwr.2p.test</span>(</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> .x,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">h =</span> h,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n         =</span> .x,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">h         =</span> h,</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>)<span class="sc">$</span>power)</span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">n =</span> n_seq2, <span class="at">power =</span> pow2) <span class="sc">%&gt;%</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">n =</span> n_seq2, <span class="at">power =</span> pow2) <span class="sc">|&gt;</span></span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> power)) <span class="sc">+</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.80</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">colour =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.80</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Power curve: two-proportion test (h = 0.51)"</span>,</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"n per group"</span>, <span class="at">y =</span> <span class="st">"Power"</span>) <span class="sc">+</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Power curve: two-proportion test (h = 0.51, 40% vs 65% response)"</span>,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"n per group"</span>, <span class="at">y =</span> <span class="st">"Power"</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -781,10 +795,10 @@ NOTE: n is number in *each* group</code></pre>
 </section>
 <section id="where-to-find-data-like-this" class="level2 callout-note" data-number="15.6">
 <h2 class="callout-note anchored" data-number="15.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">15.6</span> Where to Find Data Like This</h2>
-<p><strong>Pilot data:</strong> The best source for expected effect sizes is your own pilot experiment. Even n = 5 per group can give a rough SD estimate to inform power calculations.</p>
-<p><strong>Literature values:</strong> Meta-analyses and prior published studies in your field often report effect sizes or mean differences and SDs. These should be adjusted conservatively ? published effects are often inflated by publication bias.</p>
-<p><strong><code>pwr</code> package:</strong> <code>pwr.t.test()</code>, <code>pwr.2p.test()</code>, <code>pwr.chisq.test()</code>, <code>pwr.anova.test()</code> ? covers most common tests.</p>
-<p>**G*Power software:** Free standalone tool (gpower.hhu.de) popular in clinical and behavioural research.</p>
+<p><strong>Your own pilot data:</strong> The best source for SD estimates. Even n = 5 per group gives a useful starting point.</p>
+<p><strong><code>survival::pbc</code>:</strong> A published clinical dataset — useful for deriving realistic SD and mean estimates for planning a new study in a similar patient population (see Exercise 1).</p>
+<p><strong><code>pwr</code> package:</strong> <code>pwr.t.test()</code>, <code>pwr.2p.test()</code>, <code>pwr.chisq.test()</code>, <code>pwr.anova.test()</code> — covers all common designs.</p>
+<p><strong>G*Power software:</strong> Free standalone tool (gpower.hhu.de) — popular in clinical and behavioural research, good for cross-checking R results.</p>
 </section>
 <section id="what-can-go-wrong" class="level2 callout-warning" data-number="15.7">
 <h2 class="callout-warning anchored" data-number="15.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">15.7</span> What Can Go Wrong</h2>
@@ -796,14 +810,15 @@ NOTE: n is number in *each* group</code></pre>
 </section>
 <section id="exercises" class="level2" data-number="15.8">
 <h2 data-number="15.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">15.8</span> Exercises</h2>
-<section id="exercise-1-guided-sample-size-for-a-bilirubin-comparison" class="level3" data-number="15.8.1">
-<h3 data-number="15.8.1" class="anchored" data-anchor-id="exercise-1-guided-sample-size-for-a-bilirubin-comparison"><span class="header-section-number">15.8.1</span> Exercise 1 (Guided): Sample Size for a Bilirubin Comparison</h3>
-<p>You plan a study comparing log(bilirubin) between two treatment groups. From <code>pbc</code> data, estimate the pooled SD and assume you want to detect a 0.4-unit difference on the log scale.</p>
+<section id="exercise-1-guided-using-existing-data-to-plan-a-new-study" class="level3" data-number="15.8.1">
+<h3 data-number="15.8.1" class="anchored" data-anchor-id="exercise-1-guided-using-existing-data-to-plan-a-new-study"><span class="header-section-number">15.8.1</span> Exercise 1 (Guided): Using Existing Data to Plan a New Study</h3>
+<p>A common situation: you want to plan a new clinical study but have no pilot data. You can use a published dataset with a similar patient population to estimate the pooled SD.</p>
+<p>Using <code>survival::pbc</code>, estimate the pooled SD of log(bilirubin) in the two treatment groups. Then calculate the sample size needed to detect a 0.4-unit difference on the log scale.</p>
 <ol type="1">
-<li>Calculate the pooled SD from <code>pbc</code> (filter to randomised patients only).</li>
-<li>Compute Cohen’s d.</li>
-<li>Run <code>pwr.t.test()</code> at a = 0.05, power = 0.80.</li>
-<li>Plot the power curve.</li>
+<li>Load <code>pbc</code>, filter to randomised patients, compute pooled SD of <code>log(bili)</code> by treatment group.</li>
+<li>Compute Cohen’s d assuming delta = 0.4.</li>
+<li>Run <code>pwr.t.test()</code> at alpha = 0.05, power = 0.80.</li>
+<li>Plot the power curve. At what n does power first exceed 80%?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -818,15 +833,15 @@ Exercise 1: Solution
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trt =</span> <span class="fu">factor</span>(trt))</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(bili))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="ot">&lt;-</span> pbc <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(bili))</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>sd_vals <span class="ot">&lt;-</span> pbc_rand <span class="sc">%&gt;%</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trt) <span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>sd_vals <span class="ot">&lt;-</span> pbc_rand <span class="sc">|&gt;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trt) <span class="sc">|&gt;</span></span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sd =</span> <span class="fu">sd</span>(<span class="fu">log</span>(bili)), <span class="at">n =</span> <span class="fu">n</span>())</span>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sd_vals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -863,10 +878,10 @@ NOTE: n is number in *each* group</code></pre>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>n_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>pw <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(n_seq, <span class="sc">~</span> <span class="fu">pwr.t.test</span>(<span class="at">n =</span> .x, <span class="at">d =</span> d_bili, <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">type =</span> <span class="st">"two.sample"</span>)<span class="sc">$</span>power)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">n =</span> n_seq, <span class="at">power =</span> pw) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">n =</span> n_seq, <span class="at">power =</span> pw) <span class="sc">|&gt;</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(n, power)) <span class="sc">+</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.8</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.8</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"n per group"</span>, <span class="at">y =</span> <span class="st">"Power"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -881,13 +896,13 @@ NOTE: n is number in *each* group</code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-2-semi-guided-mouse-experiment-planning" class="level3" data-number="15.8.2">
-<h3 data-number="15.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-mouse-experiment-planning"><span class="header-section-number">15.8.2</span> Exercise 2 (Semi-guided): Mouse Experiment Planning</h3>
-<p>You are designing a survival experiment: control group expected to have 30% survival, treated group expected to have 55% survival.</p>
+<section id="exercise-2-semi-guided-mouse-tumour-response-experiment" class="level3" data-number="15.8.2">
+<h3 data-number="15.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-mouse-tumour-response-experiment"><span class="header-section-number">15.8.2</span> Exercise 2 (Semi-guided): Mouse Tumour Response Experiment</h3>
+<p>You are planning an in vivo experiment. The control group is expected to have a 30% tumour response rate; the treated group 55%.</p>
 <ol type="1">
 <li>Compute Cohen’s h using <code>ES.h(0.55, 0.30)</code>.</li>
-<li>Calculate n per group at a = 0.05, power = 0.80.</li>
-<li>You expect 20% cage dropout. How many mice should you enrol?</li>
+<li>Calculate n per group at alpha = 0.05, power = 0.80 using <code>pwr.2p.test()</code>.</li>
+<li>You expect 20% cage dropout. How many mice should you enrol per group?</li>
 <li>How does the required n change if you increase power to 90%?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -974,8 +989,29 @@ Answers
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="15.10">
-<h2 data-number="15.10" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">15.10</span> Further Reading</h2>
+<section id="how-to-report" class="level2" data-number="15.10">
+<h2 data-number="15.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">15.10</span> How to Report</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reporting a Power Calculation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>In a Methods section (grant application or ethics submission):</strong></p>
+<blockquote class="blockquote">
+<p>“Sample size was calculated a priori using the <code>pwr</code> package in R (v4.x). Assuming an effect size of Cohen’s <em>d</em> = 0.5 (medium effect), α = 0.05 (two-sided), and 80% power, a minimum of XX participants per group (YY total) is required. Effect size was estimated from [pilot data / prior literature (cite)]. A 10% dropout allowance was added, giving a final target of ZZ participants per group.”</p>
+</blockquote>
+<p><strong>Key elements to include:</strong> - Software or formula used for the calculation - Assumed effect size and its justification (pilot data or literature) - α level and whether one- or two-sided - Target power (usually 80% or 90%) - Any attrition/dropout allowance added</p>
+<p><strong>Common reporting errors:</strong> - Using a “medium” Cohen’s <em>d</em> = 0.5 without clinical justification — reviewers will question this - Reporting only the total N, not per-group N - Not reporting the assumed effect size — makes the calculation unverifiable - Post-hoc power calculations on observed effect sizes — these are misleading and now widely discouraged</p>
+</div>
+</div>
+</section>
+<section id="further-reading" class="level2" data-number="15.11">
+<h2 data-number="15.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">15.11</span> Further Reading</h2>
 <ul>
 <li><span class="citation" data-cites="Cohen-1988">Cohen (<a href="#ref-Cohen-1988" role="doc-biblioref">1988</a>)</span> — <em>Statistical Power Analysis for the Behavioral Sciences</em> ? the original reference for effect sizes and power tables</li>
 <li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span> — Sample size chapters in <em>An Introduction to Medical Statistics</em></li>

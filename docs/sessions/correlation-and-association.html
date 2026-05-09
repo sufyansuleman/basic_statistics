@@ -404,6 +404,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -418,19 +424,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -448,20 +454,24 @@ window.Quarto = {
   <li><a href="#sec-correlation" id="toc-sec-correlation" class="nav-link active" data-scroll-target="#sec-correlation"><span class="header-section-number">16.1</span> When Do You Use This?</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">16.2</span> Learning Objectives</a></li>
   <li><a href="#background-measuring-linear-association" id="toc-background-measuring-linear-association" class="nav-link" data-scroll-target="#background-measuring-linear-association"><span class="header-section-number">16.3</span> Background: Measuring Linear Association</a></li>
-  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">16.4</span> Example 1: Clinical Data (PBC)</a>
+  <li><a href="#example-1-ecology-data-palmerpenguins" id="toc-example-1-ecology-data-palmerpenguins" class="nav-link" data-scroll-target="#example-1-ecology-data-palmerpenguins"><span class="header-section-number">16.4</span> Example 1: Ecology Data (palmerpenguins)</a>
   <ul class="collapse">
-  <li><a href="#pairwise-correlations" id="toc-pairwise-correlations" class="nav-link" data-scroll-target="#pairwise-correlations"><span class="header-section-number">16.4.1</span> Pairwise Correlations</a></li>
-  <li><a href="#scatter-plot-with-smooth" id="toc-scatter-plot-with-smooth" class="nav-link" data-scroll-target="#scatter-plot-with-smooth"><span class="header-section-number">16.4.2</span> Scatter Plot with Smooth</a></li>
-  <li><a href="#correlation-matrix" id="toc-correlation-matrix" class="nav-link" data-scroll-target="#correlation-matrix"><span class="header-section-number">16.4.3</span> Correlation Matrix</a></li>
-  <li><a href="#testing-multiple-correlations" id="toc-testing-multiple-correlations" class="nav-link" data-scroll-target="#testing-multiple-correlations"><span class="header-section-number">16.4.4</span> Testing Multiple Correlations</a></li>
+  <li><a href="#pearson-correlation-bill-length-vs-body-mass" id="toc-pearson-correlation-bill-length-vs-body-mass" class="nav-link" data-scroll-target="#pearson-correlation-bill-length-vs-body-mass"><span class="header-section-number">16.4.1</span> Pearson Correlation: Bill Length vs Body Mass</a></li>
+  <li><a href="#correlation-matrix" id="toc-correlation-matrix" class="nav-link" data-scroll-target="#correlation-matrix"><span class="header-section-number">16.4.2</span> Correlation Matrix</a></li>
+  <li><a href="#simpsons-paradox-bill-dimensions" id="toc-simpsons-paradox-bill-dimensions" class="nav-link" data-scroll-target="#simpsons-paradox-bill-dimensions"><span class="header-section-number">16.4.3</span> Simpson’s Paradox: Bill Dimensions</a></li>
   </ul></li>
-  <li><a href="#example-2-animal-data-palmerpenguins" id="toc-example-2-animal-data-palmerpenguins" class="nav-link" data-scroll-target="#example-2-animal-data-palmerpenguins"><span class="header-section-number">16.5</span> Example 2: Animal Data (palmerpenguins)</a></li>
+  <li><a href="#example-2-clinical-data-pbc" id="toc-example-2-clinical-data-pbc" class="nav-link" data-scroll-target="#example-2-clinical-data-pbc"><span class="header-section-number">16.5</span> Example 2: Clinical Data (PBC)</a>
+  <ul class="collapse">
+  <li><a href="#pearson-vs-spearman-albumin-and-bilirubin" id="toc-pearson-vs-spearman-albumin-and-bilirubin" class="nav-link" data-scroll-target="#pearson-vs-spearman-albumin-and-bilirubin"><span class="header-section-number">16.5.1</span> Pearson vs Spearman: Albumin and Bilirubin</a></li>
+  <li><a href="#clinical-correlation-matrix" id="toc-clinical-correlation-matrix" class="nav-link" data-scroll-target="#clinical-correlation-matrix"><span class="header-section-number">16.5.2</span> Clinical Correlation Matrix</a></li>
+  <li><a href="#multiple-correlations-with-adjustment" id="toc-multiple-correlations-with-adjustment" class="nav-link" data-scroll-target="#multiple-correlations-with-adjustment"><span class="header-section-number">16.5.3</span> Multiple Correlations with Adjustment</a></li>
+  </ul></li>
   <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">16.6</span> Where to Find Data Like This</a></li>
   <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">16.7</span> What Can Go Wrong</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">16.8</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-guided-albumin-and-prothrombin-time" id="toc-exercise-1-guided-albumin-and-prothrombin-time" class="nav-link" data-scroll-target="#exercise-1-guided-albumin-and-prothrombin-time"><span class="header-section-number">16.8.1</span> Exercise 1 (Guided): Albumin and Prothrombin Time</a></li>
-  <li><a href="#exercise-2-semi-guided-penguin-correlation-matrix" id="toc-exercise-2-semi-guided-penguin-correlation-matrix" class="nav-link" data-scroll-target="#exercise-2-semi-guided-penguin-correlation-matrix"><span class="header-section-number">16.8.2</span> Exercise 2 (Semi-guided): Penguin Correlation Matrix</a></li>
+  <li><a href="#exercise-1-guided-flipper-length-vs-body-mass-penguins" id="toc-exercise-1-guided-flipper-length-vs-body-mass-penguins" class="nav-link" data-scroll-target="#exercise-1-guided-flipper-length-vs-body-mass-penguins"><span class="header-section-number">16.8.1</span> Exercise 1 (Guided): Flipper Length vs Body Mass (penguins)</a></li>
+  <li><a href="#exercise-2-semi-guided-albumin-and-prothrombin-time-pbc" id="toc-exercise-2-semi-guided-albumin-and-prothrombin-time-pbc" class="nav-link" data-scroll-target="#exercise-2-semi-guided-albumin-and-prothrombin-time-pbc"><span class="header-section-number">16.8.2</span> Exercise 2 (Semi-guided): Albumin and Prothrombin Time (PBC)</a></li>
   <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">16.8.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
   <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">16.9</span> Comprehension Check</a></li>
@@ -547,31 +557,33 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
-<section id="example-1-clinical-data-pbc" class="level2" data-number="16.4">
-<h2 data-number="16.4" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">16.4</span> Example 1: Clinical Data (PBC)</h2>
-<section id="pairwise-correlations" class="level3" data-number="16.4.1">
-<h3 data-number="16.4.1" class="anchored" data-anchor-id="pairwise-correlations"><span class="header-section-number">16.4.1</span> Pairwise Correlations</h3>
+<section id="example-1-ecology-data-palmerpenguins" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="example-1-ecology-data-palmerpenguins"><span class="header-section-number">16.4</span> Example 1: Ecology Data (palmerpenguins)</h2>
+<p>Penguin body measurements are intuitive: does a longer bill go with a deeper bill? Does body mass predict flipper length? The <code>palmerpenguins</code> dataset is ideal for introducing correlation because the biology makes sense and it contains a famous cautionary tale about confounding.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(platelet))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'palmerpenguins' was built under R version 4.3.3</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(bill_length_mm, bill_depth_mm, body_mass_g, flipper_length_mm, species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="pearson-correlation-bill-length-vs-body-mass" class="level3" data-number="16.4.1">
+<h3 data-number="16.4.1" class="anchored" data-anchor-id="pearson-correlation-bill-length-vs-body-mass"><span class="header-section-number">16.4.1</span> Pearson Correlation: Bill Length vs Body Mass</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pearson correlation: albumin vs bilirubin</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(pbc<span class="sc">$</span>albumin, <span class="fu">log</span>(pbc<span class="sc">$</span>bili), <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(penguins_clean<span class="sc">$</span>bill_length_mm, penguins_clean<span class="sc">$</span>body_mass_g, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
 
-data:  pbc$albumin and log(pbc$bili)
-t = -7.2097, df = 403, p-value = 2.791e-12
+data:  penguins_clean$bill_length_mm and penguins_clean$body_mass_g
+t = 13.654, df = 340, p-value &lt; 2.2e-16
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- -0.4215627 -0.2487526
+ 0.5220040 0.6595358
 sample estimates:
-       cor 
--0.3380035 </code></pre>
+      cor 
+0.5951098 </code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -580,18 +592,14 @@ sample estimates:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Reading the <code>cor.test()</code> Output � Line by Line
+Reading the <code>cor.test()</code> Output Line by Line
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <pre><code>Pearson's product-moment correlation
-
-t = -8.4, df = 310, p-value &lt; 0.001
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval: -0.45  -0.29
-sample estimates:
-   cor
--0.37</code></pre>
+t = 15.4, df = 340, p-value &lt; 0.001
+95 percent confidence interval:  0.55  0.69
+sample estimates: cor = 0.60</code></pre>
 <table class="table">
 <colgroup>
 <col style="width: 50%">
@@ -605,88 +613,166 @@ sample estimates:
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>t = -8.4</strong></td>
-<td>The test statistic used to test whether r ? 0. Calculated as rv(n-2) / v(1-r�). Large absolute value ? strong evidence against r = 0.</td>
+<td><strong>t = 15.4</strong></td>
+<td>Test statistic for H0: r = 0. Calculated as r x sqrt(n-2) / sqrt(1-r^2). Large absolute value = strong evidence r != 0.</td>
 </tr>
 <tr class="even">
-<td><strong>df = 310</strong></td>
-<td>Degrees of freedom = n - 2. Here n = 312 patients, so df = 310.</td>
+<td><strong>df = 340</strong></td>
+<td>Degrees of freedom = n - 2</td>
 </tr>
 <tr class="odd">
-<td><strong>p-value &lt; 0.001</strong></td>
-<td>If the true correlation were zero, we would almost never see r this large by chance.</td>
+<td><strong>p &lt; 0.001</strong></td>
+<td>If true r were zero, we would almost never see this by chance</td>
 </tr>
 <tr class="even">
-<td><strong>95% CI: -0.45 to -0.29</strong></td>
-<td>The range of plausible values for the true population correlation. Excludes zero � consistent with the p-value.</td>
+<td><strong>95% CI: 0.55 to 0.69</strong></td>
+<td>Plausible range for the true population correlation. CI excludes zero.</td>
 </tr>
 <tr class="odd">
-<td><strong>cor = -0.37</strong></td>
-<td>The Pearson r coefficient. Ranges from -1 (perfect negative) to +1 (perfect positive). 0 = no linear relationship.</td>
+<td><strong>r = 0.60</strong></td>
+<td>Medium-to-large positive association. Longer bills go with heavier birds.</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Effect size benchmarks (Cohen, 1988):</strong></p>
-<table class="table">
-<thead>
-<tr class="header">
-<th></th>
-<th>r</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0.10</td>
-<td>Small</td>
-</tr>
-<tr class="even">
-<td>0.30</td>
-<td>Medium</td>
-</tr>
-<tr class="odd">
-<td>0.50</td>
-<td>Large</td>
-</tr>
-</tbody>
-</table>
-<p>Note: r� = 0.37� = 0.14 � bilirubin explains 14% of the variance in albumin. Always report r� alongside r for a complete picture.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-What Does This Actually Tell Us?
+<p>r^2 = 0.36: bill length explains 36% of variance in body mass. Effect size benchmarks (Cohen, 1988): |r| = 0.10 small / 0.30 medium / 0.50 large.</p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<blockquote class="blockquote">
-<p><em>“Higher bilirubin was moderately negatively correlated with albumin (Pearson r = -0.37, 95% CI: -0.45 to -0.29, p &lt; 0.001). As bilirubin increased, albumin tended to be lower, consistent with progressive liver dysfunction.”</em></p>
-</blockquote>
-<p>An r of -0.37 is a <strong>medium-to-large</strong> correlation by conventional benchmarks, but in clinical data this is often as strong as you will see. Context matters: an r of 0.2 between a biomarker and an outcome may be clinically important if the biomarker is cheap and easy to measure.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> body_mass_g, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="st">"grey30"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>, <span class="st">"seagreen"</span>)) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bill length vs body mass (all species combined)"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Bill length (mm)"</span>, <span class="at">y =</span> <span class="st">"Body mass (g)"</span>) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation-and-association_files/figure-html/penguin-scatter-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="correlation-matrix" class="level3" data-number="16.4.2">
+<h3 data-number="16.4.2" class="anchored" data-anchor-id="correlation-matrix"><span class="header-section-number">16.4.2</span> Correlation Matrix</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>peng_num <span class="ot">&lt;-</span> penguins_clean <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(peng_num, <span class="at">method =</span> <span class="st">"pearson"</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+bill_length_mm              1.00         -0.24              0.66        0.60
+bill_depth_mm              -0.24          1.00             -0.58       -0.47
+flipper_length_mm           0.66         -0.58              1.00        0.87
+body_mass_g                 0.60         -0.47              0.87        1.00</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  peng_num,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"points"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">0.8</span>)),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">method =</span> <span class="st">"pearson"</span>)),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag  =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"densityDiag"</span>))</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation-and-association_files/figure-html/penguin-ggpairs-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>GGally::ggpairs()</code> shows scatterplots (lower), Pearson correlations (upper), and density plots (diagonal) in one call. Flipper length and body mass are strongly correlated (r ~ 0.87).</p>
+</section>
+<section id="simpsons-paradox-bill-dimensions" class="level3" data-number="16.4.3">
+<h3 data-number="16.4.3" class="anchored" data-anchor-id="simpsons-paradox-bill-dimensions"><span class="header-section-number">16.4.3</span> Simpson’s Paradox: Bill Dimensions</h3>
+<p>The overall correlation between bill length and bill depth is <strong>negative</strong> (-0.23). Within each species it is <strong>positive</strong>. This is Simpson’s Paradox – always check for a grouping variable before reporting an unexpected correlation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>, <span class="st">"seagreen"</span>)) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Simpson's Paradox: bill dimensions in penguins"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Dashed = overall (negative); coloured = within-species (positive)"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Bill length (mm)"</span>, <span class="at">y =</span> <span class="st">"Bill depth (mm)"</span>) <span class="sc">+</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation-and-association_files/figure-html/simpsons-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Within-species correlations</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">r =</span> <span class="fu">round</span>(<span class="fu">cor</span>(bill_length_mm, bill_depth_mm, <span class="at">method =</span> <span class="st">"pearson"</span>), <span class="dv">2</span>), <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  species       r     n
+  &lt;fct&gt;     &lt;dbl&gt; &lt;int&gt;
+1 Adelie     0.39   151
+2 Chinstrap  0.65    68
+3 Gentoo     0.64   123</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="example-2-clinical-data-pbc" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="example-2-clinical-data-pbc"><span class="header-section-number">16.5</span> Example 2: Clinical Data (PBC)</h2>
+<p>Clinical biomarkers are often skewed and require a careful choice between Pearson and Spearman correlation. This example shows how to make that decision and how to build a clinical correlation matrix for exploratory analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(platelet))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="pearson-vs-spearman-albumin-and-bilirubin" class="level3" data-number="16.5.1">
+<h3 data-number="16.5.1" class="anchored" data-anchor-id="pearson-vs-spearman-albumin-and-bilirubin"><span class="header-section-number">16.5.1</span> Pearson vs Spearman: Albumin and Bilirubin</h3>
+<p>Bilirubin is heavily right-skewed. Always plot first to decide which correlation to use.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(bili), <span class="at">y =</span> albumin)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Albumin vs log(bilirubin) in PBC"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log(Bilirubin)"</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation-and-association_files/figure-html/pbc-scatter-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spearman: more appropriate given bilirubin's skew</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(pbc<span class="sc">$</span>albumin, pbc<span class="sc">$</span>bili, <span class="at">method =</span> <span class="st">"spearman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in cor.test.default(pbc$albumin, pbc$bili, method = "spearman"): Cannot
-compute exact p-value with ties</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pearson on log-transformed bilirubin</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">cor.test</span>(pbc<span class="sc">$</span>albumin, <span class="fu">log</span>(pbc<span class="sc">$</span>bili), <span class="at">method =</span> <span class="st">"pearson"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-    Spearman's rank correlation rho
-
-data:  pbc$albumin and pbc$bili
-S = 14718822, p-value = 1.049e-11
-alternative hypothesis: true rho is not equal to 0
-sample estimates:
-      rho 
--0.329419 </code></pre>
+<pre><code># A tibble: 1 × 8
+  estimate statistic  p.value parameter conf.low conf.high method    alternative
+     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      
+1   -0.338     -7.21 2.79e-12       403   -0.422    -0.249 Pearson'… two.sided  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">cor.test</span>(pbc<span class="sc">$</span>albumin, pbc<span class="sc">$</span>bili, <span class="at">method =</span> <span class="st">"spearman"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spearman on raw bilirubin (robust to skew)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">cor.test</span>(pbc<span class="sc">$</span>albumin, pbc<span class="sc">$</span>bili, <span class="at">method =</span> <span class="st">"spearman"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in cor.test.default(pbc$albumin, pbc$bili, method = "spearman"): Cannot
 compute exact p-value with ties</code></pre>
@@ -698,55 +784,21 @@ compute exact p-value with ties</code></pre>
 1   -0.329 14718822. 1.05e-11 Spearman's rank correlation rho two.sided  </code></pre>
 </div>
 </div>
-<p><strong>Why log-transform before Pearson?</strong> Bilirubin is heavily right-skewed. Pearson’s r is sensitive to extreme values; log-transforming makes the relationship more linear and the correlation estimate more meaningful.</p>
+<p>Both methods point in the same direction (negative association). Report Spearman when data are skewed; use log-Pearson when you want a linear model interpretation.</p>
 </section>
-<section id="scatter-plot-with-smooth" class="level3" data-number="16.4.2">
-<h3 data-number="16.4.2" class="anchored" data-anchor-id="scatter-plot-with-smooth"><span class="header-section-number">16.4.2</span> Scatter Plot with Smooth</h3>
+<section id="clinical-correlation-matrix" class="level3" data-number="16.5.2">
+<h3 data-number="16.5.2" class="anchored" data-anchor-id="clinical-correlation-matrix"><span class="header-section-number">16.5.2</span> Clinical Correlation Matrix</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(bili), <span class="at">y =</span> albumin)) <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"tomato"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Albumin vs log(bilirubin) in PBC"</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log(Bilirubin)"</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="correlation-and-association_files/figure-html/scatter-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="correlation-matrix" class="level3" data-number="16.4.3">
-<h3 data-number="16.4.3" class="anchored" data-anchor-id="correlation-matrix"><span class="header-section-number">16.4.3</span> Correlation Matrix</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pbc_num <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_bili =</span> <span class="fu">log</span>(bili)) <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(albumin, log_bili, protime, platelet)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(pbc_num, <span class="at">use =</span> <span class="st">"complete.obs"</span>, <span class="at">method =</span> <span class="st">"spearman"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>         albumin log_bili protime platelet
-albumin     1.00    -0.33   -0.18     0.19
-log_bili   -0.33     1.00    0.28    -0.18
-protime    -0.18     0.28    1.00    -0.23
-platelet    0.19    -0.18   -0.23     1.00</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  pbc_num,</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"points"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">0.8</span>)),</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">method =</span> <span class="st">"spearman"</span>)),</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag  =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"densityDiag"</span>))</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pbc_num <span class="ot">&lt;-</span> pbc <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_bili =</span> <span class="fu">log</span>(bili)) <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(albumin, log_bili, protime, platelet)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  pbc_num,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"points"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">0.8</span>)),</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">method =</span> <span class="st">"spearman"</span>)),</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag  =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"densityDiag"</span>))</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in cor.test.default(x, y, method = method): Cannot compute exact
 p-value with ties
@@ -764,26 +816,25 @@ p-value with ties</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="correlation-and-association_files/figure-html/ggpairs-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="correlation-and-association_files/figure-html/pbc-matrix-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><code>GGally::ggpairs()</code> gives you scatterplots (lower triangle), Spearman correlations (upper triangle), and density plots (diagonal) in one call.</p>
 </section>
-<section id="testing-multiple-correlations" class="level3" data-number="16.4.4">
-<h3 data-number="16.4.4" class="anchored" data-anchor-id="testing-multiple-correlations"><span class="header-section-number">16.4.4</span> Testing Multiple Correlations</h3>
+<section id="multiple-correlations-with-adjustment" class="level3" data-number="16.5.3">
+<h3 data-number="16.5.3" class="anchored" data-anchor-id="multiple-correlations-with-adjustment"><span class="header-section-number">16.5.3</span> Multiple Correlations with Adjustment</h3>
+<p>When testing many correlations at once, adjust p-values to control the false discovery rate:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy approach: all pairs</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pbc_num <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>albumin, <span class="at">names_to =</span> <span class="st">"variable"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">r    =</span> <span class="fu">cor</span>(albumin, value, <span class="at">use =</span> <span class="st">"complete.obs"</span>, <span class="at">method =</span> <span class="st">"spearman"</span>),</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tidy</span>(<span class="fu">cor.test</span>(albumin, value, <span class="at">method =</span> <span class="st">"spearman"</span>))</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, r, p.value) <span class="sc">%&gt;%</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_adj =</span> <span class="fu">p.adjust</span>(p.value, <span class="at">method =</span> <span class="st">"holm"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pbc_num <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>albumin, <span class="at">names_to =</span> <span class="st">"variable"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">|&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">cor</span>(albumin, value, <span class="at">use =</span> <span class="st">"complete.obs"</span>, <span class="at">method =</span> <span class="st">"spearman"</span>),</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tidy</span>(<span class="fu">cor.test</span>(albumin, value, <span class="at">method =</span> <span class="st">"spearman"</span>))</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, r, p.value) <span class="sc">|&gt;</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_adj =</span> <span class="fu">p.adjust</span>(p.value, <span class="at">method =</span> <span class="st">"holm"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 3 warnings in `summarise()`.
 The first warning was:
@@ -804,80 +855,11 @@ Caused by warning in `cor.test.default()`:
 </div>
 </section>
 </section>
-<section id="example-2-animal-data-palmerpenguins" class="level2" data-number="16.5">
-<h2 data-number="16.5" class="anchored" data-anchor-id="example-2-animal-data-palmerpenguins"><span class="header-section-number">16.5</span> Example 2: Animal Data (palmerpenguins)</h2>
-<p>The penguin dataset provides a clean example of correlation <em>within groups</em> versus <em>across groups</em> ? a useful lesson about confounding.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'palmerpenguins' was built under R version 4.3.3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(bill_length_mm, bill_depth_mm, body_mass_g, flipper_length_mm, species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Overall correlation (ignoring species)</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(penguins_clean<span class="sc">$</span>bill_length_mm, penguins_clean<span class="sc">$</span>bill_depth_mm,</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's product-moment correlation
-
-data:  penguins_clean$bill_length_mm and penguins_clean$bill_depth_mm
-t = -4.4591, df = 340, p-value = 1.12e-05
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.3328072 -0.1323004
-sample estimates:
-       cor 
--0.2350529 </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Within-species correlations</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="sc">%&gt;%</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">cor</span>(bill_length_mm, bill_depth_mm, <span class="at">method =</span> <span class="st">"pearson"</span>),</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 3
-  species       r     n
-  &lt;fct&gt;     &lt;dbl&gt; &lt;int&gt;
-1 Adelie    0.391   151
-2 Chinstrap 0.654    68
-3 Gentoo    0.643   123</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="sc">%&gt;%</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>, <span class="st">"seagreen"</span>)) <span class="sc">+</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Simpson's Paradox: bill dimensions in penguins"</span>,</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Overall correlation is negative; within-species it is positive"</span>,</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Bill length (mm)"</span>, <span class="at">y =</span> <span class="st">"Bill depth (mm)"</span>) <span class="sc">+</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="correlation-and-association_files/figure-html/penguin-plot-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>This is <strong>Simpson’s Paradox</strong>: the overall (marginal) correlation is negative, but within each species it is positive. The species variable confounds the relationship. Always check whether a third variable explains an unexpected correlation.</p>
-</section>
 <section id="where-to-find-data-like-this" class="level2 callout-note" data-number="16.6">
 <h2 class="callout-note anchored" data-number="16.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">16.6</span> Where to Find Data Like This</h2>
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> ? multiple continuous clinical variables (albumin, bilirubin, protime, platelet, etc.) with known clinical correlations.</p>
-<p><strong>palmerpenguins:</strong> <code>palmerpenguins::penguins</code> ? body measurements with a clear grouping variable for demonstrating confounding.</p>
-<p><strong>NHANES:</strong> <code>nhanesA</code> or <code>nhanes</code> package ? population-level continuous variables (blood pressure, cholesterol, BMI, age).</p>
+<p><strong><code>palmerpenguins</code></strong> (used in Example 1): Four continuous body measurements with a species grouping variable. Perfect for teaching Pearson correlation and Simpson’s Paradox.</p>
+<p><strong><code>survival::pbc</code></strong> (used in Example 2): Multiple skewed clinical biomarkers (albumin, bilirubin, protime, platelet). Real-world case for choosing Spearman over Pearson.</p>
+<p><strong>NHANES:</strong> <code>nhanesA</code> or <code>nhanes</code> package – population-level continuous variables (blood pressure, cholesterol, BMI, age).</p>
 </section>
 <section id="what-can-go-wrong" class="level2 callout-warning" data-number="16.7">
 <h2 class="callout-warning anchored" data-number="16.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">16.7</span> What Can Go Wrong</h2>
@@ -906,16 +888,16 @@ Common Misinterpretations � Don’t Make These Mistakes
 </section>
 <section id="exercises" class="level2" data-number="16.8">
 <h2 data-number="16.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">16.8</span> Exercises</h2>
-<section id="exercise-1-guided-albumin-and-prothrombin-time" class="level3" data-number="16.8.1">
-<h3 data-number="16.8.1" class="anchored" data-anchor-id="exercise-1-guided-albumin-and-prothrombin-time"><span class="header-section-number">16.8.1</span> Exercise 1 (Guided): Albumin and Prothrombin Time</h3>
+<section id="exercise-1-guided-flipper-length-vs-body-mass-penguins" class="level3" data-number="16.8.1">
+<h3 data-number="16.8.1" class="anchored" data-anchor-id="exercise-1-guided-flipper-length-vs-body-mass-penguins"><span class="header-section-number">16.8.1</span> Exercise 1 (Guided): Flipper Length vs Body Mass (penguins)</h3>
 <ol type="1">
-<li>Plot albumin vs prothrombin time in <code>pbc</code>. Does the relationship look linear?</li>
-<li>Compute Pearson and Spearman correlations. Which is higher? Why?</li>
-<li>Compute Pearson correlation after log-transforming prothrombin time.</li>
-<li>Report: r, 95% CI, and p-value for your chosen method.</li>
+<li>Plot flipper length vs body mass in <code>penguins_clean</code>. Does the relationship look linear?</li>
+<li>Compute Pearson and Spearman correlations. Do they agree?</li>
+<li>Now add <code>colour = species</code> to the plot. Does the relationship look consistent across species?</li>
+<li>Compute within-species correlations. Report r, 95% CI, and p-value for one species.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -924,15 +906,18 @@ Exercise 1: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Plot</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> protime, <span class="at">y =</span> albumin)) <span class="sc">+</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">color =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Prothrombin time (s)"</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(flipper_length_mm, body_mass_g, species)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Plot</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>pg <span class="sc">|&gt;</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>, <span class="at">y =</span> <span class="st">"Body mass (g)"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -944,14 +929,108 @@ Exercise 1: Solution
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Both correlations</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">cor.test</span>(pbc<span class="sc">$</span>albumin, pbc<span class="sc">$</span>protime, <span class="at">method =</span> <span class="st">"pearson"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">cor.test</span>(pg<span class="sc">$</span>flipper_length_mm, pg<span class="sc">$</span>body_mass_g, <span class="at">method =</span> <span class="st">"pearson"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
   estimate statistic   p.value parameter conf.low conf.high method   alternative
      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      
-1   -0.198     -4.05 0.0000604       403   -0.290    -0.102 Pearson… two.sided  </code></pre>
+1    0.871      32.7 4.37e-107       340    0.843     0.895 Pearson… two.sided  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">cor.test</span>(pbc<span class="sc">$</span>albumin, pbc<span class="sc">$</span>protime, <span class="at">method =</span> <span class="st">"spearman"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">cor.test</span>(pg<span class="sc">$</span>flipper_length_mm, pg<span class="sc">$</span>body_mass_g, <span class="at">method =</span> <span class="st">"spearman"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in cor.test.default(pg$flipper_length_mm, pg$body_mass_g, method =
+"spearman"): Cannot compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+  estimate statistic  p.value method                          alternative
+     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                           &lt;chr&gt;      
+1    0.840  1066875. 2.76e-92 Spearman's rank correlation rho two.sided  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3-4. Within-species</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>pg <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">round</span>(<span class="fu">cor</span>(flipper_length_mm, body_mass_g, <span class="at">method =</span> <span class="st">"pearson"</span>), <span class="dv">2</span>),</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  species       r     n
+  &lt;fct&gt;     &lt;dbl&gt; &lt;int&gt;
+1 Adelie     0.47   151
+2 Chinstrap  0.64    68
+3 Gentoo     0.7    123</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Full cor.test for Adelie</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">cor.test</span>(</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  pg<span class="sc">$</span>flipper_length_mm[pg<span class="sc">$</span>species <span class="sc">==</span> <span class="st">"Adelie"</span>],</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  pg<span class="sc">$</span>body_mass_g[pg<span class="sc">$</span>species <span class="sc">==</span> <span class="st">"Adelie"</span>],</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"pearson"</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  estimate statistic     p.value parameter conf.low conf.high method alternative
+     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;     &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      
+1    0.468      6.47     1.34e-9       149    0.333     0.584 Pears… two.sided  </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2-semi-guided-albumin-and-prothrombin-time-pbc" class="level3" data-number="16.8.2">
+<h3 data-number="16.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-albumin-and-prothrombin-time-pbc"><span class="header-section-number">16.8.2</span> Exercise 2 (Semi-guided): Albumin and Prothrombin Time (PBC)</h3>
+<p>Using <code>survival::pbc</code>, explore the association between albumin and prothrombin time.</p>
+<ol type="1">
+<li>Plot albumin vs prothrombin time. Does the relationship look linear? Try a log transform.</li>
+<li>Compute both Pearson (on log-transformed protime) and Spearman correlations.</li>
+<li>Build a Spearman correlation matrix for albumin, log(bili), protime, and platelet.</li>
+<li>Adjust p-values for multiple comparisons using Holm’s method.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 2: Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">|&gt;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(platelet))</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Plot</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">|&gt;</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> protime, <span class="at">y =</span> albumin)) <span class="sc">+</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Prothrombin time (s)"</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation-and-association_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Both correlations</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">cor.test</span>(pbc<span class="sc">$</span>albumin, <span class="fu">log</span>(pbc<span class="sc">$</span>protime), <span class="at">method =</span> <span class="st">"pearson"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  estimate statistic   p.value parameter conf.low conf.high method   alternative
+     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      
+1   -0.203     -4.17 0.0000370       403   -0.295    -0.108 Pearson… two.sided  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">cor.test</span>(pbc<span class="sc">$</span>albumin, pbc<span class="sc">$</span>protime, <span class="at">method =</span> <span class="st">"spearman"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in cor.test.default(pbc$albumin, pbc$protime, method = "spearman"):
 Cannot compute exact p-value with ties</code></pre>
@@ -962,89 +1041,35 @@ Cannot compute exact p-value with ties</code></pre>
      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                           &lt;chr&gt;      
 1   -0.183 13097381. 0.000214 Spearman's rank correlation rho two.sided  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. After log transform</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">cor.test</span>(pbc<span class="sc">$</span>albumin, <span class="fu">log</span>(pbc<span class="sc">$</span>protime), <span class="at">method =</span> <span class="st">"pearson"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 8
-  estimate statistic   p.value parameter conf.low conf.high method   alternative
-     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      
-1   -0.203     -4.17 0.0000370       403   -0.295    -0.108 Pearson… two.sided  </code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-2-semi-guided-penguin-correlation-matrix" class="level3" data-number="16.8.2">
-<h3 data-number="16.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-penguin-correlation-matrix"><span class="header-section-number">16.8.2</span> Exercise 2 (Semi-guided): Penguin Correlation Matrix</h3>
-<p>Using <code>palmerpenguins::penguins</code>, produce a correlation matrix for the four continuous measurements.</p>
-<ol type="1">
-<li>Compute a Spearman correlation matrix using <code>cor()</code>.</li>
-<li>Plot with <code>ggpairs()</code>.</li>
-<li>Run the analysis separately for each species. Do any correlations change sign?</li>
-</ol>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Exercise 2: Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Spearman matrix</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>peng_num <span class="ot">&lt;-</span> peng <span class="sc">%&gt;%</span> <span class="fu">select</span>(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(peng_num, <span class="at">method =</span> <span class="st">"spearman"</span>) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                  bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
-bill_length_mm              1.00         -0.21              0.67        0.58
-bill_depth_mm              -0.21          1.00             -0.52       -0.43
-flipper_length_mm           0.67         -0.52              1.00        0.84
-body_mass_g                 0.58         -0.43              0.84        1.00</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. ggpairs</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(peng_num,</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">method =</span> <span class="st">"spearman"</span>)),</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"points"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">0.8</span>))) <span class="sc">+</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3-4. Matrix with p-adjustment</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>pbc_num <span class="ot">&lt;-</span> pbc <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">log_bili =</span> <span class="fu">log</span>(bili)) <span class="sc">|&gt;</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(albumin, log_bili, protime, platelet)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>pbc_num <span class="sc">|&gt;</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>albumin, <span class="at">names_to =</span> <span class="st">"variable"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">|&gt;</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">cor</span>(albumin, value, <span class="at">use =</span> <span class="st">"complete.obs"</span>, <span class="at">method =</span> <span class="st">"spearman"</span>),</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tidy</span>(<span class="fu">cor.test</span>(albumin, value, <span class="at">method =</span> <span class="st">"spearman"</span>))</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, r, p.value) <span class="sc">|&gt;</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_adj =</span> <span class="fu">p.adjust</span>(p.value, <span class="at">method =</span> <span class="st">"holm"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in cor.test.default(x, y, method = method): Cannot compute exact
-p-value with ties
-Warning in cor.test.default(x, y, method = method): Cannot compute exact
-p-value with ties
-Warning in cor.test.default(x, y, method = method): Cannot compute exact
-p-value with ties
-Warning in cor.test.default(x, y, method = method): Cannot compute exact
-p-value with ties
-Warning in cor.test.default(x, y, method = method): Cannot compute exact
-p-value with ties
-Warning in cor.test.default(x, y, method = method): Cannot compute exact
-p-value with ties</code></pre>
+<pre><code>Warning: There were 3 warnings in `summarise()`.
+The first warning was:
+ℹ In argument: `tidy(cor.test(albumin, value, method = "spearman"))`.
+ℹ In group 1: `variable = "log_bili"`.
+Caused by warning in `cor.test.default()`:
+! Cannot compute exact p-value with ties
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 2 remaining warnings.</code></pre>
 </div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="correlation-and-association_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. By species</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>peng <span class="sc">%&gt;%</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">r_bl_bd =</span> <span class="fu">cor</span>(bill_length_mm, bill_depth_mm, <span class="at">method =</span> <span class="st">"spearman"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
-  species   r_bl_bd
-  &lt;fct&gt;       &lt;dbl&gt;
-1 Adelie      0.355
-2 Chinstrap   0.672
-3 Gentoo      0.652</code></pre>
+<pre><code># A tibble: 3 × 4
+  variable      r  p.value    p_adj
+  &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1 log_bili -0.329 1.05e-11 3.15e-11
+2 platelet  0.191 1.09e- 4 2.18e- 4
+3 protime  -0.183 2.14e- 4 2.18e- 4</code></pre>
 </div>
 </div>
 </div>
@@ -1066,7 +1091,7 @@ p-value with ties</code></pre>
 <li>You want to correlate a Likert-scale pain score (1?10) with serum CRP. Which coefficient should you use?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1075,7 +1100,7 @@ Answers
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Use Spearman when (1) one or both variables are skewed or contain outliers, (2) the relationship is monotonic but not necessarily linear, or (3) one variable is ordinal.</li>

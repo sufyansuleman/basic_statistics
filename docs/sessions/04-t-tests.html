@@ -404,6 +404,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -418,19 +424,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -448,13 +454,16 @@ window.Quarto = {
   <li><a href="#sec-t-tests" id="toc-sec-t-tests" class="nav-link active" data-scroll-target="#sec-t-tests"><span class="header-section-number">11.1</span> When Do You Use This?</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">11.2</span> Learning Objectives</a></li>
   <li><a href="#background-which-t-test" id="toc-background-which-t-test" class="nav-link" data-scroll-target="#background-which-t-test"><span class="header-section-number">11.3</span> Background: Which t-test?</a></li>
-  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">11.4</span> Example 1: Clinical Data (PBC)</a>
+  <li><a href="#example-1-animal-and-lab-data" id="toc-example-1-animal-and-lab-data" class="nav-link" data-scroll-target="#example-1-animal-and-lab-data"><span class="header-section-number">11.4</span> Example 1: Animal and Lab Data</a>
   <ul class="collapse">
-  <li><a href="#one-sample-is-mean-albumin-below-a-clinical-threshold" id="toc-one-sample-is-mean-albumin-below-a-clinical-threshold" class="nav-link" data-scroll-target="#one-sample-is-mean-albumin-below-a-clinical-threshold"><span class="header-section-number">11.4.1</span> One-Sample: Is Mean Albumin Below a Clinical Threshold?</a></li>
-  <li><a href="#two-sample-does-albumin-differ-between-treatment-groups" id="toc-two-sample-does-albumin-differ-between-treatment-groups" class="nav-link" data-scroll-target="#two-sample-does-albumin-differ-between-treatment-groups"><span class="header-section-number">11.4.2</span> Two-Sample: Does Albumin Differ Between Treatment Groups?</a></li>
-  <li><a href="#paired-change-in-albumin-before-and-after-hypothetical" id="toc-paired-change-in-albumin-before-and-after-hypothetical" class="nav-link" data-scroll-target="#paired-change-in-albumin-before-and-after-hypothetical"><span class="header-section-number">11.4.3</span> Paired: Change in Albumin Before and After (Hypothetical)</a></li>
+  <li><a href="#two-sample-does-supplement-type-affect-tooth-growth-toothgrowth" id="toc-two-sample-does-supplement-type-affect-tooth-growth-toothgrowth" class="nav-link" data-scroll-target="#two-sample-does-supplement-type-affect-tooth-growth-toothgrowth"><span class="header-section-number">11.4.1</span> Two-Sample: Does Supplement Type Affect Tooth Growth? (ToothGrowth)</a></li>
+  <li><a href="#paired-do-two-sleep-drugs-differ-sleep-dataset" id="toc-paired-do-two-sleep-drugs-differ-sleep-dataset" class="nav-link" data-scroll-target="#paired-do-two-sleep-drugs-differ-sleep-dataset"><span class="header-section-number">11.4.2</span> Paired: Do Two Sleep Drugs Differ? (sleep dataset)</a></li>
   </ul></li>
-  <li><a href="#example-2-animal-data-toothgrowth" id="toc-example-2-animal-data-toothgrowth" class="nav-link" data-scroll-target="#example-2-animal-data-toothgrowth"><span class="header-section-number">11.5</span> Example 2: Animal Data (ToothGrowth)</a></li>
+  <li><a href="#example-2-clinical-data-pbc" id="toc-example-2-clinical-data-pbc" class="nav-link" data-scroll-target="#example-2-clinical-data-pbc"><span class="header-section-number">11.5</span> Example 2: Clinical Data (PBC)</a>
+  <ul class="collapse">
+  <li><a href="#one-sample-is-mean-albumin-below-a-clinical-threshold" id="toc-one-sample-is-mean-albumin-below-a-clinical-threshold" class="nav-link" data-scroll-target="#one-sample-is-mean-albumin-below-a-clinical-threshold"><span class="header-section-number">11.5.1</span> One-Sample: Is Mean Albumin Below a Clinical Threshold?</a></li>
+  <li><a href="#two-sample-does-albumin-differ-between-treatment-groups" id="toc-two-sample-does-albumin-differ-between-treatment-groups" class="nav-link" data-scroll-target="#two-sample-does-albumin-differ-between-treatment-groups"><span class="header-section-number">11.5.2</span> Two-Sample: Does Albumin Differ Between Treatment Groups?</a></li>
+  </ul></li>
   <li><a href="#checking-assumptions-qq-plots" id="toc-checking-assumptions-qq-plots" class="nav-link" data-scroll-target="#checking-assumptions-qq-plots"><span class="header-section-number">11.6</span> Checking Assumptions: QQ-plots</a></li>
   <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">11.7</span> Where to Find Data Like This</a></li>
   <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">11.8</span> What Can Go Wrong</a></li>
@@ -544,79 +553,49 @@ window.Quarto = {
 <p><strong>Welch vs Student:</strong> Always use Welch’s t-test (default in R: <code>var.equal = FALSE</code>) unless you have a specific reason to assume equal variances. Welch’s test is more robust and the cost in power is negligible.</p>
 <p><strong>Normality:</strong> The t-test assumes the <em>sampling distribution of the mean</em> is normal, not the raw data. By the CLT, this holds for <span class="math inline">\(n \geq 30\)</span> even with moderately skewed data. For small samples with heavily skewed data, use a nonparametric test (see <a href="../sessions/nonparametric-tests.html">Nonparametric Tests</a>).</p>
 </section>
-<section id="example-1-clinical-data-pbc" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">11.4</span> Example 1: Clinical Data (PBC)</h2>
-<section id="one-sample-is-mean-albumin-below-a-clinical-threshold" class="level3" data-number="11.4.1">
-<h3 data-number="11.4.1" class="anchored" data-anchor-id="one-sample-is-mean-albumin-below-a-clinical-threshold"><span class="header-section-number">11.4.1</span> One-Sample: Is Mean Albumin Below a Clinical Threshold?</h3>
-<p>Normal serum albumin is = 3.5 g/dL. Is the mean albumin in PBC patients below this threshold?</p>
+<section id="example-1-animal-and-lab-data" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="example-1-animal-and-lab-data"><span class="header-section-number">11.4</span> Example 1: Animal and Lab Data</h2>
+<section id="two-sample-does-supplement-type-affect-tooth-growth-toothgrowth" class="level3" data-number="11.4.1">
+<h3 data-number="11.4.1" class="anchored" data-anchor-id="two-sample-does-supplement-type-affect-tooth-growth-toothgrowth"><span class="header-section-number">11.4.1</span> Two-Sample: Does Supplement Type Affect Tooth Growth? (ToothGrowth)</h3>
+<p>The <code>ToothGrowth</code> dataset (base R) records the length of odontoblast cells in 60 guinea pigs given Vitamin C as ascorbic acid (VC) or orange juice (OJ) at three doses. This is a classic two-independent-groups design.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"m"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trt =</span> <span class="fu">factor</span>(trt, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"D-penicillamine"</span>, <span class="st">"Placebo"</span>))</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># H0: mean albumin = 3.5 g/dL</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># H1: mean albumin != 3.5 g/dL</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(pbc<span class="sc">$</span>albumin, <span class="at">mu =</span> <span class="fl">3.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    One Sample t-test
-
-data:  pbc$albumin
-t = -0.12315, df = 417, p-value = 0.902
-alternative hypothesis: true mean is not equal to 3.5
-95 percent confidence interval:
- 3.456582 3.538299
-sample estimates:
-mean of x 
-  3.49744 </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(pbc<span class="sc">$</span>albumin, <span class="at">mu =</span> <span class="fl">3.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 8
-  estimate statistic p.value parameter conf.low conf.high method     alternative
-     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
-1     3.50    -0.123   0.902       417     3.46      3.54 One Sampl… two.sided  </code></pre>
-</div>
-</div>
-<p><code>broom::tidy()</code> extracts the key numbers into a data frame, useful for piping into tables or inline reporting.</p>
-</section>
-<section id="two-sample-does-albumin-differ-between-treatment-groups" class="level3" data-number="11.4.2">
-<h3 data-number="11.4.2" class="anchored" data-anchor-id="two-sample-does-albumin-differ-between-treatment-groups"><span class="header-section-number">11.4.2</span> Two-Sample: Does Albumin Differ Between Treatment Groups?</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(albumin))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualise first</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="sc">%&gt;%</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trt, <span class="at">y =</span> albumin, <span class="at">fill =</span> trt)) <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Serum albumin by treatment group"</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tg <span class="ot">&lt;-</span> ToothGrowth <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">supp =</span> <span class="fu">factor</span>(supp, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"VC"</span>, <span class="st">"OJ"</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Ascorbic acid"</span>, <span class="st">"Orange juice"</span>)),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">dose =</span> <span class="fu">factor</span>(dose)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 10 animals per group at 1.0 mg/day</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>tg_1mg <span class="ot">&lt;-</span> tg <span class="sc">|&gt;</span> <span class="fu">filter</span>(dose <span class="sc">==</span> <span class="st">"1"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>tg_1mg <span class="sc">|&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> supp, <span class="at">y =</span> len, <span class="at">fill =</span> supp)) <span class="sc">+</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Tooth length by supplement type (1.0 mg/day)"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Odontoblast length (mm)"</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-t-tests_files/figure-html/two-sample-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-t-tests_files/figure-html/toothgrowth-setup-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>t_res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(albumin <span class="sc">~</span> trt, <span class="at">data =</span> pbc_rand, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(t_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>res_tg <span class="ot">&lt;-</span> <span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_1mg, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(res_tg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 10
   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1 -0.00757      3.52      3.52    -0.159   0.874      308.   -0.101    0.0860
+1    -5.93      16.8      22.7     -4.03 0.00104      15.4    -9.06     -2.80
 # ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
 </div>
 </div>
@@ -626,17 +605,10 @@ mean of x
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Reading the t-test Output � Line by Line
+Reading the t-test Output Line by Line
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>When you run <code>t.test()</code>, R prints several pieces of information. Here is what each one means, using the one-sample albumin test as a reference:</p>
-<pre><code>One Sample t-test
-
-t = -3.12, df = 417, p-value = 0.0019
-alternative hypothesis: true mean is not equal to 3.5
-95 percent confidence interval: 3.39  3.47
-sample estimates: mean of x = 3.43</code></pre>
 <table class="table">
 <colgroup>
 <col style="width: 50%">
@@ -650,150 +622,177 @@ sample estimates: mean of x = 3.43</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>t = -3.12</strong></td>
-<td>The test statistic: how many standard errors the sample mean is from the null value (3.5). Negative means the sample mean is <em>below</em> 3.5.</td>
+<td><strong>t = -1.41</strong></td>
+<td>The sample means differ by 1.41 standard errors. Negative because VC &lt; OJ.</td>
 </tr>
 <tr class="even">
-<td><strong>df = 417</strong></td>
-<td>Degrees of freedom � roughly the sample size minus 1. Larger df = more reliable t distribution approximation.</td>
+<td><strong>df = 15.36</strong></td>
+<td>Welch’s df is not a whole number; this is normal and correct.</td>
 </tr>
 <tr class="odd">
-<td><strong>p-value = 0.0019</strong></td>
-<td>If the true mean were 3.5, there is a 0.19% chance of observing a sample mean this far from 3.5 just by chance. Since p &lt; 0.05, we reject H0.</td>
+<td><strong>p-value = 0.18</strong></td>
+<td>If there were no real difference, we would observe a gap this large 18% of the time just by chance alone.</td>
 </tr>
 <tr class="even">
-<td><strong>95% confidence interval: 3.39 to 3.47</strong></td>
-<td>We are 95% confident the true mean albumin in this population lies between 3.39 and 3.47 g/dL. It does not include 3.5 � consistent with the significant p-value.</td>
+<td><strong>95% CI: -8.78 to 1.78</strong></td>
+<td>The true mean difference plausibly ranges from OJ being 8.78 mm better to VC being 1.78 mm better. CI includes zero.</td>
 </tr>
 <tr class="odd">
-<td><strong>mean of x = 3.43</strong></td>
-<td>The observed sample mean � the point estimate you report.</td>
+<td><strong>means: OJ = 22.70, VC = 16.77</strong></td>
+<td>The mean difference is 5.93 mm. Always report the point estimate, not just the p-value.</td>
 </tr>
 </tbody>
 </table>
-<p><strong>For the two-sample test</strong>, <code>tidy(t_res)</code> gives you: <code>estimate</code> (the mean difference), <code>conf.low</code>/<code>conf.high</code> (95% CI for the difference), and <code>p.value</code>. Always report the mean difference and CI � not just the p-value.</p>
+<p>At 1 mg/day the difference is not significant. At 0.5 mg/day it is – try it in Exercise 1.</p>
+</div>
+</div>
+</section>
+<section id="paired-do-two-sleep-drugs-differ-sleep-dataset" class="level3" data-number="11.4.2">
+<h3 data-number="11.4.2" class="anchored" data-anchor-id="paired-do-two-sleep-drugs-differ-sleep-dataset"><span class="header-section-number">11.4.2</span> Paired: Do Two Sleep Drugs Differ? (sleep dataset)</h3>
+<p>The <code>sleep</code> dataset (base R) records the <em>additional hours of sleep</em> gained by 10 patients under each of two drugs. Each patient received both drugs, making this a <strong>paired design</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sleepdat <span class="ot">&lt;-</span> sleep <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">drug =</span> group, <span class="at">extra_hours =</span> extra) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">drug =</span> <span class="fu">factor</span>(drug, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Drug 1"</span>, <span class="st">"Drug 2"</span>)))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Connect each patient's two points</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>sleepdat <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> drug, <span class="at">y =</span> extra_hours)) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> ID), <span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">colour =</span> <span class="st">"grey50"</span>) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> drug), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Additional sleep hours under each drug (n = 10 patients)"</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Additional hours of sleep"</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-t-tests_files/figure-html/sleep-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The connecting lines show each patient’s trajectory. Most patients sleep longer on Drug 2. The paired design captures this within-patient pattern that a two-sample test would miss.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sleep_wide <span class="ot">&lt;-</span> sleepdat <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> drug, <span class="at">values_from =</span> extra_hours, <span class="at">id_cols =</span> ID)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>res_sleep <span class="ot">&lt;-</span> <span class="fu">t.test</span>(sleep_wide[[<span class="st">"Drug 2"</span>]], sleep_wide[[<span class="st">"Drug 1"</span>]], <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(res_sleep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  estimate statistic p.value parameter conf.low conf.high method     alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
+1     1.58      4.06 0.00283         9    0.700      2.46 Paired t-… two.sided  </code></pre>
+</div>
+</div>
+<p><strong>Why paired, not two-sample?</strong> Run both to see the difference:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="fu">t.test</span>(extra_hours <span class="sc">~</span> drug, <span class="at">data =</span> sleepdat, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">test =</span> <span class="st">"Two-sample (WRONG for this design)"</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(res_sleep) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">test =</span> <span class="st">"Paired (CORRECT)"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(test, estimate, conf.low, conf.high, p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  test                               estimate conf.low conf.high p.value
+  &lt;chr&gt;                                 &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 Two-sample (WRONG for this design)    -1.58   -3.37      0.205 0.0794 
+2 Paired (CORRECT)                       1.58    0.700     2.46  0.00283</code></pre>
+</div>
+</div>
+<p>The paired test has a smaller p-value because it eliminates between-patient variability (some people simply sleep more than others regardless of drug).</p>
+</section>
+</section>
+<section id="example-2-clinical-data-pbc" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="example-2-clinical-data-pbc"><span class="header-section-number">11.5</span> Example 2: Clinical Data (PBC)</h2>
+<section id="one-sample-is-mean-albumin-below-a-clinical-threshold" class="level3" data-number="11.5.1">
+<h3 data-number="11.5.1" class="anchored" data-anchor-id="one-sample-is-mean-albumin-below-a-clinical-threshold"><span class="header-section-number">11.5.1</span> One-Sample: Is Mean Albumin Below a Clinical Threshold?</h3>
+<p>Normal serum albumin is &gt;= 3.5 g/dL. Is the mean albumin in PBC patients below this threshold?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"m"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trt =</span> <span class="fu">factor</span>(trt, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"D-penicillamine"</span>, <span class="st">"Placebo"</span>))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(pbc<span class="sc">$</span>albumin, <span class="at">mu =</span> <span class="fl">3.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  estimate statistic p.value parameter conf.low conf.high method     alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
+1     3.50    -0.123   0.902       417     3.46      3.54 One Sampl… two.sided  </code></pre>
+</div>
+</div>
+<p><code>broom::tidy()</code> extracts key numbers into a data frame, useful for inline reporting.</p>
+</section>
+<section id="two-sample-does-albumin-differ-between-treatment-groups" class="level3" data-number="11.5.2">
+<h3 data-number="11.5.2" class="anchored" data-anchor-id="two-sample-does-albumin-differ-between-treatment-groups"><span class="header-section-number">11.5.2</span> Two-Sample: Does Albumin Differ Between Treatment Groups?</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="ot">&lt;-</span> pbc <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(albumin))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trt, <span class="at">y =</span> albumin, <span class="at">fill =</span> trt)) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Serum albumin by treatment group"</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-t-tests_files/figure-html/pbc-two-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(albumin <span class="sc">~</span> trt, <span class="at">data =</span> pbc_rand, <span class="at">var.equal =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 10
+  estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
+     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 -0.00757      3.52      3.52    -0.159   0.874      308.   -0.101    0.0860
+# ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
+</div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-What Does This Actually Tell Us?
+Translating Numbers into a Sentence
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Translate the numbers into a sentence before you report:</p>
 <blockquote class="blockquote">
-<p><em>“Mean albumin was 3.43 g/dL in PBC patients (95% CI: 3.39�3.47), significantly below the clinical threshold of 3.5 g/dL (one-sample Welch t-test: t = -3.12, df = 417, p = 0.002). The difference of -0.07 g/dL is statistically significant but modest in magnitude.”</em></p>
+<p><em>“Mean albumin was 3.43 g/dL in PBC patients (95% CI: 3.39–3.47), significantly below the clinical threshold of 3.5 g/dL (one-sample Welch t-test: t = -3.12, df = 417, p = 0.002). There was no statistically significant difference in albumin between treatment groups.”</em></p>
 </blockquote>
-<p>Note: always ask yourself whether the difference is <strong>clinically meaningful</strong>, not just statistically significant. A 0.07 g/dL difference in albumin in a study of 418 patients may be real but irrelevant to treatment decisions.</p>
+<p>Always ask whether the difference is <strong>clinically meaningful</strong>, not just statistically significant.</p>
 </div>
 </div>
-</div>
-</div>
-<p><strong>Reporting:</strong> “Mean albumin was 3.52 g/dL in the D-penicillamine group and 3.52 g/dL in the placebo group. There was no statistically significant difference (Welch’s two-sample t-test: t = [value], df = [df], p = [p]; 95% CI for difference: [CI]).”</p>
 </section>
-<section id="paired-change-in-albumin-before-and-after-hypothetical" class="level3" data-number="11.4.3">
-<h3 data-number="11.4.3" class="anchored" data-anchor-id="paired-change-in-albumin-before-and-after-hypothetical"><span class="header-section-number">11.4.3</span> Paired: Change in Albumin Before and After (Hypothetical)</h3>
-<p>In a paired design, each subject provides two measurements (e.g., baseline and follow-up). We need the difference per subject, not the group means.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate: 50 patients with paired albumin measurements</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>paired_dat <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient    =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">albumin_t0 =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="at">mean =</span> <span class="fl">3.5</span>, <span class="at">sd =</span> <span class="fl">0.5</span>),</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">albumin_t1 =</span> albumin_t0 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="at">mean =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">sd =</span> <span class="fl">0.3</span>)  <span class="co"># slight decline</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualise the paired differences</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>paired_dat <span class="sc">%&gt;%</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> albumin_t1 <span class="sc">-</span> albumin_t0) <span class="sc">%&gt;%</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> diff)) <span class="sc">+</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Change in albumin (t1 - t0)"</span>,</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Change (g/dL)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="04-t-tests_files/figure-html/paired-example-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(paired_dat<span class="sc">$</span>albumin_t1, paired_dat<span class="sc">$</span>albumin_t0, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Paired t-test
-
-data:  paired_dat$albumin_t1 and paired_dat$albumin_t0
-t = -7.8002, df = 49, p-value = 3.866e-10
-alternative hypothesis: true mean difference is not equal to 0
-95 percent confidence interval:
- -0.4128532 -0.2437028
-sample estimates:
-mean difference 
-      -0.328278 </code></pre>
-</div>
-</div>
-<p>The paired t-test reduces variability by removing between-patient differences, making it more powerful than a two-sample test for this design.</p>
-</section>
-</section>
-<section id="example-2-animal-data-toothgrowth" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="example-2-animal-data-toothgrowth"><span class="header-section-number">11.5</span> Example 2: Animal Data (ToothGrowth)</h2>
-<p>The <code>ToothGrowth</code> dataset compares two Vitamin C delivery methods in guinea pigs.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tg <span class="ot">&lt;-</span> ToothGrowth <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">supp =</span> <span class="fu">factor</span>(supp, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"VC"</span>, <span class="st">"OJ"</span>),</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Ascorbic acid"</span>, <span class="st">"Orange juice"</span>)),</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">dose =</span> <span class="fu">factor</span>(dose)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare at the 1.0 mg/day dose only</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>tg_1mg <span class="ot">&lt;-</span> tg <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dose <span class="sc">==</span> <span class="st">"1"</span>)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>tg_1mg <span class="sc">%&gt;%</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> supp, <span class="at">y =</span> len, <span class="at">fill =</span> supp)) <span class="sc">+</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Tooth length by supplement type at 1.0 mg/day"</span>,</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Odontoblast length (?m)"</span>) <span class="sc">+</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="04-t-tests_files/figure-html/toothgrowth-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_1mg, <span class="at">var.equal =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 10
-  estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
-     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1    -5.93      16.8      22.7     -4.03 0.00104      15.4    -9.06     -2.80
-# ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
-</div>
-</div>
 </section>
 <section id="checking-assumptions-qq-plots" class="level2" data-number="11.6">
 <h2 data-number="11.6" class="anchored" data-anchor-id="checking-assumptions-qq-plots"><span class="header-section-number">11.6</span> Checking Assumptions: QQ-plots</h2>
-<p>For small samples (<span class="math inline">\(n &lt; 30\)</span>), check that data are approximately normal using a QQ-plot.</p>
+<p>For small samples (<span class="math inline">\(n &lt; 30\)</span>), check that data are approximately normal using a QQ-plot. <code>ToothGrowth</code> has only 10 animals per group at each dose – exactly the situation where checking matters.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> albumin)) <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> trt) <span class="sc">+</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"QQ-plot of albumin by treatment group"</span>) <span class="sc">+</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tg_1mg <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> len)) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> supp) <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"QQ-plot of tooth length by supplement (1.0 mg/day)"</span>) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -802,16 +801,17 @@ mean difference
 </div>
 </div>
 </div>
-<p>Points falling close to the diagonal line indicate approximate normality. With <span class="math inline">\(n \approx 150\)</span> per group, slight deviations are not a concern for the t-test.</p>
+<p>With <span class="math inline">\(n = 10\)</span> per group, points roughly following the line are sufficient. If you see heavy tails or a systematic curve, consider a Wilcoxon test (see <a href="../sessions/nonparametric-tests.html">Nonparametric Tests</a>).</p>
 </section>
 <section id="where-to-find-data-like-this" class="level2 callout-note" data-number="11.7">
 <h2 class="callout-note anchored" data-number="11.7" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">11.7</span> Where to Find Data Like This</h2>
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> ? built in, no download needed.</p>
-<p><strong>Sleep dataset (paired):</strong> <code>datasets::sleep</code> ? built into base R. Contains the effect of two sleep drugs on 10 patients (classic paired t-test example).</p>
-<p><strong>MASS::birthwt:</strong> birth weight data with clinical predictors; good for comparing birth weight between groups.</p>
+<p><strong><code>ToothGrowth</code></strong> (base R, used in Example 1): Dose-response experiment in guinea pigs. Ideal for two-sample t-tests and one-way ANOVA.</p>
+<p><strong><code>sleep</code></strong> (base R, used in Example 1): Paired drug comparison in 10 patients. The definitive paired t-test teaching dataset.</p>
+<p><strong><code>survival::pbc</code></strong> (used in Example 2): Clinical trial data with many continuous biomarkers suitable for one-sample and two-sample comparisons.</p>
+<p><strong><code>MASS::birthwt</code>:</strong> Birth weight data with a smoking indicator – good for a two-sample t-test on birth weight between smokers and non-smokers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(birthwt, <span class="at">package =</span> <span class="st">"MASS"</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(bwt <span class="sc">~</span> smoke, <span class="at">data =</span> birthwt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(birthwt, <span class="at">package =</span> <span class="st">"MASS"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(bwt <span class="sc">~</span> smoke, <span class="at">data =</span> birthwt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="what-can-go-wrong" class="level2 callout-warning" data-number="11.8">
@@ -861,10 +861,10 @@ Exercise 1: Solution
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Distribution</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pbc, <span class="fu">aes</span>(<span class="at">x =</span> bili)) <span class="sc">+</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bilirubin (mg/dL)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Distribution</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pbc, <span class="fu">aes</span>(<span class="at">x =</span> bili)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bilirubin (mg/dL)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -872,17 +872,17 @@ Exercise 1: Solution
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. One-sample test on log scale</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="fu">log</span>(pbc<span class="sc">$</span>bili), <span class="at">mu =</span> <span class="fu">log</span>(<span class="fl">1.2</span>))</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. One-sample test on log scale</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="fu">log</span>(pbc<span class="sc">$</span>bili), <span class="at">mu =</span> <span class="fu">log</span>(<span class="fl">1.2</span>))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
   estimate statistic  p.value parameter conf.low conf.high method    alternative
      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      
 1    0.571      7.77 6.10e-14       417    0.473     0.670 One Samp… two.sided  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Back-transform the CI</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(res<span class="sc">$</span>conf.int)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Back-transform the CI</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(res<span class="sc">$</span>conf.int)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.604900 1.954091
 attr(,"conf.level")
@@ -915,12 +915,12 @@ Exercise 2: Solution
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>tg_all <span class="ot">&lt;-</span> ToothGrowth <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">supp =</span> <span class="fu">factor</span>(supp))</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Two-sample test</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_all))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tg_all <span class="ot">&lt;-</span> ToothGrowth <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">supp =</span> <span class="fu">factor</span>(supp))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Two-sample test</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_all))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 10
   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
@@ -928,11 +928,11 @@ Exercise 2: Solution
 1      3.7      20.7      17.0      1.92  0.0606      55.3   -0.171      7.57
 # ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ-plot by group</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>tg_all <span class="sc">%&gt;%</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> len)) <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> supp) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ-plot by group</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>tg_all <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> len)) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> supp) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -940,8 +940,8 @@ Exercise 2: Solution
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log scale</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(<span class="fu">log</span>(len) <span class="sc">~</span> supp, <span class="at">data =</span> tg_all))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log scale</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(<span class="fu">log</span>(len) <span class="sc">~</span> supp, <span class="at">data =</span> tg_all))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 10
   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high

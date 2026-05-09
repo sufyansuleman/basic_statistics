@@ -271,6 +271,27 @@ Identify a trait relevant to your research that has publicly available GWAS summ
 5. This is the **one-sample overlap** problem. When instrument selection and causal estimation use the same dataset, the winner's curse inflates the apparent instrument strength, and the 2SLS estimate is biased toward the OLS (confounded) estimate in proportion to the instrument's weakness. A two-sample design ? instrument-exposure association from one independent GWAS, instrument-outcome association from another ? avoids this.
 :::
 
+
+## How to Report
+
+### Reporting Mendelian Randomisation Results
+
+::: {.callout-note}
+**In a methods section:** "Two-sample Mendelian randomisation was performed using summary-level GWAS data for [exposure] (source: [citation]) and [outcome] (source: [citation]). The primary analysis used the inverse-variance weighted (IVW) method. Sensitivity analyses included the weighted median, MR-Egger, and weighted mode methods to assess robustness to pleiotropy."
+
+**In results:** "Genetically predicted [exposure] was associated with [outcome] (IVW \u03b2 = X per SD increase, 95% CI [L, U], p = Y). The MR-Egger intercept was close to zero (intercept = X, p = Z), supporting the no-pleiotropy assumption."
+
+**What to always include:**
+
+- IVW estimate with 95% CI and p-value
+- Number of genetic instruments used
+- Results from at least two sensitivity analyses
+- Cochran Q statistic or I² for instrument heterogeneity
+- GWAS sources for both exposure and outcome
+
+**Avoid causal language:** State that findings are "consistent with a causal effect" or "provide evidence supporting causality" rather than claiming causation directly.
+:::
+
 ## Further Reading
 
 - @Davey-Smith-2003 --- *Mendelian randomization: can genetic epidemiology contribute to understanding environmental determinants of disease?* (IJE ? the original MR paper)

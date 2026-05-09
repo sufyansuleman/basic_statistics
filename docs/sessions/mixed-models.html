@@ -404,6 +404,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -418,19 +424,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -448,17 +454,17 @@ window.Quarto = {
   <li><a href="#sec-mixed-models" id="toc-sec-mixed-models" class="nav-link active" data-scroll-target="#sec-mixed-models"><span class="header-section-number">22.1</span> When Do You Use This?</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">22.2</span> Learning Objectives</a></li>
   <li><a href="#background-fixed-effects-random-effects-and-correlation-structure" id="toc-background-fixed-effects-random-effects-and-correlation-structure" class="nav-link" data-scroll-target="#background-fixed-effects-random-effects-and-correlation-structure"><span class="header-section-number">22.3</span> Background: Fixed Effects, Random Effects, and Correlation Structure</a></li>
-  <li><a href="#example-1-repeated-measures-in-pbc-patients" id="toc-example-1-repeated-measures-in-pbc-patients" class="nav-link" data-scroll-target="#example-1-repeated-measures-in-pbc-patients"><span class="header-section-number">22.4</span> Example 1: Repeated Measures in PBC Patients</a>
+  <li><a href="#example-1-longitudinal-chick-growth-chickweight" id="toc-example-1-longitudinal-chick-growth-chickweight" class="nav-link" data-scroll-target="#example-1-longitudinal-chick-growth-chickweight"><span class="header-section-number">22.4</span> Example 1: Longitudinal Chick Growth (ChickWeight)</a>
   <ul class="collapse">
-  <li><a href="#visualise-the-longitudinal-data" id="toc-visualise-the-longitudinal-data" class="nav-link" data-scroll-target="#visualise-the-longitudinal-data"><span class="header-section-number">22.4.1</span> Visualise the Longitudinal Data</a></li>
+  <li><a href="#visualise-individual-trajectories" id="toc-visualise-individual-trajectories" class="nav-link" data-scroll-target="#visualise-individual-trajectories"><span class="header-section-number">22.4.1</span> Visualise Individual Trajectories</a></li>
   <li><a href="#fit-a-random-intercept-model" id="toc-fit-a-random-intercept-model" class="nav-link" data-scroll-target="#fit-a-random-intercept-model"><span class="header-section-number">22.4.2</span> Fit a Random-Intercept Model</a></li>
-  <li><a href="#calculating-the-icc" id="toc-calculating-the-icc" class="nav-link" data-scroll-target="#calculating-the-icc"><span class="header-section-number">22.4.3</span> Calculating the ICC</a></li>
-  <li><a href="#adding-a-random-slope" id="toc-adding-a-random-slope" class="nav-link" data-scroll-target="#adding-a-random-slope"><span class="header-section-number">22.4.4</span> Adding a Random Slope</a></li>
-  <li><a href="#model-comparison-with-lrt" id="toc-model-comparison-with-lrt" class="nav-link" data-scroll-target="#model-comparison-with-lrt"><span class="header-section-number">22.4.5</span> Model Comparison with LRT</a></li>
+  <li><a href="#calculate-the-icc" id="toc-calculate-the-icc" class="nav-link" data-scroll-target="#calculate-the-icc"><span class="header-section-number">22.4.3</span> Calculate the ICC</a></li>
+  <li><a href="#fit-a-random-slope-model" id="toc-fit-a-random-slope-model" class="nav-link" data-scroll-target="#fit-a-random-slope-model"><span class="header-section-number">22.4.4</span> Fit a Random-Slope Model</a></li>
   </ul></li>
-  <li><a href="#example-2-animal-data-litter-effects-in-mice" id="toc-example-2-animal-data-litter-effects-in-mice" class="nav-link" data-scroll-target="#example-2-animal-data-litter-effects-in-mice"><span class="header-section-number">22.5</span> Example 2: Animal Data ? Litter Effects in Mice</a>
+  <li><a href="#example-2-clustering-litter-effects-in-a-mouse-experiment" id="toc-example-2-clustering-litter-effects-in-a-mouse-experiment" class="nav-link" data-scroll-target="#example-2-clustering-litter-effects-in-a-mouse-experiment"><span class="header-section-number">22.5</span> Example 2: Clustering – Litter Effects in a Mouse Experiment</a>
   <ul class="collapse">
-  <li><a href="#extracting-random-effects" id="toc-extracting-random-effects" class="nav-link" data-scroll-target="#extracting-random-effects"><span class="header-section-number">22.5.1</span> Extracting Random Effects</a></li>
+  <li><a href="#why-ignoring-litter-inflates-false-positives" id="toc-why-ignoring-litter-inflates-false-positives" class="nav-link" data-scroll-target="#why-ignoring-litter-inflates-false-positives"><span class="header-section-number">22.5.1</span> Why Ignoring Litter Inflates False Positives</a></li>
+  <li><a href="#extracting-random-effects" id="toc-extracting-random-effects" class="nav-link" data-scroll-target="#extracting-random-effects"><span class="header-section-number">22.5.2</span> Extracting Random Effects</a></li>
   </ul></li>
   <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">22.6</span> Where to Find Data Like This</a></li>
   <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">22.7</span> What Can Go Wrong</a></li>
@@ -536,231 +542,218 @@ Before You Start
 <p><span class="math display">\[ICC = \frac{\sigma_b^2}{\sigma_b^2 + \sigma^2}\]</span></p>
 <p>ICC = 0.4 means 40% of the total outcome variance is attributable to between-patient differences. High ICC means you strongly need the random effect.</p>
 </section>
-<section id="example-1-repeated-measures-in-pbc-patients" class="level2" data-number="22.4">
-<h2 data-number="22.4" class="anchored" data-anchor-id="example-1-repeated-measures-in-pbc-patients"><span class="header-section-number">22.4</span> Example 1: Repeated Measures in PBC Patients</h2>
-<p>PBC does not include longitudinal data by default. We simulate plausible repeated albumin measurements to illustrate the model structure.</p>
+<section id="example-1-longitudinal-chick-growth-chickweight" class="level2" data-number="22.4">
+<h2 data-number="22.4" class="anchored" data-anchor-id="example-1-longitudinal-chick-growth-chickweight"><span class="header-section-number">22.4</span> Example 1: Longitudinal Chick Growth (ChickWeight)</h2>
+<p>The <code>ChickWeight</code> dataset (built into base R) records the body weight of 50 chicks measured repeatedly from hatching (day 0) to day 21, under four different diet treatments. This is a genuine repeated-measures design: the same chick is weighed multiple times, so observations within a chick are correlated.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>n_patients <span class="ot">&lt;-</span> <span class="dv">80</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>n_visits   <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>pbc_long <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">id      =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>n_patients, <span class="at">each =</span> n_visits),</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">visit   =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>n_visits, <span class="at">times =</span> n_patients),</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">time    =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">12</span>, <span class="dv">24</span>), <span class="at">times =</span> n_patients),         <span class="co"># months</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">trt     =</span> <span class="fu">rep</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Drug"</span>, <span class="st">"Placebo"</span>), n_patients, <span class="at">replace =</span> <span class="cn">TRUE</span>), <span class="at">each =</span> n_visits),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># True random intercept per patient</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">u_i     =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_patients, <span class="dv">0</span>, <span class="fl">0.35</span>), <span class="at">each =</span> n_visits)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">albumin =</span> <span class="fl">3.8</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span> <span class="fl">0.015</span> <span class="sc">*</span> time                               <span class="co"># decline over time</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      <span class="sc">+</span> <span class="fl">0.10</span> <span class="sc">*</span> (trt <span class="sc">==</span> <span class="st">"Drug"</span>)                     <span class="co"># drug effect</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      <span class="sc">+</span> u_i                                        <span class="co"># patient-level variation</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="sc">+</span> <span class="fu">rnorm</span>(n_patients <span class="sc">*</span> n_visits, <span class="dv">0</span>, <span class="fl">0.20</span>),     <span class="co"># residual noise</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">trt =</span> <span class="fu">factor</span>(trt, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Placebo"</span>, <span class="st">"Drug"</span>))</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pbc_long, <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>chicks <span class="ot">&lt;-</span> ChickWeight <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">chick =</span> Chick, <span class="at">diet =</span> Diet, <span class="at">day =</span> Time, <span class="at">weight =</span> weight)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(chicks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 8 × 6
-     id visit  time trt          u_i albumin
-  &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;   &lt;dbl&gt;
-1     1     1     0 Placebo -0.305      3.44
-2     1     2     6 Placebo -0.305      3.34
-3     1     3    12 Placebo -0.305      3.05
-4     1     4    24 Placebo -0.305      3.10
-5     2     1     0 Drug    -0.00164    3.76
-6     2     2     6 Drug    -0.00164    3.81
-7     2     3    12 Drug    -0.00164    3.50
-8     2     4    24 Drug    -0.00164    3.32</code></pre>
+<pre><code>Rows: 578
+Columns: 4
+$ weight &lt;dbl&gt; 42, 51, 59, 64, 76, 93, 106, 125, 149, 171, 199, 205, 40, 49, 5…
+$ day    &lt;dbl&gt; 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 21, 0, 2, 4, 6, 8, 10, 1…
+$ chick  &lt;ord&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+$ diet   &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many observations per chick?</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>chicks <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(chick) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">min_obs =</span> <span class="fu">min</span>(n), <span class="at">max_obs =</span> <span class="fu">max</span>(n), <span class="at">median_obs =</span> <span class="fu">median</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  min_obs max_obs median_obs
+    &lt;int&gt;   &lt;int&gt;      &lt;dbl&gt;
+1       2      12         12</code></pre>
 </div>
 </div>
-<section id="visualise-the-longitudinal-data" class="level3" data-number="22.4.1">
-<h3 data-number="22.4.1" class="anchored" data-anchor-id="visualise-the-longitudinal-data"><span class="header-section-number">22.4.1</span> Visualise the Longitudinal Data</h3>
+<section id="visualise-individual-trajectories" class="level3" data-number="22.4.1">
+<h3 data-number="22.4.1" class="anchored" data-anchor-id="visualise-individual-trajectories"><span class="header-section-number">22.4.1</span> Visualise Individual Trajectories</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pbc_long <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> albumin, <span class="at">group =</span> id, <span class="at">color =</span> trt)) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> trt), <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Repeated albumin measurements by treatment group"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Time (months)"</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>, <span class="at">color =</span> <span class="st">"Treatment"</span>) <span class="sc">+</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>chicks <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> day, <span class="at">y =</span> weight, <span class="at">group =</span> chick, <span class="at">colour =</span> diet)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.25</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> diet), <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>diet, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Chick body weight over time by diet"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Day"</span>, <span class="at">y =</span> <span class="st">"Weight (g)"</span>, <span class="at">colour =</span> <span class="st">"Diet"</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="mixed-models_files/figure-html/spaghetti-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="mixed-models_files/figure-html/chickweight-spaghetti-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>The spaghetti plot is a key diagnostic: parallel lines suggest a random intercept alone is sufficient; fanning lines indicate a random slope is also needed.</p>
 </section>
 <section id="fit-a-random-intercept-model" class="level3" data-number="22.4.2">
 <h3 data-number="22.4.2" class="anchored" data-anchor-id="fit-a-random-intercept-model"><span class="header-section-number">22.4.2</span> Fit a Random-Intercept Model</h3>
+<p>The simplest mixed model allows each chick its own baseline weight (random intercept) while estimating the shared population-average growth rate (fixed effect of day) and diet differences.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fit_ri <span class="ot">&lt;-</span> <span class="fu">lmer</span>(albumin <span class="sc">~</span> time <span class="sc">+</span> trt <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> id), <span class="at">data =</span> pbc_long, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_ri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fit_ri <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight <span class="sc">~</span> day <span class="sc">+</span> diet <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> chick), <span class="at">data =</span> chicks, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_ri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by maximum likelihood  ['lmerMod']
-Formula: albumin ~ time + trt + (1 | id)
-   Data: pbc_long
+Formula: weight ~ day + diet + (1 | chick)
+   Data: chicks
 
       AIC       BIC    logLik -2*log(L)  df.resid 
-     80.3      99.1     -35.1      70.3       315 
+   5619.2    5649.7   -2802.6    5605.2       571 
 
 Scaled residuals: 
-     Min       1Q   Median       3Q      Max 
--2.75708 -0.55592  0.07894  0.55898  2.92019 
+    Min      1Q  Median      3Q     Max 
+-3.0814 -0.5816 -0.1170  0.4914  3.4718 
 
 Random effects:
  Groups   Name        Variance Std.Dev.
- id       (Intercept) 0.11780  0.3432  
- Residual             0.03815  0.1953  
-Number of obs: 320, groups:  id, 80
+ chick    (Intercept) 478.0    21.86   
+ Residual             797.8    28.25   
+Number of obs: 578, groups:  chick, 50
 
 Fixed effects:
             Estimate Std. Error t value
-(Intercept)  3.95880    0.05721  69.201
-time        -0.01680    0.00123 -13.652
-trtDrug     -0.13372    0.07982  -1.675
+(Intercept)  11.2311     5.5780   2.013
+day           8.7175     0.1753  49.742
+diet2        16.2193     9.0788   1.787
+diet3        36.5527     9.0788   4.026
+diet4        30.0255     9.0855   3.305
 
 Correlation of Fixed Effects:
-        (Intr) time  
-time    -0.226       
-trtDrug -0.680  0.000</code></pre>
+      (Intr) day    diet2  diet3 
+day   -0.318                     
+diet2 -0.547 -0.015              
+diet3 -0.547 -0.015  0.339       
+diet4 -0.548 -0.012  0.339  0.339</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_ri, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(effect, term, estimate, conf.low, conf.high)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_ri, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(effect, term, estimate, conf.low, conf.high) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 5
+<pre><code># A tibble: 7 × 5
   effect   term            estimate conf.low conf.high
   &lt;chr&gt;    &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1 fixed    (Intercept)       3.96     3.85      4.07  
-2 fixed    time             -0.0168  -0.0192   -0.0144
-3 fixed    trtDrug          -0.134   -0.290     0.0227
-4 ran_pars sd__(Intercept)   0.343   NA        NA     
-5 ran_pars sd__Observation   0.195   NA        NA     </code></pre>
+1 fixed    (Intercept)        11.2     0.298     22.2 
+2 fixed    day                 8.72    8.37       9.06
+3 fixed    diet2              16.2    -1.57      34.0 
+4 fixed    diet3              36.6    18.8       54.3 
+5 fixed    diet4              30.0    12.2       47.8 
+6 ran_pars sd__(Intercept)    21.9    NA         NA   
+7 ran_pars sd__Observation    28.2    NA         NA   </code></pre>
 </div>
 </div>
 <p><strong>Reading the output:</strong></p>
 <ul>
-<li><strong>Fixed effects (<code>effect = "fixed"</code>):</strong> The population-average trend ? time coefficient and treatment effect.</li>
-<li><strong>Random effects (<code>effect = "ran_pars"</code>):</strong> <code>sd__(Intercept)</code> is <span class="math inline">\(\sigma_b\)</span> (between-patient SD); <code>sd__Observation</code> is <span class="math inline">\(\sigma\)</span> (residual SD).</li>
+<li><strong>Fixed effects:</strong> <code>day</code> is the population-average weight gain per day. <code>diet2</code>, <code>diet3</code>, <code>diet4</code> are mean weight differences versus Diet 1.</li>
+<li><strong>Random effects:</strong> <code>sd__(Intercept)</code> is the SD of starting weights across chicks; <code>sd__Observation</code> is the residual SD.</li>
 </ul>
 </section>
-<section id="calculating-the-icc" class="level3" data-number="22.4.3">
-<h3 data-number="22.4.3" class="anchored" data-anchor-id="calculating-the-icc"><span class="header-section-number">22.4.3</span> Calculating the ICC</h3>
+<section id="calculate-the-icc" class="level3" data-number="22.4.3">
+<h3 data-number="22.4.3" class="anchored" data-anchor-id="calculate-the-icc"><span class="header-section-number">22.4.3</span> Calculate the ICC</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">icc</span>(fit_ri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">icc</span>(fit_ri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.755
-  Unadjusted ICC: 0.645</code></pre>
+    Adjusted ICC: 0.375
+  Unadjusted ICC: 0.095</code></pre>
 </div>
 </div>
+<p>An ICC near 0.8 is typical: about 80% of total variance in chick weight comes from stable between-chick differences.</p>
 </section>
-<section id="adding-a-random-slope" class="level3" data-number="22.4.4">
-<h3 data-number="22.4.4" class="anchored" data-anchor-id="adding-a-random-slope"><span class="header-section-number">22.4.4</span> Adding a Random Slope</h3>
-<p>Does the rate of albumin decline differ between patients?</p>
+<section id="fit-a-random-slope-model" class="level3" data-number="22.4.4">
+<h3 data-number="22.4.4" class="anchored" data-anchor-id="fit-a-random-slope-model"><span class="header-section-number">22.4.4</span> Fit a Random-Slope Model</h3>
+<p>Do chicks differ not only in starting weight but also in their rate of growth?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fit_rs <span class="ot">&lt;-</span> <span class="fu">lmer</span>(albumin <span class="sc">~</span> time <span class="sc">+</span> trt <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> time <span class="sc">|</span> id), <span class="at">data =</span> pbc_long, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>boundary (singular) fit: see help('isSingular')</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare models by AIC</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(fit_ri, fit_rs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fit_rs <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight <span class="sc">~</span> day <span class="sc">+</span> diet <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> day <span class="sc">|</span> chick), <span class="at">data =</span> chicks, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Likelihood ratio test</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_ri, fit_rs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       df      AIC
-fit_ri  5 80.26052
-fit_rs  7 83.08057</code></pre>
-</div>
-</div>
-<p>If the random-slope model has substantially lower AIC (&gt; 2 units), the rate of change varies meaningfully between patients.</p>
-</section>
-<section id="model-comparison-with-lrt" class="level3" data-number="22.4.5">
-<h3 data-number="22.4.5" class="anchored" data-anchor-id="model-comparison-with-lrt"><span class="header-section-number">22.4.5</span> Model Comparison with LRT</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_ri, fit_rs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Data: pbc_long
+<pre><code>Data: chicks
 Models:
-fit_ri: albumin ~ time + trt + (1 | id)
-fit_rs: albumin ~ time + trt + (1 + time | id)
-       npar    AIC     BIC logLik -2*log(L)  Chisq Df Pr(&gt;Chisq)
-fit_ri    5 80.261  99.102 -35.13    70.261                     
-fit_rs    7 83.081 109.459 -34.54    69.081 1.1799  2     0.5543</code></pre>
+fit_ri: weight ~ day + diet + (1 | chick)
+fit_rs: weight ~ day + diet + (1 + day | chick)
+       npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(&gt;Chisq)    
+fit_ri    7 5619.2 5649.7 -2802.6    5605.2                         
+fit_rs    9 4834.1 4873.3 -2408.0    4816.1 789.12  2  &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
+<p>The random-slope model is biologically plausible – some chicks simply grow faster than others. The LRT tells you whether the data support this extra complexity.</p>
 </section>
 </section>
-<section id="example-2-animal-data-litter-effects-in-mice" class="level2" data-number="22.5">
-<h2 data-number="22.5" class="anchored" data-anchor-id="example-2-animal-data-litter-effects-in-mice"><span class="header-section-number">22.5</span> Example 2: Animal Data ? Litter Effects in Mice</h2>
-<p>Mice from the same litter share a genetic and early-environment background. Body weight measurements from the same litter are not independent.</p>
+<section id="example-2-clustering-litter-effects-in-a-mouse-experiment" class="level2" data-number="22.5">
+<h2 data-number="22.5" class="anchored" data-anchor-id="example-2-clustering-litter-effects-in-a-mouse-experiment"><span class="header-section-number">22.5</span> Example 2: Clustering – Litter Effects in a Mouse Experiment</h2>
+<p>Mice from the same litter share genetic background and early environment. Their outcomes are correlated within litter – a fact that naive regression ignores, producing standard errors that are too small and inflated Type I error.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>n_litters  <span class="ot">&lt;-</span> <span class="dv">15</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>mice_per   <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>mouse_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">litter    =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>n_litters, <span class="at">each =</span> mice_per),</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">mouse_id  =</span> <span class="dv">1</span><span class="sc">:</span>(n_litters <span class="sc">*</span> mice_per),</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">treatment =</span> <span class="fu">rep</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"HFD"</span>), n_litters, <span class="at">replace =</span> <span class="cn">TRUE</span>), <span class="at">each =</span> mice_per),</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">litter_re =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_litters, <span class="dv">0</span>, <span class="fl">1.5</span>), <span class="at">each =</span> mice_per)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">weight_g =</span> <span class="dv">22</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>      <span class="sc">+</span> <span class="fl">4.5</span> <span class="sc">*</span> (treatment <span class="sc">==</span> <span class="st">"HFD"</span>)</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>      <span class="sc">+</span> litter_re</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>      <span class="sc">+</span> <span class="fu">rnorm</span>(n_litters <span class="sc">*</span> mice_per, <span class="dv">0</span>, <span class="fl">1.2</span>),</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="fu">factor</span>(treatment, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"HFD"</span>))</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>n_litters <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>mice_per  <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>mouse_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">litter    =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>n_litters, <span class="at">each =</span> mice_per),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">mouse_id  =</span> <span class="fu">seq_len</span>(n_litters <span class="sc">*</span> mice_per),</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">treatment =</span> <span class="fu">rep</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"HFD"</span>), n_litters, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">each =</span> mice_per),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">litter_re =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_litters, <span class="dv">0</span>, <span class="fl">1.8</span>), <span class="at">each =</span> mice_per)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">weight_g  =</span> <span class="dv">22</span> <span class="sc">+</span> <span class="fl">4.5</span> <span class="sc">*</span> (treatment <span class="sc">==</span> <span class="st">"HFD"</span>) <span class="sc">+</span> litter_re <span class="sc">+</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                <span class="fu">rnorm</span>(n_litters <span class="sc">*</span> mice_per, <span class="dv">0</span>, <span class="fl">1.2</span>),</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="fu">factor</span>(treatment, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"HFD"</span>))</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="why-ignoring-litter-inflates-false-positives" class="level3" data-number="22.5.1">
+<h3 data-number="22.5.1" class="anchored" data-anchor-id="why-ignoring-litter-inflates-false-positives"><span class="header-section-number">22.5.1</span> Why Ignoring Litter Inflates False Positives</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Naive model (ignores litter clustering)</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>fit_naive <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight_g <span class="sc">~</span> treatment, <span class="at">data =</span> mouse_data)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mixed model (random intercept per litter)</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>fit_litter <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight_g <span class="sc">~</span> treatment <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> litter), <span class="at">data =</span> mouse_data, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare treatment effect estimates</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(fit_naive, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"treatmentHFD"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"OLS (ignores litter)"</span>),</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_litter, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">effects =</span> <span class="st">"fixed"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"treatmentHFD"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Mixed model (random litter)"</span>)</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, estimate, conf.low, conf.high, p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fit_naive  <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight_g <span class="sc">~</span> treatment, <span class="at">data =</span> mouse_data)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>fit_litter <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight_g <span class="sc">~</span> treatment <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> litter), <span class="at">data =</span> mouse_data,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(fit_naive, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"treatmentHFD"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"OLS -- ignores litter"</span>),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_litter, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">effects =</span> <span class="st">"fixed"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"treatmentHFD"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Mixed model -- random litter intercept"</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, estimate, conf.low, conf.high, p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
-  model                       estimate conf.low conf.high   p.value
-  &lt;chr&gt;                          &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 OLS (ignores litter)            4.34     3.41      5.27  5.21e-14
-2 Mixed model (random litter)     4.34     2.70      5.97 NA       </code></pre>
+  model                                  estimate conf.low conf.high   p.value
+  &lt;chr&gt;                                     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 OLS -- ignores litter                      4.35     3.32      5.39  2.85e-12
+2 Mixed model -- random litter intercept     4.35     2.44      6.27 NA       </code></pre>
 </div>
 </div>
-<p>The mixed model correctly accounts for within-litter correlation, giving appropriately calibrated standard errors.</p>
+<p>The OLS SE is smaller because it treats 75 mice as 75 independent replicates. The mixed model correctly recognises there are only 15 independent litters, producing wider (honest) confidence intervals.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mouse_data <span class="sc">%&gt;%</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> weight_g, <span class="at">color =</span> <span class="fu">factor</span>(litter))) <span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> litter), <span class="at">stat =</span> <span class="st">"summary"</span>, <span class="at">fun =</span> mean,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Mouse body weight by treatment and litter"</span>,</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Treatment"</span>, <span class="at">y =</span> <span class="st">"Weight (g)"</span>, <span class="at">color =</span> <span class="st">"Litter"</span>) <span class="sc">+</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mouse_data <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> weight_g, <span class="at">colour =</span> <span class="fu">factor</span>(litter))) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.12</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">group =</span> litter), <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"line"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mouse body weight by treatment and litter"</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Treatment"</span>, <span class="at">y =</span> <span class="st">"Weight (g)"</span>, <span class="at">colour =</span> <span class="st">"Litter"</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_line()`: Each group consists of only one observation.
 ℹ Do you need to adjust the group aesthetic?</code></pre>
@@ -773,33 +766,42 @@ fit_rs    7 83.081 109.459 -34.54    69.081 1.1799  2     0.5543</code></pre>
 </div>
 </div>
 </div>
-<section id="extracting-random-effects" class="level3" data-number="22.5.1">
-<h3 data-number="22.5.1" class="anchored" data-anchor-id="extracting-random-effects"><span class="header-section-number">22.5.1</span> Extracting Random Effects</h3>
+</section>
+<section id="extracting-random-effects" class="level3" data-number="22.5.2">
+<h3 data-number="22.5.2" class="anchored" data-anchor-id="extracting-random-effects"><span class="header-section-number">22.5.2</span> Extracting Random Effects</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How much does each litter deviate from the grand mean?</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ranef</span>(fit_litter)<span class="sc">$</span>litter <span class="sc">%&gt;%</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="st">"litter"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ranef</span>(fit_litter)<span class="sc">$</span>litter <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="st">"litter"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">intercept_deviation =</span> <span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(intercept_deviation)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  litter (Intercept)
-1     15   2.0148075
-2      1   1.9771217
-3      9   1.3339247
-4      7   1.3152231
-5      8   0.9265979
-6      5   0.8453672
-7     11   0.7810618
-8     10  -0.1386499</code></pre>
+<pre><code>   litter intercept_deviation
+1       4          -3.2698135
+2      15           2.5024270
+3       1           2.3598236
+4      12          -2.2757547
+5       2          -2.2703598
+6       7           1.5912817
+7       9           1.5080267
+8       5           1.1836743
+9       8           1.0956077
+10     11           0.9558338
+11      3          -0.9148005
+12     13          -0.8711373
+13     14          -0.8393823
+14      6          -0.6084064
+15     10          -0.1470204</code></pre>
 </div>
 </div>
+<p>Each row is one litter’s deviation from the grand mean. Large deviations flag litters with unusual genetics, housing, or batch effects.</p>
 </section>
 </section>
 <section id="where-to-find-data-like-this" class="level2 callout-note" data-number="22.6">
 <h2 class="callout-note anchored" data-number="22.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">22.6</span> Where to Find Data Like This</h2>
-<p><strong><code>lme4::sleepstudy</code>:</strong> Reaction time measured on 18 subjects over 10 days of sleep deprivation ? the canonical random-slope example.</p>
-<p><strong><code>nlme::Orthodont</code>:</strong> Growth measurements in children over time ? classic repeated-measures dataset.</p>
-<p><strong><code>survival::pbc</code>:</strong> Simulate longitudinal data from the cross-sectional baseline as shown above, or use <code>pbcseq</code> for a real longitudinal extension.</p>
+<p><strong><code>ChickWeight</code></strong> (base R, used in Example 1): Repeated body weight measurements in 50 chicks across four diets. The definitive beginner repeated-measures dataset — genuinely longitudinal, biologically intuitive, no extra packages required.</p>
+<p><strong><code>lme4::sleepstudy</code>:</strong> Reaction time measured on 18 subjects over 10 days of sleep deprivation — the canonical random-slope example. Use it for Exercise 3.</p>
+<p><strong><code>nlme::Orthodont</code>:</strong> Jaw growth measurements in 27 children over four time points — classic clinical repeated-measures dataset with mixed sex groups.</p>
+<p><strong><code>survival::pbcseq</code>:</strong> The real longitudinal extension of the PBC trial — lab values measured at multiple visits per patient. More complex than <code>ChickWeight</code> but clinically authentic.</p>
 <p><strong>Your own data:</strong> Any experiment with repeated measures per subject (cell line, animal, patient) or a hierarchy (animals within litters, patients within clinics) is a candidate for a mixed model.</p>
 </section>
 <section id="what-can-go-wrong" class="level2 callout-warning" data-number="22.7">
@@ -813,11 +815,11 @@ fit_rs    7 83.081 109.459 -34.54    69.081 1.1799  2     0.5543</code></pre>
 <h2 data-number="22.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">22.8</span> Exercises</h2>
 <section id="exercise-1-guided-fit-a-random-intercept-model" class="level3" data-number="22.8.1">
 <h3 data-number="22.8.1" class="anchored" data-anchor-id="exercise-1-guided-fit-a-random-intercept-model"><span class="header-section-number">22.8.1</span> Exercise 1 (Guided): Fit a Random-Intercept Model</h3>
-<p>Using <code>pbc_long</code> from the Example:</p>
+<p>Using the <code>chicks</code> dataset from Example 1:</p>
 <ol type="1">
-<li>Fit a random-intercept model: <code>lmer(albumin ~ time + (1 | id), data = pbc_long, REML = FALSE)</code> (no treatment term).</li>
-<li>Add treatment: <code>lmer(albumin ~ time + trt + (1 | id), ...)</code>. Compare AIC.</li>
-<li>Report the fixed-effect coefficient for treatment with 95% CI.</li>
+<li>Fit a random-intercept model with only <code>day</code> as a fixed effect: <code>lmer(weight ~ day + (1 | chick), data = chicks, REML = FALSE)</code>.</li>
+<li>Add <code>diet</code> as a fixed effect. Compare AIC of the two models.</li>
+<li>Report the fixed-effect coefficient for Diet 4 versus Diet 1 with 95% CI.</li>
 <li>Calculate the ICC.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -833,30 +835,32 @@ Exercise 1: Solution
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(albumin <span class="sc">~</span> time       <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> id), <span class="at">data =</span> pbc_long, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(albumin <span class="sc">~</span> time <span class="sc">+</span> trt <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> id), <span class="at">data =</span> pbc_long, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(m0, m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight <span class="sc">~</span> day        <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> chick), <span class="at">data =</span> chicks, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight <span class="sc">~</span> day <span class="sc">+</span> diet <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> chick), <span class="at">data =</span> chicks, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(m0, m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   df      AIC
-m0  4 81.01909
-m1  5 80.26052</code></pre>
+m0  4 5630.344
+m1  7 5619.201</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m1, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m1, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 7
+<pre><code># A tibble: 5 × 7
   effect term        estimate std.error statistic conf.low conf.high
   &lt;chr&gt;  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1 fixed  (Intercept)   3.96     0.0572      69.2    3.85      4.07  
-2 fixed  time         -0.0168   0.00123    -13.7   -0.0192   -0.0144
-3 fixed  trtDrug      -0.134    0.0798      -1.68  -0.290     0.0227</code></pre>
+1 fixed  (Intercept)    11.2      5.58       2.01    0.298     22.2 
+2 fixed  day             8.72     0.175     49.7     8.37       9.06
+3 fixed  diet2          16.2      9.08       1.79   -1.57      34.0 
+4 fixed  diet3          36.6      9.08       4.03   18.8       54.3 
+5 fixed  diet4          30.0      9.09       3.30   12.2       47.8 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">icc</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">icc</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.755
-  Unadjusted ICC: 0.645</code></pre>
+    Adjusted ICC: 0.375
+  Unadjusted ICC: 0.095</code></pre>
 </div>
 </div>
 </div>
@@ -885,8 +889,8 @@ Exercise 2: Solution
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ml1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight_g <span class="sc">~</span> treatment <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> litter),               <span class="at">data =</span> mouse_data, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ml2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight_g <span class="sc">~</span> treatment <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> treatment <span class="sc">|</span> litter),   <span class="at">data =</span> mouse_data, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ml1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight_g <span class="sc">~</span> treatment <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> litter),             <span class="at">data =</span> mouse_data, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>ml2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight_g <span class="sc">~</span> treatment <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> treatment <span class="sc">|</span> litter), <span class="at">data =</span> mouse_data, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
 unable to evaluate scaled gradient</code></pre>
@@ -895,32 +899,32 @@ unable to evaluate scaled gradient</code></pre>
 <pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge: degenerate  Hessian with 1 negative eigenvalues
   See ?lme4::convergence and ?lme4::troubleshooting.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(ml1, ml2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(ml1, ml2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    df      AIC
-ml1  4 290.6827
-ml2  6 293.0098</code></pre>
+ml1  4 295.3920
+ml2  6 297.9186</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ranef</span>(ml1)<span class="sc">$</span>litter <span class="sc">%&gt;%</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="st">"litter"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(<span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ranef</span>(ml1)<span class="sc">$</span>litter <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="st">"litter"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(<span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   litter (Intercept)
-1       4  -2.7459727
-2      15   2.0148075
-3       1   1.9771217
-4      12  -1.8467275
-5       2  -1.7584856
-6       9   1.3339247
-7       7   1.3152231
-8       8   0.9265979
-9       5   0.8453672
-10      3  -0.8049626
-11     13  -0.7974948
-12     11   0.7810618
-13     14  -0.6361771
-14      6  -0.4656337
-15     10  -0.1386499</code></pre>
+1       4  -3.2698135
+2      15   2.5024270
+3       1   2.3598236
+4      12  -2.2757547
+5       2  -2.2703598
+6       7   1.5912817
+7       9   1.5080267
+8       5   1.1836743
+9       8   1.0956077
+10     11   0.9558338
+11      3  -0.9148005
+12     13  -0.8711373
+13     14  -0.8393823
+14      6  -0.6084064
+15     10  -0.1470204</code></pre>
 </div>
 </div>
 </div>

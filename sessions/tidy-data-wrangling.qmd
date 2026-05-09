@@ -385,6 +385,27 @@ Take a wide-format dataset from your own research or download one from the Mouse
 5. `group_by()` splits the data into groups silently. `summarise()` computes a summary statistic within each group and returns one row per group.
 :::
 
+
+## How to Report
+
+### Reporting Data Preparation Steps
+
+::: {.callout-note}
+**In a methods section:** "Data were prepared for analysis in R. Variables were renamed and recoded as documented in the supplementary materials. [N] observations were excluded due to [reason: e.g., missing outcome variable, outside the study period]. The final analytic dataset comprised [N] observations and [P] variables."
+
+**What to document (and make reproducible):**
+
+- Source of the data (dataset version, access date for public repositories)
+- Inclusion and exclusion criteria applied, with counts at each step
+- Derived variables and the formulas used to create them
+- Any recoding of categorical variables (original label \u2192 new label)
+- Software and package versions
+
+**Reproducibility standard:** All data cleaning steps should be in a documented, version-controlled R script or Quarto document so that any analyst can reproduce the final dataset from the raw data.
+
+**Supplementary materials:** Complex cleaning pipelines should be provided as supplementary code or a data dictionary rather than described in full in the main manuscript text.
+:::
+
 ## Further Reading
 
 - [R for Data Science: Data Tidying](https://r4ds.hadley.nz/data-tidy.html) --- Hadley Wickham's full treatment

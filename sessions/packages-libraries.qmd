@@ -556,6 +556,30 @@ collapsed box below.
 5. You installed it but did not load it. Run `library(ggplot2)` before using the package.
 :::
 
+
+## How to Report
+
+### Citing R Packages in Your Work
+
+::: {.callout-note}
+**In a methods section:** "All analyses were performed in R (version X.X.X; R Core Team, YEAR). Statistical analyses used the `tidyverse` (Wickham et al., YEAR), `survival` (Therneau, YEAR), and `lme4` (Bates et al., YEAR) packages."
+
+**How to get a citation for any package:** Run `citation("packagename")` in R and copy the output into your reference manager.
+
+**What to always include:**
+
+- R version (`R.version.string`)
+- All key packages with version numbers (`packageVersion("pkg")`) and literature citations
+- RStudio version if relevant (`rstudioapi::versionInfo()`)
+
+**Tip:** The `grateful` package can automatically generate a bibliography of all R packages used in a project:
+
+```r
+install.packages("grateful")
+grateful::cite_packages(output = "file", out.dir = ".")
+```
+:::
+
 ## Further Reading
 
 - [CRAN Task Views](https://cran.r-project.org/web/views/) — curated lists of packages by topic (clinical trials, survival, genomics, etc.)

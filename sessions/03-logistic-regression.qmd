@@ -356,6 +356,26 @@ Using your own data, identify a binary outcome and at least two predictors. Fit 
 5. This is (quasi-)complete separation: the predictor almost perfectly predicts the outcome, so the algorithm tries to push the coefficient to ?8 and fails. Check by tabulating the predictor against the outcome. Remedy: use Firth's penalised logistic regression (`logistf::logistf()`), which regularises the likelihood and produces finite, stable estimates.
 :::
 
+
+## How to Report
+
+### Reporting Logistic Regression
+
+::: {.callout-note}
+**In a methods section:** "Logistic regression was used to examine the association between [predictor] and [binary outcome]. Results are expressed as odds ratios (OR) with 95% confidence intervals. [Confounders] were included as covariates."
+
+**In results:** "Patients with [predictor level] had X-fold higher odds of [outcome] compared with [reference] (OR = X, 95% CI [L, U], p = Y)."
+
+**What to always include:**
+
+- Odds ratio (OR) --- not the log-odds coefficient
+- 95% CI for the OR
+- Reference category (e.g., "compared with the OJ supplement group")
+- Number of events and total sample size (e.g., "87 deaths among 312 patients")
+
+**AUC/ROC:** If you report a ROC curve, include AUC with 95% CI. Do not report only p-values without ORs and CIs.
+:::
+
 ## Further Reading
 
 - @Hosmer-2013 --- *Applied Logistic Regression*, the standard reference

@@ -275,6 +275,20 @@ The table below maps every statistical method covered in this course to its sess
 5. Yes, be concerned. 152 missing values could mean: (a) a column has systematic missingness � check `colSums(is.na(df))` to identify which variable; (b) the missing data is not missing at random (MCAR) � if missingness is related to the outcome or exposure, complete-case analysis will be biased. Steps: identify which variables have missing data, check whether missingness is associated with the outcome, and consider whether imputation is needed (see @sec-imputation).
 :::
 
+## Common Pitfalls When Getting Help
+
+::: {.callout-warning}
+**Posting an incomplete question.** The most common reason a Stack Overflow question goes unanswered is that it lacks a reproducible example. Always include: the exact error message, the R version and key package versions, and a minimal dataset that demonstrates the problem (use `dput()` or a built-in dataset).
+
+**Searching for the wrong thing.** Error messages in R are often generic. Search for the *function name* and *package name* alongside the error text, not the error alone. For example: "lme4 singular fit random effects" is a better search than "model failed to converge."
+
+**Copying code without understanding it.** If you paste a solution and it works, spend 60 seconds asking why. Change one thing to confirm your mental model. Copy-paste dependency is the main reason R skills don't compound.
+
+**Not checking the package version.** Many Stack Overflow answers are outdated. Always confirm that the answer applies to your version (`packageVersion("pkg")`). Behaviour changes across versions --- especially for `dplyr`, `ggplot2`, and `tidymodels`.
+
+**Skipping `?function_name` before asking.** The help page often contains a working example that answers the question. Always check the Examples section at the bottom of the help page first.
+:::
+
 ## Further Reading
 
 - @Grolemund-2015 --- *Hands-On Programming with R* � getting started, debugging, and help

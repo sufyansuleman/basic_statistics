@@ -241,6 +241,29 @@ Take a published paper from your field. For each analysis reported:
 5. A test of *association* asks: are two variables related? (Chi-square, Pearson r). A test of *prediction* models the outcome as a function of predictors, estimates the size of effects, and can be used to predict new observations. Regression also allows adjustment for confounders, which association tests cannot. Use association tests for simple screening; use regression for explanatory modelling or confounding adjustment.
 :::
 
+## How to Report
+
+### Justifying Your Choice of Statistical Test
+
+::: {.callout-note}
+**In a methods section:** "The choice of statistical test was based on the outcome data type (continuous / binary / time-to-event), the number of groups compared, and whether the data met parametric assumptions (normality assessed by Shapiro-Wilk test and QQ-plot; homogeneity of variance assessed by Levene's test)."
+
+**What to always state:**
+
+- The name of the test used and the R function / package
+- The outcome variable type that motivated the choice
+- Whether parametric assumptions were checked and what was found
+- Any deviation from the pre-specified analysis plan (and the reason)
+
+**Template sentences:**
+
+- "A two-sample t-test was used because [outcome] was approximately normally distributed in both groups (Shapiro-Wilk p > 0.05) and sample sizes exceeded 30."
+- "The Wilcoxon rank-sum test was used because [outcome] showed marked right skew (Shapiro-Wilk p = 0.003; QQ-plot confirmed departure from normality)."
+- "Logistic regression was used because the outcome was binary (event vs. no event). Continuous predictors were not categorised."
+
+**Avoid:** Choosing a test after seeing the results (outcome-dependent test selection inflates the false-positive rate). Pre-specify the primary test and document any post-hoc changes.
+:::
+
 ## Further Reading
 
 - @Field-2013 --- *Discovering Statistics Using R* ? practical test selection guidance

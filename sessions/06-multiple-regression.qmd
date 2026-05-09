@@ -323,6 +323,26 @@ In your own research, identify a continuous outcome with at least two potential 
 5. The evidence is weak and the CI includes zero. Whether to include it depends on context: if it was pre-specified and has a plausible biological rationale, you might retain it and acknowledge the marginal evidence. If it was data-driven, it is safer to use the main-effects model and note the trend.
 :::
 
+
+## How to Report
+
+### Reporting Multiple Regression
+
+::: {.callout-note}
+**In a methods section:** "A multiple linear regression model was built with [outcome] as the dependent variable. Candidate predictors included [list]. Variables were selected based on [method: biological rationale / stepwise / LASSO]. Variance inflation factors (VIF) were examined to assess multicollinearity."
+
+**In results:** "After adjustment for [covariates], [predictor] remained independently associated with [outcome] (\u03b2 = X, 95% CI [L, U], p = Y). The full model explained X% of the variance in [outcome] (adjusted R² = X)."
+
+**What to always include:**
+
+- Coefficients (\u03b2) with 95% CI for each predictor
+- Overall model fit (adjusted R²)
+- n and number of predictors (flag if n/predictor < 10)
+- Variable selection method used
+
+**Never report unadjusted and adjusted estimates in the same sentence** without clearly labelling which is which.
+:::
+
 ## Further Reading
 
 - @Dalgaard-2008 --- Multiple regression chapter in *Introductory Statistics with R*

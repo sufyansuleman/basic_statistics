@@ -388,6 +388,26 @@ In your own research, identify a continuous outcome and a single continuous pred
 5. The intercept is the predicted albumin when log(bilirubin) = 0, i.e., when bilirubin = 1 mg/dL. If few patients have bilirubin near 1 mg/dL, the intercept is an extrapolation with high uncertainty and limited clinical meaning. It is mainly a mathematical artefact of the model parameterisation.
 :::
 
+
+## How to Report
+
+### Reporting a Linear Regression
+
+::: {.callout-note}
+**In a methods section:** "The association between [outcome] and [predictor] was estimated using linear regression. Potential confounders [list] were included in the model. Model assumptions (linearity, homoscedasticity, normality of residuals) were assessed using diagnostic plots."
+
+**In results:** "Each additional [unit] of [predictor] was associated with a [\u03b2] [unit] change in [outcome] (\u03b2 = X, 95% CI [L, U], p = Y)."
+
+**What to always include:**
+
+- Regression coefficient (\u03b2) with 95% CI and p-value
+- Adjusted R² (proportion of variance explained)
+- Number of observations and any excluded due to missing data
+- Whether the model is unadjusted or adjusted (and for what)
+
+**Reporting R² alone is not enough** --- always report the coefficient and CI so readers know the direction and magnitude of the effect.
+:::
+
 ## Further Reading
 
 - @Dalgaard-2008 --- Chapter on linear models in *Introductory Statistics with R*

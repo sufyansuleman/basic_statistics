@@ -330,6 +330,26 @@ Using a dataset from your own research, identify a continuous outcome and a cate
 5. **False.** Despite the name, ANOVA tests whether group *means* are equal, not variances. However, it does *assume* that the within-group variances are equal (homogeneity of variance). The name refers to the technique of partitioning total variance into components.
 :::
 
+
+## How to Report
+
+### Reporting ANOVA Results
+
+::: {.callout-note}
+**In a methods section:** "Differences in [outcome] across [k] groups were examined using a one-way ANOVA. Pairwise comparisons were performed using Tukey's honestly significant difference (HSD) test to control the family-wise error rate."
+
+**In results:** "There was a significant difference in [outcome] across groups (F(df_between, df_within) = X, p = Y). Post-hoc comparisons showed that [group A] had significantly higher [outcome] than [group B] (mean difference = X, 95% CI [L, U], adjusted p = Z)."
+
+**What to always include:**
+
+- F-statistic with numerator and denominator degrees of freedom (e.g., F(2, 27))
+- Overall p-value
+- Post-hoc test method and adjusted p-values
+- Group means and SDs in a table or figure
+
+**Two-way ANOVA:** Report both main effects and the interaction term separately. "There was a significant interaction between [factor 1] and [factor 2] (F(df, df) = X, p = Y)."
+:::
+
 ## Further Reading
 
 - @Dalgaard-2008 --- Chapter on ANOVA in *Introductory Statistics with R*

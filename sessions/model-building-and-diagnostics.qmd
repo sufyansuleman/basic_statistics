@@ -307,6 +307,26 @@ Take a model from your own research and apply the full diagnostic workflow: resi
 5. No. Lasso coefficients are biased toward zero by the penalty. After lasso selects variables, you should refit the model using ordinary regression on those selected variables to obtain unbiased coefficient estimates and valid CIs. Even then, some caution is needed because variable selection inflates Type I error ? ideally, use pre-specified variables and treat lasso as exploratory.
 :::
 
+
+## How to Report
+
+### Reporting Model Selection and Diagnostics
+
+::: {.callout-note}
+**In a methods section:** "Model assumptions were assessed using residual vs. fitted plots (linearity, homoscedasticity), normal QQ-plots (residual normality), and Cook's distance (influential observations; threshold: 4/n). Model selection was guided by AIC, with lower values indicating better relative fit."
+
+**In results:** "Diagnostic plots confirmed adequate model fit. [N] observations with Cook's distance > 4/n were identified; excluding them did not materially change conclusions (\u03b2 changed from X to Y). The final model had AIC = X vs. AIC = Y for the null model."
+
+**What to always include:**
+
+- Confirmation that residual diagnostics were performed
+- Any influential observations identified and how they were handled
+- Model comparison metric used (AIC, BIC, or likelihood ratio test)
+- Whether a sensitivity analysis was performed
+
+**Avoid:** Reporting only R² without diagnostic checks. A high R² with violated assumptions indicates a mis-specified model, not a good one.
+:::
+
 ## Further Reading
 
 - @Harrell-2015 --- *Regression Modeling Strategies* ? the definitive reference for clinical regression

@@ -322,6 +322,25 @@ Write a Methods paragraph as you would in a neuroscience paper.
 5. Specify a treatment ? time interaction in the fixed effects and a random slope for time: `lmer(albumin ~ time * trt + (1 + time | id), data = ..., REML = FALSE)`. The interaction term `time:trtDrug` gives the difference in slope between Drug and Placebo. The random slope `(1 + time | id)` allows individual patients to have their own rate of change.
 :::
 
+
+## How to Report
+
+### Reporting Mixed Model Results
+
+::: {.callout-note}
+**In a methods section:** "Linear mixed models were fitted with [outcome] as the dependent variable and [fixed effects] as fixed effects. A random intercept for [grouping variable] was included to account for [repeated measurements / clustering]. Models were fitted using restricted maximum likelihood (REML) with the `lme4` package."
+
+**In results:** "After accounting for individual variation, [predictor] was significantly associated with [outcome] (\u03b2 = X, 95% CI [L, U], p = Y). The intraclass correlation coefficient (ICC) was X, indicating that X% of the total variance was attributable to between-[subject/litter] differences."
+
+**What to always include:**
+
+- Fixed-effect estimates with 95% CI and p-values
+- Random effects structure (intercept only, or intercept + slope)
+- The grouping variable (subject ID, litter, site)
+- ICC or variance components
+- How p-values were obtained (Satterthwaite degrees of freedom or likelihood ratio test)
+:::
+
 ## Further Reading
 
 - @Bates-2015 --- *Fitting Linear Mixed-Effects Models Using lme4* (JSS paper, free online)

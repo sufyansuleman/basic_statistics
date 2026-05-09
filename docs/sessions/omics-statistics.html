@@ -84,7 +84,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../sessions/statistical-decision-guide.html" rel="next">
+<link href="../sessions/bayesian-inference.html" rel="next">
 <link href="../sessions/mendelian-randomization.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -404,6 +404,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -418,19 +424,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -469,7 +475,8 @@ window.Quarto = {
   <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">26.9.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
   <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">26.10</span> Comprehension Check</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">26.11</span> Further Reading</a></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">26.11</span> How to Report</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">26.12</span> Further Reading</a></li>
   </ul>
 </nav>
     </div>
@@ -878,8 +885,33 @@ Answers
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="26.11">
-<h2 data-number="26.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">26.11</span> Further Reading</h2>
+<section id="how-to-report" class="level2" data-number="26.11">
+<h2 data-number="26.11" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">26.11</span> How to Report</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reporting Omics Statistics Results
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>In a Methods section:</strong></p>
+<blockquote class="blockquote">
+<p>“Differential expression analysis was performed using <code>limma</code>/<code>DESeq2</code> (cite). Genes with an FDR-adjusted p-value &lt; 0.05 and |log₂ fold-change| ≥ 1 were considered differentially expressed. Multiple testing correction used the Benjamini–Hochberg method.”</p>
+</blockquote>
+<p><strong>In a Results section:</strong></p>
+<blockquote class="blockquote">
+<p>“Of XXXX genes tested, XXX were significantly differentially expressed (FDR &lt; 0.05, |log₂FC| ≥ 1): XXX up-regulated and XXX down-regulated in [condition A] relative to [condition B].”</p>
+</blockquote>
+<p><strong>Always report:</strong> - The statistical method and R package with version - The FDR threshold used (and why, if not 0.05) - Both the statistical threshold (FDR) and the biological threshold (fold-change cutoff) - Number of features tested (important for interpreting multiple testing correction)</p>
+<p><strong>Common reporting errors:</strong> - Reporting raw (unadjusted) p-values without FDR correction in a high-throughput analysis - Using an FDR threshold of 0.1 or 0.2 without acknowledging the higher false positive rate - Treating an FDR-adjusted p-value as if it were a Bonferroni-corrected p-value - Omitting the fold-change threshold — statistical significance alone does not imply biological relevance</p>
+</div>
+</div>
+</section>
+<section id="further-reading" class="level2" data-number="26.12">
+<h2 data-number="26.12" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">26.12</span> Further Reading</h2>
 <ul>
 <li><span class="citation" data-cites="Ritchie-2015">Ritchie et al. (<a href="#ref-Ritchie-2015" role="doc-biblioref">2015</a>)</span> — <em>limma powers differential expression analyses for RNA-sequencing and microarray studies</em> (NAR)</li>
 <li><span class="citation" data-cites="Love-2014">Love, Huber, and Anders (<a href="#ref-Love-2014" role="doc-biblioref">2014</a>)</span> — <em>DESeq2: moderated estimation of fold change and dispersion for RNA-seq data</em> (Genome Biology)</li>
@@ -1296,8 +1328,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/statistical-decision-guide.html" class="pagination-link" aria-label="<span class='chapter-number'>27</span>&nbsp; <span class='chapter-title'>Statistical Decision Guide</span>">
-        <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/bayesian-inference.html" class="pagination-link" aria-label="<span class='chapter-number'>27</span>&nbsp; <span class='chapter-title'>Bayesian Inference</span>">
+        <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

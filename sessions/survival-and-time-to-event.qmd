@@ -312,6 +312,28 @@ Using `survival::lung`, fit a multivariable Cox model predicting death from ECOG
 5. Transplant is a **competing risk** for death from liver disease ? a patient who receives a transplant can no longer die from the disease. Treating transplant as censoring falsely assumes these patients had the same underlying risk as uncensored patients, which overestimates the cumulative incidence of disease-specific death. The correct analysis uses cumulative incidence functions and the Fine-Gray or cause-specific Cox model to account for transplant as a competing event.
 :::
 
+
+## How to Report
+
+### Reporting Survival Analysis Results
+
+::: {.callout-note}
+**In a methods section:** "Time-to-event data were analysed using the Kaplan-Meier estimator and log-rank test to compare survival between groups. Cox proportional hazards regression was used to estimate hazard ratios adjusted for [covariates]. The proportional hazards assumption was assessed using Schoenfeld residuals."
+
+**In results --- Kaplan-Meier:** "Median survival was X months (95% CI [L, U]) in [group A] and Y months (95% CI [L, U]) in [group B] (log-rank p = Z). The 1-year survival probability was X% (95% CI [L, U]) in [group A]."
+
+**In results --- Cox model:** "[Predictor] was significantly associated with mortality after adjustment for [covariates] (HR = X, 95% CI [L, U], p = Y)."
+
+**What to always include:**
+
+- Median survival with 95% CI for each group
+- Number of events and total observations (e.g., "87 deaths in 312 patients, median follow-up 4.2 years")
+- Hazard ratio with 95% CI (not odds ratio)
+- Confirmation that the proportional hazards assumption was assessed
+
+**HR \u2260 RR:** The hazard ratio approximates the relative risk only when events are rare and follow-up is short. Never describe an HR as a "relative risk" in a survival context.
+:::
+
 ## Further Reading
 
 - @Therneau-2000 --- *Modeling Survival Data: Extending the Cox Model*

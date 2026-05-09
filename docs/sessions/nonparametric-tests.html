@@ -404,6 +404,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -418,19 +424,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -448,14 +454,15 @@ window.Quarto = {
   <li><a href="#sec-nonparametric" id="toc-sec-nonparametric" class="nav-link active" data-scroll-target="#sec-nonparametric"><span class="header-section-number">12.1</span> When Do You Use This?</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">12.2</span> Learning Objectives</a></li>
   <li><a href="#background-ranks-instead-of-raw-values" id="toc-background-ranks-instead-of-raw-values" class="nav-link" data-scroll-target="#background-ranks-instead-of-raw-values"><span class="header-section-number">12.3</span> Background: Ranks Instead of Raw Values</a></li>
-  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">12.4</span> Example 1: Clinical Data (PBC)</a>
+  <li><a href="#example-1-lab-data-small-samples" id="toc-example-1-lab-data-small-samples" class="nav-link" data-scroll-target="#example-1-lab-data-small-samples"><span class="header-section-number">12.4</span> Example 1: Lab Data (Small Samples)</a>
   <ul class="collapse">
-  <li><a href="#wilcoxon-rank-sum-mann-whitney-two-independent-groups" id="toc-wilcoxon-rank-sum-mann-whitney-two-independent-groups" class="nav-link" data-scroll-target="#wilcoxon-rank-sum-mann-whitney-two-independent-groups"><span class="header-section-number">12.4.1</span> Wilcoxon Rank-Sum (Mann-Whitney): Two Independent Groups</a></li>
-  <li><a href="#kruskal-wallis-three-or-more-groups" id="toc-kruskal-wallis-three-or-more-groups" class="nav-link" data-scroll-target="#kruskal-wallis-three-or-more-groups"><span class="header-section-number">12.4.2</span> Kruskal-Wallis: Three or More Groups</a></li>
+  <li><a href="#two-sample-wilcoxon-tooth-growth-at-low-dose-toothgrowth" id="toc-two-sample-wilcoxon-tooth-growth-at-low-dose-toothgrowth" class="nav-link" data-scroll-target="#two-sample-wilcoxon-tooth-growth-at-low-dose-toothgrowth"><span class="header-section-number">12.4.1</span> Two-Sample Wilcoxon: Tooth Growth at Low Dose (ToothGrowth)</a></li>
+  <li><a href="#paired-wilcoxon-two-sleep-drugs-sleep-dataset" id="toc-paired-wilcoxon-two-sleep-drugs-sleep-dataset" class="nav-link" data-scroll-target="#paired-wilcoxon-two-sleep-drugs-sleep-dataset"><span class="header-section-number">12.4.2</span> Paired Wilcoxon: Two Sleep Drugs (sleep dataset)</a></li>
   </ul></li>
-  <li><a href="#example-2-animal-data-small-experiment" id="toc-example-2-animal-data-small-experiment" class="nav-link" data-scroll-target="#example-2-animal-data-small-experiment"><span class="header-section-number">12.5</span> Example 2: Animal Data (Small Experiment)</a>
+  <li><a href="#example-2-clinical-data-pbc" id="toc-example-2-clinical-data-pbc" class="nav-link" data-scroll-target="#example-2-clinical-data-pbc"><span class="header-section-number">12.5</span> Example 2: Clinical Data (PBC)</a>
   <ul class="collapse">
-  <li><a href="#paired-wilcoxon-before-after-measurements" id="toc-paired-wilcoxon-before-after-measurements" class="nav-link" data-scroll-target="#paired-wilcoxon-before-after-measurements"><span class="header-section-number">12.5.1</span> Paired Wilcoxon: Before-After Measurements</a></li>
+  <li><a href="#wilcoxon-rank-sum-bilirubin-by-treatment-group" id="toc-wilcoxon-rank-sum-bilirubin-by-treatment-group" class="nav-link" data-scroll-target="#wilcoxon-rank-sum-bilirubin-by-treatment-group"><span class="header-section-number">12.5.1</span> Wilcoxon Rank-Sum: Bilirubin by Treatment Group</a></li>
+  <li><a href="#kruskal-wallis-three-or-more-groups" id="toc-kruskal-wallis-three-or-more-groups" class="nav-link" data-scroll-target="#kruskal-wallis-three-or-more-groups"><span class="header-section-number">12.5.2</span> Kruskal-Wallis: Three or More Groups</a></li>
   </ul></li>
   <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">12.6</span> Where to Find Data Like This</a></li>
   <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">12.7</span> What Can Go Wrong</a></li>
@@ -550,65 +557,175 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
-<section id="example-1-clinical-data-pbc" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">12.4</span> Example 1: Clinical Data (PBC)</h2>
-<p>Bilirubin is heavily right-skewed and contains extreme outliers. For a subgroup analysis with small numbers, a nonparametric test is prudent.</p>
+<section id="example-1-lab-data-small-samples" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="example-1-lab-data-small-samples"><span class="header-section-number">12.4</span> Example 1: Lab Data (Small Samples)</h2>
+<p>These two real datasets have n = 10 per group — too small to rely on the Central Limit Theorem. Checking normality first, then deciding between a t-test and a Wilcoxon test, is the key skill.</p>
+<section id="two-sample-wilcoxon-tooth-growth-at-low-dose-toothgrowth" class="level3" data-number="12.4.1">
+<h3 data-number="12.4.1" class="anchored" data-anchor-id="two-sample-wilcoxon-tooth-growth-at-low-dose-toothgrowth"><span class="header-section-number">12.4.1</span> Two-Sample Wilcoxon: Tooth Growth at Low Dose (ToothGrowth)</h3>
+<p>At 0.5 mg/day, OJ vs ascorbic acid comparison has only 10 guinea pigs per group. Before running a t-test, check normality — if it fails, use the Wilcoxon rank-sum test.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex   =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"m"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trt   =</span> <span class="fu">factor</span>(trt, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"D-penicillamine"</span>, <span class="st">"Placebo"</span>)),</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">stage =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Stage"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<section id="wilcoxon-rank-sum-mann-whitney-two-independent-groups" class="level3" data-number="12.4.1">
-<h3 data-number="12.4.1" class="anchored" data-anchor-id="wilcoxon-rank-sum-mann-whitney-two-independent-groups"><span class="header-section-number">12.4.1</span> Wilcoxon Rank-Sum (Mann-Whitney): Two Independent Groups</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(bili))</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualise</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="sc">%&gt;%</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trt, <span class="at">y =</span> bili, <span class="at">fill =</span> trt)) <span class="sc">+</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bilirubin by treatment group (log scale)"</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Bilirubin (mg/dL, log scale)"</span>) <span class="sc">+</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tg_05 <span class="ot">&lt;-</span> ToothGrowth <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">supp =</span> <span class="fu">factor</span>(supp, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"VC"</span>, <span class="st">"OJ"</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Ascorbic acid"</span>, <span class="st">"Orange juice"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dose <span class="sc">==</span> <span class="fl">0.5</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ-plots: check normality before choosing the test</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>tg_05 <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> len)) <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>(<span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> supp) <span class="sc">+</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"QQ-plot: tooth length at 0.5 mg/day (n = 10 per group)"</span>) <span class="sc">+</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="nonparametric-tests_files/figure-html/wilcox-two-sample-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="nonparametric-tests_files/figure-html/tg-small-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>With n = 10 and some departure from the QQ line, the Wilcoxon test is the safer choice.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(bili <span class="sc">~</span> trt, <span class="at">data =</span> pbc_rand)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>res_wilcox <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_05, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(res_wilcox)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-    Wilcoxon rank sum test with continuity correction
-
-data:  bili by trt
-W = 12007, p-value = 0.8422
-alternative hypothesis: true location shift is not equal to 0</code></pre>
+<pre><code># A tibble: 1 × 4
+  statistic p.value method                                           alternative
+      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                                            &lt;chr&gt;      
+1      19.5  0.0232 Wilcoxon rank sum test with continuity correcti… two.sided  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">wilcox.test</span>(bili <span class="sc">~</span> trt, <span class="at">data =</span> pbc_rand))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Medians and IQR --- always report these, not means, with a Wilcoxon test</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>tg_05 <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(supp) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n      =</span> <span class="fu">n</span>(),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">median =</span> <span class="fu">median</span>(len),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">q1     =</span> <span class="fu">quantile</span>(len, <span class="fl">0.25</span>),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">q3     =</span> <span class="fu">quantile</span>(len, <span class="fl">0.75</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  supp              n median    q1    q3
+  &lt;fct&gt;         &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Ascorbic acid    10   7.15  5.95  10.9
+2 Orange juice     10  12.2   9.7   16.2</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wilcoxon vs t-test: Same Data, Different Assumptions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_05)) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">test =</span> <span class="st">"Welch t-test"</span>),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="fu">wilcox.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_05, <span class="at">exact =</span> <span class="cn">FALSE</span>)) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">test =</span> <span class="st">"Wilcoxon"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">select</span>(test, statistic, p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  test         statistic p.value
+  &lt;chr&gt;            &lt;dbl&gt;   &lt;dbl&gt;
+1 Welch t-test     -3.17 0.00636
+2 Wilcoxon         19.5  0.0232 </code></pre>
+</div>
+</div>
+<p>Both give a similar conclusion here. When they disagree, trust the Wilcoxon for small non-normal samples.</p>
+</div>
+</div>
+</section>
+<section id="paired-wilcoxon-two-sleep-drugs-sleep-dataset" class="level3" data-number="12.4.2">
+<h3 data-number="12.4.2" class="anchored" data-anchor-id="paired-wilcoxon-two-sleep-drugs-sleep-dataset"><span class="header-section-number">12.4.2</span> Paired Wilcoxon: Two Sleep Drugs (sleep dataset)</h3>
+<p>The <code>sleep</code> dataset (base R) has 10 patients measured on two drugs. With n = 10 and a paired design, the paired Wilcoxon signed-rank test is appropriate if the differences are not normally distributed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sleepdat <span class="ot">&lt;-</span> sleep <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">drug =</span> group, <span class="at">extra_hours =</span> extra) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">drug =</span> <span class="fu">factor</span>(drug, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Drug 1"</span>, <span class="st">"Drug 2"</span>)))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>sleep_wide <span class="ot">&lt;-</span> sleepdat <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> drug, <span class="at">values_from =</span> extra_hours, <span class="at">id_cols =</span> ID)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check normality of the DIFFERENCES</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>diffs <span class="ot">&lt;-</span> sleep_wide[[<span class="st">"Drug 2"</span>]] <span class="sc">-</span> sleep_wide[[<span class="st">"Drug 1"</span>]]</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(diffs); <span class="fu">qqline</span>(diffs, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="nonparametric-tests_files/figure-html/sleep-wilcox-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paired Wilcoxon signed-rank test</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>res_sleep <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(sleep_wide[[<span class="st">"Drug 2"</span>]], sleep_wide[[<span class="st">"Drug 1"</span>]], <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(sleep_wide[["Drug 2"]], sleep_wide[["Drug 1"]],
+: cannot compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(sleep_wide[["Drug 2"]], sleep_wide[["Drug 1"]],
+: cannot compute exact p-value with zeroes</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(res_sleep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  statistic p.value method                                           alternative
+      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                                            &lt;chr&gt;      
+1        45 0.00909 Wilcoxon signed rank test with continuity corre… two.sided  </code></pre>
+</div>
+</div>
+<p>For the paired Wilcoxon, normality of the <em>differences</em> is what matters, not the raw values. With n = 10 the test is valid regardless, but checking gives confidence.</p>
+</section>
+</section>
+<section id="example-2-clinical-data-pbc" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="example-2-clinical-data-pbc"><span class="header-section-number">12.5</span> Example 2: Clinical Data (PBC)</h2>
+<p>Bilirubin is heavily right-skewed and contains extreme outliers — a genuine case where nonparametric tests are clearly more appropriate than t-tests regardless of sample size.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex   =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"m"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trt   =</span> <span class="fu">factor</span>(trt, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"D-penicillamine"</span>, <span class="st">"Placebo"</span>)),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">stage =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Stage"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="wilcoxon-rank-sum-bilirubin-by-treatment-group" class="level3" data-number="12.5.1">
+<h3 data-number="12.5.1" class="anchored" data-anchor-id="wilcoxon-rank-sum-bilirubin-by-treatment-group"><span class="header-section-number">12.5.1</span> Wilcoxon Rank-Sum: Bilirubin by Treatment Group</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="ot">&lt;-</span> pbc <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(bili))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trt, <span class="at">y =</span> bili, <span class="at">fill =</span> trt)) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bilirubin by treatment group (log scale)"</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Bilirubin (mg/dL, log scale)"</span>) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="nonparametric-tests_files/figure-html/pbc-wilcox-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">wilcox.test</span>(bili <span class="sc">~</span> trt, <span class="at">data =</span> pbc_rand))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
   statistic p.value method                                           alternative
       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                                            &lt;chr&gt;      
 1     12007   0.842 Wilcoxon rank sum test with continuity correcti… two.sided  </code></pre>
 </div>
-</div>
-<p><strong>Interpreting the output:</strong> The p-value is from a permutation of ranks. The test statistic W is the number of times an observation from group 1 is greater than an observation from group 2. There is no mean difference in the output — report medians and IQR.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trt) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median =</span> <span class="fu">median</span>(bili), <span class="at">q1 =</span> <span class="fu">quantile</span>(bili, <span class="fl">0.25</span>), <span class="at">q3 =</span> <span class="fu">quantile</span>(bili, <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trt) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median =</span> <span class="fu">median</span>(bili), <span class="at">q1 =</span> <span class="fu">quantile</span>(bili, <span class="fl">0.25</span>), <span class="at">q3 =</span> <span class="fu">quantile</span>(bili, <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   trt             median    q1    q3
@@ -617,13 +734,14 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 2 Placebo            1.3 0.725   3.6</code></pre>
 </div>
 </div>
+<p><strong>Report medians and IQR, not means</strong>, because the Wilcoxon test is based on ranks.</p>
 </section>
-<section id="kruskal-wallis-three-or-more-groups" class="level3" data-number="12.4.2">
-<h3 data-number="12.4.2" class="anchored" data-anchor-id="kruskal-wallis-three-or-more-groups"><span class="header-section-number">12.4.2</span> Kruskal-Wallis: Three or More Groups</h3>
+<section id="kruskal-wallis-three-or-more-groups" class="level3" data-number="12.5.2">
+<h3 data-number="12.5.2" class="anchored" data-anchor-id="kruskal-wallis-three-or-more-groups"><span class="header-section-number">12.5.2</span> Kruskal-Wallis: Three or More Groups</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pbc_stage <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stage), <span class="sc">!</span><span class="fu">is.na</span>(bili))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(bili <span class="sc">~</span> stage, <span class="at">data =</span> pbc_stage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pbc_stage <span class="ot">&lt;-</span> pbc <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stage), <span class="sc">!</span><span class="fu">is.na</span>(bili))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(bili <span class="sc">~</span> stage, <span class="at">data =</span> pbc_stage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Kruskal-Wallis rank sum test
@@ -632,10 +750,10 @@ data:  bili by stage
 Kruskal-Wallis chi-squared = 46.638, df = 3, p-value = 4.15e-10</code></pre>
 </div>
 </div>
-<p>The Kruskal-Wallis test tests whether at least one group has a different distribution. If the overall test is significant, follow up with pairwise Wilcoxon tests and Bonferroni correction:</p>
+<p>If the overall test is significant, follow up with pairwise Wilcoxon tests and Bonferroni correction:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(pbc_stage<span class="sc">$</span>bili, pbc_stage<span class="sc">$</span>stage,</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(pbc_stage<span class="sc">$</span>bili, pbc_stage<span class="sc">$</span>stage,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
@@ -652,89 +770,12 @@ P value adjustment method: bonferroni </code></pre>
 </div>
 </section>
 </section>
-<section id="example-2-animal-data-small-experiment" class="level2" data-number="12.5">
-<h2 data-number="12.5" class="anchored" data-anchor-id="example-2-animal-data-small-experiment"><span class="header-section-number">12.5</span> Example 2: Animal Data (Small Experiment)</h2>
-<p>Suppose we measure tumour volume in 8 mice per group. With such small samples, normality cannot be verified, so a Wilcoxon test is appropriate.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>tumour <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">group  =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Treatment"</span>), <span class="at">each =</span> <span class="dv">8</span>),</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">volume =</span> <span class="fu">c</span>(</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rlnorm</span>(<span class="dv">8</span>, <span class="at">meanlog =</span> <span class="fl">3.5</span>, <span class="at">sdlog =</span> <span class="fl">0.8</span>),   <span class="co"># right-skewed</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rlnorm</span>(<span class="dv">8</span>, <span class="at">meanlog =</span> <span class="fl">2.8</span>, <span class="at">sdlog =</span> <span class="fl">0.8</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>tumour <span class="sc">%&gt;%</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> volume, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Tumour volume by treatment group (n=8/group)"</span>,</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Tumour volume (mm?)"</span>) <span class="sc">+</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="nonparametric-tests_files/figure-html/mouse-data-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(volume <span class="sc">~</span> group, <span class="at">data =</span> tumour)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Wilcoxon rank sum exact test
-
-data:  volume by group
-W = 61, p-value = 0.001088
-alternative hypothesis: true location shift is not equal to 0</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare with t-test (for illustration)</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(volume <span class="sc">~</span> group, <span class="at">data =</span> tumour)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Welch Two Sample t-test
-
-data:  volume by group
-t = 4.1394, df = 9.4678, p-value = 0.002263
-alternative hypothesis: true difference in means between group Control and group Treatment is not equal to 0
-95 percent confidence interval:
- 18.69702 63.02147
-sample estimates:
-  mean in group Control mean in group Treatment 
-               54.57411                13.71487 </code></pre>
-</div>
-</div>
-<p>With only 8 observations per group and right-skewed data, the Wilcoxon test is more reliable. The t-test result should be treated with caution.</p>
-<section id="paired-wilcoxon-before-after-measurements" class="level3" data-number="12.5.1">
-<h3 data-number="12.5.1" class="anchored" data-anchor-id="paired-wilcoxon-before-after-measurements"><span class="header-section-number">12.5.1</span> Paired Wilcoxon: Before-After Measurements</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>before_after <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mouse   =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">before  =</span> <span class="fu">rlnorm</span>(<span class="dv">10</span>, <span class="at">meanlog =</span> <span class="dv">3</span>, <span class="at">sdlog =</span> <span class="fl">0.5</span>),</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">after   =</span> before <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="fl">0.7</span>, <span class="at">sd =</span> <span class="fl">0.2</span>)  <span class="co"># treatment reduces volume</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(before_after<span class="sc">$</span>after, before_after<span class="sc">$</span>before, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Wilcoxon signed rank exact test
-
-data:  before_after$after and before_after$before
-V = 0, p-value = 0.001953
-alternative hypothesis: true location shift is not equal to 0</code></pre>
-</div>
-</div>
-</section>
-</section>
 <section id="where-to-find-data-like-this" class="level2 callout-note" data-number="12.6">
 <h2 class="callout-note anchored" data-number="12.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">12.6</span> Where to Find Data Like This</h2>
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> ? built in, provides real clinical data with strongly skewed variables.</p>
-<p><strong>PlantGrowth:</strong> <code>datasets::PlantGrowth</code> ? built in, three-group experiment suitable for Kruskal-Wallis demonstration.</p>
-<p><strong>Mouse Phenome Database:</strong> phenome.jax.org ? many small-sample mouse phenotyping studies where nonparametric tests are appropriate.</p>
+<p><strong><code>ToothGrowth</code></strong> (base R, used in Example 1): Small groups (n=10) with dose-response design. Ideal for demonstrating the decision between a t-test and Wilcoxon test.</p>
+<p><strong><code>sleep</code></strong> (base R, used in Example 1): 10 patients on two drugs. The paired Wilcoxon teaching example.</p>
+<p><strong><code>survival::pbc</code></strong> (used in Example 2): Right-skewed bilirubin values in a clinical trial. Classic nonparametric test application.</p>
+<p><strong>Mouse Phenome Database:</strong> phenome.jax.org — many small-sample mouse phenotyping studies where nonparametric tests are appropriate.</p>
 </section>
 <section id="what-can-go-wrong" class="level2 callout-warning" data-number="12.7">
 <h2 class="callout-warning anchored" data-number="12.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">12.7</span> What Can Go Wrong</h2>
@@ -755,7 +796,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <li>Would you reach the same conclusion with a t-test on log(bili)? Compare.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -764,19 +805,27 @@ Exercise 1: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pbc_sex <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex), <span class="sc">!</span><span class="fu">is.na</span>(bili))</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Plot</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>pbc_sex <span class="sc">%&gt;%</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> bili, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Bilirubin (mg/dL, log scale)"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex   =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"m"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)),</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trt   =</span> <span class="fu">factor</span>(trt, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"D-penicillamine"</span>, <span class="st">"Placebo"</span>)),</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">stage =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Stage"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>pbc_sex <span class="ot">&lt;-</span> pbc <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex), <span class="sc">!</span><span class="fu">is.na</span>(bili))</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>pbc_sex <span class="sc">|&gt;</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> bili, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Bilirubin (mg/dL, log scale)"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -784,10 +833,10 @@ Exercise 1: Solution
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Medians</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>pbc_sex <span class="sc">%&gt;%</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">%&gt;%</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median =</span> <span class="fu">median</span>(bili), <span class="at">q1 =</span> <span class="fu">quantile</span>(bili, <span class="fl">0.25</span>), <span class="at">q3 =</span> <span class="fu">quantile</span>(bili, <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Medians</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>pbc_sex <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median =</span> <span class="fu">median</span>(bili), <span class="at">q1 =</span> <span class="fu">quantile</span>(bili, <span class="fl">0.25</span>), <span class="at">q3 =</span> <span class="fu">quantile</span>(bili, <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   sex    median    q1    q3
@@ -795,16 +844,16 @@ Exercise 1: Solution
 1 Female   1.3    0.7   3.4
 2 Male     2.05   1.3   3.5</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Wilcoxon test</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">wilcox.test</span>(bili <span class="sc">~</span> sex, <span class="at">data =</span> pbc_sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Wilcoxon test</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">wilcox.test</span>(bili <span class="sc">~</span> sex, <span class="at">data =</span> pbc_sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
   statistic p.value method                                           alternative
       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                                            &lt;chr&gt;      
 1     6574.  0.0290 Wilcoxon rank sum test with continuity correcti… two.sided  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. t-test on log scale for comparison</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(<span class="fu">log</span>(bili) <span class="sc">~</span> sex, <span class="at">data =</span> pbc_sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. t-test on log scale for comparison</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(<span class="fu">log</span>(bili) <span class="sc">~</span> sex, <span class="at">data =</span> pbc_sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 10
   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
@@ -826,7 +875,7 @@ Exercise 1: Solution
 <li>Create a boxplot to visualise the differences.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -835,13 +884,13 @@ Exercise 2: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pbc_s <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stage), <span class="sc">!</span><span class="fu">is.na</span>(bili))</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Overall test</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(bili <span class="sc">~</span> stage, <span class="at">data =</span> pbc_s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>pbc_s <span class="ot">&lt;-</span> pbc <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stage), <span class="sc">!</span><span class="fu">is.na</span>(bili))</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Overall test</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(bili <span class="sc">~</span> stage, <span class="at">data =</span> pbc_s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Kruskal-Wallis rank sum test
@@ -849,8 +898,8 @@ Exercise 2: Solution
 data:  bili by stage
 Kruskal-Wallis chi-squared = 46.638, df = 3, p-value = 4.15e-10</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Post-hoc pairwise</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(pbc_s<span class="sc">$</span>bili, pbc_s<span class="sc">$</span>stage, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Post-hoc pairwise</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(pbc_s<span class="sc">$</span>bili, pbc_s<span class="sc">$</span>stage, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
@@ -864,16 +913,16 @@ Stage 4 2.0e-05 2.1e-07 8.1e-05
 
 P value adjustment method: bonferroni </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Boxplot</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>pbc_s <span class="sc">%&gt;%</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> stage, <span class="at">y =</span> bili, <span class="at">fill =</span> stage)) <span class="sc">+</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Blues"</span>) <span class="sc">+</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bilirubin by stage (log scale)"</span>,</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Bilirubin (mg/dL)"</span>) <span class="sc">+</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Boxplot</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>pbc_s <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> stage, <span class="at">y =</span> bili, <span class="at">fill =</span> stage)) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Blues"</span>) <span class="sc">+</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bilirubin by stage (log scale)"</span>,</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Bilirubin (mg/dL)"</span>) <span class="sc">+</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -901,7 +950,7 @@ P value adjustment method: bonferroni </code></pre>
 <li>Your colleague says “I used a Wilcoxon test because it doesn’t assume normality, so it’s always safer.” Is this correct?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -910,7 +959,7 @@ Answers
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>When (1) sample size is small (<span class="math inline">\(n &lt; 30\)</span>) and data are visibly non-normal, or (2) the data contain extreme outliers that represent real biology (not data errors).</li>
