@@ -160,7 +160,7 @@ tg %>%
   geom_point(size = 3) +
   geom_errorbar(aes(ymin = mean_len - se_len, ymax = mean_len + se_len), width = 0.1) +
   scale_color_manual(values = c("steelblue", "tomato")) +
-  labs(title = "Interaction plot: dose ? supplement",
+  labs(title = "Interaction plot: dose - supplement",
        x = "Dose (mg/day)", y = "Mean tooth length (?m)", color = "Supplement") +
   theme_bw()
 ```
@@ -323,7 +323,7 @@ Using a dataset from your own research, identify a continuous outcome and a cate
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. The null hypothesis is that all group population means are equal: $H_0: \mu_1 = \mu_2 = \ldots = \mu_k$. A significant result means at least one group mean differs from at least one other ? but not which pairs differ.
+1. The null hypothesis is that all group population means are equal: $H_0: \mu_1 = \mu_2 = \ldots = \mu_k$. A significant result means at least one group mean differs from at least one other - but not which pairs differ.
 2. Running $\binom{k}{2}$ t-tests independently inflates the family-wise error rate. With $k = 4$ groups there are 6 pairs; at a = 0.05 you expect false positives. Tukey's HSD controls the family-wise error rate by adjusting the p-value for the number of comparisons.
 3. A significant interaction means the effect of supplement depends on dose (or vice versa). The main effects alone are misleading. You should plot the interaction (an interaction plot) and report group-specific means rather than marginal means.
 4. With small non-normal groups, use Kruskal-Wallis (a nonparametric ANOVA alternative that is robust to non-normality).

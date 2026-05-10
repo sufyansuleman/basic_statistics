@@ -11,7 +11,7 @@ library(pwr)
 
 ## When Do You Use This? {#sec-power .callout-tip}
 
-> You are designing a mouse experiment to test whether a new drug reduces tumour volume. You expect a 20% reduction and want to know: *how many mice do I need?* Power analysis answers this before you collect a single data point ? and prevents you from running an underpowered study where a real effect would go undetected.
+> You are designing a mouse experiment to test whether a new drug reduces tumour volume. You expect a 20% reduction and want to know: *how many mice do I need?* Power analysis answers this before you collect a single data point - and prevents you from running an underpowered study where a real effect would go undetected.
 
 ## Learning Objectives
 
@@ -51,7 +51,7 @@ Cohen's rough benchmarks: small $d = 0.2$, medium $d = 0.5$, large $d = 0.8$.
 | More stringent $\alpha$ (0.05 → 0.01) | ↑ n needed |
 | Higher power (80% → 90%) | ↑ n needed |
 | Smaller effect size | ↑ n needed |
-| One-sided vs two-sided test | ? n if one-sided |
+| One-sided vs two-sided test | - n if one-sided |
 
 
 ## Example 1: Mouse Experiment (Two-Sample t-test)
@@ -352,7 +352,7 @@ Run the power calculation and produce a power curve. Write one paragraph suitabl
 1. Statistical power is the probability of correctly rejecting the null hypothesis when the alternative is true. "80% power" means that if the true effect is as assumed, your study will detect it (i.e., return a significant result) in 80% of repeated experiments of the same design.
 2. Divide by the expected retention fraction: $25 / 0.90 = 28$, so recruit 28 per group (round up).
 3. Single small studies overestimate effect sizes due to sampling variability and publication bias. Using d = 1.2 from a study with n = 10 is likely to be inflated. The true d may be considerably smaller, and the actual study will be underpowered.
-4. A one-sided test requires fewer participants. It allocates the full a to one tail, making the critical threshold easier to reach ? but only valid when you have a strong directional hypothesis and would not act on an effect in the opposite direction.
+4. A one-sided test requires fewer participants. It allocates the full a to one tail, making the critical threshold easier to reach - but only valid when you have a strong directional hypothesis and would not act on an effect in the opposite direction.
 5. Options: (1) Accept lower power (< 80%) and acknowledge the limitation; (2) increase the effect size you are trying to detect (e.g., only detect a large effect); (3) decrease a (less stringent threshold, increasing power); (4) use a paired design or block on a covariate to reduce within-group variability; (5) pool data across experiments.
 :::
 
@@ -381,7 +381,7 @@ Run the power calculation and produce a power curve. Write one paragraph suitabl
 
 ## Further Reading
 
-- @Cohen-1988 --- *Statistical Power Analysis for the Behavioral Sciences* ? the original reference for effect sizes and power tables
+- @Cohen-1988 --- *Statistical Power Analysis for the Behavioral Sciences* - the original reference for effect sizes and power tables
 - @Bland-2015 --- Sample size chapters in *An Introduction to Medical Statistics*
-- `vignette("pwr-vignette", package = "pwr")` ? comprehensive `pwr` package tutorial
+- `vignette("pwr-vignette", package = "pwr")` - comprehensive `pwr` package tutorial
 - G*Power manual at gpower.hhu.de

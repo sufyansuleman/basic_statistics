@@ -31,11 +31,11 @@ After completing this session you will be able to:
 
 | Mechanism | Definition | Implication |
 |-----------|------------|-------------|
-| **MCAR** ? Missing Completely At Random | Probability of missing is unrelated to any variable | Complete-case analysis is unbiased |
-| **MAR** ? Missing At Random | Probability of missing depends on *observed* variables, not on the missing value itself | Multiple imputation is valid; complete-case is biased |
-| **MNAR** ? Missing Not At Random | Probability of missing depends on the *unobserved* missing value itself | Neither complete-case nor simple imputation is valid; sensitivity analysis required |
+| **MCAR** - Missing Completely At Random | Probability of missing is unrelated to any variable | Complete-case analysis is unbiased |
+| **MAR** - Missing At Random | Probability of missing depends on *observed* variables, not on the missing value itself | Multiple imputation is valid; complete-case is biased |
+| **MNAR** - Missing Not At Random | Probability of missing depends on the *unobserved* missing value itself | Neither complete-case nor simple imputation is valid; sensitivity analysis required |
 
-**Example:** Patients with high bilirubin are less likely to have platelet counts recorded (perhaps because they were too ill). Missingness depends on observed bilirubin ? MAR. Imputation conditioned on bilirubin will recover unbiased estimates.
+**Example:** Patients with high bilirubin are less likely to have platelet counts recorded (perhaps because they were too ill). Missingness depends on observed bilirubin - MAR. Imputation conditioned on bilirubin will recover unbiased estimates.
 
 ### Why Not Just Drop Missing Rows?
 
@@ -275,11 +275,11 @@ In your own dataset, identify variables with missing data. Determine whether the
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. Missingness depends on an observed variable (age) ? this is MAR. Complete-case analysis will be biased if age also predicts the outcome. Multiple imputation conditioned on age is the appropriate approach.
+1. Missingness depends on an observed variable (age) - this is MAR. Complete-case analysis will be biased if age also predicts the outcome. Multiple imputation conditioned on age is the appropriate approach.
 2. Significance alone does not validate the analysis. Complete-case with 40% dropout may be biased under MAR/MNAR, underestimates the true sample size, and gives artificially narrow confidence intervals. The key question is whether the missing data mechanism biases the estimates, not whether the result is still statistically significant.
 3. Multiple imputation correctly propagates two sources of uncertainty: within-imputation variance (ordinary sampling variance) and between-imputation variance (uncertainty about the missing values). Rubin's rules add these two components together. The inflated SE is the correct, honest estimate. Complete-case analysis ignores the between-imputation uncertainty and therefore underestimates the SE.
 4. PMM imputes values by drawing from observed cases whose predicted values are closest to the predicted value of the missing case. This preserves the actual distribution of the variable (no impossible values like negative counts or probabilities outside 0?1) and is robust to non-normality. Normal imputation assumes the variable is normally distributed, which is often violated.
-5. Imputing 60% missing is possible but requires careful consideration. The imputed values will be almost entirely model-driven with very little information, so results will be highly sensitive to the imputation model specification. You should perform sensitivity analyses, include many auxiliary variables in the imputation model to improve predictions, use $m \geq 60$ datasets, and consider whether data with 60% missingness can meaningfully contribute to the analysis ? or whether the question should be reframed.
+5. Imputing 60% missing is possible but requires careful consideration. The imputed values will be almost entirely model-driven with very little information, so results will be highly sensitive to the imputation model specification. You should perform sensitivity analyses, include many auxiliary variables in the imputation model to improve predictions, use $m \geq 60$ datasets, and consider whether data with 60% missingness can meaningfully contribute to the analysis - or whether the question should be reframed.
 :::
 
 

@@ -80,15 +80,15 @@ Randomised evidence sits above observational evidence because randomisation dist
 
 Nine criteria for judging whether an observed association is causal:
 
-1. **Strength** ? strong associations are less likely to be entirely explained by bias
-2. **Consistency** ? replicated across settings and populations
-3. **Specificity** ? one exposure, one disease
-4. **Temporality** ? exposure precedes outcome (essential)
-5. **Biological gradient** ? dose-response relationship
-6. **Plausibility** ? biologically sensible mechanism
-7. **Coherence** ? fits existing knowledge
-8. **Experiment** ? removal of exposure reduces disease
-9. **Analogy** ? similar associations exist for similar factors
+1. **Strength** - strong associations are less likely to be entirely explained by bias
+2. **Consistency** - replicated across settings and populations
+3. **Specificity** - one exposure, one disease
+4. **Temporality** - exposure precedes outcome (essential)
+5. **Biological gradient** - dose-response relationship
+6. **Plausibility** - biologically sensible mechanism
+7. **Coherence** - fits existing knowledge
+8. **Experiment** - removal of exposure reduces disease
+9. **Analogy** - similar associations exist for similar factors
 
 
 ## Example 1: Table 1 and Adjusted Analysis in PBC
@@ -163,10 +163,10 @@ n <- 1000
 # Confounder: socioeconomic status (SES; high = 1)
 SES <- rbinom(n, 1, 0.4)
 
-# Exposure: physical exercise ? SES causes exercise
+# Exposure: physical exercise - SES causes exercise
 exercise <- rbinom(n, 1, 0.3 + 0.4 * SES)
 
-# Outcome: HbA1c ? SES causes HbA1c (not exercise)
+# Outcome: HbA1c - SES causes HbA1c (not exercise)
 HbA1c <- 7.5 - 0.5 * SES + rnorm(n, 0, 0.8)
 # Exercise has NO direct effect on HbA1c in this simulation
 
@@ -227,7 +227,7 @@ Read the following study description and identify the likely bias:
 ::: {.callout-tip collapse="true"}
 ### Exercise 1: Answers
 1. Case-control study.
-2. (a) **Selection bias (Berkson's bias):** Hospital controls may not represent the general population; they may have conditions related to diet that are common in the hospital (e.g., cardiovascular disease), which could distort the apparent fat-cancer association. Population-based controls would be better. (b) **Recall bias:** Cases who know they have cancer may search their memory more carefully for dietary risk factors ? they may over-report fat intake compared with controls who are not "searching for a cause."
+2. (a) **Selection bias (Berkson's bias):** Hospital controls may not represent the general population; they may have conditions related to diet that are common in the hospital (e.g., cardiovascular disease), which could distort the apparent fat-cancer association. Population-based controls would be better. (b) **Recall bias:** Cases who know they have cancer may search their memory more carefully for dietary risk factors - they may over-report fat intake compared with controls who are not "searching for a cause."
 3. **Differential recall bias** (or differential misclassification). Because misclassification differs between cases and controls, the OR will be biased; if cases over-report fat intake, the association between fat and cancer will be inflated (biased upward).
 :::
 
@@ -275,7 +275,7 @@ Identify a published observational study in your research area. Write a one-page
 1. Randomisation distributes measured and unmeasured confounders equally across treatment groups; something observational studies cannot achieve. In an RCT, any observed difference in outcome can be attributed to the treatment with much greater confidence. Cohort studies, even with careful adjustment, can only control for *measured* confounders; unknown or unmeasured confounders may still distort the estimate.
 2. Yes, this is a confounder. Smoking satisfies all three criteria: (1) it is associated with the exposure (coffee drinking; smokers drink more coffee); (2) it is independently associated with the outcome (smoking is associated with reduced Parkinson's risk via nicotine); (3) it is not on the causal pathway from coffee to Parkinson's. Failure to adjust for smoking would make coffee drinking appear protective, when some of the apparent protection actually comes from smoking. Note: this is a real phenomenon and a genuine methodological challenge in coffee/Parkinson's research.
 3. Berkson's (hospital admission) bias. Patients admitted to different hospitals may differ systematically by severity, comorbidities, or healthcare-seeking behaviour. Using controls from a different hospital means they may not be representative of the same source population as the cases, potentially creating a spurious association (or masking a true one).
-4. Non-differential misclassification means the measurement error does not differ between exposure groups or between cases and controls ? it is equally likely to misclassify anyone. This typically biases the association toward the null (i.e., it attenuates the observed effect size). A true association is made to look smaller. Differential misclassification (which differs between cases and controls) can bias in any direction.
+4. Non-differential misclassification means the measurement error does not differ between exposure groups or between cases and controls - it is equally likely to misclassify anyone. This typically biases the association toward the null (i.e., it attenuates the observed effect size). A true association is made to look smaller. Differential misclassification (which differs between cases and controls) can bias in any direction.
 5. Immortal time bias. Patients who start statins after a cardiovascular event were at risk of that event *before* starting treatment, but they are classified as "treated" throughout the follow-up period. This means the treated group has a period of follow-up before exposure starts (an immortal period when they could not have had the event). This artefactually makes the treated group appear healthier. The correct design is time-varying exposure analysis (Cox model with time-varying statin use) or an intention-to-treat design from a clear index date.
 :::
 
@@ -306,7 +306,7 @@ Use the appropriate reporting checklist for your study design; reviewers and jou
 
 ## Further Reading
 
-- sRothman-2012 --- *Epidemiology: An Introduction* ? authoritative text on study design and confounding
-- sHernan-Robins-2020 --- *Causal Inference: What If* ? free online textbook on observational causal inference
-- sSzklo-Nieto-2014 --- *Epidemiology: Beyond the Basics* ? bias, confounding, effect modification
+- sRothman-2012 --- *Epidemiology: An Introduction* - authoritative text on study design and confounding
+- sHernan-Robins-2020 --- *Causal Inference: What If* - free online textbook on observational causal inference
+- sSzklo-Nieto-2014 --- *Epidemiology: Beyond the Basics* - bias, confounding, effect modification
 - sGrimes-Schulz-2002 --- *Cohort studies: marching towards outcomes* (Lancet series on study design)

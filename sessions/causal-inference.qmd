@@ -51,7 +51,7 @@ A DAG encodes the investigator's causal assumptions as a graph where arrows repr
 |-----------|---------|------|
 | **Fork (confounder)** | $X \leftarrow C \rightarrow Y$ | Adjust for $C$ to block the backdoor path |
 | **Chain (mediator)** | $X \rightarrow M \rightarrow Y$ | Do *not* adjust for $M$ if estimating total effect |
-| **Collider** | $X \rightarrow C \leftarrow Y$ | Do *not* adjust for $C$ ? this *opens* a path and introduces bias |
+| **Collider** | $X \rightarrow C \leftarrow Y$ | Do *not* adjust for $C$ - this *opens* a path and introduces bias |
 
 
 ## Example 1: Drawing a DAG for PBC
@@ -76,7 +76,7 @@ dagitty::coordinates(dag) <- list(
 
 ggdag::ggdag(dag, layout = "auto") +
   theme_dag() +
-  labs(title = "DAG: Bilirubin ? Albumin in PBC")
+  labs(title = "DAG: Bilirubin - Albumin in PBC")
 ```
 
 ### Identifying the Adjustment Set
@@ -86,7 +86,7 @@ ggdag::ggdag(dag, layout = "auto") +
 dagitty::adjustmentSets(dag, exposure = "bili", outcome = "albumin")
 ```
 
-The backdoor criterion says: block all non-causal paths from `bili` to `albumin`. In this DAG, `stage` is a common cause (confounder) ? it opens a backdoor path. Adjusting for `stage` closes this path.
+The backdoor criterion says: block all non-causal paths from `bili` to `albumin`. In this DAG, `stage` is a common cause (confounder) - it opens a backdoor path. Adjusting for `stage` closes this path.
 
 ### What If We Adjust for a Mediator?
 
@@ -126,7 +126,7 @@ cat("r(exercise, diet | BMI quintile 1) =",
               df$diet[df$bmi < quantile(df$bmi, 0.2)]), 3), "\n")
 ```
 
-Restricting to low BMI (conditioning on the collider) creates a spurious negative correlation between exercise and diet. This is **collider bias** ? conditioning on a common *effect* of two variables induces an association between them.
+Restricting to low BMI (conditioning on the collider) creates a spurious negative correlation between exercise and diet. This is **collider bias** - conditioning on a common *effect* of two variables induces an association between them.
 
 **Practical example:** In a study of ICU patients, restricting the sample to those admitted to ICU (a collider of severe illness and random events) can make risk factors appear protective; this is Berkson's paradox.
 
@@ -195,7 +195,7 @@ IPTW creates a pseudo-population in which treatment assignment is independent of
 ## What Can Go Wrong {.callout-warning}
 
 **Adjusting for everything**
-Adding all available variables to a regression model is not "conservative" ? it can introduce collider bias if any of those variables is a collider. Always draw a DAG before deciding what to adjust for.
+Adding all available variables to a regression model is not "conservative" - it can introduce collider bias if any of those variables is a collider. Always draw a DAG before deciding what to adjust for.
 
 **Over-adjusting for mediators**
 If you adjust for a mediator, you estimate the direct effect of exposure on outcome. This is only correct if your research question specifically asks about the direct effect. For most aetiological questions, you want the total effect, which means *not* adjusting for mediators.
@@ -290,7 +290,7 @@ For your own observational research question:
 2. Hospitalisation is a common effect of the exposure (e.g., bilirubin) and other causes. Restricting to hospitalised patients conditions on a collider, creating a spurious association between bilirubin and those other causes within the hospitalised sample. This is Berkson's paradox.
 3. No; if albumin is a mediator on the causal pathway from bilirubin to mortality, adjusting for it blocks that pathway and estimates only the *direct* effect of bilirubin not mediated through albumin. To estimate the total causal effect of bilirubin (including the pathway through albumin), you should not adjust for albumin.
 4. A high AUC (0.95) for the propensity score model means treatment and control groups are almost perfectly separable based on covariates. This is actually problematic for IPTW: patients near the boundary of the score distribution will have extreme weights (very high or very low), causing instability and high variance. Good overlap is signalled by a moderate AUC (0.6?0.8). With AUC = 0.95 you should check for positivity violations and consider weight trimming.
-5. Several explanations: (1) Unmeasured confounding: IPTW only adjusts for measured covariates; if key confounders are unmeasured, the observational estimate is biased. (2) Selection bias ? the RCT may have enrolled a different population. (3) Non-adherence in the RCT ? the -0.3 is an intention-to-treat estimate, potentially diluted by non-compliance. (4) Positivity violations in the IPTW analysis leading to biased estimation. Comparing RCT and observational estimates is a useful internal validity check.
+5. Several explanations: (1) Unmeasured confounding: IPTW only adjusts for measured covariates; if key confounders are unmeasured, the observational estimate is biased. (2) Selection bias - the RCT may have enrolled a different population. (3) Non-adherence in the RCT - the -0.3 is an intention-to-treat estimate, potentially diluted by non-compliance. (4) Positivity violations in the IPTW analysis leading to biased estimation. Comparing RCT and observational estimates is a useful internal validity check.
 :::
 
 ## How to Report
@@ -322,4 +322,4 @@ For your own observational research question:
 - @Hernan-2023 --- *Causal Inference: What If* (free PDF: causalinferencebook.net)
 - @Pearl-2009 --- *Causality: Models, Reasoning, and Inference*
 - `dagitty` package and website (dagitty.net) for interactive DAG construction
-- @VanderWeele-2015 --- *Explanation in Causal Inference* ? mediation analysis
+- @VanderWeele-2015 --- *Explanation in Causal Inference* - mediation analysis

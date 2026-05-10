@@ -10,7 +10,7 @@ library(tidyverse)
 
 ## When Do You Use This? {#sec-statistical-decision-guide .callout-tip}
 
-> You have data from a clinical study and need to choose the right test. Should you use a t-test or Mann-Whitney? Logistic regression or a chi-square test? This guide helps you navigate from your research question and data type to the appropriate method ? and links you to the session where you can learn it properly.
+> You have data from a clinical study and need to choose the right test. Should you use a t-test or Mann-Whitney? Logistic regression or a chi-square test? This guide helps you navigate from your research question and data type to the appropriate method - and links you to the session where you can learn it properly.
 
 ## Learning Objectives
 
@@ -43,7 +43,7 @@ Every statistical test choice starts with three questions:
 | Continuous, paired | Normal differences | Paired t-test | @sec-t-tests |
 | Continuous, paired | Non-normal differences | Wilcoxon signed-rank | @sec-nonparametric |
 | Binary | Counts = 5 per cell | Chi-square / Fisher's | @sec-categorical |
-| Ordinal | ? | Mann-Whitney U | @sec-nonparametric |
+| Ordinal | - | Mann-Whitney U | @sec-nonparametric |
 
 ### Question 2: Comparing Three or More Groups
 
@@ -104,14 +104,14 @@ shapiro.test(diff)
 ```
 
 ```{r decision-test}
-# Normal? ? paired t-test
+# Normal? - paired t-test
 t.test(after, before, paired = TRUE)
 ```
 
 **Decision path:** Continuous outcome → Paired groups → Normal differences → **Paired t-test** → @sec-t-tests
 
 
-## Example 2: Binary Outcome ? Choosing Between Chi-Square and Logistic Regression
+## Example 2: Binary Outcome - Choosing Between Chi-Square and Logistic Regression
 
 **Scenario:** You want to know if NAFLD diagnosis (yes/no) differs between males and females in a cohort of 200 patients.
 
@@ -153,7 +153,7 @@ glm(nafld_num ~ sex + age + bmi, data = dat2, family = binomial) %>%
 | No influential outliers | Cook's distance | Robust regression |
 
 
-## Method ? Assumption Summary
+## Method - Assumption Summary
 
 ```{r method-table}
 tribble(
@@ -266,6 +266,6 @@ Take a published paper from your field. For each analysis reported:
 
 ## Further Reading
 
-- @Field-2013 --- *Discovering Statistics Using R* ? practical test selection guidance
-- @Glantz-2002 --- *Primer of Biostatistics* ? clear, clinically-oriented decision guide
-- [UCLA Statistical Consulting: Which Statistical Test?](https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/) ? online decision aid
+- @Field-2013 --- *Discovering Statistics Using R* - practical test selection guidance
+- @Glantz-2002 --- *Primer of Biostatistics* - clear, clinically-oriented decision guide
+- [UCLA Statistical Consulting: Which Statistical Test?](https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/) - online decision aid

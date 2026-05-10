@@ -176,7 +176,7 @@ cat("C-statistic:", round(auc(roc_obj), 3), "\n")
 
 ggroc(roc_obj, color = "steelblue", linewidth = 1) +
   geom_abline(intercept = 1, slope = 1, linetype = "dashed", color = "grey60") +
-  labs(title = paste("ROC curve ? AUC =", round(auc(roc_obj), 3)),
+  labs(title = paste("ROC curve - AUC =", round(auc(roc_obj), 3)),
        x = "1 - Specificity", y = "Sensitivity") +
   theme_bw()
 ```
@@ -226,7 +226,7 @@ mel %>%
 
 ## Where to Find Data Like This {.callout-note}
 
-**PBC dataset:** `survival::pbc` ? binary mortality outcome with multiple continuous and categorical predictors.
+**PBC dataset:** `survival::pbc` - binary mortality outcome with multiple continuous and categorical predictors.
 
 **boot::melanoma:** Binary mortality with tumour characteristics; good for a smaller Example.
 
@@ -244,7 +244,7 @@ If a predictor perfectly separates the outcome (all events on one side), the alg
 When the outcome prevalence is > 15?20%, OR > RR substantially. If you report ORs, state them clearly and note that they do not equal relative risks.
 
 **Events per variable (EPV) rule of thumb**
-Logistic models require approximately 10–20 events per predictor variable for stable estimates. With 50 deaths and 6 predictors, you have EPV ? 8 ? borderline. Consider reducing predictors or using penalised methods.
+Logistic models require approximately 10–20 events per predictor variable for stable estimates. With 50 deaths and 6 predictors, you have EPV - 8 - borderline. Consider reducing predictors or using penalised methods.
 
 **Not checking calibration**
 A high C-statistic does not guarantee good calibration (that predicted probabilities match observed proportions). Use a calibration plot (`val.prob()` from the `rms` package) for clinical prediction models.
@@ -350,7 +350,7 @@ Using your own data, identify a binary outcome and at least two predictors. Fit 
 ::: {.callout-note collapse="true"}
 ### Answers
 1. OR = exp(0.8) = 2.23. Each one-unit increase in log(bilirubin) is associated with 2.23 times higher odds of the event (e.g., death), holding other predictors constant.
-2. No. When the outcome is common (40%), OR ≈ RR. OR = 2.5 for a 40% baseline corresponds to a RR considerably less than 2.5. The colleague is conflating the odds ratio with the risk ratio ? a common error. Use `prop.table()` or the formula $RR = OR / (1 - P_0 + P_0 \times OR)$ to convert.
+2. No. When the outcome is common (40%), OR ≈ RR. OR = 2.5 for a 40% baseline corresponds to a RR considerably less than 2.5. The colleague is conflating the odds ratio with the risk ratio - a common error. Use `prop.table()` or the formula $RR = OR / (1 - P_0 + P_0 \times OR)$ to convert.
 3. With EPV = 30/8 = 3.75, the model is severely underpowered. Coefficients will be unstable and confidence intervals very wide. You should reduce the number of predictors to at most 2?3, or use Firth's penalised logistic regression.
 4. C = 0.75 indicates moderate discrimination; the model correctly ranks 75% of case-control pairs. However, a high C-statistic does not guarantee good calibration. You should also produce a calibration plot (observed vs predicted proportions across deciles of risk) to confirm the model gives accurate probabilities.
 5. This is (quasi-)complete separation: the predictor almost perfectly predicts the outcome, so the algorithm tries to push the coefficient to ?8 and fails. Check by tabulating the predictor against the outcome. Remedy: use Firth's penalised logistic regression (`logistf::logistf()`), which regularises the likelihood and produces finite, stable estimates.

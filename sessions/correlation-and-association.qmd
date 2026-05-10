@@ -255,13 +255,13 @@ pbc_num |>
 Two variables can correlate strongly because they share a common cause, not because one causes the other. Always think mechanistically.
 
 **Using Pearson's r with skewed data or outliers**
-A single extreme outlier can drive a large r. Always plot your data before computing a correlation. Use Spearman's ? for robustness.
+A single extreme outlier can drive a large r. Always plot your data before computing a correlation. Use Spearman's - for robustness.
 
 **Multiple comparisons in correlation matrices**
 Testing all $p(p-1)/2$ pairs from a correlation matrix inflates Type I error. Adjust p-values with `p.adjust()` when reporting multiple correlations.
 
 **Range restriction**
-If you select subjects based on one of the variables (e.g., only patients with bilirubin > 5), the correlation in that subset will differ from the population correlation ? usually attenuated.
+If you select subjects based on one of the variables (e.g., only patients with bilirubin > 5), the correlation in that subset will differ from the population correlation - usually attenuated.
 
 **Ecological correlation**
 Correlations computed on group averages (e.g., countries, hospitals) are typically stronger than individual-level correlations. Do not interpret ecological correlations as individual-level associations.
@@ -273,7 +273,7 @@ Correlations computed on group averages (e.g., countries, hospitals) are typical
 No. The variance explained is r², not r. With r = 0.37, bilirubin explains r² = 0.14 = 14% of variance in albumin. Always report r² alongside r for a complete description of the relationship.
 
 **"A statistically significant correlation is a strong correlation"**
-With n = 400 patients, even r = 0.10 will be statistically significant (p < 0.05). Statistical significance tells you that r ? 0; it does not tell you the association is clinically important. Always report the r value and confidence interval, not just "p < 0.05".
+With n = 400 patients, even r = 0.10 will be statistically significant (p < 0.05). Statistical significance tells you that r - 0; it does not tell you the association is clinically important. Always report the r value and confidence interval, not just "p < 0.05".
 
 **"Spearman r means the same as Pearson r"**
 Both range from -1 to +1, but they measure different things. Pearson measures linear association between the raw values. Spearman measures monotonic association using the ranked values. They are not interchangeable; do not compare Pearson r from one study to Spearman r from another.
@@ -377,7 +377,7 @@ pbc_num |>
 
 ### Exercise 3 (Open-ended)
 
-Using your own data, identify two continuous variables you expect to be related. Plot them, compute the appropriate correlation, and test the significance. Write a two-sentence result. Now think of a third variable that might confound the relationship ? how would you check for it?
+Using your own data, identify two continuous variables you expect to be related. Plot them, compute the appropriate correlation, and test the significance. Write a two-sentence result. Now think of a third variable that might confound the relationship - how would you check for it?
 
 
 ## Comprehension Check

@@ -33,11 +33,11 @@ Exploratory data analysis (EDA) is not optional; it is the first analytic step f
 
 The systematic EDA workflow is:
 
-1. **Structure** ? how many rows, columns, variable types?
-2. **Missing data** ? which variables have gaps, and do they appear at random?
+1. **Structure** - how many rows, columns, variable types?
+2. **Missing data** - which variables have gaps, and do they appear at random?
 3. **Distributions**: continuous variables: symmetric or skewed? Categorical: any rare levels?
-4. **Plausibility** ? are any values biologically implausible?
-5. **Group comparisons** ? do key variables differ across groups as expected?
+4. **Plausibility** - are any values biologically implausible?
+5. **Group comparisons** - do key variables differ across groups as expected?
 
 
 ## Example 1: Primary Biliary Cholangitis (PBC)
@@ -93,7 +93,7 @@ pbc %>%
 
 ::: callout-note
 **Reading Table 1:**
-Continuous variables are summarised as median (IQR) because most are right-skewed. Categorical variables are shown as count (%). The p-values compare the two treatment groups ? we would expect them to be non-significant for baseline variables in a properly randomised trial.
+Continuous variables are summarised as median (IQR) because most are right-skewed. Categorical variables are shown as count (%). The p-values compare the two treatment groups - we would expect them to be non-significant for baseline variables in a properly randomised trial.
 :::
 
 ### Distributions of Key Lab Values
@@ -141,7 +141,7 @@ pbc %>%
   )
 ```
 
-The `back_transf` value is the **geometric mean** ? the appropriate average for log-normal data.
+The `back_transf` value is the **geometric mean** - the appropriate average for log-normal data.
 
 ### Group Comparison by Stage
 
@@ -266,12 +266,12 @@ Ulcerated tumours , consistent with the known relationship between tumour thickn
 ## Where to Find Data Like This {.callout-note}
 
 **Built-in R datasets used in this session:**
-- `survival::pbc` ? primary biliary cholangitis clinical trial, 418 patients
-- `boot::melanoma` ? melanoma surgery outcomes, 205 patients
-- `datasets::ToothGrowth` ? guinea pig tooth growth factorial experiment
+- `survival::pbc` - primary biliary cholangitis clinical trial, 418 patients
+- `boot::melanoma` - melanoma surgery outcomes, 205 patients
+- `datasets::ToothGrowth` - guinea pig tooth growth factorial experiment
 
 **Other clinical datasets in the `survival` package:**
-`lung`, `veteran`, `colon`, `diabetic`, `udca` ? all real datasets from clinical trials and registries.
+`lung`, `veteran`, `colon`, `diabetic`, `udca` - all real datasets from clinical trials and registries.
 
 **NHANES (National Health and Nutrition Examination Survey):**
 ```{r}
@@ -373,7 +373,7 @@ tg %>%
   geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd), width = 0.1) +
   geom_point(size = 3) +
   scale_color_manual(values = c("steelblue", "tomato")) +
-  labs(title = "Mean tooth length ? SD by dose and supplement",
+  labs(title = "Mean tooth length - SD by dose and supplement",
        x = "Dose (mg/day)", y = "Length (?m)", color = "Supplement") +
   theme_bw()
 ```
@@ -396,7 +396,7 @@ Download a dataset from your own research or from NHANES. Perform a complete EDA
 ### Answers
 1. The 106 missing values in `trt` are patients who enrolled in the observational portion of the study and were not randomised. They are valid cases for some analyses but should be excluded with `filter(!is.na(trt))` when comparing treatment arms.
 2. Albumin is approximately normally distributed, so it can be entered into a model on its original scale. Bilirubin is right-skewed, so log-transform it before modelling: `log(bili)`. After modelling, back-transform coefficients and confidence intervals with `exp()`.
-3. The arithmetic mean is pulled upward by extreme high values in a right-skewed distribution, so it does not represent the "typical" patient. The geometric mean (exp(mean(log(x)))) is the value that, when raised to the power *n*, equals the product of all observations ? it is a more robust central measure for log-normal data.
+3. The arithmetic mean is pulled upward by extreme high values in a right-skewed distribution, so it does not represent the "typical" patient. The geometric mean (exp(mean(log(x)))) is the value that, when raised to the power *n*, equals the product of all observations - it is a more robust central measure for log-normal data.
 4. 10 × 2 × 3 = 60 total observations. A balanced design has the same number of observations in every cell of the design, which simplifies analysis and maximises statistical power.
 5. For a right-skewed variable, the mean and SD are misleading because extreme outliers inflate both. The correct summary is median and interquartile range (IQR), as the median is resistant to extreme values.
 :::
