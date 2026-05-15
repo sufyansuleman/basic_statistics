@@ -1,31 +1,67 @@
 # Basic Statistics Course
 
-This repository contains a Quarto-based course on basic statistics for biomedical and clinical research.
+A practical, Quarto-based course for researchers who need to understand statistics in real biomedical and clinical settings.
 
-## Course structure
+## What this course is
 
-- `index.qmd` — course homepage and overview
-- `sessions/` — individual session content
-- `_quarto.yml` — book configuration and navigation
-- `docs/` — generated HTML site output
+This course teaches core statistical concepts through examples, code, and interpretation. It is designed around real-world workflows so you can learn:
 
-## Rendering locally
+- how to choose the right analysis
+- how to fit and interpret regression models
+- how to check assumptions and diagnose problems
+- how to communicate results clearly and accurately
 
-To render the site locally, run:
+The course is organized as a book-style website with self-contained sessions in `sessions/`.
+
+## Who is this for
+
+This course is ideal for:
+
+- biomedical researchers who want to analyse data with confidence
+- clinicians learning applied statistics for research
+- graduate students in health and life sciences
+- researchers who prefer practical examples over theory-heavy textbooks
+
+## Why this course
+
+Instead of abstract formulas, this course focuses on:
+
+- data-driven examples with clinical and ecological datasets
+- clear interpretation of models and statistical output
+- the most useful methods for everyday research
+- a lightweight Quarto website you can run locally or publish from `docs/`
+
+## Course contents
+
+- `index.qmd` — course landing page
+- `sessions/setup.qmd` — setup and package installation
+- `sessions/` — session content for inference, regression, modeling, and advanced methods
+- `docs/` — generated website output after running Quarto
+
+## Preview the course locally
+
+Render the website on your machine with:
 
 ```powershell
 quarto render --output-dir docs
 ```
 
-## Notes
+Then open `docs/index.html` in your browser.
 
-- This repository uses local Quarto builds. To publish the site, render locally and commit the generated `docs/` output.
-- Keep source files in `sessions/` and the homepage in `index.qmd`.
+## Website address
 
-## Maintenance
+Once published, the course can be made available at:
 
-To update the site content:
+https://sufyansuleman.github.io/basic_statistics/
+
+If the site is not yet published, use the local preview above.
+
+## Keep it simple
+
+This repo is intended for local authorship and manual publishing. The source content lives in `sessions/`, and the built site lives in `docs/`.
+
+## Update the course
 
 1. Edit the relevant `*.qmd` files.
-2. Run `quarto render --output-dir docs` locally.
-3. Commit and push the updated `docs/` output alongside the source files.
+2. Run `quarto render --output-dir docs`.
+3. Commit both source and updated `docs/` output.
