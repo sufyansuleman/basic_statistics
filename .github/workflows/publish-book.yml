@@ -20,6 +20,19 @@ jobs:
         with:
           r-version: '4.4'
 
+      - name: Install required R packages
+        run: |
+          Rscript -e "install.packages(c(
+            'knitr', 'rmarkdown', 'xfun',
+            'tidyverse', 'patchwork', 'skimr', 'gtsummary', 'GGally', 'nhanesA',
+            'readxl', 'palmerpenguins',
+            'naniar', 'mice',
+            'survival', 'ggsurvfit',
+            'broom', 'broom.mixed', 'car', 'lme4', 'glmnet', 'parsnip', 'performance', 'pROC', 'AER',
+            'dagitty', 'ggdag',
+            'pwr', 'reprex'
+          ), repos = 'https://cloud.r-project.org')"
+
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
