@@ -67,7 +67,7 @@ All sessions use direct `library()` calls — no `source()` calls to `R/` helper
 - **Packages:** `tidyverse`, `broom`
 - **Key concepts:** p-value, type I/II error, one- vs two-sided tests
 
-### 10. 04-t-tests.qmd (`#sec-ttests`)
+### 10. t-tests.qmd (`#sec-ttests`)
 - **Datasets:** `survival::pbc` (bilirubin by sex), simulated mouse glucose
 - **Packages:** `tidyverse`, `broom`, `rstatix`
 - **Tests:** one-sample, two-sample (Welch), paired t-test
@@ -77,7 +77,7 @@ All sessions use direct `library()` calls — no `source()` calls to `R/` helper
 - **Packages:** `tidyverse`, `broom`, `rstatix`
 - **Tests:** Mann-Whitney U, Wilcoxon signed-rank, Kruskal-Wallis, Spearman correlation
 
-### 12. 05-anova.qmd (`#sec-anova`)
+### 12. anova.qmd (`#sec-anova`)
 - **Datasets:** simulated mouse body-weight × diet × sex, `survival::pbc` (stage groups)
 - **Packages:** `tidyverse`, `broom`, `emmeans`, `multcomp`
 - **Tests:** one-way ANOVA, two-way ANOVA with interaction, Tukey post-hoc
@@ -101,17 +101,17 @@ All sessions use direct `library()` calls — no `source()` calls to `R/` helper
 - **Packages:** `tidyverse`, `broom`, `corrplot`, `GGally`
 - **Methods:** Pearson r, Spearman ρ, correlation matrix, scatter matrix
 
-### 16. 02-linear-regression.qmd (`#sec-linear-regression`)
+### 16. linear-regression.qmd (`#sec-linear-regression`)
 - **Datasets:** `survival::pbc` (bilirubin → albumin), simulated mouse insulin
 - **Packages:** `tidyverse`, `broom`, `ggplot2`
 - **Coverage:** SLR, OLS, diagnostics, confidence bands
 
-### 17. 06-multiple-regression.qmd (`#sec-multiple-regression`)
+### 17. multiple-regression.qmd (`#sec-multiple-regression`)
 - **Datasets:** `survival::pbc`, simulated energy expenditure data
 - **Packages:** `tidyverse`, `broom`, `car`
 - **Coverage:** MLR, multicollinearity, VIF, interaction terms, model comparison
 
-### 18. 03-logistic-regression.qmd (`#sec-logistic-regression`)
+### 18. logistic-regression.qmd (`#sec-logistic-regression`)
 - **Datasets:** `survival::pbc` (death as binary outcome), `MASS::birthwt`
 - **Packages:** `tidyverse`, `broom`, `pROC`
 - **Coverage:** log-odds, OR, ROC/AUC, Hosmer-Lemeshow, calibration

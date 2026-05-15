@@ -148,17 +148,17 @@ gapminder <- readr::read_csv('https://raw.githubusercontent.com/resbaz/r-novice-
 ### Part 3: Inference — Testing and Estimation
 - `sampling-and-estimation.qmd` — `survival::pbc`, simulated sampling
 - `hypothesis-testing.qmd` — `survival::pbc`, simulated two-group data
-- `04-t-tests.qmd` — `survival::pbc` (bilirubin by sex), simulated mouse glucose
+- `t-tests.qmd` — `survival::pbc` (bilirubin by sex), simulated mouse glucose
 - `nonparametric-tests.qmd` — `survival::pbc`, `boot::melanoma`
-- `05-anova.qmd` — simulated mouse body weight × diet, `survival::pbc`
+- `anova.qmd` — simulated mouse body weight × diet, `survival::pbc`
 - `categorical-data-and-chi-square.qmd` — `survival::pbc` (treatment × stage)
 - `power-and-sample-size.qmd` — simulation only; `pwr` package
 
 ### Part 4: Regression and Modeling
 - `correlation-and-association.qmd` — `survival::pbc`, `palmerpenguins::penguins`
-- `02-linear-regression.qmd` — `survival::pbc`, simulated mouse insulin
-- `06-multiple-regression.qmd` — `survival::pbc`, simulated energy expenditure
-- `03-logistic-regression.qmd` — `survival::pbc`, `MASS::birthwt`
+- `linear-regression.qmd` — `survival::pbc`, simulated mouse insulin
+- `multiple-regression.qmd` — `survival::pbc`, simulated energy expenditure
+- `logistic-regression.qmd` — `survival::pbc`, `MASS::birthwt`
 - `model-building-and-diagnostics.qmd` — `survival::pbc`, simulated lipid data
 - `data-imputation.qmd` — `survival::pbc` (has native missingness), simulated MAR data
 - `mixed-models.qmd` — `lme4::sleepstudy`, simulated longitudinal mouse data
@@ -173,9 +173,9 @@ gapminder <- readr::read_csv('https://raw.githubusercontent.com/resbaz/r-novice-
 - `statistical-decision-guide.qmd` — small simulated examples
 - `clinical-research-methods.qmd` — `survival::pbc`, `MASS::birthwt`, simulated confounding
 - `help-docs.qmd` — no dataset
-- `hypothesis-testing.qmd` / `04-t-tests.qmd` / `05-anova.qmd`: `NHANES` subsets, `PlantGrowth` or small experimental animal datasets from Dryad.
-- `02-linear-regression.qmd` / `06-multiple-regression.qmd`: `mtcars`, `pbc`, or `gapminder` GDP-life expectancy relationships.
-- `03-logistic-regression.qmd`: Pima Diabetes dataset.
+- `hypothesis-testing.qmd` / `t-tests.qmd` / `anova.qmd`: `NHANES` subsets, `PlantGrowth` or small experimental animal datasets from Dryad.
+- `linear-regression.qmd` / `multiple-regression.qmd`: `mtcars`, `pbc`, or `gapminder` GDP-life expectancy relationships.
+- `logistic-regression.qmd`: Pima Diabetes dataset.
 - `survival-and-time-to-event.qmd`: `survival::lung`, `survival::pbc`, or small clinical trial follow-up datasets.
 
 ---
