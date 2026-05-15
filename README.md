@@ -1,29 +1,44 @@
-# Basic Statistics Course
+# Basic Statistics for Researchers
 
-This repository contains the source for a practical statistics course, but the best way to experience the material is online.
+Welcome to  a practical, modern statistics course built for researchers, doctoral students, and clinicians.
 
-## Start here
+> If you are visiting this repository from your PhD office or lab, start with the online book. It is the best way to explore the concepts, examples, and workflows.
+
+## Explore the online book
 
 Visit the live course site:
 
 https://sufyansuleman.github.io/basic_statistics/
 
-## What you will find there
+## Why this course matters
 
-- A professional course website
-- Practical examples for biomedical and clinical research
-- Regression, inference, modeling, and applied statistics
-- Clear explanations with real data and R code
+This book focuses on the core statistical concepts that matter most for research:
 
-## Who should read it
+- foundational probability and descriptive summaries
+- hypothesis testing and confidence intervals
+- t-tests, ANOVA, and comparing group differences
+- linear and multiple regression for modeling relationships
+- logistic regression for binary outcomes
+- practical data visualization and interpretation
 
-This course is especially useful for:
+## Designed for advanced learners
 
-- biomedical researchers applying statistics
-- clinicians doing data-driven research
-- graduate students in health and life sciences
-- anyone wanting practical, applied statistical training
+This course is ideal for:
 
-## Note
+- PhD students building statistical intuition
+- researchers who want better data-driven decisions
+- clinicians interpreting evidence and study results
+- anyone preparing to read, design, or publish scientific research
 
-This repo contains the source files, but for the student experience start with the website above.
+
+## Quick path to the book
+
+Start with these key sections in the online course:
+
+- `Setup` — tools, packages, and workflow for reproducible analysis
+- `Hypothesis Testing` — core logic behind p-values, error types, and inference
+- `Regression` — modeling continuous and categorical outcomes with real examples
+
+## Want to contribute?
+
+Feel free to explore the source files in `sessions/` and suggest improvements. The live site is the best entry point, but this repo is the authoring source behind it.
