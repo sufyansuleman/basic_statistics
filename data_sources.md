@@ -167,7 +167,7 @@ gapminder <- readr::read_csv('https://raw.githubusercontent.com/resbaz/r-novice-
 - `survival-and-time-to-event.qmd` — `survival::pbc`, `boot::melanoma`
 - `causal-inference.qmd` — `survival::pbc`, simulated collider bias
 - `mendelian-randomization.qmd` — simulated one-sample MR; `TwoSampleMR` (eval: false)
-- `omics-statistics.qmd` — simulated gene expression matrix; `limma`
+<!-- Omics and Bayesian sessions removed from course map -->
 
 ### Part 6: Reference and Resources
 - `statistical-decision-guide.qmd` — small simulated examples
