@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Simple basic statistics concepts - 25&nbsp; Mendelian Randomisation</title>
+<title>18&nbsp; Mendelian Randomisation – Simple basic statistics concepts</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -86,15 +87,17 @@ div.csl-indent {
 <meta name="quarto:offset" content="../">
 <link href="../sessions/omics-statistics.html" rel="next">
 <link href="../sessions/causal-inference.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -123,7 +126,7 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -137,7 +140,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -155,19 +158,19 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/survival-and-time-to-event.html">Part 5: Advanced Methods</a></li><li class="breadcrumb-item"><a href="../sessions/mendelian-randomization.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/survival-and-time-to-event.html">Part 3: Advanced Methods</a></li><li class="breadcrumb-item"><a href="../sessions/mendelian-randomization.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -203,240 +206,176 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Part 1: R Foundations</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/packages-libraries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></a>
+  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vectors, Data Frames, and Factors</span></span></a>
+  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis Testing: Concepts and Framework</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/tidy-data-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Importing, Cleaning, and Reshaping Data</span></span></a>
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/nonparametric-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Nonparametric Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Categorical Data and Chi-Square Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Part 2: Describing and Visualizing Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 2: Regression and Modeling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Descriptive Statistics and Exploratory Data Analysis</span></span></a>
+  <a href="../sessions/correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Correlation and Association</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/basic-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Basic Data Visualization</span></span></a>
+  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/advanced-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></span></a>
+  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/explore-clinical-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exploring Clinical and Medical Data with R</span></span></a>
+  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/data-imputation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Missing Data and Imputation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Mixed Models: Random Effects and Repeated Measures</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">Part 3: Inference — Testing and Estimation</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 3: Advanced Methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span></a>
+  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Survival Analysis and Time-to-Event Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis Testing: Concepts and Framework</span></span></a>
+  <a href="../sessions/causal-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></span></a>
+  <a href="../sessions/mendelian-randomization.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/nonparametric-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Nonparametric Tests</span></span></a>
+  <a href="../sessions/omics-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Categorical Data and Chi-Square Tests</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></span></a>
+  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">Part 4: Regression and Modeling</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 4: Reference and Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/correlation-and-association.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Correlation and Association</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/data-imputation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Missing Data and Imputation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/mixed-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Mixed Models: Random Effects and Repeated Measures</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
- <span class="menu-text">Part 5: Advanced Methods</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Survival Analysis and Time-to-Event Data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/causal-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/mendelian-randomization.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/omics-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">Part 6: Reference and Resources</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -451,42 +390,46 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-mr" id="toc-sec-mr" class="nav-link active" data-scroll-target="#sec-mr"><span class="header-section-number">25.1</span> When Do You Use This?</a></li>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">25.2</span> Learning Objectives</a></li>
-  <li><a href="#background-mendelian-randomisation-as-an-instrument" id="toc-background-mendelian-randomisation-as-an-instrument" class="nav-link" data-scroll-target="#background-mendelian-randomisation-as-an-instrument"><span class="header-section-number">25.3</span> Background: Mendelian Randomisation as an Instrument</a>
+  <li><a href="#sec-mr" id="toc-sec-mr" class="nav-link active" data-scroll-target="#sec-mr"><span class="header-section-number">18.1</span> When Do You Use This?</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">18.2</span> Learning Objectives</a></li>
+  <li><a href="#background-mendelian-randomisation-as-an-instrument" id="toc-background-mendelian-randomisation-as-an-instrument" class="nav-link" data-scroll-target="#background-mendelian-randomisation-as-an-instrument"><span class="header-section-number">18.3</span> Background: Mendelian Randomisation as an Instrument</a>
   <ul class="collapse">
-  <li><a href="#the-instrumental-variable-framework" id="toc-the-instrumental-variable-framework" class="nav-link" data-scroll-target="#the-instrumental-variable-framework"><span class="header-section-number">25.3.1</span> The Instrumental Variable Framework</a></li>
-  <li><a href="#the-wald-ratio-estimator" id="toc-the-wald-ratio-estimator" class="nav-link" data-scroll-target="#the-wald-ratio-estimator"><span class="header-section-number">25.3.2</span> The Wald Ratio Estimator</a></li>
+  <li><a href="#the-instrumental-variable-framework" id="toc-the-instrumental-variable-framework" class="nav-link" data-scroll-target="#the-instrumental-variable-framework"><span class="header-section-number">18.3.1</span> The Instrumental Variable Framework</a></li>
+  <li><a href="#the-wald-ratio-estimator" id="toc-the-wald-ratio-estimator" class="nav-link" data-scroll-target="#the-wald-ratio-estimator"><span class="header-section-number">18.3.2</span> The Wald Ratio Estimator</a></li>
   </ul></li>
-  <li><a href="#example-1-simulated-one-sample-mr" id="toc-example-1-simulated-one-sample-mr" class="nav-link" data-scroll-target="#example-1-simulated-one-sample-mr"><span class="header-section-number">25.4</span> Example 1: Simulated One-Sample MR</a>
+  <li><a href="#example-1-simulated-one-sample-mr" id="toc-example-1-simulated-one-sample-mr" class="nav-link" data-scroll-target="#example-1-simulated-one-sample-mr"><span class="header-section-number">18.4</span> Example 1: Simulated One-Sample MR</a>
   <ul class="collapse">
-  <li><a href="#naive-ols-confounded" id="toc-naive-ols-confounded" class="nav-link" data-scroll-target="#naive-ols-confounded"><span class="header-section-number">25.4.1</span> Naive OLS (confounded)</a></li>
-  <li><a href="#wald-ratio-mr" id="toc-wald-ratio-mr" class="nav-link" data-scroll-target="#wald-ratio-mr"><span class="header-section-number">25.4.2</span> Wald Ratio MR</a></li>
-  <li><a href="#two-stage-least-squares-2sls" id="toc-two-stage-least-squares-2sls" class="nav-link" data-scroll-target="#two-stage-least-squares-2sls"><span class="header-section-number">25.4.3</span> Two-Stage Least Squares (2SLS)</a></li>
+  <li><a href="#naive-ols-confounded" id="toc-naive-ols-confounded" class="nav-link" data-scroll-target="#naive-ols-confounded"><span class="header-section-number">18.4.1</span> Naive OLS (confounded)</a></li>
+  <li><a href="#wald-ratio-mr" id="toc-wald-ratio-mr" class="nav-link" data-scroll-target="#wald-ratio-mr"><span class="header-section-number">18.4.2</span> Wald Ratio MR</a></li>
+  <li><a href="#two-stage-least-squares-2sls" id="toc-two-stage-least-squares-2sls" class="nav-link" data-scroll-target="#two-stage-least-squares-2sls"><span class="header-section-number">18.4.3</span> Two-Stage Least Squares (2SLS)</a></li>
   </ul></li>
-  <li><a href="#example-2-summary-level-two-sample-mr" id="toc-example-2-summary-level-two-sample-mr" class="nav-link" data-scroll-target="#example-2-summary-level-two-sample-mr"><span class="header-section-number">25.5</span> Example 2: Summary-Level Two-Sample MR</a>
+  <li><a href="#example-2-summary-level-two-sample-mr" id="toc-example-2-summary-level-two-sample-mr" class="nav-link" data-scroll-target="#example-2-summary-level-two-sample-mr"><span class="header-section-number">18.5</span> Example 2: Summary-Level Two-Sample MR</a>
   <ul class="collapse">
-  <li><a href="#sensitivity-analysis-pleiotropy" id="toc-sensitivity-analysis-pleiotropy" class="nav-link" data-scroll-target="#sensitivity-analysis-pleiotropy"><span class="header-section-number">25.5.1</span> Sensitivity Analysis: Pleiotropy</a></li>
+  <li><a href="#sensitivity-analysis-pleiotropy" id="toc-sensitivity-analysis-pleiotropy" class="nav-link" data-scroll-target="#sensitivity-analysis-pleiotropy"><span class="header-section-number">18.5.1</span> Sensitivity Analysis: Pleiotropy</a></li>
   </ul></li>
-  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">25.6</span> Where to Find Data Like This</a></li>
-  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">25.7</span> What Can Go Wrong</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">25.8</span> Exercises</a>
+  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">18.6</span> Where to Find Data Like This</a></li>
+  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">18.7</span> What Can Go Wrong</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">18.8</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-guided-first-stage-f-statistic" id="toc-exercise-1-guided-first-stage-f-statistic" class="nav-link" data-scroll-target="#exercise-1-guided-first-stage-f-statistic"><span class="header-section-number">25.8.1</span> Exercise 1 (Guided): First-Stage F-Statistic</a></li>
-  <li><a href="#exercise-2-semi-guided-horizontal-pleiotropy-check" id="toc-exercise-2-semi-guided-horizontal-pleiotropy-check" class="nav-link" data-scroll-target="#exercise-2-semi-guided-horizontal-pleiotropy-check"><span class="header-section-number">25.8.2</span> Exercise 2 (Semi-guided): Horizontal Pleiotropy Check</a></li>
-  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">25.8.3</span> Exercise 3 (Open-ended)</a></li>
+  <li><a href="#exercise-1-guided-first-stage-f-statistic" id="toc-exercise-1-guided-first-stage-f-statistic" class="nav-link" data-scroll-target="#exercise-1-guided-first-stage-f-statistic"><span class="header-section-number">18.8.1</span> Exercise 1 (Guided): First-Stage F-Statistic</a></li>
+  <li><a href="#exercise-2-semi-guided-horizontal-pleiotropy-check" id="toc-exercise-2-semi-guided-horizontal-pleiotropy-check" class="nav-link" data-scroll-target="#exercise-2-semi-guided-horizontal-pleiotropy-check"><span class="header-section-number">18.8.2</span> Exercise 2 (Semi-guided): Horizontal Pleiotropy Check</a></li>
+  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">18.8.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
-  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">25.9</span> Comprehension Check</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">25.10</span> Further Reading</a></li>
+  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">18.9</span> Comprehension Check</a></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">18.10</span> How to Report</a>
+  <ul class="collapse">
+  <li><a href="#reporting-mendelian-randomisation-results" id="toc-reporting-mendelian-randomisation-results" class="nav-link" data-scroll-target="#reporting-mendelian-randomisation-results"><span class="header-section-number">18.10.1</span> Reporting Mendelian Randomisation Results</a></li>
+  </ul></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">18.11</span> Further Reading</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/survival-and-time-to-event.html">Part 5: Advanced Methods</a></li><li class="breadcrumb-item"><a href="../sessions/mendelian-randomization.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/survival-and-time-to-event.html">Part 3: Advanced Methods</a></li><li class="breadcrumb-item"><a href="../sessions/mendelian-randomization.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></h1>
+<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></h1>
 </div>
 
 
@@ -503,14 +446,14 @@ window.Quarto = {
 </header>
 
 
-<section id="sec-mr" class="level2 callout-tip" data-number="25.1">
-<h2 class="callout-tip anchored" data-number="25.1" data-anchor-id="sec-mr"><span class="header-section-number">25.1</span> When Do You Use This?</h2>
+<section id="sec-mr" class="level2 callout-tip" data-number="18.1">
+<h2 class="callout-tip anchored" data-number="18.1" data-anchor-id="sec-mr"><span class="header-section-number">18.1</span> When Do You Use This?</h2>
 <blockquote class="blockquote">
-<p>You want to know whether high LDL cholesterol causally increases the risk of liver disease. Observational studies are confounded ? sick people may both have elevated LDL and worse liver function. An RCT randomising people to high or low LDL is impossible. Mendelian randomisation uses genetic variants that naturally raise LDL as a randomisation instrument: because genotype is assigned at conception, it cannot be confounded by lifestyle or disease state.</p>
+<p>You want to know whether high LDL cholesterol causally increases the risk of liver disease. Observational studies are confounded - sick people may both have elevated LDL and worse liver function. An RCT randomising people to high or low LDL is impossible. Mendelian randomisation uses genetic variants that naturally raise LDL as a randomisation instrument: because genotype is assigned at conception, it cannot be confounded by lifestyle or disease state.</p>
 </blockquote>
 </section>
-<section id="learning-objectives" class="level2" data-number="25.2">
-<h2 data-number="25.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">25.2</span> Learning Objectives</h2>
+<section id="learning-objectives" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">18.2</span> Learning Objectives</h2>
 <p>After completing this session you will be able to:</p>
 <ul>
 <li>Explain the IV/MR framework and the three core instrument assumptions</li>
@@ -520,12 +463,12 @@ window.Quarto = {
 <li>Recognise horizontal pleiotropy and apply sensitivity analyses (MR-Egger, weighted median, MR-PRESSO)</li>
 </ul>
 </section>
-<section id="background-mendelian-randomisation-as-an-instrument" class="level2" data-number="25.3">
-<h2 data-number="25.3" class="anchored" data-anchor-id="background-mendelian-randomisation-as-an-instrument"><span class="header-section-number">25.3</span> Background: Mendelian Randomisation as an Instrument</h2>
-<section id="the-instrumental-variable-framework" class="level3" data-number="25.3.1">
-<h3 data-number="25.3.1" class="anchored" data-anchor-id="the-instrumental-variable-framework"><span class="header-section-number">25.3.1</span> The Instrumental Variable Framework</h3>
+<section id="background-mendelian-randomisation-as-an-instrument" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="background-mendelian-randomisation-as-an-instrument"><span class="header-section-number">18.3</span> Background: Mendelian Randomisation as an Instrument</h2>
+<section id="the-instrumental-variable-framework" class="level3" data-number="18.3.1">
+<h3 data-number="18.3.1" class="anchored" data-anchor-id="the-instrumental-variable-framework"><span class="header-section-number">18.3.1</span> The Instrumental Variable Framework</h3>
 <p>An <strong>instrumental variable (IV)</strong> <span class="math inline">\(Z\)</span> satisfies three assumptions:</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 32%">
 <col style="width: 29%">
@@ -547,7 +490,7 @@ window.Quarto = {
 <tr class="even">
 <td><strong>Independence (exchangeability)</strong></td>
 <td><span class="math inline">\(Z\)</span> is not associated with confounders <span class="math inline">\(U\)</span></td>
-<td>By Mendel’s laws ? genes assigned randomly at meiosis</td>
+<td>By Mendel’s laws: genes assigned randomly at meiosis</td>
 </tr>
 <tr class="odd">
 <td><strong>Exclusion restriction</strong></td>
@@ -558,24 +501,24 @@ window.Quarto = {
 </table>
 <p>In MR, the IV is a <strong>genetic variant (SNP)</strong> associated with the exposure. Because genotype is determined before disease and is largely orthogonal to environmental confounders, it approximates a natural randomisation.</p>
 </section>
-<section id="the-wald-ratio-estimator" class="level3" data-number="25.3.2">
-<h3 data-number="25.3.2" class="anchored" data-anchor-id="the-wald-ratio-estimator"><span class="header-section-number">25.3.2</span> The Wald Ratio Estimator</h3>
+<section id="the-wald-ratio-estimator" class="level3" data-number="18.3.2">
+<h3 data-number="18.3.2" class="anchored" data-anchor-id="the-wald-ratio-estimator"><span class="header-section-number">18.3.2</span> The Wald Ratio Estimator</h3>
 <p>With a single SNP instrument:</p>
 <p><span class="math display">\[\hat{\beta}_{MR} = \frac{\hat{\beta}_{ZY}}{\hat{\beta}_{ZX}}\]</span></p>
 <p>where <span class="math inline">\(\hat{\beta}_{ZY}\)</span> is the SNP-outcome association and <span class="math inline">\(\hat{\beta}_{ZX}\)</span> is the SNP-exposure association. Both are obtained from GWAS summary statistics (or individual-level regression in one-sample MR).</p>
 </section>
 </section>
-<section id="example-1-simulated-one-sample-mr" class="level2" data-number="25.4">
-<h2 data-number="25.4" class="anchored" data-anchor-id="example-1-simulated-one-sample-mr"><span class="header-section-number">25.4</span> Example 1: Simulated One-Sample MR</h2>
+<section id="example-1-simulated-one-sample-mr" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="example-1-simulated-one-sample-mr"><span class="header-section-number">18.4</span> Example 1: Simulated One-Sample MR</h2>
 <p>We simulate a dataset where LDL causally increases liver enzyme (ALT), with confounding by BMI.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate genetic score (standardised polygenic score for LDL)</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">2</span>, <span class="fl">0.3</span>)          <span class="co"># 0/1/2 copies of effect allele</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate confounder (BMI) ? NOT associated with G (by Mendel's laws)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate confounder (BMI) - NOT associated with G (by Mendel's laws)</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>BMI <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">25</span>, <span class="dv">4</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># LDL causally affected by G and BMI</span></span>
@@ -584,14 +527,14 @@ window.Quarto = {
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ALT: true causal effect of LDL = 0.3; also affected by BMI (confounder)</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>ALT <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="sc">*</span> LDL <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> BMI <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">2</span>)</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> <span class="fu">tibble</span>(G, BMI, LDL, ALT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> <span class="fu">tibble</span>(G, BMI, LDL, ALT)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="naive-ols-confounded" class="level3" data-number="25.4.1">
-<h3 data-number="25.4.1" class="anchored" data-anchor-id="naive-ols-confounded"><span class="header-section-number">25.4.1</span> Naive OLS (confounded)</h3>
+<section id="naive-ols-confounded" class="level3" data-number="18.4.1">
+<h3 data-number="18.4.1" class="anchored" data-anchor-id="naive-ols-confounded"><span class="header-section-number">18.4.1</span> Naive OLS (confounded)</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OLS is biased because BMI confounds LDL-ALT association</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OLS is biased because BMI confounds LDL-ALT association</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fit_ols <span class="ot">&lt;-</span> <span class="fu">lm</span>(ALT <span class="sc">~</span> LDL, <span class="at">data =</span> sim)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_ols, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"LDL"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_ols, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"LDL"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 7
   term  estimate std.error statistic p.value conf.low conf.high
@@ -601,19 +544,19 @@ window.Quarto = {
 </div>
 <p>The OLS estimate is inflated because BMI raises both LDL and ALT.</p>
 </section>
-<section id="wald-ratio-mr" class="level3" data-number="25.4.2">
-<h3 data-number="25.4.2" class="anchored" data-anchor-id="wald-ratio-mr"><span class="header-section-number">25.4.2</span> Wald Ratio MR</h3>
+<section id="wald-ratio-mr" class="level3" data-number="18.4.2">
+<h3 data-number="18.4.2" class="anchored" data-anchor-id="wald-ratio-mr"><span class="header-section-number">18.4.2</span> Wald Ratio MR</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First stage: SNP ? LDL (relevance check)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First stage: SNP - LDL (relevance check)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>fit_z_x <span class="ot">&lt;-</span> <span class="fu">lm</span>(LDL <span class="sc">~</span> G, <span class="at">data =</span> sim)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>beta_zx  <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit_z_x)[<span class="st">"G"</span>]</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>se_zx    <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit_z_x)<span class="sc">$</span>coefficients[<span class="st">"G"</span>, <span class="st">"Std. Error"</span>]</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>f_stat   <span class="ot">&lt;-</span> (beta_zx <span class="sc">/</span> se_zx)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"First-stage F-statistic:"</span>, <span class="fu">round</span>(f_stat, <span class="dv">1</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"First-stage F-statistic:"</span>, <span class="fu">round</span>(f_stat, <span class="dv">1</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>First-stage F-statistic: 291.3 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reduced form: SNP ? ALT</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reduced form: SNP - ALT</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fit_z_y <span class="ot">&lt;-</span> <span class="fu">lm</span>(ALT <span class="sc">~</span> G, <span class="at">data =</span> sim)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>beta_zy  <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit_z_y)[<span class="st">"G"</span>]</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>se_zy    <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit_z_y)<span class="sc">$</span>coefficients[<span class="st">"G"</span>, <span class="st">"Std. Error"</span>]</span>
@@ -625,25 +568,34 @@ window.Quarto = {
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Wald ratio MR estimate:"</span>, <span class="fu">round</span>(beta_mr, <span class="dv">3</span>),</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"| SE:"</span>, <span class="fu">round</span>(se_mr, <span class="dv">3</span>),</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"| 95% CI: ("</span>, <span class="fu">round</span>(beta_mr <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_mr, <span class="dv">3</span>), <span class="st">","</span>,</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(beta_mr <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_mr, <span class="dv">3</span>), <span class="st">")</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(beta_mr <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_mr, <span class="dv">3</span>), <span class="st">")</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Wald ratio MR estimate: 0.345 | SE: 0.085 | 95% CI: ( 0.177 , 0.512 )</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"True causal effect: 0.3</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"True causal effect: 0.3</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>True causal effect: 0.3</code></pre>
 </div>
 </div>
 </section>
-<section id="two-stage-least-squares-2sls" class="level3" data-number="25.4.3">
-<h3 data-number="25.4.3" class="anchored" data-anchor-id="two-stage-least-squares-2sls"><span class="header-section-number">25.4.3</span> Two-Stage Least Squares (2SLS)</h3>
+<section id="two-stage-least-squares-2sls" class="level3" data-number="18.4.3">
+<h3 data-number="18.4.3" class="anchored" data-anchor-id="two-stage-least-squares-2sls"><span class="header-section-number">18.4.3</span> Two-Stage Least Squares (2SLS)</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)   <span class="co"># ivreg()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)   <span class="co"># ivreg()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'AER' was built under R version 4.4.3</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: car</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'car' was built under R version 4.4.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'carData' was built under R version 4.4.1</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -663,7 +615,13 @@ Attaching package: 'car'</code></pre>
 <pre><code>Loading required package: lmtest</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lmtest' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: zoo</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'zoo' was built under R version 4.4.3</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -678,10 +636,16 @@ Attaching package: 'zoo'</code></pre>
 <pre><code>Loading required package: sandwich</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'sandwich' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: survival</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fit_iv <span class="ot">&lt;-</span> <span class="fu">ivreg</span>(ALT <span class="sc">~</span> LDL <span class="sc">|</span> G, <span class="at">data =</span> sim)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_iv, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"LDL"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'survival' was built under R version 4.4.3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fit_iv <span class="ot">&lt;-</span> <span class="fu">ivreg</span>(ALT <span class="sc">~</span> LDL <span class="sc">|</span> G, <span class="at">data =</span> sim)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_iv, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"LDL"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 7
   term  estimate std.error statistic    p.value conf.low conf.high
@@ -692,44 +656,44 @@ Attaching package: 'zoo'</code></pre>
 <p>2SLS is the multi-instrument generalisation of the Wald ratio. The result should match the Wald ratio when only one instrument is used.</p>
 </section>
 </section>
-<section id="example-2-summary-level-two-sample-mr" class="level2" data-number="25.5">
-<h2 data-number="25.5" class="anchored" data-anchor-id="example-2-summary-level-two-sample-mr"><span class="header-section-number">25.5</span> Example 2: Summary-Level Two-Sample MR</h2>
+<section id="example-2-summary-level-two-sample-mr" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="example-2-summary-level-two-sample-mr"><span class="header-section-number">18.5</span> Example 2: Summary-Level Two-Sample MR</h2>
 <p>Two-sample MR uses GWAS summary statistics from two independent datasets: - <strong>Exposure GWAS:</strong> SNP-LDL associations (e.g., from UK Biobank) - <strong>Outcome GWAS:</strong> SNP-liver disease associations (e.g., FinnGen)</p>
 <p>Here we use the <code>TwoSampleMR</code> package to query the MR-Base database.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TwoSampleMR)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: LDL ? coronary artery disease (publicly available data)</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>exposure <span class="ot">&lt;-</span> <span class="fu">extract_instruments</span>(<span class="st">"ieu-a-300"</span>)     <span class="co"># LDL from GLGC GWAS</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>outcome  <span class="ot">&lt;-</span> <span class="fu">extract_outcome_data</span>(</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">snps    =</span> exposure<span class="sc">$</span>SNP,</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcomes =</span> <span class="st">"ieu-a-7"</span>                           <span class="co"># CAD from CARDIoGRAM</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">harmonise_data</span>(exposure, outcome)</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Primary MR methods</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">mr</span>(dat)</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>res <span class="sc">%&gt;%</span> <span class="fu">select</span>(method, b, se, pval, lo_ci, up_ci)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TwoSampleMR)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: LDL - coronary artery disease (publicly available data)</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>exposure <span class="ot">&lt;-</span> <span class="fu">extract_instruments</span>(<span class="st">"ieu-a-300"</span>)     <span class="co"># LDL from GLGC GWAS</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>outcome  <span class="ot">&lt;-</span> <span class="fu">extract_outcome_data</span>(</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">snps    =</span> exposure<span class="sc">$</span>SNP,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcomes =</span> <span class="st">"ieu-a-7"</span>                           <span class="co"># CAD from CARDIoGRAM</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">harmonise_data</span>(exposure, outcome)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Primary MR methods</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">mr</span>(dat)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>res <span class="sc">%&gt;%</span> <span class="fu">select</span>(method, b, se, pval, lo_ci, up_ci)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The output reports: - <strong>IVW (inverse-variance weighted):</strong> Main estimate ? assumes no directional pleiotropy - <strong>MR-Egger:</strong> Allows for pleiotropy; the intercept tests for it - <strong>Weighted median:</strong> Consistent estimate if &gt;50% of instruments are valid - <strong>MR-PRESSO:</strong> Detects and corrects for outlier pleiotropy</p>
-<section id="sensitivity-analysis-pleiotropy" class="level3" data-number="25.5.1">
-<h3 data-number="25.5.1" class="anchored" data-anchor-id="sensitivity-analysis-pleiotropy"><span class="header-section-number">25.5.1</span> Sensitivity Analysis: Pleiotropy</h3>
+<p>The output reports: - <strong>IVW (inverse-variance weighted):</strong> Main estimate — assumes no directional pleiotropy - <strong>MR-Egger:</strong> Allows for pleiotropy; the intercept tests for it - <strong>Weighted median:</strong> Consistent estimate if &gt;50% of instruments are valid - <strong>MR-PRESSO:</strong> Detects and corrects for outlier pleiotropy</p>
+<section id="sensitivity-analysis-pleiotropy" class="level3" data-number="18.5.1">
+<h3 data-number="18.5.1" class="anchored" data-anchor-id="sensitivity-analysis-pleiotropy"><span class="header-section-number">18.5.1</span> Sensitivity Analysis: Pleiotropy</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulated scatter plot: SNP effects on exposure vs outcome</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>n_snps  <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>beta_x  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_snps, <span class="fl">0.05</span>, <span class="fl">0.02</span>)        <span class="co"># SNP-LDL effects</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>beta_y  <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="sc">*</span> beta_x <span class="sc">+</span> <span class="fu">rnorm</span>(n_snps, <span class="dv">0</span>, <span class="fl">0.008</span>)  <span class="co"># SNP-outcome (no pleiotropy)</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(beta_x, beta_y) <span class="sc">%&gt;%</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> beta_x, <span class="at">y =</span> beta_y)) <span class="sc">+</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"MR scatter plot: SNP effects on exposure vs outcome"</span>,</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"SNP?Exposure (LDL) effect"</span>,</span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"SNP?Outcome (ALT) effect"</span>) <span class="sc">+</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulated scatter plot: SNP effects on exposure vs outcome</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>n_snps  <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>beta_x  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_snps, <span class="fl">0.05</span>, <span class="fl">0.02</span>)        <span class="co"># SNP-LDL effects</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>beta_y  <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="sc">*</span> beta_x <span class="sc">+</span> <span class="fu">rnorm</span>(n_snps, <span class="dv">0</span>, <span class="fl">0.008</span>)  <span class="co"># SNP-outcome (no pleiotropy)</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(beta_x, beta_y) <span class="sc">%&gt;%</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> beta_x, <span class="at">y =</span> beta_y)) <span class="sc">+</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"MR scatter plot: SNP effects on exposure vs outcome"</span>,</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"SNP?Exposure (LDL) effect"</span>,</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"SNP?Outcome (ALT) effect"</span>) <span class="sc">+</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -743,24 +707,24 @@ Attaching package: 'zoo'</code></pre>
 </div>
 </section>
 </section>
-<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="25.6">
-<h2 class="callout-note anchored" data-number="25.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">25.6</span> Where to Find Data Like This</h2>
-<p><strong>MR-Base (IEU Open GWAS):</strong> <code>TwoSampleMR::available_outcomes()</code> ? thousands of GWAS summary datasets freely accessible via the <code>TwoSampleMR</code> package.</p>
+<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="18.6">
+<h2 class="callout-note anchored" data-number="18.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">18.6</span> Where to Find Data Like This</h2>
+<p><strong>MR-Base (IEU Open GWAS):</strong> <code>TwoSampleMR::available_outcomes()</code> - thousands of GWAS summary datasets freely accessible via the <code>TwoSampleMR</code> package.</p>
 <p><strong>UK Biobank GWAS:</strong> Downloadable summary statistics for thousands of traits at <a href="https://www.ukbiobank.ac.uk">https://www.ukbiobank.ac.uk</a>.</p>
-<p><strong>FinnGen:</strong> European biobank GWAS summary data ? <a href="https://www.finngen.fi">https://www.finngen.fi</a>.</p>
-<p><strong>PhenoScanner:</strong> Query SNP associations across thousands of traits ? <a href="http://www.phenoscanner.medschl.cam.ac.uk">http://www.phenoscanner.medschl.cam.ac.uk</a>.</p>
+<p><strong>FinnGen:</strong> European biobank GWAS summary data: <a href="https://www.finngen.fi">https://www.finngen.fi</a>.</p>
+<p><strong>PhenoScanner:</strong> Query SNP associations across thousands of traits: <a href="http://www.phenoscanner.medschl.cam.ac.uk">http://www.phenoscanner.medschl.cam.ac.uk</a>.</p>
 </section>
-<section id="what-can-go-wrong" class="level2 callout-warning" data-number="25.7">
-<h2 class="callout-warning anchored" data-number="25.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">25.7</span> What Can Go Wrong</h2>
+<section id="what-can-go-wrong" class="level2 callout-warning" data-number="18.7">
+<h2 class="callout-warning anchored" data-number="18.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">18.7</span> What Can Go Wrong</h2>
 <p><strong>Weak instruments (F &lt; 10)</strong> When the SNP explains little variance in the exposure, the Wald ratio becomes unstable (weak instrument bias). Weak instruments bias 2SLS toward the OLS estimate in one-sample MR, and toward the null in two-sample MR. Use multiple SNPs and check F-statistics.</p>
 <p><strong>Horizontal pleiotropy</strong> The exclusion restriction is violated if the SNP affects the outcome through pathways other than the exposure. MR-Egger, weighted median, and MR-PRESSO test for and partly correct this, but they are not definitive. Biological understanding of the genetic variant is essential.</p>
 <p><strong>Winner’s curse in instrument selection</strong> Using the same dataset to select instruments and to estimate the causal effect inflates the apparent SNP-exposure association. Always use independent datasets for instrument selection and effect estimation (two-sample design).</p>
 <p><strong>Confounding by population stratification</strong> If the exposure and outcome GWAS come from populations with different ancestry, SNP effects may differ by ancestry and confound the MR estimate. Use ancestry-matched datasets or multi-ancestry sensitivity analyses.</p>
 </section>
-<section id="exercises" class="level2" data-number="25.8">
-<h2 data-number="25.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">25.8</span> Exercises</h2>
-<section id="exercise-1-guided-first-stage-f-statistic" class="level3" data-number="25.8.1">
-<h3 data-number="25.8.1" class="anchored" data-anchor-id="exercise-1-guided-first-stage-f-statistic"><span class="header-section-number">25.8.1</span> Exercise 1 (Guided): First-Stage F-Statistic</h3>
+<section id="exercises" class="level2" data-number="18.8">
+<h2 data-number="18.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">18.8</span> Exercises</h2>
+<section id="exercise-1-guided-first-stage-f-statistic" class="level3" data-number="18.8.1">
+<h3 data-number="18.8.1" class="anchored" data-anchor-id="exercise-1-guided-first-stage-f-statistic"><span class="header-section-number">18.8.1</span> Exercise 1 (Guided): First-Stage F-Statistic</h3>
 <p>Using the simulated <code>sim</code> dataset:</p>
 <ol type="1">
 <li>Regress <code>LDL ~ G</code> and compute the F-statistic for the instrument.</li>
@@ -768,29 +732,29 @@ Attaching package: 'zoo'</code></pre>
 <li>Now simulate a weak instrument: replace <code>G</code> with <code>G_weak &lt;- rbinom(n, 2, 0.05)</code>. Recompute the F-statistic. What changes?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 1: Solution
+<span class="screen-reader-only">Tip</span>Exercise 1: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LDL <span class="sc">~</span> G, <span class="at">data =</span> sim)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>f    <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit1)<span class="sc">$</span>fstatistic[<span class="st">"value"</span>]</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"F-statistic:"</span>, <span class="fu">round</span>(f, <span class="dv">1</span>), <span class="st">"? strong if &gt; 10</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LDL <span class="sc">~</span> G, <span class="at">data =</span> sim)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>f    <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit1)<span class="sc">$</span>fstatistic[<span class="st">"value"</span>]</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"F-statistic:"</span>, <span class="fu">round</span>(f, <span class="dv">1</span>), <span class="st">"? strong if &gt; 10</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>F-statistic: 291.3 ? strong if &gt; 10</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weak instrument</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>G_weak  <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">nrow</span>(sim), <span class="dv">2</span>, <span class="fl">0.05</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>LDL_alt <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="sc">*</span> G_weak <span class="sc">+</span> <span class="fl">0.4</span> <span class="sc">*</span> sim<span class="sc">$</span>BMI <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(sim), <span class="dv">0</span>, <span class="fl">1.5</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>fit_weak <span class="ot">&lt;-</span> <span class="fu">lm</span>(LDL_alt <span class="sc">~</span> G_weak)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Weak instrument F:"</span>, <span class="fu">round</span>(<span class="fu">summary</span>(fit_weak)<span class="sc">$</span>fstatistic[<span class="st">"value"</span>], <span class="dv">1</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weak instrument</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>G_weak  <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">nrow</span>(sim), <span class="dv">2</span>, <span class="fl">0.05</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>LDL_alt <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="sc">*</span> G_weak <span class="sc">+</span> <span class="fl">0.4</span> <span class="sc">*</span> sim<span class="sc">$</span>BMI <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(sim), <span class="dv">0</span>, <span class="fl">1.5</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>fit_weak <span class="ot">&lt;-</span> <span class="fu">lm</span>(LDL_alt <span class="sc">~</span> G_weak)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Weak instrument F:"</span>, <span class="fu">round</span>(<span class="fu">summary</span>(fit_weak)<span class="sc">$</span>fstatistic[<span class="st">"value"</span>], <span class="dv">1</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Weak instrument F: 0.2 </code></pre>
 </div>
@@ -799,8 +763,8 @@ Exercise 1: Solution
 </div>
 </div>
 </section>
-<section id="exercise-2-semi-guided-horizontal-pleiotropy-check" class="level3" data-number="25.8.2">
-<h3 data-number="25.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-horizontal-pleiotropy-check"><span class="header-section-number">25.8.2</span> Exercise 2 (Semi-guided): Horizontal Pleiotropy Check</h3>
+<section id="exercise-2-semi-guided-horizontal-pleiotropy-check" class="level3" data-number="18.8.2">
+<h3 data-number="18.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-horizontal-pleiotropy-check"><span class="header-section-number">18.8.2</span> Exercise 2 (Semi-guided): Horizontal Pleiotropy Check</h3>
 <p>Extend the simulation to add horizontal pleiotropy: the SNP also directly affects ALT (independent of LDL).</p>
 <ol type="1">
 <li>Simulate <code>ALT_pleiotropic &lt;- 0.3 * LDL + 0.5 * BMI + 0.4 * G + rnorm(n, 0, 2)</code> (direct SNP effect = 0.4).</li>
@@ -808,50 +772,50 @@ Exercise 1: Solution
 <li>Interpret: what would this mean in a real MR study?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 2: Solution
+<span class="screen-reader-only">Tip</span>Exercise 2: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ALT_p <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="sc">*</span> sim<span class="sc">$</span>LDL <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> sim<span class="sc">$</span>BMI <span class="sc">+</span> <span class="fl">0.4</span> <span class="sc">*</span> sim<span class="sc">$</span>G <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(sim), <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># SNP-outcome (includes direct path)</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>beta_zy_p <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(ALT_p <span class="sc">~</span> sim<span class="sc">$</span>G))[<span class="st">"sim$G"</span>]</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>wald_p    <span class="ot">&lt;-</span> beta_zy_p <span class="sc">/</span> beta_zx</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"True causal effect: 0.3</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>ALT_p <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="sc">*</span> sim<span class="sc">$</span>LDL <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> sim<span class="sc">$</span>BMI <span class="sc">+</span> <span class="fl">0.4</span> <span class="sc">*</span> sim<span class="sc">$</span>G <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(sim), <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># SNP-outcome (includes direct path)</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>beta_zy_p <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(ALT_p <span class="sc">~</span> sim<span class="sc">$</span>G))[<span class="st">"sim$G"</span>]</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>wald_p    <span class="ot">&lt;-</span> beta_zy_p <span class="sc">/</span> beta_zx</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"True causal effect: 0.3</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>True causal effect: 0.3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Wald ratio with pleiotropy:"</span>, <span class="fu">round</span>(wald_p, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Wald ratio with pleiotropy:"</span>, <span class="fu">round</span>(wald_p, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Wald ratio with pleiotropy: 0.773 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Biased upward because SNP -&gt; ALT directly inflates beta_zy</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Biased upward because SNP -&gt; ALT directly inflates beta_zy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="exercise-3-open-ended" class="level3" data-number="25.8.3">
-<h3 data-number="25.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">25.8.3</span> Exercise 3 (Open-ended)</h3>
+<section id="exercise-3-open-ended" class="level3" data-number="18.8.3">
+<h3 data-number="18.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">18.8.3</span> Exercise 3 (Open-ended)</h3>
 <p>Identify a trait relevant to your research that has publicly available GWAS summary data (check MR-Base or GWAS Catalog). Design an MR study:</p>
 <ol type="1">
-<li>State your causal hypothesis (exposure ? outcome).</li>
+<li>State your causal hypothesis (exposure → outcome).</li>
 <li>List the MR assumptions and how they might be violated for your chosen instrument.</li>
 <li>Specify which sensitivity analyses you would run and what conclusions you could draw if they disagree with the IVW result.</li>
 </ol>
 </section>
 </section>
-<section id="comprehension-check" class="level2" data-number="25.9">
-<h2 data-number="25.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">25.9</span> Comprehension Check</h2>
+<section id="comprehension-check" class="level2" data-number="18.9">
+<h2 data-number="18.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">18.9</span> Comprehension Check</h2>
 <ol type="1">
 <li>Why does Mendelian randomisation approximate an RCT?</li>
 <li>The F-statistic for your genetic instrument is 7.2. What is the concern, and what should you do?</li>
@@ -860,33 +824,62 @@ Exercise 2: Solution
 <li>Your exposure and outcome GWAS come from the same cohort. What problem does this introduce?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Answers
+<span class="screen-reader-only">Note</span>Answers
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Genetic variants are assigned at conception by the random process of meiosis ? effectively a natural randomisation that is independent of most environmental confounders, reverse causation (genes precede disease), and confounders that develop over the life course. This mimics the randomised assignment in an RCT, though only for the specific exposure pathway affected by those variants.</li>
+<li>Genetic variants are assigned at conception by the random process of meiosis, effectively a natural randomisation that is independent of most environmental confounders, reverse causation (genes precede disease), and confounders that develop over the life course. This mimics the randomised assignment in an RCT, though only for the specific exposure pathway affected by those variants.</li>
 <li>F &lt; 10 indicates a weak instrument. Weak instruments lead to inflated standard errors, low power, and in one-sample MR, bias toward the OLS estimate. Options: add more SNPs to construct a stronger polygenic score, or restrict to SNPs from larger GWAS with better power. Do not proceed with MR if the instrument is too weak.</li>
-<li>A significant MR-Egger intercept means that the SNP effects on the outcome have a direction-dependent offset after regressing on SNP-exposure effects ? evidence of directional (systematic) horizontal pleiotropy. The IVW estimate is biased. The MR-Egger slope provides a pleiotropy-corrected estimate, but it is less precise than IVW.</li>
+<li>A significant MR-Egger intercept means that the SNP effects on the outcome have a direction-dependent offset after regressing on SNP-exposure effects, evidence of directional (systematic) horizontal pleiotropy. The IVW estimate is biased. The MR-Egger slope provides a pleiotropy-corrected estimate, but it is less precise than IVW.</li>
 <li>The IVW assumes all instruments are valid; if some SNPs are pleiotropic, the IVW is biased. The weighted median is consistent if at least 50% of the instrument weight comes from valid SNPs. A large discrepancy (0.4 vs 0.1) suggests substantial pleiotropy. Report all estimates, run MR-PRESSO to identify outlier SNPs, and interpret cautiously. The true causal effect is probably closer to the more conservative weighted-median estimate.</li>
-<li>This is the <strong>one-sample overlap</strong> problem. When instrument selection and causal estimation use the same dataset, the winner’s curse inflates the apparent instrument strength, and the 2SLS estimate is biased toward the OLS (confounded) estimate in proportion to the instrument’s weakness. A two-sample design ? instrument-exposure association from one independent GWAS, instrument-outcome association from another ? avoids this.</li>
+<li>This is the <strong>one-sample overlap</strong> problem. When instrument selection and causal estimation use the same dataset, the winner’s curse inflates the apparent instrument strength, and the 2SLS estimate is biased toward the OLS (confounded) estimate in proportion to the instrument’s weakness. A two-sample design - instrument-exposure association from one independent GWAS, instrument-outcome association from another - avoids this.</li>
 </ol>
 </div>
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="25.10">
-<h2 data-number="25.10" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">25.10</span> Further Reading</h2>
+<section id="how-to-report" class="level2" data-number="18.10">
+<h2 data-number="18.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">18.10</span> How to Report</h2>
+<section id="reporting-mendelian-randomisation-results" class="level3" data-number="18.10.1">
+<h3 data-number="18.10.1" class="anchored" data-anchor-id="reporting-mendelian-randomisation-results"><span class="header-section-number">18.10.1</span> Reporting Mendelian Randomisation Results</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>In a methods section:</strong> “Two-sample Mendelian randomisation was performed using summary-level GWAS data for [exposure] (source: [citation]) and [outcome] (source: [citation]). The primary analysis used the inverse-variance weighted (IVW) method. Sensitivity analyses included the weighted median, MR-Egger, and weighted mode methods to assess robustness to pleiotropy.”</p>
+<p><strong>In results:</strong> “Genetically predicted [exposure] was associated with [outcome] (IVW 3b2 = X per SD increase, 95% CI [L, U], p = Y). The MR-Egger intercept was close to zero (intercept = X, p = Z), supporting the no-pleiotropy assumption.”</p>
+<p><strong>What to always include:</strong></p>
 <ul>
-<li><span class="citation" data-cites="Davey-Smith-2003">Smith and Ebrahim (<a href="#ref-Davey-Smith-2003" role="doc-biblioref">2003</a>)</span> — <em>Mendelian randomization: can genetic epidemiology contribute to understanding environmental determinants of disease?</em> (IJE ? the original MR paper)</li>
-<li><span class="citation" data-cites="Bowden-2015">Bowden, Smith, and Burgess (<a href="#ref-Bowden-2015" role="doc-biblioref">2015</a>)</span> — <em>Mendelian Randomization with invalid instruments</em> ? MR-Egger paper</li>
+<li>IVW estimate with 95% CI and p-value</li>
+<li>Number of genetic instruments used</li>
+<li>Results from at least two sensitivity analyses</li>
+<li>Cochran Q statistic or I² for instrument heterogeneity</li>
+<li>GWAS sources for both exposure and outcome</li>
+</ul>
+<p><strong>Avoid causal language:</strong> State that findings are “consistent with a causal effect” or “provide evidence supporting causality” rather than claiming causation directly.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="further-reading" class="level2" data-number="18.11">
+<h2 data-number="18.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">18.11</span> Further Reading</h2>
+<ul>
+<li><span class="citation" data-cites="Davey-Smith-2003">Smith and Ebrahim (<a href="#ref-Davey-Smith-2003" role="doc-biblioref">2003</a>)</span> — <em>Mendelian randomization: can genetic epidemiology contribute to understanding environmental determinants of disease?</em> (IJE - the original MR paper)</li>
+<li><span class="citation" data-cites="Bowden-2015">Bowden, Smith, and Burgess (<a href="#ref-Bowden-2015" role="doc-biblioref">2015</a>)</span> — <em>Mendelian Randomization with invalid instruments</em> - MR-Egger paper</li>
 <li><code>TwoSampleMR</code> package vignette (MR-Base documentation)</li>
 <li><span class="citation" data-cites="Hemani-2018">Hemani et al. (<a href="#ref-Hemani-2018" role="doc-biblioref">2018</a>)</span> — <em>The MR-Base platform supports systematic causal inference across the human phenome</em> (eLife)</li>
 </ul>
@@ -907,43 +900,58 @@ Smith, George Davey, and Shah Ebrahim. 2003. <span>“’Mendelian Randomization
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
@@ -951,162 +959,184 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
       return codeEl.innerText;
     }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1114,194 +1144,170 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/causal-inference.html" class="pagination-link  aria-label=" &lt;span="" inference&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Causal Inference</span></span>
+      <a href="../sessions/causal-inference.html" class="pagination-link" aria-label="Causal Inference">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Causal Inference</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/omics-statistics.html" class="pagination-link" aria-label="<span class='chapter-number'>26</span>&nbsp; <span class='chapter-title'>Statistics for Omics Data</span>">
-        <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/omics-statistics.html" class="pagination-link" aria-label="Statistics for Omics Data">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

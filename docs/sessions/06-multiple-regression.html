@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Simple basic statistics concepts - 18&nbsp; Multiple Linear Regression</title>
+<title>11&nbsp; Multiple Linear Regression – Simple basic statistics concepts</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -86,15 +87,17 @@ div.csl-indent {
 <meta name="quarto:offset" content="../">
 <link href="../sessions/03-logistic-regression.html" rel="next">
 <link href="../sessions/02-linear-regression.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -123,7 +126,7 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -137,7 +140,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -155,19 +158,19 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/correlation-and-association.html">Part 4: Regression and Modeling</a></li><li class="breadcrumb-item"><a href="../sessions/06-multiple-regression.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/correlation-and-association.html">Part 2: Regression and Modeling</a></li><li class="breadcrumb-item"><a href="../sessions/06-multiple-regression.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -203,240 +206,176 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Part 1: R Foundations</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/packages-libraries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></a>
+  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vectors, Data Frames, and Factors</span></span></a>
+  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis Testing: Concepts and Framework</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/tidy-data-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Importing, Cleaning, and Reshaping Data</span></span></a>
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/nonparametric-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Nonparametric Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Categorical Data and Chi-Square Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Part 2: Describing and Visualizing Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 2: Regression and Modeling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Descriptive Statistics and Exploratory Data Analysis</span></span></a>
+  <a href="../sessions/correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Correlation and Association</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/basic-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Basic Data Visualization</span></span></a>
+  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/advanced-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></span></a>
+  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/explore-clinical-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exploring Clinical and Medical Data with R</span></span></a>
+  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/data-imputation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Missing Data and Imputation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Mixed Models: Random Effects and Repeated Measures</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">Part 3: Inference — Testing and Estimation</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 3: Advanced Methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span></a>
+  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Survival Analysis and Time-to-Event Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis Testing: Concepts and Framework</span></span></a>
+  <a href="../sessions/causal-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></span></a>
+  <a href="../sessions/mendelian-randomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/nonparametric-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Nonparametric Tests</span></span></a>
+  <a href="../sessions/omics-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Categorical Data and Chi-Square Tests</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></span></a>
+  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">Part 4: Regression and Modeling</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 4: Reference and Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/correlation-and-association.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Correlation and Association</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/data-imputation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Missing Data and Imputation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/mixed-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Mixed Models: Random Effects and Repeated Measures</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
- <span class="menu-text">Part 5: Advanced Methods</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Survival Analysis and Time-to-Event Data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/causal-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/mendelian-randomization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/omics-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">Part 6: Reference and Resources</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -451,37 +390,41 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-multiple-regression" id="toc-sec-multiple-regression" class="nav-link active" data-scroll-target="#sec-multiple-regression"><span class="header-section-number">18.1</span> When Do You Use This?</a></li>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">18.2</span> Learning Objectives</a></li>
-  <li><a href="#background-extending-the-linear-model" id="toc-background-extending-the-linear-model" class="nav-link" data-scroll-target="#background-extending-the-linear-model"><span class="header-section-number">18.3</span> Background: Extending the Linear Model</a></li>
-  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">18.4</span> Example 1: Clinical Data (PBC)</a>
+  <li><a href="#sec-multiple-regression" id="toc-sec-multiple-regression" class="nav-link active" data-scroll-target="#sec-multiple-regression"><span class="header-section-number">11.1</span> When Do You Use This?</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">11.2</span> Learning Objectives</a></li>
+  <li><a href="#background-extending-the-linear-model" id="toc-background-extending-the-linear-model" class="nav-link" data-scroll-target="#background-extending-the-linear-model"><span class="header-section-number">11.3</span> Background: Extending the Linear Model</a></li>
+  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">11.4</span> Example 1: Clinical Data (PBC)</a>
   <ul class="collapse">
-  <li><a href="#build-a-multivariable-model" id="toc-build-a-multivariable-model" class="nav-link" data-scroll-target="#build-a-multivariable-model"><span class="header-section-number">18.4.1</span> Build a Multivariable Model</a></li>
-  <li><a href="#interpreting-partial-coefficients" id="toc-interpreting-partial-coefficients" class="nav-link" data-scroll-target="#interpreting-partial-coefficients"><span class="header-section-number">18.4.2</span> Interpreting Partial Coefficients</a></li>
-  <li><a href="#checking-for-multicollinearity" id="toc-checking-for-multicollinearity" class="nav-link" data-scroll-target="#checking-for-multicollinearity"><span class="header-section-number">18.4.3</span> Checking for Multicollinearity</a></li>
-  <li><a href="#model-comparison-with-lrt" id="toc-model-comparison-with-lrt" class="nav-link" data-scroll-target="#model-comparison-with-lrt"><span class="header-section-number">18.4.4</span> Model Comparison with LRT</a></li>
-  <li><a href="#including-an-interaction" id="toc-including-an-interaction" class="nav-link" data-scroll-target="#including-an-interaction"><span class="header-section-number">18.4.5</span> Including an Interaction</a></li>
+  <li><a href="#build-a-multivariable-model" id="toc-build-a-multivariable-model" class="nav-link" data-scroll-target="#build-a-multivariable-model"><span class="header-section-number">11.4.1</span> Build a Multivariable Model</a></li>
+  <li><a href="#interpreting-partial-coefficients" id="toc-interpreting-partial-coefficients" class="nav-link" data-scroll-target="#interpreting-partial-coefficients"><span class="header-section-number">11.4.2</span> Interpreting Partial Coefficients</a></li>
+  <li><a href="#checking-for-multicollinearity" id="toc-checking-for-multicollinearity" class="nav-link" data-scroll-target="#checking-for-multicollinearity"><span class="header-section-number">11.4.3</span> Checking for Multicollinearity</a></li>
+  <li><a href="#model-comparison-with-lrt" id="toc-model-comparison-with-lrt" class="nav-link" data-scroll-target="#model-comparison-with-lrt"><span class="header-section-number">11.4.4</span> Model Comparison with LRT</a></li>
+  <li><a href="#including-an-interaction" id="toc-including-an-interaction" class="nav-link" data-scroll-target="#including-an-interaction"><span class="header-section-number">11.4.5</span> Including an Interaction</a></li>
   </ul></li>
-  <li><a href="#example-2-animal-data-palmerpenguins" id="toc-example-2-animal-data-palmerpenguins" class="nav-link" data-scroll-target="#example-2-animal-data-palmerpenguins"><span class="header-section-number">18.5</span> Example 2: Animal Data (palmerpenguins)</a></li>
-  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">18.6</span> Where to Find Data Like This</a></li>
-  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">18.7</span> What Can Go Wrong</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">18.8</span> Exercises</a>
+  <li><a href="#example-2-animal-data-palmerpenguins" id="toc-example-2-animal-data-palmerpenguins" class="nav-link" data-scroll-target="#example-2-animal-data-palmerpenguins"><span class="header-section-number">11.5</span> Example 2: Animal Data (palmerpenguins)</a></li>
+  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">11.6</span> Where to Find Data Like This</a></li>
+  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">11.7</span> What Can Go Wrong</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">11.8</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-guided-build-and-compare-models" id="toc-exercise-1-guided-build-and-compare-models" class="nav-link" data-scroll-target="#exercise-1-guided-build-and-compare-models"><span class="header-section-number">18.8.1</span> Exercise 1 (Guided): Build and Compare Models</a></li>
-  <li><a href="#exercise-2-semi-guided-penguin-model-with-interaction" id="toc-exercise-2-semi-guided-penguin-model-with-interaction" class="nav-link" data-scroll-target="#exercise-2-semi-guided-penguin-model-with-interaction"><span class="header-section-number">18.8.2</span> Exercise 2 (Semi-guided): Penguin Model with Interaction</a></li>
-  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">18.8.3</span> Exercise 3 (Open-ended)</a></li>
+  <li><a href="#exercise-1-guided-build-and-compare-models" id="toc-exercise-1-guided-build-and-compare-models" class="nav-link" data-scroll-target="#exercise-1-guided-build-and-compare-models"><span class="header-section-number">11.8.1</span> Exercise 1 (Guided): Build and Compare Models</a></li>
+  <li><a href="#exercise-2-semi-guided-penguin-model-with-interaction" id="toc-exercise-2-semi-guided-penguin-model-with-interaction" class="nav-link" data-scroll-target="#exercise-2-semi-guided-penguin-model-with-interaction"><span class="header-section-number">11.8.2</span> Exercise 2 (Semi-guided): Penguin Model with Interaction</a></li>
+  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">11.8.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
-  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">18.9</span> Comprehension Check</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">18.10</span> Further Reading</a></li>
+  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">11.9</span> Comprehension Check</a></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">11.10</span> How to Report</a>
+  <ul class="collapse">
+  <li><a href="#reporting-multiple-regression" id="toc-reporting-multiple-regression" class="nav-link" data-scroll-target="#reporting-multiple-regression"><span class="header-section-number">11.10.1</span> Reporting Multiple Regression</a></li>
+  </ul></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">11.11</span> Further Reading</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/correlation-and-association.html">Part 4: Regression and Modeling</a></li><li class="breadcrumb-item"><a href="../sessions/06-multiple-regression.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/correlation-and-association.html">Part 2: Regression and Modeling</a></li><li class="breadcrumb-item"><a href="../sessions/06-multiple-regression.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></h1>
 </div>
 
 
@@ -504,21 +447,21 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Before You Start
+<span class="screen-reader-only">Important</span>Before You Start
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>This session extends simple linear regression to multiple predictors. If you haven’t done so yet, complete the <strong>Linear Regression</strong> session first.</p>
 </div>
 </div>
-<section id="sec-multiple-regression" class="level2 callout-tip" data-number="18.1">
-<h2 class="callout-tip anchored" data-number="18.1" data-anchor-id="sec-multiple-regression"><span class="header-section-number">18.1</span> When Do You Use This?</h2>
+<section id="sec-multiple-regression" class="level2 callout-tip" data-number="11.1">
+<h2 class="callout-tip anchored" data-number="11.1" data-anchor-id="sec-multiple-regression"><span class="header-section-number">11.1</span> When Do You Use This?</h2>
 <blockquote class="blockquote">
-<p>You have a continuous outcome and multiple predictors, some of which are correlated with each other. Multiple regression estimates each predictor’s independent effect � holding the others constant � so you can adjust for confounders and identify which variables have a genuine association with the outcome. For example: estimating the effect of bilirubin on albumin after accounting for prothrombin time and age.</p>
+<p>You have a continuous outcome and multiple predictors, some of which are correlated with each other. Multiple regression estimates each predictor’s independent effect, holding the others constant, so you can adjust for confounders and identify which variables have a genuine association with the outcome. For example: estimating the effect of bilirubin on albumin after accounting for prothrombin time and age.</p>
 </blockquote>
 </section>
-<section id="learning-objectives" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">18.2</span> Learning Objectives</h2>
+<section id="learning-objectives" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">11.2</span> Learning Objectives</h2>
 <p>After completing this session you will be able to:</p>
 <ul>
 <li>Build a multiple linear regression model with continuous and categorical predictors</li>
@@ -528,8 +471,8 @@ Before You Start
 <li>Interpret and report interaction terms</li>
 </ul>
 </section>
-<section id="background-extending-the-linear-model" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="background-extending-the-linear-model"><span class="header-section-number">18.3</span> Background: Extending the Linear Model</h2>
+<section id="background-extending-the-linear-model" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="background-extending-the-linear-model"><span class="header-section-number">11.3</span> Background: Extending the Linear Model</h2>
 <p>A multiple regression with <span class="math inline">\(p\)</span> predictors is:</p>
 <p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_p X_{pi} + \varepsilon_i\]</span></p>
 <p>Each <span class="math inline">\(\beta_j\)</span> is the <strong>partial effect</strong> of <span class="math inline">\(X_j\)</span> on <span class="math inline">\(Y\)</span>, holding all other predictors constant. This is what allows confounding adjustment.</p>
@@ -538,13 +481,13 @@ Before You Start
 <p><span class="math display">\[Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 (X_1 \times X_2) + \varepsilon\]</span></p>
 <p><strong>Multicollinearity:</strong> When predictors are highly correlated, their coefficients become unstable. Variance Inflation Factor (VIF) &gt; 5?10 signals a problem.</p>
 </section>
-<section id="example-1-clinical-data-pbc" class="level2" data-number="18.4">
-<h2 data-number="18.4" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">18.4</span> Example 1: Clinical Data (PBC)</h2>
-<section id="build-a-multivariable-model" class="level3" data-number="18.4.1">
-<h3 data-number="18.4.1" class="anchored" data-anchor-id="build-a-multivariable-model"><span class="header-section-number">18.4.1</span> Build a Multivariable Model</h3>
+<section id="example-1-clinical-data-pbc" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">11.4</span> Example 1: Clinical Data (PBC)</h2>
+<section id="build-a-multivariable-model" class="level3" data-number="11.4.1">
+<h3 data-number="11.4.1" class="anchored" data-anchor-id="build-a-multivariable-model"><span class="header-section-number">11.4.1</span> Build a Multivariable Model</h3>
 <p>We predict albumin from bilirubin, prothrombin time, and disease stage.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(stage)) <span class="sc">%&gt;%</span></span>
@@ -552,17 +495,17 @@ Before You Start
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_bili   =</span> <span class="fu">log</span>(bili),</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_proto  =</span> <span class="fu">log</span>(protime),</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">stage      =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Stage"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Start with univariable models</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Start with univariable models</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili,  <span class="at">data =</span> pbc)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_proto, <span class="at">data =</span> pbc)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> stage,     <span class="at">data =</span> pbc)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Multivariable model</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>fit_full <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> stage, <span class="at">data =</span> pbc)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_full, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_full, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 7
   term         estimate std.error statistic  p.value conf.low conf.high
@@ -576,14 +519,14 @@ Before You Start
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare model fit</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare model fit</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(fit1) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"log_bili only"</span>),</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(fit2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"log_proto only"</span>),</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(fit3) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"stage only"</span>),</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(fit_full) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"full model"</span>)</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, r.squared, adj.r.squared, AIC, BIC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, r.squared, adj.r.squared, AIC, BIC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
   model          r.squared adj.r.squared   AIC   BIC
@@ -595,12 +538,12 @@ Before You Start
 </div>
 </div>
 </section>
-<section id="interpreting-partial-coefficients" class="level3" data-number="18.4.2">
-<h3 data-number="18.4.2" class="anchored" data-anchor-id="interpreting-partial-coefficients"><span class="header-section-number">18.4.2</span> Interpreting Partial Coefficients</h3>
+<section id="interpreting-partial-coefficients" class="level3" data-number="11.4.2">
+<h3 data-number="11.4.2" class="anchored" data-anchor-id="interpreting-partial-coefficients"><span class="header-section-number">11.4.2</span> Interpreting Partial Coefficients</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_full, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_full, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
   term         estimate conf.low conf.high p.value
@@ -621,14 +564,14 @@ Before You Start
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Reading the Multiple Regression Output � Key Differences from Simple Regression
+<span class="screen-reader-only">Note</span>Reading the Multiple Regression Output: Key Differences from Simple Regression
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>The <code>summary()</code> output looks the same as simple regression, but the interpretation changes fundamentally.</p>
 <p><strong>Each coefficient is a <em>partial</em> effect</strong> The coefficient for <code>log_bili</code> in a multivariable model is the effect of bilirubin <em>holding prothrombin time and stage constant</em>. This is not the same as the simple regression slope. If bilirubin and prothrombin time are correlated (they are), both coefficients will change when you add predictors.</p>
 <p><strong>Comparing the univariable vs multivariable estimates:</strong></p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
 <col style="width: 33%">
@@ -654,33 +597,39 @@ Reading the Multiple Regression Output � Key Differences from Simple Regressio
 </tr>
 </tbody>
 </table>
-<p>The coefficient shrank from -0.34 to -0.22. This means prothrombin time and stage were partially <em>confounding</em> the bilirubin�albumin relationship. The multivariable model gives the purer estimate.</p>
-<p><strong>Reference categories for factors</strong> <code>stageStage 2</code> coefficient means: <em>“Stage 2 vs Stage 1 (the reference), after adjusting for the other predictors.”</em> Stage 1 is absorbed into the intercept � it is not missing, it is the baseline.</p>
+<p>The coefficient shrank from -0.34 to -0.22. This means prothrombin time and stage were partially <em>confounding</em> the bilirubin-albumin relationship. The multivariable model gives the purer estimate.</p>
+<p><strong>Reference categories for factors</strong> <code>stageStage 2</code> coefficient means: <em>“Stage 2 vs Stage 1 (the reference), after adjusting for the other predictors.”</em> Stage 1 is absorbed into the intercept; it is not missing, it is the baseline.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-What Does This Actually Tell Us?
+<span class="screen-reader-only">Tip</span>What Does This Actually Tell Us?
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <blockquote class="blockquote">
-<p><em>“After adjusting for prothrombin time and disease stage, each 2.7-fold increase in bilirubin was associated with 0.22 g/dL lower albumin (95% CI: -0.28 to -0.16, p &lt; 0.001). Stage was independently associated with albumin, with patients in advanced stages having lower albumin than Stage 1 patients even after accounting for bilirubin and prothrombin time. The full model explained 35% of the variance in albumin (adjusted R� = 0.35).”</em></p>
+<p><em>“After adjusting for prothrombin time and disease stage, each 2.7-fold increase in bilirubin was associated with 0.22 g/dL lower albumin (95% CI: -0.28 to -0.16, p &lt; 0.001). Stage was independently associated with albumin, with patients in advanced stages having lower albumin than Stage 1 patients even after accounting for bilirubin and prothrombin time. The full model explained 35% of the variance in albumin (adjusted R² = 0.35).”</em></p>
 </blockquote>
-<p>The key phrase is <strong>“after adjusting for”</strong> � this is what separates multiple regression from a simple comparison.</p>
+<p>The key phrase is <strong>“after adjusting for”</strong>: this is what separates multiple regression from a simple comparison.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="checking-for-multicollinearity" class="level3" data-number="18.4.3">
-<h3 data-number="18.4.3" class="anchored" data-anchor-id="checking-for-multicollinearity"><span class="header-section-number">18.4.3</span> Checking for Multicollinearity</h3>
+<section id="checking-for-multicollinearity" class="level3" data-number="11.4.3">
+<h3 data-number="11.4.3" class="anchored" data-anchor-id="checking-for-multicollinearity"><span class="header-section-number">11.4.3</span> Checking for Multicollinearity</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'car' was built under R version 4.4.1</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'carData' was built under R version 4.4.1</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -696,7 +645,7 @@ Attaching package: 'car'</code></pre>
 
     some</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(fit_full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(fit_full)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              GVIF Df GVIF^(1/(2*Df))
 log_bili  1.180386  1        1.086456
@@ -706,12 +655,12 @@ stage     1.188763  3        1.029238</code></pre>
 </div>
 <p>VIF values close to 1 indicate no problematic multicollinearity. VIF &gt; 5 is a concern; VIF &gt; 10 is severe.</p>
 </section>
-<section id="model-comparison-with-lrt" class="level3" data-number="18.4.4">
-<h3 data-number="18.4.4" class="anchored" data-anchor-id="model-comparison-with-lrt"><span class="header-section-number">18.4.4</span> Model Comparison with LRT</h3>
+<section id="model-comparison-with-lrt" class="level3" data-number="11.4.4">
+<h3 data-number="11.4.4" class="anchored" data-anchor-id="model-comparison-with-lrt"><span class="header-section-number">11.4.4</span> Model Comparison with LRT</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Does stage improve the model beyond bilirubin + prothrombin alone?</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fit_reduced <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto, <span class="at">data =</span> pbc)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_reduced, fit_full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Does stage improve the model beyond bilirubin + prothrombin alone?</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>fit_reduced <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto, <span class="at">data =</span> pbc)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_reduced, fit_full)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -724,16 +673,16 @@ Model 2: albumin ~ log_bili + log_proto + stage
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>A significant F-test means the full model fits significantly better than the reduced model ? stage adds explanatory value beyond bilirubin and prothrombin time.</p>
+<p>A significant F-test means the full model fits significantly better than the reduced model; stage adds explanatory value beyond bilirubin and prothrombin time.</p>
 </section>
-<section id="including-an-interaction" class="level3" data-number="18.4.5">
-<h3 data-number="18.4.5" class="anchored" data-anchor-id="including-an-interaction"><span class="header-section-number">18.4.5</span> Including an Interaction</h3>
+<section id="including-an-interaction" class="level3" data-number="11.4.5">
+<h3 data-number="11.4.5" class="anchored" data-anchor-id="including-an-interaction"><span class="header-section-number">11.4.5</span> Including an Interaction</h3>
 <p>Does the effect of bilirubin on albumin differ by disease stage?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fit_int <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">*</span> stage, <span class="at">data =</span> pbc)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_int, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(term, <span class="st">"log_bili"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fit_int <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">*</span> stage, <span class="at">data =</span> pbc)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_int, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(term, <span class="st">"log_bili"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
   term                  estimate conf.low conf.high p.value
@@ -747,29 +696,29 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>The interaction terms <code>log_bili:stageStage X</code> represent how much the slope of bilirubin differs in Stage X compared to Stage 1. If the CIs include zero, the slope does not differ significantly across stages.</p>
 </section>
 </section>
-<section id="example-2-animal-data-palmerpenguins" class="level2" data-number="18.5">
-<h2 data-number="18.5" class="anchored" data-anchor-id="example-2-animal-data-palmerpenguins"><span class="header-section-number">18.5</span> Example 2: Animal Data (palmerpenguins)</h2>
+<section id="example-2-animal-data-palmerpenguins" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="example-2-animal-data-palmerpenguins"><span class="header-section-number">11.5</span> Example 2: Animal Data (palmerpenguins)</h2>
 <p>Flipper length and bill length both predict body mass. Adding species as a covariate adjusts for the confounding we identified in the correlation session.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'palmerpenguins' was built under R version 4.3.3</code></pre>
+<pre><code>Warning: package 'palmerpenguins' was built under R version 4.4.3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(body_mass_g, flipper_length_mm, bill_length_mm, species)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Unadjusted</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>fit_unadj <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> peng)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjusted for species</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>fit_adj <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> species, <span class="at">data =</span> peng)</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_unadj, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"unadjusted"</span>),</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_adj,   <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"adjusted for species"</span>)</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"flipper_length_mm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, estimate, conf.low, conf.high, p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(body_mass_g, flipper_length_mm, bill_length_mm, species)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Unadjusted</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>fit_unadj <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> peng)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjusted for species</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>fit_adj <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> species, <span class="at">data =</span> peng)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_unadj, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"unadjusted"</span>),</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_adj,   <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"adjusted for species"</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"flipper_length_mm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   model                estimate conf.low conf.high   p.value
@@ -780,15 +729,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>Adding species to the model changes the flipper length coefficient. This is confounding adjustment in action.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualise: separate lines per species (equivalent to interaction)</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>peng <span class="sc">%&gt;%</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>, <span class="st">"seagreen"</span>)) <span class="sc">+</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Body mass by flipper length and species"</span>,</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>, <span class="at">y =</span> <span class="st">"Body mass (g)"</span>) <span class="sc">+</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualise: separate lines per species (equivalent to interaction)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>peng <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>, <span class="st">"seagreen"</span>)) <span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Body mass by flipper length and species"</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>, <span class="at">y =</span> <span class="st">"Body mass (g)"</span>) <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -801,29 +750,29 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </section>
-<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="18.6">
-<h2 class="callout-note anchored" data-number="18.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">18.6</span> Where to Find Data Like This</h2>
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> ? multiple correlated clinical predictors with a continuous outcome, ideal for demonstrating confounding and model building.</p>
-<p><strong>palmerpenguins:</strong> <code>palmerpenguins::penguins</code> ? biological measurements with species as a natural confounder.</p>
+<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="11.6">
+<h2 class="callout-note anchored" data-number="11.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">11.6</span> Where to Find Data Like This</h2>
+<p><strong>PBC dataset:</strong> <code>survival::pbc</code> - multiple correlated clinical predictors with a continuous outcome, ideal for demonstrating confounding and model building.</p>
+<p><strong>palmerpenguins:</strong> <code>palmerpenguins::penguins</code> - biological measurements with species as a natural confounder.</p>
 <p><strong>NHANES:</strong> Many continuous health outcomes (blood pressure, cholesterol) with multiple demographic and clinical predictors.</p>
 </section>
-<section id="what-can-go-wrong" class="level2 callout-warning" data-number="18.7">
-<h2 class="callout-warning anchored" data-number="18.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">18.7</span> What Can Go Wrong</h2>
-<p><strong>Overfitting</strong> Adding more predictors always increases <span class="math inline">\(R^2\)</span>. Use adjusted <span class="math inline">\(R^2\)</span>, AIC, or cross-validation to compare models ? not raw <span class="math inline">\(R^2\)</span>.</p>
+<section id="what-can-go-wrong" class="level2 callout-warning" data-number="11.7">
+<h2 class="callout-warning anchored" data-number="11.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">11.7</span> What Can Go Wrong</h2>
+<p><strong>Overfitting</strong> Adding more predictors always increases <span class="math inline">\(R^2\)</span>. Use adjusted <span class="math inline">\(R^2\)</span>, AIC, or cross-validation to compare models, not raw <span class="math inline">\(R^2\)</span>.</p>
 <p><strong>Multicollinearity</strong> Highly correlated predictors produce inflated standard errors and unstable coefficients. Check VIF before interpreting a model with many predictors.</p>
 <p><strong>Including colliders</strong> Adjusting for a variable on the causal pathway between exposure and outcome (a mediator) or a common effect of both (a collider) can introduce bias. See <a href="../sessions/causal-inference.html">Causal Inference</a> for guidance.</p>
 <p><strong>Data-dredging</strong> Selecting predictors based on p-values from exploratory analysis, then reporting the final model as if it were pre-specified, produces overfitted models with inflated associations. Pre-register your model or use a penalised method (ridge, lasso).</p>
-<p><strong>Interpreting coefficients in models with interactions</strong> When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference category ? not the marginal effect. Always evaluate interactions at meaningful covariate values. ::: {.callout-warning} ### Common Misinterpretations � Don’t Make These Mistakes</p>
-<p><strong>“Adding more predictors always improves my model”</strong> Raw R� always increases with more predictors even if they are noise. Use <em>adjusted</em> R�, AIC, or cross-validation. A model with 20 predictors and 50 patients is almost certainly overfitted � it will fail on new data.</p>
+<p><strong>Interpreting coefficients in models with interactions</strong> When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference category, not the marginal effect. Always evaluate interactions at meaningful covariate values. ::: {.callout-warning} ### Common Misinterpretations: Don’t Make These Mistakes</p>
+<p><strong>“Adding more predictors always improves my model”</strong> Raw R² always increases with more predictors even if they are noise. Use <em>adjusted</em> R², AIC, or cross-validation. A model with 20 predictors and 50 patients is almost certainly overfitted; it will fail on new data.</p>
 <p><strong>“My predictor is not significant so it has no effect”</strong> With collinear predictors, both can become non-significant even if together they explain a lot of variance. Check VIF and consider whether the predictors should be modelled together or separately.</p>
 <p><strong>“The adjusted model is always more accurate than the unadjusted one”</strong> Adjusting for a <em>collider</em> (a variable caused by both exposure and outcome) introduces bias that was not there in the unadjusted model. Think carefully about the causal structure before adding covariates. See the Causal Inference session.</p>
-<p><strong>“I can compare R� between models with different outcomes”</strong> R� is not comparable across different outcome variables or different datasets. Only compare R� (or AIC) between models fitted to the same data with the same outcome.</p>
+<p><strong>“I can compare R² between models with different outcomes”</strong> R² is not comparable across different outcome variables or different datasets. Only compare R² (or AIC) between models fitted to the same data with the same outcome.</p>
 <p><strong>“Stage 2 coefficient = -0.09 means Stage 2 patients have lower albumin”</strong> It means Stage 2 patients have 0.09 g/dL lower albumin than Stage 1 patients <em>after adjusting for other predictors in the model</em>. Change the reference category and the coefficient changes. Always state the reference group when reporting factor coefficients. :::</p>
 </section>
-<section id="exercises" class="level2" data-number="18.8">
-<h2 data-number="18.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">18.8</span> Exercises</h2>
-<section id="exercise-1-guided-build-and-compare-models" class="level3" data-number="18.8.1">
-<h3 data-number="18.8.1" class="anchored" data-anchor-id="exercise-1-guided-build-and-compare-models"><span class="header-section-number">18.8.1</span> Exercise 1 (Guided): Build and Compare Models</h3>
+<section id="exercises" class="level2" data-number="11.8">
+<h2 data-number="11.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">11.8</span> Exercises</h2>
+<section id="exercise-1-guided-build-and-compare-models" class="level3" data-number="11.8.1">
+<h3 data-number="11.8.1" class="anchored" data-anchor-id="exercise-1-guided-build-and-compare-models"><span class="header-section-number">11.8.1</span> Exercise 1 (Guided): Build and Compare Models</h3>
 <p>Using <code>pbc</code>, predict albumin from:</p>
 <ol type="1">
 <li>Univariable: <code>log_bili</code> only</li>
@@ -832,28 +781,28 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </ol>
 <p>Report adjusted <span class="math inline">\(R^2\)</span> and AIC for each model. Which is best? Does adding stage improve fit (use <code>anova()</code>)?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 1: Solution
+<span class="screen-reader-only">Tip</span>Exercise 1: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili, <span class="at">data =</span> pbc)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto, <span class="at">data =</span> pbc)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> stage, <span class="at">data =</span> pbc)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m1) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"1: log_bili"</span>),</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"2: + log_proto"</span>),</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m3) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"3: + stage"</span>)</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, adj.r.squared, AIC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili, <span class="at">data =</span> pbc)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto, <span class="at">data =</span> pbc)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> stage, <span class="at">data =</span> pbc)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m1) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"1: log_bili"</span>),</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"2: + log_proto"</span>),</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m3) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"3: + stage"</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, adj.r.squared, AIC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   model          adj.r.squared   AIC
@@ -862,7 +811,7 @@ Exercise 1: Solution
 2 2: + log_proto         0.132  404.
 3 3: + stage             0.183  382.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m2, m3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m2, m3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -879,8 +828,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-2-semi-guided-penguin-model-with-interaction" class="level3" data-number="18.8.2">
-<h3 data-number="18.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-penguin-model-with-interaction"><span class="header-section-number">18.8.2</span> Exercise 2 (Semi-guided): Penguin Model with Interaction</h3>
+<section id="exercise-2-semi-guided-penguin-model-with-interaction" class="level3" data-number="11.8.2">
+<h3 data-number="11.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-penguin-model-with-interaction"><span class="header-section-number">11.8.2</span> Exercise 2 (Semi-guided): Penguin Model with Interaction</h3>
 <p>Using <code>palmerpenguins::penguins</code>, fit a model predicting body mass from flipper length, species, and their interaction.</p>
 <ol type="1">
 <li>Fit <code>lm(body_mass_g ~ flipper_length_mm * species, data = penguins)</code>.</li>
@@ -888,23 +837,23 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Interpret: does the slope of flipper length differ between species?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 2: Solution
+<span class="screen-reader-only">Tip</span>Exercise 2: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>peng3 <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>fit_i  <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">*</span> species, <span class="at">data =</span> peng3)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>fit_no <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> species,  <span class="at">data =</span> peng3)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_no, fit_i)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>peng3 <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>fit_i  <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">*</span> species, <span class="at">data =</span> peng3)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>fit_no <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> species,  <span class="at">data =</span> peng3)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_no, fit_i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -916,9 +865,9 @@ Model 2: body_mass_g ~ flipper_length_mm * species
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_i, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(term, <span class="st">"flipper"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_i, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(term, <span class="st">"flipper"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term                               estimate conf.low conf.high  p.value
@@ -932,13 +881,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-3-open-ended" class="level3" data-number="18.8.3">
-<h3 data-number="18.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">18.8.3</span> Exercise 3 (Open-ended)</h3>
+<section id="exercise-3-open-ended" class="level3" data-number="11.8.3">
+<h3 data-number="11.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">11.8.3</span> Exercise 3 (Open-ended)</h3>
 <p>In your own research, identify a continuous outcome with at least two potential predictors. Fit univariable and multivariable models. Compare the coefficients: do they change after adjustment? Interpret any changes as confounding and write a Methods section justifying your final model.</p>
 </section>
 </section>
-<section id="comprehension-check" class="level2" data-number="18.9">
-<h2 data-number="18.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">18.9</span> Comprehension Check</h2>
+<section id="comprehension-check" class="level2" data-number="11.9">
+<h2 data-number="11.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">11.9</span> Comprehension Check</h2>
 <ol type="1">
 <li>You fit a simple regression and get slope = -0.5 for log_bili. In the multivariable model with protime and stage, the slope is -0.2. What happened, and what does this tell you?</li>
 <li>VIF for two of your predictors is 12 and 11. What is the problem, and what are your options?</li>
@@ -947,12 +896,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>An interaction term has estimate = 0.15, 95% CI (-0.02, 0.32), p = 0.08. Should you include it in the final model?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Answers
+<span class="screen-reader-only">Note</span>Answers
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -961,21 +910,49 @@ Answers
 <ol type="1">
 <li>The simple regression slope was confounded: bilirubin was acting partly as a proxy for prothrombin time and disease stage. After adjustment, the partial effect of bilirubin is smaller (-0.2), reflecting the unique contribution of bilirubin over and above the other predictors.</li>
 <li>VIF &gt; 10 indicates severe multicollinearity. The two predictors are so highly correlated that their individual coefficients are unreliable (large SEs, may flip sign). Options: (1) remove one of the correlated predictors; (2) combine them into a composite score; (3) use ridge regression, which handles multicollinearity by regularisation.</li>
-<li>The F-test comparing the two models is highly significant ? the larger model fits significantly better than the smaller model. At least one of the additional predictors contributes meaningfully.</li>
-<li>No.&nbsp;AIC is a relative measure of model quality penalised for complexity. Lower AIC means better fit-to-complexity balance among the models compared ? but it does not guarantee the model is “correct” in an absolute sense. The true model could be something neither model captures.</li>
+<li>The F-test comparing the two models is highly significant; the larger model fits significantly better than the smaller model. At least one of the additional predictors contributes meaningfully.</li>
+<li>No.&nbsp;AIC is a relative measure of model quality penalised for complexity. Lower AIC means better fit-to-complexity balance among the models compared, but it does not guarantee the model is “correct” in an absolute sense. The true model could be something neither model captures.</li>
 <li>The evidence is weak and the CI includes zero. Whether to include it depends on context: if it was pre-specified and has a plausible biological rationale, you might retain it and acknowledge the marginal evidence. If it was data-driven, it is safer to use the main-effects model and note the trend.</li>
 </ol>
 </div>
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="18.10">
-<h2 data-number="18.10" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">18.10</span> Further Reading</h2>
+<section id="how-to-report" class="level2" data-number="11.10">
+<h2 data-number="11.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">11.10</span> How to Report</h2>
+<section id="reporting-multiple-regression" class="level3" data-number="11.10.1">
+<h3 data-number="11.10.1" class="anchored" data-anchor-id="reporting-multiple-regression"><span class="header-section-number">11.10.1</span> Reporting Multiple Regression</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>In a methods section:</strong> “A multiple linear regression model was built with [outcome] as the dependent variable. Candidate predictors included [list]. Variables were selected based on [method: biological rationale / stepwise / LASSO]. Variance inflation factors (VIF) were examined to assess multicollinearity.”</p>
+<p><strong>In results:</strong> “After adjustment for [covariates], [predictor] remained independently associated with [outcome] (3b2 = X, 95% CI [L, U], p = Y). The full model explained X% of the variance in [outcome] (adjusted R² = X).”</p>
+<p><strong>What to always include:</strong></p>
+<ul>
+<li>Coefficients (3b2) with 95% CI for each predictor</li>
+<li>Overall model fit (adjusted R²)</li>
+<li>n and number of predictors (flag if n/predictor &lt; 10)</li>
+<li>Variable selection method used</li>
+</ul>
+<p><strong>Never report unadjusted and adjusted estimates in the same sentence</strong> without clearly labelling which is which.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="further-reading" class="level2" data-number="11.11">
+<h2 data-number="11.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">11.11</span> Further Reading</h2>
 <ul>
 <li><span class="citation" data-cites="Dalgaard-2008">Dalgaard (<a href="#ref-Dalgaard-2008" role="doc-biblioref">2008</a>)</span> — Multiple regression chapter in <em>Introductory Statistics with R</em></li>
 <li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span> — Multivariable regression in <em>An Introduction to Medical Statistics</em></li>
 <li><code>?lm</code>, <code>?vif</code> (from <code>car</code>), <code>?anova.lm</code> in R</li>
-<li><span class="citation" data-cites="Harrell-2015">Harrell (<a href="#ref-Harrell-2015" role="doc-biblioref">2015</a>)</span> — <em>Regression Modeling Strategies</em> ? comprehensive reference for clinical regression</li>
+<li><span class="citation" data-cites="Harrell-2015">Harrell (<a href="#ref-Harrell-2015" role="doc-biblioref">2015</a>)</span> — <em>Regression Modeling Strategies</em> - comprehensive reference for clinical regression</li>
 </ul>
 
 
@@ -994,43 +971,58 @@ Harrell, Frank E. 2015. <em>Regression Modeling Strategies</em>. 2nd ed. Springe
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
@@ -1038,162 +1030,184 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
       return codeEl.innerText;
     }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1201,194 +1215,170 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/02-linear-regression.html" class="pagination-link  aria-label=" &lt;span="" linear="" regression&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span>
+      <a href="../sessions/02-linear-regression.html" class="pagination-link" aria-label="Simple Linear Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/03-logistic-regression.html" class="pagination-link" aria-label="<span class='chapter-number'>19</span>&nbsp; <span class='chapter-title'>Logistic Regression</span>">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/03-logistic-regression.html" class="pagination-link" aria-label="Logistic Regression">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

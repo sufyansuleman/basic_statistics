@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Simple basic statistics concepts - 11&nbsp; T-tests and Group Comparisons</title>
+<title>4&nbsp; T-tests and Group Comparisons – Simple basic statistics concepts</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -86,15 +87,17 @@ div.csl-indent {
 <meta name="quarto:offset" content="../">
 <link href="../sessions/nonparametric-tests.html" rel="next">
 <link href="../sessions/hypothesis-testing.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -123,7 +126,7 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -137,7 +140,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -155,19 +158,19 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 3: Inference — Testing and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 1: Inference — Testing and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -203,240 +206,176 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Part 1: R Foundations</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/packages-libraries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></a>
+  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vectors, Data Frames, and Factors</span></span></a>
+  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis Testing: Concepts and Framework</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/tidy-data-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Importing, Cleaning, and Reshaping Data</span></span></a>
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/nonparametric-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Nonparametric Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Categorical Data and Chi-Square Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Part 2: Describing and Visualizing Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 2: Regression and Modeling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Descriptive Statistics and Exploratory Data Analysis</span></span></a>
+  <a href="../sessions/correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Correlation and Association</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/basic-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Basic Data Visualization</span></span></a>
+  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/advanced-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></span></a>
+  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/explore-clinical-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exploring Clinical and Medical Data with R</span></span></a>
+  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/data-imputation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Missing Data and Imputation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Mixed Models: Random Effects and Repeated Measures</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">Part 3: Inference — Testing and Estimation</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 3: Advanced Methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span></a>
+  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Survival Analysis and Time-to-Event Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis Testing: Concepts and Framework</span></span></a>
+  <a href="../sessions/causal-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></span></a>
+  <a href="../sessions/mendelian-randomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/nonparametric-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Nonparametric Tests</span></span></a>
+  <a href="../sessions/omics-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Categorical Data and Chi-Square Tests</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></span></a>
+  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">Part 4: Regression and Modeling</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 4: Reference and Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/correlation-and-association.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Correlation and Association</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/data-imputation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Missing Data and Imputation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/mixed-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Mixed Models: Random Effects and Repeated Measures</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
- <span class="menu-text">Part 5: Advanced Methods</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Survival Analysis and Time-to-Event Data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/causal-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/mendelian-randomization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/omics-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">Part 6: Reference and Resources</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -451,39 +390,43 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-t-tests" id="toc-sec-t-tests" class="nav-link active" data-scroll-target="#sec-t-tests"><span class="header-section-number">11.1</span> When Do You Use This?</a></li>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">11.2</span> Learning Objectives</a></li>
-  <li><a href="#background-which-t-test" id="toc-background-which-t-test" class="nav-link" data-scroll-target="#background-which-t-test"><span class="header-section-number">11.3</span> Background: Which t-test?</a></li>
-  <li><a href="#example-1-animal-and-lab-data" id="toc-example-1-animal-and-lab-data" class="nav-link" data-scroll-target="#example-1-animal-and-lab-data"><span class="header-section-number">11.4</span> Example 1: Animal and Lab Data</a>
+  <li><a href="#sec-t-tests" id="toc-sec-t-tests" class="nav-link active" data-scroll-target="#sec-t-tests"><span class="header-section-number">4.1</span> When Do You Use This?</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">4.2</span> Learning Objectives</a></li>
+  <li><a href="#background-which-t-test" id="toc-background-which-t-test" class="nav-link" data-scroll-target="#background-which-t-test"><span class="header-section-number">4.3</span> Background: Which t-test?</a></li>
+  <li><a href="#example-1-animal-and-lab-data" id="toc-example-1-animal-and-lab-data" class="nav-link" data-scroll-target="#example-1-animal-and-lab-data"><span class="header-section-number">4.4</span> Example 1: Animal and Lab Data</a>
   <ul class="collapse">
-  <li><a href="#two-sample-does-supplement-type-affect-tooth-growth-toothgrowth" id="toc-two-sample-does-supplement-type-affect-tooth-growth-toothgrowth" class="nav-link" data-scroll-target="#two-sample-does-supplement-type-affect-tooth-growth-toothgrowth"><span class="header-section-number">11.4.1</span> Two-Sample: Does Supplement Type Affect Tooth Growth? (ToothGrowth)</a></li>
-  <li><a href="#paired-do-two-sleep-drugs-differ-sleep-dataset" id="toc-paired-do-two-sleep-drugs-differ-sleep-dataset" class="nav-link" data-scroll-target="#paired-do-two-sleep-drugs-differ-sleep-dataset"><span class="header-section-number">11.4.2</span> Paired: Do Two Sleep Drugs Differ? (sleep dataset)</a></li>
+  <li><a href="#two-sample-does-supplement-type-affect-tooth-growth-toothgrowth" id="toc-two-sample-does-supplement-type-affect-tooth-growth-toothgrowth" class="nav-link" data-scroll-target="#two-sample-does-supplement-type-affect-tooth-growth-toothgrowth"><span class="header-section-number">4.4.1</span> Two-Sample: Does Supplement Type Affect Tooth Growth? (ToothGrowth)</a></li>
+  <li><a href="#paired-do-two-sleep-drugs-differ-sleep-dataset" id="toc-paired-do-two-sleep-drugs-differ-sleep-dataset" class="nav-link" data-scroll-target="#paired-do-two-sleep-drugs-differ-sleep-dataset"><span class="header-section-number">4.4.2</span> Paired: Do Two Sleep Drugs Differ? (sleep dataset)</a></li>
   </ul></li>
-  <li><a href="#example-2-clinical-data-pbc" id="toc-example-2-clinical-data-pbc" class="nav-link" data-scroll-target="#example-2-clinical-data-pbc"><span class="header-section-number">11.5</span> Example 2: Clinical Data (PBC)</a>
+  <li><a href="#example-2-clinical-data-pbc" id="toc-example-2-clinical-data-pbc" class="nav-link" data-scroll-target="#example-2-clinical-data-pbc"><span class="header-section-number">4.5</span> Example 2: Clinical Data (PBC)</a>
   <ul class="collapse">
-  <li><a href="#one-sample-is-mean-albumin-below-a-clinical-threshold" id="toc-one-sample-is-mean-albumin-below-a-clinical-threshold" class="nav-link" data-scroll-target="#one-sample-is-mean-albumin-below-a-clinical-threshold"><span class="header-section-number">11.5.1</span> One-Sample: Is Mean Albumin Below a Clinical Threshold?</a></li>
-  <li><a href="#two-sample-does-albumin-differ-between-treatment-groups" id="toc-two-sample-does-albumin-differ-between-treatment-groups" class="nav-link" data-scroll-target="#two-sample-does-albumin-differ-between-treatment-groups"><span class="header-section-number">11.5.2</span> Two-Sample: Does Albumin Differ Between Treatment Groups?</a></li>
+  <li><a href="#one-sample-is-mean-albumin-below-a-clinical-threshold" id="toc-one-sample-is-mean-albumin-below-a-clinical-threshold" class="nav-link" data-scroll-target="#one-sample-is-mean-albumin-below-a-clinical-threshold"><span class="header-section-number">4.5.1</span> One-Sample: Is Mean Albumin Below a Clinical Threshold?</a></li>
+  <li><a href="#two-sample-does-albumin-differ-between-treatment-groups" id="toc-two-sample-does-albumin-differ-between-treatment-groups" class="nav-link" data-scroll-target="#two-sample-does-albumin-differ-between-treatment-groups"><span class="header-section-number">4.5.2</span> Two-Sample: Does Albumin Differ Between Treatment Groups?</a></li>
   </ul></li>
-  <li><a href="#checking-assumptions-qq-plots" id="toc-checking-assumptions-qq-plots" class="nav-link" data-scroll-target="#checking-assumptions-qq-plots"><span class="header-section-number">11.6</span> Checking Assumptions: QQ-plots</a></li>
-  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">11.7</span> Where to Find Data Like This</a></li>
-  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">11.8</span> What Can Go Wrong</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">11.9</span> Exercises</a>
+  <li><a href="#checking-assumptions-qq-plots" id="toc-checking-assumptions-qq-plots" class="nav-link" data-scroll-target="#checking-assumptions-qq-plots"><span class="header-section-number">4.6</span> Checking Assumptions: QQ-plots</a></li>
+  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">4.7</span> Where to Find Data Like This</a></li>
+  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">4.8</span> What Can Go Wrong</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">4.9</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-guided-one-sample-test-for-bilirubin" id="toc-exercise-1-guided-one-sample-test-for-bilirubin" class="nav-link" data-scroll-target="#exercise-1-guided-one-sample-test-for-bilirubin"><span class="header-section-number">11.9.1</span> Exercise 1 (Guided): One-Sample Test for Bilirubin</a></li>
-  <li><a href="#exercise-2-semi-guided-two-sample-comparison" id="toc-exercise-2-semi-guided-two-sample-comparison" class="nav-link" data-scroll-target="#exercise-2-semi-guided-two-sample-comparison"><span class="header-section-number">11.9.2</span> Exercise 2 (Semi-guided): Two-Sample Comparison</a></li>
-  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">11.9.3</span> Exercise 3 (Open-ended)</a></li>
+  <li><a href="#exercise-1-guided-one-sample-test-for-bilirubin" id="toc-exercise-1-guided-one-sample-test-for-bilirubin" class="nav-link" data-scroll-target="#exercise-1-guided-one-sample-test-for-bilirubin"><span class="header-section-number">4.9.1</span> Exercise 1 (Guided): One-Sample Test for Bilirubin</a></li>
+  <li><a href="#exercise-2-semi-guided-two-sample-comparison" id="toc-exercise-2-semi-guided-two-sample-comparison" class="nav-link" data-scroll-target="#exercise-2-semi-guided-two-sample-comparison"><span class="header-section-number">4.9.2</span> Exercise 2 (Semi-guided): Two-Sample Comparison</a></li>
+  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">4.9.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
-  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">11.10</span> Comprehension Check</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">11.11</span> Further Reading</a></li>
+  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">4.10</span> Comprehension Check</a></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">4.11</span> How to Report</a>
+  <ul class="collapse">
+  <li><a href="#reporting-t-test-results" id="toc-reporting-t-test-results" class="nav-link" data-scroll-target="#reporting-t-test-results"><span class="header-section-number">4.11.1</span> Reporting t-test Results</a></li>
+  </ul></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">4.12</span> Further Reading</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 3: Inference — Testing and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 1: Inference — Testing and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/04-t-tests.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></h1>
 </div>
 
 
@@ -500,14 +443,14 @@ window.Quarto = {
 </header>
 
 
-<section id="sec-t-tests" class="level2 callout-tip" data-number="11.1">
-<h2 class="callout-tip anchored" data-number="11.1" data-anchor-id="sec-t-tests"><span class="header-section-number">11.1</span> When Do You Use This?</h2>
+<section id="sec-t-tests" class="level2 callout-tip" data-number="4.1">
+<h2 class="callout-tip anchored" data-number="4.1" data-anchor-id="sec-t-tests"><span class="header-section-number">4.1</span> When Do You Use This?</h2>
 <blockquote class="blockquote">
 <p>You measured haemoglobin before and after treatment in 30 patients. Or you measured body weight in 20 control mice and 20 treated mice. A t-test tells you whether the observed difference is larger than you would expect by chance if there were no real effect.</p>
 </blockquote>
 </section>
-<section id="learning-objectives" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">11.2</span> Learning Objectives</h2>
+<section id="learning-objectives" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">4.2</span> Learning Objectives</h2>
 <p>After completing this session you will be able to:</p>
 <ul>
 <li>Choose the right t-test variant (one-sample, two-sample, paired)</li>
@@ -517,9 +460,9 @@ window.Quarto = {
 <li>Report t-test results correctly in a manuscript</li>
 </ul>
 </section>
-<section id="background-which-t-test" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="background-which-t-test"><span class="header-section-number">11.3</span> Background: Which t-test?</h2>
-<table class="table">
+<section id="background-which-t-test" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="background-which-t-test"><span class="header-section-number">4.3</span> Background: Which t-test?</h2>
+<table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
 <col style="width: 33%">
@@ -553,13 +496,13 @@ window.Quarto = {
 <p><strong>Welch vs Student:</strong> Always use Welch’s t-test (default in R: <code>var.equal = FALSE</code>) unless you have a specific reason to assume equal variances. Welch’s test is more robust and the cost in power is negligible.</p>
 <p><strong>Normality:</strong> The t-test assumes the <em>sampling distribution of the mean</em> is normal, not the raw data. By the CLT, this holds for <span class="math inline">\(n \geq 30\)</span> even with moderately skewed data. For small samples with heavily skewed data, use a nonparametric test (see <a href="../sessions/nonparametric-tests.html">Nonparametric Tests</a>).</p>
 </section>
-<section id="example-1-animal-and-lab-data" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="example-1-animal-and-lab-data"><span class="header-section-number">11.4</span> Example 1: Animal and Lab Data</h2>
-<section id="two-sample-does-supplement-type-affect-tooth-growth-toothgrowth" class="level3" data-number="11.4.1">
-<h3 data-number="11.4.1" class="anchored" data-anchor-id="two-sample-does-supplement-type-affect-tooth-growth-toothgrowth"><span class="header-section-number">11.4.1</span> Two-Sample: Does Supplement Type Affect Tooth Growth? (ToothGrowth)</h3>
+<section id="example-1-animal-and-lab-data" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="example-1-animal-and-lab-data"><span class="header-section-number">4.4</span> Example 1: Animal and Lab Data</h2>
+<section id="two-sample-does-supplement-type-affect-tooth-growth-toothgrowth" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="two-sample-does-supplement-type-affect-tooth-growth-toothgrowth"><span class="header-section-number">4.4.1</span> Two-Sample: Does Supplement Type Affect Tooth Growth? (ToothGrowth)</h3>
 <p>The <code>ToothGrowth</code> dataset (base R) records the length of odontoblast cells in 60 guinea pigs given Vitamin C as ascorbic acid (VC) or orange juice (OJ) at three doses. This is a classic two-independent-groups design.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tg <span class="ot">&lt;-</span> ToothGrowth <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tg <span class="ot">&lt;-</span> ToothGrowth <span class="sc">|&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">supp =</span> <span class="fu">factor</span>(supp, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"VC"</span>, <span class="st">"OJ"</span>),</span>
@@ -579,7 +522,7 @@ window.Quarto = {
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Tooth length by supplement type (1.0 mg/day)"</span>,</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Odontoblast length (mm)"</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -589,8 +532,8 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>res_tg <span class="ot">&lt;-</span> <span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_1mg, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(res_tg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>res_tg <span class="ot">&lt;-</span> <span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_1mg, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(res_tg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 10
   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
@@ -605,11 +548,11 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Reading the t-test Output Line by Line
+<span class="screen-reader-only">Note</span>Reading the t-test Output Line by Line
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
@@ -647,11 +590,11 @@ Reading the t-test Output Line by Line
 </div>
 </div>
 </section>
-<section id="paired-do-two-sleep-drugs-differ-sleep-dataset" class="level3" data-number="11.4.2">
-<h3 data-number="11.4.2" class="anchored" data-anchor-id="paired-do-two-sleep-drugs-differ-sleep-dataset"><span class="header-section-number">11.4.2</span> Paired: Do Two Sleep Drugs Differ? (sleep dataset)</h3>
+<section id="paired-do-two-sleep-drugs-differ-sleep-dataset" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="paired-do-two-sleep-drugs-differ-sleep-dataset"><span class="header-section-number">4.4.2</span> Paired: Do Two Sleep Drugs Differ? (sleep dataset)</h3>
 <p>The <code>sleep</code> dataset (base R) records the <em>additional hours of sleep</em> gained by 10 patients under each of two drugs. Each patient received both drugs, making this a <strong>paired design</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sleepdat <span class="ot">&lt;-</span> sleep <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sleepdat <span class="ot">&lt;-</span> sleep <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">drug =</span> group, <span class="at">extra_hours =</span> extra) <span class="sc">|&gt;</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">drug =</span> <span class="fu">factor</span>(drug, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Drug 1"</span>, <span class="st">"Drug 2"</span>)))</span>
@@ -666,7 +609,7 @@ Reading the t-test Output Line by Line
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Additional sleep hours under each drug (n = 10 patients)"</span>,</span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Additional hours of sleep"</span></span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -677,11 +620,11 @@ Reading the t-test Output Line by Line
 </div>
 <p>The connecting lines show each patient’s trajectory. Most patients sleep longer on Drug 2. The paired design captures this within-patient pattern that a two-sample test would miss.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sleep_wide <span class="ot">&lt;-</span> sleepdat <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sleep_wide <span class="ot">&lt;-</span> sleepdat <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> drug, <span class="at">values_from =</span> extra_hours, <span class="at">id_cols =</span> ID)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>res_sleep <span class="ot">&lt;-</span> <span class="fu">t.test</span>(sleep_wide[[<span class="st">"Drug 2"</span>]], sleep_wide[[<span class="st">"Drug 1"</span>]], <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(res_sleep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(res_sleep)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
   estimate statistic p.value parameter conf.low conf.high method     alternative
@@ -691,13 +634,13 @@ Reading the t-test Output Line by Line
 </div>
 <p><strong>Why paired, not two-sample?</strong> Run both to see the difference:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="fu">t.test</span>(extra_hours <span class="sc">~</span> drug, <span class="at">data =</span> sleepdat, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">test =</span> <span class="st">"Two-sample (WRONG for this design)"</span>),</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(res_sleep) <span class="sc">|&gt;</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">test =</span> <span class="st">"Paired (CORRECT)"</span>)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(test, estimate, conf.low, conf.high, p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(test, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   test                               estimate conf.low conf.high p.value
@@ -709,13 +652,13 @@ Reading the t-test Output Line by Line
 <p>The paired test has a smaller p-value because it eliminates between-patient variability (some people simply sleep more than others regardless of drug).</p>
 </section>
 </section>
-<section id="example-2-clinical-data-pbc" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="example-2-clinical-data-pbc"><span class="header-section-number">11.5</span> Example 2: Clinical Data (PBC)</h2>
-<section id="one-sample-is-mean-albumin-below-a-clinical-threshold" class="level3" data-number="11.5.1">
-<h3 data-number="11.5.1" class="anchored" data-anchor-id="one-sample-is-mean-albumin-below-a-clinical-threshold"><span class="header-section-number">11.5.1</span> One-Sample: Is Mean Albumin Below a Clinical Threshold?</h3>
+<section id="example-2-clinical-data-pbc" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="example-2-clinical-data-pbc"><span class="header-section-number">4.5</span> Example 2: Clinical Data (PBC)</h2>
+<section id="one-sample-is-mean-albumin-below-a-clinical-threshold" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="one-sample-is-mean-albumin-below-a-clinical-threshold"><span class="header-section-number">4.5.1</span> One-Sample: Is Mean Albumin Below a Clinical Threshold?</h3>
 <p>Normal serum albumin is &gt;= 3.5 g/dL. Is the mean albumin in PBC patients below this threshold?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -723,7 +666,7 @@ Reading the t-test Output Line by Line
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trt =</span> <span class="fu">factor</span>(trt, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"D-penicillamine"</span>, <span class="st">"Placebo"</span>))</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(pbc<span class="sc">$</span>albumin, <span class="at">mu =</span> <span class="fl">3.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(pbc<span class="sc">$</span>albumin, <span class="at">mu =</span> <span class="fl">3.5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
   estimate statistic p.value parameter conf.low conf.high method     alternative
@@ -733,10 +676,10 @@ Reading the t-test Output Line by Line
 </div>
 <p><code>broom::tidy()</code> extracts key numbers into a data frame, useful for inline reporting.</p>
 </section>
-<section id="two-sample-does-albumin-differ-between-treatment-groups" class="level3" data-number="11.5.2">
-<h3 data-number="11.5.2" class="anchored" data-anchor-id="two-sample-does-albumin-differ-between-treatment-groups"><span class="header-section-number">11.5.2</span> Two-Sample: Does Albumin Differ Between Treatment Groups?</h3>
+<section id="two-sample-does-albumin-differ-between-treatment-groups" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="two-sample-does-albumin-differ-between-treatment-groups"><span class="header-section-number">4.5.2</span> Two-Sample: Does Albumin Differ Between Treatment Groups?</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="ot">&lt;-</span> pbc <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(albumin))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="ot">&lt;-</span> pbc <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(albumin))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>pbc_rand <span class="sc">|&gt;</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trt, <span class="at">y =</span> albumin, <span class="at">fill =</span> trt)) <span class="sc">+</span></span>
@@ -745,7 +688,7 @@ Reading the t-test Output Line by Line
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Serum albumin by treatment group"</span>,</span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -755,7 +698,7 @@ Reading the t-test Output Line by Line
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(albumin <span class="sc">~</span> trt, <span class="at">data =</span> pbc_rand, <span class="at">var.equal =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(albumin <span class="sc">~</span> trt, <span class="at">data =</span> pbc_rand, <span class="at">var.equal =</span> <span class="cn">FALSE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 10
   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
@@ -770,7 +713,7 @@ Reading the t-test Output Line by Line
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Translating Numbers into a Sentence
+<span class="screen-reader-only">Tip</span>Translating Numbers into a Sentence
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -782,17 +725,17 @@ Translating Numbers into a Sentence
 </div>
 </section>
 </section>
-<section id="checking-assumptions-qq-plots" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="checking-assumptions-qq-plots"><span class="header-section-number">11.6</span> Checking Assumptions: QQ-plots</h2>
+<section id="checking-assumptions-qq-plots" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="checking-assumptions-qq-plots"><span class="header-section-number">4.6</span> Checking Assumptions: QQ-plots</h2>
 <p>For small samples (<span class="math inline">\(n &lt; 30\)</span>), check that data are approximately normal using a QQ-plot. <code>ToothGrowth</code> has only 10 animals per group at each dose – exactly the situation where checking matters.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tg_1mg <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tg_1mg <span class="sc">|&gt;</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> len)) <span class="sc">+</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> supp) <span class="sc">+</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"QQ-plot of tooth length by supplement (1.0 mg/day)"</span>) <span class="sc">+</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -803,19 +746,19 @@ Translating Numbers into a Sentence
 </div>
 <p>With <span class="math inline">\(n = 10\)</span> per group, points roughly following the line are sufficient. If you see heavy tails or a systematic curve, consider a Wilcoxon test (see <a href="../sessions/nonparametric-tests.html">Nonparametric Tests</a>).</p>
 </section>
-<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="11.7">
-<h2 class="callout-note anchored" data-number="11.7" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">11.7</span> Where to Find Data Like This</h2>
+<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="4.7">
+<h2 class="callout-note anchored" data-number="4.7" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">4.7</span> Where to Find Data Like This</h2>
 <p><strong><code>ToothGrowth</code></strong> (base R, used in Example 1): Dose-response experiment in guinea pigs. Ideal for two-sample t-tests and one-way ANOVA.</p>
 <p><strong><code>sleep</code></strong> (base R, used in Example 1): Paired drug comparison in 10 patients. The definitive paired t-test teaching dataset.</p>
 <p><strong><code>survival::pbc</code></strong> (used in Example 2): Clinical trial data with many continuous biomarkers suitable for one-sample and two-sample comparisons.</p>
 <p><strong><code>MASS::birthwt</code>:</strong> Birth weight data with a smoking indicator – good for a two-sample t-test on birth weight between smokers and non-smokers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(birthwt, <span class="at">package =</span> <span class="st">"MASS"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(bwt <span class="sc">~</span> smoke, <span class="at">data =</span> birthwt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(birthwt, <span class="at">package =</span> <span class="st">"MASS"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(bwt <span class="sc">~</span> smoke, <span class="at">data =</span> birthwt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="what-can-go-wrong" class="level2 callout-warning" data-number="11.8">
-<h2 class="callout-warning anchored" data-number="11.8" data-anchor-id="what-can-go-wrong"><span class="header-section-number">11.8</span> What Can Go Wrong</h2>
+<section id="what-can-go-wrong" class="level2 callout-warning" data-number="4.8">
+<h2 class="callout-warning anchored" data-number="4.8" data-anchor-id="what-can-go-wrong"><span class="header-section-number">4.8</span> What Can Go Wrong</h2>
 <p><strong>Using a paired test when data are independent (or vice versa)</strong> The paired t-test requires one-to-one matching. If you use it on independent group data, you will get wrong degrees of freedom and an incorrect p-value.</p>
 <p><strong>Testing normality with a formal test</strong> Shapiro-Wilk (<code>shapiro.test()</code>) is not a reliable guide for choosing a t-test. With small samples it has low power; with large samples it rejects normality for trivially small deviations. Use a QQ-plot and think about the biology instead.</p>
 <p><strong>Reporting only the p-value</strong> Always report the mean difference and 95% CI alongside the p-value. “p = 0.03” tells the reader almost nothing about the size or direction of the effect.</p>
@@ -826,7 +769,7 @@ Translating Numbers into a Sentence
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Common Misinterpretations � Don’t Make These Mistakes
+<span class="screen-reader-only">Warning</span>Common Misinterpretations: Don’t Make These Mistakes
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -838,10 +781,10 @@ Common Misinterpretations � Don’t Make These Mistakes
 </div>
 </div>
 </section>
-<section id="exercises" class="level2" data-number="11.9">
-<h2 data-number="11.9" class="anchored" data-anchor-id="exercises"><span class="header-section-number">11.9</span> Exercises</h2>
-<section id="exercise-1-guided-one-sample-test-for-bilirubin" class="level3" data-number="11.9.1">
-<h3 data-number="11.9.1" class="anchored" data-anchor-id="exercise-1-guided-one-sample-test-for-bilirubin"><span class="header-section-number">11.9.1</span> Exercise 1 (Guided): One-Sample Test for Bilirubin</h3>
+<section id="exercises" class="level2" data-number="4.9">
+<h2 data-number="4.9" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.9</span> Exercises</h2>
+<section id="exercise-1-guided-one-sample-test-for-bilirubin" class="level3" data-number="4.9.1">
+<h3 data-number="4.9.1" class="anchored" data-anchor-id="exercise-1-guided-one-sample-test-for-bilirubin"><span class="header-section-number">4.9.1</span> Exercise 1 (Guided): One-Sample Test for Bilirubin</h3>
 <p>The upper limit of normal for bilirubin is about 1.2 mg/dL.</p>
 <ol type="1">
 <li>Plot the bilirubin distribution. Is it normal?</li>
@@ -849,22 +792,22 @@ Common Misinterpretations � Don’t Make These Mistakes
 <li>Report: mean, 95% CI, t-statistic, df, p-value, and a one-sentence interpretation.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 1: Solution
+<span class="screen-reader-only">Tip</span>Exercise 1: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Distribution</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Distribution</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pbc, <span class="fu">aes</span>(<span class="at">x =</span> bili)) <span class="sc">+</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bilirubin (mg/dL)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bilirubin (mg/dL)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -872,17 +815,17 @@ Exercise 1: Solution
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. One-sample test on log scale</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. One-sample test on log scale</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="fu">log</span>(pbc<span class="sc">$</span>bili), <span class="at">mu =</span> <span class="fu">log</span>(<span class="fl">1.2</span>))</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(res)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
   estimate statistic  p.value parameter conf.low conf.high method    alternative
      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      
 1    0.571      7.77 6.10e-14       417    0.473     0.670 One Samp… two.sided  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Back-transform the CI</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(res<span class="sc">$</span>conf.int)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Back-transform the CI</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(res<span class="sc">$</span>conf.int)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.604900 1.954091
 attr(,"conf.level")
@@ -894,8 +837,8 @@ attr(,"conf.level")
 </div>
 </div>
 </section>
-<section id="exercise-2-semi-guided-two-sample-comparison" class="level3" data-number="11.9.2">
-<h3 data-number="11.9.2" class="anchored" data-anchor-id="exercise-2-semi-guided-two-sample-comparison"><span class="header-section-number">11.9.2</span> Exercise 2 (Semi-guided): Two-Sample Comparison</h3>
+<section id="exercise-2-semi-guided-two-sample-comparison" class="level3" data-number="4.9.2">
+<h3 data-number="4.9.2" class="anchored" data-anchor-id="exercise-2-semi-guided-two-sample-comparison"><span class="header-section-number">4.9.2</span> Exercise 2 (Semi-guided): Two-Sample Comparison</h3>
 <p>Using <code>ToothGrowth</code>, test whether tooth length differs by supplement type across <strong>all</strong> dose levels (not just 1 mg/day).</p>
 <ol type="1">
 <li>Run a two-sample Welch’s t-test.</li>
@@ -903,24 +846,24 @@ attr(,"conf.level")
 <li>Run the test also on log-transformed tooth length. Do the conclusions differ?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 2: Solution
+<span class="screen-reader-only">Tip</span>Exercise 2: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tg_all <span class="ot">&lt;-</span> ToothGrowth <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tg_all <span class="ot">&lt;-</span> ToothGrowth <span class="sc">%&gt;%</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">supp =</span> <span class="fu">factor</span>(supp))</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Two-sample test</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_all))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> tg_all))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 10
   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
@@ -928,11 +871,11 @@ Exercise 2: Solution
 1      3.7      20.7      17.0      1.92  0.0606      55.3   -0.171      7.57
 # ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ-plot by group</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ-plot by group</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>tg_all <span class="sc">%&gt;%</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> len)) <span class="sc">+</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> supp) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> supp) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -940,8 +883,8 @@ Exercise 2: Solution
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log scale</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(<span class="fu">log</span>(len) <span class="sc">~</span> supp, <span class="at">data =</span> tg_all))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log scale</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">t.test</span>(<span class="fu">log</span>(len) <span class="sc">~</span> supp, <span class="at">data =</span> tg_all))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 10
   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
@@ -955,13 +898,13 @@ Exercise 2: Solution
 </div>
 </div>
 </section>
-<section id="exercise-3-open-ended" class="level3" data-number="11.9.3">
-<h3 data-number="11.9.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">11.9.3</span> Exercise 3 (Open-ended)</h3>
+<section id="exercise-3-open-ended" class="level3" data-number="4.9.3">
+<h3 data-number="4.9.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">4.9.3</span> Exercise 3 (Open-ended)</h3>
 <p>Use a dataset from your own research. Identify a comparison where a t-test is appropriate. Run the test, check assumptions, and write a Methods + Results paragraph as you would for a journal submission.</p>
 </section>
 </section>
-<section id="comprehension-check" class="level2" data-number="11.10">
-<h2 data-number="11.10" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">11.10</span> Comprehension Check</h2>
+<section id="comprehension-check" class="level2" data-number="4.10">
+<h2 data-number="4.10" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">4.10</span> Comprehension Check</h2>
 <ol type="1">
 <li>What is the difference between a one-sample, two-sample, and paired t-test? Give a biomedical example for each.</li>
 <li>When should you use Welch’s t-test instead of Student’s t-test?</li>
@@ -970,12 +913,12 @@ Exercise 2: Solution
 <li>A colleague says “I tested normality with Shapiro-Wilk (p = 0.06) so the data are normal.” What is wrong with this reasoning?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Answers
+<span class="screen-reader-only">Note</span>Answers
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -985,19 +928,48 @@ Answers
 <li><strong>One-sample:</strong> compare a sample mean to a known or hypothetical value (e.g., “Is mean haemoglobin in my patients below 12 g/dL?”). <strong>Two-sample:</strong> compare means of two independent groups (e.g., “Does albumin differ between treatment and control mice?”). <strong>Paired:</strong> compare two measurements on the same subjects (e.g., “Did blood pressure change from baseline to 6 weeks?”).</li>
 <li>Use Welch’s when the two groups may have different population variances. It is the default in R (<code>var.equal = FALSE</code>) and is almost always appropriate. Student’s t-test (equal variance assumed) is rarely preferred.</li>
 <li>With n = 12 and non-normality, use a nonparametric Wilcoxon test (see next session) instead of a t-test.</li>
-<li>The result is statistically significant (p = 0.04) and the 95% CI excludes zero (0.01 to 2.1 g/dL), but the CI is very wide. The true difference could be as small as 0.01 g/dL (negligible) or as large as 2.1 g/dL (potentially important). The p-value alone tells you almost nothing useful here � the CI is the critical information. Always report both, and note that a barely significant result with a wide CI is actually uninformative about effect size.</li>
+<li>The result is statistically significant (p = 0.04) and the 95% CI excludes zero (0.01 to 2.1 g/dL), but the CI is very wide. The true difference could be as small as 0.01 g/dL (negligible) or as large as 2.1 g/dL (potentially important). The p-value alone tells you almost nothing useful here; the CI is the critical information. Always report both, and note that a barely significant result with a wide CI is actually uninformative about effect size.</li>
 <li>Shapiro-Wilk with p = 0.06 is not evidence that data are normal; it means you failed to detect non-normality at the 5% level. With n = 12, the test has low power and would miss moderate non-normality. Use a QQ-plot and domain knowledge instead.</li>
 </ol>
 </div>
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="11.11">
-<h2 data-number="11.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">11.11</span> Further Reading</h2>
+<section id="how-to-report" class="level2" data-number="4.11">
+<h2 data-number="4.11" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">4.11</span> How to Report</h2>
+<section id="reporting-t-test-results" class="level3" data-number="4.11.1">
+<h3 data-number="4.11.1" class="anchored" data-anchor-id="reporting-t-test-results"><span class="header-section-number">4.11.1</span> Reporting t-test Results</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>In a methods section:</strong> “Differences in [outcome] between [group A] and [group B] were compared using an independent-samples t-test. A paired t-test was used for [paired outcome] because measurements were taken on the same subjects.”</p>
+<p><strong>In results:</strong> “[Outcome] was [higher/lower] in [group A] (mean ± SD) compared with [group B] (t(df) = X, p = Y, 95% CI for difference: [L, U]).”</p>
+<p><strong>What to always include:</strong></p>
+<ul>
+<li>Means and SDs for both groups</li>
+<li>Test statistic (t) and degrees of freedom (df)</li>
+<li>p-value</li>
+<li>95% CI for the mean difference</li>
+<li>Whether the test was one- or two-sided</li>
+</ul>
+<p><strong>Common reporting error:</strong> Writing only p &lt; 0.05 without the means, SDs, or CI. Readers cannot judge clinical significance without the actual effect size.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="further-reading" class="level2" data-number="4.12">
+<h2 data-number="4.12" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">4.12</span> Further Reading</h2>
 <ul>
 <li><span class="citation" data-cites="Welch-1947">Welch (<a href="#ref-Welch-1947" role="doc-biblioref">1947</a>)</span> — Original Welch t-test paper</li>
 <li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span> — Chapter on t-tests in <em>An Introduction to Medical Statistics</em></li>
-<li><code>?t.test</code> in R ? the help page has a detailed description of all options</li>
+<li><code>?t.test</code> in R: the help page has a detailed description of all options</li>
 </ul>
 
 
@@ -1013,43 +985,58 @@ Welch, B. L. 1947. <span>“The Generalization of ’Student’s’ Problem When
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
@@ -1057,162 +1044,184 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
       return codeEl.innerText;
     }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1220,194 +1229,170 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/hypothesis-testing.html" class="pagination-link  aria-label=" &lt;span="" testing:="" concepts="" and="" framework&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis Testing: Concepts and Framework</span></span>
+      <a href="../sessions/hypothesis-testing.html" class="pagination-link" aria-label="Hypothesis Testing: Concepts and Framework">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis Testing: Concepts and Framework</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/nonparametric-tests.html" class="pagination-link" aria-label="<span class='chapter-number'>12</span>&nbsp; <span class='chapter-title'>Nonparametric Tests</span>">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Nonparametric Tests</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/nonparametric-tests.html" class="pagination-link" aria-label="Nonparametric Tests">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Nonparametric Tests</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

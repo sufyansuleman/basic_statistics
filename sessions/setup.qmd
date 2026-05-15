@@ -97,6 +97,7 @@ install.packages(c(
   "car",
   "lme4",
   "glmnet",
+  "parsnip",
   "performance",
   "pROC",
   "AER",
@@ -111,6 +112,13 @@ install.packages(c(
   # Reproducibility
   "reprex"
 ))
+```
+
+```{r}
+#| eval: false
+# Install Bioconductor packages used in some sessions
+if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+BiocManager::install("limma")
 ```
 
 ::: {.callout-tip}

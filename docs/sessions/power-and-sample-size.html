@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Simple basic statistics concepts - 15&nbsp; Power Analysis and Sample Size</title>
+<title>8&nbsp; Power Analysis and Sample Size – Simple basic statistics concepts</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -86,15 +87,17 @@ div.csl-indent {
 <meta name="quarto:offset" content="../">
 <link href="../sessions/correlation-and-association.html" rel="next">
 <link href="../sessions/categorical-data-and-chi-square.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -123,7 +126,7 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -137,7 +140,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -155,19 +158,19 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 3: Inference — Testing and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/power-and-sample-size.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 1: Inference — Testing and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/power-and-sample-size.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -203,240 +206,176 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Part 1: R Foundations</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/packages-libraries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></a>
+  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vectors, Data Frames, and Factors</span></span></a>
+  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis Testing: Concepts and Framework</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/tidy-data-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Importing, Cleaning, and Reshaping Data</span></span></a>
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/nonparametric-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Nonparametric Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Categorical Data and Chi-Square Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Part 2: Describing and Visualizing Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 2: Regression and Modeling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Descriptive Statistics and Exploratory Data Analysis</span></span></a>
+  <a href="../sessions/correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Correlation and Association</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/basic-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Basic Data Visualization</span></span></a>
+  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/advanced-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></span></a>
+  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/explore-clinical-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exploring Clinical and Medical Data with R</span></span></a>
+  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/data-imputation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Missing Data and Imputation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Mixed Models: Random Effects and Repeated Measures</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">Part 3: Inference — Testing and Estimation</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 3: Advanced Methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span></a>
+  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Survival Analysis and Time-to-Event Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis Testing: Concepts and Framework</span></span></a>
+  <a href="../sessions/causal-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></span></a>
+  <a href="../sessions/mendelian-randomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/nonparametric-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Nonparametric Tests</span></span></a>
+  <a href="../sessions/omics-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Categorical Data and Chi-Square Tests</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></span></a>
+  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">Part 4: Regression and Modeling</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 4: Reference and Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/correlation-and-association.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Correlation and Association</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/data-imputation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Missing Data and Imputation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/mixed-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Mixed Models: Random Effects and Repeated Measures</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
- <span class="menu-text">Part 5: Advanced Methods</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Survival Analysis and Time-to-Event Data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/causal-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/mendelian-randomization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/omics-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">Part 6: Reference and Resources</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -451,38 +390,38 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-power" id="toc-sec-power" class="nav-link active" data-scroll-target="#sec-power"><span class="header-section-number">15.1</span> When Do You Use This?</a></li>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">15.2</span> Learning Objectives</a></li>
-  <li><a href="#background-power-and-its-components" id="toc-background-power-and-its-components" class="nav-link" data-scroll-target="#background-power-and-its-components"><span class="header-section-number">15.3</span> Background: Power and Its Components</a></li>
-  <li><a href="#example-1-mouse-experiment-two-sample-t-test" id="toc-example-1-mouse-experiment-two-sample-t-test" class="nav-link" data-scroll-target="#example-1-mouse-experiment-two-sample-t-test"><span class="header-section-number">15.4</span> Example 1: Mouse Experiment (Two-Sample t-test)</a>
+  <li><a href="#sec-power" id="toc-sec-power" class="nav-link active" data-scroll-target="#sec-power"><span class="header-section-number">8.1</span> When Do You Use This?</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">8.2</span> Learning Objectives</a></li>
+  <li><a href="#background-power-and-its-components" id="toc-background-power-and-its-components" class="nav-link" data-scroll-target="#background-power-and-its-components"><span class="header-section-number">8.3</span> Background: Power and Its Components</a></li>
+  <li><a href="#example-1-mouse-experiment-two-sample-t-test" id="toc-example-1-mouse-experiment-two-sample-t-test" class="nav-link" data-scroll-target="#example-1-mouse-experiment-two-sample-t-test"><span class="header-section-number">8.4</span> Example 1: Mouse Experiment (Two-Sample t-test)</a>
   <ul class="collapse">
-  <li><a href="#power-curve-n-vs-power" id="toc-power-curve-n-vs-power" class="nav-link" data-scroll-target="#power-curve-n-vs-power"><span class="header-section-number">15.4.1</span> Power Curve: n vs Power</a></li>
-  <li><a href="#sensitivity-analysis-what-if-the-pilot-sd-was-underestimated" id="toc-sensitivity-analysis-what-if-the-pilot-sd-was-underestimated" class="nav-link" data-scroll-target="#sensitivity-analysis-what-if-the-pilot-sd-was-underestimated"><span class="header-section-number">15.4.2</span> Sensitivity Analysis: What If the Pilot SD Was Underestimated?</a></li>
+  <li><a href="#power-curve-n-vs-power" id="toc-power-curve-n-vs-power" class="nav-link" data-scroll-target="#power-curve-n-vs-power"><span class="header-section-number">8.4.1</span> Power Curve: n vs Power</a></li>
+  <li><a href="#sensitivity-analysis-what-if-the-pilot-sd-was-underestimated" id="toc-sensitivity-analysis-what-if-the-pilot-sd-was-underestimated" class="nav-link" data-scroll-target="#sensitivity-analysis-what-if-the-pilot-sd-was-underestimated"><span class="header-section-number">8.4.2</span> Sensitivity Analysis: What If the Pilot SD Was Underestimated?</a></li>
   </ul></li>
-  <li><a href="#example-2-clinical-trial-two-proportions" id="toc-example-2-clinical-trial-two-proportions" class="nav-link" data-scroll-target="#example-2-clinical-trial-two-proportions"><span class="header-section-number">15.5</span> Example 2: Clinical Trial (Two Proportions)</a>
+  <li><a href="#example-2-clinical-trial-two-proportions" id="toc-example-2-clinical-trial-two-proportions" class="nav-link" data-scroll-target="#example-2-clinical-trial-two-proportions"><span class="header-section-number">8.5</span> Example 2: Clinical Trial (Two Proportions)</a>
   <ul class="collapse">
-  <li><a href="#power-curve-for-proportions" id="toc-power-curve-for-proportions" class="nav-link" data-scroll-target="#power-curve-for-proportions"><span class="header-section-number">15.5.1</span> Power Curve for Proportions</a></li>
+  <li><a href="#power-curve-for-proportions" id="toc-power-curve-for-proportions" class="nav-link" data-scroll-target="#power-curve-for-proportions"><span class="header-section-number">8.5.1</span> Power Curve for Proportions</a></li>
   </ul></li>
-  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">15.6</span> Where to Find Data Like This</a></li>
-  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">15.7</span> What Can Go Wrong</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">15.8</span> Exercises</a>
+  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">8.6</span> Where to Find Data Like This</a></li>
+  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">8.7</span> What Can Go Wrong</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">8.8</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-guided-using-existing-data-to-plan-a-new-study" id="toc-exercise-1-guided-using-existing-data-to-plan-a-new-study" class="nav-link" data-scroll-target="#exercise-1-guided-using-existing-data-to-plan-a-new-study"><span class="header-section-number">15.8.1</span> Exercise 1 (Guided): Using Existing Data to Plan a New Study</a></li>
-  <li><a href="#exercise-2-semi-guided-mouse-tumour-response-experiment" id="toc-exercise-2-semi-guided-mouse-tumour-response-experiment" class="nav-link" data-scroll-target="#exercise-2-semi-guided-mouse-tumour-response-experiment"><span class="header-section-number">15.8.2</span> Exercise 2 (Semi-guided): Mouse Tumour Response Experiment</a></li>
-  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">15.8.3</span> Exercise 3 (Open-ended)</a></li>
+  <li><a href="#exercise-1-guided-using-existing-data-to-plan-a-new-study" id="toc-exercise-1-guided-using-existing-data-to-plan-a-new-study" class="nav-link" data-scroll-target="#exercise-1-guided-using-existing-data-to-plan-a-new-study"><span class="header-section-number">8.8.1</span> Exercise 1 (Guided): Using Existing Data to Plan a New Study</a></li>
+  <li><a href="#exercise-2-semi-guided-mouse-tumour-response-experiment" id="toc-exercise-2-semi-guided-mouse-tumour-response-experiment" class="nav-link" data-scroll-target="#exercise-2-semi-guided-mouse-tumour-response-experiment"><span class="header-section-number">8.8.2</span> Exercise 2 (Semi-guided): Mouse Tumour Response Experiment</a></li>
+  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">8.8.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
-  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">15.9</span> Comprehension Check</a></li>
-  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">15.10</span> How to Report</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">15.11</span> Further Reading</a></li>
+  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">8.9</span> Comprehension Check</a></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">8.10</span> How to Report</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">8.11</span> Further Reading</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 3: Inference — Testing and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/power-and-sample-size.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 1: Inference — Testing and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/power-and-sample-size.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></h1>
 </div>
 
 
@@ -499,14 +438,14 @@ window.Quarto = {
 </header>
 
 
-<section id="sec-power" class="level2 callout-tip" data-number="15.1">
-<h2 class="callout-tip anchored" data-number="15.1" data-anchor-id="sec-power"><span class="header-section-number">15.1</span> When Do You Use This?</h2>
+<section id="sec-power" class="level2 callout-tip" data-number="8.1">
+<h2 class="callout-tip anchored" data-number="8.1" data-anchor-id="sec-power"><span class="header-section-number">8.1</span> When Do You Use This?</h2>
 <blockquote class="blockquote">
-<p>You are designing a mouse experiment to test whether a new drug reduces tumour volume. You expect a 20% reduction and want to know: <em>how many mice do I need?</em> Power analysis answers this before you collect a single data point ? and prevents you from running an underpowered study where a real effect would go undetected.</p>
+<p>You are designing a mouse experiment to test whether a new drug reduces tumour volume. You expect a 20% reduction and want to know: <em>how many mice do I need?</em> Power analysis answers this before you collect a single data point - and prevents you from running an underpowered study where a real effect would go undetected.</p>
 </blockquote>
 </section>
-<section id="learning-objectives" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">15.2</span> Learning Objectives</h2>
+<section id="learning-objectives" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">8.2</span> Learning Objectives</h2>
 <p>After completing this session you will be able to:</p>
 <ul>
 <li>Define statistical power and explain the relationship between power, sample size, effect size, and significance level</li>
@@ -516,11 +455,11 @@ window.Quarto = {
 <li>Identify the key planning decisions and their consequences for study design</li>
 </ul>
 </section>
-<section id="background-power-and-its-components" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="background-power-and-its-components"><span class="header-section-number">15.3</span> Background: Power and Its Components</h2>
+<section id="background-power-and-its-components" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="background-power-and-its-components"><span class="header-section-number">8.3</span> Background: Power and Its Components</h2>
 <p><strong>Statistical power</strong> (<span class="math inline">\(1 - \beta\)</span>) is the probability of detecting a true effect when one exists. A study with 80% power will correctly reject <span class="math inline">\(H_0\)</span> in 80% of repeated experiments when the true effect is real.</p>
 <p>Four quantities are connected; fix three and you can determine the fourth:</p>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Quantity</th>
@@ -555,7 +494,7 @@ window.Quarto = {
 <p>For a two-sample t-test: <span class="math display">\[d = \frac{\mu_1 - \mu_2}{\sigma_{\text{pooled}}}\]</span></p>
 <p>Cohen’s rough benchmarks: small <span class="math inline">\(d = 0.2\)</span>, medium <span class="math inline">\(d = 0.5\)</span>, large <span class="math inline">\(d = 0.8\)</span>.</p>
 <p><strong>What happens when you change each quantity:</strong></p>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Change</th>
@@ -564,26 +503,26 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td>More stringent <span class="math inline">\(\alpha\)</span> (0.05 ? 0.01)</td>
-<td>? n needed</td>
+<td>More stringent <span class="math inline">\(\alpha\)</span> (0.05 → 0.01)</td>
+<td>↑ n needed</td>
 </tr>
 <tr class="even">
-<td>Higher power (80% ? 90%)</td>
-<td>? n needed</td>
+<td>Higher power (80% → 90%)</td>
+<td>↑ n needed</td>
 </tr>
 <tr class="odd">
 <td>Smaller effect size</td>
-<td>? n needed</td>
+<td>↑ n needed</td>
 </tr>
 <tr class="even">
 <td>One-sided vs two-sided test</td>
-<td>? n if one-sided</td>
+<td>- n if one-sided</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="example-1-mouse-experiment-two-sample-t-test" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="example-1-mouse-experiment-two-sample-t-test"><span class="header-section-number">15.4</span> Example 1: Mouse Experiment (Two-Sample t-test)</h2>
+<section id="example-1-mouse-experiment-two-sample-t-test" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="example-1-mouse-experiment-two-sample-t-test"><span class="header-section-number">8.4</span> Example 1: Mouse Experiment (Two-Sample t-test)</h2>
 <p>You are testing whether a new drug reduces tumour volume. From a pilot experiment (n = 5 per group), you estimate:</p>
 <ul>
 <li>Expected reduction in mean tumour volume: <strong>150 mm3</strong></li>
@@ -591,7 +530,7 @@ window.Quarto = {
 <li>alpha = 0.05, power = 0.80, two-sided</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base R</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base R</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">delta     =</span> <span class="dv">150</span>,    <span class="co"># expected difference in means (mm3)</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd        =</span> <span class="dv">200</span>,    <span class="co"># pooled SD from pilot</span></span>
@@ -599,7 +538,7 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">power     =</span> <span class="fl">0.80</span>,</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">type      =</span> <span class="st">"two.sample"</span>,</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      Two-sample t test power calculation 
@@ -615,7 +554,7 @@ NOTE: n is number in *each* group</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pwr)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pwr)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="dv">150</span> <span class="sc">/</span> <span class="dv">200</span>   <span class="co"># Cohen's d</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.t.test</span>(</span>
@@ -624,7 +563,7 @@ NOTE: n is number in *each* group</code></pre>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">power     =</span> <span class="fl">0.80</span>,</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">type      =</span> <span class="st">"two.sample"</span>,</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      Two-sample t test power calculation 
@@ -639,11 +578,11 @@ NOTE: n is number in *each* group</code></pre>
 </div>
 </div>
 <p>Both functions agree: approximately <strong>29 mice per group</strong> (round up). Always round up.</p>
-<section id="power-curve-n-vs-power" class="level3" data-number="15.4.1">
-<h3 data-number="15.4.1" class="anchored" data-anchor-id="power-curve-n-vs-power"><span class="header-section-number">15.4.1</span> Power Curve: n vs Power</h3>
+<section id="power-curve-n-vs-power" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="power-curve-n-vs-power"><span class="header-section-number">8.4.1</span> Power Curve: n vs Power</h3>
 <p>Plot power as a function of sample size to see the trade-off and justify your choice:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>power_vals <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(n_seq, <span class="sc">~</span> <span class="fu">pwr.t.test</span>(</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n         =</span> .x,</span>
@@ -663,7 +602,7 @@ NOTE: n is number in *each* group</code></pre>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Power curve: two-sample t-test (d = 0.75, mouse tumour experiment)"</span>,</span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"n per group"</span>, <span class="at">y =</span> <span class="st">"Power"</span></span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -673,11 +612,11 @@ NOTE: n is number in *each* group</code></pre>
 </div>
 </div>
 </section>
-<section id="sensitivity-analysis-what-if-the-pilot-sd-was-underestimated" class="level3" data-number="15.4.2">
-<h3 data-number="15.4.2" class="anchored" data-anchor-id="sensitivity-analysis-what-if-the-pilot-sd-was-underestimated"><span class="header-section-number">15.4.2</span> Sensitivity Analysis: What If the Pilot SD Was Underestimated?</h3>
+<section id="sensitivity-analysis-what-if-the-pilot-sd-was-underestimated" class="level3" data-number="8.4.2">
+<h3 data-number="8.4.2" class="anchored" data-anchor-id="sensitivity-analysis-what-if-the-pilot-sd-was-underestimated"><span class="header-section-number">8.4.2</span> Sensitivity Analysis: What If the Pilot SD Was Underestimated?</h3>
 <p>Pilot studies often underestimate variability. Show how required n grows if SD is larger:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># d decreases as SD grows (fixed delta = 150)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># d decreases as SD grows (fixed delta = 150)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sd_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">150</span>, <span class="dv">350</span>, <span class="at">by =</span> <span class="dv">25</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>n_required <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(sd_seq, <span class="sc">~</span> <span class="fu">ceiling</span>(<span class="fu">pwr.t.test</span>(</span>
@@ -697,7 +636,7 @@ NOTE: n is number in *each* group</code></pre>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"n required as SD increases (delta = 150, alpha = 0.05, power = 80%)"</span>,</span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Pooled SD (mm3)"</span>, <span class="at">y =</span> <span class="st">"n per group"</span></span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -709,23 +648,23 @@ NOTE: n is number in *each* group</code></pre>
 <p>If the true SD is 300 (not 200), you need more than twice as many mice. <strong>Be conservative with your SD estimate.</strong></p>
 </section>
 </section>
-<section id="example-2-clinical-trial-two-proportions" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="example-2-clinical-trial-two-proportions"><span class="header-section-number">15.5</span> Example 2: Clinical Trial (Two Proportions)</h2>
+<section id="example-2-clinical-trial-two-proportions" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="example-2-clinical-trial-two-proportions"><span class="header-section-number">8.5</span> Example 2: Clinical Trial (Two Proportions)</h2>
 <p>You are planning a clinical trial of a new treatment. The control response rate is 40%; you want to detect an increase to 65% with 80% power at alpha = 0.05.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's h for proportions</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's h for proportions</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">ES.h</span>(<span class="fl">0.65</span>, <span class="fl">0.40</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Cohen's h:"</span>, <span class="fu">round</span>(h, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Cohen's h:"</span>, <span class="fu">round</span>(h, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Cohen's h: 0.506 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample size</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample size</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.2p.test</span>(</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">h         =</span> h,</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">power     =</span> <span class="fl">0.80</span>,</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      Difference of proportion power calculation for binomial distribution (arcsine transformation) 
@@ -740,13 +679,13 @@ NOTE: same sample sizes</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-check with base R</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-check with base R</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">power.prop.test</span>(</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">p1        =</span> <span class="fl">0.40</span>,</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">p2        =</span> <span class="fl">0.65</span>,</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">power     =</span> <span class="fl">0.80</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      Two-sample comparison of proportions power calculation 
@@ -761,10 +700,10 @@ NOTE: same sample sizes</code></pre>
 NOTE: n is number in *each* group</code></pre>
 </div>
 </div>
-<section id="power-curve-for-proportions" class="level3" data-number="15.5.1">
-<h3 data-number="15.5.1" class="anchored" data-anchor-id="power-curve-for-proportions"><span class="header-section-number">15.5.1</span> Power Curve for Proportions</h3>
+<section id="power-curve-for-proportions" class="level3" data-number="8.5.1">
+<h3 data-number="8.5.1" class="anchored" data-anchor-id="power-curve-for-proportions"><span class="header-section-number">8.5.1</span> Power Curve for Proportions</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>n_seq2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>n_seq2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>pow2 <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(n_seq2, <span class="sc">~</span> <span class="fu">pwr.2p.test</span>(</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n         =</span> .x,</span>
@@ -782,7 +721,7 @@ NOTE: n is number in *each* group</code></pre>
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Power curve: two-proportion test (h = 0.51, 40% vs 65% response)"</span>,</span>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"n per group"</span>, <span class="at">y =</span> <span class="st">"Power"</span></span>
 <span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -793,25 +732,25 @@ NOTE: n is number in *each* group</code></pre>
 </div>
 </section>
 </section>
-<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="15.6">
-<h2 class="callout-note anchored" data-number="15.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">15.6</span> Where to Find Data Like This</h2>
+<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="8.6">
+<h2 class="callout-note anchored" data-number="8.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">8.6</span> Where to Find Data Like This</h2>
 <p><strong>Your own pilot data:</strong> The best source for SD estimates. Even n = 5 per group gives a useful starting point.</p>
-<p><strong><code>survival::pbc</code>:</strong> A published clinical dataset — useful for deriving realistic SD and mean estimates for planning a new study in a similar patient population (see Exercise 1).</p>
-<p><strong><code>pwr</code> package:</strong> <code>pwr.t.test()</code>, <code>pwr.2p.test()</code>, <code>pwr.chisq.test()</code>, <code>pwr.anova.test()</code> — covers all common designs.</p>
-<p><strong>G*Power software:</strong> Free standalone tool (gpower.hhu.de) — popular in clinical and behavioural research, good for cross-checking R results.</p>
+<p><strong><code>survival::pbc</code>:</strong> A published clinical dataset: useful for deriving realistic SD and mean estimates for planning a new study in a similar patient population (see Exercise 1).</p>
+<p><strong><code>pwr</code> package:</strong> <code>pwr.t.test()</code>, <code>pwr.2p.test()</code>, <code>pwr.chisq.test()</code>, <code>pwr.anova.test()</code>: covers all common designs.</p>
+<p><strong>G*Power software:</strong> Free standalone tool (gpower.hhu.de): popular in clinical and behavioural research, good for cross-checking R results.</p>
 </section>
-<section id="what-can-go-wrong" class="level2 callout-warning" data-number="15.7">
-<h2 class="callout-warning anchored" data-number="15.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">15.7</span> What Can Go Wrong</h2>
+<section id="what-can-go-wrong" class="level2 callout-warning" data-number="8.7">
+<h2 class="callout-warning anchored" data-number="8.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">8.7</span> What Can Go Wrong</h2>
 <p><strong>Using a too-optimistic effect size</strong> Published effect sizes are often inflated by publication bias. If you power your study using an unrealistically large d, you will be underpowered when the true effect is smaller. Be conservative or use the lower bound of a pilot confidence interval.</p>
 <p><strong>Powering for the wrong test</strong> If you plan to use a Wilcoxon test (because your data will be non-normal), power calculations based on <code>power.t.test()</code> are approximate. The <code>pwr</code> package and simulation-based approaches are more accurate for nonparametric tests.</p>
 <p><strong>Forgetting to account for dropout or missing data</strong> Calculate the required <span class="math inline">\(n\)</span>, then inflate by an expected dropout fraction. If you expect 15% dropout, divide your required <span class="math inline">\(n\)</span> by 0.85.</p>
 <p><strong>Multiple primary outcomes</strong> If you have several primary outcomes, adjust <span class="math inline">\(\alpha\)</span> (e.g., Bonferroni) before running the power calculation. Powering for each outcome at <span class="math inline">\(\alpha = 0.05\)</span> without correction is overly optimistic.</p>
 <p><strong>Confusing power for a one-sided vs two-sided test</strong> A one-sided test requires fewer participants for the same power. Only use a one-sided test if you have a strong, pre-registered directional hypothesis and would not care about an effect in the other direction.</p>
 </section>
-<section id="exercises" class="level2" data-number="15.8">
-<h2 data-number="15.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">15.8</span> Exercises</h2>
-<section id="exercise-1-guided-using-existing-data-to-plan-a-new-study" class="level3" data-number="15.8.1">
-<h3 data-number="15.8.1" class="anchored" data-anchor-id="exercise-1-guided-using-existing-data-to-plan-a-new-study"><span class="header-section-number">15.8.1</span> Exercise 1 (Guided): Using Existing Data to Plan a New Study</h3>
+<section id="exercises" class="level2" data-number="8.8">
+<h2 data-number="8.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">8.8</span> Exercises</h2>
+<section id="exercise-1-guided-using-existing-data-to-plan-a-new-study" class="level3" data-number="8.8.1">
+<h3 data-number="8.8.1" class="anchored" data-anchor-id="exercise-1-guided-using-existing-data-to-plan-a-new-study"><span class="header-section-number">8.8.1</span> Exercise 1 (Guided): Using Existing Data to Plan a New Study</h3>
 <p>A common situation: you want to plan a new clinical study but have no pilot data. You can use a published dataset with a similar patient population to estimate the pooled SD.</p>
 <p>Using <code>survival::pbc</code>, estimate the pooled SD of log(bilirubin) in the two treatment groups. Then calculate the sample size needed to detect a 0.4-unit difference on the log scale.</p>
 <ol type="1">
@@ -821,19 +760,19 @@ NOTE: n is number in *each* group</code></pre>
 <li>Plot the power curve. At what n does power first exceed 80%?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 1: Solution
+<span class="screen-reader-only">Tip</span>Exercise 1: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">|&gt;</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trt =</span> <span class="fu">factor</span>(trt))</span>
@@ -843,7 +782,7 @@ Exercise 1: Solution
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>sd_vals <span class="ot">&lt;-</span> pbc_rand <span class="sc">|&gt;</span></span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trt) <span class="sc">|&gt;</span></span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sd =</span> <span class="fu">sd</span>(<span class="fu">log</span>(bili)), <span class="at">n =</span> <span class="fu">n</span>())</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sd_vals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sd_vals)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   trt      sd     n
@@ -851,17 +790,17 @@ Exercise 1: Solution
 1 1     0.965   158
 2 2     1.10    154</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pooled SD</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pooled SD</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> sd_vals<span class="sc">$</span>n[<span class="dv">1</span>]; s1 <span class="ot">&lt;-</span> sd_vals<span class="sc">$</span>sd[<span class="dv">1</span>]</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> sd_vals<span class="sc">$</span>n[<span class="dv">2</span>]; s2 <span class="ot">&lt;-</span> sd_vals<span class="sc">$</span>sd[<span class="dv">2</span>]</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>sd_pool <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(((n1 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s1<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (n2 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s2<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span>))</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>d_bili  <span class="ot">&lt;-</span> <span class="fl">0.4</span> <span class="sc">/</span> sd_pool</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Pooled SD:"</span>, <span class="fu">round</span>(sd_pool, <span class="dv">3</span>), <span class="st">" Cohen's d:"</span>, <span class="fu">round</span>(d_bili, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Pooled SD:"</span>, <span class="fu">round</span>(sd_pool, <span class="dv">3</span>), <span class="st">" Cohen's d:"</span>, <span class="fu">round</span>(d_bili, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Pooled SD: 1.033  Cohen's d: 0.387 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample size</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.t.test</span>(<span class="at">d =</span> d_bili, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.80</span>, <span class="at">type =</span> <span class="st">"two.sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample size</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.t.test</span>(<span class="at">d =</span> d_bili, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.80</span>, <span class="at">type =</span> <span class="st">"two.sample"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      Two-sample t test power calculation 
@@ -874,7 +813,7 @@ Exercise 1: Solution
 
 NOTE: n is number in *each* group</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Power curve</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Power curve</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>n_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>pw <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(n_seq, <span class="sc">~</span> <span class="fu">pwr.t.test</span>(<span class="at">n =</span> .x, <span class="at">d =</span> d_bili, <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">type =</span> <span class="st">"two.sample"</span>)<span class="sc">$</span>power)</span>
@@ -883,7 +822,7 @@ NOTE: n is number in *each* group</code></pre>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.8</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"n per group"</span>, <span class="at">y =</span> <span class="st">"Power"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"n per group"</span>, <span class="at">y =</span> <span class="st">"Power"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -896,8 +835,8 @@ NOTE: n is number in *each* group</code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-2-semi-guided-mouse-tumour-response-experiment" class="level3" data-number="15.8.2">
-<h3 data-number="15.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-mouse-tumour-response-experiment"><span class="header-section-number">15.8.2</span> Exercise 2 (Semi-guided): Mouse Tumour Response Experiment</h3>
+<section id="exercise-2-semi-guided-mouse-tumour-response-experiment" class="level3" data-number="8.8.2">
+<h3 data-number="8.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-mouse-tumour-response-experiment"><span class="header-section-number">8.8.2</span> Exercise 2 (Semi-guided): Mouse Tumour Response Experiment</h3>
 <p>You are planning an in vivo experiment. The control group is expected to have a 30% tumour response rate; the treated group 55%.</p>
 <ol type="1">
 <li>Compute Cohen’s h using <code>ES.h(0.55, 0.30)</code>.</li>
@@ -906,38 +845,38 @@ NOTE: n is number in *each* group</code></pre>
 <li>How does the required n change if you increase power to 90%?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 2: Solution
+<span class="screen-reader-only">Tip</span>Exercise 2: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>h_mouse <span class="ot">&lt;-</span> <span class="fu">ES.h</span>(<span class="fl">0.55</span>, <span class="fl">0.30</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Cohen's h:"</span>, <span class="fu">round</span>(h_mouse, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>h_mouse <span class="ot">&lt;-</span> <span class="fu">ES.h</span>(<span class="fl">0.55</span>, <span class="fl">0.30</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Cohen's h:"</span>, <span class="fu">round</span>(h_mouse, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Cohen's h: 0.512 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># n at 80%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># n at 80%</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>res80 <span class="ot">&lt;-</span> <span class="fu">pwr.2p.test</span>(<span class="at">h =</span> h_mouse, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.80</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>n80 <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(res80<span class="sc">$</span>n)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"n per group (80% power):"</span>, n80, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"n per group (80% power):"</span>, n80, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>n per group (80% power): 60 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With 20% dropout</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Enrol per group:"</span>, <span class="fu">ceiling</span>(n80 <span class="sc">/</span> <span class="fl">0.80</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With 20% dropout</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Enrol per group:"</span>, <span class="fu">ceiling</span>(n80 <span class="sc">/</span> <span class="fl">0.80</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Enrol per group: 75 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># At 90% power</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># At 90% power</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>res90 <span class="ot">&lt;-</span> <span class="fu">pwr.2p.test</span>(<span class="at">h =</span> h_mouse, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.90</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"n per group (90% power):"</span>, <span class="fu">ceiling</span>(res90<span class="sc">$</span>n), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"n per group (90% power):"</span>, <span class="fu">ceiling</span>(res90<span class="sc">$</span>n), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>n per group (90% power): 81 </code></pre>
 </div>
@@ -946,8 +885,8 @@ Exercise 2: Solution
 </div>
 </div>
 </section>
-<section id="exercise-3-open-ended" class="level3" data-number="15.8.3">
-<h3 data-number="15.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">15.8.3</span> Exercise 3 (Open-ended)</h3>
+<section id="exercise-3-open-ended" class="level3" data-number="8.8.3">
+<h3 data-number="8.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">8.8.3</span> Exercise 3 (Open-ended)</h3>
 <p>For your next planned experiment or study, define:</p>
 <ol type="1">
 <li>The primary outcome and the comparison you will make</li>
@@ -957,8 +896,8 @@ Exercise 2: Solution
 <p>Run the power calculation and produce a power curve. Write one paragraph suitable for an ethics committee submission justifying your sample size.</p>
 </section>
 </section>
-<section id="comprehension-check" class="level2" data-number="15.9">
-<h2 data-number="15.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">15.9</span> Comprehension Check</h2>
+<section id="comprehension-check" class="level2" data-number="8.9">
+<h2 data-number="8.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">8.9</span> Comprehension Check</h2>
 <ol type="1">
 <li>What is statistical power? What does “80% power” mean in plain language?</li>
 <li>You calculate that you need n = 25 per group. You expect 10% dropout. How many participants should you recruit?</li>
@@ -967,12 +906,12 @@ Exercise 2: Solution
 <li>Your power calculation gives n = 12 per group, but you can only recruit n = 8. What are your options?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Answers
+<span class="screen-reader-only">Note</span>Answers
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -982,22 +921,22 @@ Answers
 <li>Statistical power is the probability of correctly rejecting the null hypothesis when the alternative is true. “80% power” means that if the true effect is as assumed, your study will detect it (i.e., return a significant result) in 80% of repeated experiments of the same design.</li>
 <li>Divide by the expected retention fraction: <span class="math inline">\(25 / 0.90 = 28\)</span>, so recruit 28 per group (round up).</li>
 <li>Single small studies overestimate effect sizes due to sampling variability and publication bias. Using d = 1.2 from a study with n = 10 is likely to be inflated. The true d may be considerably smaller, and the actual study will be underpowered.</li>
-<li>A one-sided test requires fewer participants. It allocates the full a to one tail, making the critical threshold easier to reach ? but only valid when you have a strong directional hypothesis and would not act on an effect in the opposite direction.</li>
+<li>A one-sided test requires fewer participants. It allocates the full a to one tail, making the critical threshold easier to reach - but only valid when you have a strong directional hypothesis and would not act on an effect in the opposite direction.</li>
 <li>Options: (1) Accept lower power (&lt; 80%) and acknowledge the limitation; (2) increase the effect size you are trying to detect (e.g., only detect a large effect); (3) decrease a (less stringent threshold, increasing power); (4) use a paired design or block on a covariate to reduce within-group variability; (5) pool data across experiments.</li>
 </ol>
 </div>
 </div>
 </div>
 </section>
-<section id="how-to-report" class="level2" data-number="15.10">
-<h2 data-number="15.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">15.10</span> How to Report</h2>
+<section id="how-to-report" class="level2" data-number="8.10">
+<h2 data-number="8.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">8.10</span> How to Report</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Reporting a Power Calculation
+<span class="screen-reader-only">Note</span>Reporting a Power Calculation
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1006,16 +945,16 @@ Reporting a Power Calculation
 <p>“Sample size was calculated a priori using the <code>pwr</code> package in R (v4.x). Assuming an effect size of Cohen’s <em>d</em> = 0.5 (medium effect), α = 0.05 (two-sided), and 80% power, a minimum of XX participants per group (YY total) is required. Effect size was estimated from [pilot data / prior literature (cite)]. A 10% dropout allowance was added, giving a final target of ZZ participants per group.”</p>
 </blockquote>
 <p><strong>Key elements to include:</strong> - Software or formula used for the calculation - Assumed effect size and its justification (pilot data or literature) - α level and whether one- or two-sided - Target power (usually 80% or 90%) - Any attrition/dropout allowance added</p>
-<p><strong>Common reporting errors:</strong> - Using a “medium” Cohen’s <em>d</em> = 0.5 without clinical justification — reviewers will question this - Reporting only the total N, not per-group N - Not reporting the assumed effect size — makes the calculation unverifiable - Post-hoc power calculations on observed effect sizes — these are misleading and now widely discouraged</p>
+<p><strong>Common reporting errors:</strong> - Using a “medium” Cohen’s <em>d</em> = 0.5 without clinical justification - reviewers will question this - Reporting only the total N, not per-group N - Not reporting the assumed effect size - makes the calculation unverifiable - Post-hoc power calculations on observed effect sizes - these are misleading and now widely discouraged</p>
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="15.11">
-<h2 data-number="15.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">15.11</span> Further Reading</h2>
+<section id="further-reading" class="level2" data-number="8.11">
+<h2 data-number="8.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">8.11</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Cohen-1988">Cohen (<a href="#ref-Cohen-1988" role="doc-biblioref">1988</a>)</span> — <em>Statistical Power Analysis for the Behavioral Sciences</em> ? the original reference for effect sizes and power tables</li>
+<li><span class="citation" data-cites="Cohen-1988">Cohen (<a href="#ref-Cohen-1988" role="doc-biblioref">1988</a>)</span> — <em>Statistical Power Analysis for the Behavioral Sciences</em> - the original reference for effect sizes and power tables</li>
 <li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span> — Sample size chapters in <em>An Introduction to Medical Statistics</em></li>
-<li><code>vignette("pwr-vignette", package = "pwr")</code> ? comprehensive <code>pwr</code> package tutorial</li>
+<li><code>vignette("pwr-vignette", package = "pwr")</code> - comprehensive <code>pwr</code> package tutorial</li>
 <li>G*Power manual at gpower.hhu.de</li>
 </ul>
 
@@ -1032,43 +971,58 @@ Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
@@ -1076,162 +1030,184 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
       return codeEl.innerText;
     }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1239,194 +1215,170 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/categorical-data-and-chi-square.html" class="pagination-link  aria-label=" &lt;span="" data="" and="" chi-square="" tests&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Categorical Data and Chi-Square Tests</span></span>
+      <a href="../sessions/categorical-data-and-chi-square.html" class="pagination-link" aria-label="Categorical Data and Chi-Square Tests">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Categorical Data and Chi-Square Tests</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/correlation-and-association.html" class="pagination-link" aria-label="<span class='chapter-number'>16</span>&nbsp; <span class='chapter-title'>Correlation and Association</span>">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Correlation and Association</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/correlation-and-association.html" class="pagination-link" aria-label="Correlation and Association">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Correlation and Association</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

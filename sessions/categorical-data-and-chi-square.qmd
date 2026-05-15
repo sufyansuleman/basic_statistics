@@ -7,7 +7,11 @@ title: "Categorical Data and Chi-Square Tests"
 #| eval: true
 library(tidyverse)
 library(survival)
-library(gtsummary)
+if (!requireNamespace("gtsummary", quietly = TRUE)) {
+  message("Package 'gtsummary' not available; related tables will be skipped during render.")
+} else {
+  library(gtsummary)
+}
 library(broom)
 ```
 
@@ -128,6 +132,7 @@ prop.test(x = deaths_by_trt$deaths, n = deaths_by_trt$n)
 ### Publication-Quality Table with gtsummary
 
 ```{r tbl1}
+#| eval: requireNamespace("gtsummary", quietly = TRUE)
 pbc %>%
   filter(!is.na(trt)) %>%
   select(trt, sex, stage, died) %>%

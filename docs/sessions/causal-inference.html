@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Simple basic statistics concepts - 24&nbsp; Causal Inference</title>
+<title>17&nbsp; Causal Inference – Simple basic statistics concepts</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -86,15 +87,17 @@ div.csl-indent {
 <meta name="quarto:offset" content="../">
 <link href="../sessions/mendelian-randomization.html" rel="next">
 <link href="../sessions/survival-and-time-to-event.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -123,7 +126,7 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -137,7 +140,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -155,19 +158,19 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/survival-and-time-to-event.html">Part 5: Advanced Methods</a></li><li class="breadcrumb-item"><a href="../sessions/causal-inference.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Causal Inference</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/survival-and-time-to-event.html">Part 3: Advanced Methods</a></li><li class="breadcrumb-item"><a href="../sessions/causal-inference.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Causal Inference</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -203,240 +206,176 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Part 1: R Foundations</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/packages-libraries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Packages and Libraries</span></span></a>
+  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vectors, Data Frames, and Factors</span></span></a>
+  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis Testing: Concepts and Framework</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/tidy-data-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Importing, Cleaning, and Reshaping Data</span></span></a>
+  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/nonparametric-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Nonparametric Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Categorical Data and Chi-Square Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Part 2: Describing and Visualizing Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 2: Regression and Modeling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/01-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Descriptive Statistics and Exploratory Data Analysis</span></span></a>
+  <a href="../sessions/correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Correlation and Association</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/basic-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Basic Data Visualization</span></span></a>
+  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/advanced-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Visualization and Scientific Communication</span></span></a>
+  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/explore-clinical-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exploring Clinical and Medical Data with R</span></span></a>
+  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/data-imputation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Missing Data and Imputation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Mixed Models: Random Effects and Repeated Measures</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">Part 3: Inference — Testing and Estimation</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 3: Advanced Methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/sampling-and-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sampling, Estimation, and Confidence Intervals</span></span></a>
+  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Survival Analysis and Time-to-Event Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis Testing: Concepts and Framework</span></span></a>
+  <a href="../sessions/causal-inference.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/04-t-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></span></a>
+  <a href="../sessions/mendelian-randomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/nonparametric-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Nonparametric Tests</span></span></a>
+  <a href="../sessions/omics-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/05-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/categorical-data-and-chi-square.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Categorical Data and Chi-Square Tests</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/power-and-sample-size.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Power Analysis and Sample Size</span></span></a>
+  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">Part 4: Regression and Modeling</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part 4: Reference and Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/correlation-and-association.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Correlation and Association</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/02-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/06-multiple-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/03-logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/model-building-and-diagnostics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Model Building and Diagnostics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/data-imputation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Missing Data and Imputation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/mixed-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Mixed Models: Random Effects and Repeated Measures</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
- <span class="menu-text">Part 5: Advanced Methods</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/survival-and-time-to-event.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Survival Analysis and Time-to-Event Data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/causal-inference.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/mendelian-randomization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/omics-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Statistics for Omics Data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/bayesian-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bayesian Inference</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">Part 6: Reference and Resources</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../sessions/statistical-decision-guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Decision Guide</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/clinical-research-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Clinical Research Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/help-docs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Help and Documentation</span></span></a>
   </div>
 </li>
       </ul>
@@ -451,41 +390,41 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-causal-inference" id="toc-sec-causal-inference" class="nav-link active" data-scroll-target="#sec-causal-inference"><span class="header-section-number">24.1</span> When Do You Use This?</a></li>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">24.2</span> Learning Objectives</a></li>
-  <li><a href="#background-why-associations-are-not-causes" id="toc-background-why-associations-are-not-causes" class="nav-link" data-scroll-target="#background-why-associations-are-not-causes"><span class="header-section-number">24.3</span> Background: Why Associations Are Not Causes</a>
+  <li><a href="#sec-causal-inference" id="toc-sec-causal-inference" class="nav-link active" data-scroll-target="#sec-causal-inference"><span class="header-section-number">17.1</span> When Do You Use This?</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">17.2</span> Learning Objectives</a></li>
+  <li><a href="#background-why-associations-are-not-causes" id="toc-background-why-associations-are-not-causes" class="nav-link" data-scroll-target="#background-why-associations-are-not-causes"><span class="header-section-number">17.3</span> Background: Why Associations Are Not Causes</a>
   <ul class="collapse">
-  <li><a href="#potential-outcomes-framework" id="toc-potential-outcomes-framework" class="nav-link" data-scroll-target="#potential-outcomes-framework"><span class="header-section-number">24.3.1</span> Potential Outcomes Framework</a></li>
-  <li><a href="#directed-acyclic-graphs-dags" id="toc-directed-acyclic-graphs-dags" class="nav-link" data-scroll-target="#directed-acyclic-graphs-dags"><span class="header-section-number">24.3.2</span> Directed Acyclic Graphs (DAGs)</a></li>
+  <li><a href="#potential-outcomes-framework" id="toc-potential-outcomes-framework" class="nav-link" data-scroll-target="#potential-outcomes-framework"><span class="header-section-number">17.3.1</span> Potential Outcomes Framework</a></li>
+  <li><a href="#directed-acyclic-graphs-dags" id="toc-directed-acyclic-graphs-dags" class="nav-link" data-scroll-target="#directed-acyclic-graphs-dags"><span class="header-section-number">17.3.2</span> Directed Acyclic Graphs (DAGs)</a></li>
   </ul></li>
-  <li><a href="#example-1-drawing-a-dag-for-pbc" id="toc-example-1-drawing-a-dag-for-pbc" class="nav-link" data-scroll-target="#example-1-drawing-a-dag-for-pbc"><span class="header-section-number">24.4</span> Example 1: Drawing a DAG for PBC</a>
+  <li><a href="#example-1-drawing-a-dag-for-pbc" id="toc-example-1-drawing-a-dag-for-pbc" class="nav-link" data-scroll-target="#example-1-drawing-a-dag-for-pbc"><span class="header-section-number">17.4</span> Example 1: Drawing a DAG for PBC</a>
   <ul class="collapse">
-  <li><a href="#the-research-question" id="toc-the-research-question" class="nav-link" data-scroll-target="#the-research-question"><span class="header-section-number">24.4.1</span> The Research Question</a></li>
-  <li><a href="#identifying-the-adjustment-set" id="toc-identifying-the-adjustment-set" class="nav-link" data-scroll-target="#identifying-the-adjustment-set"><span class="header-section-number">24.4.2</span> Identifying the Adjustment Set</a></li>
-  <li><a href="#what-if-we-adjust-for-a-mediator" id="toc-what-if-we-adjust-for-a-mediator" class="nav-link" data-scroll-target="#what-if-we-adjust-for-a-mediator"><span class="header-section-number">24.4.3</span> What If We Adjust for a Mediator?</a></li>
-  <li><a href="#collider-bias-a-demonstration" id="toc-collider-bias-a-demonstration" class="nav-link" data-scroll-target="#collider-bias-a-demonstration"><span class="header-section-number">24.4.4</span> Collider Bias: A Demonstration</a></li>
+  <li><a href="#the-research-question" id="toc-the-research-question" class="nav-link" data-scroll-target="#the-research-question"><span class="header-section-number">17.4.1</span> The Research Question</a></li>
+  <li><a href="#identifying-the-adjustment-set" id="toc-identifying-the-adjustment-set" class="nav-link" data-scroll-target="#identifying-the-adjustment-set"><span class="header-section-number">17.4.2</span> Identifying the Adjustment Set</a></li>
+  <li><a href="#what-if-we-adjust-for-a-mediator" id="toc-what-if-we-adjust-for-a-mediator" class="nav-link" data-scroll-target="#what-if-we-adjust-for-a-mediator"><span class="header-section-number">17.4.3</span> What If We Adjust for a Mediator?</a></li>
+  <li><a href="#collider-bias-a-demonstration" id="toc-collider-bias-a-demonstration" class="nav-link" data-scroll-target="#collider-bias-a-demonstration"><span class="header-section-number">17.4.4</span> Collider Bias: A Demonstration</a></li>
   </ul></li>
-  <li><a href="#example-2-propensity-score-analysis" id="toc-example-2-propensity-score-analysis" class="nav-link" data-scroll-target="#example-2-propensity-score-analysis"><span class="header-section-number">24.5</span> Example 2: Propensity Score Analysis</a></li>
-  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">24.6</span> Where to Find Data Like This</a></li>
-  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">24.7</span> What Can Go Wrong</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">24.8</span> Exercises</a>
+  <li><a href="#example-2-propensity-score-analysis" id="toc-example-2-propensity-score-analysis" class="nav-link" data-scroll-target="#example-2-propensity-score-analysis"><span class="header-section-number">17.5</span> Example 2: Propensity Score Analysis</a></li>
+  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">17.6</span> Where to Find Data Like This</a></li>
+  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">17.7</span> What Can Go Wrong</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">17.8</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-guided-draw-and-query-a-dag" id="toc-exercise-1-guided-draw-and-query-a-dag" class="nav-link" data-scroll-target="#exercise-1-guided-draw-and-query-a-dag"><span class="header-section-number">24.8.1</span> Exercise 1 (Guided): Draw and Query a DAG</a></li>
-  <li><a href="#exercise-2-semi-guided-propensity-score-balance-check" id="toc-exercise-2-semi-guided-propensity-score-balance-check" class="nav-link" data-scroll-target="#exercise-2-semi-guided-propensity-score-balance-check"><span class="header-section-number">24.8.2</span> Exercise 2 (Semi-guided): Propensity Score Balance Check</a></li>
-  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">24.8.3</span> Exercise 3 (Open-ended)</a></li>
+  <li><a href="#exercise-1-guided-draw-and-query-a-dag" id="toc-exercise-1-guided-draw-and-query-a-dag" class="nav-link" data-scroll-target="#exercise-1-guided-draw-and-query-a-dag"><span class="header-section-number">17.8.1</span> Exercise 1 (Guided): Draw and Query a DAG</a></li>
+  <li><a href="#exercise-2-semi-guided-propensity-score-balance-check" id="toc-exercise-2-semi-guided-propensity-score-balance-check" class="nav-link" data-scroll-target="#exercise-2-semi-guided-propensity-score-balance-check"><span class="header-section-number">17.8.2</span> Exercise 2 (Semi-guided): Propensity Score Balance Check</a></li>
+  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">17.8.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
-  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">24.9</span> Comprehension Check</a></li>
-  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">24.10</span> How to Report</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">24.11</span> Further Reading</a></li>
+  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">17.9</span> Comprehension Check</a></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">17.10</span> How to Report</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">17.11</span> Further Reading</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/survival-and-time-to-event.html">Part 5: Advanced Methods</a></li><li class="breadcrumb-item"><a href="../sessions/causal-inference.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Causal Inference</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/survival-and-time-to-event.html">Part 3: Advanced Methods</a></li><li class="breadcrumb-item"><a href="../sessions/causal-inference.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Causal Inference</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Causal Inference</span></h1>
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Causal Inference</span></h1>
 </div>
 
 
@@ -502,14 +441,14 @@ window.Quarto = {
 </header>
 
 
-<section id="sec-causal-inference" class="level2 callout-tip" data-number="24.1">
-<h2 class="callout-tip anchored" data-number="24.1" data-anchor-id="sec-causal-inference"><span class="header-section-number">24.1</span> When Do You Use This?</h2>
+<section id="sec-causal-inference" class="level2 callout-tip" data-number="17.1">
+<h2 class="callout-tip anchored" data-number="17.1" data-anchor-id="sec-causal-inference"><span class="header-section-number">17.1</span> When Do You Use This?</h2>
 <blockquote class="blockquote">
-<p>You have found a statistical association between an exposure and an outcome, but associations can arise from confounding, reverse causation, or selection bias rather than a true causal effect. Causal inference provides the framework for deciding whether an observed association reflects a genuine causal relationship, what “adjusting for confounders” really means, and why adjusting for the wrong variables can make things <em>worse</em> rather than better. For example: patients who take aspirin have lower bilirubin � but does aspirin reduce bilirubin, or do healthier patients simply take aspirin more often?</p>
+<p>You have found a statistical association between an exposure and an outcome, but associations can arise from confounding, reverse causation, or selection bias rather than a true causal effect. Causal inference provides the framework for deciding whether an observed association reflects a genuine causal relationship, what “adjusting for confounders” really means, and why adjusting for the wrong variables can make things <em>worse</em> rather than better. For example: patients who take aspirin have lower bilirubin, but does aspirin reduce bilirubin, or do healthier patients simply take aspirin more often?</p>
 </blockquote>
 </section>
-<section id="learning-objectives" class="level2" data-number="24.2">
-<h2 data-number="24.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">24.2</span> Learning Objectives</h2>
+<section id="learning-objectives" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">17.2</span> Learning Objectives</h2>
 <p>After completing this session you will be able to:</p>
 <ul>
 <li>Distinguish association from causation and explain why regression alone cannot establish causation</li>
@@ -519,20 +458,20 @@ window.Quarto = {
 <li>Recognise and avoid collider bias and mediation bias</li>
 </ul>
 </section>
-<section id="background-why-associations-are-not-causes" class="level2" data-number="24.3">
-<h2 data-number="24.3" class="anchored" data-anchor-id="background-why-associations-are-not-causes"><span class="header-section-number">24.3</span> Background: Why Associations Are Not Causes</h2>
-<section id="potential-outcomes-framework" class="level3" data-number="24.3.1">
-<h3 data-number="24.3.1" class="anchored" data-anchor-id="potential-outcomes-framework"><span class="header-section-number">24.3.1</span> Potential Outcomes Framework</h3>
+<section id="background-why-associations-are-not-causes" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="background-why-associations-are-not-causes"><span class="header-section-number">17.3</span> Background: Why Associations Are Not Causes</h2>
+<section id="potential-outcomes-framework" class="level3" data-number="17.3.1">
+<h3 data-number="17.3.1" class="anchored" data-anchor-id="potential-outcomes-framework"><span class="header-section-number">17.3.1</span> Potential Outcomes Framework</h3>
 <p>For each individual <span class="math inline">\(i\)</span>, define: - <span class="math inline">\(Y_i(1)\)</span>: the outcome if they receive treatment - <span class="math inline">\(Y_i(0)\)</span>: the outcome if they do not</p>
 <p>The <strong>individual causal effect</strong> is <span class="math inline">\(Y_i(1) - Y_i(0)\)</span>, but we can only ever observe one of these (the <strong>fundamental problem of causal inference</strong>). We estimate the <strong>average treatment effect (ATE)</strong>:</p>
 <p><span class="math display">\[ATE = E[Y(1) - Y(0)]\]</span></p>
-<p>In an RCT, randomisation ensures that the treated and untreated groups have the same distribution of potential confounders, so the observed difference in means estimates the ATE. In observational data, we must adjust for confounders ? but we need to know <em>which</em> variables to adjust for.</p>
+<p>In an RCT, randomisation ensures that the treated and untreated groups have the same distribution of potential confounders, so the observed difference in means estimates the ATE. In observational data, we must adjust for confounders, but we need to know <em>which</em> variables to adjust for.</p>
 </section>
-<section id="directed-acyclic-graphs-dags" class="level3" data-number="24.3.2">
-<h3 data-number="24.3.2" class="anchored" data-anchor-id="directed-acyclic-graphs-dags"><span class="header-section-number">24.3.2</span> Directed Acyclic Graphs (DAGs)</h3>
+<section id="directed-acyclic-graphs-dags" class="level3" data-number="17.3.2">
+<h3 data-number="17.3.2" class="anchored" data-anchor-id="directed-acyclic-graphs-dags"><span class="header-section-number">17.3.2</span> Directed Acyclic Graphs (DAGs)</h3>
 <p>A DAG encodes the investigator’s causal assumptions as a graph where arrows represent direct causal effects and the absence of an arrow represents the assumption of no direct effect.</p>
 <p><strong>Three key structures:</strong></p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 42%">
 <col style="width: 34%">
@@ -559,19 +498,19 @@ window.Quarto = {
 <tr class="odd">
 <td><strong>Collider</strong></td>
 <td><span class="math inline">\(X \rightarrow C \leftarrow Y\)</span></td>
-<td>Do <em>not</em> adjust for <span class="math inline">\(C\)</span> ? this <em>opens</em> a path and introduces bias</td>
+<td>Do <em>not</em> adjust for <span class="math inline">\(C\)</span> - this <em>opens</em> a path and introduces bias</td>
 </tr>
 </tbody>
 </table>
 </section>
 </section>
-<section id="example-1-drawing-a-dag-for-pbc" class="level2" data-number="24.4">
-<h2 data-number="24.4" class="anchored" data-anchor-id="example-1-drawing-a-dag-for-pbc"><span class="header-section-number">24.4</span> Example 1: Drawing a DAG for PBC</h2>
-<section id="the-research-question" class="level3" data-number="24.4.1">
-<h3 data-number="24.4.1" class="anchored" data-anchor-id="the-research-question"><span class="header-section-number">24.4.1</span> The Research Question</h3>
+<section id="example-1-drawing-a-dag-for-pbc" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="example-1-drawing-a-dag-for-pbc"><span class="header-section-number">17.4</span> Example 1: Drawing a DAG for PBC</h2>
+<section id="the-research-question" class="level3" data-number="17.4.1">
+<h3 data-number="17.4.1" class="anchored" data-anchor-id="the-research-question"><span class="header-section-number">17.4.1</span> The Research Question</h3>
 <p>Does bilirubin causally affect albumin in PBC patients, or is the association confounded by disease severity (stage)?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dag <span class="ot">&lt;-</span> dagitty<span class="sc">::</span><span class="fu">dagitty</span>(<span class="st">'dag {</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dag <span class="ot">&lt;-</span> dagitty<span class="sc">::</span><span class="fu">dagitty</span>(<span class="st">'dag {</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="st">  bili    -&gt; albumin</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="st">  stage   -&gt; bili</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">  stage   -&gt; albumin</span></span>
@@ -586,7 +525,7 @@ window.Quarto = {
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>ggdag<span class="sc">::</span><span class="fu">ggdag</span>(dag, <span class="at">layout =</span> <span class="st">"auto"</span>) <span class="sc">+</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dag</span>() <span class="sc">+</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"DAG: Bilirubin ? Albumin in PBC"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"DAG: Bilirubin - Albumin in PBC"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -596,38 +535,38 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="identifying-the-adjustment-set" class="level3" data-number="24.4.2">
-<h3 data-number="24.4.2" class="anchored" data-anchor-id="identifying-the-adjustment-set"><span class="header-section-number">24.4.2</span> Identifying the Adjustment Set</h3>
+<section id="identifying-the-adjustment-set" class="level3" data-number="17.4.2">
+<h3 data-number="17.4.2" class="anchored" data-anchor-id="identifying-the-adjustment-set"><span class="header-section-number">17.4.2</span> Identifying the Adjustment Set</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What must we adjust for to estimate the causal effect of bili on albumin?</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dagitty<span class="sc">::</span><span class="fu">adjustmentSets</span>(dag, <span class="at">exposure =</span> <span class="st">"bili"</span>, <span class="at">outcome =</span> <span class="st">"albumin"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What must we adjust for to estimate the causal effect of bili on albumin?</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dagitty<span class="sc">::</span><span class="fu">adjustmentSets</span>(dag, <span class="at">exposure =</span> <span class="st">"bili"</span>, <span class="at">outcome =</span> <span class="st">"albumin"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{ stage }</code></pre>
 </div>
 </div>
-<p>The backdoor criterion says: block all non-causal paths from <code>bili</code> to <code>albumin</code>. In this DAG, <code>stage</code> is a common cause (confounder) ? it opens a backdoor path. Adjusting for <code>stage</code> closes this path.</p>
+<p>The backdoor criterion says: block all non-causal paths from <code>bili</code> to <code>albumin</code>. In this DAG, <code>stage</code> is a common cause (confounder) - it opens a backdoor path. Adjusting for <code>stage</code> closes this path.</p>
 </section>
-<section id="what-if-we-adjust-for-a-mediator" class="level3" data-number="24.4.3">
-<h3 data-number="24.4.3" class="anchored" data-anchor-id="what-if-we-adjust-for-a-mediator"><span class="header-section-number">24.4.3</span> What If We Adjust for a Mediator?</h3>
+<section id="what-if-we-adjust-for-a-mediator" class="level3" data-number="17.4.3">
+<h3 data-number="17.4.3" class="anchored" data-anchor-id="what-if-we-adjust-for-a-mediator"><span class="header-section-number">17.4.3</span> What If We Adjust for a Mediator?</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dag2 <span class="ot">&lt;-</span> dagitty<span class="sc">::</span><span class="fu">dagitty</span>(<span class="st">'dag {</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dag2 <span class="ot">&lt;-</span> dagitty<span class="sc">::</span><span class="fu">dagitty</span>(<span class="st">'dag {</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">  bili    -&gt; protime</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">  protime -&gt; albumin</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">  bili    -&gt; albumin</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>dagitty<span class="sc">::</span><span class="fu">adjustmentSets</span>(dag2, <span class="at">exposure =</span> <span class="st">"bili"</span>, <span class="at">outcome =</span> <span class="st">"albumin"</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">effect =</span> <span class="st">"total"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">effect =</span> <span class="st">"total"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> {}</code></pre>
 </div>
 </div>
-<p>If <code>protime</code> is on the causal pathway from bilirubin to albumin (a mediator), adjusting for it blocks part of the effect of bilirubin. We would then estimate only the <em>direct</em> effect ? not the total effect. Be explicit about whether you want total or direct effects.</p>
+<p>If <code>protime</code> is on the causal pathway from bilirubin to albumin (a mediator), adjusting for it blocks part of the effect of bilirubin. We would then estimate only the <em>direct</em> effect, not the total effect. Be explicit about whether you want total or direct effects.</p>
 </section>
-<section id="collider-bias-a-demonstration" class="level3" data-number="24.4.4">
-<h3 data-number="24.4.4" class="anchored" data-anchor-id="collider-bias-a-demonstration"><span class="header-section-number">24.4.4</span> Collider Bias: A Demonstration</h3>
+<section id="collider-bias-a-demonstration" class="level3" data-number="17.4.4">
+<h3 data-number="17.4.4" class="anchored" data-anchor-id="collider-bias-a-demonstration"><span class="header-section-number">17.4.4</span> Collider Bias: A Demonstration</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate: exercise and diet both independently affect BMI</span></span>
@@ -639,27 +578,27 @@ window.Quarto = {
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Unadjusted: no correlation between exercise and diet</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"r(exercise, diet) ="</span>, <span class="fu">round</span>(<span class="fu">cor</span>(df<span class="sc">$</span>exercise, df<span class="sc">$</span>diet), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"r(exercise, diet) ="</span>, <span class="fu">round</span>(<span class="fu">cor</span>(df<span class="sc">$</span>exercise, df<span class="sc">$</span>diet), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>r(exercise, diet) = -0.014 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conditional on BMI (a collider): spurious negative correlation</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conditional on BMI (a collider): spurious negative correlation</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"r(exercise, diet | BMI quintile 1) ="</span>,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">cor</span>(df<span class="sc">$</span>exercise[df<span class="sc">$</span>bmi <span class="sc">&lt;</span> <span class="fu">quantile</span>(df<span class="sc">$</span>bmi, <span class="fl">0.2</span>)],</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>              df<span class="sc">$</span>diet[df<span class="sc">$</span>bmi <span class="sc">&lt;</span> <span class="fu">quantile</span>(df<span class="sc">$</span>bmi, <span class="fl">0.2</span>)]), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>              df<span class="sc">$</span>diet[df<span class="sc">$</span>bmi <span class="sc">&lt;</span> <span class="fu">quantile</span>(df<span class="sc">$</span>bmi, <span class="fl">0.2</span>)]), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>r(exercise, diet | BMI quintile 1) = -0.384 </code></pre>
 </div>
 </div>
-<p>Restricting to low BMI (conditioning on the collider) creates a spurious negative correlation between exercise and diet. This is <strong>collider bias</strong> ? conditioning on a common <em>effect</em> of two variables induces an association between them.</p>
-<p><strong>Practical example:</strong> In a study of ICU patients, restricting the sample to those admitted to ICU (a collider of severe illness and random events) can make risk factors appear protective ? this is Berkson’s paradox.</p>
+<p>Restricting to low BMI (conditioning on the collider) creates a spurious negative correlation between exercise and diet. This is <strong>collider bias</strong> - conditioning on a common <em>effect</em> of two variables induces an association between them.</p>
+<p><strong>Practical example:</strong> In a study of ICU patients, restricting the sample to those admitted to ICU (a collider of severe illness and random events) can make risk factors appear protective; this is Berkson’s paradox.</p>
 </section>
 </section>
-<section id="example-2-propensity-score-analysis" class="level2" data-number="24.5">
-<h2 data-number="24.5" class="anchored" data-anchor-id="example-2-propensity-score-analysis"><span class="header-section-number">24.5</span> Example 2: Propensity Score Analysis</h2>
+<section id="example-2-propensity-score-analysis" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="example-2-propensity-score-analysis"><span class="header-section-number">17.5</span> Example 2: Propensity Score Analysis</h2>
 <p>When randomisation is not possible, propensity score methods attempt to balance confounders between treatment groups.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(stage)) <span class="sc">%&gt;%</span></span>
@@ -683,7 +622,7 @@ window.Quarto = {
 <span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
 <span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Propensity score overlap by treatment group"</span>,</span>
 <span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Propensity score (P(treatment))"</span>, <span class="at">y =</span> <span class="st">"Count"</span>, <span class="at">fill =</span> <span class="st">"Treatment"</span>) <span class="sc">+</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -692,9 +631,9 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Good overlap (positivity) is required for propensity score methods to work. If the groups are completely separated on the propensity score, there is no common support ? the causal question cannot be answered from these data alone.</p>
+<p>Good overlap (positivity) is required for propensity score methods to work. If the groups are completely separated on the propensity score, there is no common support; the causal question cannot be answered from these data alone.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inverse probability of treatment weighting (IPTW)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inverse probability of treatment weighting (IPTW)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ipw =</span> <span class="fu">case_when</span>(</span>
@@ -705,7 +644,7 @@ window.Quarto = {
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Weighted treatment-outcome association</span></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(albumin <span class="sc">~</span> trt_d, <span class="at">data =</span> pbc, <span class="at">weights =</span> ipw) <span class="sc">%&gt;%</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term        estimate std.error statistic   p.value conf.low conf.high
@@ -716,23 +655,23 @@ window.Quarto = {
 </div>
 <p>IPTW creates a pseudo-population in which treatment assignment is independent of confounders. The weighted outcome difference estimates the ATE.</p>
 </section>
-<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="24.6">
-<h2 class="callout-note anchored" data-number="24.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">24.6</span> Where to Find Data Like This</h2>
-<p><strong><code>survival::pbc</code>:</strong> Real RCT data ? bilirubin, albumin, stage, prothrombin time ? ideal for DAG-based confounding analysis.</p>
-<p><strong><code>dagitty.net</code>:</strong> Free online DAG tool ? draw, encode, and query adjustment sets without R.</p>
+<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="17.6">
+<h2 class="callout-note anchored" data-number="17.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">17.6</span> Where to Find Data Like This</h2>
+<p><strong><code>survival::pbc</code>:</strong> Real RCT data: bilirubin, albumin, stage, prothrombin time, ideal for DAG-based confounding analysis.</p>
+<p><strong><code>dagitty.net</code>:</strong> Free online DAG tool: draw, encode, and query adjustment sets without R.</p>
 <p><strong><code>ggdag</code> and <code>dagitty</code> R packages:</strong> Programmatic DAG construction, visualisation, and adjustment set identification.</p>
 </section>
-<section id="what-can-go-wrong" class="level2 callout-warning" data-number="24.7">
-<h2 class="callout-warning anchored" data-number="24.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">24.7</span> What Can Go Wrong</h2>
-<p><strong>Adjusting for everything</strong> Adding all available variables to a regression model is not “conservative” ? it can introduce collider bias if any of those variables is a collider. Always draw a DAG before deciding what to adjust for.</p>
+<section id="what-can-go-wrong" class="level2 callout-warning" data-number="17.7">
+<h2 class="callout-warning anchored" data-number="17.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">17.7</span> What Can Go Wrong</h2>
+<p><strong>Adjusting for everything</strong> Adding all available variables to a regression model is not “conservative” - it can introduce collider bias if any of those variables is a collider. Always draw a DAG before deciding what to adjust for.</p>
 <p><strong>Over-adjusting for mediators</strong> If you adjust for a mediator, you estimate the direct effect of exposure on outcome. This is only correct if your research question specifically asks about the direct effect. For most aetiological questions, you want the total effect, which means <em>not</em> adjusting for mediators.</p>
 <p><strong>Confusing statistical control with causal identification</strong> A regression coefficient “adjusted for X” does not automatically equal the causal effect. The causal interpretation requires the DAG-based assumptions to hold: no unmeasured confounders, correct functional form, no measurement error in confounders.</p>
 <p><strong>Positivity violations in propensity score methods</strong> If some patient subgroups always or never receive treatment (deterministic treatment), inverse probability weights become extreme or undefined. Trim weights or restrict the analysis to the region of common support.</p>
 </section>
-<section id="exercises" class="level2" data-number="24.8">
-<h2 data-number="24.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">24.8</span> Exercises</h2>
-<section id="exercise-1-guided-draw-and-query-a-dag" class="level3" data-number="24.8.1">
-<h3 data-number="24.8.1" class="anchored" data-anchor-id="exercise-1-guided-draw-and-query-a-dag"><span class="header-section-number">24.8.1</span> Exercise 1 (Guided): Draw and Query a DAG</h3>
+<section id="exercises" class="level2" data-number="17.8">
+<h2 data-number="17.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">17.8</span> Exercises</h2>
+<section id="exercise-1-guided-draw-and-query-a-dag" class="level3" data-number="17.8.1">
+<h3 data-number="17.8.1" class="anchored" data-anchor-id="exercise-1-guided-draw-and-query-a-dag"><span class="header-section-number">17.8.1</span> Exercise 1 (Guided): Draw and Query a DAG</h3>
 <p>Consider this question: “Does albumin mediate the effect of disease stage on mortality in PBC?”</p>
 <ol type="1">
 <li>Draw a DAG with nodes: <code>stage</code>, <code>albumin</code>, <code>bili</code>, <code>died</code>. Include arrows based on your biological knowledge.</li>
@@ -740,19 +679,19 @@ window.Quarto = {
 <li>Is <code>albumin</code> a mediator, confounder, or collider in this DAG?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 1: Solution
+<span class="screen-reader-only">Tip</span>Exercise 1: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dag_ex <span class="ot">&lt;-</span> dagitty<span class="sc">::</span><span class="fu">dagitty</span>(<span class="st">'dag {</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dag_ex <span class="ot">&lt;-</span> dagitty<span class="sc">::</span><span class="fu">dagitty</span>(<span class="st">'dag {</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st">  stage   -&gt; albumin</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">  stage   -&gt; bili</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="st">  stage   -&gt; died</span></span>
@@ -762,54 +701,54 @@ Exercise 1: Solution
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>dagitty<span class="sc">::</span><span class="fu">adjustmentSets</span>(dag_ex, <span class="at">exposure =</span> <span class="st">"stage"</span>, <span class="at">outcome =</span> <span class="st">"died"</span>,</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">effect =</span> <span class="st">"total"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">effect =</span> <span class="st">"total"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> {}</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># albumin is a mediator (stage -&gt; albumin -&gt; died)</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># adjusting for albumin would block part of the total effect</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># albumin is a mediator (stage -&gt; albumin -&gt; died)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># adjusting for albumin would block part of the total effect</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="exercise-2-semi-guided-propensity-score-balance-check" class="level3" data-number="24.8.2">
-<h3 data-number="24.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-propensity-score-balance-check"><span class="header-section-number">24.8.2</span> Exercise 2 (Semi-guided): Propensity Score Balance Check</h3>
+<section id="exercise-2-semi-guided-propensity-score-balance-check" class="level3" data-number="17.8.2">
+<h3 data-number="17.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-propensity-score-balance-check"><span class="header-section-number">17.8.2</span> Exercise 2 (Semi-guided): Propensity Score Balance Check</h3>
 <p>Using the <code>pbc</code> dataset and the propensity score model fitted above:</p>
 <ol type="1">
 <li>Check covariate balance before and after weighting: compare mean <code>log_bili</code>, <code>albumin</code>, <code>log_proto</code> between treatment groups in the raw data and in the IPTW-weighted data.</li>
 <li>Is balance achieved? What is the standardised mean difference for <code>log_bili</code> before and after weighting?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 2: Solution
+<span class="screen-reader-only">Tip</span>Exercise 2: Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Raw SMD</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Raw SMD</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>smd <span class="ot">&lt;-</span> <span class="cf">function</span>(x, treat) {</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> <span class="fu">mean</span>(x[treat <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">-</span> <span class="fu">mean</span>(x[treat <span class="sc">==</span> <span class="dv">0</span>])</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((<span class="fu">var</span>(x[treat <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">+</span> <span class="fu">var</span>(x[treat <span class="sc">==</span> <span class="dv">0</span>])) <span class="sc">/</span> <span class="dv">2</span>)</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  d <span class="sc">/</span> s</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Raw SMD log_bili:"</span>, <span class="fu">round</span>(<span class="fu">smd</span>(pbc<span class="sc">$</span>log_bili, pbc<span class="sc">$</span>trt_d), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Raw SMD log_bili:"</span>, <span class="fu">round</span>(<span class="fu">smd</span>(pbc<span class="sc">$</span>log_bili, pbc<span class="sc">$</span>trt_d), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Raw SMD log_bili: -0.074 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weighted SMD (using IPTW)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weighted SMD (using IPTW)</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>wt_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x, w) <span class="fu">sum</span>(x <span class="sc">*</span> w) <span class="sc">/</span> <span class="fu">sum</span>(w)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>w1 <span class="ot">&lt;-</span> pbc<span class="sc">$</span>ipw[pbc<span class="sc">$</span>trt_d <span class="sc">==</span> <span class="dv">1</span>]; x1 <span class="ot">&lt;-</span> pbc<span class="sc">$</span>log_bili[pbc<span class="sc">$</span>trt_d <span class="sc">==</span> <span class="dv">1</span>]</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>w0 <span class="ot">&lt;-</span> pbc<span class="sc">$</span>ipw[pbc<span class="sc">$</span>trt_d <span class="sc">==</span> <span class="dv">0</span>]; x0 <span class="ot">&lt;-</span> pbc<span class="sc">$</span>log_bili[pbc<span class="sc">$</span>trt_d <span class="sc">==</span> <span class="dv">0</span>]</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Weighted SMD log_bili:"</span>, <span class="fu">round</span>((<span class="fu">wt_mean</span>(x1, w1) <span class="sc">-</span> <span class="fu">wt_mean</span>(x0, w0)) <span class="sc">/</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>((<span class="fu">var</span>(x1) <span class="sc">+</span> <span class="fu">var</span>(x0)) <span class="sc">/</span> <span class="dv">2</span>), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>((<span class="fu">var</span>(x1) <span class="sc">+</span> <span class="fu">var</span>(x0)) <span class="sc">/</span> <span class="dv">2</span>), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Weighted SMD log_bili: -0.011 </code></pre>
 </div>
@@ -818,13 +757,13 @@ Exercise 2: Solution
 </div>
 </div>
 </section>
-<section id="exercise-3-open-ended" class="level3" data-number="24.8.3">
-<h3 data-number="24.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">24.8.3</span> Exercise 3 (Open-ended)</h3>
+<section id="exercise-3-open-ended" class="level3" data-number="17.8.3">
+<h3 data-number="17.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">17.8.3</span> Exercise 3 (Open-ended)</h3>
 <p>For your own observational research question: 1. Draw a DAG encoding your assumptions about the data-generating process. 2. Use <code>dagitty::adjustmentSets()</code> to identify the minimal sufficient adjustment set. 3. Check whether any of your standard covariates might be colliders or mediators. 4. Write a Causal Assumptions section for your Methods, describing the DAG and justifying each arrow.</p>
 </section>
 </section>
-<section id="comprehension-check" class="level2" data-number="24.9">
-<h2 data-number="24.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">24.9</span> Comprehension Check</h2>
+<section id="comprehension-check" class="level2" data-number="17.9">
+<h2 data-number="17.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">17.9</span> Comprehension Check</h2>
 <ol type="1">
 <li>You adjust for 15 variables in a regression “to be safe.” Why might this make your causal estimate <em>worse</em>?</li>
 <li>You restrict your analysis to hospitalised patients to reduce confounding by severity. A colleague says this introduces collider bias. Explain why.</li>
@@ -833,37 +772,37 @@ Exercise 2: Solution
 <li>The treatment effect from an RCT is -0.3 g/dL for albumin. Your observational IPTW estimate is -0.05 g/dL. What might explain the discrepancy?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Answers
+<span class="screen-reader-only">Note</span>Answers
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Adjusting for a collider opens a backdoor path that was previously closed, inducing a spurious association. Adjusting for a mediator removes part of the causal effect, biasing toward the null. Without a DAG, you cannot know whether your covariates are confounders, mediators, or colliders ? adding all of them can introduce more bias than it removes.</li>
+<li>Adjusting for a collider opens a backdoor path that was previously closed, inducing a spurious association. Adjusting for a mediator removes part of the causal effect, biasing toward the null. Without a DAG, you cannot know whether your covariates are confounders, mediators, or colliders; adding all of them can introduce more bias than it removes.</li>
 <li>Hospitalisation is a common effect of the exposure (e.g., bilirubin) and other causes. Restricting to hospitalised patients conditions on a collider, creating a spurious association between bilirubin and those other causes within the hospitalised sample. This is Berkson’s paradox.</li>
-<li>No ? if albumin is a mediator on the causal pathway from bilirubin to mortality, adjusting for it blocks that pathway and estimates only the <em>direct</em> effect of bilirubin not mediated through albumin. To estimate the total causal effect of bilirubin (including the pathway through albumin), you should not adjust for albumin.</li>
+<li>No; if albumin is a mediator on the causal pathway from bilirubin to mortality, adjusting for it blocks that pathway and estimates only the <em>direct</em> effect of bilirubin not mediated through albumin. To estimate the total causal effect of bilirubin (including the pathway through albumin), you should not adjust for albumin.</li>
 <li>A high AUC (0.95) for the propensity score model means treatment and control groups are almost perfectly separable based on covariates. This is actually problematic for IPTW: patients near the boundary of the score distribution will have extreme weights (very high or very low), causing instability and high variance. Good overlap is signalled by a moderate AUC (0.6?0.8). With AUC = 0.95 you should check for positivity violations and consider weight trimming.</li>
-<li>Several explanations: (1) Unmeasured confounding ? IPTW only adjusts for measured covariates; if key confounders are unmeasured, the observational estimate is biased. (2) Selection bias ? the RCT may have enrolled a different population. (3) Non-adherence in the RCT ? the -0.3 is an intention-to-treat estimate, potentially diluted by non-compliance. (4) Positivity violations in the IPTW analysis leading to biased estimation. Comparing RCT and observational estimates is a useful internal validity check.</li>
+<li>Several explanations: (1) Unmeasured confounding: IPTW only adjusts for measured covariates; if key confounders are unmeasured, the observational estimate is biased. (2) Selection bias - the RCT may have enrolled a different population. (3) Non-adherence in the RCT - the -0.3 is an intention-to-treat estimate, potentially diluted by non-compliance. (4) Positivity violations in the IPTW analysis leading to biased estimation. Comparing RCT and observational estimates is a useful internal validity check.</li>
 </ol>
 </div>
 </div>
 </div>
 </section>
-<section id="how-to-report" class="level2" data-number="24.10">
-<h2 data-number="24.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">24.10</span> How to Report</h2>
+<section id="how-to-report" class="level2" data-number="17.10">
+<h2 data-number="17.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">17.10</span> How to Report</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Reporting a Causal Analysis
+<span class="screen-reader-only">Note</span>Reporting a Causal Analysis
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -873,20 +812,20 @@ Reporting a Causal Analysis
 </blockquote>
 <p><strong>In a Results section:</strong></p>
 <blockquote class="blockquote">
-<p>“After adjustment for [list covariates from DAG], the association between [exposure] and [outcome] was [direction and magnitude]: adjusted OR = X.XX (95% CI: L.LL–U.UU, p = .YYY). The unadjusted association was OR = X.XX, suggesting [direction] confounding by [confounder(s)].”</p>
+<p>“After adjustment for [list covariates from DAG], the association between [exposure] and [outcome] was [direction and magnitude]: adjusted OR = X.XX (95% CI: L.LL-U.UU, p = .YYY). The unadjusted association was OR = X.XX, suggesting [direction] confounding by [confounder(s)].”</p>
 </blockquote>
 <p><strong>Always report:</strong> - What confounders were adjusted for, and how they were identified (ideally via a DAG) - Both unadjusted and adjusted estimates (so readers can see the direction of confounding) - That mediators and colliders were <em>not</em> adjusted for (if relevant)</p>
-<p><strong>Common reporting errors:</strong> - Adjusting for all available covariates regardless of causal structure — this can introduce collider bias - Adjusting for mediators on the causal path — this blocks the effect you are trying to estimate - Describing a result as “causal” when it is observational without instrumental variable or experimental design</p>
+<p><strong>Common reporting errors:</strong> - Adjusting for all available covariates regardless of causal structure - this can introduce collider bias - Adjusting for mediators on the causal path - this blocks the effect you are trying to estimate - Describing a result as “causal” when it is observational without instrumental variable or experimental design</p>
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="24.11">
-<h2 data-number="24.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">24.11</span> Further Reading</h2>
+<section id="further-reading" class="level2" data-number="17.11">
+<h2 data-number="17.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">17.11</span> Further Reading</h2>
 <ul>
 <li><span class="citation" data-cites="Hernan-2023">Hernan and Robins (<a href="#ref-Hernan-2023" role="doc-biblioref">2023</a>)</span> — <em>Causal Inference: What If</em> (free PDF: causalinferencebook.net)</li>
 <li><span class="citation" data-cites="Pearl-2009">Pearl (<a href="#ref-Pearl-2009" role="doc-biblioref">2009</a>)</span> — <em>Causality: Models, Reasoning, and Inference</em></li>
 <li><code>dagitty</code> package and website (dagitty.net) for interactive DAG construction</li>
-<li><span class="citation" data-cites="VanderWeele-2015">VanderWeele (<a href="#ref-VanderWeele-2015" role="doc-biblioref">2015</a>)</span> — <em>Explanation in Causal Inference</em> ? mediation analysis</li>
+<li><span class="citation" data-cites="VanderWeele-2015">VanderWeele (<a href="#ref-VanderWeele-2015" role="doc-biblioref">2015</a>)</span> — <em>Explanation in Causal Inference</em> - mediation analysis</li>
 </ul>
 
 
@@ -905,43 +844,58 @@ VanderWeele, Tyler J. 2015. <em>Explanation in Causal Inference: Methods for Med
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
@@ -949,162 +903,184 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
       return codeEl.innerText;
     }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1112,194 +1088,170 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/survival-and-time-to-event.html" class="pagination-link  aria-label=" &lt;span="" analysis="" and="" time-to-event="" data&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Survival Analysis and Time-to-Event Data</span></span>
+      <a href="../sessions/survival-and-time-to-event.html" class="pagination-link" aria-label="Survival Analysis and Time-to-Event Data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Survival Analysis and Time-to-Event Data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/mendelian-randomization.html" class="pagination-link" aria-label="<span class='chapter-number'>25</span>&nbsp; <span class='chapter-title'>Mendelian Randomisation</span>">
-        <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/mendelian-randomization.html" class="pagination-link" aria-label="Mendelian Randomisation">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Mendelian Randomisation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
