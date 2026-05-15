@@ -138,8 +138,6 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 
 BiocManager::install(c(
   "limma",          # differential expression (omics-statistics session)
-  "clusterProfiler", # pathway analysis (omics-statistics session)
-  "org.Mm.eg.db",   # mouse gene annotations (omics-statistics session)
   "GEOquery"        # fetching GEO datasets (advanced-visualization session)
 ))
 ```
@@ -219,7 +217,7 @@ if (length(missing) == 0) {
 | `AER` | Mendelian Randomization |
 | `TwoSampleMR` | Mendelian Randomization |
 | `pwr` | Power and Sample Size |
-| `limma`, `clusterProfiler`, `org.Mm.eg.db` | Omics Statistics |
+| `limma` (pathway analysis optional: `clusterProfiler`, `org.Mm.eg.db`) | Omics Statistics |
 | `GEOquery` | Advanced Visualization |
 | `nhanesA` | Descriptive Statistics; Tidy Data; Explore Clinical Data |
 | `palmerpenguins` | Multiple sessions (practice data) |

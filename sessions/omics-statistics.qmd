@@ -167,26 +167,33 @@ top_genes %>%
 Once you have a gene list, the next question is: which biological pathways are enriched?
 
 ```{r enrichment}
-#| eval: false
-library(clusterProfiler)
-library(org.Mm.eg.db)   # mouse gene annotation
-
-# Significant DE genes
-sig_genes <- top_genes %>%
-  filter(adj.P.Val < 0.05, logFC > 0.5) %>%
-  pull(gene)
-
-# Over-representation analysis (ORA) using Gene Ontology
-ego <- enrichGO(
-  gene         = sig_genes,
-  universe     = top_genes$gene,
-  OrgDb        = org.Mm.eg.db,
-  keyType      = "SYMBOL",
-  ont          = "BP",         # Biological Process
-  pAdjustMethod = "BH",
-  qvalueCutoff  = 0.05
-)
 dotplot(ego, showCategory = 15)
+#| eval: true
+has_cluster_pkgs <- requireNamespace("clusterProfiler", quietly = TRUE) && requireNamespace("org.Mm.eg.db", quietly = TRUE)
+
+if (!has_cluster_pkgs) {
+  message("Skipping live pathway enrichment: 'clusterProfiler' and/or 'org.Mm.eg.db' not installed. See the Setup page for optional installation instructions.")
+} else {
+  library(clusterProfiler)
+  library(org.Mm.eg.db)   # mouse gene annotation
+
+  # Significant DE genes
+  sig_genes <- top_genes %>%
+    filter(adj.P.Val < 0.05, logFC > 0.5) %>%
+    pull(gene)
+
+  # Over-representation analysis (ORA) using Gene Ontology
+  ego <- enrichGO(
+    gene         = sig_genes,
+    universe     = top_genes$gene,
+    OrgDb        = org.Mm.eg.db,
+    keyType      = "SYMBOL",
+    ont          = "BP",         # Biological Process
+    pAdjustMethod = "BH",
+    qvalueCutoff  = 0.05
+  )
+  dotplot(ego, showCategory = 15)
+}
 ```
 
 **Gene Set Enrichment Analysis (GSEA):** Instead of a binary DE/non-DE split, GSEA uses the full ranked gene list to test whether genes in a pathway tend to be up- or down-regulated.
