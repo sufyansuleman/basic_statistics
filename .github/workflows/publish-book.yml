@@ -21,14 +21,14 @@ jobs:
           r-version: '4.4'
 
       - name: Install Quarto
-        uses: quarto-dev/quarto-actions@v2
+        uses: quarto-dev/quarto-actions/setup@v2
         with:
-          command: --version
+          version: release
 
       - name: Render Quarto site
-        uses: quarto-dev/quarto-actions@v2
+        uses: quarto-dev/quarto-actions/render@v2
         with:
-          command: render
+          path: .
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
