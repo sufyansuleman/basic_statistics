@@ -150,10 +150,7 @@ All sessions use direct `library()` calls — no `source()` calls to `R/` helper
 - **Packages:** `tidyverse`, `broom`, `AER`, `TwoSampleMR` (eval: false)
 - **Coverage:** IV assumptions, Wald ratio, 2SLS, two-sample MR, MR-Egger, pleiotropy
 
-### 25. omics-statistics.qmd (`#sec-omics`)
-- **Datasets:** simulated gene expression matrix (5,000 genes × 20 samples)
-- **Packages:** `tidyverse`, `limma` (pathway analysis optional)
-- **Coverage:** multiple testing (FDR/BH), limma eBayes, volcano plots, pathway enrichment
+<!-- Omics session removed -->
 
 ---
 
@@ -201,8 +198,7 @@ install.packages(c("mice", "naniar"))
 # Omics
 install.packages(c("palmerpenguins", "boot"))
 if (!requireNamespace("BiocManager")) install.packages("BiocManager")
-BiocManager::install(c("limma"))
-
+## Note: omics-related Bioconductor packages removed from default installs
 # Optional heavy Bioconductor packages for pathway enrichment (skip unless needed):
 # BiocManager::install(c("clusterProfiler", "org.Mm.eg.db"))
 

@@ -118,7 +118,8 @@ install.packages(c(
 #| eval: false
 # Install Bioconductor packages used in some sessions
 if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
-BiocManager::install("limma")
+## (Omics session removed)
+## Bioconductor note: advanced visualization only
 ```
 
 ::: {.callout-tip}
@@ -129,7 +130,7 @@ Run `install.packages("packagename")` individually to see the specific error mes
 
 ## Step 3: Install Bioconductor Packages
 
-Some sessions in Part 5 (Omics Statistics, Advanced Visualization) use packages from Bioconductor. Install them with:
+The Advanced Visualization session optionally uses a Bioconductor package. Install it with:
 
 ```{r}
 #| eval: false
@@ -137,7 +138,6 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 
 BiocManager::install(c(
-  "limma",          # differential expression (omics-statistics session)
   "GEOquery"        # fetching GEO datasets (advanced-visualization session)
 ))
 ```
@@ -152,7 +152,7 @@ Update all/some/none? [a/s/n]:
 :::
 
 ::: {.callout-note}
-Bioconductor packages can take 5-10 minutes to install. If you are not doing the Omics Statistics or Advanced Visualization sessions, you can skip this step.
+Bioconductor packages can take 5-10 minutes to install. If you are not doing the Advanced Visualization session, you can skip this step.
 :::
 
 
@@ -217,7 +217,6 @@ if (length(missing) == 0) {
 | `AER` | Mendelian Randomization |
 | `TwoSampleMR` | Mendelian Randomization |
 | `pwr` | Power and Sample Size |
-| `limma` (pathway analysis optional: `clusterProfiler`, `org.Mm.eg.db`) | Omics Statistics |
 | `GEOquery` | Advanced Visualization |
 | `nhanesA` | Descriptive Statistics; Tidy Data; Explore Clinical Data |
 | `palmerpenguins` | Multiple sessions (practice data) |
