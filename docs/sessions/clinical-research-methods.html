@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -331,34 +351,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#sec-clinical-methods" id="toc-sec-clinical-methods" class="nav-link active" data-scroll-target="#sec-clinical-methods"><span class="header-section-number">20.1</span> When Do You Use This?</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">20.2</span> Learning Objectives</a></li>
-  <li><a href="#background-study-design" id="toc-background-study-design" class="nav-link" data-scroll-target="#background-study-design"><span class="header-section-number">20.3</span> Background: Study Design</a>
+  <li><a href="#the-key-idea-no-analysis-can-fix-a-broken-design" id="toc-the-key-idea-no-analysis-can-fix-a-broken-design" class="nav-link" data-scroll-target="#the-key-idea-no-analysis-can-fix-a-broken-design"><span class="header-section-number">20.3</span> The Key Idea: No Analysis Can Fix a Broken Design</a></li>
+  <li><a href="#background-study-design" id="toc-background-study-design" class="nav-link" data-scroll-target="#background-study-design"><span class="header-section-number">20.4</span> Background: Study Design</a>
   <ul class="collapse">
-  <li><a href="#from-question-to-design" id="toc-from-question-to-design" class="nav-link" data-scroll-target="#from-question-to-design"><span class="header-section-number">20.3.1</span> From Question to Design</a></li>
-  <li><a href="#types-of-study-design" id="toc-types-of-study-design" class="nav-link" data-scroll-target="#types-of-study-design"><span class="header-section-number">20.3.2</span> Types of Study Design</a></li>
-  <li><a href="#hierarchy-of-evidence" id="toc-hierarchy-of-evidence" class="nav-link" data-scroll-target="#hierarchy-of-evidence"><span class="header-section-number">20.3.3</span> Hierarchy of Evidence</a></li>
+  <li><a href="#from-question-to-design" id="toc-from-question-to-design" class="nav-link" data-scroll-target="#from-question-to-design"><span class="header-section-number">20.4.1</span> From Question to Design</a></li>
+  <li><a href="#types-of-study-design" id="toc-types-of-study-design" class="nav-link" data-scroll-target="#types-of-study-design"><span class="header-section-number">20.4.2</span> Types of Study Design</a></li>
+  <li><a href="#hierarchy-of-evidence" id="toc-hierarchy-of-evidence" class="nav-link" data-scroll-target="#hierarchy-of-evidence"><span class="header-section-number">20.4.3</span> Hierarchy of Evidence</a></li>
   </ul></li>
-  <li><a href="#background-bias-in-clinical-research" id="toc-background-bias-in-clinical-research" class="nav-link" data-scroll-target="#background-bias-in-clinical-research"><span class="header-section-number">20.4</span> Background: Bias in Clinical Research</a>
+  <li><a href="#background-bias-in-clinical-research" id="toc-background-bias-in-clinical-research" class="nav-link" data-scroll-target="#background-bias-in-clinical-research"><span class="header-section-number">20.5</span> Background: Bias in Clinical Research</a>
   <ul class="collapse">
-  <li><a href="#three-core-biases" id="toc-three-core-biases" class="nav-link" data-scroll-target="#three-core-biases"><span class="header-section-number">20.4.1</span> Three Core Biases</a></li>
-  <li><a href="#the-bradford-hill-criteria" id="toc-the-bradford-hill-criteria" class="nav-link" data-scroll-target="#the-bradford-hill-criteria"><span class="header-section-number">20.4.2</span> The Bradford Hill Criteria</a></li>
+  <li><a href="#three-core-biases" id="toc-three-core-biases" class="nav-link" data-scroll-target="#three-core-biases"><span class="header-section-number">20.5.1</span> Three Core Biases</a></li>
+  <li><a href="#the-bradford-hill-criteria" id="toc-the-bradford-hill-criteria" class="nav-link" data-scroll-target="#the-bradford-hill-criteria"><span class="header-section-number">20.5.2</span> The Bradford Hill Criteria</a></li>
   </ul></li>
-  <li><a href="#example-1-table-1-and-adjusted-analysis-in-pbc" id="toc-example-1-table-1-and-adjusted-analysis-in-pbc" class="nav-link" data-scroll-target="#example-1-table-1-and-adjusted-analysis-in-pbc"><span class="header-section-number">20.5</span> Example 1: Table 1 and Adjusted Analysis in PBC</a>
+  <li><a href="#example-1-table-1-and-adjusted-analysis-in-pbc" id="toc-example-1-table-1-and-adjusted-analysis-in-pbc" class="nav-link" data-scroll-target="#example-1-table-1-and-adjusted-analysis-in-pbc"><span class="header-section-number">20.6</span> Example 1: Table 1 and Adjusted Analysis in PBC</a>
   <ul class="collapse">
-  <li><a href="#unadjusted-analysis" id="toc-unadjusted-analysis" class="nav-link" data-scroll-target="#unadjusted-analysis"><span class="header-section-number">20.5.1</span> Unadjusted Analysis</a></li>
-  <li><a href="#adjusted-analysis" id="toc-adjusted-analysis" class="nav-link" data-scroll-target="#adjusted-analysis"><span class="header-section-number">20.5.2</span> Adjusted Analysis</a></li>
+  <li><a href="#unadjusted-analysis" id="toc-unadjusted-analysis" class="nav-link" data-scroll-target="#unadjusted-analysis"><span class="header-section-number">20.6.1</span> Unadjusted Analysis</a></li>
+  <li><a href="#adjusted-analysis" id="toc-adjusted-analysis" class="nav-link" data-scroll-target="#adjusted-analysis"><span class="header-section-number">20.6.2</span> Adjusted Analysis</a></li>
   </ul></li>
-  <li><a href="#example-2-observational-study-confounding" id="toc-example-2-observational-study-confounding" class="nav-link" data-scroll-target="#example-2-observational-study-confounding"><span class="header-section-number">20.6</span> Example 2: Observational Study — Confounding</a></li>
-  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">20.7</span> Where to Find Data Like This</a></li>
-  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">20.8</span> What Can Go Wrong</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">20.9</span> Exercises</a>
+  <li><a href="#example-2-observational-study-confounding" id="toc-example-2-observational-study-confounding" class="nav-link" data-scroll-target="#example-2-observational-study-confounding"><span class="header-section-number">20.7</span> Example 2: Observational Study — Confounding</a></li>
+  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">20.8</span> Where to Find Data Like This</a></li>
+  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">20.9</span> What Can Go Wrong</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">20.10</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-guided-identify-bias" id="toc-exercise-1-guided-identify-bias" class="nav-link" data-scroll-target="#exercise-1-guided-identify-bias"><span class="header-section-number">20.9.1</span> Exercise 1 (Guided): Identify Bias</a></li>
-  <li><a href="#exercise-2-semi-guided-table-1-and-confounding" id="toc-exercise-2-semi-guided-table-1-and-confounding" class="nav-link" data-scroll-target="#exercise-2-semi-guided-table-1-and-confounding"><span class="header-section-number">20.9.2</span> Exercise 2 (Semi-guided): Table 1 and Confounding</a></li>
-  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">20.9.3</span> Exercise 3 (Open-ended)</a></li>
+  <li><a href="#exercise-1-guided-identify-bias" id="toc-exercise-1-guided-identify-bias" class="nav-link" data-scroll-target="#exercise-1-guided-identify-bias"><span class="header-section-number">20.10.1</span> Exercise 1 (Guided): Identify Bias</a></li>
+  <li><a href="#exercise-2-semi-guided-table-1-and-confounding" id="toc-exercise-2-semi-guided-table-1-and-confounding" class="nav-link" data-scroll-target="#exercise-2-semi-guided-table-1-and-confounding"><span class="header-section-number">20.10.2</span> Exercise 2 (Semi-guided): Table 1 and Confounding</a></li>
+  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">20.10.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
-  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">20.10</span> Comprehension Check</a></li>
-  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">20.11</span> How to Report</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">20.12</span> Further Reading</a></li>
+  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">20.11</span> Comprehension Check</a></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">20.12</span> How to Report</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">20.13</span> Further Reading</a></li>
   </ul>
 </nav>
     </div>
@@ -384,11 +405,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="sec-clinical-methods" class="level2 callout-tip" data-number="20.1">
-<h2 class="callout-tip anchored" data-number="20.1" data-anchor-id="sec-clinical-methods"><span class="header-section-number">20.1</span> When Do You Use This?</h2>
-<blockquote class="blockquote">
+<section id="sec-clinical-methods" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="sec-clinical-methods"><span class="header-section-number">20.1</span> When Do You Use This?</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>You are designing a clinical or translational study and need to make foundational decisions before collecting any data: What study design is appropriate? What biases might invalidate your conclusions? How do you translate a research question into a clearly defined estimand? These choices determine what statistical analysis is appropriate and what your results can legitimately claim. For example: whether a study of a novel intervention should be an RCT or an observational cohort, and how that choice affects analysis and interpretation.</p>
-</blockquote>
+</div>
+</div>
 </section>
 <section id="learning-objectives" class="level2" data-number="20.2">
 <h2 data-number="20.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">20.2</span> Learning Objectives</h2>
@@ -401,10 +432,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Produce a Table 1 and interpret the results of an adjusted analysis</li>
 </ul>
 </section>
-<section id="background-study-design" class="level2" data-number="20.3">
-<h2 data-number="20.3" class="anchored" data-anchor-id="background-study-design"><span class="header-section-number">20.3</span> Background: Study Design</h2>
-<section id="from-question-to-design" class="level3" data-number="20.3.1">
-<h3 data-number="20.3.1" class="anchored" data-anchor-id="from-question-to-design"><span class="header-section-number">20.3.1</span> From Question to Design</h3>
+<section id="the-key-idea-no-analysis-can-fix-a-broken-design" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="the-key-idea-no-analysis-can-fix-a-broken-design"><span class="header-section-number">20.3</span> The Key Idea: No Analysis Can Fix a Broken Design</h2>
+<p>Every other session in this course starts from the assumption that you already have a dataset, and asks: which test, which model, which diagnostic? This session asks the question that comes <em>before</em> all of that — was the study designed in a way that your data can actually answer your question?</p>
+<p>Here is the uncomfortable truth: a sophisticated multivariable model applied to a poorly designed study does not rescue it. If your controls were recruited from a population that systematically differs from your cases (selection bias), if your exposure was measured differently in cases and controls (information bias), or if you failed to measure the one variable that explains both your exposure and your outcome (confounding) — no regression coefficient, however precisely estimated, will give you the right answer. Get the design right first; the analysis comes second.</p>
+</section>
+<section id="background-study-design" class="level2" data-number="20.4">
+<h2 data-number="20.4" class="anchored" data-anchor-id="background-study-design"><span class="header-section-number">20.4</span> Background: Study Design</h2>
+<section id="from-question-to-design" class="level3" data-number="20.4.1">
+<h3 data-number="20.4.1" class="anchored" data-anchor-id="from-question-to-design"><span class="header-section-number">20.4.1</span> From Question to Design</h3>
 <p>Every clinical study starts with a <strong>PICO</strong> question:</p>
 <table class="caption-top table">
 <thead>
@@ -438,8 +474,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="types-of-study-design" class="level3" data-number="20.3.2">
-<h3 data-number="20.3.2" class="anchored" data-anchor-id="types-of-study-design"><span class="header-section-number">20.3.2</span> Types of Study Design</h3>
+<section id="types-of-study-design" class="level3" data-number="20.4.2">
+<h3 data-number="20.4.2" class="anchored" data-anchor-id="types-of-study-design"><span class="header-section-number">20.4.2</span> Types of Study Design</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 18%">
@@ -495,15 +531,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="hierarchy-of-evidence" class="level3" data-number="20.3.3">
-<h3 data-number="20.3.3" class="anchored" data-anchor-id="hierarchy-of-evidence"><span class="header-section-number">20.3.3</span> Hierarchy of Evidence</h3>
+<section id="hierarchy-of-evidence" class="level3" data-number="20.4.3">
+<h3 data-number="20.4.3" class="anchored" data-anchor-id="hierarchy-of-evidence"><span class="header-section-number">20.4.3</span> Hierarchy of Evidence</h3>
 <p>Randomised evidence sits above observational evidence because randomisation distributes confounders equally across groups. However, observational designs are essential for: - Rare diseases (small RCT is underpowered) - Long-term outcomes - Questions where randomisation is unethical (e.g., smoking causes cancer)</p>
 </section>
 </section>
-<section id="background-bias-in-clinical-research" class="level2" data-number="20.4">
-<h2 data-number="20.4" class="anchored" data-anchor-id="background-bias-in-clinical-research"><span class="header-section-number">20.4</span> Background: Bias in Clinical Research</h2>
-<section id="three-core-biases" class="level3" data-number="20.4.1">
-<h3 data-number="20.4.1" class="anchored" data-anchor-id="three-core-biases"><span class="header-section-number">20.4.1</span> Three Core Biases</h3>
+<section id="background-bias-in-clinical-research" class="level2" data-number="20.5">
+<h2 data-number="20.5" class="anchored" data-anchor-id="background-bias-in-clinical-research"><span class="header-section-number">20.5</span> Background: Bias in Clinical Research</h2>
+<section id="three-core-biases" class="level3" data-number="20.5.1">
+<h3 data-number="20.5.1" class="anchored" data-anchor-id="three-core-biases"><span class="header-section-number">20.5.1</span> Three Core Biases</h3>
 <p><strong>Selection bias</strong> occurs when study participants are not representative of the target population, or when selection into the study depends on both exposure and outcome.</p>
 <p><em>Example:</em> A hospital-based case-control study of smoking and MI; hospital controls may include more smokers (Berkson’s bias), inflating the apparent association.</p>
 <p><strong>Information bias</strong> arises from systematic errors in measuring exposure or outcome.</p>
@@ -511,8 +547,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Confounding</strong> occurs when a variable is associated with both the exposure and outcome, and is not on the causal pathway.</p>
 <p><em>Classic confound:</em> Alcohol is associated with lung cancer, but the real confounders are smoking (associated with both heavy drinking and cancer). Adjusting for smoking removes the confounded association.</p>
 </section>
-<section id="the-bradford-hill-criteria" class="level3" data-number="20.4.2">
-<h3 data-number="20.4.2" class="anchored" data-anchor-id="the-bradford-hill-criteria"><span class="header-section-number">20.4.2</span> The Bradford Hill Criteria</h3>
+<section id="the-bradford-hill-criteria" class="level3" data-number="20.5.2">
+<h3 data-number="20.5.2" class="anchored" data-anchor-id="the-bradford-hill-criteria"><span class="header-section-number">20.5.2</span> The Bradford Hill Criteria</h3>
 <p>Nine criteria for judging whether an observed association is causal:</p>
 <ol type="1">
 <li><strong>Strength</strong> - strong associations are less likely to be entirely explained by bias</li>
@@ -527,8 +563,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </section>
 </section>
-<section id="example-1-table-1-and-adjusted-analysis-in-pbc" class="level2" data-number="20.5">
-<h2 data-number="20.5" class="anchored" data-anchor-id="example-1-table-1-and-adjusted-analysis-in-pbc"><span class="header-section-number">20.5</span> Example 1: Table 1 and Adjusted Analysis in PBC</h2>
+<section id="example-1-table-1-and-adjusted-analysis-in-pbc" class="level2" data-number="20.6">
+<h2 data-number="20.6" class="anchored" data-anchor-id="example-1-table-1-and-adjusted-analysis-in-pbc"><span class="header-section-number">20.6</span> Example 1: Table 1 and Adjusted Analysis in PBC</h2>
 <p>We use the <code>survival::pbc</code> dataset (418 patients, primary biliary cholangitis trial).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(pbc, <span class="at">package =</span> <span class="st">"survival"</span>)</span>
@@ -563,23 +599,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_p</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bold_labels</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="jlpikgpvms" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jlpikgpvms table {
+<div id="czunkmokmr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#czunkmokmr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#jlpikgpvms thead, #jlpikgpvms tbody, #jlpikgpvms tfoot, #jlpikgpvms tr, #jlpikgpvms td, #jlpikgpvms th {
+#czunkmokmr thead, #czunkmokmr tbody, #czunkmokmr tfoot, #czunkmokmr tr, #czunkmokmr td, #czunkmokmr th {
   border-style: none;
 }
 
-#jlpikgpvms p {
+#czunkmokmr p {
   margin: 0;
   padding: 0;
 }
 
-#jlpikgpvms .gt_table {
+#czunkmokmr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -605,12 +641,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#jlpikgpvms .gt_caption {
+#czunkmokmr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#jlpikgpvms .gt_title {
+#czunkmokmr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -622,7 +658,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#jlpikgpvms .gt_subtitle {
+#czunkmokmr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -634,7 +670,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#jlpikgpvms .gt_heading {
+#czunkmokmr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -646,13 +682,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jlpikgpvms .gt_bottom_border {
+#czunkmokmr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jlpikgpvms .gt_col_headings {
+#czunkmokmr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -667,7 +703,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jlpikgpvms .gt_col_heading {
+#czunkmokmr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -687,7 +723,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#jlpikgpvms .gt_column_spanner_outer {
+#czunkmokmr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -699,15 +735,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#jlpikgpvms .gt_column_spanner_outer:first-child {
+#czunkmokmr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jlpikgpvms .gt_column_spanner_outer:last-child {
+#czunkmokmr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jlpikgpvms .gt_column_spanner {
+#czunkmokmr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -719,11 +755,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#jlpikgpvms .gt_spanner_row {
+#czunkmokmr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#jlpikgpvms .gt_group_heading {
+#czunkmokmr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -749,7 +785,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#jlpikgpvms .gt_empty_group_heading {
+#czunkmokmr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -764,15 +800,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#jlpikgpvms .gt_from_md > :first-child {
+#czunkmokmr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jlpikgpvms .gt_from_md > :last-child {
+#czunkmokmr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jlpikgpvms .gt_row {
+#czunkmokmr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -791,7 +827,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#jlpikgpvms .gt_stub {
+#czunkmokmr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -804,7 +840,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jlpikgpvms .gt_stub_row_group {
+#czunkmokmr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -818,15 +854,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#jlpikgpvms .gt_row_group_first td {
+#czunkmokmr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jlpikgpvms .gt_row_group_first th {
+#czunkmokmr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#jlpikgpvms .gt_summary_row {
+#czunkmokmr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -836,16 +872,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jlpikgpvms .gt_first_summary_row {
+#czunkmokmr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jlpikgpvms .gt_first_summary_row.thick {
+#czunkmokmr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jlpikgpvms .gt_last_summary_row {
+#czunkmokmr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -855,7 +891,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jlpikgpvms .gt_grand_summary_row {
+#czunkmokmr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -865,7 +901,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jlpikgpvms .gt_first_grand_summary_row {
+#czunkmokmr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -875,7 +911,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#jlpikgpvms .gt_last_grand_summary_row_top {
+#czunkmokmr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -885,11 +921,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jlpikgpvms .gt_striped {
+#czunkmokmr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jlpikgpvms .gt_table_body {
+#czunkmokmr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -898,7 +934,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jlpikgpvms .gt_footnotes {
+#czunkmokmr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -912,7 +948,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jlpikgpvms .gt_footnote {
+#czunkmokmr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -921,7 +957,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jlpikgpvms .gt_sourcenotes {
+#czunkmokmr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -935,7 +971,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jlpikgpvms .gt_sourcenote {
+#czunkmokmr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -943,72 +979,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jlpikgpvms .gt_left {
+#czunkmokmr .gt_left {
   text-align: left;
 }
 
-#jlpikgpvms .gt_center {
+#czunkmokmr .gt_center {
   text-align: center;
 }
 
-#jlpikgpvms .gt_right {
+#czunkmokmr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jlpikgpvms .gt_font_normal {
+#czunkmokmr .gt_font_normal {
   font-weight: normal;
 }
 
-#jlpikgpvms .gt_font_bold {
+#czunkmokmr .gt_font_bold {
   font-weight: bold;
 }
 
-#jlpikgpvms .gt_font_italic {
+#czunkmokmr .gt_font_italic {
   font-style: italic;
 }
 
-#jlpikgpvms .gt_super {
+#czunkmokmr .gt_super {
   font-size: 65%;
 }
 
-#jlpikgpvms .gt_footnote_marks {
+#czunkmokmr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#jlpikgpvms .gt_asterisk {
+#czunkmokmr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jlpikgpvms .gt_indent_1 {
+#czunkmokmr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jlpikgpvms .gt_indent_2 {
+#czunkmokmr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jlpikgpvms .gt_indent_3 {
+#czunkmokmr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jlpikgpvms .gt_indent_4 {
+#czunkmokmr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jlpikgpvms .gt_indent_5 {
+#czunkmokmr .gt_indent_5 {
   text-indent: 25px;
 }
 
-#jlpikgpvms .katex-display {
+#czunkmokmr .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#jlpikgpvms div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#czunkmokmr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1128,8 +1164,8 @@ N = 154<span class="gt_footnote_marks" style="white-space:nowrap;font-style:ital
 </div>
 </div>
 <p>A balanced Table 1 (no significant p-values) suggests randomisation worked; baseline confounders are similar across treatment groups.</p>
-<section id="unadjusted-analysis" class="level3" data-number="20.5.1">
-<h3 data-number="20.5.1" class="anchored" data-anchor-id="unadjusted-analysis"><span class="header-section-number">20.5.1</span> Unadjusted Analysis</h3>
+<section id="unadjusted-analysis" class="level3" data-number="20.6.1">
+<h3 data-number="20.6.1" class="anchored" data-anchor-id="unadjusted-analysis"><span class="header-section-number">20.6.1</span> Unadjusted Analysis</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fit_unadj <span class="ot">&lt;-</span> <span class="fu">glm</span>(status_bin <span class="sc">~</span> trt_label, <span class="at">data =</span> pbc_clean, <span class="at">family =</span> binomial)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_unadj, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
@@ -1142,8 +1178,8 @@ N = 154<span class="gt_footnote_marks" style="white-space:nowrap;font-style:ital
 </div>
 </div>
 </section>
-<section id="adjusted-analysis" class="level3" data-number="20.5.2">
-<h3 data-number="20.5.2" class="anchored" data-anchor-id="adjusted-analysis"><span class="header-section-number">20.5.2</span> Adjusted Analysis</h3>
+<section id="adjusted-analysis" class="level3" data-number="20.6.2">
+<h3 data-number="20.6.2" class="anchored" data-anchor-id="adjusted-analysis"><span class="header-section-number">20.6.2</span> Adjusted Analysis</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fit_adj <span class="ot">&lt;-</span> <span class="fu">glm</span>(status_bin <span class="sc">~</span> trt_label <span class="sc">+</span> age <span class="sc">+</span> bili <span class="sc">+</span> albumin <span class="sc">+</span> <span class="fu">factor</span>(stage),</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> pbc_clean, <span class="at">family =</span> binomial)</span>
@@ -1166,8 +1202,8 @@ N = 154<span class="gt_footnote_marks" style="white-space:nowrap;font-style:ital
 <p>Compare the treatment odds ratio before and after adjustment. In a well-randomised trial, adjustment should not materially change the estimate, but it can improve precision.</p>
 </section>
 </section>
-<section id="example-2-observational-study-confounding" class="level2" data-number="20.6">
-<h2 data-number="20.6" class="anchored" data-anchor-id="example-2-observational-study-confounding"><span class="header-section-number">20.6</span> Example 2: Observational Study — Confounding</h2>
+<section id="example-2-observational-study-confounding" class="level2" data-number="20.7">
+<h2 data-number="20.7" class="anchored" data-anchor-id="example-2-observational-study-confounding"><span class="header-section-number">20.7</span> Example 2: Observational Study — Confounding</h2>
 <p>In this example we simulate an observational study where the exposure-outcome association is entirely confounded.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
@@ -1208,24 +1244,48 @@ N = 154<span class="gt_footnote_marks" style="white-space:nowrap;font-style:ital
 </div>
 <p>In the unadjusted model, exercise appears to lower HbA1c, but this is entirely explained by SES (richer people exercise more <strong>and</strong> have lower HbA1c). Adjusting for SES removes the confounded association.</p>
 </section>
-<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="20.7">
-<h2 class="callout-note anchored" data-number="20.7" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">20.7</span> Where to Find Data Like This</h2>
-<p><strong><code>survival::pbc</code>:</strong> RCT in primary : 418 patients, 17 variables, continuous follow-up. Ideal for survival analysis and clinical regression.</p>
-<p><strong><code>MASS::birthwt</code>:</strong> : birth weight, risk factors (smoking, hypertension, race). Good for logistic regression teaching.</p>
-<p><strong>NHANES:</strong> US population health survey, accessible via <code>nhanesA</code> package. Rich observational dataset for confounding and epidemiology examples.</p>
-<p><strong>Epidemiological methods textbooks:</strong> Often provide study datasets. sRothman-2012 includes Examples from case-control and cohort designs.</p>
+<section id="where-to-find-data-like-this" class="level2" data-number="20.8">
+<h2 data-number="20.8" class="anchored" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">20.8</span> Where to Find Data Like This</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><code>survival::pbc</code>:</strong> An RCT in primary biliary cholangitis: 418 patients, 17 variables, continuous follow-up. Ideal for survival analysis and clinical regression.</p>
+<p><strong><code>MASS::birthwt</code>:</strong> Birth weight data with maternal risk factors (smoking, hypertension, race). Good for logistic regression teaching.</p>
+<p><strong>NHANES:</strong> US population health survey, accessible via the <code>nhanesA</code> package. A rich observational dataset for confounding and epidemiology examples.</p>
+<p><strong>Epidemiological methods textbooks:</strong> Often provide study datasets. <span class="citation" data-cites="Rothman-2012">Rothman (<a href="#ref-Rothman-2012" role="doc-biblioref">2012</a>)</span> includes examples from case-control and cohort designs.</p>
+</div>
+</div>
 </section>
-<section id="what-can-go-wrong" class="level2 callout-warning" data-number="20.8">
-<h2 class="callout-warning anchored" data-number="20.8" data-anchor-id="what-can-go-wrong"><span class="header-section-number">20.8</span> What Can Go Wrong</h2>
+<section id="what-can-go-wrong" class="level2" data-number="20.9">
+<h2 data-number="20.9" class="anchored" data-anchor-id="what-can-go-wrong"><span class="header-section-number">20.9</span> What Can Go Wrong</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><strong>Immortal time bias</strong> In retrospective cohort studies, if patients must survive long enough to receive a treatment, the treatment group has immortal follow-up time before exposure begins. Ignoring this biases results in favour of the treated group.</p>
-<p><strong>Collider bias</strong> Adjusting for a variable on the causal pathway (a collider) can open a spurious association between exposure and outcome. See ssec-causal for a Example.</p>
+<p><strong>Collider bias</strong> Adjusting for a variable on the causal pathway (a collider) can open a spurious association between exposure and outcome. See <a href="../sessions/causal-inference.html">Causal Inference</a> for a worked example.</p>
 <p><strong>Ecological fallacy</strong> Associations observed at the group level (e.g., country-level sodium intake and stroke mortality) do not necessarily hold at the individual level.</p>
 <p><strong>Over-adjusting for intermediates</strong> Adjusting for a mediator (a variable on the causal pathway from exposure to outcome) removes the effect you are trying to estimate. For example, adjusting for BMI when studying the effect of a dietary intervention on diabetes.</p>
+</div>
+</div>
 </section>
-<section id="exercises" class="level2" data-number="20.9">
-<h2 data-number="20.9" class="anchored" data-anchor-id="exercises"><span class="header-section-number">20.9</span> Exercises</h2>
-<section id="exercise-1-guided-identify-bias" class="level3" data-number="20.9.1">
-<h3 data-number="20.9.1" class="anchored" data-anchor-id="exercise-1-guided-identify-bias"><span class="header-section-number">20.9.1</span> Exercise 1 (Guided): Identify Bias</h3>
+<section id="exercises" class="level2" data-number="20.10">
+<h2 data-number="20.10" class="anchored" data-anchor-id="exercises"><span class="header-section-number">20.10</span> Exercises</h2>
+<section id="exercise-1-guided-identify-bias" class="level3" data-number="20.10.1">
+<h3 data-number="20.10.1" class="anchored" data-anchor-id="exercise-1-guided-identify-bias"><span class="header-section-number">20.10.1</span> Exercise 1 (Guided): Identify Bias</h3>
 <p>Read the following study description and identify the likely bias:</p>
 <p><em>“A case-control study of dietary fat intake and breast cancer. Cases were women diagnosed with breast cancer in the past 2 years. Controls were recruited from the same hospital with other conditions. Diet was assessed by interview.”</em></p>
 <ol type="1">
@@ -1234,7 +1294,7 @@ N = 154<span class="gt_footnote_marks" style="white-space:nowrap;font-style:ital
 <li>If cases over-report fat intake because they are searching for an explanation for their illness, what type of bias is this? Would it bias the OR upward or downward?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1243,7 +1303,7 @@ N = 154<span class="gt_footnote_marks" style="white-space:nowrap;font-style:ital
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Case-control study.</li>
@@ -1256,32 +1316,17 @@ N = 154<span class="gt_footnote_marks" style="white-space:nowrap;font-style:ital
 </div>
 </div>
 </section>
-<section id="exercise-2-semi-guided-table-1-and-confounding" class="level3" data-number="20.9.2">
-<h3 data-number="20.9.2" class="anchored" data-anchor-id="exercise-2-semi-guided-table-1-and-confounding"><span class="header-section-number">20.9.2</span> Exercise 2 (Semi-guided): Table 1 and Confounding</h3>
+<section id="exercise-2-semi-guided-table-1-and-confounding" class="level3" data-number="20.10.2">
+<h3 data-number="20.10.2" class="anchored" data-anchor-id="exercise-2-semi-guided-table-1-and-confounding"><span class="header-section-number">20.10.2</span> Exercise 2 (Semi-guided): Table 1 and Confounding</h3>
 <p>Using <code>MASS::birthwt</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'MASS'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:gtsummary':
-
-    select</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:dplyr':
-
-    select</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(birthwt)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>birthwt <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(birthwt) <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">low    =</span> <span class="fu">factor</span>(low, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Normal weight"</span>, <span class="st">"Low birth weight"</span>)),</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">smoke  =</span> <span class="fu">factor</span>(smoke, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Non-smoker"</span>, <span class="st">"Smoker"</span>)),</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">race   =</span> <span class="fu">factor</span>(race, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"White"</span>, <span class="st">"Black"</span>, <span class="st">"Other"</span>))</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(birthwt, <span class="at">package =</span> <span class="st">"MASS"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>birthwt <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(birthwt) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">low    =</span> <span class="fu">factor</span>(low, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Normal weight"</span>, <span class="st">"Low birth weight"</span>)),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">smoke  =</span> <span class="fu">factor</span>(smoke, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Non-smoker"</span>, <span class="st">"Smoker"</span>)),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">race   =</span> <span class="fu">factor</span>(race, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"White"</span>, <span class="st">"Black"</span>, <span class="st">"Other"</span>))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol type="1">
 <li>Create a Table 1 comparing maternal characteristics between low and normal birth weight groups.</li>
@@ -1289,9 +1334,600 @@ Attaching package: 'MASS'</code></pre>
 <li>Fit an adjusted model: <code>low ~ smoke + age + race + lwt</code> (lwt = mother’s weight at last menstrual period).</li>
 <li>How does the smoking odds ratio change after adjustment? What does this tell you about confounding?</li>
 </ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2: Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>birthwt <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(low, smoke, age, race, lwt) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> low) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_p</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bold_labels</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="ygafhlhyue" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ygafhlhyue table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ygafhlhyue thead, #ygafhlhyue tbody, #ygafhlhyue tfoot, #ygafhlhyue tr, #ygafhlhyue td, #ygafhlhyue th {
+  border-style: none;
+}
+
+#ygafhlhyue p {
+  margin: 0;
+  padding: 0;
+}
+
+#ygafhlhyue .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ygafhlhyue .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ygafhlhyue .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ygafhlhyue .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ygafhlhyue .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ygafhlhyue .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ygafhlhyue .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ygafhlhyue .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ygafhlhyue .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ygafhlhyue .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ygafhlhyue .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ygafhlhyue .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ygafhlhyue .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ygafhlhyue .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ygafhlhyue .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ygafhlhyue .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ygafhlhyue .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ygafhlhyue .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ygafhlhyue .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ygafhlhyue .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ygafhlhyue .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ygafhlhyue .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ygafhlhyue .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ygafhlhyue .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ygafhlhyue .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ygafhlhyue .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ygafhlhyue .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ygafhlhyue .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ygafhlhyue .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ygafhlhyue .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ygafhlhyue .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ygafhlhyue .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ygafhlhyue .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ygafhlhyue .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ygafhlhyue .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ygafhlhyue .gt_left {
+  text-align: left;
+}
+
+#ygafhlhyue .gt_center {
+  text-align: center;
+}
+
+#ygafhlhyue .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ygafhlhyue .gt_font_normal {
+  font-weight: normal;
+}
+
+#ygafhlhyue .gt_font_bold {
+  font-weight: bold;
+}
+
+#ygafhlhyue .gt_font_italic {
+  font-style: italic;
+}
+
+#ygafhlhyue .gt_super {
+  font-size: 65%;
+}
+
+#ygafhlhyue .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ygafhlhyue .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ygafhlhyue .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ygafhlhyue .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ygafhlhyue .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ygafhlhyue .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ygafhlhyue .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#ygafhlhyue .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ygafhlhyue div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="gt_col_headings header">
+<th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th id="stat_1" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Normal weight</strong><br>
+N = 130<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+<th id="stat_2" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Low birth weight</strong><br>
+N = 59<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>p-value</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">smoke</td>
+<td class="gt_row gt_center" headers="stat_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_2"><br>
+</td>
+<td class="gt_row gt_center" headers="p.value">0.026</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Non-smoker</td>
+<td class="gt_row gt_center" headers="stat_1">86 (66%)</td>
+<td class="gt_row gt_center" headers="stat_2">29 (49%)</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Smoker</td>
+<td class="gt_row gt_center" headers="stat_1">44 (34%)</td>
+<td class="gt_row gt_center" headers="stat_2">30 (51%)</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">age</td>
+<td class="gt_row gt_center" headers="stat_1">23 (19, 28)</td>
+<td class="gt_row gt_center" headers="stat_2">22 (19, 25)</td>
+<td class="gt_row gt_center" headers="p.value">0.2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">race</td>
+<td class="gt_row gt_center" headers="stat_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_2"><br>
+</td>
+<td class="gt_row gt_center" headers="p.value">0.082</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;White</td>
+<td class="gt_row gt_center" headers="stat_1">73 (56%)</td>
+<td class="gt_row gt_center" headers="stat_2">23 (39%)</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Black</td>
+<td class="gt_row gt_center" headers="stat_1">15 (12%)</td>
+<td class="gt_row gt_center" headers="stat_2">11 (19%)</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Other</td>
+<td class="gt_row gt_center" headers="stat_1">42 (32%)</td>
+<td class="gt_row gt_center" headers="stat_2">25 (42%)</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">lwt</td>
+<td class="gt_row gt_center" headers="stat_1">124 (113, 147)</td>
+<td class="gt_row gt_center" headers="stat_2">120 (103, 130)</td>
+<td class="gt_row gt_center" headers="p.value">0.013</td>
+</tr>
+</tbody><tfoot>
+<tr class="gt_footnotes odd">
+<td colspan="4" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> n (%); Median (Q1, Q3)</td>
+</tr>
+<tr class="gt_footnotes even">
+<td colspan="4" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span> Pearson’s Chi-squared test; Wilcoxon rank sum test</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fit_unadj <span class="ot">&lt;-</span> <span class="fu">glm</span>(low <span class="sc">~</span> smoke, <span class="at">data =</span> birthwt, <span class="at">family =</span> binomial)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_unadj, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">!=</span> <span class="st">"(Intercept)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+  term        estimate std.error statistic p.value conf.low conf.high
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 smokeSmoker     2.02     0.320      2.20  0.0276     1.08      3.80</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fit_adj <span class="ot">&lt;-</span> <span class="fu">glm</span>(low <span class="sc">~</span> smoke <span class="sc">+</span> age <span class="sc">+</span> race <span class="sc">+</span> lwt, <span class="at">data =</span> birthwt, <span class="at">family =</span> binomial)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_adj, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">!=</span> <span class="st">"(Intercept)"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 5
+  term        estimate conf.low conf.high p.value
+  &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 smokeSmoker    2.87     1.38      6.19  0.00552
+2 age            0.978    0.913     1.04  0.511  
+3 raceBlack      3.43     1.25      9.63  0.0172 
+4 raceOther      2.57     1.15      5.94  0.0234 
+5 lwt            0.988    0.974     0.999 0.0498 </code></pre>
+</div>
+</div>
+<p>If the smoking odds ratio changes substantially after adjustment, age, race, or maternal weight confound the unadjusted association.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="exercise-3-open-ended" class="level3" data-number="20.9.3">
-<h3 data-number="20.9.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">20.9.3</span> Exercise 3 (Open-ended)</h3>
+<section id="exercise-3-open-ended" class="level3" data-number="20.10.3">
+<h3 data-number="20.10.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">20.10.3</span> Exercise 3 (Open-ended)</h3>
 <p>Identify a published observational study in your research area. Write a one-page critical appraisal covering:</p>
 <ol type="1">
 <li>Study design and PICO question</li>
@@ -1302,17 +1938,17 @@ Attaching package: 'MASS'</code></pre>
 </ol>
 </section>
 </section>
-<section id="comprehension-check" class="level2" data-number="20.10">
-<h2 data-number="20.10" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">20.10</span> Comprehension Check</h2>
+<section id="comprehension-check" class="level2" data-number="20.11">
+<h2 data-number="20.11" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">20.11</span> Comprehension Check</h2>
 <ol type="1">
 <li>What is the key advantage of an RCT over a prospective cohort study?</li>
 <li>A study finds that coffee drinking is associated with reduced risk of Parkinson’s disease. A confounder is proposed: smokers drink more coffee and are less likely to develop Parkinson’s (due to nicotine’s neuroprotective effects). Is this a confounder? Explain why or why not.</li>
 <li>In a case-control study, cases and controls are recruited from different hospitals. What bias might this introduce?</li>
 <li>What does “non-differential misclassification” mean, and which direction does it typically bias the association?</li>
-<li>A cohort study uses data from 2010?2020. Patients are classified as “treated” if they received a statin at any point. However, many patients only started statins after having a cardiovascular event. What bias does this introduce?</li>
+<li>A cohort study uses data from 2010–2020. Patients are classified as “treated” if they received a statin at any point. However, many patients only started statins after having a cardiovascular event. What bias does this introduce?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1321,7 +1957,7 @@ Attaching package: 'MASS'</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Randomisation distributes measured and unmeasured confounders equally across treatment groups; something observational studies cannot achieve. In an RCT, any observed difference in outcome can be attributed to the treatment with much greater confidence. Cohort studies, even with careful adjustment, can only control for <em>measured</em> confounders; unknown or unmeasured confounders may still distort the estimate.</li>
@@ -1334,8 +1970,8 @@ Attaching package: 'MASS'</code></pre>
 </div>
 </div>
 </section>
-<section id="how-to-report" class="level2" data-number="20.11">
-<h2 data-number="20.11" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">20.11</span> How to Report</h2>
+<section id="how-to-report" class="level2" data-number="20.12">
+<h2 data-number="20.12" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">20.12</span> How to Report</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1386,16 +2022,30 @@ Attaching package: 'MASS'</code></pre>
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="20.12">
-<h2 data-number="20.12" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">20.12</span> Further Reading</h2>
+<section id="further-reading" class="level2" data-number="20.13">
+<h2 data-number="20.13" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">20.13</span> Further Reading</h2>
 <ul>
-<li>sRothman-2012 — <em>Epidemiology: An Introduction</em> - authoritative text on study design and confounding</li>
-<li>sHernan-Robins-2020 — <em>Causal Inference: What If</em> - free online textbook on observational causal inference</li>
-<li>sSzklo-Nieto-2014 — <em>Epidemiology: Beyond the Basics</em> - bias, confounding, effect modification</li>
-<li>sGrimes-Schulz-2002 — <em>Cohort studies: marching towards outcomes</em> (Lancet series on study design)</li>
+<li><span class="citation" data-cites="Rothman-2012">Rothman (<a href="#ref-Rothman-2012" role="doc-biblioref">2012</a>)</span> — <em>Epidemiology: An Introduction</em> - authoritative text on study design and confounding</li>
+<li><span class="citation" data-cites="Hernan-Robins-2020">Hernan and Robins (<a href="#ref-Hernan-Robins-2020" role="doc-biblioref">2020</a>)</span> — <em>Causal Inference: What If</em> - free online textbook on observational causal inference</li>
+<li><span class="citation" data-cites="Szklo-Nieto-2014">Szklo and Nieto (<a href="#ref-Szklo-Nieto-2014" role="doc-biblioref">2014</a>)</span> — <em>Epidemiology: Beyond the Basics</em> - bias, confounding, effect modification</li>
+<li><span class="citation" data-cites="Grimes-Schulz-2002">Grimes and Schulz (<a href="#ref-Grimes-Schulz-2002" role="doc-biblioref">2002</a>)</span> — <em>Cohort studies: marching towards outcomes</em> (Lancet series on study design)</li>
 </ul>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Grimes-Schulz-2002" class="csl-entry" role="listitem">
+Grimes, David A., and Kenneth F. Schulz. 2002. <span>“Cohort Studies: Marching Towards Outcomes.”</span> <em>Lancet</em> 359 (9303): 341–45.
+</div>
+<div id="ref-Hernan-Robins-2020" class="csl-entry" role="listitem">
+Hernan, Miguel A., and James M. Robins. 2020. <em>Causal Inference: What If</em>. Chapman &amp; Hall/CRC. <a href="https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/">https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/</a>.
+</div>
+<div id="ref-Rothman-2012" class="csl-entry" role="listitem">
+Rothman, Kenneth J. 2012. <em>Epidemiology: An Introduction</em>. 2nd ed. Oxford University Press.
+</div>
+<div id="ref-Szklo-Nieto-2014" class="csl-entry" role="listitem">
+Szklo, Moyses, and F. Javier Nieto. 2014. <em>Epidemiology: Beyond the Basics</em>. 3rd ed. Jones &amp; Bartlett Learning.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

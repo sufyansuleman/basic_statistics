@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Statistical Decision Guide"
 ---
 
@@ -8,9 +8,11 @@ title: "Statistical Decision Guide"
 library(tidyverse)
 ```
 
-## When Do You Use This? {#sec-statistical-decision-guide .callout-tip}
+## When Do You Use This? {#sec-statistical-decision-guide}
 
-> You have data from a clinical study and need to choose the right test. Should you use a t-test or Mann-Whitney? Logistic regression or a chi-square test? This guide helps you navigate from your research question and data type to the appropriate method - and links you to the session where you can learn it properly.
+::: {.callout-tip}
+You have data from a clinical study and need to choose the right test. Should you use a t-test or Mann-Whitney? Logistic regression or a chi-square test? This guide helps you navigate from your research question and data type to the appropriate method --- and links you to the session where you can learn it properly.
+:::
 
 ## Learning Objectives
 
@@ -20,6 +22,13 @@ After completing this session you will be able to:
 - Identify the scale and distribution assumptions that determine test choice
 - Recognise when assumptions are violated and choose a non-parametric alternative
 - Find the relevant course session for every method covered
+
+
+## The Key Idea: Match Method to Question
+
+Every statistical method in this course was designed to answer a specific type of question. Use the wrong method and your answer is biased or meaningless --- even if R runs without errors.
+
+The two most common mistakes are: picking a test based on which gives the smallest p-value (outcome-dependent test selection, which inflates false positives), and defaulting to a t-test when the design calls for something else (paired measurements, a binary outcome, or clustered observations). Before you open R, answer three questions: *What type is your outcome? What are you comparing or estimating? Are the assumptions for your first-choice method met?* The tables below take you from those three answers to the right method, every time.
 
 
 ## The Decision Framework
@@ -164,15 +173,16 @@ tribble(
   "Pearson r",           "Continuous", "Bivariate normal, linear", "Spearman rho",
   "Chi-square",          "Categorical", "Expected count >= 5", "Fisher's exact",
   "Linear regression",   "Continuous", "Normal residuals", "Robust regression",
-  "Logistic regression", "Binary",  "Sufficient events/predictor", "?",
+  "Logistic regression", "Binary",  "Sufficient events/predictor", "None standard",
   "Cox regression",      "Time-to-event", "Proportional hazards", "Stratified Cox"
 ) %>%
   knitr::kable()
 ```
 
 
-## What Can Go Wrong {.callout-warning}
+## What Can Go Wrong
 
+::: {.callout-warning}
 **Choosing based on p-value alone**
 Never choose the test that gives the most significant result. Test choice must be determined by the research question and data type, not by the outcome.
 
@@ -183,7 +193,8 @@ Using a two-sample t-test when data are paired wastes statistical power (you ign
 Running 20 tests and reporting the significant ones inflates the type I error. Apply FDR or Bonferroni correction when testing multiple outcomes. See resources on multiple-testing corrections for high-dimensional data.
 
 **Treating ordinal as continuous**
-Likert scales (1?5) are ordinal. Means are interpretable but formal inference should use ordinal tests or models unless scales are well-validated and items are summed.
+Likert scales (1--5) are ordinal. Means are interpretable but formal inference should use ordinal tests or models unless scales are well-validated and items are summed.
+:::
 
 
 ## Exercises
@@ -236,7 +247,7 @@ Take a published paper from your field. For each analysis reported:
 ### Answers
 1. Running separate t-tests at each time point ignores the repeated-measures structure (the same mice are measured three times). This inflates type I error (multiple comparisons) and ignores within-mouse correlation. The correct approach is repeated-measures ANOVA or a linear mixed model with time as a factor and mouse as a random effect.
 2. Paired test. The same patient is measured twice; the within-patient change in blood pressure is the quantity of interest. Using a paired test accounts for between-patient variability and is more powerful than an unpaired t-test. Use paired t-test (if differences are normal) or Wilcoxon signed-rank (if not).
-3. The colleague is correct when you need to adjust for confounders (e.g., age, deprivation, comorbidities). Chi-square tests a bivariate association; logistic regression allows you to estimate the sex?smoking association adjusted for other variables, gives odds ratios, and supports prediction. For a simple unadjusted two-by-two table, chi-square is perfectly valid.
+3. The colleague is correct when you need to adjust for confounders (e.g., age, deprivation, comorbidities). Chi-square tests a bivariate association; logistic regression allows you to estimate the sex--smoking association adjusted for other variables, gives odds ratios, and supports prediction. For a simple unadjusted two-by-two table, chi-square is perfectly valid.
 4. Not necessarily. With n = 200, the Shapiro-Wilk test is highly sensitive; it will detect trivial, practically irrelevant deviations from normality. With large samples, the t-test is robust to non-normality (central limit theorem). Check the QQ plot visually: if the tails are only mildly heavy, the t-test is fine. Only switch to a non-parametric test if the distribution is highly skewed or has extreme outliers.
 5. A test of *association* asks: are two variables related? (Chi-square, Pearson r). A test of *prediction* models the outcome as a function of predictors, estimates the size of effects, and can be used to predict new observations. Regression also allows adjustment for confounders, which association tests cannot. Use association tests for simple screening; use regression for explanatory modelling or confounding adjustment.
 :::

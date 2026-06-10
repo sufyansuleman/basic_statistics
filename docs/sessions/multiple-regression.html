@@ -380,17 +380,17 @@ window.Quarto = {
   <ul>
   <li><a href="#sec-multiple-regression" id="toc-sec-multiple-regression" class="nav-link active" data-scroll-target="#sec-multiple-regression"><span class="header-section-number">11.1</span> When Do You Use This?</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">11.2</span> Learning Objectives</a></li>
-  <li><a href="#background-extending-the-linear-model" id="toc-background-extending-the-linear-model" class="nav-link" data-scroll-target="#background-extending-the-linear-model"><span class="header-section-number">11.3</span> Background: Extending the Linear Model</a></li>
-  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">11.4</span> Example 1: Clinical Data (PBC)</a>
+  <li><a href="#the-key-idea-adjusting-for-confounders" id="toc-the-key-idea-adjusting-for-confounders" class="nav-link" data-scroll-target="#the-key-idea-adjusting-for-confounders"><span class="header-section-number">11.3</span> The Key Idea: Adjusting for Confounders</a></li>
+  <li><a href="#background-extending-the-linear-model" id="toc-background-extending-the-linear-model" class="nav-link" data-scroll-target="#background-extending-the-linear-model"><span class="header-section-number">11.4</span> Background: Extending the Linear Model</a></li>
+  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">11.5</span> Example 1: Clinical Data (PBC)</a>
   <ul class="collapse">
-  <li><a href="#build-a-multivariable-model" id="toc-build-a-multivariable-model" class="nav-link" data-scroll-target="#build-a-multivariable-model"><span class="header-section-number">11.4.1</span> Build a Multivariable Model</a></li>
-  <li><a href="#interpreting-partial-coefficients" id="toc-interpreting-partial-coefficients" class="nav-link" data-scroll-target="#interpreting-partial-coefficients"><span class="header-section-number">11.4.2</span> Interpreting Partial Coefficients</a></li>
-  <li><a href="#checking-for-multicollinearity" id="toc-checking-for-multicollinearity" class="nav-link" data-scroll-target="#checking-for-multicollinearity"><span class="header-section-number">11.4.3</span> Checking for Multicollinearity</a></li>
-  <li><a href="#model-comparison-with-lrt" id="toc-model-comparison-with-lrt" class="nav-link" data-scroll-target="#model-comparison-with-lrt"><span class="header-section-number">11.4.4</span> Model Comparison with LRT</a></li>
-  <li><a href="#including-an-interaction" id="toc-including-an-interaction" class="nav-link" data-scroll-target="#including-an-interaction"><span class="header-section-number">11.4.5</span> Including an Interaction</a></li>
+  <li><a href="#build-a-multivariable-model" id="toc-build-a-multivariable-model" class="nav-link" data-scroll-target="#build-a-multivariable-model"><span class="header-section-number">11.5.1</span> Build a Multivariable Model</a></li>
+  <li><a href="#interpreting-partial-coefficients" id="toc-interpreting-partial-coefficients" class="nav-link" data-scroll-target="#interpreting-partial-coefficients"><span class="header-section-number">11.5.2</span> Interpreting Partial Coefficients</a></li>
+  <li><a href="#checking-for-multicollinearity" id="toc-checking-for-multicollinearity" class="nav-link" data-scroll-target="#checking-for-multicollinearity"><span class="header-section-number">11.5.3</span> Checking for Multicollinearity</a></li>
+  <li><a href="#model-comparison-with-likelihood-ratio-test" id="toc-model-comparison-with-likelihood-ratio-test" class="nav-link" data-scroll-target="#model-comparison-with-likelihood-ratio-test"><span class="header-section-number">11.5.4</span> Model Comparison with Likelihood Ratio Test</a></li>
+  <li><a href="#including-an-interaction" id="toc-including-an-interaction" class="nav-link" data-scroll-target="#including-an-interaction"><span class="header-section-number">11.5.5</span> Including an Interaction</a></li>
   </ul></li>
-  <li><a href="#example-2-animal-data-palmerpenguins" id="toc-example-2-animal-data-palmerpenguins" class="nav-link" data-scroll-target="#example-2-animal-data-palmerpenguins"><span class="header-section-number">11.5</span> Example 2: Animal Data (palmerpenguins)</a></li>
-  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">11.6</span> Where to Find Data Like This</a></li>
+  <li><a href="#example-2-animal-data-palmerpenguins" id="toc-example-2-animal-data-palmerpenguins" class="nav-link" data-scroll-target="#example-2-animal-data-palmerpenguins"><span class="header-section-number">11.6</span> Example 2: Animal Data (palmerpenguins)</a></li>
   <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">11.7</span> What Can Go Wrong</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">11.8</span> Exercises</a>
   <ul class="collapse">
@@ -399,10 +399,7 @@ window.Quarto = {
   <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">11.8.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
   <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">11.9</span> Comprehension Check</a></li>
-  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">11.10</span> How to Report</a>
-  <ul class="collapse">
-  <li><a href="#reporting-multiple-regression" id="toc-reporting-multiple-regression" class="nav-link" data-scroll-target="#reporting-multiple-regression"><span class="header-section-number">11.10.1</span> Reporting Multiple Regression</a></li>
-  </ul></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">11.10</span> How to Report</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">11.11</span> Further Reading</a></li>
   </ul>
 </nav>
@@ -439,14 +436,24 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This session extends simple linear regression to multiple predictors. If you haven’t done so yet, complete the <strong>Linear Regression</strong> session first.</p>
+<p>This session extends simple linear regression to multiple predictors. If you have not done so yet, complete the <a href="../sessions/linear-regression.html">Linear Regression</a> session first.</p>
 </div>
 </div>
 <section id="sec-multiple-regression" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="sec-multiple-regression"><span class="header-section-number">11.1</span> When Do You Use This?</h2>
-<blockquote class="blockquote">
-<p>You have a continuous outcome and multiple predictors, some of which are correlated with each other. Multiple regression estimates each predictor’s independent effect, holding the others constant, so you can adjust for confounders and identify which variables have a genuine association with the outcome. For example: estimating the effect of bilirubin on albumin after accounting for prothrombin time and age.</p>
-</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You have a continuous outcome and multiple predictors, some of which are correlated with each other. Multiple regression estimates each predictor’s independent effect, holding the others constant — so you can adjust for confounders and identify which variables have a genuine association with the outcome. For example: estimating the effect of bilirubin on albumin after accounting for prothrombin time and disease stage.</p>
+</div>
+</div>
 </section>
 <section id="learning-objectives" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">11.2</span> Learning Objectives</h2>
@@ -459,25 +466,31 @@ window.Quarto = {
 <li>Interpret and report interaction terms</li>
 </ul>
 </section>
-<section id="background-extending-the-linear-model" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="background-extending-the-linear-model"><span class="header-section-number">11.3</span> Background: Extending the Linear Model</h2>
+<section id="the-key-idea-adjusting-for-confounders" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="the-key-idea-adjusting-for-confounders"><span class="header-section-number">11.3</span> The Key Idea: Adjusting for Confounders</h2>
+<p>Imagine you find that people who carry lighters have higher rates of lung cancer. Does carrying a lighter cause lung cancer? No — both carrying a lighter and lung cancer are caused by a shared variable: smoking. Smoking is a <strong>confounder</strong>.</p>
+<p>Multiple regression handles this by estimating the effect of each predictor <em>while holding the others fixed</em>. The coefficient for “lighter-carrying” in a model that includes smoking status will shrink dramatically — because we have accounted for the shared cause.</p>
+<p>Every coefficient in a multiple regression model answers the question: “what is the relationship between this predictor and the outcome, <em>among people who are otherwise comparable on all the other predictors in the model?</em>”</p>
+</section>
+<section id="background-extending-the-linear-model" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="background-extending-the-linear-model"><span class="header-section-number">11.4</span> Background: Extending the Linear Model</h2>
 <p>A multiple regression with <span class="math inline">\(p\)</span> predictors is:</p>
 <p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_p X_{pi} + \varepsilon_i\]</span></p>
 <p>Each <span class="math inline">\(\beta_j\)</span> is the <strong>partial effect</strong> of <span class="math inline">\(X_j\)</span> on <span class="math inline">\(Y\)</span>, holding all other predictors constant. This is what allows confounding adjustment.</p>
 <p><strong>Categorical predictors</strong> are included as dummy variables. R creates them automatically from factors: one level becomes the reference, and the other levels get their own coefficient representing the difference from the reference.</p>
 <p><strong>Interactions</strong> allow the effect of one predictor to depend on another:</p>
 <p><span class="math display">\[Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 (X_1 \times X_2) + \varepsilon\]</span></p>
-<p><strong>Multicollinearity:</strong> When predictors are highly correlated, their coefficients become unstable. Variance Inflation Factor (VIF) &gt; 5?10 signals a problem.</p>
+<p><strong>Multicollinearity:</strong> When predictors are highly correlated, their coefficients become unstable. Variance Inflation Factor (VIF) &gt; 5–10 signals a problem.</p>
 </section>
-<section id="example-1-clinical-data-pbc" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">11.4</span> Example 1: Clinical Data (PBC)</h2>
-<section id="build-a-multivariable-model" class="level3" data-number="11.4.1">
-<h3 data-number="11.4.1" class="anchored" data-anchor-id="build-a-multivariable-model"><span class="header-section-number">11.4.1</span> Build a Multivariable Model</h3>
+<section id="example-1-clinical-data-pbc" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">11.5</span> Example 1: Clinical Data (PBC)</h2>
+<section id="build-a-multivariable-model" class="level3" data-number="11.5.1">
+<h3 data-number="11.5.1" class="anchored" data-anchor-id="build-a-multivariable-model"><span class="header-section-number">11.5.1</span> Build a Multivariable Model</h3>
 <p>We predict albumin from bilirubin, prothrombin time, and disease stage.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(stage)) <span class="sc">%&gt;%</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_bili   =</span> <span class="fu">log</span>(bili),</span>
@@ -486,14 +499,12 @@ window.Quarto = {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Start with univariable models</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili,  <span class="at">data =</span> pbc)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_proto, <span class="at">data =</span> pbc)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> stage,     <span class="at">data =</span> pbc)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Multivariable model</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>fit_full <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> stage, <span class="at">data =</span> pbc)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_full, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili,  <span class="at">data =</span> pbc)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_proto, <span class="at">data =</span> pbc)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> stage,     <span class="at">data =</span> pbc)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>fit_full <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> stage, <span class="at">data =</span> pbc)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_full, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 7
   term         estimate std.error statistic  p.value conf.low conf.high
@@ -507,14 +518,13 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare model fit</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(fit1) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"log_bili only"</span>),</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(fit2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"log_proto only"</span>),</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(fit3) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"stage only"</span>),</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(fit_full) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"full model"</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, r.squared, adj.r.squared, AIC, BIC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(fit1) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"log_bili only"</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(fit2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"log_proto only"</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(fit3) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"stage only"</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(fit_full) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"full model"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, r.squared, adj.r.squared, AIC, BIC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
   model          r.squared adj.r.squared   AIC   BIC
@@ -526,12 +536,12 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="interpreting-partial-coefficients" class="level3" data-number="11.4.2">
-<h3 data-number="11.4.2" class="anchored" data-anchor-id="interpreting-partial-coefficients"><span class="header-section-number">11.4.2</span> Interpreting Partial Coefficients</h3>
+<section id="interpreting-partial-coefficients" class="level3" data-number="11.5.2">
+<h3 data-number="11.5.2" class="anchored" data-anchor-id="interpreting-partial-coefficients"><span class="header-section-number">11.5.2</span> Interpreting Partial Coefficients</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_full, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">round</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
   term         estimate conf.low conf.high p.value
@@ -544,7 +554,11 @@ window.Quarto = {
 6 stageStage 4   -0.32    -0.503    -0.136   0.001</code></pre>
 </div>
 </div>
-<p><strong>Reading the output:</strong> - <strong>log_bili (-0.22):</strong> After adjusting for prothrombin time and stage, each one-unit increase in log(bilirubin) is associated with 0.22 g/dL lower albumin. - <strong>stageStage 2 (-0.09):</strong> Patients in Stage 2 have 0.09 g/dL lower albumin than Stage 1 patients, after adjusting for bilirubin and prothrombin time.</p>
+<p><strong>Reading the output:</strong></p>
+<ul>
+<li><strong>log_bili (−0.22):</strong> After adjusting for prothrombin time and stage, each one-unit increase in log(bilirubin) is associated with 0.22 g/dL lower albumin.</li>
+<li><strong>stageStage 2 (−0.09):</strong> Stage 2 patients have 0.09 g/dL lower albumin than Stage 1 patients, after adjusting for bilirubin and prothrombin time.</li>
+</ul>
 <p>The coefficients change from the simple models because predictors share variance. Comparing univariable and multivariable estimates reveals confounding.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -552,13 +566,12 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Reading the Multiple Regression Output: Key Differences from Simple Regression
+<span class="screen-reader-only">Note</span>Reading Multiple Regression Output: Key Differences from Simple Regression
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <code>summary()</code> output looks the same as simple regression, but the interpretation changes fundamentally.</p>
-<p><strong>Each coefficient is a <em>partial</em> effect</strong> The coefficient for <code>log_bili</code> in a multivariable model is the effect of bilirubin <em>holding prothrombin time and stage constant</em>. This is not the same as the simple regression slope. If bilirubin and prothrombin time are correlated (they are), both coefficients will change when you add predictors.</p>
-<p><strong>Comparing the univariable vs multivariable estimates:</strong></p>
+<p><strong>Each coefficient is a <em>partial</em> effect.</strong> The coefficient for <code>log_bili</code> in a multivariable model is the effect of bilirubin <em>holding prothrombin time and stage constant</em>. This is not the same as the simple regression slope. If bilirubin and prothrombin time are correlated (they are), both coefficients will change when you add predictors.</p>
+<p><strong>Comparing univariable vs multivariable estimates:</strong></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -575,18 +588,18 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>Simple <code>lm(albumin ~ log_bili)</code></td>
-<td>-0.34</td>
+<td>−0.34</td>
 <td>Total association, including confounding</td>
 </tr>
 <tr class="even">
 <td>Multiple <code>lm(albumin ~ log_bili + log_proto + stage)</code></td>
-<td>-0.22</td>
-<td>Effect of bilirubin, <em>adjusted for</em> prothrombin time and stage</td>
+<td>−0.22</td>
+<td>Effect of bilirubin, <em>adjusted for</em> the other predictors</td>
 </tr>
 </tbody>
 </table>
-<p>The coefficient shrank from -0.34 to -0.22. This means prothrombin time and stage were partially <em>confounding</em> the bilirubin-albumin relationship. The multivariable model gives the purer estimate.</p>
-<p><strong>Reference categories for factors</strong> <code>stageStage 2</code> coefficient means: <em>“Stage 2 vs Stage 1 (the reference), after adjusting for the other predictors.”</em> Stage 1 is absorbed into the intercept; it is not missing, it is the baseline.</p>
+<p>The coefficient shrank from −0.34 to −0.22. Prothrombin time and stage were partially <em>confounding</em> the bilirubin-albumin relationship. The multivariable model gives the purer estimate.</p>
+<p><strong>Reference categories for factors.</strong> <code>stageStage 2</code> coefficient means: <em>Stage 2 vs Stage 1 (the reference), after adjusting for other predictors.</em> Stage 1 is absorbed into the intercept; it is not missing, it is the baseline.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -598,7 +611,7 @@ window.Quarto = {
 </div>
 <div class="callout-body-container callout-body">
 <blockquote class="blockquote">
-<p><em>“After adjusting for prothrombin time and disease stage, each 2.7-fold increase in bilirubin was associated with 0.22 g/dL lower albumin (95% CI: -0.28 to -0.16, p &lt; 0.001). Stage was independently associated with albumin, with patients in advanced stages having lower albumin than Stage 1 patients even after accounting for bilirubin and prothrombin time. The full model explained 35% of the variance in albumin (adjusted R² = 0.35).”</em></p>
+<p><em>“After adjusting for prothrombin time and disease stage, each 2.7-fold increase in bilirubin was associated with 0.22 g/dL lower albumin (95% CI: −0.28 to −0.16, p &lt; 0.001). Stage was independently associated with albumin, with patients in advanced stages having lower albumin than Stage 1 patients even after accounting for bilirubin and prothrombin time. The full model explained 35% of the variance in albumin (adjusted R² = 0.35).”</em></p>
 </blockquote>
 <p>The key phrase is <strong>“after adjusting for”</strong>: this is what separates multiple regression from a simple comparison.</p>
 </div>
@@ -606,34 +619,10 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="checking-for-multicollinearity" class="level3" data-number="11.4.3">
-<h3 data-number="11.4.3" class="anchored" data-anchor-id="checking-for-multicollinearity"><span class="header-section-number">11.4.3</span> Checking for Multicollinearity</h3>
+<section id="checking-for-multicollinearity" class="level3" data-number="11.5.3">
+<h3 data-number="11.5.3" class="anchored" data-anchor-id="checking-for-multicollinearity"><span class="header-section-number">11.5.3</span> Checking for Multicollinearity</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'car' was built under R version 4.4.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: carData</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'carData' was built under R version 4.4.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'car'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:dplyr':
-
-    recode</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:purrr':
-
-    some</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(fit_full)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(fit_full)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              GVIF Df GVIF^(1/(2*Df))
 log_bili  1.180386  1        1.086456
@@ -643,12 +632,11 @@ stage     1.188763  3        1.029238</code></pre>
 </div>
 <p>VIF values close to 1 indicate no problematic multicollinearity. VIF &gt; 5 is a concern; VIF &gt; 10 is severe.</p>
 </section>
-<section id="model-comparison-with-lrt" class="level3" data-number="11.4.4">
-<h3 data-number="11.4.4" class="anchored" data-anchor-id="model-comparison-with-lrt"><span class="header-section-number">11.4.4</span> Model Comparison with LRT</h3>
+<section id="model-comparison-with-likelihood-ratio-test" class="level3" data-number="11.5.4">
+<h3 data-number="11.5.4" class="anchored" data-anchor-id="model-comparison-with-likelihood-ratio-test"><span class="header-section-number">11.5.4</span> Model Comparison with Likelihood Ratio Test</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Does stage improve the model beyond bilirubin + prothrombin alone?</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>fit_reduced <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto, <span class="at">data =</span> pbc)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_reduced, fit_full)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fit_reduced <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto, <span class="at">data =</span> pbc)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_reduced, fit_full)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -661,16 +649,16 @@ Model 2: albumin ~ log_bili + log_proto + stage
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>A significant F-test means the full model fits significantly better than the reduced model; stage adds explanatory value beyond bilirubin and prothrombin time.</p>
+<p>A significant F-test means the full model fits significantly better than the reduced model: stage adds explanatory value beyond bilirubin and prothrombin time.</p>
 </section>
-<section id="including-an-interaction" class="level3" data-number="11.4.5">
-<h3 data-number="11.4.5" class="anchored" data-anchor-id="including-an-interaction"><span class="header-section-number">11.4.5</span> Including an Interaction</h3>
+<section id="including-an-interaction" class="level3" data-number="11.5.5">
+<h3 data-number="11.5.5" class="anchored" data-anchor-id="including-an-interaction"><span class="header-section-number">11.5.5</span> Including an Interaction</h3>
 <p>Does the effect of bilirubin on albumin differ by disease stage?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fit_int <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">*</span> stage, <span class="at">data =</span> pbc)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_int, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(term, <span class="st">"log_bili"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fit_int <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">*</span> stage, <span class="at">data =</span> pbc)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_int, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(term, <span class="st">"log_bili"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
   term                  estimate conf.low conf.high p.value
@@ -684,29 +672,22 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>The interaction terms <code>log_bili:stageStage X</code> represent how much the slope of bilirubin differs in Stage X compared to Stage 1. If the CIs include zero, the slope does not differ significantly across stages.</p>
 </section>
 </section>
-<section id="example-2-animal-data-palmerpenguins" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="example-2-animal-data-palmerpenguins"><span class="header-section-number">11.5</span> Example 2: Animal Data (palmerpenguins)</h2>
-<p>Flipper length and bill length both predict body mass. Adding species as a covariate adjusts for the confounding we identified in the correlation session.</p>
+<section id="example-2-animal-data-palmerpenguins" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="example-2-animal-data-palmerpenguins"><span class="header-section-number">11.6</span> Example 2: Animal Data (palmerpenguins)</h2>
+<p>Flipper length and bill length both predict body mass. Adding species as a covariate adjusts for the confounding we identified in the <a href="../sessions/correlation-and-association.html">correlation session</a>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'palmerpenguins' was built under R version 4.4.3</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(body_mass_g, flipper_length_mm, bill_length_mm, species)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Unadjusted</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>fit_unadj <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> peng)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjusted for species</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>fit_adj <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> species, <span class="at">data =</span> peng)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_unadj, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"unadjusted"</span>),</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_adj,   <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"adjusted for species"</span>)</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"flipper_length_mm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(body_mass_g, flipper_length_mm, bill_length_mm, species)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>fit_unadj <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> peng)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>fit_adj   <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> species, <span class="at">data =</span> peng)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_unadj, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"unadjusted"</span>),</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_adj,   <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"adjusted for species"</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"flipper_length_mm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   model                estimate conf.low conf.high   p.value
@@ -715,17 +696,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 2 adjusted for species     40.7     34.7      46.7 1.40e- 32</code></pre>
 </div>
 </div>
-<p>Adding species to the model changes the flipper length coefficient. This is confounding adjustment in action.</p>
+<p>Adding species to the model changes the flipper length coefficient. This is confounding adjustment in action: within each species, the flipper-mass relationship is different from the pooled one.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualise: separate lines per species (equivalent to interaction)</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>peng <span class="sc">%&gt;%</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>, <span class="st">"seagreen"</span>)) <span class="sc">+</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Body mass by flipper length and species"</span>,</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>, <span class="at">y =</span> <span class="st">"Body mass (g)"</span>) <span class="sc">+</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>peng <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>, <span class="st">"seagreen"</span>)) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Body mass by flipper length and species"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>, <span class="at">y =</span> <span class="st">"Body mass (g)"</span>) <span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -737,25 +717,58 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </div>
-</section>
-<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="11.6">
-<h2 class="callout-note anchored" data-number="11.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">11.6</span> Where to Find Data Like This</h2>
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> - multiple correlated clinical predictors with a continuous outcome, ideal for demonstrating confounding and model building.</p>
-<p><strong>palmerpenguins:</strong> <code>palmerpenguins::penguins</code> - biological measurements with species as a natural confounder.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Where to Find Data Like This
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>PBC dataset:</strong> <code>survival::pbc</code> — multiple correlated clinical predictors with a continuous outcome, ideal for demonstrating confounding and model building.</p>
+<p><strong>palmerpenguins:</strong> <code>palmerpenguins::penguins</code> — biological measurements with species as a natural confounder.</p>
 <p><strong>NHANES:</strong> Many continuous health outcomes (blood pressure, cholesterol) with multiple demographic and clinical predictors.</p>
+</div>
+</div>
 </section>
-<section id="what-can-go-wrong" class="level2 callout-warning" data-number="11.7">
-<h2 class="callout-warning anchored" data-number="11.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">11.7</span> What Can Go Wrong</h2>
-<p><strong>Overfitting</strong> Adding more predictors always increases <span class="math inline">\(R^2\)</span>. Use adjusted <span class="math inline">\(R^2\)</span>, AIC, or cross-validation to compare models, not raw <span class="math inline">\(R^2\)</span>.</p>
-<p><strong>Multicollinearity</strong> Highly correlated predictors produce inflated standard errors and unstable coefficients. Check VIF before interpreting a model with many predictors.</p>
-<p><strong>Including colliders</strong> Adjusting for a variable on the causal pathway between exposure and outcome (a mediator) or a common effect of both (a collider) can introduce bias. See <a href="../sessions/causal-inference.html">Causal Inference</a> for guidance.</p>
-<p><strong>Data-dredging</strong> Selecting predictors based on p-values from exploratory analysis, then reporting the final model as if it were pre-specified, produces overfitted models with inflated associations. Pre-register your model or use a penalised method (ridge, lasso).</p>
-<p><strong>Interpreting coefficients in models with interactions</strong> When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference category, not the marginal effect. Always evaluate interactions at meaningful covariate values. ::: {.callout-warning} ### Common Misinterpretations: Don’t Make These Mistakes</p>
-<p><strong>“Adding more predictors always improves my model”</strong> Raw R² always increases with more predictors even if they are noise. Use <em>adjusted</em> R², AIC, or cross-validation. A model with 20 predictors and 50 patients is almost certainly overfitted; it will fail on new data.</p>
-<p><strong>“My predictor is not significant so it has no effect”</strong> With collinear predictors, both can become non-significant even if together they explain a lot of variance. Check VIF and consider whether the predictors should be modelled together or separately.</p>
-<p><strong>“The adjusted model is always more accurate than the unadjusted one”</strong> Adjusting for a <em>collider</em> (a variable caused by both exposure and outcome) introduces bias that was not there in the unadjusted model. Think carefully about the causal structure before adding covariates. See the Causal Inference session.</p>
-<p><strong>“I can compare R² between models with different outcomes”</strong> R² is not comparable across different outcome variables or different datasets. Only compare R² (or AIC) between models fitted to the same data with the same outcome.</p>
-<p><strong>“Stage 2 coefficient = -0.09 means Stage 2 patients have lower albumin”</strong> It means Stage 2 patients have 0.09 g/dL lower albumin than Stage 1 patients <em>after adjusting for other predictors in the model</em>. Change the reference category and the coefficient changes. Always state the reference group when reporting factor coefficients. :::</p>
+<section id="what-can-go-wrong" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="what-can-go-wrong"><span class="header-section-number">11.7</span> What Can Go Wrong</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Overfitting.</strong> Adding more predictors always increases R². Use adjusted R², AIC, or cross-validation to compare models, not raw R².</p>
+<p><strong>Multicollinearity.</strong> Highly correlated predictors produce inflated standard errors and unstable coefficients. Check VIF before interpreting a model with many predictors.</p>
+<p><strong>Including colliders.</strong> Adjusting for a variable on the causal pathway between exposure and outcome (a mediator) or a common effect of both (a collider) can introduce bias. See the <a href="../sessions/causal-inference.html">Causal Inference</a> session for guidance.</p>
+<p><strong>Data-dredging.</strong> Selecting predictors based on p-values from exploratory analysis, then reporting the final model as if it were pre-specified, produces overfitted models with inflated associations. Pre-register your model or use a penalised method (ridge, lasso).</p>
+<p><strong>Interpreting coefficients in models with interactions.</strong> When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference level — not the marginal effect. Always evaluate interactions at meaningful covariate values.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Common Misinterpretations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>“Adding more predictors always improves my model.”</strong> Raw R² always increases with more predictors, even if they are noise. Use <em>adjusted</em> R², AIC, or cross-validation. A model with 20 predictors and 50 patients is almost certainly overfitted.</p>
+<p><strong>“My predictor is not significant so it has no effect.”</strong> With collinear predictors, both can become non-significant even if together they explain a lot of variance. Check VIF and consider whether the predictors should be modelled together or separately.</p>
+<p><strong>“The adjusted model is always more accurate than the unadjusted one.”</strong> Adjusting for a <em>collider</em> introduces bias that was not there in the unadjusted model. Think carefully about the causal structure before adding covariates. See the <a href="../sessions/causal-inference.html">Causal Inference</a> session.</p>
+<p><strong>“I can compare R² between models with different outcomes.”</strong> R² is not comparable across different outcome variables or different datasets. Only compare R² (or AIC) between models fitted to the same data with the same outcome.</p>
+<p><strong>“Stage 2 coefficient = −0.09 means Stage 2 patients have lower albumin.”</strong> It means Stage 2 patients have 0.09 g/dL lower albumin than Stage 1 patients <em>after adjusting for other predictors.</em> Change the reference category and the coefficient changes. Always state the reference group when reporting factor coefficients.</p>
+</div>
+</div>
 </section>
 <section id="exercises" class="level2" data-number="11.8">
 <h2 data-number="11.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">11.8</span> Exercises</h2>
@@ -767,9 +780,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Multivariable: <code>log_bili + log_proto</code></li>
 <li>Full: <code>log_bili + log_proto + stage</code></li>
 </ol>
-<p>Report adjusted <span class="math inline">\(R^2\)</span> and AIC for each model. Which is best? Does adding stage improve fit (use <code>anova()</code>)?</p>
+<p>Report adjusted R² and AIC for each model. Which is best? Does adding stage improve fit (use <code>anova()</code>)?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -778,19 +791,19 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili, <span class="at">data =</span> pbc)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto, <span class="at">data =</span> pbc)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> stage, <span class="at">data =</span> pbc)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m1) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"1: log_bili"</span>),</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"2: + log_proto"</span>),</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m3) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"3: + stage"</span>)</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, adj.r.squared, AIC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili, <span class="at">data =</span> pbc)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto, <span class="at">data =</span> pbc)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> stage, <span class="at">data =</span> pbc)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m1) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"1: log_bili"</span>),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"2: + log_proto"</span>),</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m3) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"3: + stage"</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, adj.r.squared, AIC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   model          adj.r.squared   AIC
@@ -799,7 +812,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 2 2: + log_proto         0.132  404.
 3 3: + stage             0.183  382.</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m2, m3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m2, m3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -825,7 +838,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Interpret: does the slope of flipper length differ between species?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -834,14 +847,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>peng3 <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>fit_i  <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">*</span> species, <span class="at">data =</span> peng3)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>fit_no <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> species,  <span class="at">data =</span> peng3)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_no, fit_i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>peng3  <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>fit_i  <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">*</span> species, <span class="at">data =</span> peng3)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>fit_no <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> species,  <span class="at">data =</span> peng3)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_no, fit_i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -853,9 +866,9 @@ Model 2: body_mass_g ~ flipper_length_mm * species
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_i, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(term, <span class="st">"flipper"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_i, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(term, <span class="st">"flipper"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term                               estimate conf.low conf.high  p.value
@@ -877,14 +890,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="comprehension-check" class="level2" data-number="11.9">
 <h2 data-number="11.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">11.9</span> Comprehension Check</h2>
 <ol type="1">
-<li>You fit a simple regression and get slope = -0.5 for log_bili. In the multivariable model with protime and stage, the slope is -0.2. What happened, and what does this tell you?</li>
+<li>You fit a simple regression and get slope = −0.5 for log_bili. In the multivariable model with protime and stage, the slope is −0.2. What happened, and what does this tell you?</li>
 <li>VIF for two of your predictors is 12 and 11. What is the problem, and what are your options?</li>
 <li>You compare two models with <code>anova()</code> and get p = 0.0003. What does this mean?</li>
 <li>A colleague says “AIC is lower for Model B, so Model B is definitely correct.” Is this right?</li>
-<li>An interaction term has estimate = 0.15, 95% CI (-0.02, 0.32), p = 0.08. Should you include it in the final model?</li>
+<li>An interaction term has estimate = 0.15, 95% CI (−0.02, 0.32), p = 0.08. Should you include it in the final model?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -893,14 +906,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>The simple regression slope was confounded: bilirubin was acting partly as a proxy for prothrombin time and disease stage. After adjustment, the partial effect of bilirubin is smaller (-0.2), reflecting the unique contribution of bilirubin over and above the other predictors.</li>
+<li>The simple regression slope was confounded: bilirubin was acting partly as a proxy for prothrombin time and disease stage. After adjustment, the partial effect of bilirubin is smaller (−0.2), reflecting the unique contribution of bilirubin above and beyond the other predictors.</li>
 <li>VIF &gt; 10 indicates severe multicollinearity. The two predictors are so highly correlated that their individual coefficients are unreliable (large SEs, may flip sign). Options: (1) remove one of the correlated predictors; (2) combine them into a composite score; (3) use ridge regression, which handles multicollinearity by regularisation.</li>
 <li>The F-test comparing the two models is highly significant; the larger model fits significantly better than the smaller model. At least one of the additional predictors contributes meaningfully.</li>
-<li>No.&nbsp;AIC is a relative measure of model quality penalised for complexity. Lower AIC means better fit-to-complexity balance among the models compared, but it does not guarantee the model is “correct” in an absolute sense. The true model could be something neither model captures.</li>
-<li>The evidence is weak and the CI includes zero. Whether to include it depends on context: if it was pre-specified and has a plausible biological rationale, you might retain it and acknowledge the marginal evidence. If it was data-driven, it is safer to use the main-effects model and note the trend.</li>
+<li>No.&nbsp;AIC is a relative measure of model quality penalised for complexity. Lower AIC means a better fit-to-complexity balance among the models compared, but it does not guarantee the model is “correct” in an absolute sense.</li>
+<li>The evidence is weak and the CI includes zero. Whether to include it depends on context: if it was pre-specified with a plausible biological rationale, you might retain it and acknowledge the marginal evidence. If it was data-driven, it is safer to use the main-effects model.</li>
 </ol>
 </div>
 </div>
@@ -908,8 +921,6 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="how-to-report" class="level2" data-number="11.10">
 <h2 data-number="11.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">11.10</span> How to Report</h2>
-<section id="reporting-multiple-regression" class="level3" data-number="11.10.1">
-<h3 data-number="11.10.1" class="anchored" data-anchor-id="reporting-multiple-regression"><span class="header-section-number">11.10.1</span> Reporting Multiple Regression</h3>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -921,18 +932,17 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>In a methods section:</strong> “A multiple linear regression model was built with [outcome] as the dependent variable. Candidate predictors included [list]. Variables were selected based on [method: biological rationale / stepwise / LASSO]. Variance inflation factors (VIF) were examined to assess multicollinearity.”</p>
-<p><strong>In results:</strong> “After adjustment for [covariates], [predictor] remained independently associated with [outcome] (3b2 = X, 95% CI [L, U], p = Y). The full model explained X% of the variance in [outcome] (adjusted R² = X).”</p>
-<p><strong>What to always include:</strong></p>
+<p><strong>In results:</strong> “After adjustment for [covariates], [predictor] remained independently associated with [outcome] (β = X, 95% CI [L, U], p = Y). The full model explained X% of the variance in [outcome] (adjusted R² = X).”</p>
+<p><strong>Always include:</strong></p>
 <ul>
-<li>Coefficients (3b2) with 95% CI for each predictor</li>
+<li>Coefficients (β) with 95% CI for each predictor</li>
 <li>Overall model fit (adjusted R²)</li>
-<li>n and number of predictors (flag if n/predictor &lt; 10)</li>
+<li>n and number of predictors (flag if n/predictor ratio &lt; 10)</li>
 <li>Variable selection method used</li>
 </ul>
 <p><strong>Never report unadjusted and adjusted estimates in the same sentence</strong> without clearly labelling which is which.</p>
 </div>
 </div>
-</section>
 </section>
 <section id="further-reading" class="level2" data-number="11.11">
 <h2 data-number="11.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">11.11</span> Further Reading</h2>
@@ -940,7 +950,7 @@ Note
 <li><span class="citation" data-cites="Dalgaard-2008">Dalgaard (<a href="#ref-Dalgaard-2008" role="doc-biblioref">2008</a>)</span> — Multiple regression chapter in <em>Introductory Statistics with R</em></li>
 <li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span> — Multivariable regression in <em>An Introduction to Medical Statistics</em></li>
 <li><code>?lm</code>, <code>?vif</code> (from <code>car</code>), <code>?anova.lm</code> in R</li>
-<li><span class="citation" data-cites="Harrell-2015">Harrell (<a href="#ref-Harrell-2015" role="doc-biblioref">2015</a>)</span> — <em>Regression Modeling Strategies</em> - comprehensive reference for clinical regression</li>
+<li><span class="citation" data-cites="Harrell-2015">Harrell (<a href="#ref-Harrell-2015" role="doc-biblioref">2015</a>)</span> — <em>Regression Modeling Strategies</em> — comprehensive reference for clinical regression</li>
 </ul>
 
 

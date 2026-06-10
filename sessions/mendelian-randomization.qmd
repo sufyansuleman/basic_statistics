@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Mendelian Randomisation"
 ---
 
@@ -7,11 +7,18 @@ title: "Mendelian Randomisation"
 #| eval: true
 library(tidyverse)
 library(broom)
+if (!requireNamespace("AER", quietly = TRUE)) {
+  message("Package 'AER' not available; 2SLS section will be skipped.")
+} else {
+  library(AER)
+}
 ```
 
-## When Do You Use This? {#sec-mr .callout-tip}
+## When Do You Use This? {#sec-mr}
 
-> You want to know whether high LDL cholesterol causally increases the risk of liver disease. Observational studies are confounded - sick people may both have elevated LDL and worse liver function. An RCT randomising people to high or low LDL is impossible. Mendelian randomisation uses genetic variants that naturally raise LDL as a randomisation instrument: because genotype is assigned at conception, it cannot be confounded by lifestyle or disease state.
+::: {.callout-tip}
+You want to know whether high LDL cholesterol causally increases the risk of liver disease. Observational studies are confounded --- sick people may both have elevated LDL and worse liver function. An RCT randomising people to high or low LDL is impossible. Mendelian randomisation uses genetic variants that naturally raise LDL as a randomisation instrument: because genotype is assigned at conception, it cannot be confounded by lifestyle or disease state.
+:::
 
 ## Learning Objectives
 
@@ -23,6 +30,14 @@ After completing this session you will be able to:
 - Interpret MR effect estimates and report them correctly
 - Recognise horizontal pleiotropy and apply sensitivity analyses (MR-Egger, weighted median, MR-PRESSO)
 
+
+## The Key Idea: Nature's Randomised Trial
+
+Randomisation is the gold standard for establishing causation because it breaks the link between who receives treatment and everything else about those people. In an RCT, you randomly assign some people to high LDL (or a drug that raises LDL) and compare their outcomes to a control group.
+
+Mendelian randomisation says: nature has already done this. Genetic variants that raise LDL are distributed essentially at random in the population (by Mendel's laws of segregation). People who inherited more LDL-raising alleles are, on average, no different from those who inherited fewer --- except for their LDL level. So we can use the genetic "dose" as a proxy for random assignment to high or low LDL.
+
+The key difference from an RCT: you cannot verify the assumptions as directly. This is why sensitivity analyses for pleiotropy are essential --- see the [Causal Inference](causal-inference.qmd) session for the broader framework.
 
 ## Background: Mendelian Randomisation as an Instrument
 
@@ -109,7 +124,7 @@ cat("True causal effect: 0.3\n")
 ### Two-Stage Least Squares (2SLS)
 
 ```{r tsls}
-library(AER)   # ivreg()
+#| eval: !expr requireNamespace("AER", quietly = TRUE)
 fit_iv <- ivreg(ALT ~ LDL | G, data = sim)
 tidy(fit_iv, conf.int = TRUE) %>% filter(term == "LDL")
 ```
@@ -159,40 +174,44 @@ beta_y  <- 0.3 * beta_x + rnorm(n_snps, 0, 0.008)  # SNP-outcome (no pleiotropy)
 
 tibble(beta_x, beta_y) %>%
   ggplot(aes(x = beta_x, y = beta_y)) +
-  geom_point(size = 2, color = "steelblue") +
-  geom_smooth(method = "lm", se = TRUE, color = "tomato") +
+  geom_point(size = 2, colour = "steelblue") +
+  geom_smooth(method = "lm", se = TRUE, colour = "tomato") +
   geom_hline(yintercept = 0, linetype = "dashed") +
   labs(title = "MR scatter plot: SNP effects on exposure vs outcome",
-       x = "SNP?Exposure (LDL) effect",
-       y = "SNP?Outcome (ALT) effect") +
+       x = "SNP--Exposure (LDL) effect",
+       y = "SNP--Outcome (ALT) effect") +
   theme_bw()
 ```
 
 
-## Where to Find Data Like This {.callout-note}
+::: {.callout-note}
+## Where to Find Data Like This
 
-**MR-Base (IEU Open GWAS):** `TwoSampleMR::available_outcomes()` - thousands of GWAS summary datasets freely accessible via the `TwoSampleMR` package.
+**MR-Base (IEU Open GWAS):** `TwoSampleMR::available_outcomes()` --- thousands of GWAS summary datasets freely accessible via the `TwoSampleMR` package.
 
-**UK Biobank GWAS:** Downloadable summary statistics for thousands of traits at [https://www.ukbiobank.ac.uk](https://www.ukbiobank.ac.uk).
+**UK Biobank GWAS:** Downloadable summary statistics for thousands of traits at ukbiobank.ac.uk.
 
-**FinnGen:** European biobank GWAS summary data: [https://www.finngen.fi](https://www.finngen.fi).
+**FinnGen:** European biobank GWAS summary data at finngen.fi.
 
-**PhenoScanner:** Query SNP associations across thousands of traits: [http://www.phenoscanner.medschl.cam.ac.uk](http://www.phenoscanner.medschl.cam.ac.uk).
+**PhenoScanner:** Query SNP associations across thousands of traits at phenoscanner.medschl.cam.ac.uk.
+:::
 
 
-## What Can Go Wrong {.callout-warning}
+::: {.callout-warning}
+## What Can Go Wrong
 
-**Weak instruments (F < 10)**
-When the SNP explains little variance in the exposure, the Wald ratio becomes unstable (weak instrument bias). Weak instruments bias 2SLS toward the OLS estimate in one-sample MR, and toward the null in two-sample MR. Use multiple SNPs and check F-statistics.
+**Weak instruments (F < 10).**
+When the SNP explains little variance in the exposure, the Wald ratio becomes unstable. Weak instruments bias 2SLS toward the OLS estimate in one-sample MR, and toward the null in two-sample MR. Use multiple SNPs and check F-statistics.
 
-**Horizontal pleiotropy**
+**Horizontal pleiotropy.**
 The exclusion restriction is violated if the SNP affects the outcome through pathways other than the exposure. MR-Egger, weighted median, and MR-PRESSO test for and partly correct this, but they are not definitive. Biological understanding of the genetic variant is essential.
 
-**Winner's curse in instrument selection**
+**Winner's curse in instrument selection.**
 Using the same dataset to select instruments and to estimate the causal effect inflates the apparent SNP-exposure association. Always use independent datasets for instrument selection and effect estimation (two-sample design).
 
-**Confounding by population stratification**
+**Confounding by population stratification.**
 If the exposure and outcome GWAS come from populations with different ancestry, SNP effects may differ by ancestry and confound the MR estimate. Use ancestry-matched datasets or multi-ancestry sensitivity analyses.
+:::
 
 
 ## Exercises
@@ -211,7 +230,7 @@ Using the simulated `sim` dataset:
 ```{r}
 fit1 <- lm(LDL ~ G, data = sim)
 f    <- summary(fit1)$fstatistic["value"]
-cat("F-statistic:", round(f, 1), "? strong if > 10\n")
+cat("F-statistic:", round(f, 1), "--- strong if > 10\n")
 
 # Weak instrument
 G_weak  <- rbinom(nrow(sim), 2, 0.05)

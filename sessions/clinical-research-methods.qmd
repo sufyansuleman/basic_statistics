@@ -11,9 +11,11 @@ library(broom)
 library(gtsummary)
 ```
 
-## When Do You Use This? {#sec-clinical-methods .callout-tip}
+## When Do You Use This? {#sec-clinical-methods}
 
-> You are designing a clinical or translational study and need to make foundational decisions before collecting any data: What study design is appropriate? What biases might invalidate your conclusions? How do you translate a research question into a clearly defined estimand? These choices determine what statistical analysis is appropriate and what your results can legitimately claim. For example: whether a study of a novel intervention should be an RCT or an observational cohort, and how that choice affects analysis and interpretation.
+::: {.callout-tip}
+You are designing a clinical or translational study and need to make foundational decisions before collecting any data: What study design is appropriate? What biases might invalidate your conclusions? How do you translate a research question into a clearly defined estimand? These choices determine what statistical analysis is appropriate and what your results can legitimately claim. For example: whether a study of a novel intervention should be an RCT or an observational cohort, and how that choice affects analysis and interpretation.
+:::
 
 ## Learning Objectives
 
@@ -24,6 +26,13 @@ After completing this session you will be able to:
 - Describe the Bradford Hill criteria for causal inference from observational data
 - Translate a PICO clinical question into an analysis plan
 - Produce a Table 1 and interpret the results of an adjusted analysis
+
+
+## The Key Idea: No Analysis Can Fix a Broken Design
+
+Every other session in this course starts from the assumption that you already have a dataset, and asks: which test, which model, which diagnostic? This session asks the question that comes *before* all of that --- was the study designed in a way that your data can actually answer your question?
+
+Here is the uncomfortable truth: a sophisticated multivariable model applied to a poorly designed study does not rescue it. If your controls were recruited from a population that systematically differs from your cases (selection bias), if your exposure was measured differently in cases and controls (information bias), or if you failed to measure the one variable that explains both your exposure and your outcome (confounding) --- no regression coefficient, however precisely estimated, will give you the right answer. Get the design right first; the analysis comes second.
 
 
 ## Background: Study Design
@@ -186,30 +195,34 @@ tidy(fit_conf, conf.int = TRUE) %>% filter(term == "exercise")
 In the unadjusted model, exercise appears to lower HbA1c, but this is entirely explained by SES (richer people exercise more **and** have lower HbA1c). Adjusting for SES removes the confounded association.
 
 
-## Where to Find Data Like This {.callout-note}
+## Where to Find Data Like This
 
-**`survival::pbc`:** RCT in primary : 418 patients, 17 variables, continuous follow-up. Ideal for survival analysis and clinical regression.
+::: {.callout-note}
+**`survival::pbc`:** An RCT in primary biliary cholangitis: 418 patients, 17 variables, continuous follow-up. Ideal for survival analysis and clinical regression.
 
-**`MASS::birthwt`:** : birth weight, risk factors (smoking, hypertension, race). Good for logistic regression teaching.
+**`MASS::birthwt`:** Birth weight data with maternal risk factors (smoking, hypertension, race). Good for logistic regression teaching.
 
-**NHANES:** US population health survey, accessible via `nhanesA` package. Rich observational dataset for confounding and epidemiology examples.
+**NHANES:** US population health survey, accessible via the `nhanesA` package. A rich observational dataset for confounding and epidemiology examples.
 
-**Epidemiological methods textbooks:** Often provide study datasets. sRothman-2012 includes Examples from case-control and cohort designs.
+**Epidemiological methods textbooks:** Often provide study datasets. @Rothman-2012 includes examples from case-control and cohort designs.
+:::
 
 
-## What Can Go Wrong {.callout-warning}
+## What Can Go Wrong
 
+::: {.callout-warning}
 **Immortal time bias**
 In retrospective cohort studies, if patients must survive long enough to receive a treatment, the treatment group has immortal follow-up time before exposure begins. Ignoring this biases results in favour of the treated group.
 
 **Collider bias**
-Adjusting for a variable on the causal pathway (a collider) can open a spurious association between exposure and outcome. See ssec-causal for a Example.
+Adjusting for a variable on the causal pathway (a collider) can open a spurious association between exposure and outcome. See [Causal Inference](causal-inference.qmd) for a worked example.
 
 **Ecological fallacy**
 Associations observed at the group level (e.g., country-level sodium intake and stroke mortality) do not necessarily hold at the individual level.
 
 **Over-adjusting for intermediates**
 Adjusting for a mediator (a variable on the causal pathway from exposure to outcome) removes the effect you are trying to estimate. For example, adjusting for BMI when studying the effect of a dietary intervention on diabetes.
+:::
 
 
 ## Exercises
@@ -236,8 +249,7 @@ Read the following study description and identify the likely bias:
 Using `MASS::birthwt`:
 
 ```{r birthwt-ex}
-library(MASS)
-data(birthwt)
+data(birthwt, package = "MASS")
 birthwt <- as_tibble(birthwt) %>%
   mutate(
     low    = factor(low, labels = c("Normal weight", "Low birth weight")),
@@ -250,6 +262,29 @@ birthwt <- as_tibble(birthwt) %>%
 2. Fit an unadjusted logistic regression: `low ~ smoke`.
 3. Fit an adjusted model: `low ~ smoke + age + race + lwt` (lwt = mother's weight at last menstrual period).
 4. How does the smoking odds ratio change after adjustment? What does this tell you about confounding?
+
+::: {.callout-tip collapse="true"}
+### Exercise 2: Solution
+
+```{r}
+birthwt %>%
+  select(low, smoke, age, race, lwt) %>%
+  tbl_summary(by = low) %>%
+  add_p() %>%
+  bold_labels()
+
+fit_unadj <- glm(low ~ smoke, data = birthwt, family = binomial)
+tidy(fit_unadj, exponentiate = TRUE, conf.int = TRUE) %>%
+  filter(term != "(Intercept)")
+
+fit_adj <- glm(low ~ smoke + age + race + lwt, data = birthwt, family = binomial)
+tidy(fit_adj, exponentiate = TRUE, conf.int = TRUE) %>%
+  filter(term != "(Intercept)") %>%
+  select(term, estimate, conf.low, conf.high, p.value)
+```
+
+If the smoking odds ratio changes substantially after adjustment, age, race, or maternal weight confound the unadjusted association.
+:::
 
 ### Exercise 3 (Open-ended)
 
@@ -268,7 +303,7 @@ Identify a published observational study in your research area. Write a one-page
 2. A study finds that coffee drinking is associated with reduced risk of Parkinson's disease. A confounder is proposed: smokers drink more coffee and are less likely to develop Parkinson's (due to nicotine's neuroprotective effects). Is this a confounder? Explain why or why not.
 3. In a case-control study, cases and controls are recruited from different hospitals. What bias might this introduce?
 4. What does "non-differential misclassification" mean, and which direction does it typically bias the association?
-5. A cohort study uses data from 2010?2020. Patients are classified as "treated" if they received a statin at any point. However, many patients only started statins after having a cardiovascular event. What bias does this introduce?
+5. A cohort study uses data from 2010--2020. Patients are classified as "treated" if they received a statin at any point. However, many patients only started statins after having a cardiovascular event. What bias does this introduce?
 
 ::: {.callout-note collapse="true"}
 ### Answers
@@ -306,7 +341,7 @@ Use the appropriate reporting checklist for your study design; reviewers and jou
 
 ## Further Reading
 
-- sRothman-2012 --- *Epidemiology: An Introduction* - authoritative text on study design and confounding
-- sHernan-Robins-2020 --- *Causal Inference: What If* - free online textbook on observational causal inference
-- sSzklo-Nieto-2014 --- *Epidemiology: Beyond the Basics* - bias, confounding, effect modification
-- sGrimes-Schulz-2002 --- *Cohort studies: marching towards outcomes* (Lancet series on study design)
+- @Rothman-2012 --- *Epidemiology: An Introduction* - authoritative text on study design and confounding
+- @Hernan-Robins-2020 --- *Causal Inference: What If* - free online textbook on observational causal inference
+- @Szklo-Nieto-2014 --- *Epidemiology: Beyond the Basics* - bias, confounding, effect modification
+- @Grimes-Schulz-2002 --- *Cohort studies: marching towards outcomes* (Lancet series on study design)

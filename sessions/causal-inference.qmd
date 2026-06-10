@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Causal Inference"
 ---
 
@@ -6,15 +6,18 @@ title: "Causal Inference"
 #| include: false
 #| eval: true
 library(tidyverse)
+library(janitor)
 library(survival)
 library(broom)
 library(dagitty)
 library(ggdag)
 ```
 
-## When Do You Use This? {#sec-causal-inference .callout-tip}
+## When Do You Use This? {#sec-causal-inference}
 
-> You have found a statistical association between an exposure and an outcome, but associations can arise from confounding, reverse causation, or selection bias rather than a true causal effect. Causal inference provides the framework for deciding whether an observed association reflects a genuine causal relationship, what "adjusting for confounders" really means, and why adjusting for the wrong variables can make things *worse* rather than better. For example: patients who take aspirin have lower bilirubin, but does aspirin reduce bilirubin, or do healthier patients simply take aspirin more often?
+::: {.callout-tip}
+You have found a statistical association between an exposure and an outcome, but associations can arise from confounding, reverse causation, or selection bias rather than a true causal effect. Causal inference provides the framework for deciding whether an observed association reflects a genuine causal relationship, what "adjusting for confounders" really means, and why adjusting for the *wrong* variables can make things worse rather than better. For example: patients who take aspirin have lower bilirubin, but does aspirin reduce bilirubin, or do healthier patients simply take aspirin more often?
+:::
 
 ## Learning Objectives
 
@@ -26,6 +29,12 @@ After completing this session you will be able to:
 - Apply the backdoor criterion to select a valid adjustment set
 - Recognise and avoid collider bias and mediation bias
 
+
+## The Key Idea: Correlation Is Not Causation — and Adjustment Is Not Neutral
+
+You have heard "correlation is not causation" a thousand times. But causal inference makes this concrete: it gives you a framework for knowing *when* a correlation reflects causation, and *when* adjusting for a variable helps versus hurts.
+
+The central insight: whether to adjust for a variable depends entirely on its causal role. A confounder must be adjusted for. A mediator must NOT be adjusted for (if you want the total effect). A collider must NEVER be adjusted for. Without a causal diagram, you cannot tell these apart --- and getting it wrong can introduce more bias than it removes.
 
 ## Background: Why Associations Are Not Causes
 
@@ -138,10 +147,10 @@ When randomisation is not possible, propensity score methods attempt to balance 
 ```{r pscore}
 pbc <- survival::pbc %>%
   as_tibble() %>%
-  janitor::clean_names() %>%
+  clean_names() %>%
   filter(!is.na(trt), !is.na(bili), !is.na(albumin), !is.na(protime), !is.na(stage)) %>%
   mutate(
-    trt_d  = as.integer(trt == 1),   # 1 = D-penicillamine, 0 = Placebo
+    trt_d     = as.integer(trt == 1),
     log_bili  = log(bili),
     log_proto = log(protime),
     stage     = factor(stage, levels = 1:4, labels = paste("Stage", 1:4))
@@ -152,7 +161,6 @@ ps_model <- glm(trt_d ~ log_bili + albumin + log_proto + stage + age + sex,
                 data = pbc, family = binomial)
 pbc$ps <- predict(ps_model, type = "response")
 
-# Check overlap
 pbc %>%
   mutate(trt_label = if_else(trt_d == 1, "D-penicillamine", "Placebo")) %>%
   ggplot(aes(x = ps, fill = trt_label)) +
@@ -175,7 +183,6 @@ pbc <- pbc %>%
     )
   )
 
-# Weighted treatment-outcome association
 lm(albumin ~ trt_d, data = pbc, weights = ipw) %>%
   broom::tidy(conf.int = TRUE)
 ```
@@ -183,28 +190,32 @@ lm(albumin ~ trt_d, data = pbc, weights = ipw) %>%
 IPTW creates a pseudo-population in which treatment assignment is independent of confounders. The weighted outcome difference estimates the ATE.
 
 
-## Where to Find Data Like This {.callout-note}
+::: {.callout-note}
+## Where to Find Data Like This
 
 **`survival::pbc`:** Real RCT data: bilirubin, albumin, stage, prothrombin time, ideal for DAG-based confounding analysis.
 
 **`dagitty.net`:** Free online DAG tool: draw, encode, and query adjustment sets without R.
 
 **`ggdag` and `dagitty` R packages:** Programmatic DAG construction, visualisation, and adjustment set identification.
+:::
 
 
-## What Can Go Wrong {.callout-warning}
+::: {.callout-warning}
+## What Can Go Wrong
 
-**Adjusting for everything**
-Adding all available variables to a regression model is not "conservative" - it can introduce collider bias if any of those variables is a collider. Always draw a DAG before deciding what to adjust for.
+**Adjusting for everything.**
+Adding all available variables to a regression model is not "conservative" --- it can introduce collider bias if any of those variables is a collider. Always draw a DAG before deciding what to adjust for.
 
-**Over-adjusting for mediators**
+**Over-adjusting for mediators.**
 If you adjust for a mediator, you estimate the direct effect of exposure on outcome. This is only correct if your research question specifically asks about the direct effect. For most aetiological questions, you want the total effect, which means *not* adjusting for mediators.
 
-**Confusing statistical control with causal identification**
+**Confusing statistical control with causal identification.**
 A regression coefficient "adjusted for X" does not automatically equal the causal effect. The causal interpretation requires the DAG-based assumptions to hold: no unmeasured confounders, correct functional form, no measurement error in confounders.
 
-**Positivity violations in propensity score methods**
-If some patient subgroups always or never receive treatment (deterministic treatment), inverse probability weights become extreme or undefined. Trim weights or restrict the analysis to the region of common support.
+**Positivity violations in propensity score methods.**
+If some patient subgroups always or never receive treatment, inverse probability weights become extreme or undefined. Trim weights or restrict the analysis to the region of common support.
+:::
 
 
 ## Exercises
@@ -289,7 +300,7 @@ For your own observational research question:
 1. Adjusting for a collider opens a backdoor path that was previously closed, inducing a spurious association. Adjusting for a mediator removes part of the causal effect, biasing toward the null. Without a DAG, you cannot know whether your covariates are confounders, mediators, or colliders; adding all of them can introduce more bias than it removes.
 2. Hospitalisation is a common effect of the exposure (e.g., bilirubin) and other causes. Restricting to hospitalised patients conditions on a collider, creating a spurious association between bilirubin and those other causes within the hospitalised sample. This is Berkson's paradox.
 3. No; if albumin is a mediator on the causal pathway from bilirubin to mortality, adjusting for it blocks that pathway and estimates only the *direct* effect of bilirubin not mediated through albumin. To estimate the total causal effect of bilirubin (including the pathway through albumin), you should not adjust for albumin.
-4. A high AUC (0.95) for the propensity score model means treatment and control groups are almost perfectly separable based on covariates. This is actually problematic for IPTW: patients near the boundary of the score distribution will have extreme weights (very high or very low), causing instability and high variance. Good overlap is signalled by a moderate AUC (0.6?0.8). With AUC = 0.95 you should check for positivity violations and consider weight trimming.
+4. A high AUC (0.95) for the propensity score model means treatment and control groups are almost perfectly separable based on covariates. This is actually problematic for IPTW: patients near the boundary of the score distribution will have extreme weights (very high or very low), causing instability and high variance. Good overlap is signalled by a moderate AUC (0.6--0.8). With AUC = 0.95 you should check for positivity violations and consider weight trimming.
 5. Several explanations: (1) Unmeasured confounding: IPTW only adjusts for measured covariates; if key confounders are unmeasured, the observational estimate is biased. (2) Selection bias - the RCT may have enrolled a different population. (3) Non-adherence in the RCT - the -0.3 is an intention-to-treat estimate, potentially diluted by non-compliance. (4) Positivity violations in the IPTW analysis leading to biased estimation. Comparing RCT and observational estimates is a useful internal validity check.
 :::
 
@@ -312,8 +323,8 @@ For your own observational research question:
 - That mediators and colliders were *not* adjusted for (if relevant)
 
 **Common reporting errors:**
-- Adjusting for all available covariates regardless of causal structure  -  this can introduce collider bias
-- Adjusting for mediators on the causal path  -  this blocks the effect you are trying to estimate
+- Adjusting for all available covariates regardless of causal structure --- this can introduce collider bias
+- Adjusting for mediators on the causal path --- this blocks the effect you are trying to estimate
 - Describing a result as "causal" when it is observational without instrumental variable or experimental design
 :::
 

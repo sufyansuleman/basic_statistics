@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Missing Data and Imputation"
 ---
 
@@ -6,13 +6,22 @@ title: "Missing Data and Imputation"
 #| include: false
 #| eval: true
 library(tidyverse)
+library(janitor)
 library(survival)
 library(mice)
+library(palmerpenguins)
+if (!requireNamespace("naniar", quietly = TRUE)) {
+  message("Package 'naniar' not available; related visualisations will be skipped.")
+} else {
+  library(naniar)
+}
 ```
 
-## When Do You Use This? {#sec-imputation .callout-tip}
+## When Do You Use This? {#sec-imputation}
 
-> Your dataset has missing values. Simply dropping incomplete cases loses statistical power, and if the data are not missing at random, dropping them biases your estimates in ways that are difficult to detect. Missing data methods let you use all available information and make your assumptions about missingness explicit. For example: if sicker patients are more likely to have missing lab values, a complete-case analysis systematically excludes the most severely ill and distorts every downstream estimate.
+::: {.callout-tip}
+Your dataset has missing values. Simply dropping incomplete cases loses statistical power, and if data are not missing at random, dropping them biases your estimates in ways that are difficult to detect. Missing data methods let you use all available information and make your assumptions about missingness explicit. For example: if sicker patients are more likely to have missing lab values, a complete-case analysis systematically excludes the most severely ill and distorts every downstream estimate.
+:::
 
 ## Learning Objectives
 
@@ -24,6 +33,13 @@ After completing this session you will be able to:
 - Perform multiple imputation with `mice` and combine results using Rubin's rules
 - Report imputed analyses correctly in a manuscript
 
+## The Key Idea: Three Mechanisms, Three Consequences
+
+The most important concept in missing data is *why* values are missing. The answer determines what you can validly do about it.
+
+Think of it this way: imagine you are measuring blood pressure. Some readings are missing because the machine broke randomly --- that is truly random, unrelated to anything else. Some are missing because elderly patients were too tired to attend follow-up (missingness depends on their age, which you can observe). And some are missing because patients with dangerously high pressure were admitted to hospital before the reading (missingness depends on the very thing you are trying to measure, which you cannot observe).
+
+Those three scenarios have completely different consequences for your analysis.
 
 ## Background: Why Missing Data Matter
 
@@ -31,18 +47,19 @@ After completing this session you will be able to:
 
 | Mechanism | Definition | Implication |
 |-----------|------------|-------------|
-| **MCAR** - Missing Completely At Random | Probability of missing is unrelated to any variable | Complete-case analysis is unbiased |
-| **MAR** - Missing At Random | Probability of missing depends on *observed* variables, not on the missing value itself | Multiple imputation is valid; complete-case is biased |
-| **MNAR** - Missing Not At Random | Probability of missing depends on the *unobserved* missing value itself | Neither complete-case nor simple imputation is valid; sensitivity analysis required |
+| **MCAR** --- Missing Completely At Random | Probability of missing is unrelated to any variable | Complete-case analysis is unbiased |
+| **MAR** --- Missing At Random | Probability of missing depends on *observed* variables, not on the missing value itself | Multiple imputation is valid; complete-case is biased |
+| **MNAR** --- Missing Not At Random | Probability of missing depends on the *unobserved* missing value itself | Neither complete-case nor simple imputation is valid; sensitivity analysis required |
 
-**Example:** Patients with high bilirubin are less likely to have platelet counts recorded (perhaps because they were too ill). Missingness depends on observed bilirubin - MAR. Imputation conditioned on bilirubin will recover unbiased estimates.
+**Example:** Patients with high bilirubin are less likely to have platelet counts recorded (perhaps because they were too ill for the test). Missingness depends on observed bilirubin --- MAR. Imputation conditioned on bilirubin will recover unbiased estimates.
 
 ### Why Not Just Drop Missing Rows?
 
 Complete-case analysis:
-- Reduces sample size; loss of power
+
+- Reduces sample size and loses statistical power
 - Is biased under MAR or MNAR
-- Implicitly assumes MCAR
+- Implicitly assumes MCAR --- an assumption you should test, not ignore
 
 ### Multiple Imputation Overview
 
@@ -56,24 +73,21 @@ Multiple imputation (MI) replaces each missing value with $m$ plausible draws fr
 ```{r miss-explore}
 pbc <- survival::pbc %>%
   as_tibble() %>%
-  janitor::clean_names()
+  clean_names()
 
-# Overall missingness
 pbc %>%
-  summarise(across(everything(), ~ mean(is.na(.)))) %>%
+  summarise(across(everything(), \(x) mean(is.na(x)))) %>%
   pivot_longer(everything(), names_to = "variable", values_to = "prop_missing") %>%
   filter(prop_missing > 0) %>%
   arrange(desc(prop_missing))
 ```
 
 ```{r miss-pattern}
-# Visualise missingness patterns
-library(naniar)
+#| eval: !expr requireNamespace("naniar", quietly = TRUE)
 vis_miss(pbc %>% select(albumin, bili, platelet, protime, chol, trig, copper))
 ```
 
 ```{r miss-gg}
-# Is missingness in platelet related to bilirubin?
 pbc %>%
   mutate(platelet_missing = is.na(platelet)) %>%
   ggplot(aes(x = log(bili), fill = platelet_missing)) +
@@ -85,22 +99,26 @@ pbc %>%
   theme_bw()
 ```
 
-If the distributions differ, missingness is related to bilirubin, consistent with MAR rather than MCAR.
+If the distributions differ, missingness is related to bilirubin --- consistent with MAR rather than MCAR.
 
 ### Little's MCAR Test
 
 ```{r mcar-test}
-# Formal test: if p < 0.05, data are not MCAR
+#| eval: !expr requireNamespace("naniar", quietly = TRUE)
 mcar_test(pbc %>% select(albumin, bili, platelet, protime, chol))
 ```
+
+A significant p-value (p < 0.05) means the data are not MCAR. In that case, complete-case analysis is biased and multiple imputation is necessary.
 
 ### Complete-Case Analysis (Baseline)
 
 ```{r complete-case}
 pbc_cc <- pbc %>%
   filter(!is.na(albumin), !is.na(bili), !is.na(platelet), !is.na(protime), !is.na(stage)) %>%
-  mutate(log_bili = log(bili),
-         stage    = factor(stage, levels = 1:4, labels = paste("Stage", 1:4)))
+  mutate(
+    log_bili = log(bili),
+    stage    = factor(stage, levels = 1:4, labels = paste("Stage", 1:4))
+  )
 
 cat("Complete cases:", nrow(pbc_cc), "of", nrow(pbc), "\n")
 
@@ -112,7 +130,6 @@ broom::tidy(fit_cc, conf.int = TRUE) %>%
 ### Multiple Imputation with `mice`
 
 ```{r mice-setup}
-# Prepare imputation dataset
 pbc_imp <- pbc %>%
   select(albumin, bili, platelet, protime, chol, trig, copper, stage, age, sex) %>%
   mutate(
@@ -122,18 +139,17 @@ pbc_imp <- pbc %>%
   ) %>%
   select(-bili)
 
-# Create m = 10 imputed datasets using default predictive mean matching
 set.seed(2024)
 imp <- mice(pbc_imp, m = 10, method = "pmm", printFlag = FALSE)
 ```
 
 ```{r mice-diagnostics}
-# Check convergence: trace plots should mix well
 plot(imp, c("platelet", "chol"), layout = c(2, 2))
 ```
 
+The trace plots should mix well (lines criss-crossing rather than staying in one area) --- this indicates the imputation algorithm has converged.
+
 ```{r mice-analyse}
-# Fit the model in each imputed dataset and pool with Rubin's rules
 fit_mi <- with(imp, lm(albumin ~ log_bili + platelet + stage))
 pooled  <- pool(fit_mi)
 summary(pooled, conf.int = TRUE) %>%
@@ -143,16 +159,18 @@ summary(pooled, conf.int = TRUE) %>%
 ### Comparing Complete-Case and Imputed Estimates
 
 ```{r compare}
-bind_rows(
-  broom::tidy(fit_cc, conf.int = TRUE) %>%
-    select(term, estimate, conf.low, conf.high, p.value) %>%
-    mutate(method = "Complete-case"),
-  summary(pooled, conf.int = TRUE) %>%
-    as_tibble() %>%
-    select(term, estimate, conf.low = `2.5 %`, conf.high = `97.5 %`, p.value) %>%
-    mutate(method = "Multiple imputation")
-) %>%
-  filter(term %in% c("log_bili", "platelet", "stageStage 2", "stageStage 3", "stageStage 4")) %>%
+cc_results <- broom::tidy(fit_cc, conf.int = TRUE) %>%
+  select(term, estimate, conf.low, conf.high, p.value) %>%
+  mutate(method = "Complete-case")
+
+mi_results <- summary(pooled, conf.int = TRUE) %>%
+  as_tibble() %>%
+  select(term, estimate, conf.low = `2.5 %`, conf.high = `97.5 %`, p.value) %>%
+  mutate(method = "Multiple imputation")
+
+bind_rows(cc_results, mi_results) %>%
+  filter(term %in% c("log_bili", "platelet",
+                     "stageStage 2", "stageStage 3", "stageStage 4")) %>%
   select(method, term, estimate, conf.low, conf.high, p.value) %>%
   arrange(term, method)
 ```
@@ -160,20 +178,16 @@ bind_rows(
 If the estimates differ substantially, the missing data were not MCAR and complete-case analysis was biased.
 
 
-## Example 2: Animal Data (palmerpenguins)
+## Example 2: Penguins Data
 
 ```{r penguins-miss}
-library(palmerpenguins)
-
-# penguins has a small amount of missing data
 penguins %>%
-  summarise(across(everything(), ~ sum(is.na(.)))) %>%
+  summarise(across(everything(), \(x) sum(is.na(x)))) %>%
   pivot_longer(everything()) %>%
   filter(value > 0)
 ```
 
 ```{r penguins-imp}
-# Impute the missing values in penguins
 peng_imp <- penguins %>%
   select(body_mass_g, flipper_length_mm, bill_length_mm, bill_depth_mm, species, sex) %>%
   mutate(species = factor(species), sex = factor(sex))
@@ -181,35 +195,35 @@ peng_imp <- penguins %>%
 set.seed(2024)
 imp_peng <- mice(peng_imp, m = 5, method = "pmm", printFlag = FALSE)
 
-# Analyse: predict body mass from flipper length and species
 fit_peng <- with(imp_peng, lm(body_mass_g ~ flipper_length_mm + species))
 summary(pool(fit_peng), conf.int = TRUE)
 ```
 
+::: {.callout-note}
+## Where to Find Data Like This
 
-## Where to Find Data Like This {.callout-note}
-
-**`survival::pbc`:** Real-world clinical data with informative missingness in laboratory values, a classic MI teaching example.
+**`survival::pbc`:** Real-world clinical data with informative missingness in laboratory values --- a classic MI teaching example.
 
 **`palmerpenguins`:** Minimal missingness; useful to practice the workflow without bias concerns.
 
 **`NHANES`** (via the `NHANES` or `nhanesA` packages): Large survey with complex, realistic missingness patterns across demographic and clinical variables.
+:::
 
+::: {.callout-warning}
+## What Can Go Wrong
 
-## What Can Go Wrong {.callout-warning}
+**Imputing the outcome.**
+Never include the outcome variable as a predictor in the imputation model if missingness in the outcome is not informative. Report the proportion of missing outcomes and conduct a sensitivity analysis.
 
-**Imputing the outcome**
-Never include the outcome variable as a *predictor* in the imputation model if missingness in the outcome is not informative. If the outcome is partially missing, imputing it is only valid under strict assumptions. Report the proportion of missing outcomes and conduct a sensitivity analysis.
+**Too few imputed datasets.**
+The rule of thumb is m ≥ the percentage of missing data (e.g., 20% missing → m ≥ 20). Five imputations is typically insufficient when missingness is substantial.
 
-**Too few imputed datasets**
-The rule of thumb is $m \geq$ the percentage of missing data (e.g., 20% missing → $m \geq 20$). Five imputations is typically insufficient when missingness is substantial.
-
-**Using complete-case AIC to select variables before imputing**
+**Using complete-case AIC to select variables before imputing.**
 Model selection should be done within the multiply-imputed framework, not on complete cases only. Selecting variables on complete cases and then imputing introduces bias.
 
-**MNAR without sensitivity analysis**
-If you have reason to believe data are MNAR (e.g., lab values missing because the patient refused due to anxiety about results), standard MI is not sufficient. Perform a sensitivity analysis under plausible MNAR scenarios using `mice` with a delta adjustment or the `missingHE` package.
-
+**MNAR without sensitivity analysis.**
+If you have reason to believe data are MNAR (e.g., lab values missing because the patient refused due to anxiety about results), standard MI is not sufficient. Perform a sensitivity analysis under plausible MNAR scenarios using `mice` with a delta adjustment.
+:::
 
 ## Exercises
 
@@ -217,22 +231,20 @@ If you have reason to believe data are MNAR (e.g., lab values missing because th
 
 1. Count the proportion of missing values for each variable in `survival::pbc`.
 2. Visualise the missingness pattern for `platelet`, `chol`, `trig`, and `copper`.
-3. Test whether missingness in `platelet` is associated with `bili` (logistic regression: `is.na(platelet) ~ log(bili)`). What does a significant result tell you?
+3. Test whether missingness in `platelet` is associated with `bili` (logistic regression). What does a significant result tell you?
 
 ::: {.callout-tip collapse="true"}
 ### Exercise 1: Solution
 
 ```{r}
 pbc %>%
-  summarise(across(everything(), ~ mean(is.na(.)))) %>%
+  summarise(across(everything(), \(x) mean(is.na(x)))) %>%
   pivot_longer(everything()) %>%
   filter(value > 0) %>%
   arrange(desc(value))
 
-# Test association between missingness and bilirubin
-pbc %>%
-  mutate(platelet_miss = as.integer(is.na(platelet))) %>%
-  glm(platelet_miss ~ log(bili), data = ., family = binomial) %>%
+pbc_test <- pbc %>% mutate(platelet_miss = as.integer(is.na(platelet)))
+glm(platelet_miss ~ log(bili), data = pbc_test, family = binomial) %>%
   broom::tidy(conf.int = TRUE, exponentiate = TRUE)
 ```
 :::
@@ -275,28 +287,27 @@ In your own dataset, identify variables with missing data. Determine whether the
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. Missingness depends on an observed variable (age) - this is MAR. Complete-case analysis will be biased if age also predicts the outcome. Multiple imputation conditioned on age is the appropriate approach.
+
+1. Missingness depends on an observed variable (age) --- this is MAR. Complete-case analysis will be biased if age also predicts the outcome. Multiple imputation conditioned on age is the appropriate approach.
 2. Significance alone does not validate the analysis. Complete-case with 40% dropout may be biased under MAR/MNAR, underestimates the true sample size, and gives artificially narrow confidence intervals. The key question is whether the missing data mechanism biases the estimates, not whether the result is still statistically significant.
 3. Multiple imputation correctly propagates two sources of uncertainty: within-imputation variance (ordinary sampling variance) and between-imputation variance (uncertainty about the missing values). Rubin's rules add these two components together. The inflated SE is the correct, honest estimate. Complete-case analysis ignores the between-imputation uncertainty and therefore underestimates the SE.
-4. PMM imputes values by drawing from observed cases whose predicted values are closest to the predicted value of the missing case. This preserves the actual distribution of the variable (no impossible values like negative counts or probabilities outside 0?1) and is robust to non-normality. Normal imputation assumes the variable is normally distributed, which is often violated.
-5. Imputing 60% missing is possible but requires careful consideration. The imputed values will be almost entirely model-driven with very little information, so results will be highly sensitive to the imputation model specification. You should perform sensitivity analyses, include many auxiliary variables in the imputation model to improve predictions, use $m \geq 60$ datasets, and consider whether data with 60% missingness can meaningfully contribute to the analysis - or whether the question should be reframed.
+4. PMM imputes values by drawing from observed cases whose predicted values are closest to the predicted value of the missing case. This preserves the actual distribution of the variable (no impossible values like negative counts or probabilities outside 0--1) and is robust to non-normality. Normal imputation assumes the variable is normally distributed, which is often violated.
+5. Imputing 60% missing is possible but requires careful consideration. The imputed values will be almost entirely model-driven with very little information, so results will be highly sensitive to the imputation model specification. You should perform sensitivity analyses, include many auxiliary variables in the imputation model, use m ≥ 60 datasets, and consider whether data with 60% missingness can meaningfully contribute to the analysis.
 :::
 
 
 ## How to Report
-
-### Reporting Missing Data and Imputation
 
 ::: {.callout-note}
 **In a methods section:** "Missing data were handled using multiple imputation with chained equations (MICE), generating M = [number] imputed datasets. Variables used in the imputation model included [list]. Estimates were pooled across imputed datasets using Rubin's rules. A complete-case analysis was performed as a sensitivity analysis."
 
 **In results:** Report the missing data rates explicitly: "Data were missing for bilirubin (3.2%), albumin (1.4%), and copper (24.6%)."
 
-**What to always include:**
+**Always include:**
 
 - Percentage of missing data per key variable (as a table or in-text)
 - Missing data mechanism assumed (MCAR, MAR, or MNAR) and justification
-- Number of imputed datasets (M ³ 20 is recommended)
+- Number of imputed datasets (m ≥ 20 is recommended)
 - Variables included in the imputation model
 - Results of the sensitivity analysis (complete-case)
 
@@ -305,7 +316,7 @@ In your own dataset, identify variables with missing data. Determine whether the
 
 ## Further Reading
 
-- @vanBuuren-2018 --- *Flexible Imputation of Missing Data* (free online: [https://stefvanbuuren.name/fimd/](https://stefvanbuuren.name/fimd/))
+- @vanBuuren-2018 --- *Flexible Imputation of Missing Data* (free online at stefvanbuuren.name/fimd/)
 - @Sterne-2009 --- *Multiple imputation for missing data in epidemiological and clinical research: potential and pitfalls* (BMJ)
 - `mice` package documentation and vignettes
 - `naniar` package for visualising missingness

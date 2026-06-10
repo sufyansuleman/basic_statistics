@@ -1,116 +1,134 @@
 # Welcome {.unnumbered}
 
-This course teaches statistics the way research actually works starting
-with your data, not a textbook formula. Every method is introduced with
-a practical scenario, explained in plain language, and then
-implemented step-by-step in R.
+Most statistics courses start with theory. This one starts with your
+data.
 
-The course is designed for PhD students in biomedical and clinical
-research. That includes people working with human patient data, animal
-experiments, survey data, or longitudinal studies. You do not need to be
-an expert in R or statistics to start, but you do need R and RStudio
-installed on your computer.
+Every method here is introduced through a concrete research scenario ---
+the kind of situation you will actually face in your PhD or your lab.
+You will see the R code, the output, and a plain-English explanation of
+what each number means and how to report it. The goal is not to make
+you a statistician. It is to make you a researcher who can analyse their
+own data, understand what the output is telling them, and write it up
+correctly.
 
 ::: callout-important
-### Start Here: Install R and Course Packages
+### Before You Start: Install R and the Course Packages
 
-Before opening any session, go to [**Before You Begin:
-Setup**](#sec-setup) and follow the setup steps there. You will install
-R, RStudio, and all the packages the course uses. This takes about
-10--15 minutes and only needs to be done once.
+Go to [**Before You Begin: Setup**](#sec-setup) and follow the steps
+there. You will install R, RStudio, and all the packages the course
+uses. This takes about 10--15 minutes and only needs to be done once.
+Nothing else in the course will work until you have done this.
 :::
 
-## How the Course Is Organized {.unnumbered}
+## What This Course Expects From You {.unnumbered}
 
-The course has four parts. Each part builds on the previous one.
+Not much. You need R and RStudio installed, a basic ability to run code
+(copy, paste, press Run), and a willingness to read output carefully.
+You do not need a statistics background. You do not need to be good at
+maths. High-school algebra is enough.
 
-::: callout-tip
-### Choose Your Starting Point
+What will slow you down is skipping the output. Every session shows real
+R output with a table that explains each number line by line. Read those
+tables. That is where the understanding happens.
 
-| Your background                                     | Where to start                                                     |
-|-----------------------------------------------------|--------------------------------------------------------------------|
-| New to statistics                                   | **Part 1** work through the course in order                        |
-| Familiar with R, new to modeling                    | **Part 1** then continue to Part 2                                 |
-| Interested in regression and prediction             | **Part 2** after reviewing Part 1 if needed                       |
-| Looking for advanced methods only                   | **Part 3** after the core concepts in Parts 1 and 2               |
-| Need a quick method guide                           | **Part 4** for the reference and resources                        |
+## How the Course Is Organised {.unnumbered}
 
-If you are unsure where to begin, start with Part 1 and follow the
-course sequentially.
-:::
+The course has four parts. Each part builds on the one before it.
 
 ::: callout-tip
-### Your Quick Reference
+### Not Sure Where to Start?
 
-The **Statistical Decision Guide** in Part 4 is a reference card you can
-return to at any point. It tells you which method to use for common
-research questions and links back to the relevant sessions.
+| Your situation | Where to begin |
+|---|---|
+| New to statistics entirely | **Part 1**, work through in order |
+| Familiar with R, new to modelling | **Part 1**, then Part 2 |
+| Comfortable with inference, need regression | **Part 2** |
+| Need advanced methods (survival, causal) | **Part 3** after Parts 1--2 |
+| Just need to know which test to use | **Part 4** — Statistical Decision Guide |
+
+When in doubt, start at Part 1 and go in order. The sessions are
+short enough that skimming a familiar topic costs ten minutes at most.
 :::
 
 ### Part 1: Inference — Testing and Estimation {.unnumbered}
 
-This part introduces the foundations of statistical inference and
-hypothesis testing. You will learn how to interpret p-values, confidence
-intervals, and effect sizes before moving on to regression and modeling.
+This is the foundation. You will learn how to reason from a sample to a
+population, what a p-value actually means (and what it does not mean),
+and how to compare groups. If you have ever reported a p-value without
+being entirely sure what it means, this part is for you.
 
 -   Sampling, confidence intervals, and the central limit theorem
--   Hypothesis testing and the logic of evidence
--   t-tests for comparing means
--   Non-parametric alternatives when assumptions fail
--   ANOVA for comparing multiple groups
--   Categorical tests such as chi-square and Fisher's exact
+-   Hypothesis testing: the logic of evidence
+-   t-tests and group comparisons
+-   Non-parametric tests for when assumptions fail
+-   ANOVA for more than two groups
+-   Categorical data and chi-square tests
 -   Power and sample size planning
 
-### Part 2: Regression and Modeling {.unnumbered}
+### Part 2: Regression and Modelling {.unnumbered}
 
-This part covers the most commonly used predictive models in biomedical
-research. You will learn how to fit models, interpret coefficients,
-check assumptions, and report results clearly.
+Regression is the workhorse of biomedical research. This part covers
+the models you will encounter most often: linear regression for
+continuous outcomes, logistic regression for binary ones, and models
+that handle repeated measures and missing data. By the end you will be
+able to fit a model, check its assumptions, interpret the coefficients,
+and write a Methods section that describes what you did.
 
 -   Correlation and association
--   Linear regression for continuous outcomes
--   Multiple regression for adjusted effects
+-   Simple and multiple linear regression
 -   Logistic regression for binary outcomes
 -   Model building, diagnostics, and validation
--   Missing data handling with multiple imputation
--   Mixed models for repeated measures and clustered data
+-   Missing data and multiple imputation
+-   Mixed models for clustered and repeated-measures data
 
 ### Part 3: Advanced Methods {.unnumbered}
 
-This part introduces advanced analytic methods for more complex study
-designs and causal questions.
+These sessions cover methods that come up once you move beyond standard
+comparisons and models. They assume you are comfortable with the
+material in Parts 1 and 2.
 
 -   Survival analysis and time-to-event data
--   Causal inference using DAGs and observational data
--   Mendelian randomization for genetic instrumental variables
+-   Causal inference using directed acyclic graphs
+-   Mendelian randomisation for genetic instrumental variables
 
 ### Part 4: Reference and Resources {.unnumbered}
 
-This part gives you tools to apply the methods thoughtfully and find
-answers when you need them.
+A set of reference materials you can return to at any point.
 
--   Statistical Decision Guide for method selection
--   Clinical research methods and study design considerations
--   Help and documentation for using the course materials
+-   Statistical Decision Guide --- which method to use for which question
+-   Clinical research methods and study design
+-   Help and documentation
 
-## Prerequisites {.unnumbered}
+::: callout-tip
+### Quick Method Lookup
 
--   R and RStudio installed on your computer
--   Basic ability to run R code in RStudio
--   No prior statistics knowledge is assumed beyond high-school level
+The **Statistical Decision Guide** in Part 4 is a one-page reference
+card. If you are in the middle of an analysis and cannot remember which
+test to use, start there.
+:::
 
-## How to Use This Course {.unnumbered}
+## How Each Session Is Structured {.unnumbered}
 
-Each session follows the same structure:
+Every session follows the same seven-part structure. Once you have been
+through one session you will know exactly where to look in every other.
 
-1.  **When do you use this?** A concrete scenario from your field
-2.  **Background** Why the method works, in plain language
-3.  **Worked examples** Step-by-step R code on real data
-4.  **What can go wrong** Common mistakes and how to avoid them
-5.  **Exercises** Practice problems with solutions
-6.  **Comprehension check** Self-check questions
+1. **When do you use this?** A one-paragraph scenario that puts you in the
+   situation where this method is the right tool.
+2. **Background** The core idea in plain language, with just enough
+   mathematics to understand what the method is doing.
+3. **Worked examples** Step-by-step R code on real datasets, with output
+   explained line by line.
+4. **What can go wrong** The most common mistakes, misinterpretations,
+   and ways to misuse the method --- and how to avoid them.
+5. **Exercises** Three problems: one guided with hints, one semi-guided,
+   one open-ended using your own data.
+6. **Comprehension check** Five questions with detailed answers. Use
+   these to test yourself before moving on.
+7. **How to report** Exact language for your Methods and Results
+   sections, with examples of correct and incorrect phrasing.
 
-You can work through the course week by week, or jump to a specific
-method when you need it. If you are unsure which method to use, go to
-the [Statistical Decision
-Guide](sessions/statistical-decision-guide.qmd) in Part 4.
+You can work through the course week by week, or jump directly to a
+specific method when you need it. If you are mid-analysis and unsure
+which method applies, the [Statistical Decision
+Guide](sessions/statistical-decision-guide.qmd) is the fastest route to
+an answer.

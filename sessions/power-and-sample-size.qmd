@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Power Analysis and Sample Size"
 ---
 
@@ -9,9 +9,11 @@ library(tidyverse)
 library(pwr)
 ```
 
-## When Do You Use This? {#sec-power .callout-tip}
+## When Do You Use This? {#sec-power}
 
-> You are designing a mouse experiment to test whether a new drug reduces tumour volume. You expect a 20% reduction and want to know: *how many mice do I need?* Power analysis answers this before you collect a single data point - and prevents you from running an underpowered study where a real effect would go undetected.
+::: {.callout-tip}
+You are designing a mouse experiment to test whether a new drug reduces tumour volume. You expect a 20% reduction and want to know: *how many mice do I need?* Power analysis answers this **before you collect a single data point** --- and prevents you from running an underpowered study where a real effect would go undetected.
+:::
 
 ## Learning Objectives
 
@@ -23,6 +25,17 @@ After completing this session you will be able to:
 - Produce a power curve and interpret it
 - Identify the key planning decisions and their consequences for study design
 
+
+## The Key Idea: A Trade-Off You Cannot Escape
+
+Before the formulas, here is the honest picture. You are designing a study where you will later run a hypothesis test. That test can make two kinds of mistakes (both discussed in the [hypothesis testing session](hypothesis-testing.qmd)):
+
+- **False positive (Type I error):** You declare an effect when there isn't one. Controlled by α.
+- **False negative (Type II error):** You miss a real effect. Its probability is β. Power = 1 − β.
+
+The brutal reality: you cannot simultaneously make both errors rare without collecting more data. If you want to be very sure you won't miss a real effect (high power), you need a large sample. If your sample is small, you will miss real effects --- no matter how sophisticated your analysis.
+
+Power analysis makes this trade-off explicit *before* you run the study, so you can make an informed decision about how many participants or animals to recruit.
 
 ## Background: Power and Its Components
 
@@ -51,7 +64,7 @@ Cohen's rough benchmarks: small $d = 0.2$, medium $d = 0.5$, large $d = 0.8$.
 | More stringent $\alpha$ (0.05 → 0.01) | ↑ n needed |
 | Higher power (80% → 90%) | ↑ n needed |
 | Smaller effect size | ↑ n needed |
-| One-sided vs two-sided test | - n if one-sided |
+| One-sided vs two-sided test | ↓ n if one-sided |
 
 
 ## Example 1: Mouse Experiment (Two-Sample t-test)
@@ -111,7 +124,7 @@ power_vals <- map_dbl(n_seq, ~ pwr.t.test(
   alternative = "two.sided"
 )$power)
 
-tibble(n = n_seq, power = power_vals) |>
+tibble(n = n_seq, power = power_vals) %>%
   ggplot(aes(x = n, y = power)) +
   geom_line(linewidth = 1, colour = "steelblue") +
   geom_hline(yintercept = 0.80, linetype = "dashed", colour = "tomato") +
@@ -141,7 +154,7 @@ n_required <- map_dbl(sd_seq, ~ ceiling(pwr.t.test(
   type      = "two.sample"
 )$n))
 
-tibble(sd = sd_seq, n_per_group = n_required) |>
+tibble(sd = sd_seq, n_per_group = n_required) %>%
   ggplot(aes(x = sd, y = n_per_group)) +
   geom_line(linewidth = 1, colour = "steelblue") +
   geom_point(size = 3) +
@@ -204,7 +217,7 @@ pow2 <- map_dbl(n_seq2, ~ pwr.2p.test(
   alternative = "two.sided"
 )$power)
 
-tibble(n = n_seq2, power = pow2) |>
+tibble(n = n_seq2, power = pow2) %>%
   ggplot(aes(x = n, y = power)) +
   geom_line(linewidth = 1, colour = "steelblue") +
   geom_hline(yintercept = 0.80, linetype = "dashed", colour = "tomato") +
@@ -217,7 +230,8 @@ tibble(n = n_seq2, power = pow2) |>
 ```
 
 
-## Where to Find Data Like This {.callout-note}
+::: {.callout-note}
+## Where to Find Data Like This
 
 **Your own pilot data:** The best source for SD estimates. Even n = 5 per group gives a useful starting point.
 
@@ -226,24 +240,27 @@ tibble(n = n_seq2, power = pow2) |>
 **`pwr` package:** `pwr.t.test()`, `pwr.2p.test()`, `pwr.chisq.test()`, `pwr.anova.test()`: covers all common designs.
 
 **G\*Power software:** Free standalone tool (gpower.hhu.de): popular in clinical and behavioural research, good for cross-checking R results.
+:::
 
 
-## What Can Go Wrong {.callout-warning}
+::: {.callout-warning}
+## What Can Go Wrong
 
-**Using a too-optimistic effect size**
-Published effect sizes are often inflated by publication bias. If you power your study using an unrealistically large d, you will be underpowered when the true effect is smaller. Be conservative or use the lower bound of a pilot confidence interval.
+**Using a too-optimistic effect size.**
+Published effect sizes are often inflated by publication bias. If you power your study using an unrealistically large d, you will be underpowered when the true effect is smaller. Be conservative, or use the lower bound of a pilot confidence interval.
 
-**Powering for the wrong test**
-If you plan to use a Wilcoxon test (because your data will be non-normal), power calculations based on `power.t.test()` are approximate. The `pwr` package and simulation-based approaches are more accurate for nonparametric tests.
+**Powering for the wrong test.**
+If you plan to use a Wilcoxon test (because your data will be non-normal), power calculations based on `power.t.test()` are approximate. Simulation-based approaches are more accurate for nonparametric tests.
 
-**Forgetting to account for dropout or missing data**
+**Forgetting to account for dropout or missing data.**
 Calculate the required $n$, then inflate by an expected dropout fraction. If you expect 15% dropout, divide your required $n$ by 0.85.
 
-**Multiple primary outcomes**
+**Multiple primary outcomes.**
 If you have several primary outcomes, adjust $\alpha$ (e.g., Bonferroni) before running the power calculation. Powering for each outcome at $\alpha = 0.05$ without correction is overly optimistic.
 
-**Confusing power for a one-sided vs two-sided test**
+**Confusing power for a one-sided vs two-sided test.**
 A one-sided test requires fewer participants for the same power. Only use a one-sided test if you have a strong, pre-registered directional hypothesis and would not care about an effect in the other direction.
+:::
 
 
 ## Exercises
@@ -263,15 +280,15 @@ Using `survival::pbc`, estimate the pooled SD of log(bilirubin) in the two treat
 ### Exercise 1: Solution
 
 ```{r}
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
   mutate(trt = factor(trt))
 
-pbc_rand <- pbc |> filter(!is.na(trt), !is.na(bili))
+pbc_rand <- pbc %>% filter(!is.na(trt), !is.na(bili))
 
-sd_vals <- pbc_rand |>
-  group_by(trt) |>
+sd_vals <- pbc_rand %>%
+  group_by(trt) %>%
   summarise(sd = sd(log(bili)), n = n())
 print(sd_vals)
 
@@ -289,7 +306,7 @@ pwr.t.test(d = d_bili, sig.level = 0.05, power = 0.80, type = "two.sample")
 n_seq <- seq(5, 100, by = 5)
 pw <- map_dbl(n_seq, ~ pwr.t.test(n = .x, d = d_bili, sig.level = 0.05,
                                    type = "two.sample")$power)
-tibble(n = n_seq, power = pw) |>
+tibble(n = n_seq, power = pw) %>%
   ggplot(aes(n, power)) +
   geom_line(colour = "steelblue", linewidth = 1) +
   geom_hline(yintercept = 0.8, linetype = "dashed", colour = "tomato") +
@@ -353,7 +370,7 @@ Run the power calculation and produce a power curve. Write one paragraph suitabl
 2. Divide by the expected retention fraction: $25 / 0.90 = 28$, so recruit 28 per group (round up).
 3. Single small studies overestimate effect sizes due to sampling variability and publication bias. Using d = 1.2 from a study with n = 10 is likely to be inflated. The true d may be considerably smaller, and the actual study will be underpowered.
 4. A one-sided test requires fewer participants. It allocates the full a to one tail, making the critical threshold easier to reach - but only valid when you have a strong directional hypothesis and would not act on an effect in the opposite direction.
-5. Options: (1) Accept lower power (< 80%) and acknowledge the limitation; (2) increase the effect size you are trying to detect (e.g., only detect a large effect); (3) decrease a (less stringent threshold, increasing power); (4) use a paired design or block on a covariate to reduce within-group variability; (5) pool data across experiments.
+5. Options: (1) Accept lower power (< 80%) and acknowledge the limitation; (2) increase the minimum effect size you are trying to detect (e.g., only detect a large effect); (3) decrease α (less stringent threshold, which increases power); (4) use a paired design or block on a covariate to reduce within-group variability; (5) pool data across experiments.
 :::
 
 ## How to Report
@@ -373,7 +390,7 @@ Run the power calculation and produce a power curve. Write one paragraph suitabl
 - Any attrition/dropout allowance added
 
 **Common reporting errors:**
-- Using a "medium" Cohen's *d* = 0.5 without clinical justification  -  reviewers will question this
+- Using a "medium" Cohen's *d* = 0.5 without clinical justification --- reviewers will question this
 - Reporting only the total N, not per-group N
 - Not reporting the assumed effect size  -  makes the calculation unverifiable
 - Post-hoc power calculations on observed effect sizes  -  these are misleading and now widely discouraged

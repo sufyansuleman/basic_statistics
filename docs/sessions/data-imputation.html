@@ -380,35 +380,31 @@ window.Quarto = {
   <ul>
   <li><a href="#sec-imputation" id="toc-sec-imputation" class="nav-link active" data-scroll-target="#sec-imputation"><span class="header-section-number">14.1</span> When Do You Use This?</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">14.2</span> Learning Objectives</a></li>
-  <li><a href="#background-why-missing-data-matter" id="toc-background-why-missing-data-matter" class="nav-link" data-scroll-target="#background-why-missing-data-matter"><span class="header-section-number">14.3</span> Background: Why Missing Data Matter</a>
+  <li><a href="#the-key-idea-three-mechanisms-three-consequences" id="toc-the-key-idea-three-mechanisms-three-consequences" class="nav-link" data-scroll-target="#the-key-idea-three-mechanisms-three-consequences"><span class="header-section-number">14.3</span> The Key Idea: Three Mechanisms, Three Consequences</a></li>
+  <li><a href="#background-why-missing-data-matter" id="toc-background-why-missing-data-matter" class="nav-link" data-scroll-target="#background-why-missing-data-matter"><span class="header-section-number">14.4</span> Background: Why Missing Data Matter</a>
   <ul class="collapse">
-  <li><a href="#three-mechanisms" id="toc-three-mechanisms" class="nav-link" data-scroll-target="#three-mechanisms"><span class="header-section-number">14.3.1</span> Three Mechanisms</a></li>
-  <li><a href="#why-not-just-drop-missing-rows" id="toc-why-not-just-drop-missing-rows" class="nav-link" data-scroll-target="#why-not-just-drop-missing-rows"><span class="header-section-number">14.3.2</span> Why Not Just Drop Missing Rows?</a></li>
-  <li><a href="#multiple-imputation-overview" id="toc-multiple-imputation-overview" class="nav-link" data-scroll-target="#multiple-imputation-overview"><span class="header-section-number">14.3.3</span> Multiple Imputation Overview</a></li>
+  <li><a href="#three-mechanisms" id="toc-three-mechanisms" class="nav-link" data-scroll-target="#three-mechanisms"><span class="header-section-number">14.4.1</span> Three Mechanisms</a></li>
+  <li><a href="#why-not-just-drop-missing-rows" id="toc-why-not-just-drop-missing-rows" class="nav-link" data-scroll-target="#why-not-just-drop-missing-rows"><span class="header-section-number">14.4.2</span> Why Not Just Drop Missing Rows?</a></li>
+  <li><a href="#multiple-imputation-overview" id="toc-multiple-imputation-overview" class="nav-link" data-scroll-target="#multiple-imputation-overview"><span class="header-section-number">14.4.3</span> Multiple Imputation Overview</a></li>
   </ul></li>
-  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">14.4</span> Example 1: Clinical Data (PBC)</a>
+  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">14.5</span> Example 1: Clinical Data (PBC)</a>
   <ul class="collapse">
-  <li><a href="#exploring-missingness" id="toc-exploring-missingness" class="nav-link" data-scroll-target="#exploring-missingness"><span class="header-section-number">14.4.1</span> Exploring Missingness</a></li>
-  <li><a href="#littles-mcar-test" id="toc-littles-mcar-test" class="nav-link" data-scroll-target="#littles-mcar-test"><span class="header-section-number">14.4.2</span> Little’s MCAR Test</a></li>
-  <li><a href="#complete-case-analysis-baseline" id="toc-complete-case-analysis-baseline" class="nav-link" data-scroll-target="#complete-case-analysis-baseline"><span class="header-section-number">14.4.3</span> Complete-Case Analysis (Baseline)</a></li>
-  <li><a href="#multiple-imputation-with-mice" id="toc-multiple-imputation-with-mice" class="nav-link" data-scroll-target="#multiple-imputation-with-mice"><span class="header-section-number">14.4.4</span> Multiple Imputation with <code>mice</code></a></li>
-  <li><a href="#comparing-complete-case-and-imputed-estimates" id="toc-comparing-complete-case-and-imputed-estimates" class="nav-link" data-scroll-target="#comparing-complete-case-and-imputed-estimates"><span class="header-section-number">14.4.5</span> Comparing Complete-Case and Imputed Estimates</a></li>
+  <li><a href="#exploring-missingness" id="toc-exploring-missingness" class="nav-link" data-scroll-target="#exploring-missingness"><span class="header-section-number">14.5.1</span> Exploring Missingness</a></li>
+  <li><a href="#littles-mcar-test" id="toc-littles-mcar-test" class="nav-link" data-scroll-target="#littles-mcar-test"><span class="header-section-number">14.5.2</span> Little’s MCAR Test</a></li>
+  <li><a href="#complete-case-analysis-baseline" id="toc-complete-case-analysis-baseline" class="nav-link" data-scroll-target="#complete-case-analysis-baseline"><span class="header-section-number">14.5.3</span> Complete-Case Analysis (Baseline)</a></li>
+  <li><a href="#multiple-imputation-with-mice" id="toc-multiple-imputation-with-mice" class="nav-link" data-scroll-target="#multiple-imputation-with-mice"><span class="header-section-number">14.5.4</span> Multiple Imputation with <code>mice</code></a></li>
+  <li><a href="#comparing-complete-case-and-imputed-estimates" id="toc-comparing-complete-case-and-imputed-estimates" class="nav-link" data-scroll-target="#comparing-complete-case-and-imputed-estimates"><span class="header-section-number">14.5.5</span> Comparing Complete-Case and Imputed Estimates</a></li>
   </ul></li>
-  <li><a href="#example-2-animal-data-palmerpenguins" id="toc-example-2-animal-data-palmerpenguins" class="nav-link" data-scroll-target="#example-2-animal-data-palmerpenguins"><span class="header-section-number">14.5</span> Example 2: Animal Data (palmerpenguins)</a></li>
-  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">14.6</span> Where to Find Data Like This</a></li>
-  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">14.7</span> What Can Go Wrong</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">14.8</span> Exercises</a>
+  <li><a href="#example-2-penguins-data" id="toc-example-2-penguins-data" class="nav-link" data-scroll-target="#example-2-penguins-data"><span class="header-section-number">14.6</span> Example 2: Penguins Data</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">14.7</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-guided-explore-pbc-missingness" id="toc-exercise-1-guided-explore-pbc-missingness" class="nav-link" data-scroll-target="#exercise-1-guided-explore-pbc-missingness"><span class="header-section-number">14.8.1</span> Exercise 1 (Guided): Explore PBC Missingness</a></li>
-  <li><a href="#exercise-2-semi-guided-multiple-imputation-of-pbc" id="toc-exercise-2-semi-guided-multiple-imputation-of-pbc" class="nav-link" data-scroll-target="#exercise-2-semi-guided-multiple-imputation-of-pbc"><span class="header-section-number">14.8.2</span> Exercise 2 (Semi-guided): Multiple Imputation of PBC</a></li>
-  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">14.8.3</span> Exercise 3 (Open-ended)</a></li>
+  <li><a href="#exercise-1-guided-explore-pbc-missingness" id="toc-exercise-1-guided-explore-pbc-missingness" class="nav-link" data-scroll-target="#exercise-1-guided-explore-pbc-missingness"><span class="header-section-number">14.7.1</span> Exercise 1 (Guided): Explore PBC Missingness</a></li>
+  <li><a href="#exercise-2-semi-guided-multiple-imputation-of-pbc" id="toc-exercise-2-semi-guided-multiple-imputation-of-pbc" class="nav-link" data-scroll-target="#exercise-2-semi-guided-multiple-imputation-of-pbc"><span class="header-section-number">14.7.2</span> Exercise 2 (Semi-guided): Multiple Imputation of PBC</a></li>
+  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">14.7.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
-  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">14.9</span> Comprehension Check</a></li>
-  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">14.10</span> How to Report</a>
-  <ul class="collapse">
-  <li><a href="#reporting-missing-data-and-imputation" id="toc-reporting-missing-data-and-imputation" class="nav-link" data-scroll-target="#reporting-missing-data-and-imputation"><span class="header-section-number">14.10.1</span> Reporting Missing Data and Imputation</a></li>
-  </ul></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">14.11</span> Further Reading</a></li>
+  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">14.8</span> Comprehension Check</a></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">14.9</span> How to Report</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">14.10</span> Further Reading</a></li>
   </ul>
 </nav>
     </div>
@@ -434,11 +430,21 @@ window.Quarto = {
 </header>
 
 
-<section id="sec-imputation" class="level2 callout-tip" data-number="14.1">
-<h2 class="callout-tip anchored" data-number="14.1" data-anchor-id="sec-imputation"><span class="header-section-number">14.1</span> When Do You Use This?</h2>
-<blockquote class="blockquote">
-<p>Your dataset has missing values. Simply dropping incomplete cases loses statistical power, and if the data are not missing at random, dropping them biases your estimates in ways that are difficult to detect. Missing data methods let you use all available information and make your assumptions about missingness explicit. For example: if sicker patients are more likely to have missing lab values, a complete-case analysis systematically excludes the most severely ill and distorts every downstream estimate.</p>
-</blockquote>
+<section id="sec-imputation" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="sec-imputation"><span class="header-section-number">14.1</span> When Do You Use This?</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Your dataset has missing values. Simply dropping incomplete cases loses statistical power, and if data are not missing at random, dropping them biases your estimates in ways that are difficult to detect. Missing data methods let you use all available information and make your assumptions about missingness explicit. For example: if sicker patients are more likely to have missing lab values, a complete-case analysis systematically excludes the most severely ill and distorts every downstream estimate.</p>
+</div>
+</div>
 </section>
 <section id="learning-objectives" class="level2" data-number="14.2">
 <h2 data-number="14.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">14.2</span> Learning Objectives</h2>
@@ -451,10 +457,16 @@ window.Quarto = {
 <li>Report imputed analyses correctly in a manuscript</li>
 </ul>
 </section>
-<section id="background-why-missing-data-matter" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="background-why-missing-data-matter"><span class="header-section-number">14.3</span> Background: Why Missing Data Matter</h2>
-<section id="three-mechanisms" class="level3" data-number="14.3.1">
-<h3 data-number="14.3.1" class="anchored" data-anchor-id="three-mechanisms"><span class="header-section-number">14.3.1</span> Three Mechanisms</h3>
+<section id="the-key-idea-three-mechanisms-three-consequences" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="the-key-idea-three-mechanisms-three-consequences"><span class="header-section-number">14.3</span> The Key Idea: Three Mechanisms, Three Consequences</h2>
+<p>The most important concept in missing data is <em>why</em> values are missing. The answer determines what you can validly do about it.</p>
+<p>Think of it this way: imagine you are measuring blood pressure. Some readings are missing because the machine broke randomly — that is truly random, unrelated to anything else. Some are missing because elderly patients were too tired to attend follow-up (missingness depends on their age, which you can observe). And some are missing because patients with dangerously high pressure were admitted to hospital before the reading (missingness depends on the very thing you are trying to measure, which you cannot observe).</p>
+<p>Those three scenarios have completely different consequences for your analysis.</p>
+</section>
+<section id="background-why-missing-data-matter" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="background-why-missing-data-matter"><span class="header-section-number">14.4</span> Background: Why Missing Data Matter</h2>
+<section id="three-mechanisms" class="level3" data-number="14.4.1">
+<h3 data-number="14.4.1" class="anchored" data-anchor-id="three-mechanisms"><span class="header-section-number">14.4.1</span> Three Mechanisms</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 30%">
@@ -470,48 +482,52 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>MCAR</strong> - Missing Completely At Random</td>
+<td><strong>MCAR</strong> — Missing Completely At Random</td>
 <td>Probability of missing is unrelated to any variable</td>
 <td>Complete-case analysis is unbiased</td>
 </tr>
 <tr class="even">
-<td><strong>MAR</strong> - Missing At Random</td>
+<td><strong>MAR</strong> — Missing At Random</td>
 <td>Probability of missing depends on <em>observed</em> variables, not on the missing value itself</td>
 <td>Multiple imputation is valid; complete-case is biased</td>
 </tr>
 <tr class="odd">
-<td><strong>MNAR</strong> - Missing Not At Random</td>
+<td><strong>MNAR</strong> — Missing Not At Random</td>
 <td>Probability of missing depends on the <em>unobserved</em> missing value itself</td>
 <td>Neither complete-case nor simple imputation is valid; sensitivity analysis required</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Example:</strong> Patients with high bilirubin are less likely to have platelet counts recorded (perhaps because they were too ill). Missingness depends on observed bilirubin - MAR. Imputation conditioned on bilirubin will recover unbiased estimates.</p>
+<p><strong>Example:</strong> Patients with high bilirubin are less likely to have platelet counts recorded (perhaps because they were too ill for the test). Missingness depends on observed bilirubin — MAR. Imputation conditioned on bilirubin will recover unbiased estimates.</p>
 </section>
-<section id="why-not-just-drop-missing-rows" class="level3" data-number="14.3.2">
-<h3 data-number="14.3.2" class="anchored" data-anchor-id="why-not-just-drop-missing-rows"><span class="header-section-number">14.3.2</span> Why Not Just Drop Missing Rows?</h3>
-<p>Complete-case analysis: - Reduces sample size; loss of power - Is biased under MAR or MNAR - Implicitly assumes MCAR</p>
+<section id="why-not-just-drop-missing-rows" class="level3" data-number="14.4.2">
+<h3 data-number="14.4.2" class="anchored" data-anchor-id="why-not-just-drop-missing-rows"><span class="header-section-number">14.4.2</span> Why Not Just Drop Missing Rows?</h3>
+<p>Complete-case analysis:</p>
+<ul>
+<li>Reduces sample size and loses statistical power</li>
+<li>Is biased under MAR or MNAR</li>
+<li>Implicitly assumes MCAR — an assumption you should test, not ignore</li>
+</ul>
 </section>
-<section id="multiple-imputation-overview" class="level3" data-number="14.3.3">
-<h3 data-number="14.3.3" class="anchored" data-anchor-id="multiple-imputation-overview"><span class="header-section-number">14.3.3</span> Multiple Imputation Overview</h3>
+<section id="multiple-imputation-overview" class="level3" data-number="14.4.3">
+<h3 data-number="14.4.3" class="anchored" data-anchor-id="multiple-imputation-overview"><span class="header-section-number">14.4.3</span> Multiple Imputation Overview</h3>
 <p>Multiple imputation (MI) replaces each missing value with <span class="math inline">\(m\)</span> plausible draws from the conditional distribution of the missing variable given the observed data. This produces <span class="math inline">\(m\)</span> complete datasets. Each is analysed separately and results are combined using <strong>Rubin’s rules</strong>, which pool point estimates and propagate the extra uncertainty due to imputation into the standard errors.</p>
 </section>
 </section>
-<section id="example-1-clinical-data-pbc" class="level2" data-number="14.4">
-<h2 data-number="14.4" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">14.4</span> Example 1: Clinical Data (PBC)</h2>
-<section id="exploring-missingness" class="level3" data-number="14.4.1">
-<h3 data-number="14.4.1" class="anchored" data-anchor-id="exploring-missingness"><span class="header-section-number">14.4.1</span> Exploring Missingness</h3>
+<section id="example-1-clinical-data-pbc" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">14.5</span> Example 1: Clinical Data (PBC)</h2>
+<section id="exploring-missingness" class="level3" data-number="14.5.1">
+<h3 data-number="14.5.1" class="anchored" data-anchor-id="exploring-missingness"><span class="header-section-number">14.5.1</span> Exploring Missingness</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Overall missingness</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">mean</span>(<span class="fu">is.na</span>(.)))) <span class="sc">%&gt;%</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"variable"</span>, <span class="at">values_to =</span> <span class="st">"prop_missing"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(prop_missing <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop_missing))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), \(x) <span class="fu">mean</span>(<span class="fu">is.na</span>(x)))) <span class="sc">%&gt;%</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"variable"</span>, <span class="at">values_to =</span> <span class="st">"prop_missing"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(prop_missing <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prop_missing))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 2
    variable prop_missing
@@ -531,31 +547,18 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualise missingness patterns</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'naniar' was built under R version 4.4.3</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_miss</span>(pbc <span class="sc">%&gt;%</span> <span class="fu">select</span>(albumin, bili, platelet, protime, chol, trig, copper))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-imputation_files/figure-html/miss-pattern-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_miss</span>(pbc <span class="sc">%&gt;%</span> <span class="fu">select</span>(albumin, bili, platelet, protime, chol, trig, copper))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is missingness in platelet related to bilirubin?</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">platelet_missing =</span> <span class="fu">is.na</span>(platelet)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(bili), <span class="at">fill =</span> platelet_missing)) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Observed"</span>, <span class="st">"Missing"</span>)) <span class="sc">+</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bilirubin distribution by platelet missingness"</span>,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log(Bilirubin)"</span>, <span class="at">fill =</span> <span class="st">"Platelet"</span>) <span class="sc">+</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">platelet_missing =</span> <span class="fu">is.na</span>(platelet)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(bili), <span class="at">fill =</span> platelet_missing)) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Observed"</span>, <span class="st">"Missing"</span>)) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bilirubin distribution by platelet missingness"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log(Bilirubin)"</span>, <span class="at">fill =</span> <span class="st">"Platelet"</span>) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -564,36 +567,32 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>If the distributions differ, missingness is related to bilirubin, consistent with MAR rather than MCAR.</p>
+<p>If the distributions differ, missingness is related to bilirubin — consistent with MAR rather than MCAR.</p>
 </section>
-<section id="littles-mcar-test" class="level3" data-number="14.4.2">
-<h3 data-number="14.4.2" class="anchored" data-anchor-id="littles-mcar-test"><span class="header-section-number">14.4.2</span> Little’s MCAR Test</h3>
+<section id="littles-mcar-test" class="level3" data-number="14.5.2">
+<h3 data-number="14.5.2" class="anchored" data-anchor-id="littles-mcar-test"><span class="header-section-number">14.5.2</span> Little’s MCAR Test</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Formal test: if p &lt; 0.05, data are not MCAR</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcar_test</span>(pbc <span class="sc">%&gt;%</span> <span class="fu">select</span>(albumin, bili, platelet, protime, chol))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 4
-  statistic    df  p.value missing.patterns
-      &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;            &lt;int&gt;
-1      38.0    14 0.000520                5</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcar_test</span>(pbc <span class="sc">%&gt;%</span> <span class="fu">select</span>(albumin, bili, platelet, protime, chol))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
+<p>A significant p-value (p &lt; 0.05) means the data are not MCAR. In that case, complete-case analysis is biased and multiple imputation is necessary.</p>
 </section>
-<section id="complete-case-analysis-baseline" class="level3" data-number="14.4.3">
-<h3 data-number="14.4.3" class="anchored" data-anchor-id="complete-case-analysis-baseline"><span class="header-section-number">14.4.3</span> Complete-Case Analysis (Baseline)</h3>
+<section id="complete-case-analysis-baseline" class="level3" data-number="14.5.3">
+<h3 data-number="14.5.3" class="anchored" data-anchor-id="complete-case-analysis-baseline"><span class="header-section-number">14.5.3</span> Complete-Case Analysis (Baseline)</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pbc_cc <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(platelet), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(stage)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_bili =</span> <span class="fu">log</span>(bili),</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">stage    =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Stage"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)))</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Complete cases:"</span>, <span class="fu">nrow</span>(pbc_cc), <span class="st">"of"</span>, <span class="fu">nrow</span>(pbc), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pbc_cc <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(platelet), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(stage)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_bili =</span> <span class="fu">log</span>(bili),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">stage    =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Stage"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Complete cases:"</span>, <span class="fu">nrow</span>(pbc_cc), <span class="st">"of"</span>, <span class="fu">nrow</span>(pbc), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Complete cases: 399 of 418 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fit_cc <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> platelet <span class="sc">+</span> stage, <span class="at">data =</span> pbc_cc)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(fit_cc, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fit_cc <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> platelet <span class="sc">+</span> stage, <span class="at">data =</span> pbc_cc)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(fit_cc, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
   term          estimate   conf.low conf.high   p.value
@@ -607,26 +606,23 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="multiple-imputation-with-mice" class="level3" data-number="14.4.4">
-<h3 data-number="14.4.4" class="anchored" data-anchor-id="multiple-imputation-with-mice"><span class="header-section-number">14.4.4</span> Multiple Imputation with <code>mice</code></h3>
+<section id="multiple-imputation-with-mice" class="level3" data-number="14.5.4">
+<h3 data-number="14.5.4" class="anchored" data-anchor-id="multiple-imputation-with-mice"><span class="header-section-number">14.5.4</span> Multiple Imputation with <code>mice</code></h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare imputation dataset</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>pbc_imp <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(albumin, bili, platelet, protime, chol, trig, copper, stage, age, sex) <span class="sc">%&gt;%</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_bili  =</span> <span class="fu">log</span>(bili),</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">stage     =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex       =</span> <span class="fu">factor</span>(sex)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>bili)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create m = 10 imputed datasets using default predictive mean matching</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>imp <span class="ot">&lt;-</span> <span class="fu">mice</span>(pbc_imp, <span class="at">m =</span> <span class="dv">10</span>, <span class="at">method =</span> <span class="st">"pmm"</span>, <span class="at">printFlag =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pbc_imp <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(albumin, bili, platelet, protime, chol, trig, copper, stage, age, sex) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_bili  =</span> <span class="fu">log</span>(bili),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">stage     =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex       =</span> <span class="fu">factor</span>(sex)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>bili)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>imp <span class="ot">&lt;-</span> <span class="fu">mice</span>(pbc_imp, <span class="at">m =</span> <span class="dv">10</span>, <span class="at">method =</span> <span class="st">"pmm"</span>, <span class="at">printFlag =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check convergence: trace plots should mix well</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imp, <span class="fu">c</span>(<span class="st">"platelet"</span>, <span class="st">"chol"</span>), <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imp, <span class="fu">c</span>(<span class="st">"platelet"</span>, <span class="st">"chol"</span>), <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -635,12 +631,12 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p>The trace plots should mix well (lines criss-crossing rather than staying in one area) — this indicates the imputation algorithm has converged.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model in each imputed dataset and pool with Rubin's rules</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fit_mi <span class="ot">&lt;-</span> <span class="fu">with</span>(imp, <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> platelet <span class="sc">+</span> stage))</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pooled  <span class="ot">&lt;-</span> <span class="fu">pool</span>(fit_mi)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pooled, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, <span class="st">`</span><span class="at">2.5 %</span><span class="st">`</span>, <span class="st">`</span><span class="at">97.5 %</span><span class="st">`</span>, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fit_mi <span class="ot">&lt;-</span> <span class="fu">with</span>(imp, <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> platelet <span class="sc">+</span> stage))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pooled  <span class="ot">&lt;-</span> <span class="fu">pool</span>(fit_mi)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pooled, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, <span class="st">`</span><span class="at">2.5 %</span><span class="st">`</span>, <span class="st">`</span><span class="at">97.5 %</span><span class="st">`</span>, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         term      estimate         2.5 %        97.5 %       p.value
 1 (Intercept)  3.5924121923  3.389161e+00  3.7956632913 2.045943e-118
@@ -652,21 +648,23 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="comparing-complete-case-and-imputed-estimates" class="level3" data-number="14.4.5">
-<h3 data-number="14.4.5" class="anchored" data-anchor-id="comparing-complete-case-and-imputed-estimates"><span class="header-section-number">14.4.5</span> Comparing Complete-Case and Imputed Estimates</h3>
+<section id="comparing-complete-case-and-imputed-estimates" class="level3" data-number="14.5.5">
+<h3 data-number="14.5.5" class="anchored" data-anchor-id="comparing-complete-case-and-imputed-estimates"><span class="header-section-number">14.5.5</span> Comparing Complete-Case and Imputed Estimates</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(fit_cc, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value) <span class="sc">%&gt;%</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Complete-case"</span>),</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(pooled, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(term, estimate, <span class="at">conf.low =</span> <span class="st">`</span><span class="at">2.5 %</span><span class="st">`</span>, <span class="at">conf.high =</span> <span class="st">`</span><span class="at">97.5 %</span><span class="st">`</span>, p.value) <span class="sc">%&gt;%</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Multiple imputation"</span>)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"log_bili"</span>, <span class="st">"platelet"</span>, <span class="st">"stageStage 2"</span>, <span class="st">"stageStage 3"</span>, <span class="st">"stageStage 4"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, term, estimate, conf.low, conf.high, p.value) <span class="sc">%&gt;%</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(term, method)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cc_results <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(fit_cc, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Complete-case"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>mi_results <span class="ot">&lt;-</span> <span class="fu">summary</span>(pooled, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, <span class="at">conf.low =</span> <span class="st">`</span><span class="at">2.5 %</span><span class="st">`</span>, <span class="at">conf.high =</span> <span class="st">`</span><span class="at">97.5 %</span><span class="st">`</span>, p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Multiple imputation"</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(cc_results, mi_results) <span class="sc">%&gt;%</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"log_bili"</span>, <span class="st">"platelet"</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"stageStage 2"</span>, <span class="st">"stageStage 3"</span>, <span class="st">"stageStage 4"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, term, estimate, conf.low, conf.high, p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(term, method)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 6
   method              term          estimate   conf.low conf.high      p.value
@@ -683,18 +681,13 @@ window.Quarto = {
 <p>If the estimates differ substantially, the missing data were not MCAR and complete-case analysis was biased.</p>
 </section>
 </section>
-<section id="example-2-animal-data-palmerpenguins" class="level2" data-number="14.5">
-<h2 data-number="14.5" class="anchored" data-anchor-id="example-2-animal-data-palmerpenguins"><span class="header-section-number">14.5</span> Example 2: Animal Data (palmerpenguins)</h2>
+<section id="example-2-penguins-data" class="level2" data-number="14.6">
+<h2 data-number="14.6" class="anchored" data-anchor-id="example-2-penguins-data"><span class="header-section-number">14.6</span> Example 2: Penguins Data</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'palmerpenguins' was built under R version 4.4.3</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># penguins has a small amount of missing data</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)))) <span class="sc">%&gt;%</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(value <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), \(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(value <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
   name              value
@@ -707,17 +700,15 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Impute the missing values in penguins</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>peng_imp <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(body_mass_g, flipper_length_mm, bill_length_mm, bill_depth_mm, species, sex) <span class="sc">%&gt;%</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">factor</span>(species), <span class="at">sex =</span> <span class="fu">factor</span>(sex))</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>imp_peng <span class="ot">&lt;-</span> <span class="fu">mice</span>(peng_imp, <span class="at">m =</span> <span class="dv">5</span>, <span class="at">method =</span> <span class="st">"pmm"</span>, <span class="at">printFlag =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Analyse: predict body mass from flipper length and species</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>fit_peng <span class="ot">&lt;-</span> <span class="fu">with</span>(imp_peng, <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> species))</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">pool</span>(fit_peng), <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>peng_imp <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(body_mass_g, flipper_length_mm, bill_length_mm, bill_depth_mm, species, sex) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">factor</span>(species), <span class="at">sex =</span> <span class="fu">factor</span>(sex))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>imp_peng <span class="ot">&lt;-</span> <span class="fu">mice</span>(peng_imp, <span class="at">m =</span> <span class="dv">5</span>, <span class="at">method =</span> <span class="st">"pmm"</span>, <span class="at">printFlag =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>fit_peng <span class="ot">&lt;-</span> <span class="fu">with</span>(imp_peng, <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> species))</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">pool</span>(fit_peng), <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               term    estimate  std.error statistic       df      p.value
 1       (Intercept) -4015.67592 581.583736 -6.904725 337.7001 2.503282e-11
@@ -731,31 +722,49 @@ window.Quarto = {
 4    81.57376   454.93637    81.57376   454.93637</code></pre>
 </div>
 </div>
-</section>
-<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="14.6">
-<h2 class="callout-note anchored" data-number="14.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">14.6</span> Where to Find Data Like This</h2>
-<p><strong><code>survival::pbc</code>:</strong> Real-world clinical data with informative missingness in laboratory values, a classic MI teaching example.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Where to Find Data Like This
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><code>survival::pbc</code>:</strong> Real-world clinical data with informative missingness in laboratory values — a classic MI teaching example.</p>
 <p><strong><code>palmerpenguins</code>:</strong> Minimal missingness; useful to practice the workflow without bias concerns.</p>
 <p><strong><code>NHANES</code></strong> (via the <code>NHANES</code> or <code>nhanesA</code> packages): Large survey with complex, realistic missingness patterns across demographic and clinical variables.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>What Can Go Wrong
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Imputing the outcome.</strong> Never include the outcome variable as a predictor in the imputation model if missingness in the outcome is not informative. Report the proportion of missing outcomes and conduct a sensitivity analysis.</p>
+<p><strong>Too few imputed datasets.</strong> The rule of thumb is m ≥ the percentage of missing data (e.g., 20% missing → m ≥ 20). Five imputations is typically insufficient when missingness is substantial.</p>
+<p><strong>Using complete-case AIC to select variables before imputing.</strong> Model selection should be done within the multiply-imputed framework, not on complete cases only. Selecting variables on complete cases and then imputing introduces bias.</p>
+<p><strong>MNAR without sensitivity analysis.</strong> If you have reason to believe data are MNAR (e.g., lab values missing because the patient refused due to anxiety about results), standard MI is not sufficient. Perform a sensitivity analysis under plausible MNAR scenarios using <code>mice</code> with a delta adjustment.</p>
+</div>
+</div>
 </section>
-<section id="what-can-go-wrong" class="level2 callout-warning" data-number="14.7">
-<h2 class="callout-warning anchored" data-number="14.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">14.7</span> What Can Go Wrong</h2>
-<p><strong>Imputing the outcome</strong> Never include the outcome variable as a <em>predictor</em> in the imputation model if missingness in the outcome is not informative. If the outcome is partially missing, imputing it is only valid under strict assumptions. Report the proportion of missing outcomes and conduct a sensitivity analysis.</p>
-<p><strong>Too few imputed datasets</strong> The rule of thumb is <span class="math inline">\(m \geq\)</span> the percentage of missing data (e.g., 20% missing → <span class="math inline">\(m \geq 20\)</span>). Five imputations is typically insufficient when missingness is substantial.</p>
-<p><strong>Using complete-case AIC to select variables before imputing</strong> Model selection should be done within the multiply-imputed framework, not on complete cases only. Selecting variables on complete cases and then imputing introduces bias.</p>
-<p><strong>MNAR without sensitivity analysis</strong> If you have reason to believe data are MNAR (e.g., lab values missing because the patient refused due to anxiety about results), standard MI is not sufficient. Perform a sensitivity analysis under plausible MNAR scenarios using <code>mice</code> with a delta adjustment or the <code>missingHE</code> package.</p>
-</section>
-<section id="exercises" class="level2" data-number="14.8">
-<h2 data-number="14.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">14.8</span> Exercises</h2>
-<section id="exercise-1-guided-explore-pbc-missingness" class="level3" data-number="14.8.1">
-<h3 data-number="14.8.1" class="anchored" data-anchor-id="exercise-1-guided-explore-pbc-missingness"><span class="header-section-number">14.8.1</span> Exercise 1 (Guided): Explore PBC Missingness</h3>
+<section id="exercises" class="level2" data-number="14.7">
+<h2 data-number="14.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">14.7</span> Exercises</h2>
+<section id="exercise-1-guided-explore-pbc-missingness" class="level3" data-number="14.7.1">
+<h3 data-number="14.7.1" class="anchored" data-anchor-id="exercise-1-guided-explore-pbc-missingness"><span class="header-section-number">14.7.1</span> Exercise 1 (Guided): Explore PBC Missingness</h3>
 <ol type="1">
 <li>Count the proportion of missing values for each variable in <code>survival::pbc</code>.</li>
 <li>Visualise the missingness pattern for <code>platelet</code>, <code>chol</code>, <code>trig</code>, and <code>copper</code>.</li>
-<li>Test whether missingness in <code>platelet</code> is associated with <code>bili</code> (logistic regression: <code>is.na(platelet) ~ log(bili)</code>). What does a significant result tell you?</li>
+<li>Test whether missingness in <code>platelet</code> is associated with <code>bili</code> (logistic regression). What does a significant result tell you?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -764,14 +773,14 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">mean</span>(<span class="fu">is.na</span>(.)))) <span class="sc">%&gt;%</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(value <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(value))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), \(x) <span class="fu">mean</span>(<span class="fu">is.na</span>(x)))) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(value <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(value))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 2
    name       value
@@ -789,11 +798,9 @@ window.Quarto = {
 11 stage    0.0144 
 12 protime  0.00478</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test association between missingness and bilirubin</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">platelet_miss =</span> <span class="fu">as.integer</span>(<span class="fu">is.na</span>(platelet))) <span class="sc">%&gt;%</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(platelet_miss <span class="sc">~</span> <span class="fu">log</span>(bili), <span class="at">data =</span> ., <span class="at">family =</span> binomial) <span class="sc">%&gt;%</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pbc_test <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">platelet_miss =</span> <span class="fu">as.integer</span>(<span class="fu">is.na</span>(platelet)))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(platelet_miss <span class="sc">~</span> <span class="fu">log</span>(bili), <span class="at">data =</span> pbc_test, <span class="at">family =</span> binomial) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term        estimate std.error statistic  p.value conf.low conf.high
@@ -806,8 +813,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="exercise-2-semi-guided-multiple-imputation-of-pbc" class="level3" data-number="14.8.2">
-<h3 data-number="14.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-multiple-imputation-of-pbc"><span class="header-section-number">14.8.2</span> Exercise 2 (Semi-guided): Multiple Imputation of PBC</h3>
+<section id="exercise-2-semi-guided-multiple-imputation-of-pbc" class="level3" data-number="14.7.2">
+<h3 data-number="14.7.2" class="anchored" data-anchor-id="exercise-2-semi-guided-multiple-imputation-of-pbc"><span class="header-section-number">14.7.2</span> Exercise 2 (Semi-guided): Multiple Imputation of PBC</h3>
 <ol type="1">
 <li>Select variables: <code>albumin</code>, <code>log_bili</code>, <code>platelet</code>, <code>chol</code>, <code>stage</code>.</li>
 <li>Create 20 imputed datasets using <code>mice</code> with <code>method = "pmm"</code>.</li>
@@ -815,7 +822,7 @@ window.Quarto = {
 <li>Compare pooled SEs to the complete-case SEs. Which are larger, and why?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -824,18 +831,18 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pbc_ex <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_bili =</span> <span class="fu">log</span>(bili), <span class="at">stage =</span> <span class="fu">factor</span>(stage)) <span class="sc">%&gt;%</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(albumin, log_bili, platelet, chol, stage)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>imp_ex <span class="ot">&lt;-</span> <span class="fu">mice</span>(pbc_ex, <span class="at">m =</span> <span class="dv">20</span>, <span class="at">method =</span> <span class="st">"pmm"</span>, <span class="at">printFlag =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>fit_ex2 <span class="ot">&lt;-</span> <span class="fu">with</span>(imp_ex, <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> platelet <span class="sc">+</span> stage))</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">pool</span>(fit_ex2), <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pbc_ex <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_bili =</span> <span class="fu">log</span>(bili), <span class="at">stage =</span> <span class="fu">factor</span>(stage)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(albumin, log_bili, platelet, chol, stage)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>imp_ex <span class="ot">&lt;-</span> <span class="fu">mice</span>(pbc_ex, <span class="at">m =</span> <span class="dv">20</span>, <span class="at">method =</span> <span class="st">"pmm"</span>, <span class="at">printFlag =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>fit_ex2 <span class="ot">&lt;-</span> <span class="fu">with</span>(imp_ex, <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> platelet <span class="sc">+</span> stage))</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">pool</span>(fit_ex2), <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         term      estimate    std.error  statistic       df       p.value
 1 (Intercept)  3.6085482116 0.1026285377 35.1612553 402.6201 8.476188e-125
@@ -857,13 +864,13 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="exercise-3-open-ended" class="level3" data-number="14.8.3">
-<h3 data-number="14.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">14.8.3</span> Exercise 3 (Open-ended)</h3>
+<section id="exercise-3-open-ended" class="level3" data-number="14.7.3">
+<h3 data-number="14.7.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">14.7.3</span> Exercise 3 (Open-ended)</h3>
 <p>In your own dataset, identify variables with missing data. Determine whether the missing mechanism is likely MCAR, MAR, or MNAR (document your reasoning). Perform multiple imputation and compare the complete-case and imputed estimates. Write a Missing Data section for a methods paper following STROBE or CONSORT reporting guidelines.</p>
 </section>
 </section>
-<section id="comprehension-check" class="level2" data-number="14.9">
-<h2 data-number="14.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">14.9</span> Comprehension Check</h2>
+<section id="comprehension-check" class="level2" data-number="14.8">
+<h2 data-number="14.8" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">14.8</span> Comprehension Check</h2>
 <ol type="1">
 <li>A variable is missing in 30% of patients. The probability of being missing is higher in older patients. What missing mechanism does this suggest?</li>
 <li>You run complete-case analysis and get n = 180 (originally 300). Your colleague says this is fine because the results are “still significant.” What is wrong with this reasoning?</li>
@@ -872,7 +879,7 @@ window.Quarto = {
 <li>A key predictor is missing for 60% of patients. Can you still use multiple imputation? What concerns arise?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -881,23 +888,21 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Missingness depends on an observed variable (age) - this is MAR. Complete-case analysis will be biased if age also predicts the outcome. Multiple imputation conditioned on age is the appropriate approach.</li>
+<li>Missingness depends on an observed variable (age) — this is MAR. Complete-case analysis will be biased if age also predicts the outcome. Multiple imputation conditioned on age is the appropriate approach.</li>
 <li>Significance alone does not validate the analysis. Complete-case with 40% dropout may be biased under MAR/MNAR, underestimates the true sample size, and gives artificially narrow confidence intervals. The key question is whether the missing data mechanism biases the estimates, not whether the result is still statistically significant.</li>
 <li>Multiple imputation correctly propagates two sources of uncertainty: within-imputation variance (ordinary sampling variance) and between-imputation variance (uncertainty about the missing values). Rubin’s rules add these two components together. The inflated SE is the correct, honest estimate. Complete-case analysis ignores the between-imputation uncertainty and therefore underestimates the SE.</li>
-<li>PMM imputes values by drawing from observed cases whose predicted values are closest to the predicted value of the missing case. This preserves the actual distribution of the variable (no impossible values like negative counts or probabilities outside 0?1) and is robust to non-normality. Normal imputation assumes the variable is normally distributed, which is often violated.</li>
-<li>Imputing 60% missing is possible but requires careful consideration. The imputed values will be almost entirely model-driven with very little information, so results will be highly sensitive to the imputation model specification. You should perform sensitivity analyses, include many auxiliary variables in the imputation model to improve predictions, use <span class="math inline">\(m \geq 60\)</span> datasets, and consider whether data with 60% missingness can meaningfully contribute to the analysis - or whether the question should be reframed.</li>
+<li>PMM imputes values by drawing from observed cases whose predicted values are closest to the predicted value of the missing case. This preserves the actual distribution of the variable (no impossible values like negative counts or probabilities outside 0–1) and is robust to non-normality. Normal imputation assumes the variable is normally distributed, which is often violated.</li>
+<li>Imputing 60% missing is possible but requires careful consideration. The imputed values will be almost entirely model-driven with very little information, so results will be highly sensitive to the imputation model specification. You should perform sensitivity analyses, include many auxiliary variables in the imputation model, use m ≥ 60 datasets, and consider whether data with 60% missingness can meaningfully contribute to the analysis.</li>
 </ol>
 </div>
 </div>
 </div>
 </section>
-<section id="how-to-report" class="level2" data-number="14.10">
-<h2 data-number="14.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">14.10</span> How to Report</h2>
-<section id="reporting-missing-data-and-imputation" class="level3" data-number="14.10.1">
-<h3 data-number="14.10.1" class="anchored" data-anchor-id="reporting-missing-data-and-imputation"><span class="header-section-number">14.10.1</span> Reporting Missing Data and Imputation</h3>
+<section id="how-to-report" class="level2" data-number="14.9">
+<h2 data-number="14.9" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">14.9</span> How to Report</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -910,11 +915,11 @@ Note
 <div class="callout-body-container callout-body">
 <p><strong>In a methods section:</strong> “Missing data were handled using multiple imputation with chained equations (MICE), generating M = [number] imputed datasets. Variables used in the imputation model included [list]. Estimates were pooled across imputed datasets using Rubin’s rules. A complete-case analysis was performed as a sensitivity analysis.”</p>
 <p><strong>In results:</strong> Report the missing data rates explicitly: “Data were missing for bilirubin (3.2%), albumin (1.4%), and copper (24.6%).”</p>
-<p><strong>What to always include:</strong></p>
+<p><strong>Always include:</strong></p>
 <ul>
 <li>Percentage of missing data per key variable (as a table or in-text)</li>
 <li>Missing data mechanism assumed (MCAR, MAR, or MNAR) and justification</li>
-<li>Number of imputed datasets (M ³ 20 is recommended)</li>
+<li>Number of imputed datasets (m ≥ 20 is recommended)</li>
 <li>Variables included in the imputation model</li>
 <li>Results of the sensitivity analysis (complete-case)</li>
 </ul>
@@ -922,11 +927,10 @@ Note
 </div>
 </div>
 </section>
-</section>
-<section id="further-reading" class="level2" data-number="14.11">
-<h2 data-number="14.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">14.11</span> Further Reading</h2>
+<section id="further-reading" class="level2" data-number="14.10">
+<h2 data-number="14.10" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">14.10</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="vanBuuren-2018">Buuren (<a href="#ref-vanBuuren-2018" role="doc-biblioref">2018</a>)</span> — <em>Flexible Imputation of Missing Data</em> (free online: <a href="https://stefvanbuuren.name/fimd/">https://stefvanbuuren.name/fimd/</a>)</li>
+<li><span class="citation" data-cites="vanBuuren-2018">Buuren (<a href="#ref-vanBuuren-2018" role="doc-biblioref">2018</a>)</span> — <em>Flexible Imputation of Missing Data</em> (free online at stefvanbuuren.name/fimd/)</li>
 <li><span class="citation" data-cites="Sterne-2009">Sterne et al. (<a href="#ref-Sterne-2009" role="doc-biblioref">2009</a>)</span> — <em>Multiple imputation for missing data in epidemiological and clinical research: potential and pitfalls</em> (BMJ)</li>
 <li><code>mice</code> package documentation and vignettes</li>
 <li><code>naniar</code> package for visualising missingness</li>

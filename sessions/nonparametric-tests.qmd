@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Nonparametric Tests"
 ---
 
@@ -10,65 +10,127 @@ library(survival)
 library(broom)
 ```
 
-## When Do You Use This? {#sec-nonparametric .callout-tip}
+## When Do You Use This? {#sec-nonparametric}
 
-> You have only 8 mice per group and the outcome variable (e.g., tumour volume) is heavily right-skewed with an obvious outlier. A t-test requires approximate normality, and with $n = 8$ you cannot rely on the CLT. Nonparametric tests work on the *ranks* of the data rather than the raw values, so they are robust to non-normality and outliers.
+::: {.callout-tip}
+You have 8 mice per group and the outcome --- tumour volume, cytokine
+concentration, cell count --- is heavily right-skewed with a few extreme
+values. Or you are measuring pain on a 0--10 scale and the values clump
+at the low end. The t-tests from the previous session assume the
+sampling distribution of the mean is normal, and with small non-normal
+samples the Central Limit Theorem cannot guarantee that.
+
+Nonparametric tests are the alternative. They work on the *ranks* of the
+data rather than the raw values. This makes them robust to skew and
+outliers. The trade-off: they are slightly less powerful than t-tests
+when the normality assumption genuinely holds.
+:::
 
 ## Learning Objectives
 
 After completing this session you will be able to:
 
-- Identify when a nonparametric test is more appropriate than a t-test
-- Perform the Wilcoxon rank-sum (Mann-Whitney) and Wilcoxon signed-rank tests in R
-- Perform the Kruskal-Wallis test as a nonparametric ANOVA alternative
-- Interpret the results of nonparametric tests
-- Understand the trade-offs: nonparametric tests are more robust but less powerful when normality holds
+- Decide when a nonparametric test is more appropriate than a t-test
+- Explain what "testing on ranks" means and why it helps with
+  non-normal data
+- Run the Wilcoxon rank-sum and signed-rank tests in R and read the
+  output
+- Run the Kruskal-Wallis test and appropriate post-hoc comparisons
+- Report nonparametric results correctly, including the right summary
+  statistics
 
 
-## Background: Ranks Instead of Raw Values
+## Background: The Idea of Ranks
 
-Parametric tests (t-tests, ANOVA) make assumptions about the distribution of the data. Nonparametric tests replace raw values with their **ranks** and test whether the distribution of ranks differs between groups.
+### What ranks are and why they help
 
-**Key advantage:** robust to outliers and skewed distributions.
-**Key cost:** slightly less powerful than parametric tests when the normality assumption is met.
+Suppose five mice have tumour volumes of 5, 1, 42, 3, and 7 mm³. Their
+ranks are:
 
-| Parametric test | Nonparametric equivalent | When to use |
+| Volume | Rank |
+|---|---|
+| 1 | 1 |
+| 3 | 2 |
+| 5 | 3 |
+| 7 | 4 |
+| 42 | 5 |
+
+Now suppose the outlier was a measurement error and the true value was
+420 instead of 42. The ranks do not change at all --- 420 is still rank
+5. A t-test would give a very different answer; a Wilcoxon test would
+not. This is the core property: nonparametric tests are insensitive to
+the exact magnitude of extreme values.
+
+The Wilcoxon rank-sum test takes all observations from both groups,
+ranks them together from smallest to largest, and then checks whether
+one group's ranks are systematically higher than the other's. The null
+hypothesis is that the two groups are drawn from the same distribution
+--- no tendency for one group to produce larger values.
+
+### When to use nonparametric tests
+
+Use a nonparametric test when:
+
+1. **Sample size is small** ($n < 30$ per group) **and the data are
+   clearly non-normal** --- check a QQ-plot; if points deviate
+   substantially from the line, switch to nonparametric
+2. **Extreme outliers** that reflect real biology (not data errors) ---
+   a mouse tumour genuinely 10× larger than the rest is real information
+   that should not drive your result
+3. **Ordinal outcomes** --- pain scales, Likert items, disease stages;
+   the numeric labels do not have consistent spacing
+
+When *not* to use them by default: if $n \geq 30$ and data are
+reasonably symmetric, the t-test is valid and more powerful. Using
+nonparametric tests as a universal "safe" choice costs statistical power
+unnecessarily.
+
+| Parametric | Nonparametric equivalent | Use when |
 |---|---|---|
-| One-sample t-test | Wilcoxon signed-rank test | n small, distribution non-normal |
-| Two-sample t-test | Wilcoxon rank-sum (Mann-Whitney) | Two independent groups, n small or skewed |
-| Paired t-test | Wilcoxon signed-rank test | Paired data, n small or non-normal |
-| One-way ANOVA | Kruskal-Wallis test | = 3 groups, normality violated |
+| One-sample t-test | Wilcoxon signed-rank | Small n, symmetric but non-normal |
+| Two-sample t-test | Wilcoxon rank-sum (Mann-Whitney) | Two independent groups, small n or skewed |
+| Paired t-test | Wilcoxon signed-rank (paired) | Paired data, small n or non-normal differences |
+| One-way ANOVA | Kruskal-Wallis | Three or more groups, normality violated |
 
 
-## Example 1: Lab Data (Small Samples)
+## Example 1: Small Samples (Lab Data)
 
-These two real datasets have n = 10 per group --- too small to rely on the Central Limit Theorem.
-Checking normality first, then deciding between a t-test and a Wilcoxon test, is the key skill.
+### Step 1: Check normality, then decide
 
-### Two-Sample Wilcoxon: Tooth Growth at Low Dose (ToothGrowth)
-
-At 0.5 mg/day, OJ vs ascorbic acid comparison has only 10 guinea pigs per group.
-Before running a t-test, check normality --- if it fails, use the Wilcoxon rank-sum test.
+The decision between a t-test and a Wilcoxon test should be made *before*
+running the test, based on a QQ-plot and the sample size. Here we
+demonstrate this decision with `ToothGrowth` at the 0.5 mg/day dose
+where each group has only 10 guinea pigs.
 
 ```{r tg-small}
 #| eval: true
 
-tg_05 <- ToothGrowth |>
-  as_tibble() |>
-  mutate(supp = factor(supp, levels = c("VC", "OJ"),
-                        labels = c("Ascorbic acid", "Orange juice"))) |>
+tg_05 <- ToothGrowth %>%
+  as_tibble() %>%
+  mutate(
+    supp = factor(supp, levels = c("VC", "OJ"),
+                  labels = c("Ascorbic acid", "Orange juice"))
+  ) %>%
   filter(dose == 0.5)
 
-# QQ-plots: check normality before choosing the test
-tg_05 |>
+tg_05 %>%
   ggplot(aes(sample = len)) +
-  stat_qq() + stat_qq_line(colour = "red") +
-  facet_wrap(~ supp) +
-  labs(title = "QQ-plot: tooth length at 0.5 mg/day (n = 10 per group)") +
+  stat_qq() +
+  stat_qq_line(colour = "red") +
+  facet_wrap(~supp) +
+  labs(
+    title = "QQ-plot: tooth length at 0.5 mg/day (n = 10 per group)",
+    subtitle = "Points should follow the red line if data are approximately normal"
+  ) +
   theme_bw()
 ```
 
-With n = 10 and some departure from the QQ line, the Wilcoxon test is the safer choice.
+With n = 10 and some departure from the line, the Wilcoxon test is the
+safer choice here. The t-test would also be defensible (the deviations
+are not severe), but when in doubt with small samples, use the
+nonparametric option.
+
+### Two-sample Wilcoxon rank-sum test
 
 ```{r tg-wilcox}
 #| eval: true
@@ -76,9 +138,8 @@ With n = 10 and some departure from the QQ line, the Wilcoxon test is the safer 
 res_wilcox <- wilcox.test(len ~ supp, data = tg_05, exact = FALSE)
 tidy(res_wilcox)
 
-# Medians and IQR --- always report these, not means, with a Wilcoxon test
-tg_05 |>
-  group_by(supp) |>
+tg_05 %>%
+  group_by(supp) %>%
   summarise(
     n      = n(),
     median = median(len),
@@ -87,61 +148,101 @@ tg_05 |>
   )
 ```
 
-::: {.callout-tip}
-### Wilcoxon vs t-test: Same Data, Different Assumptions
+::: {.callout-note}
+### Reading the Wilcoxon Output
+
+| Output | What it means |
+|---|---|
+| **statistic (W)** | The sum of ranks in the first group. A large W means the first group tends to have higher values. |
+| **p.value** | The probability of observing a rank distribution this extreme if both groups came from the same population. |
+
+Always report **medians and IQR**, not means and SD, alongside a
+Wilcoxon test. The test is based on ranks, so the rank-based summary
+(median) is the appropriate measure of location.
+:::
+
+How does this compare to using the t-test on the same data?
 
 ```{r tg-compare}
 #| eval: true
 
 bind_rows(
-  tidy(t.test(len ~ supp, data = tg_05)) |> mutate(test = "Welch t-test"),
-  tidy(wilcox.test(len ~ supp, data = tg_05, exact = FALSE)) |> mutate(test = "Wilcoxon")
-) |> select(test, statistic, p.value)
+  tidy(t.test(len ~ supp, data = tg_05)) %>%
+    mutate(test = "Welch t-test"),
+  tidy(wilcox.test(len ~ supp, data = tg_05, exact = FALSE)) %>%
+    mutate(test = "Wilcoxon rank-sum")
+) %>%
+  select(test, statistic, p.value)
 ```
 
-Both give a similar conclusion here. When they disagree, trust the Wilcoxon for small non-normal samples.
-:::
+Both reach the same conclusion here. They often agree. When they
+disagree, trust the Wilcoxon for small non-normal samples --- and
+investigate why they differ (usually an outlier is driving the t-test
+result).
 
-### Paired Wilcoxon: Two Sleep Drugs (sleep dataset)
+### Paired Wilcoxon signed-rank test
 
-The `sleep` dataset (base R) has 10 patients measured on two drugs. With n = 10 and a paired design,
-the paired Wilcoxon signed-rank test is appropriate if the differences are not normally distributed.
+The `sleep` dataset has 10 patients measured under two drugs: a paired
+design. For the paired Wilcoxon, what matters is the normality of the
+*within-patient differences*, not the raw values.
 
 ```{r sleep-wilcox}
 #| eval: true
 
-sleepdat <- sleep |>
-  as_tibble() |>
-  rename(drug = group, extra_hours = extra) |>
+sleepdat <- sleep %>%
+  as_tibble() %>%
+  rename(drug = group, extra_hours = extra) %>%
   mutate(drug = factor(drug, labels = c("Drug 1", "Drug 2")))
 
-sleep_wide <- sleepdat |>
-  tidyr::pivot_wider(names_from = drug, values_from = extra_hours, id_cols = ID)
+sleep_wide <- sleepdat %>%
+  tidyr::pivot_wider(
+    names_from  = drug,
+    values_from = extra_hours,
+    id_cols     = ID
+  )
 
-# Check normality of the DIFFERENCES
 diffs <- sleep_wide[["Drug 2"]] - sleep_wide[["Drug 1"]]
-qqnorm(diffs); qqline(diffs, col = "red")
 
-# Paired Wilcoxon signed-rank test
-res_sleep <- wilcox.test(sleep_wide[["Drug 2"]], sleep_wide[["Drug 1"]], paired = TRUE)
+tibble(diff = diffs) %>%
+  ggplot(aes(sample = diff)) +
+  stat_qq() +
+  stat_qq_line(colour = "red") +
+  labs(
+    title    = "QQ-plot: within-patient differences in sleep hours",
+    subtitle = "Normality of differences, not raw values, is what matters for paired tests"
+  ) +
+  theme_bw()
+```
+
+```{r sleep-wilcox-test}
+#| eval: true
+
+res_sleep <- wilcox.test(
+  sleep_wide[["Drug 2"]], sleep_wide[["Drug 1"]],
+  paired = TRUE
+)
 tidy(res_sleep)
 ```
 
-For the paired Wilcoxon, normality of the *differences* is what matters, not the raw values.
-With n = 10 the test is valid regardless, but checking gives confidence.
+With n = 10 differences, the QQ-plot shows reasonable normality ---
+a paired t-test would also be valid. The Wilcoxon and t-test conclusions
+agree here, which is reassuring.
 
 
 ## Example 2: Clinical Data (PBC)
 
-Bilirubin is heavily right-skewed and contains extreme outliers --- a genuine case where
-nonparametric tests are clearly more appropriate than t-tests regardless of sample size.
+Bilirubin in the PBC dataset is a genuine case for nonparametric tests:
+heavily right-skewed, extreme outliers, and meaningful biological
+variability. No log transformation changes the underlying problem ---
+the distribution is better described by its median and spread than its
+mean.
 
 ```{r pbc-setup}
 #| eval: true
 
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
   mutate(
     sex   = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
     trt   = factor(trt, levels = c(1, 2), labels = c("D-penicillamine", "Placebo")),
@@ -149,202 +250,341 @@ pbc <- survival::pbc |>
   )
 ```
 
-### Wilcoxon Rank-Sum: Bilirubin by Treatment Group
+### Wilcoxon rank-sum: bilirubin by treatment group
 
 ```{r pbc-wilcox}
 #| eval: true
 
-pbc_rand <- pbc |> filter(!is.na(trt), !is.na(bili))
+pbc_rand <- pbc %>% filter(!is.na(trt), !is.na(bili))
 
-pbc_rand |>
+pbc_rand %>%
   ggplot(aes(x = trt, y = bili, fill = trt)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, alpha = 0.3, size = 1.5) +
   scale_fill_manual(values = c("steelblue", "tomato")) +
   scale_y_log10() +
-  labs(title = "Bilirubin by treatment group (log scale)",
-       x = NULL, y = "Bilirubin (mg/dL, log scale)") +
-  theme_bw() + theme(legend.position = "none")
+  labs(
+    title = "Bilirubin by treatment group (log scale)",
+    x     = NULL,
+    y     = "Bilirubin (mg/dL, log scale)"
+  ) +
+  theme_bw() +
+  theme(legend.position = "none")
 
 tidy(wilcox.test(bili ~ trt, data = pbc_rand))
 
-pbc_rand |>
-  group_by(trt) |>
-  summarise(median = median(bili), q1 = quantile(bili, 0.25), q3 = quantile(bili, 0.75))
+pbc_rand %>%
+  group_by(trt) %>%
+  summarise(
+    n      = n(),
+    median = median(bili),
+    q1     = quantile(bili, 0.25),
+    q3     = quantile(bili, 0.75)
+  )
 ```
 
-**Report medians and IQR, not means**, because the Wilcoxon test is based on ranks.
+No significant difference at baseline, consistent with successful
+randomisation. Report medians and IQR: "Median bilirubin was X mg/dL
+(IQR: A--B) in the D-penicillamine group and Y mg/dL (IQR: C--D) in
+the placebo group."
 
-### Kruskal-Wallis: Three or More Groups
+### Kruskal-Wallis: three or more groups
+
+The Kruskal-Wallis test is the nonparametric analogue of one-way ANOVA.
+It tests whether at least one group differs from the others, but does
+not tell you which pairs differ. A significant result requires post-hoc
+pairwise comparisons with multiple testing correction.
+
+Does bilirubin differ across the four disease stages?
 
 ```{r kruskal}
 #| eval: true
 
-pbc_stage <- pbc |> filter(!is.na(stage), !is.na(bili))
+pbc_stage <- pbc %>% filter(!is.na(stage), !is.na(bili))
 
 kruskal.test(bili ~ stage, data = pbc_stage)
 ```
 
-If the overall test is significant, follow up with pairwise Wilcoxon tests and Bonferroni correction:
+The overall test is highly significant --- bilirubin clearly rises with
+disease stage, as expected biologically. Now identify which specific
+stage pairs account for this:
 
 ```{r kruskal-posthoc}
 #| eval: true
 
-pairwise.wilcox.test(pbc_stage$bili, pbc_stage$stage,
-                     p.adjust.method = "bonferroni")
+pairwise.wilcox.test(
+  pbc_stage$bili,
+  pbc_stage$stage,
+  p.adjust.method = "bonferroni"
+)
 ```
 
+```{r kruskal-plot}
+#| eval: true
 
-## Where to Find Data Like This {.callout-note}
+pbc_stage %>%
+  ggplot(aes(x = stage, y = bili, fill = stage)) +
+  geom_boxplot(alpha = 0.7, outlier.shape = NA) +
+  geom_jitter(width = 0.15, alpha = 0.3, size = 1) +
+  scale_fill_brewer(palette = "Blues") +
+  scale_y_log10() +
+  labs(
+    title = "Bilirubin by disease stage (log scale)",
+    x     = NULL,
+    y     = "Bilirubin (mg/dL)"
+  ) +
+  theme_bw() +
+  theme(legend.position = "none")
+```
 
-**`ToothGrowth`** (base R, used in Example 1): Small groups (n=10) with dose-response design. Ideal for demonstrating the decision between a t-test and Wilcoxon test.
+The post-hoc table shows which stage pairs are significantly different
+after Bonferroni correction. Early stages (1 and 2) tend not to differ
+from each other, but later stages (3 and 4) separate clearly.
 
-**`sleep`** (base R, used in Example 1): 10 patients on two drugs. The paired Wilcoxon teaching example.
+::: {.callout-note}
+### After Kruskal-Wallis: what to report
 
-**`survival::pbc`** (used in Example 2): Right-skewed bilirubin values in a clinical trial. Classic nonparametric test application.
+A significant Kruskal-Wallis result tells you "at least one group
+differs." To say more, you need post-hoc pairwise tests. Always apply a
+multiple testing correction (`"bonferroni"` is conservative but clear;
+`"holm"` is slightly more powerful). Report the overall test result and
+then summarise which pairs differed.
+:::
 
-**Mouse Phenome Database:** phenome.jax.org: many small-sample mouse phenotyping studies where nonparametric tests are appropriate.
 
+## What Can Go Wrong
 
-## What Can Go Wrong {.callout-warning}
+**Using nonparametric tests as the default "safe" choice**
 
-**Using nonparametric tests as a default "safe" choice**
-Nonparametric tests are not always better. When data are normally distributed, the t-test is more powerful. Use nonparametric tests when (1) sample size is small and normality is suspect, (2) the outcome has extreme outliers that reflect real biology, or (3) the outcome is an ordinal scale.
+Nonparametric tests are not always better. When data are approximately
+normal, the t-test is more powerful --- it extracts more information
+from the same data. Switching to nonparametric by default when a t-test
+would be valid is a quiet way to reduce your power to detect real
+effects. Make the decision from the data: check the QQ-plot and the
+sample size.
 
-**Reporting the wrong summary statistics**
-Wilcoxon tests compare *distributions*, not means. Report medians and IQR, not means and SD, alongside a Wilcoxon test result.
+**Reporting means alongside a Wilcoxon result**
 
-**Treating a non-significant Kruskal-Wallis as proof of no difference**
-A p > 0.05 from Kruskal-Wallis means the data are consistent with no group differences; but with small samples, power may be low. Report the effect size (e.g., median differences) and note if the study is underpowered.
+The Wilcoxon test is based on ranks, which correspond to the median as
+a measure of location. If you report means and SDs in your results table
+and then cite a Wilcoxon p-value in the text, you are mixing
+incompatible summaries. Report medians and IQR when using nonparametric
+tests.
 
-**Pairwise comparisons without correction**
-If Kruskal-Wallis is significant, doing all pairwise Wilcoxon tests without correction inflates the Type I error. Always apply `p.adjust.method = "bonferroni"` or `"holm"` in `pairwise.wilcox.test()`.
+**Skipping post-hoc correction after Kruskal-Wallis**
+
+Running six pairwise Wilcoxon tests without correction after a
+Kruskal-Wallis gives a false positive rate far above 5%. Always specify
+a correction method in `pairwise.wilcox.test()`.
+
+**Interpreting a non-significant result as "no difference"**
+
+With small samples, nonparametric tests have limited power. A p > 0.05
+from a Wilcoxon test with n = 8 per group means you could not detect a
+difference, not that no difference exists. Report the medians, IQR, and
+sample size so readers can judge whether the study was adequately powered.
+
+::: {.callout-warning}
+### Common misinterpretations
+
+**"Nonparametric tests make no assumptions"**
+They do. The Wilcoxon rank-sum test assumes the two distributions have
+the same shape and only differ in location (shift). It is more robust
+than the t-test, but not assumption-free.
+
+**"I used a Wilcoxon test because my data failed Shapiro-Wilk"**
+Shapiro-Wilk is a poor decision tool (see [T-tests](t-tests.qmd)). Use
+a QQ-plot and your knowledge of the outcome instead. If bilirubin is
+right-skewed in every study ever published, you do not need a formal
+normality test to justify a Wilcoxon.
+
+**"The Wilcoxon test compares medians"**
+Not exactly. It tests whether one group's values tend to be larger than
+the other's --- technically, whether P(X > Y) = 0.5. This is close to
+comparing medians when the distributions have the same shape, but not
+in general.
+:::
 
 
 ## Exercises
 
 ### Exercise 1 (Guided): Wilcoxon Test for Bilirubin by Sex
 
-Using `survival::pbc`, test whether bilirubin differs between male and female patients.
+Using `survival::pbc`, test whether bilirubin differs between male and
+female patients.
 
-1. Plot bilirubin by sex (use log scale on y-axis).
-2. Report medians and IQR for each sex.
+1. Plot bilirubin by sex using a log scale on the y-axis.
+2. Compute medians and IQR for each sex.
 3. Run a Wilcoxon rank-sum test.
-4. Would you reach the same conclusion with a t-test on log(bili)? Compare.
+4. For comparison, run a t-test on `log(bili)`. Do both tests reach
+   the same conclusion?
 
 ::: {.callout-tip collapse="true"}
 ### Exercise 1: Solution
 
-```{r}
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
-  mutate(
-    sex   = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
-    trt   = factor(trt, levels = c(1, 2), labels = c("D-penicillamine", "Placebo")),
-    stage = factor(stage, levels = 1:4, labels = paste("Stage", 1:4))
-  )
+```{r ex1}
+pbc_sex <- pbc %>% filter(!is.na(sex), !is.na(bili))
 
-pbc_sex <- pbc |> filter(!is.na(sex), !is.na(bili))
-
-pbc_sex |>
+pbc_sex %>%
   ggplot(aes(x = sex, y = bili, fill = sex)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, alpha = 0.3, size = 1) +
   scale_y_log10() +
   scale_fill_manual(values = c("steelblue", "tomato")) +
-  labs(x = NULL, y = "Bilirubin (mg/dL, log scale)") + theme_bw()
+  labs(x = NULL, y = "Bilirubin (mg/dL, log scale)") +
+  theme_bw() +
+  theme(legend.position = "none")
 
-# 2. Medians
-pbc_sex |>
-  group_by(sex) |>
-  summarise(median = median(bili), q1 = quantile(bili, 0.25), q3 = quantile(bili, 0.75))
+pbc_sex %>%
+  group_by(sex) %>%
+  summarise(
+    n      = n(),
+    median = median(bili),
+    q1     = quantile(bili, 0.25),
+    q3     = quantile(bili, 0.75)
+  )
 
-# 3. Wilcoxon test
 tidy(wilcox.test(bili ~ sex, data = pbc_sex))
 
-# 4. t-test on log scale for comparison
 tidy(t.test(log(bili) ~ sex, data = pbc_sex))
 ```
+
+The Wilcoxon and the t-test on log-bilirubin typically reach the same
+conclusion. When they agree, either is defensible. When they disagree
+for a small, skewed sample, prefer the Wilcoxon.
 :::
 
-### Exercise 2 (Semi-guided): Kruskal-Wallis for Stage
+### Exercise 2 (Semi-guided): Kruskal-Wallis Across Disease Stages
 
-Test whether bilirubin differs across disease stages (1?4) in `pbc`.
+Test whether bilirubin differs across disease stages 1--4 in `pbc`.
 
-1. Run `kruskal.test()`. Is the overall result significant?
-2. Run `pairwise.wilcox.test()` with Bonferroni correction. Which stage pairs differ?
-3. Create a boxplot to visualise the differences.
+1. Run `kruskal.test()`. Is the overall test significant?
+2. Run `pairwise.wilcox.test()` with Bonferroni correction. Which stage
+   pairs are significantly different?
+3. Create a boxplot (log scale) to visualise the pattern.
+4. Does the pattern make biological sense? What would you expect for a
+   progressive disease?
 
 ::: {.callout-tip collapse="true"}
 ### Exercise 2: Solution
 
-```{r}
-pbc_s <- pbc |> filter(!is.na(stage), !is.na(bili))
+```{r ex2}
+pbc_s <- pbc %>% filter(!is.na(stage), !is.na(bili))
 
-# 1. Overall test
 kruskal.test(bili ~ stage, data = pbc_s)
 
-# 2. Post-hoc pairwise
 pairwise.wilcox.test(pbc_s$bili, pbc_s$stage, p.adjust.method = "bonferroni")
 
-# 3. Boxplot
-pbc_s |>
+pbc_s %>%
   ggplot(aes(x = stage, y = bili, fill = stage)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, alpha = 0.3, size = 1) +
   scale_fill_brewer(palette = "Blues") +
   scale_y_log10() +
-  labs(title = "Bilirubin by stage (log scale)",
-       x = NULL, y = "Bilirubin (mg/dL)") +
-  theme_bw() + theme(legend.position = "none")
+  labs(
+    title = "Bilirubin by disease stage (log scale)",
+    x = NULL, y = "Bilirubin (mg/dL)"
+  ) +
+  theme_bw() +
+  theme(legend.position = "none")
 ```
+
+For a progressive disease, we expect bilirubin to rise with stage ---
+and it does. The pairwise tests show that adjacent early stages may not
+differ significantly, but the gap between early and late stages is
+substantial and highly significant.
 :::
 
 ### Exercise 3 (Open-ended)
 
-From your own data, identify a continuous variable that is clearly non-normal (e.g., cytokine levels, survival times, cell counts). Run both a t-test and a Wilcoxon test. Do they agree? Which is more appropriate, and why?
+From your own data, find a continuous variable that is clearly
+non-normal (cytokine levels, viral load, cell counts, enzyme
+concentrations). Run both a t-test and a Wilcoxon test on the same
+comparison. Do they agree? If they disagree, investigate why --- look
+at the data and identify what is driving the difference.
 
 
 ## Comprehension Check
 
-1. In what two situations is a nonparametric test preferred over a t-test?
-2. What does the Wilcoxon rank-sum test actually test? What is its null hypothesis?
-3. You run a Kruskal-Wallis test and get p = 0.02. What should you do next?
-4. Should you report means or medians alongside a Wilcoxon test result?
-5. Your colleague says "I used a Wilcoxon test because it doesn't assume normality, so it's always safer." Is this correct?
+1. In what two situations is a nonparametric test preferred over a
+   t-test?
+2. What does it mean to "test on ranks"? Give a concrete example of
+   why this makes a test robust to outliers.
+3. You run a Kruskal-Wallis test and get p = 0.02 across four groups.
+   What should you do next?
+4. You used a Wilcoxon test. Should you report means or medians in your
+   results table?
+5. A colleague says "I always use Wilcoxon because it doesn't assume
+   normality, so it's safer." Is this a good strategy?
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. When (1) sample size is small ($n < 30$) and data are visibly non-normal, or (2) the data contain extreme outliers that represent real biology (not data errors).
-2. The Wilcoxon rank-sum test tests whether the two groups are drawn from the same distribution. More precisely, the null hypothesis is that the probability of an observation from group 1 being greater than a randomly selected observation from group 2 equals 0.5 (i.e., no tendency for one group to have larger values).
-3. Follow up with pairwise Wilcoxon tests (using `pairwise.wilcox.test()`) with a Bonferroni or Holm correction to identify which specific group pairs differ.
-4. Medians and IQR. The Wilcoxon test is based on ranks, and medians are the rank-based measure of location. Reporting means alongside a Wilcoxon test is inconsistent.
-5. Not quite. Nonparametric tests are more robust when normality is violated, but they are less powerful when data *are* approximately normal. Using them by default when a t-test would be valid loses statistical power unnecessarily.
+
+1. When (1) sample size is small ($n < 30$ per group) and data are
+   visibly non-normal on a QQ-plot, or (2) the outcome has extreme
+   outliers that represent real biology rather than measurement error.
+   Also appropriate for ordinal outcomes.
+
+2. All observations are ranked from smallest to largest, and the test
+   compares the distribution of ranks between groups rather than the
+   raw values. Example: values of 1, 3, 5, 7, 42 become ranks 1, 2,
+   3, 4, 5. Changing 42 to 420 does not change the ranks, so the test
+   result is unaffected by that extreme value.
+
+3. Follow up with pairwise Wilcoxon tests using `pairwise.wilcox.test()`
+   with a multiple testing correction (Bonferroni or Holm). The
+   Kruskal-Wallis result tells you "at least one group differs" ---
+   post-hoc tests identify which specific pairs.
+
+4. Medians and IQR. The Wilcoxon test is based on ranks, and the
+   median is the rank-based measure of location. Reporting means
+   alongside a Wilcoxon result is internally inconsistent.
+
+5. Not a good general strategy. When data are approximately normal,
+   the t-test is more powerful. Using Wilcoxon by default costs
+   statistical power unnecessarily. Make the decision based on the
+   QQ-plot and sample size, not out of caution.
 :::
 
 
 ## How to Report
 
-### Reporting Nonparametric Test Results
-
 ::: {.callout-note}
-**In a methods section:** "Because [outcome] was markedly non-normal (Shapiro-Wilk p < 0.05; confirmed by QQ-plot), the Wilcoxon rank-sum test was used to compare groups. For comparisons across three or more groups, the Kruskal-Wallis test was used, followed by Dunn's post-hoc test with Bonferroni correction."
+### Reporting Nonparametric Results
 
-**In results:** "Median [outcome] was higher in [group A] than [group B] (median [IQR]: X [L, U] vs Y [L, U]; W = Z, p = P)."
+**In a Methods section:**
 
-**What to always include:**
+> "Because [outcome] was markedly right-skewed with extreme outliers
+> (confirmed by QQ-plot), the Wilcoxon rank-sum test was used to
+> compare groups and results are presented as median (IQR). For
+> comparisons across three or more groups, the Kruskal-Wallis test was
+> used, followed by pairwise Wilcoxon tests with Bonferroni correction."
 
-- Medians and IQRs (not means and SDs --- you chose this test because the mean is inappropriate)
-- Test statistic (W for Wilcoxon, H for Kruskal-Wallis)
-- p-value
-- For Kruskal-Wallis: post-hoc method and correction applied
+**In a Results section:**
 
-**Internal consistency:** If you use a nonparametric test, report medians. Reporting the mean and then quoting a Wilcoxon p-value is internally contradictory.
+> "Median [outcome] was X (IQR: A--B) in [group 1] and Y (IQR: C--D)
+> in [group 2]; groups did not differ significantly (Wilcoxon
+> rank-sum: W = Z, p = P)."
+>
+> "Bilirubin differed significantly across disease stages (Kruskal-
+> Wallis: H(3) = XX.X, p < 0.001). Post-hoc pairwise comparisons
+> with Bonferroni correction showed significant differences between
+> Stages 1 and 4 (p = 0.001) and Stages 2 and 4 (p = 0.003)."
+
+**Always include:**
+
+- Medians and IQR for each group (not means and SD)
+- Test statistic (W for Wilcoxon, H for Kruskal-Wallis with df)
+- Exact p-value
+- Post-hoc method and correction when multiple comparisons are made
 :::
+
 
 ## Further Reading
 
-- @Hollander-1999 --- *Nonparametric Statistical Methods*, comprehensive reference
-- @Bland-2015 --- Chapters on nonparametric methods in *An Introduction to Medical Statistics*
-- `?wilcox.test` and `?kruskal.test` in R: built-in documentation with examples
+- @Bland-2015 --- *An Introduction to Medical Statistics*: clear
+  chapters on nonparametric methods written for clinicians
+- @Hollander-1999 --- *Nonparametric Statistical Methods*: comprehensive
+  reference
+- `?wilcox.test` and `?kruskal.test` in R: built-in help with worked
+  examples

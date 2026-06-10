@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Categorical Data and Chi-Square Tests"
 ---
 
@@ -6,7 +6,9 @@ title: "Categorical Data and Chi-Square Tests"
 #| include: false
 #| eval: true
 library(tidyverse)
+library(janitor)
 library(survival)
+library(boot)
 if (!requireNamespace("gtsummary", quietly = TRUE)) {
   message("Package 'gtsummary' not available; related tables will be skipped during render.")
 } else {
@@ -15,53 +17,60 @@ if (!requireNamespace("gtsummary", quietly = TRUE)) {
 library(broom)
 ```
 
-## When Do You Use This? {#sec-categorical .callout-tip}
+## When Do You Use This? {#sec-categorical}
 
-> You want to know whether adverse event rates differ between two treatment arms in a clinical trial - both outcomes are binary (event: yes/no). Or you want to know whether disease stage at diagnosis differs between men and women. These are questions about **counts and proportions**, not means, and they call for chi-square or Fisher's exact tests.
+::: {.callout-tip}
+You want to know whether adverse event rates differ between two treatment arms --- both outcomes are binary (event: yes/no). Or you want to know whether disease stage at diagnosis differs between men and women. These are questions about **counts and proportions**, not means. Chi-square and Fisher's exact tests are the right tools.
+:::
 
 ## Learning Objectives
 
 After completing this session you will be able to:
 
 - Identify when chi-square or Fisher's exact test is the right choice
-- Construct a contingency table and calculate expected cell counts
-- Run `chisq.test()` and `fisher.test()` in R and interpret the output
+- Explain what "expected counts" are and why they matter
+- Construct a contingency table and run `chisq.test()` and `fisher.test()` in R
 - Use `prop.test()` to compare two proportions with a confidence interval
 - Build publication-quality frequency tables with `gtsummary`
-- Know when to apply Yates' continuity correction
+- Report an association correctly: test result *plus* the actual proportions
 
+## The Key Idea: Comparing Observed to Expected
 
-## Background: Testing Categorical Associations
+Before we touch any R code, let's build the intuition.
 
-When both variables are categorical, we test whether the distribution of one variable differs across levels of the other - or equivalently, whether the two variables are **associated**.
+Suppose you run a clinical trial. At the end, you count how many people in the treatment group had a side effect versus the placebo group:
 
-**The 2?2 contingency table:**
-
-|  | Outcome: Yes | Outcome: No | Row total |
+| | Side effect | No side effect | Total |
 |---|---|---|---|
-| Group A | $a$ | $b$ | $a+b$ |
-| Group B | $c$ | $d$ | $c+d$ |
-| Column total | $a+c$ | $b+d$ | $n$ |
+| Treatment | 30 | 70 | 100 |
+| Placebo | 20 | 80 | 100 |
 
-**Chi-square test:** Under independence, each cell's expected count is
+Are these groups really different, or could this just be chance? The chi-square test answers that by asking: **if side effects had nothing to do with which group you were in, what counts would we expect?**
 
-$$E_{ij} = \frac{\text{row total}_i \times \text{col total}_j}{n}$$
+If treatment and side effects were completely unrelated, side effects would be spread across groups in proportion to group size. With 50 side effects total out of 200 patients, each group of 100 would be expected to have exactly 25. The **expected count** for each cell is:
 
-The test statistic is $\chi^2 = \sum \frac{(O-E)^2}{E}$, with degrees of freedom $(r-1)(c-1)$.
+$$E = \frac{\text{row total} \times \text{column total}}{n}$$
 
-**Fisher's exact test:** Used when expected cell counts are small (< 5). It computes the exact probability of seeing a table as extreme as observed under independence.
+Chi-square then measures how far the actual table is from this "no relationship" version:
 
-**Rule of thumb:** Use chi-square when all expected counts = 5; use Fisher's exact when any expected count < 5.
+$$\chi^2 = \sum \frac{(O - E)^2}{E}$$
 
+A large chi-square means the observed table looks nothing like what we'd expect under independence --- evidence of a real association. A small chi-square means the table is consistent with chance alone.
+
+This is the same logic from the [hypothesis testing session](hypothesis-testing.qmd): we are asking "how surprising is this data if the null hypothesis (no association) were true?" The chi-square distribution with $(r-1)(c-1)$ degrees of freedom converts that statistic into a p-value.
 
 ## Example 1: Clinical Data (PBC)
 
 ### Is Sex Associated with Disease Stage?
 
+The PBC dataset (`survival::pbc`) records 312 patients with primary biliary cirrhosis. Before running anything, take a moment to think:
+
+> **Think before you run:** Do you expect sex and disease stage to be associated? In a randomised trial, baseline characteristics should not differ between arms by design. But this is an observational cohort. Is there a clinical reason men and women might present at different stages?
+
 ```{r pbc-setup}
 pbc <- survival::pbc %>%
   as_tibble() %>%
-  janitor::clean_names() %>%
+  clean_names() %>%
   mutate(
     sex   = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
     trt   = factor(trt, levels = c(1, 2), labels = c("D-penicillamine", "Placebo")),
@@ -71,7 +80,6 @@ pbc <- survival::pbc %>%
 ```
 
 ```{r sex-stage-table}
-# Contingency table
 table(pbc$sex, pbc$stage)
 ```
 
@@ -79,7 +87,15 @@ table(pbc$sex, pbc$stage)
 chisq.test(table(pbc$sex, pbc$stage))
 ```
 
-A significant chi-square test tells you that the distribution of stage differs between men and women (or equivalently, sex and stage are associated). It does not tell you the direction or size.
+**Reading the output:**
+
+| Output element | What it means |
+|---|---|
+| `X-squared = ...` | The chi-square statistic: how far observed counts are from expected |
+| `df = 3` | Degrees of freedom: (2 rows − 1) × (4 cols − 1) = 1 × 3 = 3 |
+| `p-value = ...` | Probability of seeing this much difference by chance alone |
+
+A significant p-value tells you the distribution of stages differs between men and women. It does **not** tell you which stages drive the difference --- you need the table and the plot for that.
 
 **Visualise:**
 
@@ -97,15 +113,16 @@ pbc %>%
 
 ### Fisher's Exact Test for a Sparse Table
 
+Chi-square relies on a large-sample approximation. When any expected cell count is below 5, that approximation breaks down and the p-value becomes unreliable. Fisher's exact test computes the exact probability without any approximation --- it is the right choice for sparse tables, regardless of sample size.
+
 ```{r fisher-example}
-# Stage 1 vs Stage 4 only (small cell counts may arise)
 pbc_14 <- pbc %>%
   filter(!is.na(sex), stage %in% c("Stage 1", "Stage 4"))
 
 tab_14 <- table(pbc_14$sex, pbc_14$stage)
 tab_14
 
-# Check expected counts
+# Always check expected counts before choosing the test
 chisq.test(tab_14)$expected
 
 # If any expected count < 5, use Fisher's exact
@@ -114,10 +131,11 @@ fisher.test(tab_14)
 
 ### Comparing Two Proportions with a CI
 
-`prop.test()` compares two proportions and gives a confidence interval for the difference.
+`prop.test()` compares two proportions and gives a confidence interval for the **difference** --- the quantity you actually want to report. If the 95% CI for the difference includes zero, there is no statistically significant difference at the 5% level.
+
+This is exactly the [equivalence between confidence intervals and hypothesis tests](hypothesis-testing.qmd) from the previous session: the CI and the p-value always agree.
 
 ```{r prop-test}
-# Proportion who died in each treatment group
 pbc_rand <- pbc %>% filter(!is.na(trt), !is.na(died))
 
 deaths_by_trt <- pbc_rand %>%
@@ -127,12 +145,10 @@ deaths_by_trt <- pbc_rand %>%
 prop.test(x = deaths_by_trt$deaths, n = deaths_by_trt$n)
 ```
 
-**Interpretation:** The 95% CI for the difference in proportions includes/excludes zero, indicating whether the groups differ in mortality.
-
 ### Publication-Quality Table with gtsummary
 
 ```{r tbl1}
-#| eval: requireNamespace("gtsummary", quietly = TRUE)
+#| eval: !expr requireNamespace("gtsummary", quietly = TRUE)
 pbc %>%
   filter(!is.na(trt)) %>%
   select(trt, sex, stage, died) %>%
@@ -144,13 +160,11 @@ pbc %>%
   bold_labels()
 ```
 
-`add_p()` automatically selects chi-square or Fisher's exact depending on expected cell counts.
+`add_p()` automatically selects chi-square or Fisher's exact depending on expected cell counts --- no manual checking required for this table format.
 
-
-## Example 2: Animal Data (boot::melanoma)
+## Example 2: Melanoma Data
 
 ```{r melanoma-setup}
-library(boot)
 mel <- boot::melanoma %>%
   as_tibble() %>%
   mutate(
@@ -173,7 +187,10 @@ tidy(chisq.test(tab_mel))
 
 ### Relative Risk and Odds Ratio
 
-For a 2?2 table, you can calculate the relative risk (RR) and odds ratio (OR) by hand:
+For a 2×2 table, the p-value only tells you whether an association exists. You need an effect size measure to say how strong it is. Two measures are common:
+
+- **Relative risk (RR):** The proportion in group A divided by the proportion in group B. Directly interpretable: "Men are 1.4× more likely to have ulceration."
+- **Odds ratio (OR):** More common in case-control studies and logistic regression. Numerically equals the RR only when events are rare.
 
 ```{r rr-or}
 a <- tab_mel["Male", "Yes"]
@@ -188,45 +205,46 @@ cat("Relative Risk:", round(rr, 2), "\n")
 cat("Odds Ratio:   ", round(or, 2), "\n")
 ```
 
-For logistic regression-based OR with CIs, see the [Logistic Regression](logistic-regression.qmd) session.
+For logistic regression-based ORs with 95% CIs, see the [Logistic Regression](logistic-regression.qmd) session.
 
+::: {.callout-note}
+## Where to Find Data Like This
 
-## Where to Find Data Like This {.callout-note}
+**PBC dataset:** `survival::pbc` --- stage, sex, treatment, status: all categorical.
 
-**PBC dataset:** `survival::pbc` - stage, sex, treatment, status: all categorical.
+**boot::melanoma:** `boot::melanoma` --- sex, ulceration, survival status: classic 2×2 scenarios.
 
-**boot::melanoma:** `boot::melanoma` - sex, ulceration, survival status: classic 2?2 scenarios.
+**MASS::birthwt:** Binary outcome (low birth weight) with categorical predictors.
 
-**MASS::birthwt:** Contains binary outcomes (low birth weight) and categorical predictors.
+**NHANES (nhanes package):** Large population survey with many categorical health variables.
+:::
 
-**NHANES (nhanes package):** Large population survey with many categorical health variables and demographic strata.
+::: {.callout-warning}
+## What Can Go Wrong
 
+**Using chi-square with small expected counts.**
+When any expected cell count is < 5, the chi-square approximation is unreliable. Use `fisher.test()`. R warns you when this occurs --- do not ignore that warning.
 
-## What Can Go Wrong {.callout-warning}
+**Confusing counts with proportions.**
+`chisq.test()` requires a table of *counts*, not proportions. Dividing cells by totals before running the test gives wrong results.
 
-**Using chi-square with small expected counts**
-When any expected cell count is < 5, the chi-square approximation is unreliable. Use Fisher's exact test. The output of `chisq.test()` warns you when this occurs.
+**Yates' continuity correction.**
+R applies Yates' correction by default for 2×2 tables (`correct = TRUE`), making the test more conservative. Use `correct = FALSE` to match Pearson's chi-square, but be consistent in your reporting.
 
-**Confusing counts with proportions**
-`chisq.test()` requires a table of **counts**, not proportions. Dividing cells by totals before running the test gives incorrect results.
+**Interpreting significance as strong association.**
+With large samples, chi-square detects tiny, clinically irrelevant differences. Supplement the p-value with an effect size: **Cramér's V** for larger tables, or relative risk/odds ratio for 2×2 tables.
 
-**Yates' continuity correction**
-R applies Yates' correction by default for 2?2 tables (`correct = TRUE`). This makes the test more conservative. It is often dropped in practice; use `correct = FALSE` to match Pearson's chi-square, but be consistent in your reporting.
-
-**Interpreting significance as strong association**
-With large samples, chi-square detects tiny, clinically irrelevant differences. Supplement the p-value with a measure of effect size: Cram?r's V (for tables), or relative risk / odds ratio (for 2?2 tables).
-
-**Forgetting that chi-square is non-directional**
-A significant chi-square tells you the variables are associated; not which group has a higher proportion. Always report the contingency table or proportions alongside the test.
-
+**Forgetting that chi-square is non-directional.**
+A significant chi-square tells you the variables are associated --- not which group has a higher proportion. Always report the contingency table or a bar chart alongside the test.
+:::
 
 ## Exercises
 
 ### Exercise 1 (Guided): Sex and Mortality in PBC
 
-1. Create a 2?2 table of `sex` by `died` in `pbc`.
-2. Run a chi-square test. Check that expected counts are = 5.
-3. Run `prop.test()` and report the proportion who died in each sex group, with the 95% CI for the difference.
+1. Create a 2×2 table of `sex` by `died` in `pbc`.
+2. Run a chi-square test. Check that all expected counts are ≥ 5.
+3. Run `prop.test()` and report the proportion who died in each sex group with the 95% CI for the difference.
 4. Plot the proportions.
 
 ::: {.callout-tip collapse="true"}
@@ -236,33 +254,29 @@ A significant chi-square tells you the variables are associated; not which group
 tab_sx <- table(pbc$sex, pbc$died)
 tab_sx
 
-# Check expected counts
-chisq.test(tab_sx)$expected
-
-# Chi-square
+chisq.test(tab_sx)$expected   # check all ≥ 5
 tidy(chisq.test(tab_sx))
 
-# prop.test
 prop.test(tab_sx)
 
-# Plot
 pbc %>%
   filter(!is.na(sex)) %>%
   ggplot(aes(x = sex, fill = factor(died, labels = c("Alive", "Died")))) +
   geom_bar(position = "fill") +
   scale_fill_manual(values = c("steelblue", "tomato")) +
   scale_y_continuous(labels = scales::percent) +
-  labs(x = NULL, y = "Proportion", fill = NULL) + theme_bw()
+  labs(x = NULL, y = "Proportion", fill = NULL) +
+  theme_bw()
 ```
 :::
 
-### Exercise 2 (Semi-guided): Treatment and Adverse Events (Melanoma)
+### Exercise 2 (Semi-guided): Ulceration and Sex in Melanoma
 
 Using `boot::melanoma`, test whether ulceration status differs by sex.
 
-1. Build a 2?2 contingency table.
+1. Build a 2×2 contingency table.
 2. Check expected counts and choose chi-square or Fisher's exact.
-3. Compute the odds ratio manually and interpret it.
+3. Compute the odds ratio manually and interpret it in one plain-language sentence.
 
 ::: {.callout-tip collapse="true"}
 ### Exercise 2: Solution
@@ -271,10 +285,8 @@ Using `boot::melanoma`, test whether ulceration status differs by sex.
 tab_m <- table(mel$sex, mel$ulceration)
 chisq.test(tab_m)$expected   # check for < 5
 
-# All = 5: use chi-square
 tidy(chisq.test(tab_m))
 
-# Odds ratio
 a <- tab_m["Male", "Yes"];  b <- tab_m["Male", "No"]
 c <- tab_m["Female", "Yes"]; d <- tab_m["Female", "No"]
 cat("OR:", round((a * d) / (b * c), 2))
@@ -283,44 +295,42 @@ cat("OR:", round((a * d) / (b * c), 2))
 
 ### Exercise 3 (Open-ended)
 
-Find a binary or nominal outcome in your own data. Construct a contingency table with a grouping variable of interest. Run the appropriate test, check assumptions, and write a two-sentence result suitable for a paper.
-
+Find a binary or nominal outcome in your own data. Construct a contingency table with a grouping variable of interest. Run the appropriate test, check assumptions, and write a two-sentence result suitable for a paper --- including the actual proportions, not just the p-value.
 
 ## Comprehension Check
 
-1. When should you use Fisher's exact test instead of a chi-square test?
-2. You run `chisq.test()` and R prints a warning: "Chi-squared approximation may be incorrect." What does this mean, and what should you do?
+1. When should you use Fisher's exact test instead of chi-square?
+2. R prints: "Chi-squared approximation may be incorrect." What does this mean and what should you do?
 3. A chi-square test gives p = 0.001. Does this tell you which group has a higher proportion of events?
-4. What is the difference between a relative risk (RR) and an odds ratio (OR)? When are they approximately equal?
-5. You have a 3?4 contingency table (3 groups, 4 ordered categories). What are the degrees of freedom for the chi-square test?
+4. What is the difference between a relative risk and an odds ratio? When are they approximately equal?
+5. You have a 3×4 contingency table (3 groups, 4 categories). What are the degrees of freedom?
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. When any expected cell count is < 5. Fisher's exact test does not rely on the large-sample chi-square approximation and is valid for any sample size.
-2. The warning means at least one expected cell count is < 5, so the chi-square approximation is unreliable. Switch to `fisher.test()`.
-3. No. Chi-square is a non-directional test; it tells you whether an association exists, not its direction or size. You must examine the contingency table or plot the proportions to see which group has higher rates.
-4. Relative risk = (proportion in group A) / (proportion in group B). Odds ratio = (odds in group A) / (odds in group B). They are approximately equal when the event is rare (< 10?15% in both groups). For common outcomes, the OR exaggerates the association relative to the RR.
-5. Degrees of freedom = (rows - 1) - (columns - 1) = (3 - 1) - (4 - 1) = 6.
+
+1. When any expected cell count is < 5. Fisher's exact test does not rely on the large-sample approximation and is valid for any sample size.
+2. At least one expected cell count is < 5, so the chi-square approximation is unreliable. Switch to `fisher.test()`.
+3. No. Chi-square is non-directional: it tells you whether an association exists, not its direction or magnitude. Examine the contingency table or proportions to see which group has higher rates.
+4. Relative risk = (proportion in group A) / (proportion in group B). Odds ratio = (odds in group A) / (odds in group B). They are approximately equal when events are rare (below 10--15% in both groups). For common outcomes, the OR exaggerates the association relative to the RR.
+5. Degrees of freedom = (rows − 1) × (columns − 1) = (3 − 1) × (4 − 1) = 2 × 3 = 6.
 :::
 
-
 ## How to Report
-
-### Reporting Chi-square and Fisher Tests
 
 ::: {.callout-note}
 **In a methods section:** "The association between [categorical variable 1] and [categorical variable 2] was assessed using the chi-square test of independence. Fisher's exact test was used where any expected cell count was below 5."
 
-**In results:** "There was a significant association between [var 1] and [var 2] (\u03c7²(df) = X, p = Y). [Group A] had a higher proportion of [outcome] than [group B] (X% vs Y%)."
+**In results:** "There was a significant association between [var 1] and [var 2] (χ²(*df*) = X, *p* = Y). [Group A] had a higher proportion of [outcome] than [group B] (X% vs Y%)."
 
-**What to always include:**
+**Always include:**
 
-- Chi-square statistic with degrees of freedom (e.g., \u03c7²(2) = 8.4)
-- p-value
-- The actual proportions/percentages --- the test result alone is not informative
-- Whether Fisher's exact test was used (and why)
+- The chi-square statistic with degrees of freedom: χ²(2) = 8.4
+- The p-value
+- The actual proportions --- the test result alone is not informative
+- Whether Fisher's exact was used (and why)
+- An effect size for 2×2 tables: odds ratio or relative risk with 95% CI
 
-**Effect size:** For 2\u00d72 tables, also report odds ratio or relative risk with 95% CI to quantify the magnitude of the association.
+For models that estimate odds ratios with confidence intervals directly, see the [Logistic Regression](logistic-regression.qmd) session.
 :::
 
 ## Further Reading

@@ -126,35 +126,6 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -380,35 +351,31 @@ window.Quarto = {
   <ul>
   <li><a href="#sec-model-building" id="toc-sec-model-building" class="nav-link active" data-scroll-target="#sec-model-building"><span class="header-section-number">13.1</span> When Do You Use This?</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">13.2</span> Learning Objectives</a></li>
-  <li><a href="#background-a-model-building-framework" id="toc-background-a-model-building-framework" class="nav-link" data-scroll-target="#background-a-model-building-framework"><span class="header-section-number">13.3</span> Background: A Model-Building Framework</a></li>
-  <li><a href="#example-1-linear-regression-diagnostics-pbc" id="toc-example-1-linear-regression-diagnostics-pbc" class="nav-link" data-scroll-target="#example-1-linear-regression-diagnostics-pbc"><span class="header-section-number">13.4</span> Example 1: Linear Regression Diagnostics (PBC)</a>
+  <li><a href="#the-key-idea-fit-a-model-then-check-it" id="toc-the-key-idea-fit-a-model-then-check-it" class="nav-link" data-scroll-target="#the-key-idea-fit-a-model-then-check-it"><span class="header-section-number">13.3</span> The Key Idea: Fit a Model, Then Check It</a></li>
+  <li><a href="#background-a-model-building-framework" id="toc-background-a-model-building-framework" class="nav-link" data-scroll-target="#background-a-model-building-framework"><span class="header-section-number">13.4</span> Background: A Model-Building Framework</a></li>
+  <li><a href="#example-1-linear-regression-diagnostics-pbc" id="toc-example-1-linear-regression-diagnostics-pbc" class="nav-link" data-scroll-target="#example-1-linear-regression-diagnostics-pbc"><span class="header-section-number">13.5</span> Example 1: Linear Regression Diagnostics (PBC)</a>
   <ul class="collapse">
-  <li><a href="#fit-a-model" id="toc-fit-a-model" class="nav-link" data-scroll-target="#fit-a-model"><span class="header-section-number">13.4.1</span> Fit a Model</a></li>
-  <li><a href="#residual-diagnostics" id="toc-residual-diagnostics" class="nav-link" data-scroll-target="#residual-diagnostics"><span class="header-section-number">13.4.2</span> Residual Diagnostics</a></li>
-  <li><a href="#augmenting-data-with-diagnostics" id="toc-augmenting-data-with-diagnostics" class="nav-link" data-scroll-target="#augmenting-data-with-diagnostics"><span class="header-section-number">13.4.3</span> Augmenting Data with Diagnostics</a></li>
-  <li><a href="#checking-multicollinearity" id="toc-checking-multicollinearity" class="nav-link" data-scroll-target="#checking-multicollinearity"><span class="header-section-number">13.4.4</span> Checking Multicollinearity</a></li>
-  <li><a href="#testing-for-heteroscedasticity" id="toc-testing-for-heteroscedasticity" class="nav-link" data-scroll-target="#testing-for-heteroscedasticity"><span class="header-section-number">13.4.5</span> Testing for Heteroscedasticity</a></li>
+  <li><a href="#fit-a-model" id="toc-fit-a-model" class="nav-link" data-scroll-target="#fit-a-model"><span class="header-section-number">13.5.1</span> Fit a Model</a></li>
+  <li><a href="#residual-diagnostics" id="toc-residual-diagnostics" class="nav-link" data-scroll-target="#residual-diagnostics"><span class="header-section-number">13.5.2</span> Residual Diagnostics</a></li>
+  <li><a href="#detecting-influential-observations" id="toc-detecting-influential-observations" class="nav-link" data-scroll-target="#detecting-influential-observations"><span class="header-section-number">13.5.3</span> Detecting Influential Observations</a></li>
+  <li><a href="#checking-multicollinearity" id="toc-checking-multicollinearity" class="nav-link" data-scroll-target="#checking-multicollinearity"><span class="header-section-number">13.5.4</span> Checking Multicollinearity</a></li>
+  <li><a href="#testing-for-heteroscedasticity" id="toc-testing-for-heteroscedasticity" class="nav-link" data-scroll-target="#testing-for-heteroscedasticity"><span class="header-section-number">13.5.5</span> Testing for Heteroscedasticity</a></li>
   </ul></li>
-  <li><a href="#example-2-logistic-regression-diagnostics-pbc-mortality" id="toc-example-2-logistic-regression-diagnostics-pbc-mortality" class="nav-link" data-scroll-target="#example-2-logistic-regression-diagnostics-pbc-mortality"><span class="header-section-number">13.5</span> Example 2: Logistic Regression Diagnostics (PBC Mortality)</a>
+  <li><a href="#example-2-logistic-regression-diagnostics-pbc-mortality" id="toc-example-2-logistic-regression-diagnostics-pbc-mortality" class="nav-link" data-scroll-target="#example-2-logistic-regression-diagnostics-pbc-mortality"><span class="header-section-number">13.6</span> Example 2: Logistic Regression Diagnostics (PBC Mortality)</a>
   <ul class="collapse">
-  <li><a href="#residual-and-influence-diagnostics" id="toc-residual-and-influence-diagnostics" class="nav-link" data-scroll-target="#residual-and-influence-diagnostics"><span class="header-section-number">13.5.1</span> Residual and Influence Diagnostics</a></li>
-  <li><a href="#aic-comparison-model-selection-without-p-value-fishing" id="toc-aic-comparison-model-selection-without-p-value-fishing" class="nav-link" data-scroll-target="#aic-comparison-model-selection-without-p-value-fishing"><span class="header-section-number">13.5.2</span> AIC Comparison: Model Selection Without P-value Fishing</a></li>
+  <li><a href="#residual-and-influence-diagnostics" id="toc-residual-and-influence-diagnostics" class="nav-link" data-scroll-target="#residual-and-influence-diagnostics"><span class="header-section-number">13.6.1</span> Residual and Influence Diagnostics</a></li>
+  <li><a href="#aic-comparison-model-selection-without-p-value-fishing" id="toc-aic-comparison-model-selection-without-p-value-fishing" class="nav-link" data-scroll-target="#aic-comparison-model-selection-without-p-value-fishing"><span class="header-section-number">13.6.2</span> AIC Comparison: Model Selection Without P-value Fishing</a></li>
   </ul></li>
-  <li><a href="#example-3-penalised-regression-lasso" id="toc-example-3-penalised-regression-lasso" class="nav-link" data-scroll-target="#example-3-penalised-regression-lasso"><span class="header-section-number">13.6</span> Example 3: Penalised Regression (Lasso)</a></li>
-  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">13.7</span> Where to Find Data Like This</a></li>
-  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">13.8</span> What Can Go Wrong</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">13.9</span> Exercises</a>
+  <li><a href="#example-3-penalised-regression-lasso" id="toc-example-3-penalised-regression-lasso" class="nav-link" data-scroll-target="#example-3-penalised-regression-lasso"><span class="header-section-number">13.7</span> Example 3: Penalised Regression (Lasso)</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">13.8</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-guided-full-diagnostic-workflow" id="toc-exercise-1-guided-full-diagnostic-workflow" class="nav-link" data-scroll-target="#exercise-1-guided-full-diagnostic-workflow"><span class="header-section-number">13.9.1</span> Exercise 1 (Guided): Full Diagnostic Workflow</a></li>
-  <li><a href="#exercise-2-semi-guided-aic-model-selection-for-logistic-regression" id="toc-exercise-2-semi-guided-aic-model-selection-for-logistic-regression" class="nav-link" data-scroll-target="#exercise-2-semi-guided-aic-model-selection-for-logistic-regression"><span class="header-section-number">13.9.2</span> Exercise 2 (Semi-guided): AIC Model Selection for Logistic Regression</a></li>
-  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">13.9.3</span> Exercise 3 (Open-ended)</a></li>
+  <li><a href="#exercise-1-guided-full-diagnostic-workflow" id="toc-exercise-1-guided-full-diagnostic-workflow" class="nav-link" data-scroll-target="#exercise-1-guided-full-diagnostic-workflow"><span class="header-section-number">13.8.1</span> Exercise 1 (Guided): Full Diagnostic Workflow</a></li>
+  <li><a href="#exercise-2-semi-guided-aic-model-selection-for-logistic-regression" id="toc-exercise-2-semi-guided-aic-model-selection-for-logistic-regression" class="nav-link" data-scroll-target="#exercise-2-semi-guided-aic-model-selection-for-logistic-regression"><span class="header-section-number">13.8.2</span> Exercise 2 (Semi-guided): AIC Model Selection for Logistic Regression</a></li>
+  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">13.8.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
-  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">13.10</span> Comprehension Check</a></li>
-  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">13.11</span> How to Report</a>
-  <ul class="collapse">
-  <li><a href="#reporting-model-selection-and-diagnostics" id="toc-reporting-model-selection-and-diagnostics" class="nav-link" data-scroll-target="#reporting-model-selection-and-diagnostics"><span class="header-section-number">13.11.1</span> Reporting Model Selection and Diagnostics</a></li>
-  </ul></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">13.12</span> Further Reading</a></li>
+  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">13.9</span> Comprehension Check</a></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">13.10</span> How to Report</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">13.11</span> Further Reading</a></li>
   </ul>
 </nav>
     </div>
@@ -444,49 +411,64 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This session covers model selection and diagnostics for regression models. Complete <strong>Linear Regression</strong>, <strong>Multiple Regression</strong>, and <strong>Logistic Regression</strong> before starting here.</p>
+<p>This session covers model selection and diagnostics for regression models. Complete the <a href="../sessions/linear-regression.html">Linear Regression</a>, <a href="../sessions/multiple-regression.html">Multiple Regression</a>, and <a href="../sessions/logistic-regression.html">Logistic Regression</a> sessions before starting here.</p>
 </div>
 </div>
-<section id="sec-model-building" class="level2 callout-tip" data-number="13.1">
-<h2 class="callout-tip anchored" data-number="13.1" data-anchor-id="sec-model-building"><span class="header-section-number">13.1</span> When Do You Use This?</h2>
-<blockquote class="blockquote">
+<section id="sec-model-building" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="sec-model-building"><span class="header-section-number">13.1</span> When Do You Use This?</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>You have fitted a regression model, but before trusting its conclusions you need to verify that the model is appropriate: are the assumptions met? Are there influential outliers? Is the model overfitted? Model building and diagnostics are the quality-control steps between fitting a model and reporting it.</p>
-</blockquote>
+</div>
+</div>
 </section>
 <section id="learning-objectives" class="level2" data-number="13.2">
 <h2 data-number="13.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">13.2</span> Learning Objectives</h2>
 <p>After completing this session you will be able to:</p>
 <ul>
 <li>Apply a systematic model-building strategy for linear and logistic regression</li>
-<li>Diagnose assumption violations using residual plots, QQ-plots, and leverage diagnostics</li>
-<li>Detect influential observations with Cook’s distance and leverage statistics</li>
-<li>Evaluate model performance: <span class="math inline">\(R^2\)</span>, AIC, cross-validation RMSE</li>
-<li>Apply penalised regression (ridge, lasso) when variable selection is needed</li>
+<li>Diagnose assumption violations using ggplot-based residual plots and leverage diagnostics</li>
+<li>Detect influential observations with Cook’s distance</li>
+<li>Evaluate model performance: R², AIC, and cross-validation RMSE</li>
+<li>Apply penalised regression (lasso) when variable selection is needed</li>
 </ul>
 </section>
-<section id="background-a-model-building-framework" class="level2" data-number="13.3">
-<h2 data-number="13.3" class="anchored" data-anchor-id="background-a-model-building-framework"><span class="header-section-number">13.3</span> Background: A Model-Building Framework</h2>
+<section id="the-key-idea-fit-a-model-then-check-it" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="the-key-idea-fit-a-model-then-check-it"><span class="header-section-number">13.3</span> The Key Idea: Fit a Model, Then Check It</h2>
+<p>A common mistake is to fit a model, look at the p-values, and write up the results — without ever checking whether the model is appropriate. If the assumptions are violated, the p-values and confidence intervals are wrong, regardless of how elegant the model looks.</p>
+<p>Think of diagnostic checks as the peer review step <em>before</em> you show anyone your results. Residual plots take a few lines of code. They can save you from a retraction.</p>
+</section>
+<section id="background-a-model-building-framework" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="background-a-model-building-framework"><span class="header-section-number">13.4</span> Background: A Model-Building Framework</h2>
 <p>Good regression modelling is a structured process, not a p-value fishing expedition.</p>
 <p><strong>Steps:</strong></p>
 <ol type="1">
-<li><strong>Define the research question</strong> - outcome, predictors, and target population</li>
-<li><strong>Explore the data</strong> - distributions, missingness, correlations</li>
-<li><strong>Pre-specify the model</strong> - driven by domain knowledge, not by initial results</li>
-<li><strong>Fit and assess assumptions</strong> - residuals, influential points</li>
-<li><strong>Compare models</strong> - use AIC/BIC or likelihood ratio tests, not step-wise</li>
-<li><strong>Validate</strong> - internal (bootstrap) or external (hold-out data)</li>
-<li><strong>Report</strong> - all results, including assumption checks</li>
+<li><strong>Define the research question</strong> — outcome, predictors, and target population</li>
+<li><strong>Explore the data</strong> — distributions, missingness, correlations</li>
+<li><strong>Pre-specify the model</strong> — driven by domain knowledge, not by initial results</li>
+<li><strong>Fit and assess assumptions</strong> — residuals, influential points</li>
+<li><strong>Compare models</strong> — use AIC/BIC or likelihood ratio tests, not stepwise selection</li>
+<li><strong>Validate</strong> — internal (bootstrap) or external (hold-out data)</li>
+<li><strong>Report</strong> — all results, including assumption checks</li>
 </ol>
 <p><strong>The selection problem:</strong> Choosing predictors based on their p-values from the same data you use to estimate coefficients inflates the apparent significance and overfits the model. Pre-specification and penalised methods address this.</p>
 </section>
-<section id="example-1-linear-regression-diagnostics-pbc" class="level2" data-number="13.4">
-<h2 data-number="13.4" class="anchored" data-anchor-id="example-1-linear-regression-diagnostics-pbc"><span class="header-section-number">13.4</span> Example 1: Linear Regression Diagnostics (PBC)</h2>
-<section id="fit-a-model" class="level3" data-number="13.4.1">
-<h3 data-number="13.4.1" class="anchored" data-anchor-id="fit-a-model"><span class="header-section-number">13.4.1</span> Fit a Model</h3>
+<section id="example-1-linear-regression-diagnostics-pbc" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="example-1-linear-regression-diagnostics-pbc"><span class="header-section-number">13.5</span> Example 1: Linear Regression Diagnostics (PBC)</h2>
+<section id="fit-a-model" class="level3" data-number="13.5.1">
+<h3 data-number="13.5.1" class="anchored" data-anchor-id="fit-a-model"><span class="header-section-number">13.5.1</span> Fit a Model</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(stage)) <span class="sc">%&gt;%</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_bili  =</span> <span class="fu">log</span>(bili),</span>
@@ -497,11 +479,22 @@ window.Quarto = {
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> stage, <span class="at">data =</span> pbc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="residual-diagnostics" class="level3" data-number="13.4.2">
-<h3 data-number="13.4.2" class="anchored" data-anchor-id="residual-diagnostics"><span class="header-section-number">13.4.2</span> Residual Diagnostics</h3>
+<section id="residual-diagnostics" class="level3" data-number="13.5.2">
+<h3 data-number="13.5.2" class="anchored" data-anchor-id="residual-diagnostics"><span class="header-section-number">13.5.2</span> Residual Diagnostics</h3>
+<p>We use <code>broom::augment()</code> to extract residuals, fitted values, leverage, and Cook’s distance, then plot with ggplot.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>diag_df <span class="ot">&lt;-</span> <span class="fu">augment</span>(fit) <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">.row =</span> <span class="fu">row_number</span>())</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diag_df, <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey50"</span>) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted values"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>, <span class="at">title =</span> <span class="st">"Residuals vs Fitted"</span>) <span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -509,27 +502,49 @@ window.Quarto = {
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diag_df, <span class="fu">aes</span>(<span class="at">sample =</span> .std.resid)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>(<span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Theoretical quantiles"</span>, <span class="at">y =</span> <span class="st">"Standardised residuals"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Normal Q-Q"</span>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="model-building-and-diagnostics_files/figure-html/residuals-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<p><strong>Reading the four plots:</strong></p>
+</div>
+</div>
+<p><strong>Reading the plots:</strong></p>
 <ul>
-<li><strong>Residuals vs Fitted:</strong> Should be a horizontal cloud around zero. Any pattern suggests non-linearity or omitted predictors.</li>
-<li><strong>Normal QQ:</strong> Residuals should follow the diagonal. Systematic deviation from the line indicates non-normality.</li>
-<li><strong>Scale-Location (v|residuals| vs fitted):</strong> Should be flat. An upward slope indicates heteroscedasticity.</li>
-<li><strong>Residuals vs Leverage:</strong> Points in the upper/lower right are high-leverage <em>and</em> high-residual (influential). Cook’s distance contours (dashed lines) mark the boundary.</li>
+<li><strong>Residuals vs Fitted:</strong> Should be a horizontal cloud around zero. Any systematic pattern (U-shape, funnel) indicates non-linearity or heteroscedasticity.</li>
+<li><strong>Normal Q-Q:</strong> Residuals should follow the diagonal line. Systematic deviation indicates non-normality.</li>
 </ul>
 </section>
-<section id="augmenting-data-with-diagnostics" class="level3" data-number="13.4.3">
-<h3 data-number="13.4.3" class="anchored" data-anchor-id="augmenting-data-with-diagnostics"><span class="header-section-number">13.4.3</span> Augmenting Data with Diagnostics</h3>
+<section id="detecting-influential-observations" class="level3" data-number="13.5.3">
+<h3 data-number="13.5.3" class="anchored" data-anchor-id="detecting-influential-observations"><span class="header-section-number">13.5.3</span> Detecting Influential Observations</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>diag_df <span class="ot">&lt;-</span> <span class="fu">augment</span>(fit) <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">.row =</span> <span class="fu">row_number</span>())</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># High Cook's distance</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>diag_df <span class="sc">%&gt;%</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(.cooksd)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(.row, albumin, log_bili, .fitted, .resid, .cooksd, .hat) <span class="sc">%&gt;%</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diag_df, <span class="fu">aes</span>(<span class="at">x =</span> .row, <span class="at">y =</span> .cooksd)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">4</span> <span class="sc">/</span> <span class="fu">nrow</span>(pbc), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fu">nrow</span>(pbc) <span class="sc">*</span> <span class="fl">0.85</span>, <span class="at">y =</span> <span class="dv">4</span> <span class="sc">/</span> <span class="fu">nrow</span>(pbc) <span class="sc">*</span> <span class="fl">1.3</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"4/n threshold"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cook's distance: influential observations"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Observation"</span>, <span class="at">y =</span> <span class="st">"Cook's distance"</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="model-building-and-diagnostics_files/figure-html/cook-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>diag_df <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(.cooksd)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(.row, albumin, log_bili, .fitted, .resid, .cooksd, .hat) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 7
     .row albumin log_bili .fitted .resid .cooksd    .hat
@@ -546,28 +561,12 @@ window.Quarto = {
 10   361    4.52    1.48     3.26  1.26   0.0153 0.00825</code></pre>
 </div>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>diag_df <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .row, <span class="at">y =</span> .cooksd)) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">4</span> <span class="sc">/</span> <span class="fu">nrow</span>(pbc), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cook's distance - influential observations"</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Observation"</span>, <span class="at">y =</span> <span class="st">"Cook's distance"</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="model-building-and-diagnostics_files/figure-html/cook-plot-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Points above the 4/n threshold merit investigation. They may be data errors or genuinely extreme but valid cases.</p>
+<p>Points above the 4/n threshold merit investigation. They may be data errors or genuinely extreme but valid cases. <strong>Do not remove them automatically</strong> — investigate first.</p>
 </section>
-<section id="checking-multicollinearity" class="level3" data-number="13.4.4">
-<h3 data-number="13.4.4" class="anchored" data-anchor-id="checking-multicollinearity"><span class="header-section-number">13.4.4</span> Checking Multicollinearity</h3>
+<section id="checking-multicollinearity" class="level3" data-number="13.5.4">
+<h3 data-number="13.5.4" class="anchored" data-anchor-id="checking-multicollinearity"><span class="header-section-number">13.5.4</span> Checking Multicollinearity</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              GVIF Df GVIF^(1/(2*Df))
 log_bili  1.180386  1        1.086456
@@ -576,46 +575,45 @@ stage     1.188763  3        1.029238</code></pre>
 </div>
 </div>
 </section>
-<section id="testing-for-heteroscedasticity" class="level3" data-number="13.4.5">
-<h3 data-number="13.4.5" class="anchored" data-anchor-id="testing-for-heteroscedasticity"><span class="header-section-number">13.4.5</span> Testing for Heteroscedasticity</h3>
+<section id="testing-for-heteroscedasticity" class="level3" data-number="13.5.5">
+<h3 data-number="13.5.5" class="anchored" data-anchor-id="testing-for-heteroscedasticity"><span class="header-section-number">13.5.5</span> Testing for Heteroscedasticity</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(fit)   <span class="co"># Breusch-Pagan test from car package</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Non-constant Variance Score Test 
 Variance formula: ~ fitted.values 
 Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 </div>
 </div>
-<p>A significant p-value indicates heteroscedasticity. Consider transforming Y or using heteroscedasticity-consistent (HC) standard errors.</p>
+<p>A significant p-value from the Breusch-Pagan test (from the <code>car</code> package) indicates heteroscedasticity. Consider transforming Y or using heteroscedasticity-consistent (HC) standard errors.</p>
 </section>
 </section>
-<section id="example-2-logistic-regression-diagnostics-pbc-mortality" class="level2" data-number="13.5">
-<h2 data-number="13.5" class="anchored" data-anchor-id="example-2-logistic-regression-diagnostics-pbc-mortality"><span class="header-section-number">13.5</span> Example 2: Logistic Regression Diagnostics (PBC Mortality)</h2>
+<section id="example-2-logistic-regression-diagnostics-pbc-mortality" class="level2" data-number="13.6">
+<h2 data-number="13.6" class="anchored" data-anchor-id="example-2-logistic-regression-diagnostics-pbc-mortality"><span class="header-section-number">13.6</span> Example 2: Logistic Regression Diagnostics (PBC Mortality)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pbc2 <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">died =</span> <span class="fu">as.integer</span>(status <span class="sc">==</span> <span class="dv">2</span>),</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex  =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"m"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>))</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(died))</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>fit_log <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> albumin <span class="sc">+</span> stage,</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pbc2 <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">died =</span> <span class="fu">as.integer</span>(status <span class="sc">==</span> <span class="dv">2</span>),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex  =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"m"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(died))</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>fit_log <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> albumin <span class="sc">+</span> stage,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="residual-and-influence-diagnostics" class="level3" data-number="13.5.1">
-<h3 data-number="13.5.1" class="anchored" data-anchor-id="residual-and-influence-diagnostics"><span class="header-section-number">13.5.1</span> Residual and Influence Diagnostics</h3>
+<section id="residual-and-influence-diagnostics" class="level3" data-number="13.6.1">
+<h3 data-number="13.6.1" class="anchored" data-anchor-id="residual-and-influence-diagnostics"><span class="header-section-number">13.6.1</span> Residual and Influence Diagnostics</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>diag_log <span class="ot">&lt;-</span> <span class="fu">augment</span>(fit_log, <span class="at">type.predict =</span> <span class="st">"response"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Deviance residuals vs fitted probabilities</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>diag_log <span class="sc">%&gt;%</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Deviance residuals vs fitted probabilities"</span>,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Fitted probability"</span>, <span class="at">y =</span> <span class="st">"Deviance residual"</span>) <span class="sc">+</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>diag_log <span class="ot">&lt;-</span> <span class="fu">augment</span>(fit_log, <span class="at">type.predict =</span> <span class="st">"response"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">row =</span> <span class="fu">row_number</span>())</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diag_log, <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Deviance residuals vs fitted probabilities"</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Fitted probability"</span>, <span class="at">y =</span> <span class="st">"Deviance residual"</span>) <span class="sc">+</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
 </div>
@@ -628,14 +626,12 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>diag_log <span class="sc">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">row =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> row, <span class="at">y =</span> .cooksd)) <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">4</span> <span class="sc">/</span> <span class="fu">nrow</span>(pbc2), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cook's distance - logistic model"</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Observation"</span>, <span class="at">y =</span> <span class="st">"Cook's distance"</span>) <span class="sc">+</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diag_log, <span class="fu">aes</span>(<span class="at">x =</span> row, <span class="at">y =</span> .cooksd)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">4</span> <span class="sc">/</span> <span class="fu">nrow</span>(pbc2), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cook's distance: logistic model"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Observation"</span>, <span class="at">y =</span> <span class="st">"Cook's distance"</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -645,17 +641,17 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 </div>
 </div>
 </section>
-<section id="aic-comparison-model-selection-without-p-value-fishing" class="level3" data-number="13.5.2">
-<h3 data-number="13.5.2" class="anchored" data-anchor-id="aic-comparison-model-selection-without-p-value-fishing"><span class="header-section-number">13.5.2</span> AIC Comparison: Model Selection Without P-value Fishing</h3>
+<section id="aic-comparison-model-selection-without-p-value-fishing" class="level3" data-number="13.6.2">
+<h3 data-number="13.6.2" class="anchored" data-anchor-id="aic-comparison-model-selection-without-p-value-fishing"><span class="header-section-number">13.6.2</span> AIC Comparison: Model Selection Without P-value Fishing</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili,                         <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto,             <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> albumin,   <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> albumin <span class="sc">+</span> stage, <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(m1, m2, m3, m4) <span class="sc">%&gt;%</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="st">"model"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(AIC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili,                              <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto,                  <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> albumin,        <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> albumin <span class="sc">+</span> stage, <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(m1, m2, m3, m4) <span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="st">"model"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(AIC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  model df      AIC
 1    m4  7 415.9624
@@ -667,40 +663,20 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 <p>Choose the model with the lowest AIC that aligns with your pre-specified hypotheses.</p>
 </section>
 </section>
-<section id="example-3-penalised-regression-lasso" class="level2" data-number="13.6">
-<h2 data-number="13.6" class="anchored" data-anchor-id="example-3-penalised-regression-lasso"><span class="header-section-number">13.6</span> Example 3: Penalised Regression (Lasso)</h2>
+<section id="example-3-penalised-regression-lasso" class="level2" data-number="13.7">
+<h2 data-number="13.7" class="anchored" data-anchor-id="example-3-penalised-regression-lasso"><span class="header-section-number">13.7</span> Example 3: Penalised Regression (Lasso)</h2>
 <p>When you have many candidate predictors and want data-driven selection, lasso (L1 penalisation) shrinks some coefficients to exactly zero.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'glmnet' was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: Matrix</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'Matrix'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:tidyr':
-
-    expand, pack, unpack</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loaded glmnet 4.1-10</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pbc_mat <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(albumin, log_bili, log_proto, platelet, bili, protime) <span class="sc">%&gt;%</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> platelet, <span class="at">data =</span> pbc_mat)[, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> pbc_mat<span class="sc">$</span>albumin</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-validated lasso</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>cv_lasso <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(X, y, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_lasso)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pbc_mat <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(albumin, log_bili, log_proto, platelet, bili, protime) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> platelet, <span class="at">data =</span> pbc_mat)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> pbc_mat<span class="sc">$</span>albumin</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>cv_lasso <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(X, y, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_lasso)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -708,8 +684,7 @@ Attaching package: 'Matrix'</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficients at the optimal lambda</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(cv_lasso, <span class="at">s =</span> <span class="st">"lambda.min"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(cv_lasso, <span class="at">s =</span> <span class="st">"lambda.min"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>4 x 1 sparse Matrix of class "dgCMatrix"
                lambda.min
@@ -720,33 +695,51 @@ platelet     0.0005532384</code></pre>
 </div>
 </div>
 <p>Lasso selects predictors by shrinking small coefficients to zero. It is useful for exploratory modelling with many candidates, but coefficients are biased (shrunk toward zero) and should not be interpreted as effect estimates without post-selection inference.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Where to Find Data Like This
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>PBC dataset:</strong> <code>survival::pbc</code> — multiple correlated continuous and categorical predictors; good for demonstrating overfitting, VIF, and model selection.</p>
+<p><strong>MASS::Boston (or <code>BostonHousing2</code> from <code>mlbench</code>):</strong> Housing data with correlated predictors, commonly used for penalised regression examples.</p>
+<p><strong>Any of your prior datasets</strong> — model building and diagnostics are always applied to real data from a research question.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>What Can Go Wrong
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Stepwise selection.</strong> Automated forward/backward stepwise selection based on p-values produces overfit models with inflated effect estimates and incorrect standard errors. Avoid for inference; use only for exploration.</p>
+<p><strong>Ignoring assumption violations.</strong> A model that violates assumptions (non-linearity, heteroscedasticity, non-normality of residuals) gives incorrect CIs and p-values. Check diagnostics before reporting.</p>
+<p><strong>Removing outliers without justification.</strong> Influential observations may be genuine extreme cases, not errors. Removing them without documenting and justifying the decision is a form of selective reporting.</p>
+<p><strong>Confusing in-sample fit with predictive performance.</strong> R² and AIC measure in-sample fit. A model that fits the data well may not predict new observations accurately (overfitting). Use cross-validation or a hold-out test set to estimate predictive performance.</p>
+</div>
+</div>
 </section>
-<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="13.7">
-<h2 class="callout-note anchored" data-number="13.7" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">13.7</span> Where to Find Data Like This</h2>
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> - multiple correlated continuous and categorical predictors; good for demonstrating overfitting, VIF, and model selection.</p>
-<p><strong>MASS::Boston (or updated <code>BostonHousing2</code> from <code>mlbench</code>):</strong> Housing data with correlated predictors, commonly used for penalised regression examples.</p>
-<p><strong>Any of your prior datasets</strong> - model building and diagnostics are always applied to real data from a research question, not synthetic datasets.</p>
-</section>
-<section id="what-can-go-wrong" class="level2 callout-warning" data-number="13.8">
-<h2 class="callout-warning anchored" data-number="13.8" data-anchor-id="what-can-go-wrong"><span class="header-section-number">13.8</span> What Can Go Wrong</h2>
-<p><strong>Stepwise selection</strong> Automated forward/backward stepwise selection based on p-values produces overfit models with inflated effect estimates and incorrect standard errors. Avoid unless used purely for exploration, not inference.</p>
-<p><strong>Ignoring assumption violations</strong> A model that violates assumptions (non-linearity, heteroscedasticity, non-normality of residuals) gives incorrect CIs and p-values. Check diagnostics before reporting.</p>
-<p><strong>Removing outliers without justification</strong> Influential observations may be genuine extreme cases, not errors. Removing them without documenting and justifying the decision is a form of selective reporting.</p>
-<p><strong>Confusing in-sample fit with predictive performance</strong> <span class="math inline">\(R^2\)</span> and AIC measure in-sample fit. A model that fits the data well may not predict new observations accurately (overfitting). Use cross-validation or a hold-out test set to estimate predictive performance.</p>
-</section>
-<section id="exercises" class="level2" data-number="13.9">
-<h2 data-number="13.9" class="anchored" data-anchor-id="exercises"><span class="header-section-number">13.9</span> Exercises</h2>
-<section id="exercise-1-guided-full-diagnostic-workflow" class="level3" data-number="13.9.1">
-<h3 data-number="13.9.1" class="anchored" data-anchor-id="exercise-1-guided-full-diagnostic-workflow"><span class="header-section-number">13.9.1</span> Exercise 1 (Guided): Full Diagnostic Workflow</h3>
+<section id="exercises" class="level2" data-number="13.8">
+<h2 data-number="13.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">13.8</span> Exercises</h2>
+<section id="exercise-1-guided-full-diagnostic-workflow" class="level3" data-number="13.8.1">
+<h3 data-number="13.8.1" class="anchored" data-anchor-id="exercise-1-guided-full-diagnostic-workflow"><span class="header-section-number">13.8.1</span> Exercise 1 (Guided): Full Diagnostic Workflow</h3>
 <p>Fit <code>lm(albumin ~ log_bili + log_proto + stage, data = pbc)</code> and:</p>
 <ol type="1">
-<li>Produce the four standard diagnostic plots.</li>
+<li>Produce ggplot residuals-vs-fitted and QQ-plots using <code>augment()</code>.</li>
 <li>Identify the top 5 observations by Cook’s distance. Are they plausible outliers?</li>
 <li>Check VIF. Is multicollinearity a concern?</li>
 <li>Run <code>ncvTest()</code>. Is heteroscedasticity detected?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -755,13 +748,20 @@ platelet     0.0005532384</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fit_ex <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> stage, <span class="at">data =</span> pbc)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Diagnostic plots</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)); <span class="fu">plot</span>(fit_ex); <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fit_ex <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> stage, <span class="at">data =</span> pbc)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>aug_ex <span class="ot">&lt;-</span> <span class="fu">augment</span>(fit_ex) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">.row =</span> <span class="fu">row_number</span>())</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(aug_ex, <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey50"</span>) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted values"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -769,12 +769,20 @@ platelet     0.0005532384</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Top Cook's distances</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(fit_ex) <span class="sc">%&gt;%</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">.row =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(.cooksd)) <span class="sc">%&gt;%</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(.row, albumin, log_bili, .resid, .cooksd) <span class="sc">%&gt;%</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(aug_ex, <span class="fu">aes</span>(<span class="at">sample =</span> .std.resid)) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>(<span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Theoretical quantiles"</span>, <span class="at">y =</span> <span class="st">"Standardised residuals"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="model-building-and-diagnostics_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>aug_ex <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(.cooksd)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(.row, albumin, log_bili, .resid, .cooksd) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 5
    .row albumin log_bili .resid .cooksd
@@ -785,16 +793,14 @@ platelet     0.0005532384</code></pre>
 4   281    2.1     2.88  -0.959  0.0229
 5   309    2.75   -0.916 -0.973  0.0174</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. VIF</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(fit_ex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(fit_ex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              GVIF Df GVIF^(1/(2*Df))
 log_bili  1.180386  1        1.086456
 log_proto 1.188617  1        1.090237
 stage     1.188763  3        1.029238</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Heteroscedasticity test</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(fit_ex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(fit_ex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Non-constant Variance Score Test 
 Variance formula: ~ fitted.values 
@@ -805,11 +811,11 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-2-semi-guided-aic-model-selection-for-logistic-regression" class="level3" data-number="13.9.2">
-<h3 data-number="13.9.2" class="anchored" data-anchor-id="exercise-2-semi-guided-aic-model-selection-for-logistic-regression"><span class="header-section-number">13.9.2</span> Exercise 2 (Semi-guided): AIC Model Selection for Logistic Regression</h3>
+<section id="exercise-2-semi-guided-aic-model-selection-for-logistic-regression" class="level3" data-number="13.8.2">
+<h3 data-number="13.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-aic-model-selection-for-logistic-regression"><span class="header-section-number">13.8.2</span> Exercise 2 (Semi-guided): AIC Model Selection for Logistic Regression</h3>
 <p>Using <code>pbc2</code>, fit four logistic models predicting mortality, adding one predictor at a time. Choose the best model by AIC. Then check Cook’s distance for the chosen model.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -818,15 +824,15 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili, <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> albumin, <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>a3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> albumin <span class="sc">+</span> log_proto, <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>a4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> albumin <span class="sc">+</span> log_proto <span class="sc">+</span> stage, <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(a1, a2, a3, a4) <span class="sc">%&gt;%</span> tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>() <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(AIC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili,                               <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> albumin,                     <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>a3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> albumin <span class="sc">+</span> log_proto,         <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>a4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> albumin <span class="sc">+</span> log_proto <span class="sc">+</span> stage, <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(a1, a2, a3, a4) <span class="sc">%&gt;%</span> tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>() <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(AIC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  rowname df      AIC
 1      a4  7 415.9624
@@ -834,10 +840,9 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 3      a2  3 443.5458
 4      a1  2 446.7112</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cook's for best model</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(a4, <span class="at">type.predict =</span> <span class="st">"response"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(.cooksd)) <span class="sc">%&gt;%</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(a4, <span class="at">type.predict =</span> <span class="st">"response"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(.cooksd)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 11
    died log_bili albumin log_proto stage   .fitted .resid   .hat .sigma .cooksd
@@ -854,22 +859,22 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-3-open-ended" class="level3" data-number="13.9.3">
-<h3 data-number="13.9.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">13.9.3</span> Exercise 3 (Open-ended)</h3>
+<section id="exercise-3-open-ended" class="level3" data-number="13.8.3">
+<h3 data-number="13.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">13.8.3</span> Exercise 3 (Open-ended)</h3>
 <p>Take a model from your own research and apply the full diagnostic workflow: residual plots, QQ-plot, influence analysis, VIF. Write a one-paragraph Supplementary Methods section documenting your model-checking process and how you handled any issues found.</p>
 </section>
 </section>
-<section id="comprehension-check" class="level2" data-number="13.10">
-<h2 data-number="13.10" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">13.10</span> Comprehension Check</h2>
+<section id="comprehension-check" class="level2" data-number="13.9">
+<h2 data-number="13.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">13.9</span> Comprehension Check</h2>
 <ol type="1">
 <li>The Residuals vs Fitted plot shows a clear U-shape. What does this indicate, and how should you fix it?</li>
 <li>One observation has Cook’s distance = 0.8 (the threshold 4/n = 0.01). Should you automatically remove it?</li>
-<li>All VIFs are 1.1 except one predictor that has VIF = 9.2. What does this mean, and what are your options?</li>
+<li>All VIFs are 1.1 except one predictor with VIF = 9.2. What does this mean, and what are your options?</li>
 <li>You compare three models with AIC: 312, 308, 307. Which should you prefer?</li>
-<li>A lasso model with 20 candidate predictors shrinks 14 coefficients to zero, leaving 6 non-zero predictors. Can you interpret those 6 coefficients as the “true” effects?</li>
+<li>A lasso model shrinks 14 out of 20 coefficients to zero, leaving 6 non-zero predictors. Can you interpret those 6 coefficients as the “true” effects?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -878,23 +883,21 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>A U-shape indicates non-linearity; the linear model misses a curved relationship. Check whether X needs to be log-transformed, squared, or modelled with a spline. You can also try a LOESS smoother on the data to visualise the true shape.</li>
+<li>A U-shape indicates non-linearity; the linear model misses a curved relationship. Check whether X needs to be log-transformed, squared, or modelled with a spline. You can also use a LOESS smoother on the scatter plot to visualise the true shape.</li>
 <li>No; influential observations should be investigated, not automatically removed. Check whether the observation is a data entry error (correct it) or a genuinely extreme but valid case (keep it and report sensitivity analyses with and without that observation).</li>
-<li>VIF = 9.2 for one predictor indicates it is highly collinear with other predictors. Its coefficient estimate is unreliable (large SE, may flip sign). Options: (1) remove the collinear predictor if it is not the predictor of primary interest; (2) combine correlated predictors into a composite score; (3) use ridge regression.</li>
-<li>The third model (AIC = 307) is preferred; it has the lowest AIC, indicating the best balance of fit and complexity. However, the difference from model 2 (AIC = 308) is only 1, which is not a meaningful improvement. Models within 2 AIC units of the minimum are considered roughly equivalent.</li>
-<li>No.&nbsp;Lasso coefficients are biased toward zero by the penalty. After lasso selects variables, you should refit the model using ordinary regression on those selected variables to obtain unbiased coefficient estimates and valid CIs. Even then, some caution is needed because variable selection inflates Type I error - ideally, use pre-specified variables and treat lasso as exploratory.</li>
+<li>VIF = 9.2 indicates severe collinearity with other predictors. Its coefficient estimate is unreliable (large SE, may flip sign). Options: (1) remove the collinear predictor if it is not the predictor of primary interest; (2) combine correlated predictors into a composite score; (3) use ridge regression.</li>
+<li>The third model (AIC = 307) is preferred; it has the lowest AIC. However, the difference from model 2 (AIC = 308) is only 1, which is not a meaningful improvement. Models within 2 AIC units of the minimum are considered roughly equivalent.</li>
+<li>No.&nbsp;Lasso coefficients are biased toward zero by the penalty. After lasso selects variables, you should refit the model using ordinary regression on those selected variables to obtain unbiased estimates and valid CIs. Even then, some caution is needed because variable selection inflates Type I error — ideally, treat lasso as exploratory and pre-specify variables for the confirmatory model.</li>
 </ol>
 </div>
 </div>
 </div>
 </section>
-<section id="how-to-report" class="level2" data-number="13.11">
-<h2 data-number="13.11" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">13.11</span> How to Report</h2>
-<section id="reporting-model-selection-and-diagnostics" class="level3" data-number="13.11.1">
-<h3 data-number="13.11.1" class="anchored" data-anchor-id="reporting-model-selection-and-diagnostics"><span class="header-section-number">13.11.1</span> Reporting Model Selection and Diagnostics</h3>
+<section id="how-to-report" class="level2" data-number="13.10">
+<h2 data-number="13.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">13.10</span> How to Report</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -906,8 +909,8 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>In a methods section:</strong> “Model assumptions were assessed using residual vs.&nbsp;fitted plots (linearity, homoscedasticity), normal QQ-plots (residual normality), and Cook’s distance (influential observations; threshold: 4/n). Model selection was guided by AIC, with lower values indicating better relative fit.”</p>
-<p><strong>In results:</strong> “Diagnostic plots confirmed adequate model fit. [N] observations with Cook’s distance &gt; 4/n were identified; excluding them did not materially change conclusions (3b2 changed from X to Y). The final model had AIC = X vs.&nbsp;AIC = Y for the null model.”</p>
-<p><strong>What to always include:</strong></p>
+<p><strong>In results:</strong> “Diagnostic plots confirmed adequate model fit. [N] observations with Cook’s distance &gt; 4/n were identified; excluding them did not materially change conclusions (β changed from X to Y). The final model had AIC = X vs.&nbsp;AIC = Y for the null model.”</p>
+<p><strong>Always include:</strong></p>
 <ul>
 <li>Confirmation that residual diagnostics were performed</li>
 <li>Any influential observations identified and how they were handled</li>
@@ -918,12 +921,11 @@ Note
 </div>
 </div>
 </section>
-</section>
-<section id="further-reading" class="level2" data-number="13.12">
-<h2 data-number="13.12" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">13.12</span> Further Reading</h2>
+<section id="further-reading" class="level2" data-number="13.11">
+<h2 data-number="13.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">13.11</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Harrell-2015">Harrell (<a href="#ref-Harrell-2015" role="doc-biblioref">2015</a>)</span> — <em>Regression Modeling Strategies</em> - the definitive reference for clinical regression</li>
-<li><span class="citation" data-cites="Fox-2019">Fox and Weisberg (<a href="#ref-Fox-2019" role="doc-biblioref">2019</a>)</span> — <em>An R Companion to Applied Regression</em> - covers all diagnostics in R</li>
+<li><span class="citation" data-cites="Harrell-2015">Harrell (<a href="#ref-Harrell-2015" role="doc-biblioref">2015</a>)</span> — <em>Regression Modeling Strategies</em> — the definitive reference for clinical regression</li>
+<li><span class="citation" data-cites="Fox-2019">Fox and Weisberg (<a href="#ref-Fox-2019" role="doc-biblioref">2019</a>)</span> — <em>An R Companion to Applied Regression</em> — covers all diagnostics in R</li>
 <li><code>?plot.lm</code>, <code>?augment</code>, <code>?vif</code> in R</li>
 <li><code>glmnet</code> package vignette for penalised regression</li>
 </ul>

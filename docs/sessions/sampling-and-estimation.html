@@ -382,31 +382,29 @@ window.Quarto = {
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">2.2</span> Learning Objectives</a></li>
   <li><a href="#background-from-sample-to-population" id="toc-background-from-sample-to-population" class="nav-link" data-scroll-target="#background-from-sample-to-population"><span class="header-section-number">2.3</span> Background: From Sample to Population</a>
   <ul class="collapse">
-  <li><a href="#the-central-limit-theorem" id="toc-the-central-limit-theorem" class="nav-link" data-scroll-target="#the-central-limit-theorem"><span class="header-section-number">2.3.1</span> The Central Limit Theorem</a></li>
+  <li><a href="#the-core-problem" id="toc-the-core-problem" class="nav-link" data-scroll-target="#the-core-problem"><span class="header-section-number">2.3.1</span> The core problem</a></li>
+  <li><a href="#a-concrete-analogy" id="toc-a-concrete-analogy" class="nav-link" data-scroll-target="#a-concrete-analogy"><span class="header-section-number">2.3.2</span> A concrete analogy</a></li>
+  <li><a href="#three-numbers-you-need-to-know" id="toc-three-numbers-you-need-to-know" class="nav-link" data-scroll-target="#three-numbers-you-need-to-know"><span class="header-section-number">2.3.3</span> Three numbers you need to know</a></li>
+  <li><a href="#the-central-limit-theorem-why-any-of-this-works" id="toc-the-central-limit-theorem-why-any-of-this-works" class="nav-link" data-scroll-target="#the-central-limit-theorem-why-any-of-this-works"><span class="header-section-number">2.3.4</span> The Central Limit Theorem: why any of this works</a></li>
   </ul></li>
   <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">2.4</span> Example 1: Clinical Data (PBC)</a>
   <ul class="collapse">
-  <li><a href="#estimating-mean-albumin" id="toc-estimating-mean-albumin" class="nav-link" data-scroll-target="#estimating-mean-albumin"><span class="header-section-number">2.4.1</span> Estimating Mean Albumin</a></li>
-  <li><a href="#quicker-with-t.test" id="toc-quicker-with-t.test" class="nav-link" data-scroll-target="#quicker-with-t.test"><span class="header-section-number">2.4.2</span> Quicker with <code>t.test()</code></a></li>
-  <li><a href="#confidence-interval-for-a-proportion" id="toc-confidence-interval-for-a-proportion" class="nav-link" data-scroll-target="#confidence-interval-for-a-proportion"><span class="header-section-number">2.4.3</span> Confidence Interval for a Proportion</a></li>
-  <li><a href="#comparing-estimates-across-groups" id="toc-comparing-estimates-across-groups" class="nav-link" data-scroll-target="#comparing-estimates-across-groups"><span class="header-section-number">2.4.4</span> Comparing Estimates Across Groups</a></li>
-  <li><a href="#visualising-the-estimates" id="toc-visualising-the-estimates" class="nav-link" data-scroll-target="#visualising-the-estimates"><span class="header-section-number">2.4.5</span> Visualising the Estimates</a></li>
+  <li><a href="#estimating-mean-albumin-with-a-95-ci" id="toc-estimating-mean-albumin-with-a-95-ci" class="nav-link" data-scroll-target="#estimating-mean-albumin-with-a-95-ci"><span class="header-section-number">2.4.1</span> Estimating mean albumin with a 95% CI</a></li>
+  <li><a href="#the-fast-way-using-t.test" id="toc-the-fast-way-using-t.test" class="nav-link" data-scroll-target="#the-fast-way-using-t.test"><span class="header-section-number">2.4.2</span> The fast way: using <code>t.test()</code></a></li>
+  <li><a href="#confidence-interval-for-a-proportion" id="toc-confidence-interval-for-a-proportion" class="nav-link" data-scroll-target="#confidence-interval-for-a-proportion"><span class="header-section-number">2.4.3</span> Confidence interval for a proportion</a></li>
+  <li><a href="#comparing-estimates-across-groups" id="toc-comparing-estimates-across-groups" class="nav-link" data-scroll-target="#comparing-estimates-across-groups"><span class="header-section-number">2.4.4</span> Comparing estimates across groups</a></li>
   </ul></li>
-  <li><a href="#example-2-animal-data-mouse-weights" id="toc-example-2-animal-data-mouse-weights" class="nav-link" data-scroll-target="#example-2-animal-data-mouse-weights"><span class="header-section-number">2.5</span> Example 2: Animal Data (Mouse Weights)</a>
+  <li><a href="#example-2-small-samples-and-bootstrap-cis" id="toc-example-2-small-samples-and-bootstrap-cis" class="nav-link" data-scroll-target="#example-2-small-samples-and-bootstrap-cis"><span class="header-section-number">2.5</span> Example 2: Small Samples and Bootstrap CIs</a></li>
+  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">2.6</span> What Can Go Wrong</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">2.7</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#bootstrap-confidence-intervals" id="toc-bootstrap-confidence-intervals" class="nav-link" data-scroll-target="#bootstrap-confidence-intervals"><span class="header-section-number">2.5.1</span> Bootstrap Confidence Intervals</a></li>
+  <li><a href="#exercise-1-guided-ci-for-bilirubin" id="toc-exercise-1-guided-ci-for-bilirubin" class="nav-link" data-scroll-target="#exercise-1-guided-ci-for-bilirubin"><span class="header-section-number">2.7.1</span> Exercise 1 (Guided): CI for Bilirubin</a></li>
+  <li><a href="#exercise-2-semi-guided-bootstrap-vs-t-interval" id="toc-exercise-2-semi-guided-bootstrap-vs-t-interval" class="nav-link" data-scroll-target="#exercise-2-semi-guided-bootstrap-vs-t-interval"><span class="header-section-number">2.7.2</span> Exercise 2 (Semi-guided): Bootstrap vs t-interval</a></li>
+  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">2.7.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
-  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">2.6</span> Where to Find Data Like This</a></li>
-  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">2.7</span> What Can Go Wrong</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">2.8</span> Exercises</a>
-  <ul class="collapse">
-  <li><a href="#exercise-1-guided-ci-for-bilirubin" id="toc-exercise-1-guided-ci-for-bilirubin" class="nav-link" data-scroll-target="#exercise-1-guided-ci-for-bilirubin"><span class="header-section-number">2.8.1</span> Exercise 1 (Guided): CI for Bilirubin</a></li>
-  <li><a href="#exercise-2-semi-guided-bootstrap-vs-t-interval" id="toc-exercise-2-semi-guided-bootstrap-vs-t-interval" class="nav-link" data-scroll-target="#exercise-2-semi-guided-bootstrap-vs-t-interval"><span class="header-section-number">2.8.2</span> Exercise 2 (Semi-guided): Bootstrap vs t-interval</a></li>
-  <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">2.8.3</span> Exercise 3 (Open-ended)</a></li>
-  </ul></li>
-  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">2.9</span> Comprehension Check</a></li>
-  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">2.10</span> How to Report</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">2.11</span> Further Reading</a></li>
+  <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">2.8</span> Comprehension Check</a></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">2.9</span> How to Report</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">2.10</span> Further Reading</a></li>
   </ul>
 </nav>
     </div>
@@ -432,63 +430,139 @@ window.Quarto = {
 </header>
 
 
-<section id="sec-sampling" class="level2 callout-tip" data-number="2.1">
-<h2 class="callout-tip anchored" data-number="2.1" data-anchor-id="sec-sampling"><span class="header-section-number">2.1</span> When Do You Use This?</h2>
-<blockquote class="blockquote">
-<p>You have collected a sample and want to make inferences about the broader population it came from, not just describe the sample itself. Estimation produces a best guess (point estimate) for a population quantity along with a confidence interval that quantifies how uncertain that guess is given your sample size. For example: estimating the mean level of a biomarker in all patients with a condition from a clinic sample, or the proportion who respond to treatment in a trial.</p>
-</blockquote>
+<section id="sec-sampling" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-sampling"><span class="header-section-number">2.1</span> When Do You Use This?</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You have measured something in a sample of patients, animals, or cells, and you want to say something about the broader population they came from. Estimation gives you a best guess for the population value, and a confidence interval tells you how precise that guess is. For example: you measure albumin in 418 patients with a liver disease and want to estimate the mean albumin in <em>all</em> patients with that disease, not just the ones in your clinic. Or you run a trial and want to report what proportion of patients responded, with an honest statement of how uncertain that proportion is.</p>
+<p>This session covers the concepts that underpin almost everything else in this course. When you later read a t-test result or a regression coefficient, what you are really reading is an estimate with a confidence interval. Understanding this session well will make every session that follows easier to interpret.</p>
+</div>
+</div>
 </section>
 <section id="learning-objectives" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">2.2</span> Learning Objectives</h2>
 <p>After completing this session you will be able to:</p>
 <ul>
-<li>Explain what a sampling distribution and standard error are</li>
-<li>State the Central Limit Theorem and explain why it matters for inference</li>
+<li>Explain what a sampling distribution and standard error are, and why they matter</li>
+<li>State the Central Limit Theorem and understand why it makes confidence intervals valid even for skewed data</li>
 <li>Compute confidence intervals for means and proportions in R</li>
-<li>Interpret a 95% confidence interval correctly</li>
-<li>Distinguish between a confidence interval and a prediction interval</li>
+<li>Interpret a 95% confidence interval correctly — and avoid the most common misinterpretation</li>
 <li>Use bootstrap resampling when distributional assumptions are uncertain</li>
 </ul>
 </section>
 <section id="background-from-sample-to-population" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="background-from-sample-to-population"><span class="header-section-number">2.3</span> Background: From Sample to Population</h2>
-<p>You can never measure every person, mouse, or cell. You measure a <strong>sample</strong> and use it to estimate a <strong>population</strong> quantity. Three ideas underpin all of this:</p>
-<p><strong>Point estimate:</strong> Your best single guess at the population value (e.g., the sample mean).</p>
-<p><strong>Standard error (SE):</strong> How much your point estimate would vary if you drew many different samples of the same size. Smaller SE = more precise estimate. SE shrinks as sample size grows.</p>
-<p><strong>Confidence interval (CI):</strong> A range of plausible values for the population parameter, constructed so that (in repeated sampling) the specified percentage of intervals would contain the true value.</p>
+<section id="the-core-problem" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="the-core-problem"><span class="header-section-number">2.3.1</span> The core problem</h3>
+<p>You can never measure every patient, mouse, or cell in the world. You measure a <strong>sample</strong> and use it to estimate something about the <strong>population</strong> it came from. The key challenge is: your sample is just one of infinitely many samples you could have drawn. A different clinic, a different week, a different cohort — and you would have gotten slightly different numbers.</p>
+<p>Statistics gives you tools to say: “here is my best estimate, and here is a honest measure of how much it would have wobbled if I had drawn a different sample.”</p>
+</section>
+<section id="a-concrete-analogy" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="a-concrete-analogy"><span class="header-section-number">2.3.2</span> A concrete analogy</h3>
+<p>Before any formulas: think of an election poll. A polling firm surveys 1,000 voters and reports that 54% support Party A (95% CI: 51% to 57%). They did not survey every voter. They surveyed a sample and used it to estimate the population proportion — the share of all voters who support Party A. The confidence interval is their honest statement about how much that estimate could have moved if they had called a different 1,000 people.</p>
+<p>That is exactly what you are doing in every study. Your sample is the poll. Your confidence interval is the margin of error. The only difference is that instead of voting preferences, you are measuring bilirubin, survival times, or gene expression.</p>
+</section>
+<section id="three-numbers-you-need-to-know" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="three-numbers-you-need-to-know"><span class="header-section-number">2.3.3</span> Three numbers you need to know</h3>
+<p><strong>Point estimate</strong> — Your best single guess at the population value. For a mean, this is just the sample mean <span class="math inline">\(\bar{x}\)</span>.</p>
+<p><strong>Standard error (SE)</strong> — How much your point estimate would move if you repeated the study on a fresh sample of the same size. It is not the spread of your data (that is the standard deviation); it is the spread of your <em>estimate</em>:</p>
 <p><span class="math display">\[SE(\bar{x}) = \frac{s}{\sqrt{n}}\]</span></p>
+<p>Two things follow directly from this formula. First, larger samples give smaller SEs — your estimate gets more precise as <span class="math inline">\(n\)</span> grows. Second, more variable data (larger <span class="math inline">\(s\)</span>) gives larger SEs — noisier measurements are harder to estimate precisely.</p>
+<p><strong>Confidence interval (CI)</strong> — A range built around the point estimate so that, across many repetitions of the study, the specified fraction of intervals would contain the true population value:</p>
 <p><span class="math display">\[95\% \text{ CI for } \mu \approx \bar{x} \pm 1.96 \times SE(\bar{x})\]</span></p>
-<section id="the-central-limit-theorem" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="the-central-limit-theorem"><span class="header-section-number">2.3.1</span> The Central Limit Theorem</h3>
-<p>The <strong>Central Limit Theorem (CLT)</strong> states: regardless of the shape of the original distribution, the sampling distribution of the mean becomes approximately normal as sample size increases.</p>
-<p>This is why t-tests and confidence intervals work even when individual measurements are not normally distributed - as long as the <strong>sample size is large enough</strong> (roughly <span class="math inline">\(n \geq 30\)</span> for mildly skewed data; larger for heavily skewed data).</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>The most common CI misinterpretation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“There is a 95% probability that the true mean lies in this interval.”</p>
+<p>This is wrong. The true mean is a fixed (unknown) number — it either is in your interval or it is not. The 95% refers to the <em>procedure</em>: if you repeated your study 100 times, approximately 95 of the resulting intervals would contain the true mean.</p>
+<p>Think of it as a fishing net, not a probability. The fish (true mean) is somewhere in the lake. Your CI is a single throw of the net. A “95% CI” means your net-throwing technique, if used repeatedly, catches the fish 95% of the time. On any single throw, you either caught it or you did not.</p>
+</div>
+</div>
+</section>
+<section id="the-central-limit-theorem-why-any-of-this-works" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="the-central-limit-theorem-why-any-of-this-works"><span class="header-section-number">2.3.4</span> The Central Limit Theorem: why any of this works</h3>
+<p>Here is the remarkable fact at the heart of statistics: even if individual measurements are skewed, heavy-tailed, or oddly distributed, the <em>sampling distribution of the mean</em> becomes approximately normal as sample size increases. This is the <strong>Central Limit Theorem (CLT)</strong>.</p>
+<p>It is worth seeing rather than just reading about. Run this simulation and look at what happens:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># We start with a strongly right-skewed distribution (exponential).</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Individual values look nothing like a normal distribution.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># But what does the distribution of *sample means* look like?</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>sim_means <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_10  =</span> <span class="fu">replicate</span>(<span class="dv">2000</span>, <span class="fu">mean</span>(<span class="fu">rexp</span>(<span class="dv">10</span>,  <span class="at">rate =</span> <span class="fl">0.5</span>))),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_30  =</span> <span class="fu">replicate</span>(<span class="dv">2000</span>, <span class="fu">mean</span>(<span class="fu">rexp</span>(<span class="dv">30</span>,  <span class="at">rate =</span> <span class="fl">0.5</span>))),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_100 =</span> <span class="fu">replicate</span>(<span class="dv">2000</span>, <span class="fu">mean</span>(<span class="fu">rexp</span>(<span class="dv">100</span>, <span class="at">rate =</span> <span class="fl">0.5</span>)))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"sample_size"</span>, <span class="at">values_to =</span> <span class="st">"mean"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sample_size =</span> <span class="fu">factor</span>(sample_size,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                              <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"n_10"</span>, <span class="st">"n_30"</span>, <span class="st">"n_100"</span>),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                              <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"n = 10"</span>, <span class="st">"n = 30"</span>, <span class="st">"n = 100"</span>)))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim_means, <span class="fu">aes</span>(<span class="at">x =</span> mean)) <span class="sc">+</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> sample_size, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Sampling distribution of the mean: skewed data becoming normal"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Each histogram shows 2,000 sample means drawn from a right-skewed distribution"</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Sample mean"</span>, <span class="at">y =</span> <span class="st">"Count"</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="sampling-and-estimation_files/figure-html/clt-simulation-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Each histogram shows 2,000 means, each computed from a fresh random sample of exponential (right-skewed) data. At <span class="math inline">\(n = 10\)</span> the distribution of means is already roughly bell-shaped. By <span class="math inline">\(n = 30\)</span> it is nearly normal. By <span class="math inline">\(n = 100\)</span> it is indistinguishable from a normal distribution, even though every single raw data point came from a skewed distribution.</p>
+<p>This is why t-tests and confidence intervals work for most biomedical data: you do not need your raw measurements to be normal. You need your <em>sample size</em> to be large enough for the CLT to apply. As a rough guide, <span class="math inline">\(n \geq 30\)</span> is sufficient for mildly skewed data; heavier skew requires larger samples.</p>
 </section>
 </section>
 <section id="example-1-clinical-data-pbc" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">2.4</span> Example 1: Clinical Data (PBC)</h2>
+<p>The <code>survival::pbc</code> dataset contains data from a clinical trial of 418 patients with primary biliary cirrhosis (PBC), a chronic liver disease. We will use it to estimate key population quantities.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex   =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"m"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trt   =</span> <span class="fu">factor</span>(trt, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"D-penicillamine"</span>, <span class="st">"Placebo"</span>))</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"m"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trt =</span> <span class="fu">factor</span>(trt, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"D-penicillamine"</span>, <span class="st">"Placebo"</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="estimating-mean-albumin" class="level3" data-number="2.4.1">
-<h3 data-number="2.4.1" class="anchored" data-anchor-id="estimating-mean-albumin"><span class="header-section-number">2.4.1</span> Estimating Mean Albumin</h3>
+<section id="estimating-mean-albumin-with-a-95-ci" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="estimating-mean-albumin-with-a-95-ci"><span class="header-section-number">2.4.1</span> Estimating mean albumin with a 95% CI</h3>
+<p>Serum albumin is a marker of liver function. Normal levels in healthy adults are roughly 3.5–5.0 g/dL. Before running any test, it is reasonable to expect that PBC patients — who have impaired liver function — would run below the lower end of this range. Let’s estimate their mean albumin and quantify our uncertainty:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>albumin_est <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(albumin)) <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n        =</span> <span class="fu">n</span>(),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean     =</span> <span class="fu">mean</span>(albumin),</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd       =</span> <span class="fu">sd</span>(albumin),</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">se       =</span> sd <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_lower =</span> mean <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_upper =</span> mean <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>albumin_est</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>albumin_est <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(albumin)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n        =</span> <span class="fu">n</span>(),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean     =</span> <span class="fu">mean</span>(albumin),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd       =</span> <span class="fu">sd</span>(albumin),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">se       =</span> sd <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_lower =</span> mean <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_upper =</span> mean <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>albumin_est</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
       n  mean    sd     se ci_lower ci_upper
@@ -496,12 +570,59 @@ window.Quarto = {
 1   418  3.50 0.425 0.0208     3.46     3.54</code></pre>
 </div>
 </div>
-<p><strong>Interpretation:</strong> We estimate the mean serum albumin to be 3.5 g/dL (95% CI: 3.46 to 3.54). If we were to repeat this study 100 times with different samples of the same size, approximately 95 of the resulting intervals would contain the true population mean.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Reading the Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>n</strong></td>
+<td>Sample size. More observations → smaller SE → narrower CI.</td>
+</tr>
+<tr class="even">
+<td><strong>mean</strong></td>
+<td>The point estimate: our best guess at the population mean.</td>
+</tr>
+<tr class="odd">
+<td><strong>sd</strong></td>
+<td>Spread of individual albumin values. This is <em>not</em> the SE.</td>
+</tr>
+<tr class="even">
+<td><strong>se</strong></td>
+<td>How much our sample mean would vary across repeated studies. Equals sd / √n.</td>
+</tr>
+<tr class="odd">
+<td><strong>ci_lower / ci_upper</strong></td>
+<td>The 95% confidence interval. The formula is mean ± qt(0.975, df=n−1) × se.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>In plain English:</strong> We estimate that the mean albumin in PBC patients is 3.5 g/dL (95% CI: 3.46 to 3.54 g/dL). This is below the lower limit of the normal range (3.5 g/dL), consistent with impaired liver synthesis.</p>
+</div>
+</div>
 </section>
-<section id="quicker-with-t.test" class="level3" data-number="2.4.2">
-<h3 data-number="2.4.2" class="anchored" data-anchor-id="quicker-with-t.test"><span class="header-section-number">2.4.2</span> Quicker with <code>t.test()</code></h3>
+<section id="the-fast-way-using-t.test" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="the-fast-way-using-t.test"><span class="header-section-number">2.4.2</span> The fast way: using <code>t.test()</code></h3>
+<p>You do not need to write the formula manually. <code>t.test()</code> on a single vector gives you the same CI:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(pbc<span class="sc">$</span>albumin)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(pbc<span class="sc">$</span>albumin)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
@@ -516,16 +637,16 @@ mean of x
   3.49744 </code></pre>
 </div>
 </div>
-<p><code>t.test()</code> on a single vector returns the 95% CI for the mean without needing a hypothesis (the default null <span class="math inline">\(\mu = 0\)</span> is irrelevant here; we only want the interval).</p>
+<p>The default null hypothesis (<span class="math inline">\(\mu = 0\)</span>) is irrelevant here — we are only using the function to get the confidence interval. You can ignore the p-value in this context.</p>
 </section>
 <section id="confidence-interval-for-a-proportion" class="level3" data-number="2.4.3">
-<h3 data-number="2.4.3" class="anchored" data-anchor-id="confidence-interval-for-a-proportion"><span class="header-section-number">2.4.3</span> Confidence Interval for a Proportion</h3>
-<p>What proportion of patients are female?</p>
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="confidence-interval-for-a-proportion"><span class="header-section-number">2.4.3</span> Confidence interval for a proportion</h3>
+<p>What proportion of trial participants are female? Use <code>prop.test()</code>, which gives a Wilson interval rather than the simple Wald formula. The Wilson interval is more reliable when the proportion is near 0 or 1.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>n_female <span class="ot">&lt;-</span> <span class="fu">sum</span>(pbc<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"Female"</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>n_total  <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(pbc<span class="sc">$</span>sex))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> n_female, <span class="at">n =</span> n_total, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>n_female <span class="ot">&lt;-</span> <span class="fu">sum</span>(pbc<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"Female"</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>n_total  <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(pbc<span class="sc">$</span>sex))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> n_female, <span class="at">n =</span> n_total, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     1-sample proportions test with continuity correction
@@ -540,21 +661,22 @@ sample estimates:
 0.8947368 </code></pre>
 </div>
 </div>
-<p>The Wilson interval from <code>prop.test()</code> is better than the simple Wald interval for proportions, especially when the proportion is near 0 or 1.</p>
 </section>
 <section id="comparing-estimates-across-groups" class="level3" data-number="2.4.4">
-<h3 data-number="2.4.4" class="anchored" data-anchor-id="comparing-estimates-across-groups"><span class="header-section-number">2.4.4</span> Comparing Estimates Across Groups</h3>
+<h3 data-number="2.4.4" class="anchored" data-anchor-id="comparing-estimates-across-groups"><span class="header-section-number">2.4.4</span> Comparing estimates across groups</h3>
+<p>Now let’s compute separate estimates for each treatment group. This is the first step before any formal test: look at the estimates and their intervals side by side.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(albumin)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trt) <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n        =</span> <span class="fu">n</span>(),</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean     =</span> <span class="fu">mean</span>(albumin),</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">se       =</span> <span class="fu">sd</span>(albumin) <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_lower =</span> mean <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se,</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_upper =</span> mean <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>group_est <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(albumin)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trt) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n        =</span> <span class="fu">n</span>(),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean     =</span> <span class="fu">mean</span>(albumin),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">se       =</span> <span class="fu">sd</span>(albumin) <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_lower =</span> mean <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_upper =</span> mean <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>group_est</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 6
   trt                 n  mean     se ci_lower ci_upper
@@ -563,30 +685,18 @@ sample estimates:
 2 Placebo           154  3.52 0.0319     3.46     3.59</code></pre>
 </div>
 </div>
-</section>
-<section id="visualising-the-estimates" class="level3" data-number="2.4.5">
-<h3 data-number="2.4.5" class="anchored" data-anchor-id="visualising-the-estimates"><span class="header-section-number">2.4.5</span> Visualising the Estimates</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(albumin)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trt) <span class="sc">%&gt;%</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n        =</span> <span class="fu">n</span>(),</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean     =</span> <span class="fu">mean</span>(albumin),</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">se       =</span> <span class="fu">sd</span>(albumin) <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_lower =</span> mean <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se,</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_upper =</span> mean <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trt, <span class="at">y =</span> mean, <span class="at">ymin =</span> ci_lower, <span class="at">ymax =</span> ci_upper)) <span class="sc">+</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean serum albumin by treatment group"</span>,</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Points = mean; error bars = 95% CI"</span>,</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>group_est <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trt, <span class="at">y =</span> mean, <span class="at">ymin =</span> ci_lower, <span class="at">ymax =</span> ci_upper)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean serum albumin by treatment group"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Points = mean; error bars = 95% CI"</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -595,25 +705,31 @@ sample estimates:
 </div>
 </div>
 </div>
+<p>The two CIs overlap substantially — a visual hint that the groups probably do not differ on albumin. But overlapping CIs are not a formal test. For a definitive answer you need a two-sample t-test, which is the subject of the next session.</p>
 </section>
 </section>
-<section id="example-2-animal-data-mouse-weights" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="example-2-animal-data-mouse-weights"><span class="header-section-number">2.5</span> Example 2: Animal Data (Mouse Weights)</h2>
-<p>Suppose we measure body weight in a small experiment: 20 mice in each of two treatment groups.</p>
+<section id="example-2-small-samples-and-bootstrap-cis" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="example-2-small-samples-and-bootstrap-cis"><span class="header-section-number">2.5</span> Example 2: Small Samples and Bootstrap CIs</h2>
+<p>The formula-based CI assumes the sampling distribution of the mean is normal. The CLT guarantees this for large samples, but with small samples from skewed distributions that assumption can break down. The <strong>bootstrap</strong> is an alternative that makes no distributional assumptions at all.</p>
+<p>The idea is simple: if you had infinite money you could repeat your study thousands of times and directly observe the sampling distribution of your estimate. You do not have infinite money, but you do have your data. The bootstrap resamples <em>your data</em> (with replacement) thousands of times, treating it as a stand-in for the population. The spread of the resulting estimates becomes your confidence interval.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>mice <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">group  =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Treatment"</span>), <span class="at">each =</span> <span class="dv">20</span>),</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">weight =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">mean =</span> <span class="dv">28</span>, <span class="at">sd =</span> <span class="dv">3</span>),</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>             <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">mean =</span> <span class="dv">25</span>, <span class="at">sd =</span> <span class="dv">3</span>))</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>mice <span class="sc">%&gt;%</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">mean =</span> <span class="fu">mean</span>(weight), <span class="at">sd =</span> <span class="fu">sd</span>(weight),</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">se =</span> sd <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">ci_lower =</span> mean <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se,</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">ci_upper =</span> mean <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>mice <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">group  =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Treatment"</span>), <span class="at">each =</span> <span class="dv">20</span>),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">weight =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">mean =</span> <span class="dv">28</span>, <span class="at">sd =</span> <span class="dv">3</span>),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>             <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">mean =</span> <span class="dv">25</span>, <span class="at">sd =</span> <span class="dv">3</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>mice <span class="sc">%&gt;%</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">n        =</span> <span class="fu">n</span>(),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean     =</span> <span class="fu">mean</span>(weight),</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd       =</span> <span class="fu">sd</span>(weight),</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">se       =</span> sd <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_lower =</span> mean <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_upper =</span> mean <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   group         n  mean    sd    se ci_lower ci_upper
@@ -622,18 +738,16 @@ sample estimates:
 2 Treatment    20  24.7  2.64 0.591     23.5     25.9</code></pre>
 </div>
 </div>
-<section id="bootstrap-confidence-intervals" class="level3" data-number="2.5.1">
-<h3 data-number="2.5.1" class="anchored" data-anchor-id="bootstrap-confidence-intervals"><span class="header-section-number">2.5.1</span> Bootstrap Confidence Intervals</h3>
-<p>When the distribution is non-normal or the sample is small, bootstrap CIs are more reliable. The <code>boot</code> package resamples the data with replacement many times to build an empirical sampling distribution.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap 95% CI for mean weight in control mice</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ctrl_weights <span class="ot">&lt;-</span> mice<span class="sc">$</span>weight[mice<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"Control"</span>]</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>boot_mean <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">data  =</span> ctrl_weights,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">statistic =</span> <span class="cf">function</span>(x, i) <span class="fu">mean</span>(x[i]),</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">R     =</span> <span class="dv">1000</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(boot_mean, <span class="at">type =</span> <span class="st">"perc"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ctrl_weights <span class="ot">&lt;-</span> mice<span class="sc">$</span>weight[mice<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"Control"</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>boot_mean <span class="ot">&lt;-</span> <span class="fu">boot</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data      =</span> ctrl_weights,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">statistic =</span> <span class="cf">function</span>(x, i) <span class="fu">mean</span>(x[i]),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">R         =</span> <span class="dv">1000</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(boot_mean, <span class="at">type =</span> <span class="st">"perc"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
 Based on 1000 bootstrap replicates
@@ -647,43 +761,61 @@ Level     Percentile
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
-<p>The percentile bootstrap CI takes the 2.5th and 97.5th percentile of the bootstrapped means as the interval bounds - no distributional assumptions required.</p>
-</section>
-</section>
-<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="2.6">
-<h2 class="callout-note anchored" data-number="2.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">2.6</span> Where to Find Data Like This</h2>
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> - built in, no download needed.</p>
-<p><strong>Simulating data for teaching:</strong></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Balanced two-group experiment</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">group  =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>), <span class="at">each =</span> <span class="dv">30</span>),</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">value  =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>),</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">12</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p><strong>Boot package datasets:</strong> <code>boot::melanoma</code>, <code>boot::aircondit</code> and others contain real datasets useful for bootstrap demonstrations.</p>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>When to use the bootstrap
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The bootstrap is worth reaching for when:</p>
+<ul>
+<li>Your sample is small (n &lt; 30) <em>and</em> your data are clearly skewed</li>
+<li>You are estimating something other than a mean (a median, a correlation, a ratio) where no standard formula exists</li>
+<li>You want a sanity check on a formula-based CI</li>
+</ul>
+<p>For means from reasonably sized samples, the t-interval and the bootstrap give nearly identical results. If they diverge substantially, that is a signal your data are unusual enough to think carefully about.</p>
+</div>
+</div>
 </section>
-<section id="what-can-go-wrong" class="level2 callout-warning" data-number="2.7">
-<h2 class="callout-warning anchored" data-number="2.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">2.7</span> What Can Go Wrong</h2>
-<p><strong>Misinterpreting a confidence interval</strong> A 95% CI does <strong>not</strong> mean “there is a 95% probability the true mean lies in this interval.” The true mean either is or is not in the interval - it is not random. The correct interpretation is: “if we repeated the study many times, 95% of such intervals would contain the true mean.”</p>
-<p><strong>Using a z-interval when n is small</strong> The formula <span class="math inline">\(\bar{x} \pm 1.96 \times SE\)</span> uses the normal quantile 1.96. For small samples, use the t-distribution quantile: <code>qt(0.975, df = n - 1)</code>. <code>t.test()</code> does this automatically.</p>
-<p><strong>Ignoring missing data</strong> If you compute <code>mean(x)</code> without <code>na.rm = TRUE</code>, R returns <code>NA</code>. Worse, if missing values are not random (e.g., sicker patients more likely to have missing labs), your estimate will be biased.</p>
-<p><strong>Treating overlapping CIs as proof of no difference</strong> Non-overlapping CIs do imply a significant difference (at approximately p &lt; 0.05). But <strong>overlapping CIs do not prove no difference</strong> - you need a proper two-sample test. The 95% CI for each group mean is not the same as the 95% CI for their difference.</p>
+<section id="what-can-go-wrong" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="what-can-go-wrong"><span class="header-section-number">2.6</span> What Can Go Wrong</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Confusing standard deviation with standard error</strong></p>
+<p>The SD describes the spread of individual measurements in your sample. The SE describes how much your <em>sample mean</em> would vary across repeated studies. They answer different questions. A large SD can coexist with a very small SE if your sample is large. Always be explicit: report SD when describing the sample, SE (or CI) when describing the precision of an estimate.</p>
+<p><strong>Using 1.96 instead of a t-quantile for small samples</strong></p>
+<p>The formula <span class="math inline">\(\bar{x} \pm 1.96 \times SE\)</span> uses the normal distribution quantile, which is only valid for large samples. For <span class="math inline">\(n &lt; 100\)</span> or so, use <code>qt(0.975, df = n - 1)</code>. The <code>t.test()</code> function does this automatically, which is one reason to prefer it over manual calculation.</p>
+<p><strong>Ignoring missing data</strong></p>
+<p><code>mean(x)</code> returns <code>NA</code> if any values are missing. Use <code>na.rm = TRUE</code> or filter explicitly. More importantly, ask <em>why</em> values are missing. If sicker patients are more likely to have missing lab values, your estimate of the mean will be biased upward even after removing the missing observations.</p>
+<p><strong>Treating overlapping CIs as evidence of no difference</strong></p>
+<p>Non-overlapping 95% CIs do imply a statistically significant difference (roughly p &lt; 0.05). But overlapping CIs do not imply no difference. The CI for each group mean is not the same as the CI for their <em>difference</em>. A visual overlap of ~25% of the CI length is roughly consistent with p = 0.05. For a definitive test, use a two-sample procedure.</p>
+</div>
+</div>
 </section>
-<section id="exercises" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">2.8</span> Exercises</h2>
-<section id="exercise-1-guided-ci-for-bilirubin" class="level3" data-number="2.8.1">
-<h3 data-number="2.8.1" class="anchored" data-anchor-id="exercise-1-guided-ci-for-bilirubin"><span class="header-section-number">2.8.1</span> Exercise 1 (Guided): CI for Bilirubin</h3>
+<section id="exercises" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">2.7</span> Exercises</h2>
+<section id="exercise-1-guided-ci-for-bilirubin" class="level3" data-number="2.7.1">
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="exercise-1-guided-ci-for-bilirubin"><span class="header-section-number">2.7.1</span> Exercise 1 (Guided): CI for Bilirubin</h3>
 <p>Using <code>survival::pbc</code>:</p>
 <ol type="1">
 <li>Compute the sample mean, SD, SE, and 95% CI for serum bilirubin (<code>bili</code>).</li>
 <li>Bilirubin is right-skewed. Repeat using <code>log(bili)</code>. Report the geometric mean by back-transforming with <code>exp()</code>.</li>
-<li>Compare the raw and geometric means. Which better represents the “typical” patient?</li>
+<li>Compare the raw mean and the geometric mean. Which better represents the “typical” patient, and why?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -692,7 +824,7 @@ Calculations and Intervals on Original Scale</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Raw bilirubin</span></span>
@@ -722,7 +854,7 @@ Calculations and Intervals on Original Scale</code></pre>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_upper =</span> log_mean <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se</span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Back-transform to original scale</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Back-transform to original scale (geometric mean and CI)</span></span>
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>log_est <span class="sc">%&gt;%</span></span>
 <span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(log_mean, ci_lower, ci_upper), exp))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -732,21 +864,25 @@ Calculations and Intervals on Original Scale</code></pre>
 1   418     1.77 0.0501     1.60     1.95</code></pre>
 </div>
 </div>
-<p>The geometric mean is lower than the arithmetic mean, because the arithmetic mean is pulled upward by extreme values. The geometric mean better represents the median patient in a right-skewed distribution.</p>
+<p>The geometric mean is lower than the arithmetic mean because bilirubin is right-skewed — a small number of patients have very high values that pull the arithmetic mean upward. The geometric mean better represents the “typical” patient in a skewed distribution and is the correct summary to report alongside a log-transformed analysis.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="exercise-2-semi-guided-bootstrap-vs-t-interval" class="level3" data-number="2.8.2">
-<h3 data-number="2.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-bootstrap-vs-t-interval"><span class="header-section-number">2.8.2</span> Exercise 2 (Semi-guided): Bootstrap vs t-interval</h3>
-<p>Using the mouse weight data created above (or simulate your own 15 observations from a skewed distribution):</p>
+<section id="exercise-2-semi-guided-bootstrap-vs-t-interval" class="level3" data-number="2.7.2">
+<h3 data-number="2.7.2" class="anchored" data-anchor-id="exercise-2-semi-guided-bootstrap-vs-t-interval"><span class="header-section-number">2.7.2</span> Exercise 2 (Semi-guided): Bootstrap vs t-interval</h3>
+<p>Simulate 15 observations from a skewed distribution:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>skewed_data <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">15</span>, <span class="at">rate =</span> <span class="fl">0.3</span>)  <span class="co"># right-skewed</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <ol type="1">
-<li>Compute the t-interval for the mean using the formula and verify it matches <code>t.test()</code>.</li>
+<li>Compute the t-interval for the mean using the formula, and verify it matches <code>t.test()</code>.</li>
 <li>Compute a bootstrap percentile CI using <code>boot()</code>.</li>
-<li>Are the two intervals similar? If the distribution were more skewed, which would you trust more?</li>
+<li>Are the two intervals similar? What would happen if the distribution were more skewed?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -755,56 +891,56 @@ Calculations and Intervals on Original Scale</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">15</span>, <span class="at">mean =</span> <span class="dv">28</span>, <span class="at">sd =</span> <span class="dv">4</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># t-interval</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(weights)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">mean</span>(weights); s <span class="ot">&lt;-</span> <span class="fu">sd</span>(weights)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>ci_t <span class="ot">&lt;-</span> <span class="fu">c</span>(m <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n<span class="dv">-1</span>) <span class="sc">*</span> s<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>          m <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n<span class="dv">-1</span>) <span class="sc">*</span> s<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>ci_t</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>skewed_data <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">15</span>, <span class="at">rate =</span> <span class="fl">0.3</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># t-interval</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(skewed_data)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">mean</span>(skewed_data)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(skewed_data)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>ci_t <span class="ot">&lt;-</span> <span class="fu">c</span>(m <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>          m <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>ci_t</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 24.79043 30.29735</code></pre>
+<pre><code>[1] 1.264991 4.565771</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(weights)<span class="sc">$</span>conf.int</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(skewed_data)<span class="sc">$</span>conf.int</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 24.79043 30.29735
+<pre><code>[1] 1.264991 4.565771
 attr(,"conf.level")
 [1] 0.95</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bootstrap</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">boot</span>(weights, <span class="cf">function</span>(x, i) <span class="fu">mean</span>(x[i]), <span class="at">R =</span> <span class="dv">2000</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(b, <span class="at">type =</span> <span class="st">"perc"</span>)<span class="sc">$</span>percent[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bootstrap</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">boot</span>(skewed_data, <span class="cf">function</span>(x, i) <span class="fu">mean</span>(x[i]), <span class="at">R =</span> <span class="dv">2000</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(b, <span class="at">type =</span> <span class="st">"perc"</span>)<span class="sc">$</span>percent[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 25.03384 29.76708</code></pre>
+<pre><code>[1] 1.688700 4.458514</code></pre>
 </div>
 </div>
-<p>For normal data, both intervals are similar. For skewed data or small samples, the bootstrap is more reliable because it makes no normality assumption.</p>
+<p>With n = 15 and moderate skew, the intervals are similar but not identical. The bootstrap CI will tend to be asymmetric when data are skewed, because the resampling captures the asymmetry directly. With heavier skew or a smaller sample, the divergence grows — and in those cases you should trust the bootstrap.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="exercise-3-open-ended" class="level3" data-number="2.8.3">
-<h3 data-number="2.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">2.8.3</span> Exercise 3 (Open-ended)</h3>
-<p>Using a dataset from your own research, compute 95% confidence intervals for the key outcome variable, separately by group. Produce an error-bar plot. Write a one-paragraph interpretation as you would for a Results section.</p>
+<section id="exercise-3-open-ended" class="level3" data-number="2.7.3">
+<h3 data-number="2.7.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">2.7.3</span> Exercise 3 (Open-ended)</h3>
+<p>Using a dataset from your own research, compute 95% confidence intervals for the key outcome variable, separately by group. Produce an error-bar plot. Write a one-paragraph interpretation as you would for a Results section in a journal article, reporting the point estimate, CI, and sample size for each group.</p>
 </section>
 </section>
-<section id="comprehension-check" class="level2" data-number="2.9">
-<h2 data-number="2.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">2.9</span> Comprehension Check</h2>
+<section id="comprehension-check" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">2.8</span> Comprehension Check</h2>
 <ol type="1">
-<li>What is the standard error of the mean, and how does it change as sample size increases?</li>
-<li>A study reports: “mean albumin 3.5 g/dL (95% CI: 3.3 to 3.7).” What does this mean?</li>
-<li>Why does the Central Limit Theorem matter for confidence intervals even when the data are not normally distributed?</li>
-<li>You have a sample of 10 mice with a skewed weight distribution. Should you use a t-interval or a bootstrap CI? Why?</li>
-<li>Two groups have CIs of [10.0, 12.0] and [11.5, 13.5]. They overlap at [11.5, 12.0]. Can you conclude there is no significant difference between the groups?</li>
+<li>What is the difference between a standard deviation and a standard error? If you double the sample size, what happens to the SE?</li>
+<li>A study reports: “mean albumin 3.5 g/dL (95% CI: 3.3 to 3.7).” What does this mean in plain language?</li>
+<li>Why does the Central Limit Theorem allow confidence intervals to work even when the raw data are not normally distributed?</li>
+<li>You have 10 mice with right-skewed weight measurements. Should you use a t-interval or a bootstrap CI? Why?</li>
+<li>Two groups have CIs of [10.0, 12.0] and [11.5, 13.5]. They overlap. Can you conclude there is no statistically significant difference?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -813,21 +949,21 @@ attr(,"conf.level")
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>The standard error is <span class="math inline">\(SE = s / \sqrt{n}\)</span>, where <span class="math inline">\(s\)</span> is the sample standard deviation. It measures how precisely the sample mean estimates the population mean. SE decreases as <span class="math inline">\(n\)</span> increases (as <span class="math inline">\(1/\sqrt{n}\)</span>) — doubling the sample size reduces the SE by a factor of <span class="math inline">\(\sqrt{2} \approx 1.41\)</span>.</li>
-<li>Our best estimate of the mean population albumin is 3.5 g/dL. If we repeated this study many times with samples of the same size, 95% of the resulting confidence intervals would contain the true population mean.</li>
-<li>The CLT guarantees that for sufficiently large samples, the sampling distribution of the mean is approximately normal regardless of the original distribution shape. This allows us to use the normal (or t) distribution to construct valid CIs even for skewed data.</li>
-<li>With only 10 mice and skewed data, the normality assumption underlying the t-interval is suspect. Use a bootstrap CI, which makes no distributional assumption.</li>
-<li>No.&nbsp;Overlapping CIs do not imply no significant difference. The CI for each group mean is not the CI for their difference. You need a two-sample t-test (or equivalent) to formally test whether the groups differ.</li>
+<li><p>The SD measures the spread of individual observations in your sample. The SE measures how much your <em>sample mean</em> would vary if you repeated the study with a new sample of the same size. SE = SD / √n.&nbsp;Doubling the sample size reduces the SE by a factor of √2 ≈ 1.41 (not by 2).</p></li>
+<li><p>The best estimate of the population mean albumin is 3.5 g/dL. If this study were repeated many times with samples of the same size, 95% of the resulting confidence intervals would contain the true population mean. It does <em>not</em> mean there is a 95% probability the true mean is in this specific interval.</p></li>
+<li><p>The CLT states that the sampling distribution of the mean is approximately normal for large enough samples, regardless of the shape of the original data distribution. This means the normal-distribution-based formula for CIs gives valid results even for skewed or non-normal measurements, provided n is large enough (roughly ≥ 30 for mildly skewed data).</p></li>
+<li><p>With only 10 mice and skewed data, the sample size is too small for the CLT to reliably normalise the sampling distribution. Use a bootstrap CI, which makes no distributional assumption and directly reflects the skew in your data.</p></li>
+<li><p>No.&nbsp;Overlapping CIs do not imply no statistically significant difference. The 95% CI for each group mean is not the same as the 95% CI for their <em>difference</em>. Two groups can have overlapping individual CIs and still differ significantly on a two-sample test. Always run the formal test rather than judging from a visual overlap.</p></li>
 </ol>
 </div>
 </div>
 </div>
 </section>
-<section id="how-to-report" class="level2" data-number="2.10">
-<h2 data-number="2.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">2.10</span> How to Report</h2>
+<section id="how-to-report" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">2.9</span> How to Report</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -840,29 +976,43 @@ attr(,"conf.level")
 <div class="callout-body-container callout-body">
 <p><strong>In a Methods section:</strong></p>
 <blockquote class="blockquote">
-<p>“Results are reported as mean (95% confidence interval) unless otherwise stated. Bootstrap confidence intervals (1,000 resamples) were used for [statistic] because [reason].”</p>
+<p>“Continuous variables are summarised as mean (95% confidence interval). Bootstrap confidence intervals (1,000 resamples) were used for [variable] because the distribution was markedly skewed and sample size was small.”</p>
 </blockquote>
 <p><strong>In a Results section:</strong></p>
 <blockquote class="blockquote">
-<p>“The mean [outcome] was X.XX (95% CI: L.LL to U.UU). The estimated [proportion/rate] was X.XX% (95% CI: L.LL% to U.UU%).”</p>
+<p>“The mean [outcome] was X.XX g/dL (95% CI: L.LL to U.UU; n = N).”</p>
+<p>“The proportion of [characteristic] was XX.X% (95% CI: L.L% to U.U%).”</p>
 </blockquote>
-<p><strong>Always report:</strong> - The point estimate and its 95% CI (not just the estimate alone) - Whether the CI is a normal-theory CI, bootstrap CI, or from a model - Sample size <em>n</em> so readers can judge precision</p>
-<p><strong>Common reporting errors:</strong> - Quoting ± (standard deviation) when you mean ± (standard error) - they answer different questions - Saying “the true value is in this interval” - a 95% CI means 95% of intervals constructed this way contain the true value - Reporting a CI without a point estimate</p>
+<p><strong>Always include:</strong></p>
+<ul>
+<li>The point estimate and its 95% CI, not just the estimate alone</li>
+<li>The sample size <span class="math inline">\(n\)</span>, so readers can judge precision</li>
+<li>Whether the CI is a t-based interval, Wilson interval (for proportions), or bootstrap interval</li>
+</ul>
+<p><strong>Common reporting errors:</strong></p>
+<ul>
+<li>Writing “mean ± SD” when you mean “mean (95% CI)” — they answer different questions. SD describes your sample; CI describes your estimate.</li>
+<li>Saying “the true value lies in this interval” — a 95% CI is a statement about the procedure, not about this specific interval.</li>
+<li>Reporting a CI without the point estimate, or vice versa.</li>
+</ul>
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="2.11">
-<h2 data-number="2.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">2.11</span> Further Reading</h2>
+<section id="further-reading" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">2.10</span> Further Reading</h2>
 <ul>
-<li><a href="https://r4ds.hadley.nz">R for Data Science</a> — Wickham &amp; Grolemund</li>
-<li><a href="https://link.springer.com/book/10.1007/978-1-4612-4380-9">Introduction to the Bootstrap</a> — Efron &amp; Tibshirani (1993)</li>
-<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span> — Statistics textbook written for clinical researchers</li>
+<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span> — <em>An Introduction to Medical Statistics</em>: the standard reference for clinical researchers, with chapters on estimation and CIs</li>
+<li><a href="https://r4ds.hadley.nz">R for Data Science</a> — Wickham &amp; Grolemund: excellent coverage of data wrangling and visualisation in R</li>
+<li><span class="citation" data-cites="Efron-1993">Efron and Tibshirani (<a href="#ref-Efron-1993" role="doc-biblioref">1993</a>)</span> — <em>An Introduction to the Bootstrap</em>: the original book on bootstrap methods, readable without heavy mathematics</li>
 </ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Bland-2015" class="csl-entry" role="listitem">
 Bland, Martin. 2015. <em>An Introduction to Medical Statistics</em>. 4th ed. Oxford University Press.
+</div>
+<div id="ref-Efron-1993" class="csl-entry" role="listitem">
+Efron, Bradley, and Robert J. Tibshirani. 1993. <em>An Introduction to the Bootstrap</em>. Monographs on Statistics and Applied Probability. Chapman; Hall/CRC.
 </div>
 </div>
 </section>

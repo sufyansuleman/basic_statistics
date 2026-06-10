@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Sampling, Estimation, and Confidence Intervals"
 ---
 
@@ -10,56 +10,187 @@ library(survival)
 library(boot)
 ```
 
-## When Do You Use This? {#sec-sampling .callout-tip}
+## When Do You Use This? {#sec-sampling}
 
-> You have collected a sample and want to make inferences about the broader population it came from, not just describe the sample itself. Estimation produces a best guess (point estimate) for a population quantity along with a confidence interval that quantifies how uncertain that guess is given your sample size. For example: estimating the mean level of a biomarker in all patients with a condition from a clinic sample, or the proportion who respond to treatment in a trial.
+::: {.callout-tip}
+
+You have measured something in a sample of patients, animals, or cells,
+and you want to say something about the broader population they came
+from. Estimation gives you a best guess for the population value, and a
+confidence interval tells you how precise that guess is. For example:
+you measure albumin in 418 patients with a liver disease and want to
+estimate the mean albumin in *all* patients with that disease, not just
+the ones in your clinic. Or you run a trial and want to report what
+proportion of patients responded, with an honest statement of how
+uncertain that proportion is.
+
+This session covers the concepts that underpin almost everything else in
+this course. When you later read a t-test result or a regression
+coefficient, what you are really reading is an estimate with a
+confidence interval. Understanding this session well will make every
+session that follows easier to interpret.
+:::
 
 ## Learning Objectives
 
 After completing this session you will be able to:
 
-- Explain what a sampling distribution and standard error are
-- State the Central Limit Theorem and explain why it matters for inference
+- Explain what a sampling distribution and standard error are, and why
+  they matter
+- State the Central Limit Theorem and understand why it makes
+  confidence intervals valid even for skewed data
 - Compute confidence intervals for means and proportions in R
-- Interpret a 95% confidence interval correctly
-- Distinguish between a confidence interval and a prediction interval
+- Interpret a 95% confidence interval correctly --- and avoid the most
+  common misinterpretation
 - Use bootstrap resampling when distributional assumptions are uncertain
 
 
 ## Background: From Sample to Population
 
-You can never measure every person, mouse, or cell. You measure a **sample** and use it to estimate a **population** quantity. Three ideas underpin all of this:
+### The core problem
 
-**Point estimate:** Your best single guess at the population value (e.g., the sample mean).
+You can never measure every patient, mouse, or cell in the world. You
+measure a **sample** and use it to estimate something about the
+**population** it came from. The key challenge is: your sample is just
+one of infinitely many samples you could have drawn. A different clinic,
+a different week, a different cohort --- and you would have gotten
+slightly different numbers.
 
-**Standard error (SE):** How much your point estimate would vary if you drew many different samples of the same size. Smaller SE = more precise estimate. SE shrinks as sample size grows.
+Statistics gives you tools to say: "here is my best estimate, and here
+is a honest measure of how much it would have wobbled if I had drawn a
+different sample."
 
-**Confidence interval (CI):** A range of plausible values for the population parameter, constructed so that (in repeated sampling) the specified percentage of intervals would contain the true value.
+### A concrete analogy
+
+Before any formulas: think of an election poll. A polling firm surveys
+1,000 voters and reports that 54% support Party A (95% CI: 51% to 57%).
+They did not survey every voter. They surveyed a sample and used it to
+estimate the population proportion --- the share of all voters who
+support Party A. The confidence interval is their honest statement about
+how much that estimate could have moved if they had called a different
+1,000 people.
+
+That is exactly what you are doing in every study. Your sample is the
+poll. Your confidence interval is the margin of error. The only
+difference is that instead of voting preferences, you are measuring
+bilirubin, survival times, or gene expression.
+
+### Three numbers you need to know
+
+**Point estimate** --- Your best single guess at the population value.
+For a mean, this is just the sample mean $\bar{x}$.
+
+**Standard error (SE)** --- How much your point estimate would move if
+you repeated the study on a fresh sample of the same size. It is not the
+spread of your data (that is the standard deviation); it is the spread
+of your *estimate*:
 
 $$SE(\bar{x}) = \frac{s}{\sqrt{n}}$$
 
+Two things follow directly from this formula. First, larger samples give
+smaller SEs --- your estimate gets more precise as $n$ grows. Second,
+more variable data (larger $s$) gives larger SEs --- noisier
+measurements are harder to estimate precisely.
+
+**Confidence interval (CI)** --- A range built around the point estimate
+so that, across many repetitions of the study, the specified fraction of
+intervals would contain the true population value:
+
 $$95\% \text{ CI for } \mu \approx \bar{x} \pm 1.96 \times SE(\bar{x})$$
 
-### The Central Limit Theorem
+::: {.callout-warning}
+### The most common CI misinterpretation
 
-The **Central Limit Theorem (CLT)** states: regardless of the shape of the original distribution, the sampling distribution of the mean becomes approximately normal as sample size increases.
+"There is a 95% probability that the true mean lies in this interval."
 
-This is why t-tests and confidence intervals work even when individual measurements are not normally distributed - as long as the **sample size is large enough** (roughly $n \geq 30$ for mildly skewed data; larger for heavily skewed data).
+This is wrong. The true mean is a fixed (unknown) number --- it either
+is in your interval or it is not. The 95% refers to the *procedure*: if
+you repeated your study 100 times, approximately 95 of the resulting
+intervals would contain the true mean.
+
+Think of it as a fishing net, not a probability. The fish (true mean)
+is somewhere in the lake. Your CI is a single throw of the net. A
+"95% CI" means your net-throwing technique, if used repeatedly, catches
+the fish 95% of the time. On any single throw, you either caught it or
+you did not.
+:::
+
+### The Central Limit Theorem: why any of this works
+
+Here is the remarkable fact at the heart of statistics: even if
+individual measurements are skewed, heavy-tailed, or oddly distributed,
+the *sampling distribution of the mean* becomes approximately normal as
+sample size increases. This is the **Central Limit Theorem (CLT)**.
+
+It is worth seeing rather than just reading about. Run this simulation
+and look at what happens:
+
+```{r clt-simulation}
+#| eval: true
+
+set.seed(42)
+
+# We start with a strongly right-skewed distribution (exponential).
+# Individual values look nothing like a normal distribution.
+# But what does the distribution of *sample means* look like?
+
+sim_means <- tibble(
+  n_10  = replicate(2000, mean(rexp(10,  rate = 0.5))),
+  n_30  = replicate(2000, mean(rexp(30,  rate = 0.5))),
+  n_100 = replicate(2000, mean(rexp(100, rate = 0.5)))
+) %>%
+  pivot_longer(everything(), names_to = "sample_size", values_to = "mean") %>%
+  mutate(sample_size = factor(sample_size,
+                              levels = c("n_10", "n_30", "n_100"),
+                              labels = c("n = 10", "n = 30", "n = 100")))
+
+ggplot(sim_means, aes(x = mean)) +
+  geom_histogram(bins = 50, fill = "steelblue", color = "white", alpha = 0.8) +
+  facet_wrap(~ sample_size, scales = "free_y") +
+  labs(
+    title = "Sampling distribution of the mean: skewed data becoming normal",
+    subtitle = "Each histogram shows 2,000 sample means drawn from a right-skewed distribution",
+    x = "Sample mean", y = "Count"
+  ) +
+  theme_bw()
+```
+
+Each histogram shows 2,000 means, each computed from a fresh random
+sample of exponential (right-skewed) data. At $n = 10$ the distribution
+of means is already roughly bell-shaped. By $n = 30$ it is nearly
+normal. By $n = 100$ it is indistinguishable from a normal distribution,
+even though every single raw data point came from a skewed distribution.
+
+This is why t-tests and confidence intervals work for most biomedical
+data: you do not need your raw measurements to be normal. You need
+your *sample size* to be large enough for the CLT to apply. As a rough
+guide, $n \geq 30$ is sufficient for mildly skewed data; heavier skew
+requires larger samples.
 
 
 ## Example 1: Clinical Data (PBC)
+
+The `survival::pbc` dataset contains data from a clinical trial of
+418 patients with primary biliary cirrhosis (PBC), a chronic liver
+disease. We will use it to estimate key population quantities.
 
 ```{r pbc-setup}
 pbc <- survival::pbc %>%
   as_tibble() %>%
   janitor::clean_names() %>%
   mutate(
-    sex   = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
-    trt   = factor(trt, levels = c(1, 2),     labels = c("D-penicillamine", "Placebo"))
+    sex = factor(sex, levels = c("f", "m"), labels = c("Female", "Male")),
+    trt = factor(trt, levels = c(1, 2), labels = c("D-penicillamine", "Placebo"))
   )
 ```
 
-### Estimating Mean Albumin
+### Estimating mean albumin with a 95% CI
+
+Serum albumin is a marker of liver function. Normal levels in healthy
+adults are roughly 3.5--5.0 g/dL. Before running any test, it is
+reasonable to expect that PBC patients --- who have impaired liver
+function --- would run below the lower end of this range. Let's
+estimate their mean albumin and quantify our uncertainty:
 
 ```{r albumin-ci}
 albumin_est <- pbc %>%
@@ -75,19 +206,43 @@ albumin_est <- pbc %>%
 albumin_est
 ```
 
-**Interpretation:** We estimate the mean serum albumin to be `r round(albumin_est$mean, 2)` g/dL (95% CI: `r round(albumin_est$ci_lower, 2)` to `r round(albumin_est$ci_upper, 2)`). If we were to repeat this study 100 times with different samples of the same size, approximately 95 of the resulting intervals would contain the true population mean.
+::: {.callout-note}
+### Reading the Output
 
-### Quicker with `t.test()`
+| Column | What it means |
+|---|---|
+| **n** | Sample size. More observations → smaller SE → narrower CI. |
+| **mean** | The point estimate: our best guess at the population mean. |
+| **sd** | Spread of individual albumin values. This is *not* the SE. |
+| **se** | How much our sample mean would vary across repeated studies. Equals sd / √n. |
+| **ci_lower / ci_upper** | The 95% confidence interval. The formula is mean ± qt(0.975, df=n−1) × se. |
+
+**In plain English:** We estimate that the mean albumin in PBC patients
+is `r round(albumin_est$mean, 2)` g/dL (95% CI:
+`r round(albumin_est$ci_lower, 2)` to
+`r round(albumin_est$ci_upper, 2)` g/dL). This is below the lower limit
+of the normal range (3.5 g/dL), consistent with impaired liver
+synthesis.
+:::
+
+### The fast way: using `t.test()`
+
+You do not need to write the formula manually. `t.test()` on a single
+vector gives you the same CI:
 
 ```{r albumin-ttest}
 t.test(pbc$albumin)
 ```
 
-`t.test()` on a single vector returns the 95% CI for the mean without needing a hypothesis (the default null $\mu = 0$ is irrelevant here; we only want the interval).
+The default null hypothesis ($\mu = 0$) is irrelevant here --- we are
+only using the function to get the confidence interval. You can ignore
+the p-value in this context.
 
-### Confidence Interval for a Proportion
+### Confidence interval for a proportion
 
-What proportion of patients are female?
+What proportion of trial participants are female? Use `prop.test()`,
+which gives a Wilson interval rather than the simple Wald formula.
+The Wilson interval is more reliable when the proportion is near 0 or 1.
 
 ```{r prop-ci}
 n_female <- sum(pbc$sex == "Female", na.rm = TRUE)
@@ -96,12 +251,14 @@ n_total  <- sum(!is.na(pbc$sex))
 prop.test(x = n_female, n = n_total, conf.level = 0.95)
 ```
 
-The Wilson interval from `prop.test()` is better than the simple Wald interval for proportions, especially when the proportion is near 0 or 1.
+### Comparing estimates across groups
 
-### Comparing Estimates Across Groups
+Now let's compute separate estimates for each treatment group. This is
+the first step before any formal test: look at the estimates and their
+intervals side by side.
 
 ```{r group-ci}
-pbc %>%
+group_est <- pbc %>%
   filter(!is.na(trt), !is.na(albumin)) %>%
   group_by(trt) %>%
   summarise(
@@ -111,21 +268,11 @@ pbc %>%
     ci_lower = mean - qt(0.975, df = n - 1) * se,
     ci_upper = mean + qt(0.975, df = n - 1) * se
   )
+group_est
 ```
 
-### Visualising the Estimates
-
 ```{r ci-plot}
-pbc %>%
-  filter(!is.na(trt), !is.na(albumin)) %>%
-  group_by(trt) %>%
-  summarise(
-    n        = n(),
-    mean     = mean(albumin),
-    se       = sd(albumin) / sqrt(n),
-    ci_lower = mean - qt(0.975, df = n - 1) * se,
-    ci_upper = mean + qt(0.975, df = n - 1) * se
-  ) %>%
+group_est %>%
   ggplot(aes(x = trt, y = mean, ymin = ci_lower, ymax = ci_upper)) +
   geom_point(size = 4, color = "steelblue") +
   geom_errorbar(width = 0.1, color = "steelblue", linewidth = 1) +
@@ -138,10 +285,26 @@ pbc %>%
   theme_bw()
 ```
 
+The two CIs overlap substantially --- a visual hint that the groups
+probably do not differ on albumin. But overlapping CIs are not a
+formal test. For a definitive answer you need a two-sample t-test,
+which is the subject of the next session.
 
-## Example 2: Animal Data (Mouse Weights)
 
-Suppose we measure body weight in a small experiment: 20 mice in each of two treatment groups.
+## Example 2: Small Samples and Bootstrap CIs
+
+The formula-based CI assumes the sampling distribution of the mean is
+normal. The CLT guarantees this for large samples, but with small
+samples from skewed distributions that assumption can break down. The
+**bootstrap** is an alternative that makes no distributional
+assumptions at all.
+
+The idea is simple: if you had infinite money you could repeat your
+study thousands of times and directly observe the sampling distribution
+of your estimate. You do not have infinite money, but you do have your
+data. The bootstrap resamples *your data* (with replacement) thousands
+of times, treating it as a stand-in for the population. The spread of
+the resulting estimates becomes your confidence interval.
 
 ```{r mouse-data}
 set.seed(2024)
@@ -153,62 +316,79 @@ mice <- tibble(
 
 mice %>%
   group_by(group) %>%
-  summarise(n = n(), mean = mean(weight), sd = sd(weight),
-            se = sd / sqrt(n),
-            ci_lower = mean - qt(0.975, df = n - 1) * se,
-            ci_upper = mean + qt(0.975, df = n - 1) * se)
+  summarise(
+    n        = n(),
+    mean     = mean(weight),
+    sd       = sd(weight),
+    se       = sd / sqrt(n),
+    ci_lower = mean - qt(0.975, df = n - 1) * se,
+    ci_upper = mean + qt(0.975, df = n - 1) * se
+  )
 ```
 
-### Bootstrap Confidence Intervals
-
-When the distribution is non-normal or the sample is small, bootstrap CIs are more reliable. The `boot` package resamples the data with replacement many times to build an empirical sampling distribution.
-
 ```{r bootstrap}
-# Bootstrap 95% CI for mean weight in control mice
 ctrl_weights <- mice$weight[mice$group == "Control"]
 
-boot_mean <- boot(data  = ctrl_weights,
-                  statistic = function(x, i) mean(x[i]),
-                  R     = 1000)
+boot_mean <- boot(
+  data      = ctrl_weights,
+  statistic = function(x, i) mean(x[i]),
+  R         = 1000
+)
 
 boot.ci(boot_mean, type = "perc")
 ```
 
-The percentile bootstrap CI takes the 2.5th and 97.5th percentile of the bootstrapped means as the interval bounds - no distributional assumptions required.
+::: {.callout-note}
+### When to use the bootstrap
+
+The bootstrap is worth reaching for when:
+
+- Your sample is small (n < 30) *and* your data are clearly skewed
+- You are estimating something other than a mean (a median, a
+  correlation, a ratio) where no standard formula exists
+- You want a sanity check on a formula-based CI
+
+For means from reasonably sized samples, the t-interval and the
+bootstrap give nearly identical results. If they diverge substantially,
+that is a signal your data are unusual enough to think carefully about.
+:::
 
 
-## Where to Find Data Like This {.callout-note}
+## What Can Go Wrong
 
-**PBC dataset:** `survival::pbc` - built in, no download needed.
+::: {.callout-warning}
+**Confusing standard deviation with standard error**
 
-**Simulating data for teaching:**
-```{r}
-#| eval: false
-# Balanced two-group experiment
-set.seed(42)
-dat <- tibble(
-  group  = rep(c("A", "B"), each = 30),
-  value  = c(rnorm(30, mean = 10, sd = 2),
-             rnorm(30, mean = 12, sd = 2))
-)
-```
+The SD describes the spread of individual measurements in your sample.
+The SE describes how much your *sample mean* would vary across repeated
+studies. They answer different questions. A large SD can coexist with a
+very small SE if your sample is large. Always be explicit: report SD
+when describing the sample, SE (or CI) when describing the precision of
+an estimate.
 
-**Boot package datasets:** `boot::melanoma`, `boot::aircondit` and others contain real datasets useful for bootstrap demonstrations.
+**Using 1.96 instead of a t-quantile for small samples**
 
-
-## What Can Go Wrong {.callout-warning}
-
-**Misinterpreting a confidence interval**
-A 95% CI does **not** mean "there is a 95% probability the true mean lies in this interval." The true mean either is or is not in the interval - it is not random. The correct interpretation is: "if we repeated the study many times, 95% of such intervals would contain the true mean."
-
-**Using a z-interval when n is small**
-The formula $\bar{x} \pm 1.96 \times SE$ uses the normal quantile 1.96. For small samples, use the t-distribution quantile: `qt(0.975, df = n - 1)`. `t.test()` does this automatically.
+The formula $\bar{x} \pm 1.96 \times SE$ uses the normal distribution
+quantile, which is only valid for large samples. For $n < 100$ or so,
+use `qt(0.975, df = n - 1)`. The `t.test()` function does this
+automatically, which is one reason to prefer it over manual calculation.
 
 **Ignoring missing data**
-If you compute `mean(x)` without `na.rm = TRUE`, R returns `NA`. Worse, if missing values are not random (e.g., sicker patients more likely to have missing labs), your estimate will be biased.
 
-**Treating overlapping CIs as proof of no difference**
-Non-overlapping CIs do imply a significant difference (at approximately p < 0.05). But **overlapping CIs do not prove no difference** - you need a proper two-sample test. The 95% CI for each group mean is not the same as the 95% CI for their difference.
+`mean(x)` returns `NA` if any values are missing. Use `na.rm = TRUE`
+or filter explicitly. More importantly, ask *why* values are missing.
+If sicker patients are more likely to have missing lab values, your
+estimate of the mean will be biased upward even after removing the
+missing observations.
+
+**Treating overlapping CIs as evidence of no difference**
+
+Non-overlapping 95% CIs do imply a statistically significant difference
+(roughly p < 0.05). But overlapping CIs do not imply no difference. The
+CI for each group mean is not the same as the CI for their *difference*.
+A visual overlap of ~25% of the CI length is roughly consistent with
+p = 0.05. For a definitive test, use a two-sample procedure.
+:::
 
 
 ## Exercises
@@ -217,14 +397,17 @@ Non-overlapping CIs do imply a significant difference (at approximately p < 0.05
 
 Using `survival::pbc`:
 
-1. Compute the sample mean, SD, SE, and 95% CI for serum bilirubin (`bili`).
-2. Bilirubin is right-skewed. Repeat using `log(bili)`. Report the geometric mean by back-transforming with `exp()`.
-3. Compare the raw and geometric means. Which better represents the "typical" patient?
+1. Compute the sample mean, SD, SE, and 95% CI for serum bilirubin
+   (`bili`).
+2. Bilirubin is right-skewed. Repeat using `log(bili)`. Report the
+   geometric mean by back-transforming with `exp()`.
+3. Compare the raw mean and the geometric mean. Which better represents
+   the "typical" patient, and why?
 
 ::: {.callout-tip collapse="true"}
 ### Exercise 1: Solution
 
-```{r}
+```{r ex1-solution}
 # Raw bilirubin
 pbc %>%
   filter(!is.na(bili)) %>%
@@ -247,67 +430,117 @@ log_est <- pbc %>%
     ci_upper = log_mean + qt(0.975, df = n - 1) * se
   )
 
-# Back-transform to original scale
+# Back-transform to original scale (geometric mean and CI)
 log_est %>%
   mutate(across(c(log_mean, ci_lower, ci_upper), exp))
 ```
 
-The geometric mean is lower than the arithmetic mean, because the arithmetic mean is pulled upward by extreme values. The geometric mean better represents the median patient in a right-skewed distribution.
+The geometric mean is lower than the arithmetic mean because bilirubin
+is right-skewed --- a small number of patients have very high values
+that pull the arithmetic mean upward. The geometric mean better
+represents the "typical" patient in a skewed distribution and is the
+correct summary to report alongside a log-transformed analysis.
 :::
 
 ### Exercise 2 (Semi-guided): Bootstrap vs t-interval
 
-Using the mouse weight data created above (or simulate your own 15 observations from a skewed distribution):
+Simulate 15 observations from a skewed distribution:
 
-1. Compute the t-interval for the mean using the formula and verify it matches `t.test()`.
+```{r ex2-setup}
+#| eval: false
+set.seed(2024)
+skewed_data <- rexp(15, rate = 0.3)  # right-skewed
+```
+
+1. Compute the t-interval for the mean using the formula, and verify it
+   matches `t.test()`.
 2. Compute a bootstrap percentile CI using `boot()`.
-3. Are the two intervals similar? If the distribution were more skewed, which would you trust more?
+3. Are the two intervals similar? What would happen if the distribution
+   were more skewed?
 
 ::: {.callout-tip collapse="true"}
 ### Exercise 2: Solution
 
-```{r}
+```{r ex2-solution}
 set.seed(2024)
-weights <- rnorm(15, mean = 28, sd = 4)
+skewed_data <- rexp(15, rate = 0.3)
 
 # t-interval
-n <- length(weights)
-m <- mean(weights); s <- sd(weights)
-ci_t <- c(m - qt(0.975, df = n-1) * s/sqrt(n),
-          m + qt(0.975, df = n-1) * s/sqrt(n))
+n <- length(skewed_data)
+m <- mean(skewed_data)
+s <- sd(skewed_data)
+ci_t <- c(m - qt(0.975, df = n - 1) * s / sqrt(n),
+          m + qt(0.975, df = n - 1) * s / sqrt(n))
 ci_t
-t.test(weights)$conf.int
+t.test(skewed_data)$conf.int
 
 # bootstrap
-library(boot)
-b <- boot(weights, function(x, i) mean(x[i]), R = 2000)
+b <- boot(skewed_data, function(x, i) mean(x[i]), R = 2000)
 boot.ci(b, type = "perc")$percent[4:5]
 ```
 
-For normal data, both intervals are similar. For skewed data or small samples, the bootstrap is more reliable because it makes no normality assumption.
+With n = 15 and moderate skew, the intervals are similar but not
+identical. The bootstrap CI will tend to be asymmetric when data are
+skewed, because the resampling captures the asymmetry directly. With
+heavier skew or a smaller sample, the divergence grows --- and in those
+cases you should trust the bootstrap.
 :::
 
 ### Exercise 3 (Open-ended)
 
-Using a dataset from your own research, compute 95% confidence intervals for the key outcome variable, separately by group. Produce an error-bar plot. Write a one-paragraph interpretation as you would for a Results section.
+Using a dataset from your own research, compute 95% confidence intervals
+for the key outcome variable, separately by group. Produce an error-bar
+plot. Write a one-paragraph interpretation as you would for a Results
+section in a journal article, reporting the point estimate, CI, and
+sample size for each group.
 
 
 ## Comprehension Check
 
-1. What is the standard error of the mean, and how does it change as sample size increases?
-2. A study reports: "mean albumin 3.5 g/dL (95% CI: 3.3 to 3.7)." What does this mean?
-3. Why does the Central Limit Theorem matter for confidence intervals even when the data are not normally distributed?
-4. You have a sample of 10 mice with a skewed weight distribution. Should you use a t-interval or a bootstrap CI? Why?
-5. Two groups have CIs of [10.0, 12.0] and [11.5, 13.5]. They overlap at [11.5, 12.0]. Can you conclude there is no significant difference between the groups?
+1. What is the difference between a standard deviation and a standard
+   error? If you double the sample size, what happens to the SE?
+2. A study reports: "mean albumin 3.5 g/dL (95% CI: 3.3 to 3.7)."
+   What does this mean in plain language?
+3. Why does the Central Limit Theorem allow confidence intervals to work
+   even when the raw data are not normally distributed?
+4. You have 10 mice with right-skewed weight measurements. Should you
+   use a t-interval or a bootstrap CI? Why?
+5. Two groups have CIs of [10.0, 12.0] and [11.5, 13.5]. They overlap.
+   Can you conclude there is no statistically significant difference?
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. The standard error is $SE = s / \sqrt{n}$, where $s$ is the sample standard deviation. It measures how precisely the sample mean estimates the population mean. SE decreases as $n$ increases (as $1/\sqrt{n}$) --- doubling the sample size reduces the SE by a factor of $\sqrt{2} \approx 1.41$.
-2. Our best estimate of the mean population albumin is 3.5 g/dL. If we repeated this study many times with samples of the same size, 95% of the resulting confidence intervals would contain the true population mean.
-3. The CLT guarantees that for sufficiently large samples, the sampling distribution of the mean is approximately normal regardless of the original distribution shape. This allows us to use the normal (or t) distribution to construct valid CIs even for skewed data.
-4. With only 10 mice and skewed data, the normality assumption underlying the t-interval is suspect. Use a bootstrap CI, which makes no distributional assumption.
-5. No. Overlapping CIs do not imply no significant difference. The CI for each group mean is not the CI for their difference. You need a two-sample t-test (or equivalent) to formally test whether the groups differ.
+
+1. The SD measures the spread of individual observations in your sample.
+   The SE measures how much your *sample mean* would vary if you repeated
+   the study with a new sample of the same size. SE = SD / √n. Doubling
+   the sample size reduces the SE by a factor of √2 ≈ 1.41 (not by 2).
+
+2. The best estimate of the population mean albumin is 3.5 g/dL. If
+   this study were repeated many times with samples of the same size,
+   95% of the resulting confidence intervals would contain the true
+   population mean. It does *not* mean there is a 95% probability the
+   true mean is in this specific interval.
+
+3. The CLT states that the sampling distribution of the mean is
+   approximately normal for large enough samples, regardless of the
+   shape of the original data distribution. This means the
+   normal-distribution-based formula for CIs gives valid results even
+   for skewed or non-normal measurements, provided n is large enough
+   (roughly ≥ 30 for mildly skewed data).
+
+4. With only 10 mice and skewed data, the sample size is too small for
+   the CLT to reliably normalise the sampling distribution. Use a
+   bootstrap CI, which makes no distributional assumption and directly
+   reflects the skew in your data.
+
+5. No. Overlapping CIs do not imply no statistically significant
+   difference. The 95% CI for each group mean is not the same as the
+   95% CI for their *difference*. Two groups can have overlapping
+   individual CIs and still differ significantly on a two-sample test.
+   Always run the formal test rather than judging from a visual overlap.
 :::
+
 
 ## How to Report
 
@@ -316,25 +549,42 @@ Using a dataset from your own research, compute 95% confidence intervals for the
 
 **In a Methods section:**
 
-> "Results are reported as mean (95% confidence interval) unless otherwise stated. Bootstrap confidence intervals (1,000 resamples) were used for [statistic] because [reason]."
+> "Continuous variables are summarised as mean (95% confidence
+> interval). Bootstrap confidence intervals (1,000 resamples) were used
+> for [variable] because the distribution was markedly skewed and sample
+> size was small."
 
 **In a Results section:**
 
-> "The mean [outcome] was X.XX (95% CI: L.LL to U.UU). The estimated [proportion/rate] was X.XX% (95% CI: L.LL% to U.UU%)."
+> "The mean [outcome] was X.XX g/dL (95% CI: L.LL to U.UU; n = N)."
+>
+> "The proportion of [characteristic] was XX.X% (95% CI: L.L% to
+> U.U%)."
 
-**Always report:**
-- The point estimate and its 95% CI (not just the estimate alone)
-- Whether the CI is a normal-theory CI, bootstrap CI, or from a model
-- Sample size *n* so readers can judge precision
+**Always include:**
+
+- The point estimate and its 95% CI, not just the estimate alone
+- The sample size $n$, so readers can judge precision
+- Whether the CI is a t-based interval, Wilson interval (for
+  proportions), or bootstrap interval
 
 **Common reporting errors:**
-- Quoting ± (standard deviation) when you mean ± (standard error)  -  they answer different questions
-- Saying "the true value is in this interval"  -  a 95% CI means 95% of intervals constructed this way contain the true value
-- Reporting a CI without a point estimate
+
+- Writing "mean ± SD" when you mean "mean (95% CI)" --- they answer
+  different questions. SD describes your sample; CI describes your
+  estimate.
+- Saying "the true value lies in this interval" --- a 95% CI is a
+  statement about the procedure, not about this specific interval.
+- Reporting a CI without the point estimate, or vice versa.
 :::
+
 
 ## Further Reading
 
-- [R for Data Science](https://r4ds.hadley.nz) --- Wickham & Grolemund
-- [Introduction to the Bootstrap](https://link.springer.com/book/10.1007/978-1-4612-4380-9) --- Efron & Tibshirani (1993)
-- @Bland-2015 --- Statistics textbook written for clinical researchers
+- @Bland-2015 --- *An Introduction to Medical Statistics*: the standard
+  reference for clinical researchers, with chapters on estimation and
+  CIs
+- [R for Data Science](https://r4ds.hadley.nz) --- Wickham & Grolemund:
+  excellent coverage of data wrangling and visualisation in R
+- @Efron-1993 --- *An Introduction to the Bootstrap*: the
+  original book on bootstrap methods, readable without heavy mathematics

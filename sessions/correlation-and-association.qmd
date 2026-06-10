@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Correlation and Association"
 ---
 
@@ -6,14 +6,18 @@ title: "Correlation and Association"
 #| include: false
 #| eval: true
 library(tidyverse)
+library(janitor)
 library(survival)
 library(broom)
 library(GGally)
+library(palmerpenguins)
 ```
 
-## When Do You Use This? {#sec-correlation .callout-tip}
+## When Do You Use This? {#sec-correlation}
 
-> Before fitting a regression model, you want to understand the pairwise relationships between continuous variables in your data: which variables move together, how strong those associations are, and in what direction. Correlation gives you a standardised measure of linear association that is independent of the units of measurement. For example: does albumin decline as bilirubin rises? Is platelet count linearly associated with prothrombin time?
+::: {.callout-tip}
+Before fitting a regression model, you want to understand the pairwise relationships between continuous variables: which variables move together, how strong those associations are, and in what direction. Correlation gives you a standardised measure of association that is independent of the units of measurement. Does albumin decline as bilirubin rises? Is platelet count associated with prothrombin time? Start here.
+:::
 
 ## Learning Objectives
 
@@ -25,6 +29,14 @@ After completing this session you will be able to:
 - Explain why correlation does not imply causation
 - Recognise spurious correlation from confounding
 
+
+## The Key Idea: What Does r Actually Tell You?
+
+Correlation answers a simple question: "when X is above average, does Y tend to be above average too?" If yes, r is positive. If higher X goes with lower Y, r is negative. If there is no pattern, r is near zero.
+
+But r has an important limitation: it only captures *linear* relationships. You can have a perfect U-shaped relationship (Y rises steeply, then falls) and get r = 0. **Always plot your data first.** A scatter plot takes 10 seconds and can save you from a completely wrong interpretation.
+
+One more thing before the formulas: r = 0.6 does not mean "60% association." The variance explained by the relationship is r², not r. With r = 0.6, the two variables share r² = 0.36, or 36%, of their variance. Keep that in mind when someone tells you "there's a moderate correlation."
 
 ## Background: Measuring Linear Association
 
@@ -57,9 +69,7 @@ the biology makes sense and it contains a famous cautionary tale about confoundi
 ```{r penguins-setup}
 #| eval: true
 
-library(palmerpenguins)
-
-penguins_clean <- penguins |>
+penguins_clean <- penguins %>%
   drop_na(bill_length_mm, bill_depth_mm, body_mass_g, flipper_length_mm, species)
 ```
 
@@ -96,7 +106,7 @@ Effect size benchmarks (Cohen, 1988): |r| = 0.10 small / 0.30 medium / 0.50 larg
 ```{r penguin-scatter}
 #| eval: true
 
-penguins_clean |>
+penguins_clean %>%
   ggplot(aes(x = bill_length_mm, y = body_mass_g, colour = species)) +
   geom_point(alpha = 0.6) +
   geom_smooth(method = "lm", se = FALSE, colour = "grey30", linetype = "dashed") +
@@ -111,10 +121,10 @@ penguins_clean |>
 ```{r penguin-matrix}
 #| eval: true
 
-peng_num <- penguins_clean |>
+peng_num <- penguins_clean %>%
   select(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
 
-cor(peng_num, method = "pearson") |> round(2)
+cor(peng_num, method = "pearson") %>% round(2)
 ```
 
 ```{r penguin-ggpairs}
@@ -141,7 +151,7 @@ before reporting an unexpected correlation.
 ```{r simpsons}
 #| eval: true
 
-penguins_clean |>
+penguins_clean %>%
   ggplot(aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) +
   geom_point(alpha = 0.6) +
   geom_smooth(method = "lm", se = FALSE) +
@@ -154,8 +164,8 @@ penguins_clean |>
   theme_bw()
 
 # Within-species correlations
-penguins_clean |>
-  group_by(species) |>
+penguins_clean %>%
+  group_by(species) %>%
   summarise(r = round(cor(bill_length_mm, bill_depth_mm, method = "pearson"), 2), n = n())
 ```
 
@@ -169,9 +179,9 @@ matrix for exploratory analysis.
 ```{r pbc-setup}
 #| eval: true
 
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
   filter(!is.na(albumin), !is.na(bili), !is.na(protime), !is.na(platelet))
 ```
 
@@ -182,7 +192,7 @@ Bilirubin is heavily right-skewed. Always plot first to decide which correlation
 ```{r pbc-scatter}
 #| eval: true
 
-pbc |>
+pbc %>%
   ggplot(aes(x = log(bili), y = albumin)) +
   geom_point(alpha = 0.4, size = 1.5) +
   geom_smooth(method = "lm", colour = "tomato", se = TRUE) +
@@ -210,8 +220,8 @@ skewed; use log-Pearson when you want a linear model interpretation.
 #| eval: true
 #| fig-height: 6
 
-pbc_num <- pbc |>
-  mutate(log_bili = log(bili)) |>
+pbc_num <- pbc %>%
+  mutate(log_bili = log(bili)) %>%
   select(albumin, log_bili, protime, platelet)
 
 ggpairs(
@@ -229,60 +239,64 @@ When testing many correlations at once, adjust p-values to control the false dis
 ```{r pbc-multi}
 #| eval: true
 
-pbc_num |>
-  pivot_longer(-albumin, names_to = "variable", values_to = "value") |>
-  group_by(variable) |>
+pbc_num %>%
+  pivot_longer(-albumin, names_to = "variable", values_to = "value") %>%
+  group_by(variable) %>%
   summarise(
     r = cor(albumin, value, use = "complete.obs", method = "spearman"),
     tidy(cor.test(albumin, value, method = "spearman"))
-  ) |>
-  select(variable, r, p.value) |>
+  ) %>%
+  select(variable, r, p.value) %>%
   mutate(p_adj = p.adjust(p.value, method = "holm"))
 ```
 
-## Where to Find Data Like This {.callout-note}
+::: {.callout-note}
+## Where to Find Data Like This
 
 **`palmerpenguins`** (used in Example 1): Four continuous body measurements with a species grouping variable. Perfect for teaching Pearson correlation and Simpson's Paradox.
 
 **`survival::pbc`** (used in Example 2): Multiple skewed clinical biomarkers (albumin, bilirubin, protime, platelet). Real-world case for choosing Spearman over Pearson.
 
-**NHANES:** `nhanesA` or `nhanes` package -- population-level continuous variables (blood pressure, cholesterol, BMI, age).
+**NHANES:** `nhanesA` or `nhanes` package --- population-level continuous variables (blood pressure, cholesterol, BMI, age).
+:::
 
 
-## What Can Go Wrong {.callout-warning}
-
-**Correlation ≠ causation**
-Two variables can correlate strongly because they share a common cause, not because one causes the other. Always think mechanistically.
-
-**Using Pearson's r with skewed data or outliers**
-A single extreme outlier can drive a large r. Always plot your data before computing a correlation. Use Spearman's - for robustness.
-
-**Multiple comparisons in correlation matrices**
-Testing all $p(p-1)/2$ pairs from a correlation matrix inflates Type I error. Adjust p-values with `p.adjust()` when reporting multiple correlations.
-
-**Range restriction**
-If you select subjects based on one of the variables (e.g., only patients with bilirubin > 5), the correlation in that subset will differ from the population correlation - usually attenuated.
-
-**Ecological correlation**
-Correlations computed on group averages (e.g., countries, hospitals) are typically stronger than individual-level correlations. Do not interpret ecological correlations as individual-level associations.
+## What Can Go Wrong
 
 ::: {.callout-warning}
-### Common Misinterpretations: Don't Make These Mistakes
+**Correlation ≠ causation.**
+Two variables can correlate strongly because they share a common cause, not because one causes the other. Always think mechanistically before interpreting a correlation.
 
-**"r = 0.37 means 37% of variance is explained"**
-No. The variance explained is r², not r. With r = 0.37, bilirubin explains r² = 0.14 = 14% of variance in albumin. Always report r² alongside r for a complete description of the relationship.
+**Using Pearson's r with skewed data or outliers.**
+A single extreme outlier can drive a large r. Always plot your data before computing a correlation. Use Spearman's ρ for robustness when data are skewed.
 
-**"A statistically significant correlation is a strong correlation"**
-With n = 400 patients, even r = 0.10 will be statistically significant (p < 0.05). Statistical significance tells you that r - 0; it does not tell you the association is clinically important. Always report the r value and confidence interval, not just "p < 0.05".
+**Multiple comparisons in correlation matrices.**
+Testing all $p(p-1)/2$ pairs from a correlation matrix inflates the Type I error rate. Adjust p-values with `p.adjust()` when reporting multiple correlations.
 
-**"Spearman r means the same as Pearson r"**
-Both range from -1 to +1, but they measure different things. Pearson measures linear association between the raw values. Spearman measures monotonic association using the ranked values. They are not interchangeable; do not compare Pearson r from one study to Spearman r from another.
+**Range restriction.**
+If you select subjects based on one of the variables (e.g., only patients with bilirubin > 5), the correlation in that subset will differ from the population correlation --- usually attenuated.
 
-**"A high correlation matrix entry means I should include that predictor in regression"**
-High zero-order correlations can be misleading. After adjusting for other predictors, the partial effect may be much smaller. Use correlation matrices for exploration, not for selecting predictors.
+**Ecological correlation.**
+Correlations computed on group averages (e.g., countries, hospitals) are typically stronger than individual-level correlations. Do not interpret ecological correlations as individual-level associations.
+:::
 
-**"A negative correlation means the variables are inversely proportional"**
-A negative r means higher values of X tend to go with lower values of Y; that is all. It says nothing about proportionality, linearity beyond what the scatter plot shows, or whether the relationship is causal.
+::: {.callout-warning}
+### Common Misinterpretations
+
+**"r = 0.37 means 37% of variance is explained."**
+No. The variance explained is r², not r. With r = 0.37, bilirubin explains r² = 0.14 = 14% of variance in albumin. Always report r² alongside r.
+
+**"A statistically significant correlation is a strong correlation."**
+With n = 400 patients, even r = 0.10 will be statistically significant (p < 0.05). Statistical significance tells you that r ≠ 0; it does not tell you the association is clinically important. Report the r value and confidence interval, not just "p < 0.05".
+
+**"Spearman ρ means the same as Pearson r."**
+Both range from −1 to +1, but they measure different things. Pearson measures linear association between raw values. Spearman measures monotonic association using ranked values. They are not interchangeable; do not compare Pearson r from one study to Spearman ρ from another.
+
+**"A high correlation means I should include that predictor in regression."**
+High zero-order correlations can be misleading. After adjusting for other predictors, the partial effect may be much smaller. Use correlation matrices for exploration, not for selecting predictors. For that, see the [multiple regression session](multiple-regression.qmd).
+
+**"A negative correlation means the variables are inversely proportional."**
+A negative r means higher X tends to go with lower Y; that is all. It says nothing about proportionality or causation.
 :::
 
 
@@ -299,11 +313,10 @@ A negative r means higher values of X tend to go with lower values of Y; that is
 ### Exercise 1: Solution
 
 ```{r}
-library(palmerpenguins)
-pg <- penguins |> drop_na(flipper_length_mm, body_mass_g, species)
+pg <- penguins %>% drop_na(flipper_length_mm, body_mass_g, species)
 
 # 1. Plot
-pg |>
+pg %>%
   ggplot(aes(x = flipper_length_mm, y = body_mass_g)) +
   geom_point(alpha = 0.4) +
   geom_smooth(method = "lm", colour = "tomato") +
@@ -314,8 +327,8 @@ tidy(cor.test(pg$flipper_length_mm, pg$body_mass_g, method = "pearson"))
 tidy(cor.test(pg$flipper_length_mm, pg$body_mass_g, method = "spearman"))
 
 # 3-4. Within-species
-pg |>
-  group_by(species) |>
+pg %>%
+  group_by(species) %>%
   summarise(
     r = round(cor(flipper_length_mm, body_mass_g, method = "pearson"), 2),
     n = n()
@@ -343,13 +356,13 @@ Using `survival::pbc`, explore the association between albumin and prothrombin t
 ### Exercise 2: Solution
 
 ```{r}
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
   filter(!is.na(albumin), !is.na(bili), !is.na(protime), !is.na(platelet))
 
 # 1. Plot
-pbc |>
+pbc %>%
   ggplot(aes(x = protime, y = albumin)) +
   geom_point(alpha = 0.4, size = 1.5) +
   geom_smooth(method = "loess", colour = "tomato") +
@@ -360,17 +373,17 @@ tidy(cor.test(pbc$albumin, log(pbc$protime), method = "pearson"))
 tidy(cor.test(pbc$albumin, pbc$protime, method = "spearman"))
 
 # 3-4. Matrix with p-adjustment
-pbc_num <- pbc |> mutate(log_bili = log(bili)) |>
+pbc_num <- pbc %>% mutate(log_bili = log(bili)) %>%
   select(albumin, log_bili, protime, platelet)
 
-pbc_num |>
-  pivot_longer(-albumin, names_to = "variable", values_to = "value") |>
-  group_by(variable) |>
+pbc_num %>%
+  pivot_longer(-albumin, names_to = "variable", values_to = "value") %>%
+  group_by(variable) %>%
   summarise(
     r = cor(albumin, value, use = "complete.obs", method = "spearman"),
     tidy(cor.test(albumin, value, method = "spearman"))
-  ) |>
-  select(variable, r, p.value) |>
+  ) %>%
+  select(variable, r, p.value) %>%
   mutate(p_adj = p.adjust(p.value, method = "holm"))
 ```
 :::
@@ -386,13 +399,13 @@ Using your own data, identify two continuous variables you expect to be related.
 2. You compute r = 0.85, p < 0.001 between two blood biomarkers. Can you conclude one biomarker causes changes in the other?
 3. A correlation matrix of 10 variables has 45 pairwise tests. Three are significant at p < 0.05. Is this noteworthy?
 4. You observe a strong negative correlation between overall bill length and bill depth in penguins, but a positive correlation within each species. What is this called, and what causes it?
-5. You want to correlate a Likert-scale pain score (1?10) with serum CRP. Which coefficient should you use?
+5. You want to correlate a Likert-scale pain score (1--10) with serum CRP. Which coefficient should you use?
 
 ::: {.callout-note collapse="true"}
 ### Answers
 1. Use Spearman when (1) one or both variables are skewed or contain outliers, (2) the relationship is monotonic but not necessarily linear, or (3) one variable is ordinal.
 2. No. Correlation describes the strength of association, not direction of causation. The two biomarkers may both reflect a third underlying process (confounding), or the direction of causality could run either way.
-3. Not necessarily. With 45 tests at a = 0.05, you expect 45 × 0.05 = 2.25 false positives by chance. Three significant results is only slightly above the expected false-positive count. Adjust for multiple testing and scrutinise the findings carefully.
+3. Not necessarily. With 45 tests at α = 0.05, you expect 45 × 0.05 = 2.25 false positives by chance. Three significant results is only slightly above the expected false-positive count. Adjust for multiple testing and scrutinise the findings carefully.
 4. This is Simpson's Paradox. The species variable is a confounder: different species have distinct bill morphologies, and within each species the relationship is positive. The overall correlation is dominated by between-species variation, which moves in the opposite direction.
 5. Spearman's ρ (or Kendall's τ). Pain scores are ordinal; the difference between 4 and 5 is not necessarily the same as between 7 and 8; so rank-based methods are more appropriate than Pearson's r.
 :::

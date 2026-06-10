@@ -380,18 +380,18 @@ window.Quarto = {
   <ul>
   <li><a href="#sec-logistic-regression" id="toc-sec-logistic-regression" class="nav-link active" data-scroll-target="#sec-logistic-regression"><span class="header-section-number">12.1</span> When Do You Use This?</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">12.2</span> Learning Objectives</a></li>
-  <li><a href="#background-the-logistic-model" id="toc-background-the-logistic-model" class="nav-link" data-scroll-target="#background-the-logistic-model"><span class="header-section-number">12.3</span> Background: The Logistic Model</a></li>
-  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">12.4</span> Example 1: Clinical Data (PBC)</a>
+  <li><a href="#the-key-idea-why-not-just-use-linear-regression" id="toc-the-key-idea-why-not-just-use-linear-regression" class="nav-link" data-scroll-target="#the-key-idea-why-not-just-use-linear-regression"><span class="header-section-number">12.3</span> The Key Idea: Why Not Just Use Linear Regression?</a></li>
+  <li><a href="#background-the-logistic-model" id="toc-background-the-logistic-model" class="nav-link" data-scroll-target="#background-the-logistic-model"><span class="header-section-number">12.4</span> Background: The Logistic Model</a></li>
+  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">12.5</span> Example 1: Clinical Data (PBC)</a>
   <ul class="collapse">
-  <li><a href="#predict-mortality-from-bilirubin" id="toc-predict-mortality-from-bilirubin" class="nav-link" data-scroll-target="#predict-mortality-from-bilirubin"><span class="header-section-number">12.4.1</span> Predict Mortality from Bilirubin</a></li>
-  <li><a href="#extracting-odds-ratios" id="toc-extracting-odds-ratios" class="nav-link" data-scroll-target="#extracting-odds-ratios"><span class="header-section-number">12.4.2</span> Extracting Odds Ratios</a></li>
-  <li><a href="#predicted-probabilities" id="toc-predicted-probabilities" class="nav-link" data-scroll-target="#predicted-probabilities"><span class="header-section-number">12.4.3</span> Predicted Probabilities</a></li>
-  <li><a href="#multivariable-logistic-model" id="toc-multivariable-logistic-model" class="nav-link" data-scroll-target="#multivariable-logistic-model"><span class="header-section-number">12.4.4</span> Multivariable Logistic Model</a></li>
-  <li><a href="#model-discrimination-roc-curve-and-c-statistic" id="toc-model-discrimination-roc-curve-and-c-statistic" class="nav-link" data-scroll-target="#model-discrimination-roc-curve-and-c-statistic"><span class="header-section-number">12.4.5</span> Model Discrimination: ROC Curve and C-statistic</a></li>
-  <li><a href="#goodness-of-fit" id="toc-goodness-of-fit" class="nav-link" data-scroll-target="#goodness-of-fit"><span class="header-section-number">12.4.6</span> Goodness of Fit</a></li>
+  <li><a href="#predict-mortality-from-bilirubin" id="toc-predict-mortality-from-bilirubin" class="nav-link" data-scroll-target="#predict-mortality-from-bilirubin"><span class="header-section-number">12.5.1</span> Predict Mortality from Bilirubin</a></li>
+  <li><a href="#extracting-odds-ratios" id="toc-extracting-odds-ratios" class="nav-link" data-scroll-target="#extracting-odds-ratios"><span class="header-section-number">12.5.2</span> Extracting Odds Ratios</a></li>
+  <li><a href="#predicted-probabilities" id="toc-predicted-probabilities" class="nav-link" data-scroll-target="#predicted-probabilities"><span class="header-section-number">12.5.3</span> Predicted Probabilities</a></li>
+  <li><a href="#multivariable-logistic-model" id="toc-multivariable-logistic-model" class="nav-link" data-scroll-target="#multivariable-logistic-model"><span class="header-section-number">12.5.4</span> Multivariable Logistic Model</a></li>
+  <li><a href="#model-discrimination-roc-curve-and-c-statistic" id="toc-model-discrimination-roc-curve-and-c-statistic" class="nav-link" data-scroll-target="#model-discrimination-roc-curve-and-c-statistic"><span class="header-section-number">12.5.5</span> Model Discrimination: ROC Curve and C-statistic</a></li>
+  <li><a href="#goodness-of-fit" id="toc-goodness-of-fit" class="nav-link" data-scroll-target="#goodness-of-fit"><span class="header-section-number">12.5.6</span> Goodness of Fit</a></li>
   </ul></li>
-  <li><a href="#example-2-animal-data-bootmelanoma" id="toc-example-2-animal-data-bootmelanoma" class="nav-link" data-scroll-target="#example-2-animal-data-bootmelanoma"><span class="header-section-number">12.5</span> Example 2: Animal Data (boot::melanoma)</a></li>
-  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">12.6</span> Where to Find Data Like This</a></li>
+  <li><a href="#example-2-melanoma-data" id="toc-example-2-melanoma-data" class="nav-link" data-scroll-target="#example-2-melanoma-data"><span class="header-section-number">12.6</span> Example 2: Melanoma Data</a></li>
   <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">12.7</span> What Can Go Wrong</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">12.8</span> Exercises</a>
   <ul class="collapse">
@@ -400,10 +400,7 @@ window.Quarto = {
   <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">12.8.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
   <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">12.9</span> Comprehension Check</a></li>
-  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">12.10</span> How to Report</a>
-  <ul class="collapse">
-  <li><a href="#reporting-logistic-regression" id="toc-reporting-logistic-regression" class="nav-link" data-scroll-target="#reporting-logistic-regression"><span class="header-section-number">12.10.1</span> Reporting Logistic Regression</a></li>
-  </ul></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">12.10</span> How to Report</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">12.11</span> Further Reading</a></li>
   </ul>
 </nav>
@@ -440,14 +437,24 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Logistic regression shares the same structure as linear regression but models a binary outcome. If you haven’t done so yet, complete the <strong>Linear Regression</strong> session first.</p>
+<p>Logistic regression shares the same structure as linear regression but models a binary outcome. If you have not done so yet, complete the <a href="../sessions/linear-regression.html">Linear Regression</a> and <a href="../sessions/multiple-regression.html">Multiple Regression</a> sessions first.</p>
 </div>
 </div>
-<section id="sec-logistic-regression" class="level2 callout-tip" data-number="12.1">
-<h2 class="callout-tip anchored" data-number="12.1" data-anchor-id="sec-logistic-regression"><span class="header-section-number">12.1</span> When Do You Use This?</h2>
-<blockquote class="blockquote">
+<section id="sec-logistic-regression" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="sec-logistic-regression"><span class="header-section-number">12.1</span> When Do You Use This?</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Your outcome is binary (yes/no, alive/dead, event/no event) and you want to model how one or more predictors change the probability of that outcome. Logistic regression gives you odds ratios with confidence intervals and lets you adjust for confounders. For example: predicting whether a patient died from liver disease, or whether a tumour responded to treatment.</p>
-</blockquote>
+</div>
+</div>
 </section>
 <section id="learning-objectives" class="level2" data-number="12.2">
 <h2 data-number="12.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">12.2</span> Learning Objectives</h2>
@@ -456,31 +463,37 @@ window.Quarto = {
 <li>Explain the logistic model and why ordinary linear regression is not appropriate for binary outcomes</li>
 <li>Fit a logistic regression with <code>glm(..., family = binomial)</code> in R</li>
 <li>Interpret odds ratios and convert them to probabilities</li>
-<li>Assess model calibration and discrimination with ROC curves and the C-statistic</li>
+<li>Assess model discrimination with ROC curves and the C-statistic</li>
 <li>Build a multivariable logistic model and adjust for confounders</li>
 </ul>
 </section>
-<section id="background-the-logistic-model" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="background-the-logistic-model"><span class="header-section-number">12.3</span> Background: The Logistic Model</h2>
-<p>A binary outcome <span class="math inline">\(Y \in \{0, 1\}\)</span> cannot be modelled by a straight line, since predicted values could fall below 0 or above 1. Instead, we model the <strong>log-odds</strong> (logit) of the outcome:</p>
+<section id="the-key-idea-why-not-just-use-linear-regression" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="the-key-idea-why-not-just-use-linear-regression"><span class="header-section-number">12.3</span> The Key Idea: Why Not Just Use Linear Regression?</h2>
+<p>Consider predicting whether a patient dies (0 or 1) from their bilirubin level. If you fit a straight line, nothing stops it from predicting a probability of −0.2 or 1.7 — which makes no sense. Probabilities must stay between 0 and 1.</p>
+<p>Logistic regression solves this by modelling the <strong>log-odds</strong> (logit) of the outcome instead of the probability directly. The log-odds can range freely from −∞ to +∞, and when you transform it back, the probability is always between 0 and 1.</p>
+<p>The trade-off: coefficients are now on the log-odds scale, which is hard to read directly. We exponentiate them to get <strong>odds ratios (OR)</strong> — and those are what you report in a paper.</p>
+</section>
+<section id="background-the-logistic-model" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="background-the-logistic-model"><span class="header-section-number">12.4</span> Background: The Logistic Model</h2>
+<p>A binary outcome <span class="math inline">\(Y \in \{0, 1\}\)</span> is modelled as:</p>
 <p><span class="math display">\[\log\left(\frac{P(Y=1)}{1-P(Y=1)}\right) = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p\]</span></p>
-<p>Exponentiating the coefficients gives <strong>odds ratios (OR)</strong>:</p>
+<p>Exponentiating the coefficients gives <strong>odds ratios</strong>:</p>
 <p><span class="math display">\[OR = e^{\beta_j}\]</span></p>
 <p>An OR &gt; 1 means the odds of the event increase with <span class="math inline">\(X_j\)</span>; OR &lt; 1 means they decrease.</p>
-<p>Converting OR to probability requires knowing the baseline probability. The <strong>predicted probability</strong> for a patient is:</p>
+<p>The <strong>predicted probability</strong> for a patient is:</p>
 <p><span class="math display">\[\hat{P} = \frac{1}{1 + e^{-(\hat{\beta}_0 + \hat{\beta}_1 X_1 + \cdots)}}\]</span></p>
-<p><strong>Key distinction:</strong> The OR is <em>not</em> the relative risk (RR). For rare outcomes (&lt; 10%), they are approximately equal. For common outcomes, the OR exaggerates the association. When reporting, specify which measure you used.</p>
+<p><strong>Key distinction:</strong> The OR is <em>not</em> the relative risk (RR). For rare outcomes (&lt; 10%), they are approximately equal. For common outcomes, the OR exaggerates the association. Always specify which measure you are reporting.</p>
 </section>
-<section id="example-1-clinical-data-pbc" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">12.4</span> Example 1: Clinical Data (PBC)</h2>
-<section id="predict-mortality-from-bilirubin" class="level3" data-number="12.4.1">
-<h3 data-number="12.4.1" class="anchored" data-anchor-id="predict-mortality-from-bilirubin"><span class="header-section-number">12.4.1</span> Predict Mortality from Bilirubin</h3>
+<section id="example-1-clinical-data-pbc" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">12.5</span> Example 1: Clinical Data (PBC)</h2>
+<section id="predict-mortality-from-bilirubin" class="level3" data-number="12.5.1">
+<h3 data-number="12.5.1" class="anchored" data-anchor-id="predict-mortality-from-bilirubin"><span class="header-section-number">12.5.1</span> Predict Mortality from Bilirubin</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">died      =</span> <span class="fu">as.integer</span>(status <span class="sc">==</span> <span class="dv">2</span>),          <span class="co"># 1 = died from liver disease</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">died      =</span> <span class="fu">as.integer</span>(status <span class="sc">==</span> <span class="dv">2</span>),</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_bili  =</span> <span class="fu">log</span>(bili),</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_proto =</span> <span class="fu">log</span>(protime),</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex       =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"m"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)),</span>
@@ -489,13 +502,16 @@ window.Quarto = {
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(stage))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<blockquote class="blockquote">
+<p><strong>Think before you run:</strong> Among the 375 PBC patients in this dataset, about a quarter died from liver disease during follow-up. Do you expect higher bilirubin to be associated with higher mortality? What direction would you predict for the OR?</p>
+</blockquote>
 <p>Always visualise first:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_bili, <span class="at">y =</span> died)) <span class="sc">+</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"tomato"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">colour =</span> <span class="st">"tomato"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Probability of death by log(bilirubin)"</span>,</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log(Bilirubin)"</span>, <span class="at">y =</span> <span class="st">"Died (0/1)"</span>) <span class="sc">+</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -540,7 +556,7 @@ Number of Fisher Scoring iterations: 3</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Reading the <code>summary()</code> Output for Logistic Regression: Line by Line
+<span class="screen-reader-only">Note</span>Reading the <code>summary()</code> Output for Logistic Regression
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -563,7 +579,7 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 <tbody>
 <tr class="odd">
 <td><strong>Estimate</strong></td>
-<td>The log-odds coefficient. Not directly interpretable: exponentiate it to get an odds ratio.</td>
+<td>The log-odds coefficient. Not directly interpretable: exponentiate to get an odds ratio.</td>
 </tr>
 <tr class="even">
 <td><strong>Std. Error</strong></td>
@@ -571,7 +587,7 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 </tr>
 <tr class="odd">
 <td><strong>z value</strong></td>
-<td>Estimate / Std. Error (note: z, not t; logistic uses a normal approximation).</td>
+<td>Estimate / Std. Error (note: z, not t; logistic regression uses a normal approximation).</td>
 </tr>
 <tr class="even">
 <td><strong>Pr(&gt;|z|)</strong></td>
@@ -579,10 +595,9 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 </tr>
 </tbody>
 </table>
-<p><strong><code>(Dispersion parameter for binomial family taken to be 1)</code></strong> For binomial models this is always 1; ignore it.</p>
-<p><strong><code>Null deviance: 487 on 374 degrees of freedom</code></strong> The deviance of a model with <em>no predictors</em> (intercept only). This is the baseline: how poorly the null model fits.</p>
-<p><strong><code>Residual deviance: 409 on 373 degrees of freedom</code></strong> The deviance of <em>your</em> model. A large drop from null to residual deviance means your predictor(s) explain a lot. Here: 487 - 409 = 78 units of deviance explained.</p>
-<p><strong><code>AIC: 413</code></strong> Akaike Information Criterion. Lower = better fit (penalised for complexity). Use AIC to compare models, not to interpret a single model in isolation.</p>
+<p><strong><code>Null deviance: 487 on 374 degrees of freedom</code></strong> The deviance of a model with <em>no predictors</em> (intercept only). This is the baseline.</p>
+<p><strong><code>Residual deviance: 409 on 373 degrees of freedom</code></strong> The deviance of <em>your</em> model. A large drop from null to residual deviance (here: 78 units) means your predictor explains a lot.</p>
+<p><strong><code>AIC: 413</code></strong> Lower AIC = better fit (penalised for complexity). Use AIC to compare models, not to interpret a single model in isolation.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -596,8 +611,8 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 <p>The coefficient for <code>log_bili</code> is 0.89 on the log-odds scale. To interpret it:</p>
 <ol type="1">
 <li><strong>Exponentiate</strong> to get an odds ratio: <span class="math inline">\(e^{0.89} \approx 2.4\)</span></li>
-<li><strong>Translate</strong>: Each one-unit increase in log(bilirubin), roughly a 2.7-fold increase in bilirubin, multiplies the odds of death by <strong>2.4</strong> (95% CI from the OR table).</li>
-<li><strong>Write it up</strong>: <em>“Higher bilirubin is strongly associated with mortality in PBC patients. Each 2.7-fold increase in bilirubin is associated with 2.4 times higher odds of death (OR = 2.4, 95% CI: [low]–[high], p &lt; 0.001).”</em></li>
+<li><strong>Translate:</strong> Each one-unit increase in log(bilirubin) — roughly a 2.7-fold increase in bilirubin — multiplies the odds of death by <strong>2.4</strong>.</li>
+<li><strong>Write it up:</strong> <em>“Higher bilirubin is strongly associated with mortality in PBC patients. Each 2.7-fold increase in bilirubin is associated with 2.4 times higher odds of death (OR = 2.4, 95% CI: [low]–[high], p &lt; 0.001).”</em></li>
 </ol>
 <p>Remember: odds ratios are <strong>not</strong> the same as relative risk. An OR of 2.4 does not mean the risk doubles. For rare outcomes (&lt; 10%), OR ≈ RR; for common outcomes, OR exaggerates the association.</p>
 </div>
@@ -605,12 +620,11 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 </div>
 </div>
 </section>
-<section id="extracting-odds-ratios" class="level3" data-number="12.4.2">
-<h3 data-number="12.4.2" class="anchored" data-anchor-id="extracting-odds-ratios"><span class="header-section-number">12.4.2</span> Extracting Odds Ratios</h3>
+<section id="extracting-odds-ratios" class="level3" data-number="12.5.2">
+<h3 data-number="12.5.2" class="anchored" data-anchor-id="extracting-odds-ratios"><span class="header-section-number">12.5.2</span> Extracting Odds Ratios</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Odds ratios with 95% CI from profile likelihood</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_log, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_log, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term        estimate conf.low conf.high  p.value
@@ -619,17 +633,13 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 2 log_bili       3.13     2.45      4.09  2.41e-18</code></pre>
 </div>
 </div>
-<p><strong>Interpreting the OR:</strong> Each one-unit increase in log(bilirubin) multiplies the odds of death by [OR]. Because log_bili is on a log scale, this corresponds to a 2.7-fold increase in bilirubin on the original scale.</p>
 </section>
-<section id="predicted-probabilities" class="level3" data-number="12.4.3">
-<h3 data-number="12.4.3" class="anchored" data-anchor-id="predicted-probabilities"><span class="header-section-number">12.4.3</span> Predicted Probabilities</h3>
+<section id="predicted-probabilities" class="level3" data-number="12.5.3">
+<h3 data-number="12.5.3" class="anchored" data-anchor-id="predicted-probabilities"><span class="header-section-number">12.5.3</span> Predicted Probabilities</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability of death at bilirubin = 1, 2, 5, 10, 20 mg/dL</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>new_d <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">log_bili =</span> <span class="fu">log</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>)))</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>new_d <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">pred_prob =</span> <span class="fu">predict</span>(fit_log, <span class="at">newdata =</span> new_d, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>new_d <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">log_bili =</span> <span class="fu">log</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>)))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>new_d <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pred_prob =</span> <span class="fu">predict</span>(fit_log, <span class="at">newdata =</span> new_d, <span class="at">type =</span> <span class="st">"response"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
   log_bili pred_prob
@@ -642,15 +652,15 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 </div>
 </div>
 </section>
-<section id="multivariable-logistic-model" class="level3" data-number="12.4.4">
-<h3 data-number="12.4.4" class="anchored" data-anchor-id="multivariable-logistic-model"><span class="header-section-number">12.4.4</span> Multivariable Logistic Model</h3>
+<section id="multivariable-logistic-model" class="level3" data-number="12.5.4">
+<h3 data-number="12.5.4" class="anchored" data-anchor-id="multivariable-logistic-model"><span class="header-section-number">12.5.4</span> Multivariable Logistic Model</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fit_multi <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> albumin <span class="sc">+</span> stage,</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> pbc, <span class="at">family =</span> binomial)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_multi, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value) <span class="sc">%&gt;%</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">round</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 5
   term         estimate conf.low conf.high p.value
@@ -665,38 +675,22 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 </div>
 </div>
 </section>
-<section id="model-discrimination-roc-curve-and-c-statistic" class="level3" data-number="12.4.5">
-<h3 data-number="12.4.5" class="anchored" data-anchor-id="model-discrimination-roc-curve-and-c-statistic"><span class="header-section-number">12.4.5</span> Model Discrimination: ROC Curve and C-statistic</h3>
+<section id="model-discrimination-roc-curve-and-c-statistic" class="level3" data-number="12.5.5">
+<h3 data-number="12.5.5" class="anchored" data-anchor-id="model-discrimination-roc-curve-and-c-statistic"><span class="header-section-number">12.5.5</span> Model Discrimination: ROC Curve and C-statistic</h3>
 <p>The <strong>C-statistic</strong> (area under the ROC curve) measures how well the model separates cases from non-cases. C = 0.5 is random; C = 1.0 is perfect discrimination.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'pROC' was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Type 'citation("pROC")' for a citation.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'pROC'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    cov, smooth, var</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pred_prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_multi, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>roc_obj   <span class="ot">&lt;-</span> <span class="fu">roc</span>(pbc<span class="sc">$</span>died, pred_prob, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"C-statistic:"</span>, <span class="fu">round</span>(<span class="fu">auc</span>(roc_obj), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pred_prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_multi, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>roc_obj   <span class="ot">&lt;-</span> <span class="fu">roc</span>(pbc<span class="sc">$</span>died, pred_prob, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"C-statistic:"</span>, <span class="fu">round</span>(<span class="fu">auc</span>(roc_obj), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>C-statistic: 0.825 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggroc</span>(roc_obj, <span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">1</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"ROC curve - AUC ="</span>, <span class="fu">round</span>(<span class="fu">auc</span>(roc_obj), <span class="dv">3</span>)),</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"1 - Specificity"</span>, <span class="at">y =</span> <span class="st">"Sensitivity"</span>) <span class="sc">+</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggroc</span>(roc_obj, <span class="at">colour =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">1</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"ROC curve - AUC ="</span>, <span class="fu">round</span>(<span class="fu">auc</span>(roc_obj), <span class="dv">3</span>)),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"1 - Specificity"</span>, <span class="at">y =</span> <span class="st">"Sensitivity"</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -706,10 +700,10 @@ Attaching package: 'pROC'</code></pre>
 </div>
 </div>
 </section>
-<section id="goodness-of-fit" class="level3" data-number="12.4.6">
-<h3 data-number="12.4.6" class="anchored" data-anchor-id="goodness-of-fit"><span class="header-section-number">12.4.6</span> Goodness of Fit</h3>
+<section id="goodness-of-fit" class="level3" data-number="12.5.6">
+<h3 data-number="12.5.6" class="anchored" data-anchor-id="goodness-of-fit"><span class="header-section-number">12.5.6</span> Goodness of Fit</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(fit_multi)   <span class="co"># null deviance, residual deviance, AIC</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(fit_multi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
   null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
@@ -720,34 +714,24 @@ Attaching package: 'pROC'</code></pre>
 <p>A large drop from null to residual deviance indicates good model fit. Compare AIC between models to choose the best specification.</p>
 </section>
 </section>
-<section id="example-2-animal-data-bootmelanoma" class="level2" data-number="12.5">
-<h2 data-number="12.5" class="anchored" data-anchor-id="example-2-animal-data-bootmelanoma"><span class="header-section-number">12.5</span> Example 2: Animal Data (boot::melanoma)</h2>
+<section id="example-2-melanoma-data" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="example-2-melanoma-data"><span class="header-section-number">12.6</span> Example 2: Melanoma Data</h2>
 <p>We predict melanoma mortality from tumour thickness and ulceration.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'boot'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:survival':
-
-    aml</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>mel <span class="ot">&lt;-</span> boot<span class="sc">::</span>melanoma <span class="sc">%&gt;%</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">died =</span> <span class="fu">as.integer</span>(status <span class="sc">==</span> <span class="dv">1</span>),              <span class="co"># 1 = died from melanoma</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ulceration =</span> <span class="fu">factor</span>(ulcer, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>)),</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)),</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_thick =</span> <span class="fu">log</span>(thickness)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>fit_mel <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_thick <span class="sc">+</span> ulceration <span class="sc">+</span> sex,</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> mel, <span class="at">family =</span> binomial)</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_mel, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mel <span class="ot">&lt;-</span> boot<span class="sc">::</span>melanoma <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">died       =</span> <span class="fu">as.integer</span>(status <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ulceration =</span> <span class="fu">factor</span>(ulcer, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>)),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex        =</span> <span class="fu">factor</span>(sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_thick  =</span> <span class="fu">log</span>(thickness)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>fit_mel <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_thick <span class="sc">+</span> ulceration <span class="sc">+</span> sex,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> mel, <span class="at">family =</span> binomial)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_mel, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
   term          estimate conf.low conf.high  p.value
@@ -759,14 +743,14 @@ Attaching package: 'boot'</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>mel <span class="sc">%&gt;%</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_thick, <span class="at">y =</span> died, <span class="at">color =</span> ulceration)) <span class="sc">+</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>), <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Melanoma mortality by tumour thickness and ulceration"</span>,</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log(Thickness)"</span>, <span class="at">y =</span> <span class="st">"Died from melanoma (0/1)"</span>) <span class="sc">+</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mel <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_thick, <span class="at">y =</span> died, <span class="at">colour =</span> ulceration)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>), <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Melanoma mortality by tumour thickness and ulceration"</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log(Thickness)"</span>, <span class="at">y =</span> <span class="st">"Died from melanoma (0/1)"</span>) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -778,35 +762,56 @@ Attaching package: 'boot'</code></pre>
 </div>
 </div>
 </div>
-</section>
-<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="12.6">
-<h2 class="callout-note anchored" data-number="12.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">12.6</span> Where to Find Data Like This</h2>
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> - binary mortality outcome with multiple continuous and categorical predictors.</p>
-<p><strong>boot::melanoma:</strong> Binary mortality with tumour characteristics; good for a smaller Example.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Where to Find Data Like This
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>PBC dataset:</strong> <code>survival::pbc</code> — binary mortality outcome with multiple continuous and categorical predictors.</p>
+<p><strong>boot::melanoma:</strong> Binary mortality with tumour characteristics; good for a smaller example.</p>
 <p><strong>MASS::birthwt:</strong> Low birth weight (binary) with maternal predictors, commonly used in logistic regression teaching.</p>
 <p><strong>medicaldata package:</strong> Multiple clean clinical trial datasets with binary outcomes.</p>
+</div>
+</div>
 </section>
-<section id="what-can-go-wrong" class="level2 callout-warning" data-number="12.7">
-<h2 class="callout-warning anchored" data-number="12.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">12.7</span> What Can Go Wrong</h2>
-<p><strong>Separation (complete or quasi-complete)</strong> If a predictor perfectly separates the outcome (all events on one side), the algorithm fails to converge and produces extreme coefficients with huge SEs. Check with a contingency table or histogram. Use Firth’s penalised logistic regression (<code>logistf</code> package) as a remedy.</p>
-<p><strong>Interpreting ORs as relative risks for common outcomes</strong> When the outcome prevalence is &gt; 15?20%, OR &gt; RR substantially. If you report ORs, state them clearly and note that they do not equal relative risks.</p>
-<p><strong>Events per variable (EPV) rule of thumb</strong> Logistic models require approximately 10–20 events per predictor variable for stable estimates. With 50 deaths and 6 predictors, you have EPV - 8 - borderline. Consider reducing predictors or using penalised methods.</p>
-<p><strong>Not checking calibration</strong> A high C-statistic does not guarantee good calibration (that predicted probabilities match observed proportions). Use a calibration plot (<code>val.prob()</code> from the <code>rms</code> package) for clinical prediction models.</p>
+<section id="what-can-go-wrong" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="what-can-go-wrong"><span class="header-section-number">12.7</span> What Can Go Wrong</h2>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Common Misinterpretations: Don’t Make These Mistakes
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>“OR = 2.4 means the risk is 2.4 times higher”</strong> No.&nbsp;An odds ratio of 2.4 means the <em>odds</em> increased 2.4-fold, not the risk. When the outcome is common (&gt; 15%), the OR substantially overestimates the relative risk. If you want relative risk, use a Poisson model with robust standard errors or a log-binomial model.</p>
-<p><strong>“C-statistic = 0.80 means my model is good”</strong> The C-statistic measures discrimination (can the model rank a case above a non-case?). It says nothing about calibration (are predicted probabilities accurate?). A model can discriminate well but be badly miscalibrated. Always check both.</p>
-<p><strong>“My predictor has OR = 1.02, so it has no effect”</strong> On the odds ratio scale, even small ORs can be meaningful for very common exposures. Conversely, a large OR for a rare predictor may have little population impact. Report the OR alongside the absolute risk change at clinically relevant predictor values.</p>
-<p><strong>“I adjusted for many variables so my result is unconfounded”</strong> Adjusting for more variables does not automatically remove confounding. You can only adjust for confounders you measured. Unmeasured confounders remain a threat in all observational studies.</p>
-<p><strong>“Quasi-complete separation means my predictor is too good”</strong> Separation causes coefficient inflation and numerical instability; it does not mean the predictor is perfectly valid. It usually means you have too few events. Use Firth’s penalised logistic regression.</p>
+<p><strong>Separation (complete or quasi-complete).</strong> If a predictor perfectly separates the outcome, the algorithm fails to converge and produces extreme coefficients with huge SEs. Check with a contingency table or histogram. Use Firth’s penalised logistic regression (<code>logistf</code> package) as a remedy.</p>
+<p><strong>Interpreting ORs as relative risks for common outcomes.</strong> When the outcome prevalence is &gt; 15–20%, OR &gt; RR substantially. If you report ORs, state them clearly and note that they do not equal relative risks.</p>
+<p><strong>Events per variable (EPV) rule of thumb.</strong> Logistic models require approximately 10–20 events per predictor variable for stable estimates. With 50 deaths and 6 predictors, you have EPV ≈ 8 — borderline. Consider reducing predictors or using penalised methods.</p>
+<p><strong>Not checking calibration.</strong> A high C-statistic does not guarantee good calibration (that predicted probabilities match observed proportions). Use a calibration plot (<code>val.prob()</code> from the <code>rms</code> package) for clinical prediction models.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Common Misinterpretations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>“OR = 2.4 means the risk is 2.4 times higher.”</strong> An odds ratio of 2.4 means the <em>odds</em> increased 2.4-fold, not the risk. When the outcome is common (&gt; 15%), the OR substantially overestimates the relative risk. If you want relative risk, use a Poisson model with robust standard errors or a log-binomial model.</p>
+<p><strong>“C-statistic = 0.80 means my model is good.”</strong> The C-statistic measures discrimination: can the model rank a case above a non-case? It says nothing about calibration: are predicted probabilities accurate? A model can discriminate well but be badly miscalibrated. Always check both.</p>
+<p><strong>“My predictor has OR = 1.02, so it has no effect.”</strong> On the odds ratio scale, even small ORs can be meaningful for very common exposures. Conversely, a large OR for a rare predictor may have little population impact. Report the OR alongside the absolute risk change at clinically relevant predictor values.</p>
+<p><strong>“I adjusted for many variables so my result is unconfounded.”</strong> Adjusting for more variables does not automatically remove confounding. You can only adjust for confounders you <em>measured</em>. Unmeasured confounders remain a threat in all observational studies.</p>
+<p><strong>“Quasi-complete separation means my predictor is too good.”</strong> Separation causes coefficient inflation and numerical instability. It usually means you have too few events. Use Firth’s penalised logistic regression (<code>logistf::logistf()</code>).</p>
 </div>
 </div>
 </section>
@@ -821,7 +826,7 @@ Attaching package: 'boot'</code></pre>
 <li>Which single predictor has the largest OR?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -830,22 +835,22 @@ Attaching package: 'boot'</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>predictors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"log_bili"</span>, <span class="st">"albumin"</span>, <span class="st">"log_proto"</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(predictors, <span class="cf">function</span>(pred) {</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  f  <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">"died ~"</span>, pred))</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  m  <span class="ot">&lt;-</span> <span class="fu">glm</span>(f, <span class="at">data =</span> pbc, <span class="at">family =</span> binomial)</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(m, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(term <span class="sc">!=</span> <span class="st">"(Intercept)"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">predictor =</span> pred)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(predictor, estimate, conf.low, conf.high, p.value) <span class="sc">%&gt;%</span></span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>predictors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"log_bili"</span>, <span class="st">"albumin"</span>, <span class="st">"log_proto"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(predictors, <span class="cf">function</span>(pred) {</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">"died ~"</span>, pred))</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">glm</span>(f, <span class="at">data =</span> pbc, <span class="at">family =</span> binomial)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(m, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(term <span class="sc">!=</span> <span class="st">"(Intercept)"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">predictor =</span> pred)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(predictor, estimate, conf.low, conf.high, p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   predictor  estimate conf.low  conf.high  p.value
@@ -854,9 +859,8 @@ Attaching package: 'boot'</code></pre>
 2 log_proto 43331.    2392.    986265.    3.39e-12
 3 albumin       0.258    0.151      0.430 3.60e- 7</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stage</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>fit_s <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> stage, <span class="at">data =</span> pbc, <span class="at">family =</span> binomial)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_s, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fit_s <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> stage, <span class="at">data =</span> pbc, <span class="at">family =</span> binomial)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_s, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 7
   term         estimate std.error statistic  p.value conf.low conf.high
@@ -881,7 +885,7 @@ Attaching package: 'boot'</code></pre>
 <li>Compare all three models by AIC.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -890,21 +894,20 @@ Attaching package: 'boot'</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_thick,               <span class="at">data =</span> mel, <span class="at">family =</span> binomial)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_thick <span class="sc">+</span> ulceration,  <span class="at">data =</span> mel, <span class="at">family =</span> binomial)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_thick <span class="sc">+</span> ulceration <span class="sc">+</span> sex, <span class="at">data =</span> mel, <span class="at">family =</span> binomial)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># OR for thickness in each model</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(m1, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"1: thickness"</span>),</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(m2, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"2: + ulceration"</span>),</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(m3, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"3: + sex"</span>)</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"log_thick"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, estimate, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_thick,               <span class="at">data =</span> mel, <span class="at">family =</span> binomial)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_thick <span class="sc">+</span> ulceration,  <span class="at">data =</span> mel, <span class="at">family =</span> binomial)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_thick <span class="sc">+</span> ulceration <span class="sc">+</span> sex, <span class="at">data =</span> mel, <span class="at">family =</span> binomial)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(m1, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"1: thickness"</span>),</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(m2, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"2: + ulceration"</span>),</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(m3, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"3: + sex"</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"log_thick"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, estimate, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   model           estimate    p.value
@@ -913,8 +916,7 @@ Attaching package: 'boot'</code></pre>
 2 2: + ulceration     1.91 0.00332   
 3 3: + sex            1.84 0.00591   </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># AIC comparison</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(m1, m2, m3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(m1, m2, m3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   df      AIC
 m1  2 219.3203
@@ -938,10 +940,10 @@ m3  4 214.3350</code></pre>
 <li>Your outcome occurs in 40% of the study sample. A colleague reports OR = 2.5 as “roughly a doubling of risk.” Is this correct?</li>
 <li>You have 30 events and want to include 8 predictors. What is the concern?</li>
 <li>C-statistic = 0.75. Is this a good model? What additional checks should you do?</li>
-<li>Your model fails to converge. The output shows a coefficient of 25 with SE = 1000 for one predictor. What is likely happening, and what should you do?</li>
+<li>Your model fails to converge. The output shows a coefficient of 25 with SE = 1000 for one predictor. What is likely happening?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -950,14 +952,14 @@ m3  4 214.3350</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>OR = exp(0.8) = 2.23. Each one-unit increase in log(bilirubin) is associated with 2.23 times higher odds of the event (e.g., death), holding other predictors constant.</li>
-<li>No.&nbsp;When the outcome is common (40%), OR ≈ RR. OR = 2.5 for a 40% baseline corresponds to a RR considerably less than 2.5. The colleague is conflating the odds ratio with the risk ratio - a common error. Use <code>prop.table()</code> or the formula <span class="math inline">\(RR = OR / (1 - P_0 + P_0 \times OR)\)</span> to convert.</li>
-<li>With EPV = 30/8 = 3.75, the model is severely underpowered. Coefficients will be unstable and confidence intervals very wide. You should reduce the number of predictors to at most 2?3, or use Firth’s penalised logistic regression.</li>
-<li>C = 0.75 indicates moderate discrimination; the model correctly ranks 75% of case-control pairs. However, a high C-statistic does not guarantee good calibration. You should also produce a calibration plot (observed vs predicted proportions across deciles of risk) to confirm the model gives accurate probabilities.</li>
-<li>This is (quasi-)complete separation: the predictor almost perfectly predicts the outcome, so the algorithm tries to push the coefficient to ?8 and fails. Check by tabulating the predictor against the outcome. Remedy: use Firth’s penalised logistic regression (<code>logistf::logistf()</code>), which regularises the likelihood and produces finite, stable estimates.</li>
+<li>No.&nbsp;When the outcome is common (40%), OR ≠ RR. OR = 2.5 for a 40% baseline corresponds to a RR considerably less than 2.5. The colleague is conflating the odds ratio with the risk ratio. Use the formula <span class="math inline">\(RR = OR / (1 - P_0 + P_0 \times OR)\)</span> to convert.</li>
+<li>With EPV = 30/8 = 3.75, the model is severely underpowered. Coefficients will be unstable and confidence intervals very wide. Reduce the number of predictors to at most 2–3, or use Firth’s penalised logistic regression.</li>
+<li>C = 0.75 indicates moderate discrimination. However, a high C-statistic does not guarantee good calibration. Also produce a calibration plot (observed vs predicted proportions across deciles of risk) to confirm the model gives accurate probabilities.</li>
+<li>This is (quasi-)complete separation: the predictor almost perfectly predicts the outcome, so the algorithm tries to push the coefficient to ±∞ and fails. Check by tabulating the predictor against the outcome. Remedy: use Firth’s penalised logistic regression (<code>logistf::logistf()</code>).</li>
 </ol>
 </div>
 </div>
@@ -965,8 +967,6 @@ m3  4 214.3350</code></pre>
 </section>
 <section id="how-to-report" class="level2" data-number="12.10">
 <h2 data-number="12.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">12.10</span> How to Report</h2>
-<section id="reporting-logistic-regression" class="level3" data-number="12.10.1">
-<h3 data-number="12.10.1" class="anchored" data-anchor-id="reporting-logistic-regression"><span class="header-section-number">12.10.1</span> Reporting Logistic Regression</h3>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -979,17 +979,16 @@ Note
 <div class="callout-body-container callout-body">
 <p><strong>In a methods section:</strong> “Logistic regression was used to examine the association between [predictor] and [binary outcome]. Results are expressed as odds ratios (OR) with 95% confidence intervals. [Confounders] were included as covariates.”</p>
 <p><strong>In results:</strong> “Patients with [predictor level] had X-fold higher odds of [outcome] compared with [reference] (OR = X, 95% CI [L, U], p = Y).”</p>
-<p><strong>What to always include:</strong></p>
+<p><strong>Always include:</strong></p>
 <ul>
 <li>Odds ratio (OR) — not the log-odds coefficient</li>
 <li>95% CI for the OR</li>
-<li>Reference category (e.g., “compared with the OJ supplement group”)</li>
+<li>Reference category (e.g., “compared with Stage 1”)</li>
 <li>Number of events and total sample size (e.g., “87 deaths among 312 patients”)</li>
 </ul>
 <p><strong>AUC/ROC:</strong> If you report a ROC curve, include AUC with 95% CI. Do not report only p-values without ORs and CIs.</p>
 </div>
 </div>
-</section>
 </section>
 <section id="further-reading" class="level2" data-number="12.11">
 <h2 data-number="12.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">12.11</span> Further Reading</h2>

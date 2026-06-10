@@ -380,16 +380,16 @@ window.Quarto = {
   <ul>
   <li><a href="#sec-linear-regression" id="toc-sec-linear-regression" class="nav-link active" data-scroll-target="#sec-linear-regression"><span class="header-section-number">10.1</span> When Do You Use This?</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">10.2</span> Learning Objectives</a></li>
-  <li><a href="#background-the-linear-model" id="toc-background-the-linear-model" class="nav-link" data-scroll-target="#background-the-linear-model"><span class="header-section-number">10.3</span> Background: The Linear Model</a></li>
-  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">10.4</span> Example 1: Clinical Data (PBC)</a>
+  <li><a href="#the-key-idea-from-correlation-to-prediction" id="toc-the-key-idea-from-correlation-to-prediction" class="nav-link" data-scroll-target="#the-key-idea-from-correlation-to-prediction"><span class="header-section-number">10.3</span> The Key Idea: From Correlation to Prediction</a></li>
+  <li><a href="#background-the-linear-model" id="toc-background-the-linear-model" class="nav-link" data-scroll-target="#background-the-linear-model"><span class="header-section-number">10.4</span> Background: The Linear Model</a></li>
+  <li><a href="#example-1-clinical-data-pbc" id="toc-example-1-clinical-data-pbc" class="nav-link" data-scroll-target="#example-1-clinical-data-pbc"><span class="header-section-number">10.5</span> Example 1: Clinical Data (PBC)</a>
   <ul class="collapse">
-  <li><a href="#predict-albumin-from-logbilirubin" id="toc-predict-albumin-from-logbilirubin" class="nav-link" data-scroll-target="#predict-albumin-from-logbilirubin"><span class="header-section-number">10.4.1</span> Predict Albumin from Log(Bilirubin)</a></li>
-  <li><a href="#interpreting-the-output" id="toc-interpreting-the-output" class="nav-link" data-scroll-target="#interpreting-the-output"><span class="header-section-number">10.4.2</span> Interpreting the Output</a></li>
-  <li><a href="#checking-assumptions" id="toc-checking-assumptions" class="nav-link" data-scroll-target="#checking-assumptions"><span class="header-section-number">10.4.3</span> Checking Assumptions</a></li>
-  <li><a href="#predictions" id="toc-predictions" class="nav-link" data-scroll-target="#predictions"><span class="header-section-number">10.4.4</span> Predictions</a></li>
+  <li><a href="#predict-albumin-from-logbilirubin" id="toc-predict-albumin-from-logbilirubin" class="nav-link" data-scroll-target="#predict-albumin-from-logbilirubin"><span class="header-section-number">10.5.1</span> Predict Albumin from Log(Bilirubin)</a></li>
+  <li><a href="#interpreting-the-output" id="toc-interpreting-the-output" class="nav-link" data-scroll-target="#interpreting-the-output"><span class="header-section-number">10.5.2</span> Interpreting the Output</a></li>
+  <li><a href="#checking-assumptions" id="toc-checking-assumptions" class="nav-link" data-scroll-target="#checking-assumptions"><span class="header-section-number">10.5.3</span> Checking Assumptions</a></li>
+  <li><a href="#predictions" id="toc-predictions" class="nav-link" data-scroll-target="#predictions"><span class="header-section-number">10.5.4</span> Predictions</a></li>
   </ul></li>
-  <li><a href="#example-2-animal-data-palmerpenguins" id="toc-example-2-animal-data-palmerpenguins" class="nav-link" data-scroll-target="#example-2-animal-data-palmerpenguins"><span class="header-section-number">10.5</span> Example 2: Animal Data (palmerpenguins)</a></li>
-  <li><a href="#where-to-find-data-like-this" id="toc-where-to-find-data-like-this" class="nav-link" data-scroll-target="#where-to-find-data-like-this"><span class="header-section-number">10.6</span> Where to Find Data Like This</a></li>
+  <li><a href="#example-2-animal-data-palmerpenguins" id="toc-example-2-animal-data-palmerpenguins" class="nav-link" data-scroll-target="#example-2-animal-data-palmerpenguins"><span class="header-section-number">10.6</span> Example 2: Animal Data (palmerpenguins)</a></li>
   <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong"><span class="header-section-number">10.7</span> What Can Go Wrong</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">10.8</span> Exercises</a>
   <ul class="collapse">
@@ -398,10 +398,7 @@ window.Quarto = {
   <li><a href="#exercise-3-open-ended" id="toc-exercise-3-open-ended" class="nav-link" data-scroll-target="#exercise-3-open-ended"><span class="header-section-number">10.8.3</span> Exercise 3 (Open-ended)</a></li>
   </ul></li>
   <li><a href="#comprehension-check" id="toc-comprehension-check" class="nav-link" data-scroll-target="#comprehension-check"><span class="header-section-number">10.9</span> Comprehension Check</a></li>
-  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">10.10</span> How to Report</a>
-  <ul class="collapse">
-  <li><a href="#reporting-a-linear-regression" id="toc-reporting-a-linear-regression" class="nav-link" data-scroll-target="#reporting-a-linear-regression"><span class="header-section-number">10.10.1</span> Reporting a Linear Regression</a></li>
-  </ul></li>
+  <li><a href="#how-to-report" id="toc-how-to-report" class="nav-link" data-scroll-target="#how-to-report"><span class="header-section-number">10.10</span> How to Report</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">10.11</span> Further Reading</a></li>
   </ul>
 </nav>
@@ -430,9 +427,19 @@ window.Quarto = {
 
 <section id="sec-linear-regression" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="sec-linear-regression"><span class="header-section-number">10.1</span> When Do You Use This?</h2>
-<blockquote class="blockquote">
-<p>You have a continuous outcome and a continuous predictor, and you want to quantify how much the outcome changes per unit increase in the predictor, and test whether that relationship is statistically meaningful. Simple linear regression gives you a straight-line model with an estimated slope and its confidence interval. For example: predicting serum albumin from bilirubin, or estimating how bill length changes with flipper length in penguins.</p>
-</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You have a continuous outcome and a continuous predictor, and you want to quantify how much the outcome changes per unit increase in the predictor — and test whether that relationship is statistically meaningful. Simple linear regression gives you a straight-line model with an estimated slope and its confidence interval. For example: predicting albumin from bilirubin, or estimating how body mass changes with flipper length in penguins.</p>
+</div>
+</div>
 </section>
 <section id="learning-objectives" class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">10.2</span> Learning Objectives</h2>
@@ -440,19 +447,24 @@ window.Quarto = {
 <ul>
 <li>Fit a simple linear regression model with <code>lm()</code> in R</li>
 <li>Interpret the intercept, slope, standard error, and <span class="math inline">\(R^2\)</span></li>
-<li>Check the four key regression assumptions using diagnostic plots</li>
+<li>Check the four key regression assumptions using ggplot diagnostic plots</li>
 <li>Extract and present results with <code>broom::tidy()</code> and <code>broom::glance()</code></li>
 <li>Predict new values with <code>predict()</code> and plot the regression line with uncertainty</li>
 </ul>
 </section>
-<section id="background-the-linear-model" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="background-the-linear-model"><span class="header-section-number">10.3</span> Background: The Linear Model</h2>
+<section id="the-key-idea-from-correlation-to-prediction" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="the-key-idea-from-correlation-to-prediction"><span class="header-section-number">10.3</span> The Key Idea: From Correlation to Prediction</h2>
+<p>In the <a href="../sessions/correlation-and-association.html">correlation session</a> we measured <em>whether</em> two variables are related. Linear regression goes further: it tells you <em>how much</em> one variable changes when the other increases by one unit, and it gives you a confidence interval for that change.</p>
+<p>The key quantity is the <strong>slope</strong> (<span class="math inline">\(\beta_1\)</span>): “for every one-unit increase in X, Y changes by <span class="math inline">\(\beta_1\)</span> units, on average.” That is the number you will quote in a paper, a grant, or a presentation — not r, not R², but the slope with its uncertainty.</p>
+</section>
+<section id="background-the-linear-model" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="background-the-linear-model"><span class="header-section-number">10.4</span> Background: The Linear Model</h2>
 <p>A simple linear regression models the relationship between a continuous outcome <span class="math inline">\(Y\)</span> and a single predictor <span class="math inline">\(X\)</span>:</p>
 <p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i \quad \varepsilon_i \sim N(0, \sigma^2)\]</span></p>
 <ul>
-<li><span class="math inline">\(\beta_0\)</span>: <strong>intercept</strong>: the expected value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X = 0\)</span></li>
-<li><span class="math inline">\(\beta_1\)</span>: <strong>slope</strong>: the expected change in <span class="math inline">\(Y\)</span> for a one-unit increase in <span class="math inline">\(X\)</span></li>
-<li><span class="math inline">\(\varepsilon_i\)</span>: <strong>residual</strong>: what the model does not explain</li>
+<li><span class="math inline">\(\beta_0\)</span>: <strong>intercept</strong> — the expected value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X = 0\)</span></li>
+<li><span class="math inline">\(\beta_1\)</span>: <strong>slope</strong> — the expected change in <span class="math inline">\(Y\)</span> for a one-unit increase in <span class="math inline">\(X\)</span></li>
+<li><span class="math inline">\(\varepsilon_i\)</span>: <strong>residual</strong> — what the model does not explain</li>
 </ul>
 <p>The model is fitted by minimising the sum of squared residuals (ordinary least squares, OLS).</p>
 <p><strong>Assumptions (LINE):</strong></p>
@@ -482,20 +494,20 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td><strong>E</strong>qual variance (homoscedasticity)</td>
-<td>Scale-location plot → flat red line</td>
+<td>Residuals vs fitted → no funnel shape</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="example-1-clinical-data-pbc" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">10.4</span> Example 1: Clinical Data (PBC)</h2>
-<section id="predict-albumin-from-logbilirubin" class="level3" data-number="10.4.1">
-<h3 data-number="10.4.1" class="anchored" data-anchor-id="predict-albumin-from-logbilirubin"><span class="header-section-number">10.4.1</span> Predict Albumin from Log(Bilirubin)</h3>
-<p>Bilirubin is right-skewed; we log-transform it to achieve a more linear relationship.</p>
+<section id="example-1-clinical-data-pbc" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">10.5</span> Example 1: Clinical Data (PBC)</h2>
+<section id="predict-albumin-from-logbilirubin" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="predict-albumin-from-logbilirubin"><span class="header-section-number">10.5.1</span> Predict Albumin from Log(Bilirubin)</h3>
+<p>Bilirubin is right-skewed; we log-transform it to achieve a more linear relationship with albumin.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(bili)) <span class="sc">%&gt;%</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_bili =</span> <span class="fu">log</span>(bili))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -504,7 +516,7 @@ window.Quarto = {
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_bili, <span class="at">y =</span> albumin)) <span class="sc">+</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"tomato"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Albumin vs log(bilirubin) in PBC"</span>,</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log(Bilirubin)"</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -558,7 +570,7 @@ F-statistic: 57.34 on 1 and 416 DF,  p-value: 2.391e-13</code></pre>
 <p><strong><code>Residuals:</code></strong></p>
 <pre><code>Min      1Q  Median      3Q     Max
 -1.52   -0.29   0.01    0.31    1.18</code></pre>
-<p>These are the differences between each patient’s observed albumin and the model’s prediction. Ideally: - The <strong>Median</strong> should be close to 0 (no systematic over- or under-prediction) - The <strong>Min</strong> and <strong>Max</strong> should be roughly symmetric - if the biggest error is <code>+1.18</code> and smallest is <code>-1.52</code>, that is reasonably balanced. - Very large Max or very negative Min suggests outliers.</p>
+<p>These are the differences between each patient’s observed albumin and the model’s prediction. Ideally: - The <strong>Median</strong> should be close to 0 (no systematic over- or under-prediction) - The <strong>Min</strong> and <strong>Max</strong> should be roughly symmetric — if the biggest error is <code>+1.18</code> and smallest is <code>-1.52</code>, that is reasonably balanced - Very large Max or very negative Min suggests outliers</p>
 <p><strong><code>Coefficients:</code> table</strong></p>
 <pre><code>              Estimate Std. Error t value Pr(&gt;|t|)
 (Intercept)   4.15      0.06      69.2    &lt;2e-16 ***
@@ -593,22 +605,21 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </tr>
 <tr class="odd">
 <td><strong>Stars (***)</strong></td>
-<td>Just a shorthand: <code>***</code> = p &lt; 0.001, <code>**</code> = p &lt; 0.01, <code>*</code> = p &lt; 0.05, <code>.</code> = p &lt; 0.1</td>
+<td>Shorthand: <code>***</code> = p &lt; 0.001, <code>**</code> = p &lt; 0.01, <code>*</code> = p &lt; 0.05, <code>.</code> = p &lt; 0.1</td>
 </tr>
 </tbody>
 </table>
-<p><strong><code>Residual standard error: 0.43 on 416 degrees of freedom</code></strong> This is the typical size of a prediction error. On average, the model’s albumin prediction is off by about 0.43 g/dL. Degrees of freedom = number of observations minus number of parameters estimated (here, 418 - 2 = 416).</p>
-<p><strong><code>Multiple R-squared: 0.22</code></strong> Log(bilirubin) explains <strong>22% of the variability</strong> in albumin across patients. The remaining 78% is explained by other factors not in this model.</p>
-<p><strong><code>Adjusted R-squared: 0.22</code></strong> Almost the same as R² here because we only have one predictor. It would drop relative to R² if we had many predictors but most were uninformative. Prefer adjusted R² when comparing models with different numbers of predictors.</p>
-<p><strong><code>F-statistic: 128 on 1 and 416 DF, p-value: &lt; 2.2e-16</code></strong> Tests whether the <em>whole model</em> explains significantly more variance than just predicting the mean for everyone. With one predictor, this is equivalent to the t-test on the slope. If p &lt; 0.05, at least one predictor is useful.</p>
+<p><strong><code>Residual standard error: 0.43 on 416 degrees of freedom</code></strong> The typical size of a prediction error. On average, the model’s albumin prediction is off by about 0.43 g/dL. Degrees of freedom = observations minus parameters estimated (418 − 2 = 416).</p>
+<p><strong><code>Multiple R-squared: 0.22</code></strong> Log(bilirubin) explains <strong>22% of the variability</strong> in albumin. The remaining 78% is explained by other factors not in this model.</p>
+<p><strong><code>Adjusted R-squared: 0.22</code></strong> Almost the same here because we have one predictor. It drops relative to R² if many predictors are uninformative. Prefer adjusted R² when comparing models.</p>
+<p><strong><code>F-statistic: 128 on 1 and 416 DF, p-value: &lt; 2.2e-16</code></strong> Tests whether the whole model explains significantly more variance than just predicting the mean for everyone. With one predictor, this is equivalent to the t-test on the slope.</p>
 </div>
 </div>
 </section>
-<section id="interpreting-the-output" class="level3" data-number="10.4.2">
-<h3 data-number="10.4.2" class="anchored" data-anchor-id="interpreting-the-output"><span class="header-section-number">10.4.2</span> Interpreting the Output</h3>
+<section id="interpreting-the-output" class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="interpreting-the-output"><span class="header-section-number">10.5.2</span> Interpreting the Output</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficients table</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term        estimate std.error statistic  p.value conf.low conf.high
@@ -616,8 +627,7 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 1 (Intercept)    3.58     0.0223    160.   0           3.54      3.62 
 2 log_bili      -0.144    0.0191     -7.57 2.39e-13   -0.182    -0.107</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model-level statistics</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
@@ -626,7 +636,12 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 # ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
 </div>
 </div>
-<p><strong>Reading the coefficients:</strong> - <strong>Intercept (4.15):</strong> Expected albumin when log(bilirubin) = 0 (i.e., bilirubin = 1 mg/dL) is 4.15 g/dL. - <strong>Slope (-0.34):</strong> For each one-unit increase in log(bilirubin), albumin decreases by 0.34 g/dL on average. - <strong><span class="math inline">\(R^2\)</span> (0.22):</strong> Log(bilirubin) explains 22% of the variability in albumin.</p>
+<p><strong>Reading the coefficients:</strong></p>
+<ul>
+<li><strong>Intercept (4.15):</strong> Expected albumin when log(bilirubin) = 0, i.e., bilirubin = 1 mg/dL, is 4.15 g/dL.</li>
+<li><strong>Slope (−0.34):</strong> For each one-unit increase in log(bilirubin), albumin decreases by 0.34 g/dL on average.</li>
+<li><strong>R² (0.22):</strong> Log(bilirubin) explains 22% of the variability in albumin.</li>
+</ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -639,25 +654,35 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 <div class="callout-body-container callout-body">
 <p>Translate the numbers into a scientific sentence before you report anything:</p>
 <blockquote class="blockquote">
-<p><em>“In PBC patients, higher bilirubin is associated with lower albumin. For every approximate 2.7-fold increase in bilirubin (one unit on the log scale), albumin is on average 0.34 g/dL lower (95% CI: -0.40 to -0.28, p &lt; 0.001). Log(bilirubin) explains 22% of the variability in albumin across patients.”</em></p>
+<p><em>“In PBC patients, higher bilirubin is associated with lower albumin. For every approximate 2.7-fold increase in bilirubin (one unit on the log scale), albumin is on average 0.34 g/dL lower (95% CI: −0.40 to −0.28, p &lt; 0.001). Log(bilirubin) explains 22% of the variability in albumin across patients.”</em></p>
 </blockquote>
-<p>That is what you would write in a Results section. Notice:</p>
+<p>Notice:</p>
 <ul>
 <li>You state the <strong>direction</strong> (lower albumin)</li>
 <li>You give the <strong>magnitude</strong> (0.34 g/dL)</li>
 <li>You give the <strong>uncertainty</strong> (95% CI)</li>
-<li>You give the <strong>p-value</strong> - but note it only tells you the effect is unlikely to be zero, not that it is large or clinically important</li>
+<li>You give the <strong>p-value</strong> — but note it only tells you the effect is unlikely to be zero, not that it is large or clinically important</li>
 <li>You give <strong>R²</strong> to indicate how much of the outcome this one predictor explains</li>
 </ul>
-<p><strong>Is 22% a good R²?</strong> In clinical and biological data, a single biomarker rarely explains more than 20-30% of an outcome, there are too many other factors involved. R² = 0.22 is actually quite respectable here. R² of 0.90+ is typical only in physics or engineering, not in medicine.</p>
+<p><strong>Is 22% a good R²?</strong> In clinical and biological data, a single biomarker rarely explains more than 20–30% of an outcome — there are too many other factors involved. R² = 0.22 is quite respectable. R² of 0.90+ is typical in physics or engineering, not medicine.</p>
 </div>
 </div>
 </section>
-<section id="checking-assumptions" class="level3" data-number="10.4.3">
-<h3 data-number="10.4.3" class="anchored" data-anchor-id="checking-assumptions"><span class="header-section-number">10.4.3</span> Checking Assumptions</h3>
+<section id="checking-assumptions" class="level3" data-number="10.5.3">
+<h3 data-number="10.5.3" class="anchored" data-anchor-id="checking-assumptions"><span class="header-section-number">10.5.3</span> Checking Assumptions</h3>
+<p>We use <code>broom::augment()</code> to extract residuals and fitted values, then plot with ggplot — consistent with the rest of the course.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>aug <span class="ot">&lt;-</span> <span class="fu">augment</span>(fit)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(aug, <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey50"</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted values"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>, <span class="at">title =</span> <span class="st">"Residuals vs Fitted"</span>) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -665,35 +690,49 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(aug, <span class="fu">aes</span>(<span class="at">sample =</span> .std.resid)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>(<span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Theoretical quantiles"</span>, <span class="at">y =</span> <span class="st">"Standardised residuals"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Normal Q-Q"</span>) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="linear-regression_files/figure-html/diagnostics-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<p><strong>Residuals vs Fitted:</strong> Should show no pattern. A curve suggests non-linearity.</p>
-<p><strong>QQ-plot:</strong> Residuals should follow the diagonal line. Heavy tails indicate non-normality.</p>
-<p><strong>Scale-Location:</strong> Should be flat. An upward slope indicates heteroscedasticity (variance increases with fitted values).</p>
-<p><strong>Cook’s Distance:</strong> Identifies influential observations. Points labeled by row number warrant investigation.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>How to Read Diagnostic Plots: What Good and Bad Look Like
+<span class="screen-reader-only">Note</span>How to Read These Diagnostic Plots
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Plot 1: Residuals vs Fitted</strong> You are looking for a flat, horizontal cloud of points with no pattern. - ✓ <strong>Good:</strong> Points scattered randomly around the horizontal line at zero. - ✗ <strong>Bad (U-shape or arc):</strong> The relationship is non-linear; your straight line is the wrong shape. Try log-transforming X. - ✗ <strong>Bad (funnel shape):</strong> Variance increases with fitted values (heteroscedasticity). Try log-transforming Y.</p>
-<p><strong>Plot 2: Normal Q-Q</strong> You are checking whether the residuals follow a normal distribution. - ✓ <strong>Good:</strong> Points follow the diagonal line closely. - ✗ <strong>Bad (S-curve):</strong> Residuals are skewed. - ✗ <strong>Bad (heavy tails):</strong> More extreme values than expected; the model underestimates rare large errors. Mild deviation is usually acceptable for large samples.</p>
-<p><strong>Plot 3: Scale-Location</strong> Same as Plot 1 but using the square root of the absolute residuals, making it easier to spot unequal variance. - ✓ <strong>Good:</strong> Red line is flat, points evenly spread. - ✗ <strong>Bad (upward slope):</strong> Variance increases; patients with high predicted albumin also have more unpredictable albumin.</p>
-<p><strong>Plot 4: Cook’s Distance / Residuals vs Leverage</strong> Identifies observations that have a disproportionate effect on the fitted line. - <strong>Leverage</strong> = how unusual the X value is (extreme bilirubin, for example) - <strong>Cook’s D</strong> = combined measure: unusual X <em>and</em> large residual - <strong>Rule of thumb:</strong> Cook’s D &gt; 4/n (here, 4/418 ≈ 0.01) or &gt; 1 flags cases to investigate - These are not automatically errors; they may be biologically interesting patients</p>
+<p><strong>Residuals vs Fitted</strong> You are looking for a flat, horizontal cloud of points with no pattern.</p>
+<ul>
+<li>✓ <strong>Good:</strong> Points scattered randomly around zero, no trend.</li>
+<li>✗ <strong>Bad (U-shape or arc):</strong> The relationship is non-linear; try log-transforming X.</li>
+<li>✗ <strong>Bad (funnel shape):</strong> Variance increases with fitted values (heteroscedasticity); try log-transforming Y.</li>
+</ul>
+<p><strong>Normal Q-Q</strong> You are checking whether residuals follow a normal distribution.</p>
+<ul>
+<li>✓ <strong>Good:</strong> Points follow the diagonal line closely.</li>
+<li>✗ <strong>Bad (S-curve):</strong> Residuals are skewed.</li>
+<li>✗ <strong>Bad (heavy tails):</strong> More extreme values than expected; mild deviation is usually acceptable for large samples.</li>
+</ul>
 </div>
 </div>
 </section>
-<section id="predictions" class="level3" data-number="10.4.4">
-<h3 data-number="10.4.4" class="anchored" data-anchor-id="predictions"><span class="header-section-number">10.4.4</span> Predictions</h3>
+<section id="predictions" class="level3" data-number="10.5.4">
+<h3 data-number="10.5.4" class="anchored" data-anchor-id="predictions"><span class="header-section-number">10.5.4</span> Predictions</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict albumin for bilirubin = 2, 5, 10 mg/dL</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">log_bili =</span> <span class="fu">log</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>)))</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> new_data, <span class="at">interval =</span> <span class="st">"confidence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">log_bili =</span> <span class="fu">log</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>)))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> new_data, <span class="at">interval =</span> <span class="st">"confidence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       fit      lwr      upr
 1 3.479864 3.441244 3.518485
@@ -702,21 +741,21 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot with prediction band</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>pred_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">log_bili =</span> <span class="fu">seq</span>(<span class="fu">min</span>(pbc<span class="sc">$</span>log_bili), <span class="fu">max</span>(pbc<span class="sc">$</span>log_bili), <span class="at">length.out =</span> <span class="dv">100</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>pred_df <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(pred_df, <span class="fu">as_tibble</span>(<span class="fu">predict</span>(fit, <span class="at">newdata =</span> pred_df, <span class="at">interval =</span> <span class="st">"prediction"</span>)))</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_bili, <span class="at">y =</span> albumin)) <span class="sc">+</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> pred_df, <span class="fu">aes</span>(<span class="at">y =</span> fit, <span class="at">ymin =</span> lwr, <span class="at">ymax =</span> upr),</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> pred_df, <span class="fu">aes</span>(<span class="at">y =</span> fit), <span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Linear regression with 95% prediction interval"</span>,</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log(Bilirubin)"</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pred_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">log_bili =</span> <span class="fu">seq</span>(<span class="fu">min</span>(pbc<span class="sc">$</span>log_bili), <span class="fu">max</span>(pbc<span class="sc">$</span>log_bili), <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>pred_df <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(pred_df,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">as_tibble</span>(<span class="fu">predict</span>(fit, <span class="at">newdata =</span> pred_df, <span class="at">interval =</span> <span class="st">"prediction"</span>)))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_bili, <span class="at">y =</span> albumin)) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> pred_df, <span class="fu">aes</span>(<span class="at">y =</span> fit, <span class="at">ymin =</span> lwr, <span class="at">ymax =</span> upr),</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> pred_df, <span class="fu">aes</span>(<span class="at">y =</span> fit), <span class="at">colour =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Linear regression with 95% prediction interval"</span>,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log(Bilirubin)"</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -727,19 +766,14 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </div>
 </section>
 </section>
-<section id="example-2-animal-data-palmerpenguins" class="level2" data-number="10.5">
-<h2 data-number="10.5" class="anchored" data-anchor-id="example-2-animal-data-palmerpenguins"><span class="header-section-number">10.5</span> Example 2: Animal Data (palmerpenguins)</h2>
-<p>We predict body mass from flipper length, a practical calibration question in ecology and animal research.</p>
+<section id="example-2-animal-data-palmerpenguins" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="example-2-animal-data-palmerpenguins"><span class="header-section-number">10.6</span> Example 2: Animal Data (palmerpenguins)</h2>
+<p>We predict body mass from flipper length — a practical calibration question in ecology.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'palmerpenguins' was built under R version 4.4.3</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(body_mass_g, flipper_length_mm)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>fit_p <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> peng)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_p, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(body_mass_g, flipper_length_mm, species)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>fit_p <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> peng)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_p, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term              estimate std.error statistic   p.value conf.low conf.high
@@ -747,7 +781,7 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 1 (Intercept)        -5781.     306.       -18.9 5.59e- 55  -6382.    -5179. 
 2 flipper_length_mm     49.7      1.52      32.7 4.37e-107     46.7      52.7</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(fit_p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(fit_p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squared adj.r.squared sigma statistic   p.value    df logLik   AIC   BIC
@@ -757,14 +791,14 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>peng <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> species), <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>, <span class="st">"seagreen"</span>)) <span class="sc">+</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Body mass predicted by flipper length"</span>,</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>, <span class="at">y =</span> <span class="st">"Body mass (g)"</span>) <span class="sc">+</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>peng <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> species), <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>, <span class="st">"seagreen"</span>)) <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Body mass predicted by flipper length"</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>, <span class="at">y =</span> <span class="st">"Body mass (g)"</span>) <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -777,8 +811,17 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit_p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>aug_p <span class="ot">&lt;-</span> <span class="fu">augment</span>(fit_p)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(aug_p, <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey50"</span>) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted values"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>, <span class="at">title =</span> <span class="st">"Residuals vs Fitted (penguins)"</span>) <span class="sc">+</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -786,28 +829,72 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(aug_p, <span class="fu">aes</span>(<span class="at">sample =</span> .std.resid)) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>(<span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Theoretical quantiles"</span>, <span class="at">y =</span> <span class="st">"Standardised residuals"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Normal Q-Q (penguins)"</span>) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="linear-regression_files/figure-html/penguin-diagnostics-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<p>Notice that the residuals may cluster by species, a sign that species confounds the relationship. This motivates multiple regression (see next session).</p>
+</div>
+</div>
+<p>Notice that residuals may cluster by species — a sign that species confounds the relationship. This motivates <a href="../sessions/multiple-regression.html">multiple regression</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Where to Find Data Like This
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>PBC dataset:</strong> <code>survival::pbc</code> — multiple continuous variables with clinically interpretable relationships.</p>
+<p><strong>palmerpenguins:</strong> <code>palmerpenguins::penguins</code> — clean morphological measurements, ideal for regression with a natural grouping structure.</p>
+<p><strong>MASS::Boston:</strong> Housing data commonly used to teach regression; however, contains a problematic racial variable — examine the data carefully before use.</p>
+</div>
+</div>
 </section>
-<section id="where-to-find-data-like-this" class="level2 callout-note" data-number="10.6">
-<h2 class="callout-note anchored" data-number="10.6" data-anchor-id="where-to-find-data-like-this"><span class="header-section-number">10.6</span> Where to Find Data Like This</h2>
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> - multiple continuous variables with clinically interpretable relationships.</p>
-<p><strong>palmerpenguins:</strong> <code>palmerpenguins::penguins</code> - clean morphological measurements, ideal for regression with a natural grouping structure.</p>
-<p><strong>MASS::Boston:</strong> Housing data commonly used to teach regression; however, contains a problematic racial variable; examine the data carefully before use.</p>
-</section>
-<section id="what-can-go-wrong" class="level2 callout-warning" data-number="10.7">
-<h2 class="callout-warning anchored" data-number="10.7" data-anchor-id="what-can-go-wrong"><span class="header-section-number">10.7</span> What Can Go Wrong</h2>
-<p><strong>Extrapolation</strong> A regression line is only valid within the range of the observed data. Predicting outside this range (extrapolation) can produce nonsensical values - e.g., negative albumin.</p>
-<p><strong>Ignoring non-linearity</strong> If the Residuals vs Fitted plot shows a U-shape or arc, the linear model is misspecified. Try a log-transformation of X, or consider polynomial or spline terms.</p>
-<p><strong>Heteroscedasticity</strong> If variance increases with fitted values (fan-shaped residuals), OLS standard errors are incorrect. Consider transforming Y, or use heteroscedasticity-consistent (robust) standard errors.</p>
-<p><strong>Confounding</strong> A simple regression coefficient is not causal. A third variable may drive both X and Y (see <a href="../sessions/multiple-regression.html">Multiple Regression</a> and <a href="../sessions/correlation-and-association.html">Correlation and Association</a>).</p>
-<p><strong>Outliers and influential points</strong> Check Cook’s distance. Points with Cook’s D &gt; 1 (or &gt; 4/n) exert disproportionate influence on the fitted line. Investigate them; they may be data errors or genuinely unusual cases. ::: {.callout-warning} ### Common Misinterpretations: Don’t Make These Mistakes</p>
-<p><strong>“p &lt; 0.05 means the effect is large”</strong> No.&nbsp;p &lt; 0.05 means the effect is unlikely to be exactly zero given your sample size. A slope of -0.001 can be highly significant with 10,000 patients. Always report the <em>magnitude</em> (the estimate and CI), not just the p-value.</p>
-<p><strong>“p = 0.06 means there is no effect”</strong> No.&nbsp;It means you do not have enough evidence to rule out chance with this sample size. A study with 20 patients and p = 0.06 may simply be underpowered. Never say “no association” based on p &gt; 0.05 alone.</p>
-<p><strong>“R² = 0.05 means the model is useless”</strong> Not necessarily. In medicine and biology, outcomes are driven by hundreds of factors. A single biomarker explaining 5% of variance may still be scientifically meaningful. Judge R² relative to what is realistic in your field.</p>
-<p><strong>“The intercept is always meaningful”</strong> Only if X = 0 is a realistic value. In <code>lm(albumin ~ log_bili)</code>, the intercept is albumin when bilirubin = 1 mg/dL. If few patients have bilirubin near 1 mg/dL, the intercept is a mathematical anchor, not a clinically interpretable number.</p>
-<p><strong>“A significant p-value means my model assumptions are met”</strong> The p-value tells you nothing about model assumptions. Check the diagnostic plots regardless of the p-value. :::</p>
+<section id="what-can-go-wrong" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="what-can-go-wrong"><span class="header-section-number">10.7</span> What Can Go Wrong</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Extrapolation.</strong> A regression line is only valid within the range of the observed data. Predicting outside this range can produce nonsensical values — e.g., negative albumin.</p>
+<p><strong>Ignoring non-linearity.</strong> If the Residuals vs Fitted plot shows a U-shape, the linear model is misspecified. Try a log-transformation of X, or consider polynomial terms.</p>
+<p><strong>Heteroscedasticity.</strong> If variance increases with fitted values (fan-shaped residuals), OLS standard errors are incorrect. Consider transforming Y, or use heteroscedasticity-consistent (robust) standard errors.</p>
+<p><strong>Confounding.</strong> A simple regression coefficient is not causal. A third variable may drive both X and Y. See the <a href="../sessions/multiple-regression.html">multiple regression session</a> for how to adjust for confounders.</p>
+<p><strong>Outliers and influential points.</strong> Check Cook’s distance via <code>augment()</code> — the <code>.cooksd</code> column. Values above 4/n flag cases to investigate; they may be data errors or genuinely unusual patients.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Common Misinterpretations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>“p &lt; 0.05 means the effect is large.”</strong> p &lt; 0.05 means the effect is unlikely to be exactly zero given your sample size. A slope of −0.001 can be highly significant with 10,000 patients. Always report the <em>magnitude</em> (estimate and CI), not just the p-value.</p>
+<p><strong>“p = 0.06 means there is no effect.”</strong> It means you do not have enough evidence to rule out chance with this sample size. A study with 20 patients and p = 0.06 may simply be underpowered. Never say “no association” based on p &gt; 0.05 alone.</p>
+<p><strong>“R² = 0.05 means the model is useless.”</strong> In medicine and biology, outcomes are driven by hundreds of factors. A single biomarker explaining 5% of variance may still be scientifically meaningful. Judge R² relative to what is realistic in your field.</p>
+<p><strong>“The intercept is always meaningful.”</strong> Only if X = 0 is a realistic value. In <code>lm(albumin ~ log_bili)</code>, the intercept is albumin when bilirubin = 1 mg/dL. If few patients have bilirubin near 1 mg/dL, the intercept is a mathematical anchor, not a clinically interpretable number.</p>
+<p><strong>“A significant p-value means my model assumptions are met.”</strong> The p-value tells you nothing about model assumptions. Check the diagnostic plots regardless of the p-value.</p>
+</div>
+</div>
 </section>
 <section id="exercises" class="level2" data-number="10.8">
 <h2 data-number="10.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">10.8</span> Exercises</h2>
@@ -816,11 +903,11 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 <ol type="1">
 <li>Plot albumin (y) vs prothrombin time (x) in <code>pbc</code>. Log-transform prothrombin time.</li>
 <li>Fit <code>lm(albumin ~ log(protime), data = pbc)</code>. Interpret the slope.</li>
-<li>Check all four diagnostic plots.</li>
-<li>Report the slope, 95% CI, and <span class="math inline">\(R^2\)</span>.</li>
+<li>Check the residuals-vs-fitted and QQ plots using <code>broom::augment()</code>.</li>
+<li>Report the slope, 95% CI, and R².</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -829,16 +916,17 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pbc2 <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(protime))</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Plot</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>pbc2 <span class="sc">%&gt;%</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(protime), <span class="at">y =</span> albumin)) <span class="sc">+</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"log(Prothrombin time)"</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>pbc2 <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(protime), <span class="at">y =</span> albumin)) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"log(Prothrombin time)"</span>, <span class="at">y =</span> <span class="st">"Albumin (g/dL)"</span>) <span class="sc">+</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -849,9 +937,8 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Fit and interpret</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> <span class="fu">I</span>(<span class="fu">log</span>(protime)), <span class="at">data =</span> pbc2)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit2, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> <span class="fu">I</span>(<span class="fu">log</span>(protime)), <span class="at">data =</span> pbc2)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit2, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term            estimate std.error statistic  p.value conf.low conf.high
@@ -867,12 +954,30 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 1    0.0432        0.0409 0.415      18.7 0.0000193     1  -223.  452.  464.
 # ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Diagnostics</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)); <span class="fu">plot</span>(fit2); <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>aug2 <span class="ot">&lt;-</span> <span class="fu">augment</span>(fit2)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(aug2, <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey50"</span>) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted values"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(aug2, <span class="fu">aes</span>(<span class="at">sample =</span> .std.resid)) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>(<span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Theoretical quantiles"</span>, <span class="at">y =</span> <span class="st">"Standardised residuals"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="linear-regression_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -885,11 +990,11 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 <h3 data-number="10.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-bill-length-predicts-body-mass-penguins"><span class="header-section-number">10.8.2</span> Exercise 2 (Semi-guided): Bill Length Predicts Body Mass (Penguins)</h3>
 <ol type="1">
 <li>Fit <code>lm(body_mass_g ~ bill_length_mm, data = penguins)</code>.</li>
-<li>Does the model meet the assumptions? Check the diagnostic plots.</li>
-<li>Now fit the model separately for each species. Compare the slopes. How do they differ from the overall model?</li>
+<li>Check the diagnostic plots using <code>augment()</code>. Do the residuals look well-behaved?</li>
+<li>Fit the model separately for each species. Compare the slopes. How do they differ from the overall model?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -898,14 +1003,13 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>peng2 <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Overall model</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>fit_all <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> bill_length_mm, <span class="at">data =</span> peng2)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_all, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>peng2 <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>fit_all <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> bill_length_mm, <span class="at">data =</span> peng2)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_all, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term           estimate std.error statistic  p.value conf.low conf.high
@@ -913,8 +1017,16 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 1 (Intercept)       389.     290.        1.34 1.81e- 1   -181.      959. 
 2 bill_length_mm     86.8      6.54     13.3  1.54e-32     73.9      99.7</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Diagnostics</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)); <span class="fu">plot</span>(fit_all); <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>aug_all <span class="ot">&lt;-</span> <span class="fu">augment</span>(fit_all)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(aug_all, <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey50"</span>) <span class="sc">+</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted values"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -922,12 +1034,21 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. By species</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>peng2 <span class="sc">%&gt;%</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do</span>(<span class="fu">tidy</span>(<span class="fu">lm</span>(body_mass_g <span class="sc">~</span> bill_length_mm, <span class="at">data =</span> .), <span class="at">conf.int =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"bill_length_mm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(aug_all, <span class="fu">aes</span>(<span class="at">sample =</span> .std.resid)) <span class="sc">+</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>(<span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Theoretical quantiles"</span>, <span class="at">y =</span> <span class="st">"Standardised residuals"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="linear-regression_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>peng2 <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do</span>(<span class="fu">tidy</span>(<span class="fu">lm</span>(body_mass_g <span class="sc">~</span> bill_length_mm, <span class="at">data =</span> .), <span class="at">conf.int =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"bill_length_mm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
 # Groups:   species [3]
@@ -944,20 +1065,20 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </section>
 <section id="exercise-3-open-ended" class="level3" data-number="10.8.3">
 <h3 data-number="10.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">10.8.3</span> Exercise 3 (Open-ended)</h3>
-<p>In your own research, identify a continuous outcome and a single continuous predictor you expect to be linearly related. Fit a simple linear regression, check all assumptions, and write a Results paragraph including: the slope (95% CI), the <span class="math inline">\(R^2\)</span>, and a sentence on whether the assumptions are satisfied.</p>
+<p>In your own research, identify a continuous outcome and a single continuous predictor you expect to be linearly related. Fit a simple linear regression, check all assumptions, and write a Results paragraph including: the slope (95% CI), the R², and a sentence on whether the assumptions are satisfied.</p>
 </section>
 </section>
 <section id="comprehension-check" class="level2" data-number="10.9">
 <h2 data-number="10.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">10.9</span> Comprehension Check</h2>
 <ol type="1">
-<li>You fit <code>lm(albumin ~ log_bili)</code> and get slope = -0.34, SE = 0.03. Interpret the slope in plain language.</li>
+<li>You fit <code>lm(albumin ~ log_bili)</code> and get slope = −0.34, SE = 0.03. Interpret the slope in plain language.</li>
 <li>The QQ-plot of residuals shows a heavy right tail. Is this a problem? What would you do?</li>
-<li><span class="math inline">\(R^2 = 0.05\)</span>. Does this mean the model is useless?</li>
+<li>R² = 0.05. Does this mean the model is useless?</li>
 <li>You predict albumin = 2.1 g/dL for a patient with bilirubin = 80 mg/dL. The maximum observed bilirubin in your data is 28 mg/dL. Should you trust this prediction?</li>
 <li>What does the intercept represent in <code>lm(albumin ~ log_bili)</code> when many patients have bilirubin values far from 1 mg/dL?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -966,14 +1087,14 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>For every one-unit increase in log(bilirubin), roughly a 2.7-fold increase in bilirubin on the original scale, and albumin is expected to be 0.34 g/dL lower, on average, after accounting for the uncertainty in this estimate.</li>
-<li>A heavy right tail in the QQ-plot indicates that large positive residuals occur more often than expected under normality. For inference (t-tests, CIs), mild non-normality is acceptable with large samples (CLT). For severe non-normality, try a log-transformation of the outcome or use robust standard errors.</li>
-<li><span class="math inline">\(R^2 = 0.05\)</span> means the predictor explains 5% of the outcome’s variability. Whether this is “useful” depends on context. In complex biological systems, a single biomarker explaining even 5% of variance may be scientifically meaningful. The slope and CI are more informative than <span class="math inline">\(R^2\)</span> alone.</li>
-<li>No.&nbsp;A bilirubin of 80 mg/dL is well outside the range of the data used to fit the model (max = 28). Extrapolation is unreliable; the linear relationship may not hold at extreme values.</li>
-<li>The intercept is the predicted albumin when log(bilirubin) = 0, i.e., when bilirubin = 1 mg/dL. If few patients have bilirubin near 1 mg/dL, the intercept is an extrapolation with high uncertainty and limited clinical meaning. It is mainly a mathematical artefact of the model parameterisation.</li>
+<li>For every one-unit increase in log(bilirubin) — roughly a 2.7-fold increase in bilirubin on the original scale — albumin is expected to be 0.34 g/dL lower, on average.</li>
+<li>A heavy right tail means large positive residuals occur more often than expected under normality. For inference (CIs, p-values), mild non-normality is acceptable with large samples (Central Limit Theorem). For severe non-normality, try a log-transformation of the outcome or use robust standard errors.</li>
+<li>R² = 0.05 means the predictor explains 5% of the outcome’s variability. Whether this is “useful” depends on context. In complex biological systems, a single biomarker explaining even 5% of variance may be scientifically meaningful. The slope and CI are more informative than R² alone.</li>
+<li>No.&nbsp;Bilirubin = 80 mg/dL is well outside the range of the data used to fit the model (max = 28). Extrapolation is unreliable; the linear relationship may not hold at extreme values.</li>
+<li>The intercept is the predicted albumin when log(bilirubin) = 0, i.e., when bilirubin = 1 mg/dL. If few patients have bilirubin near 1 mg/dL, the intercept is an extrapolation with high uncertainty and limited clinical meaning.</li>
 </ol>
 </div>
 </div>
@@ -981,8 +1102,6 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </section>
 <section id="how-to-report" class="level2" data-number="10.10">
 <h2 data-number="10.10" class="anchored" data-anchor-id="how-to-report"><span class="header-section-number">10.10</span> How to Report</h2>
-<section id="reporting-a-linear-regression" class="level3" data-number="10.10.1">
-<h3 data-number="10.10.1" class="anchored" data-anchor-id="reporting-a-linear-regression"><span class="header-section-number">10.10.1</span> Reporting a Linear Regression</h3>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -994,18 +1113,18 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>In a methods section:</strong> “The association between [outcome] and [predictor] was estimated using linear regression. Potential confounders [list] were included in the model. Model assumptions (linearity, homoscedasticity, normality of residuals) were assessed using diagnostic plots.”</p>
-<p><strong>In results:</strong> “Each additional [unit] of [predictor] was associated with a [3b2] [unit] change in [outcome] (3b2 = X, 95% CI [L, U], p = Y).”</p>
-<p><strong>What to always include:</strong></p>
+<p><strong>In results:</strong> “Each additional [unit] of [predictor] was associated with a [β] [unit] change in [outcome] (β = X, 95% CI [L, U], p = Y).”</p>
+<p><strong>Always include:</strong></p>
 <ul>
-<li>Regression coefficient (3b2) with 95% CI and p-value</li>
+<li>Regression coefficient (β) with 95% CI and p-value</li>
 <li>Adjusted R² (proportion of variance explained)</li>
 <li>Number of observations and any excluded due to missing data</li>
 <li>Whether the model is unadjusted or adjusted (and for what)</li>
 </ul>
 <p><strong>Reporting R² alone is not enough</strong> — always report the coefficient and CI so readers know the direction and magnitude of the effect.</p>
+<p>For models with multiple predictors, see the <a href="../sessions/multiple-regression.html">Multiple Regression</a> session.</p>
 </div>
 </div>
-</section>
 </section>
 <section id="further-reading" class="level2" data-number="10.11">
 <h2 data-number="10.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">10.11</span> Further Reading</h2>

@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Mixed Models: Random Effects and Repeated Measures"
 ---
 
@@ -8,6 +8,7 @@ title: "Mixed Models: Random Effects and Repeated Measures"
 library(tidyverse)
 library(lme4)
 library(broom.mixed)
+library(performance)
 ```
 
 ::: {.callout-important}
@@ -15,9 +16,11 @@ library(broom.mixed)
 Mixed models extend linear regression to handle repeated measures and clustered data. Complete the **Linear Regression** and **Multiple Regression** sessions before starting this one.
 :::
 
-## When Do You Use This? {#sec-mixed-models .callout-tip}
+## When Do You Use This? {#sec-mixed-models}
 
-> Your data have a grouped or hierarchical structure: repeated measurements on the same individuals over time, participants nested within clinics, or samples from the same animal litter. Standard regression assumes all observations are independent, which is violated whenever observations share a common source. Mixed models handle this by estimating a random effect for each group, correctly accounting for within-group correlation and preventing inflated Type I error. For example: a biomarker measured at multiple clinic visits per patient, or body weight measurements across litters in an animal experiment.
+::: {.callout-tip}
+Your data have a grouped or hierarchical structure: repeated measurements on the same individuals over time, participants nested within clinics, or samples from the same animal litter. Standard regression assumes all observations are independent, which is violated whenever observations share a common source. Mixed models handle this by estimating a random effect for each group, correctly accounting for within-group correlation and preventing inflated Type I error. For example: a biomarker measured at multiple clinic visits per patient, or body weight measurements across litters in an animal experiment.
+:::
 
 ## Learning Objectives
 
@@ -29,6 +32,14 @@ After completing this session you will be able to:
 - Calculate the intraclass correlation coefficient (ICC)
 - Compare models with different random effects structures using AIC
 
+
+## The Key Idea: Why Independence Matters
+
+Every statistical test in this course assumes observations are independent. But imagine measuring a mouse's tumour volume five times. Those five measurements are not five independent data points --- they come from the same mouse. Three siblings from the same litter are not three independent animals --- they share genes and environment.
+
+When you ignore this grouping, your model thinks it has more independent information than it really does. The result: standard errors that are too small, p-values that are too low, and results that look more certain than they are.
+
+Mixed models fix this by adding a random effect for each group. This soaks up the within-group correlation, gives you honest standard errors, and lets you estimate the effect of your predictor on the population as a whole.
 
 ## Background: Fixed Effects, Random Effects, and Correlation Structure
 
@@ -56,15 +67,15 @@ The `ChickWeight` dataset (built into base R) records the body weight of 50 chic
 ```{r chickweight-explore}
 #| eval: true
 
-chicks <- ChickWeight |>
-  as_tibble() |>
+chicks <- ChickWeight %>%
+  as_tibble() %>%
   rename(chick = Chick, diet = Diet, day = Time, weight = weight)
 
 glimpse(chicks)
 
 # How many observations per chick?
-chicks |>
-  count(chick) |>
+chicks %>%
+  count(chick) %>%
   summarise(min_obs = min(n), max_obs = max(n), median_obs = median(n))
 ```
 
@@ -73,7 +84,7 @@ chicks |>
 ```{r chickweight-spaghetti}
 #| eval: true
 
-chicks |>
+chicks %>%
   ggplot(aes(x = day, y = weight, group = chick, colour = diet)) +
   geom_line(alpha = 0.25, linewidth = 0.4) +
   geom_smooth(aes(group = diet), method = "lm", se = TRUE, linewidth = 1.5) +
@@ -102,8 +113,8 @@ summary(fit_ri)
 ```{r ri-tidy}
 #| eval: true
 
-tidy(fit_ri, conf.int = TRUE) |>
-  select(effect, term, estimate, conf.low, conf.high) |>
+tidy(fit_ri, conf.int = TRUE) %>%
+  select(effect, term, estimate, conf.low, conf.high) %>%
   print(n = 20)
 ```
 
@@ -117,7 +128,6 @@ tidy(fit_ri, conf.int = TRUE) |>
 ```{r icc-chick}
 #| eval: true
 
-library(performance)
 icc(fit_ri)
 ```
 
@@ -156,7 +166,7 @@ mouse_data <- tibble(
   treatment = rep(sample(c("Control", "HFD"), n_litters, replace = TRUE),
                   each = mice_per),
   litter_re = rep(rnorm(n_litters, 0, 1.8), each = mice_per)
-) |>
+) %>%
   mutate(
     weight_g  = 22 + 4.5 * (treatment == "HFD") + litter_re +
                 rnorm(n_litters * mice_per, 0, 1.2),
@@ -174,13 +184,13 @@ fit_litter <- lmer(weight_g ~ treatment + (1 | litter), data = mouse_data,
                    REML = FALSE)
 
 bind_rows(
-  broom::tidy(fit_naive, conf.int = TRUE) |>
-    filter(term == "treatmentHFD") |>
+  broom::tidy(fit_naive, conf.int = TRUE) %>%
+    filter(term == "treatmentHFD") %>%
     mutate(model = "OLS -- ignores litter"),
-  tidy(fit_litter, conf.int = TRUE, effects = "fixed") |>
-    filter(term == "treatmentHFD") |>
+  tidy(fit_litter, conf.int = TRUE, effects = "fixed") %>%
+    filter(term == "treatmentHFD") %>%
     mutate(model = "Mixed model -- random litter intercept")
-) |>
+) %>%
   select(model, estimate, conf.low, conf.high, p.value)
 ```
 
@@ -189,7 +199,7 @@ The OLS SE is smaller because it treats 75 mice as 75 independent replicates. Th
 ```{r litter-plot}
 #| eval: true
 
-mouse_data |>
+mouse_data %>%
   ggplot(aes(x = treatment, y = weight_g, colour = factor(litter))) +
   geom_jitter(width = 0.12, alpha = 0.7, size = 2) +
   stat_summary(aes(group = litter), fun = mean, geom = "line",
@@ -206,16 +216,17 @@ mouse_data |>
 ```{r ranef}
 #| eval: true
 
-ranef(fit_litter)$litter |>
-  tibble::rownames_to_column("litter") |>
-  rename(intercept_deviation = `(Intercept)`) |>
+ranef(fit_litter)$litter %>%
+  tibble::rownames_to_column("litter") %>%
+  rename(intercept_deviation = `(Intercept)`) %>%
   arrange(desc(abs(intercept_deviation)))
 ```
 
 Each row is one litter's deviation from the grand mean. Large deviations flag litters with unusual genetics, housing, or batch effects.
 
 
-## Where to Find Data Like This {.callout-note}
+::: {.callout-note}
+## Where to Find Data Like This
 
 **`ChickWeight`** (base R, used in Example 1): Repeated body weight measurements in 50 chicks across four diets. The definitive beginner repeated-measures dataset: genuinely longitudinal, biologically intuitive, no extra packages required.
 
@@ -226,21 +237,23 @@ Each row is one litter's deviation from the grand mean. Large deviations flag li
 **`survival::pbcseq`:** The real longitudinal extension of the PBC trial: lab values measured at multiple visits per patient. More complex than `ChickWeight` but clinically authentic.
 
 **Your own data:** Any experiment with repeated measures per subject (cell line, animal, patient) or a hierarchy (animals within litters, patients within clinics) is a candidate for a mixed model.
+:::
 
+::: {.callout-warning}
+## What Can Go Wrong
 
-## What Can Go Wrong {.callout-warning}
-
-**Using a paired t-test or repeated-measures ANOVA when you have covariates**
+**Using a paired t-test or repeated-measures ANOVA when you have covariates.**
 These simpler methods cannot adjust for continuous covariates or handle unbalanced time points. A mixed model does both.
 
-**Over-complex random effects structures**
+**Over-complex random effects structures.**
 Fitting a random slope for every predictor often leads to singular fits (variance estimate collapses to zero) or convergence failures. Start with a random intercept and add random slopes only if theoretically motivated and if the model converges.
 
-**Singular fit warning**
-`lmer()` warns "singular fit" when the random effects variance is estimated as zero or the correlation between random effects is ?1. This usually means the model is overparameterised for your data. Simplify the random effects structure.
+**Singular fit warning.**
+`lmer()` warns "singular fit" when the random effects variance is estimated as zero or the correlation between random effects is ±1. This usually means the model is overparameterised for your data. Simplify the random effects structure.
 
-**Interpreting the ICC as a nuisance**
+**Interpreting the ICC as a nuisance.**
 High ICC is not a problem to solve; it is a finding. It tells you there is substantial patient-level (or litter-level) variation that your predictors do not explain. Report it and consider whether it has scientific meaning.
+:::
 
 
 ## Exercises
@@ -287,8 +300,8 @@ ml2 <- lmer(weight_g ~ treatment + (1 + treatment | litter), data = mouse_data, 
 
 AIC(ml1, ml2)
 
-ranef(ml1)$litter |>
-  tibble::rownames_to_column("litter") |>
+ranef(ml1)$litter %>%
+  tibble::rownames_to_column("litter") %>%
   arrange(desc(abs(`(Intercept)`)))
 ```
 :::

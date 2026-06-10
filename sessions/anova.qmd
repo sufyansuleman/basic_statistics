@@ -1,4 +1,4 @@
-﻿---
+---
 title: "ANOVA: Comparing Means Across Groups"
 ---
 
@@ -12,68 +12,111 @@ library(broom)
 
 ::: {.callout-important}
 ## Before You Start
-ANOVA extends the t-test to three or more groups. If you haven't already, complete the **t-tests** session first.
+
+ANOVA extends the t-test to three or more groups. Make sure you have
+completed [T-tests and Group Comparisons](t-tests.qmd) first --- the
+logic here builds directly on the signal ÷ noise framework introduced
+there.
 :::
 
-## When Do You Use This? {#sec-anova .callout-tip}
+## When Do You Use This? {#sec-anova}
 
-> You have a continuous outcome measured in three or more independent groups and want to know whether the group means differ, without the inflated false-positive rate that comes from running all possible pairwise t-tests. ANOVA tests all groups simultaneously in a single model. For example: comparing a lab value across four disease stages, or comparing cell counts across multiple treatment conditions.
+::: {.callout-tip}
+You have a continuous outcome in three or more groups and you want to
+know whether the group means differ. Maybe you are comparing a
+biomarker across four disease stages, or a drug response across a
+control and three dose levels. The temptation is to run all possible
+pairs of t-tests. The problem: with four groups there are six pairs,
+and at α = 0.05 the probability of at least one false positive from
+six tests is 1 − 0.95⁶ = 26%. ANOVA tests all groups simultaneously
+in a single model and keeps the false positive rate at 5%.
+:::
 
 ## Learning Objectives
 
 After completing this session you will be able to:
 
-- Explain what ANOVA tests and when it is the right choice
-- Run a one-way ANOVA in R and interpret the F-statistic and p-value
-- Conduct post-hoc pairwise comparisons with Tukey's HSD
-- Run a two-way ANOVA and interpret a significant interaction term
-- Check ANOVA assumptions: normality of residuals, homogeneity of variance
+- Explain what the F-statistic is and how it relates to the t-statistic
+- Run a one-way ANOVA in R and interpret the output table
+- Run Tukey's HSD post-hoc test to identify which pairs differ
+- Fit a two-way ANOVA and interpret a significant interaction term
+- Check ANOVA assumptions using residual plots
 
 
-## Background: The Idea Behind ANOVA
+## Background: How ANOVA Works
 
-A t-test compares two group means. ANOVA (**AN**alysis **O**f **VA**riance) generalises this to $k$ groups. Despite the name, ANOVA tests means, not variances.
+### The F-statistic is signal ÷ noise
 
-**How it works:** ANOVA partitions total variability into:
-- **Between-group** variability (signal): differences between group means
-- **Within-group** variability (noise): natural variation within each group
+In the t-tests session, the t-statistic was signal ÷ noise: the
+difference between group means divided by the standard error of that
+difference. The F-statistic follows the same logic but for multiple
+groups simultaneously:
 
-The **F-statistic** is the ratio of these two quantities:
+$$F = \frac{\text{variance between group means (signal)}}{\text{variance within groups (noise)}}$$
 
-$$F = \frac{\text{Mean square between groups}}{\text{Mean square within groups}}$$
+A large F means the group means spread out more than would be expected
+from the natural variation within groups. Under the null hypothesis that
+all group means are equal, F follows a known F-distribution. A small
+p-value means "an F this large would be rare if the groups truly had
+the same mean."
 
-A large F means group differences are large relative to the within-group scatter. Under the null hypothesis that all group means are equal, F follows an F-distribution.
+ANOVA works by **partitioning total variation** into two parts:
 
-**ANOVA assumptions:**
-1. Independence: observations are independent
-2. Normality: residuals (within-group deviations) are approximately normal
-3. Homogeneity of variance: all groups have similar variance (Levene's test)
+- **Between-group variation** (signal): how much the group means deviate
+  from the overall mean
+- **Within-group variation** (noise): how much individuals deviate from
+  their own group mean
+
+The ratio of these, after accounting for degrees of freedom, is the
+F-statistic.
+
+### The one thing ANOVA tells you --- and the one thing it doesn't
+
+A significant ANOVA tells you **at least one group mean differs from at
+least one other**. It does not tell you which groups differ. That
+requires a post-hoc test (Tukey's HSD is standard for ANOVA).
+
+### ANOVA assumptions
+
+| Assumption | How to check |
+|---|---|
+| **Independence** | Study design --- each observation from a different subject |
+| **Normality of residuals** | QQ-plot of model residuals (not raw data) |
+| **Equal variances** | Check group SDs; use Welch's ANOVA if unequal |
+
+ANOVA is reasonably robust to mild variance inequality, especially with
+balanced group sizes. With small, clearly non-normal groups, use
+Kruskal-Wallis instead (see [Nonparametric Tests](nonparametric-tests.qmd)).
 
 
-## Example 1: Plant Science (PlantGrowth)
+## Example 1: One-Way ANOVA (PlantGrowth)
 
-### One-Way ANOVA: Does Treatment Affect Dry Weight?
-
-The `PlantGrowth` dataset (base R) contains the dried weight of plants under three conditions:
-a control and two experimental treatments. Ten plants per group, perfectly balanced.
-This is the simplest one-way ANOVA design.
+The `PlantGrowth` dataset records dried plant weight under three
+conditions: a control and two experimental treatments, with 10 plants
+per group.
 
 ```{r pg-setup}
 #| eval: true
 
-pg <- PlantGrowth |> as_tibble()
+pg <- PlantGrowth %>% as_tibble()
 
-pg |>
+pg %>%
   ggplot(aes(x = group, y = weight, fill = group)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.1, alpha = 0.6, size = 2.5) +
   scale_fill_manual(values = c("grey70", "steelblue", "tomato")) +
   labs(
     title = "Dried plant weight by treatment group",
-    x = NULL, y = "Dry weight (g)"
+    x     = NULL,
+    y     = "Dry weight (g)"
   ) +
-  theme_bw() + theme(legend.position = "none")
+  theme_bw() +
+  theme(legend.position = "none")
 ```
+
+Treatment 2 (trt2) looks higher and treatment 1 (trt1) looks lower than
+the control. Before running the test, notice this is the visual signal
+ANOVA will try to detect relative to the within-group scatter.
 
 ```{r pg-anova}
 #| eval: true
@@ -83,7 +126,7 @@ summary(fit_pg)
 ```
 
 ::: {.callout-note}
-### Reading the ANOVA Output Line by Line
+### Reading the ANOVA Table
 
 ```
           Df  Sum Sq  Mean Sq  F value  Pr(>F)
@@ -93,55 +136,110 @@ Residuals 27  10.49    0.39
 
 | Column | What it means |
 |---|---|
-| **Df (group = 2)** | Groups - 1 = 3 - 1 = 2 |
-| **Df (Residuals = 27)** | Total observations - groups = 30 - 3 = 27 |
-| **F = 4.85** | Between-group variance is 4.85 times larger than within-group variance |
-| **p = 0.016** | Probability of seeing an F this large if all group means were equal: 1.6% |
+| **Df (group = 2)** | Degrees of freedom for groups = number of groups − 1 = 3 − 1 = 2 |
+| **Df (Residuals = 27)** | Degrees of freedom for error = total n − groups = 30 − 3 = 27 |
+| **Sum Sq (group = 3.77)** | Total variation explained by group membership |
+| **Sum Sq (Residuals = 10.49)** | Remaining variation within groups (noise) |
+| **F = 4.85** | The between-group variance is 4.85× the within-group variance |
+| **Pr(>F) = 0.016** | If all groups had the same true mean, an F this large would occur 1.6% of the time |
 
-At least one treatment differs from the others, but ANOVA does not say which. Use Tukey's HSD.
+Conclusion: at least one group mean differs (p = 0.016). We do not yet
+know which pairs. That requires a post-hoc test.
 :::
 
-### Post-Hoc Comparisons: Tukey's HSD
+### Post-hoc comparisons: Tukey's HSD
 
-A significant ANOVA tells you *some* groups differ. Tukey's Honestly Significant Difference test
-finds *which* pairs:
+Tukey's Honestly Significant Difference test performs all pairwise
+comparisons while controlling the family-wise error rate.
 
 ```{r pg-tukey}
 #| eval: true
 
-TukeyHSD(fit_pg) |> tidy() |>
-  select(contrast, estimate, conf.low, conf.high, adj.p.value) |>
+TukeyHSD(fit_pg) %>%
+  tidy() %>%
+  select(contrast, estimate, conf.low, conf.high, adj.p.value) %>%
   arrange(adj.p.value)
 ```
 
-The control-vs-trt1 and trt1-vs-trt2 differences drive the overall significance.
+Read each row as a pairwise comparison: `estimate` is the mean
+difference, `conf.low`/`conf.high` is the 95% CI for that difference,
+and `adj.p.value` is the p-value adjusted for multiple comparisons.
+The trt1 vs trt2 contrast drives the overall significance.
 
-### Checking Assumptions
+### Checking assumptions
+
+Check two things: (1) are residuals approximately normal? (2) are
+group variances similar?
 
 ```{r pg-diagnostics}
 #| eval: true
 
-par(mfrow = c(1, 2))
-plot(fit_pg, which = c(1, 2))
-par(mfrow = c(1, 1))
+aug_pg <- augment(fit_pg)
+
+ggplot(aug_pg, aes(x = .fitted, y = .resid)) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey50") +
+  geom_point(alpha = 0.7, size = 2) +
+  labs(
+    title    = "Residuals vs Fitted",
+    subtitle = "No pattern = equal variance assumption met",
+    x        = "Fitted values",
+    y        = "Residuals"
+  ) +
+  theme_bw()
+
+ggplot(aug_pg, aes(sample = .resid)) +
+  stat_qq() +
+  stat_qq_line(colour = "red") +
+  labs(
+    title    = "QQ-plot of residuals",
+    subtitle = "Points near the line = normality assumption met"
+  ) +
+  theme_bw()
 ```
 
 ```{r pg-sd}
 #| eval: true
 
-pg |> group_by(group) |>
+pg %>%
+  group_by(group) %>%
   summarise(n = n(), mean = mean(weight), sd = sd(weight))
 ```
 
-The group SDs are similar (max/min < 2), so the equal-variance assumption holds here.
-If not, use `oneway.test(weight ~ group, data = pg, var.equal = FALSE)` (Welch's ANOVA).
+The residual plot shows no pattern (equal variance holds). The QQ-plot
+shows approximate normality. The group SDs are within a factor of 2 of
+each other. The ANOVA assumptions are met.
+
+::: {.callout-tip}
+### What if variances are unequal?
+
+If group SDs differ markedly (roughly, if the largest SD is more than
+twice the smallest), use Welch's ANOVA:
+
+```r
+oneway.test(weight ~ group, data = pg, var.equal = FALSE)
+```
+
+Follow this with Games-Howell post-hoc tests rather than Tukey's HSD.
+:::
 
 
-## Example 2: Animal Data (Two-Way ANOVA)
+## Example 2: Two-Way ANOVA (ToothGrowth)
 
-The `ToothGrowth` dataset is a 2×3 factorial experiment: two Vitamin C delivery methods × three dose levels. Two-way ANOVA tests for the effect of each factor *and* their interaction.
+The `ToothGrowth` dataset is a 2 × 3 factorial experiment: two Vitamin
+C delivery methods × three dose levels, 10 guinea pigs per cell. This
+design lets us ask three questions simultaneously:
+
+1. Does the supplement type affect tooth length? (main effect of `supp`)
+2. Does the dose level affect tooth length? (main effect of `dose`)
+3. Does the effect of dose *depend on* which supplement was used?
+   (interaction between `supp` and `dose`)
+
+The interaction question is the most interesting --- and the most
+commonly misunderstood.
 
 ```{r tg-setup}
+#| eval: true
+
 tg <- ToothGrowth %>%
   as_tibble() %>%
   mutate(
@@ -151,85 +249,130 @@ tg <- ToothGrowth %>%
   )
 ```
 
+### Visualise before testing: the interaction plot
+
+An **interaction plot** shows the mean response at each dose level for
+each supplement. If the two lines are roughly parallel, the dose effect
+is similar for both supplements (no interaction). If the lines cross or
+converge, the dose effect differs by supplement --- an interaction.
+
 ```{r tg-interaction-plot}
+#| eval: true
+
 tg %>%
   group_by(supp, dose) %>%
-  summarise(mean_len = mean(len), se_len = sd(len) / sqrt(n()), .groups = "drop") %>%
-  ggplot(aes(x = dose, y = mean_len, color = supp, group = supp)) +
+  summarise(
+    mean_len = mean(len),
+    se_len   = sd(len) / sqrt(n()),
+    .groups  = "drop"
+  ) %>%
+  ggplot(aes(x = dose, y = mean_len, colour = supp, group = supp)) +
   geom_line(linewidth = 1) +
   geom_point(size = 3) +
-  geom_errorbar(aes(ymin = mean_len - se_len, ymax = mean_len + se_len), width = 0.1) +
-  scale_color_manual(values = c("steelblue", "tomato")) +
-  labs(title = "Interaction plot: dose - supplement",
-       x = "Dose (mg/day)", y = "Mean tooth length (?m)", color = "Supplement") +
+  geom_errorbar(
+    aes(ymin = mean_len - se_len, ymax = mean_len + se_len),
+    width = 0.1
+  ) +
+  scale_colour_manual(values = c("steelblue", "tomato")) +
+  labs(
+    title    = "Interaction plot: mean tooth length by dose and supplement",
+    subtitle = "Error bars = ±1 SE; non-parallel lines suggest an interaction",
+    x        = "Dose (mg/day)",
+    y        = "Mean tooth length (mm)",
+    colour   = "Supplement"
+  ) +
   theme_bw()
 ```
 
-If the lines cross or have markedly different slopes, there is a **dose × supplement interaction**: the effect of dose depends on which supplement was used.
+The lines are not parallel and converge at the highest dose. This
+suggests the benefit of orange juice over ascorbic acid is larger at
+lower doses, but the two supplements become similar at 2 mg/day. ANOVA
+will test whether this interaction is statistically meaningful.
 
 ```{r two-way-anova}
+#| eval: true
+
 fit2 <- aov(len ~ supp * dose, data = tg)
 summary(fit2)
-tidy(fit2)
 ```
 
-**Reading the output:**
-- `supp`: main effect of supplement type
-- `dose`: main effect of dose
-- `supp:dose`: interaction term — does the effect of dose differ between the two supplements?
+::: {.callout-note}
+### Reading the Two-Way ANOVA Table
 
-When the interaction is significant, the main effects alone do not tell the full story. Report the interaction and plot it.
+| Row | What it tests |
+|---|---|
+| **supp** | Main effect: does supplement type affect length, averaged across doses? |
+| **dose** | Main effect: does dose affect length, averaged across supplement types? |
+| **supp:dose** | Interaction: does the *effect of dose* differ between supplements? |
+
+When the **interaction is significant**, the main effects alone are
+misleading. The story is more subtle: the effect of dose depends on
+which supplement you use. Report the interaction and show the plot ---
+do not summarise by "supplement A is better" if it is only better at
+certain doses.
+
+When the interaction is **not** significant, the main effects can be
+interpreted directly.
+:::
 
 ```{r two-way-posthoc}
-# Post-hoc: all pairwise combinations
-TukeyHSD(fit2) %>% tidy() %>%
+#| eval: true
+
+TukeyHSD(fit2) %>%
+  tidy() %>%
   arrange(adj.p.value) %>%
   head(10)
 ```
 
 
-## Where to Find Data Like This {.callout-note}
-
-**`PlantGrowth`** (base R, used in Example 1): Control + two treatments, 10 plants each. The simplest balanced one-way ANOVA.
-
-**`ToothGrowth`** (base R, used in Example 2): 2 x 3 factorial experiment. Ideal for teaching two-way ANOVA and interactions.
-
-**`survival::pbc`**: Four disease stages with many continuous biomarkers (bilirubin, albumin, etc.) suitable for clinical one-way ANOVA exercises.
-
-**`agridat` package**: Many balanced factorial agricultural/animal experiments suitable for two-way ANOVA.
-
-
-## What Can Go Wrong {.callout-warning}
+## What Can Go Wrong
 
 **Running multiple t-tests instead of ANOVA**
-If you test all pairs of groups with separate t-tests, you inflate the Type I error rate. With 4 groups, there are 6 comparisons. At a = 0.05, you expect 0.3 false positives even with no real effects. Use ANOVA followed by a single post-hoc procedure.
 
-**Ignoring a significant interaction**
-If the interaction term is significant in a two-way ANOVA, the main effects are misleading. For example, supplement A may be better only at low doses. Always plot the interaction.
+With four groups and six pairwise t-tests at α = 0.05, the chance of
+at least one false positive is 26%. This is not a minor concern --- it
+means roughly one in four such analyses produces a spurious finding by
+chance. ANOVA + Tukey's HSD keeps the family-wise error rate at 5%.
 
-**Not checking the equal variance assumption**
-ANOVA is reasonably robust to mild variance inequality, but not severe inequality. Check residual plots and use Welch's ANOVA (`oneway.test()`) or Kruskal-Wallis if variances are very unequal.
+**Ignoring a significant interaction in two-way ANOVA**
 
-**Using ANOVA on very small, non-normal groups**
-With small samples (< 10 per group) and clearly non-normal residuals, use Kruskal-Wallis instead.
+If `supp:dose` is significant, reporting only the main effects is
+wrong. "Orange juice increases tooth length by 3.7 mm on average" is
+misleading if orange juice is only better at low doses. Always check
+the interaction term and plot the group means before summarising the
+results.
+
+**Claiming "all groups differ" after a significant ANOVA**
+
+A significant F-test means *at least one* pair differs. The post-hoc
+test identifies which ones. Stage 1 vs Stage 4 may differ significantly
+while Stage 1 vs Stage 2 may not.
+
+**Using ANOVA with very small, non-normal groups**
+
+With fewer than 10 observations per group and visibly non-normal
+residuals, use Kruskal-Wallis. ANOVA is robust to mild non-normality
+with larger samples but not with small, skewed groups.
 
 ::: {.callout-warning}
-### Common Misinterpretations: Don't Make These Mistakes
+### Common misinterpretations
 
-**"Significant ANOVA means all groups differ from each other"**
-No. A significant F-test only tells you that *at least one* pair of means differs. You need Tukey's HSD (or another post-hoc test) to find out which pairs. Never claim "all groups differ" without doing post-hoc comparisons.
+**"F = 12.4 means a large effect"**
+The F-statistic is not an effect size and depends on sample size. A
+large F in a study of 500 subjects may reflect a trivially small
+difference. Report η² (eta-squared = SS_between / SS_total) as the
+effect size: η² < 0.06 is small, 0.06--0.14 is medium, > 0.14 is
+large.
 
-**"I can run t-tests on all pairs instead of ANOVA"**
-With 4 groups there are 6 pairwise t-tests. At a = 0.05, the probability of at least one false positive is 1 - 0.95^6 = 26%. Use ANOVA + Tukey's HSD to control the family-wise error rate.
+**"ANOVA tests variances (it says so in the name)"**
+ANOVA tests whether group *means* are equal by partitioning variance.
+It assumes equal within-group variances but does not test them. The
+name refers to the technique, not the hypothesis.
 
-**"Non-significant interaction means the main effects are straightforward"**
-A non-significant interaction p-value does not *prove* the effects are additive; it may simply be underpowered. Always plot the group means to see whether the pattern makes biological sense.
-
-**"F-statistic of 12.4 means a large effect"**
-The F-statistic is not an effect size measure; it depends on sample size. A large F in a large study may reflect a trivially small group difference. Report the group means, standard deviations, and ?(eta-squared = SS_between / SS_total) as the effect size.
-
-**"ANOVA requires equal group sizes"**
-One-way ANOVA works with unequal group sizes (it is still valid). However, very unequal groups combined with unequal variances can inflate Type I error; use Welch's ANOVA (`oneway.test()`) in that case.
+**"A non-significant interaction means effects are purely additive"**
+A non-significant interaction p-value may reflect low power rather
+than true additivity. Always plot the group means to see whether the
+pattern is consistent with your scientific interpretation.
 :::
 
 
@@ -237,121 +380,191 @@ One-way ANOVA works with unequal group sizes (it is still valid). However, very 
 
 ### Exercise 1 (Guided): One-Way ANOVA for Bilirubin by Stage
 
-Using `survival::pbc`, test whether log(bilirubin) differs by stage.
+Using `survival::pbc`, test whether log(bilirubin) differs across
+the four disease stages.
 
-1. Plot log(bilirubin) by stage.
-2. Run `aov(log(bili) ~ stage, ...)`. What do you conclude?
-3. Run Tukey's HSD. Which stage pairs differ?
-4. Check residual normality with a QQ-plot.
+1. Plot log(bilirubin) by stage (boxplot + jitter, using `scale_fill_brewer()`).
+2. Run `aov(log(bili) ~ stage, ...)`. Report F, degrees of freedom,
+   and p-value.
+3. Run Tukey's HSD. Which stage pairs differ significantly?
+4. Extract residuals with `augment()` and plot a QQ-plot. Is the
+   normality assumption met?
 
 ::: {.callout-tip collapse="true"}
 ### Exercise 1: Solution
 
-```{r}
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
+```{r ex1}
+pbc <- survival::pbc %>%
+  as_tibble() %>%
+  janitor::clean_names() %>%
   mutate(stage = factor(stage, levels = 1:4, labels = paste("Stage", 1:4)))
 
-pbc_s <- pbc |> filter(!is.na(stage), !is.na(bili))
+pbc_s <- pbc %>% filter(!is.na(stage), !is.na(bili))
 
-pbc_s |>
+pbc_s %>%
   ggplot(aes(x = stage, y = log(bili), fill = stage)) +
   geom_boxplot(alpha = 0.7) +
   scale_fill_brewer(palette = "Blues") +
-  labs(x = NULL, y = "log(Bilirubin)") + theme_bw() + theme(legend.position = "none")
+  labs(x = NULL, y = "log(Bilirubin)") +
+  theme_bw() +
+  theme(legend.position = "none")
 
 fit_bili <- aov(log(bili) ~ stage, data = pbc_s)
 summary(fit_bili)
-TukeyHSD(fit_bili) |> tidy() |> arrange(adj.p.value)
 
-qqnorm(residuals(fit_bili)); qqline(residuals(fit_bili), col = "red")
+TukeyHSD(fit_bili) %>% tidy() %>% arrange(adj.p.value)
+
+augment(fit_bili) %>%
+  ggplot(aes(sample = .resid)) +
+  stat_qq() +
+  stat_qq_line(colour = "red") +
+  labs(title = "QQ-plot of residuals") +
+  theme_bw()
 ```
+
+Log-bilirubin increases substantially with disease stage. The ANOVA is
+highly significant and Tukey's HSD shows that most stage pairs differ.
+The residuals are approximately normal on the log scale, confirming the
+transformation was appropriate.
 :::
 
-### Exercise 2 (Semi-guided): One-Way ANOVA for Albumin by Disease Stage
+### Exercise 2 (Semi-guided): ANOVA for Albumin by Stage
 
-Using `survival::pbc`, test whether serum albumin differs across the four disease stages.
+Using `survival::pbc`, test whether serum albumin differs across the
+four disease stages.
 
-1. Create a clean PBC tibble with `stage` as an ordered factor (Stages 1-4) and filter out missing values.
-2. Plot albumin by stage (boxplot + jitter).
-3. Run `aov(albumin ~ stage, ...)`. Report the F-statistic, degrees of freedom, and p-value.
-4. Run Tukey's HSD. Which stage pairs are significantly different?
-5. Check the residual QQ-plot. Is the normality assumption reasonable?
+1. Plot albumin by stage.
+2. Run `aov(albumin ~ stage, ...)` and report the key output numbers.
+3. Run Tukey's HSD. Which pairs are significantly different?
+4. Check the residual QQ-plot.
+5. Does the direction of the albumin effect make biological sense for a
+   disease where liver function progressively declines?
 
 ::: {.callout-tip collapse="true"}
 ### Exercise 2: Solution
 
-```{r}
-pbc <- survival::pbc |>
-  as_tibble() |>
-  janitor::clean_names() |>
-  mutate(stage = factor(stage, levels = 1:4, labels = paste("Stage", 1:4)))
+```{r ex2}
+pbc_s <- pbc %>% filter(!is.na(stage), !is.na(albumin))
 
-pbc_s <- pbc |> filter(!is.na(stage), !is.na(albumin))
-
-pbc_s |>
+pbc_s %>%
   ggplot(aes(x = stage, y = albumin, fill = stage)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.15, alpha = 0.3, size = 1.5) +
   scale_fill_brewer(palette = "Blues") +
   labs(title = "Serum albumin by disease stage",
        x = NULL, y = "Albumin (g/dL)") +
-  theme_bw() + theme(legend.position = "none")
+  theme_bw() +
+  theme(legend.position = "none")
 
 fit_alb <- aov(albumin ~ stage, data = pbc_s)
 summary(fit_alb)
-TukeyHSD(fit_alb) |> tidy() |> arrange(adj.p.value)
 
-qqnorm(residuals(fit_alb))
-qqline(residuals(fit_alb), col = "red")
+TukeyHSD(fit_alb) %>% tidy() %>% arrange(adj.p.value)
+
+augment(fit_alb) %>%
+  ggplot(aes(sample = .resid)) +
+  stat_qq() +
+  stat_qq_line(colour = "red") +
+  labs(title = "QQ-plot of residuals") +
+  theme_bw()
 ```
+
+Albumin falls with disease stage, consistent with declining liver
+synthetic function. The ANOVA is significant and post-hoc tests
+show early vs. late stage differences drive the result.
 :::
 
 ### Exercise 3 (Open-ended)
 
-Using a dataset from your own research, identify a continuous outcome and a categorical grouping variable (= 3 groups). Run a one-way ANOVA. Check the assumptions. Write a Methods section (one paragraph) and a Results section (two sentences) suitable for a journal paper.
+From your own data, identify a continuous outcome and a categorical
+grouping variable with three or more groups. Run a one-way ANOVA,
+check assumptions with residual plots, and run Tukey's HSD. Write a
+complete Methods and Results paragraph as you would for a journal paper,
+including the F-statistic, degrees of freedom, p-value, and the
+specific group pairs that differ.
 
 
 ## Comprehension Check
 
-1. What is the null hypothesis in a one-way ANOVA? What does a significant result tell you?
-2. Why should you run Tukey's HSD after a significant ANOVA rather than multiple t-tests?
-3. In a two-way ANOVA output, the `supp:dose` row is significant. What does this mean, and how should you proceed?
-4. Your residual QQ-plot shows clear non-normality. Your groups have n = 8 each. What should you do?
-5. ANOVA tests variances according to its name, so it assumes the group variances are equal. True or false?
+1. What is the null hypothesis in a one-way ANOVA? What does a
+   significant result tell you, and what does it not tell you?
+2. Why is running multiple pairwise t-tests not a valid substitute for
+   ANOVA?
+3. In a two-way ANOVA, the interaction term `supp:dose` is significant.
+   What does this mean, and how should you proceed?
+4. Your residual QQ-plot shows clear non-normality and you have n = 8
+   per group. What should you do?
+5. "ANOVA tests variances" --- true or false, and why?
 
 ::: {.callout-note collapse="true"}
 ### Answers
-1. The null hypothesis is that all group population means are equal: $H_0: \mu_1 = \mu_2 = \ldots = \mu_k$. A significant result means at least one group mean differs from at least one other - but not which pairs differ.
-2. Running $\binom{k}{2}$ t-tests independently inflates the family-wise error rate. With $k = 4$ groups there are 6 pairs; at a = 0.05 you expect false positives. Tukey's HSD controls the family-wise error rate by adjusting the p-value for the number of comparisons.
-3. A significant interaction means the effect of supplement depends on dose (or vice versa). The main effects alone are misleading. You should plot the interaction (an interaction plot) and report group-specific means rather than marginal means.
-4. With small non-normal groups, use Kruskal-Wallis (a nonparametric ANOVA alternative that is robust to non-normality).
-5. **False.** Despite the name, ANOVA tests whether group *means* are equal, not variances. However, it does *assume* that the within-group variances are equal (homogeneity of variance). The name refers to the technique of partitioning total variance into components.
+
+1. The null hypothesis is $H_0: \mu_1 = \mu_2 = \ldots = \mu_k$ ---
+   all group population means are equal. A significant result means
+   *at least one* group mean differs from at least one other. It does
+   not identify which pairs differ --- that requires a post-hoc test.
+
+2. Running $\binom{k}{2}$ independent t-tests inflates the family-wise
+   error rate. With k = 4 groups there are 6 comparisons; at α = 0.05,
+   the probability of at least one false positive is 1 − 0.95⁶ = 26%.
+   ANOVA tests all groups simultaneously, keeping the overall Type I
+   error at 5%.
+
+3. A significant interaction means the effect of one factor depends on
+   the level of the other. Reporting only main effects is misleading ---
+   you must show the interaction plot and describe how the effect of
+   dose changes across supplement types (or vice versa).
+
+4. With small, non-normal groups, switch to Kruskal-Wallis: a
+   nonparametric ANOVA alternative that works on ranks and does not
+   require normality.
+
+5. False. ANOVA tests whether group *means* are equal, using a technique
+   that partitions total variance into between-group and within-group
+   components. It assumes equal within-group variances, but the
+   hypothesis being tested is about means, not variances.
 :::
 
 
 ## How to Report
 
+::: {.callout-note}
 ### Reporting ANOVA Results
 
-::: {.callout-note}
-**In a methods section:** "Differences in [outcome] across [k] groups were examined using a one-way ANOVA. Pairwise comparisons were performed using Tukey's honestly significant difference (HSD) test to control the family-wise error rate."
+**In a Methods section:**
 
-**In results:** "There was a significant difference in [outcome] across groups (F(df_between, df_within) = X, p = Y). Post-hoc comparisons showed that [group A] had significantly higher [outcome] than [group B] (mean difference = X, 95% CI [L, U], adjusted p = Z)."
+> "Differences in [outcome] across [k] groups were tested using a
+> one-way ANOVA. Post-hoc pairwise comparisons were performed using
+> Tukey's honestly significant difference (HSD) test to control the
+> family-wise error rate at 5%."
 
-**What to always include:**
+**In a Results section:**
 
-- F-statistic with numerator and denominator degrees of freedom (e.g., F(2, 27))
+> "[Outcome] differed significantly across groups (F(2, 27) = 4.85,
+> p = 0.016, η² = 0.26). Post-hoc comparisons showed that [group A]
+> had significantly lower [outcome] than [group B] (mean difference:
+> X.XX, 95% CI: L.L to U.U, adjusted p = 0.012)."
+
+**For two-way ANOVA with a significant interaction:**
+
+> "There was a significant interaction between [factor 1] and
+> [factor 2] (F(df, df) = X, p = Y). The effect of [factor 1] on
+> [outcome] differed by level of [factor 2] (see Figure X)."
+
+**Always include:**
+
+- F-statistic with numerator and denominator df, e.g., F(2, 27)
 - Overall p-value
-- Post-hoc test method and adjusted p-values
+- Effect size η² (SS_between / SS_total)
+- Post-hoc test used, adjusted p-values for significant pairs
 - Group means and SDs in a table or figure
-
-**Two-way ANOVA:** Report both main effects and the interaction term separately. "There was a significant interaction between [factor 1] and [factor 2] (F(df, df) = X, p = Y)."
 :::
+
 
 ## Further Reading
 
-- @Dalgaard-2008 --- Chapter on ANOVA in *Introductory Statistics with R*
-- @Bland-2015 --- One-way and two-way ANOVA in *An Introduction to Medical Statistics*
-- `?aov`, `?TukeyHSD`, `?oneway.test` in R: built-in documentation
+- @Bland-2015 --- *An Introduction to Medical Statistics*: clear
+  treatment of one-way and two-way ANOVA for clinical researchers
+- @Dalgaard-2008 --- *Introductory Statistics with R*: practical ANOVA
+  chapter with worked examples
+- `?aov`, `?TukeyHSD`, `?oneway.test` in R
