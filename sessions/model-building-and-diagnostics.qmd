@@ -23,10 +23,59 @@ if (!requireNamespace("glmnet", quietly = TRUE)) {
 This session covers model selection and diagnostics for regression models. Complete the [Linear Regression](linear-regression.qmd), [Multiple Regression](multiple-regression.qmd), and [Logistic Regression](logistic-regression.qmd) sessions before starting here.
 :::
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: ~170 minutes** (plus extra time for Exercise 3, which is open-ended).
+
+| Section | Time | Type |
+|---|---|---|
+| The Key Idea: Fit a Model, Then Check It | ~10 min | Concept |
+| Background: A Model-Building Framework | ~15 min | Concept |
+| Example 1: Linear Regression Diagnostics (PBC) | ~40 min | Walkthrough |
+| Example 2: Logistic Regression Diagnostics (PBC Mortality) | ~25 min | Walkthrough |
+| Example 3: Penalised Regression (Lasso) | ~15 min | Walkthrough |
+| What Can Go Wrong | ~10 min | Reading |
+| Exercise 1 (Guided) | ~15 min | Practice |
+| Exercise 2 (Semi-guided) | ~15 min | Practice |
+| Exercise 3 (Open-ended) | 15--30 min | Practice |
+| Comprehension Check | ~10 min | Self-test |
+
+If you are working through this self-paced and have limited time,
+Example 1 (linear regression diagnostics) is the core of this session
+-- it introduces residual plots, Cook's distance, VIF, and the
+Breusch-Pagan test, all of which reappear in Example 2. Example 3
+(lasso) can be skimmed or done as homework if the `glmnet` package is
+not available. Exercise 3 is open-ended: budget extra time if you want
+to apply this to your own data.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-model-building}
 
 ::: {.callout-tip}
 You have fitted a regression model, but before trusting its conclusions you need to verify that the model is appropriate: are the assumptions met? Are there influential outliers? Is the model overfitted? Model building and diagnostics are the quality-control steps between fitting a model and reporting it.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This session reuses the PBC dataset and the `fit_full`-style model from
+[Multiple Regression](multiple-regression.qmd) and the `fit_log`/`fit_multi`
+models from [Logistic Regression](logistic-regression.qmd). If learners
+remember those coefficients, ask them to predict: do they expect the
+residuals from `albumin ~ log_bili + log_proto + stage` to look
+"clean" (a flat band around zero) given that earlier sessions found
+R² ≈ 0.18--0.19 for similar models -- i.e. most of the variance in
+albumin is *not* explained by these predictors?
 :::
 
 ## Learning Objectives
@@ -41,28 +90,48 @@ After completing this session you will be able to:
 
 ## The Key Idea: Fit a Model, Then Check It
 
-A common mistake is to fit a model, look at the p-values, and write up the results --- without ever checking whether the model is appropriate. If the assumptions are violated, the p-values and confidence intervals are wrong, regardless of how elegant the model looks.
+*Estimated time: ~10 minutes (concept)*
+
+A common mistake is to fit a model, look at the p-values, and write up the results, without ever checking whether the model is appropriate. If the assumptions are violated, the p-values and confidence intervals are wrong, regardless of how elegant the model looks.
 
 Think of diagnostic checks as the peer review step *before* you show anyone your results. Residual plots take a few lines of code. They can save you from a retraction.
 
 ## Background: A Model-Building Framework
 
+*Estimated time: ~15 minutes (concept)*
+
 Good regression modelling is a structured process, not a p-value fishing expedition.
 
 **Steps:**
 
-1. **Define the research question** --- outcome, predictors, and target population
-2. **Explore the data** --- distributions, missingness, correlations
-3. **Pre-specify the model** --- driven by domain knowledge, not by initial results
-4. **Fit and assess assumptions** --- residuals, influential points
-5. **Compare models** --- use AIC/BIC or likelihood ratio tests, not stepwise selection
-6. **Validate** --- internal (bootstrap) or external (hold-out data)
-7. **Report** --- all results, including assumption checks
+1. **Define the research question**: outcome, predictors, and target population
+2. **Explore the data**: distributions, missingness, correlations
+3. **Pre-specify the model**: driven by domain knowledge, not by initial results
+4. **Fit and assess assumptions**: residuals, influential points
+5. **Compare models**: use AIC/BIC or likelihood ratio tests, not stepwise selection
+6. **Validate**: internal (bootstrap) or external (hold-out data)
+7. **Report**: all results, including assumption checks
 
 **The selection problem:** Choosing predictors based on their p-values from the same data you use to estimate coefficients inflates the apparent significance and overfits the model. Pre-specification and penalised methods address this.
 
 
 ## Example 1: Linear Regression Diagnostics (PBC)
+
+*Estimated time: ~40 minutes (walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This example has four stops: (1) fit the model and produce residual
+plots, (2) check Cook's distance for influential points, (3) check
+VIF for multicollinearity, and (4) test for heteroscedasticity with
+`ncvTest()`. The model is the same `albumin ~ log_bili + log_proto +
+stage` model from [Multiple Regression](multiple-regression.qmd)
+(there called `fit_full`-style), so learners already know its
+R² ≈ 0.18. Use that as a hook: a model that "only" explains 18% of the
+variance can still have well-behaved residuals -- R² and diagnostics
+answer different questions.
+:::
 
 ### Fit a Model
 
@@ -107,6 +176,20 @@ ggplot(diag_df, aes(sample = .std.resid)) +
 - **Residuals vs Fitted:** Should be a horizontal cloud around zero. Any systematic pattern (U-shape, funnel) indicates non-linearity or heteroscedasticity.
 - **Normal Q-Q:** Residuals should follow the diagonal line. Systematic deviation indicates non-normality.
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. The Residuals vs Fitted plot shows a roughly flat
+LOESS line hovering near zero across the range of fitted values --
+there is no strong U-shape or funnel, so linearity and (visually)
+constant variance look reasonable. The Normal Q-Q plot tracks the
+diagonal closely through the middle, with mild deviation in both tails
+(a few points below −2 and above 2 sit slightly off the line). **Check:**
+later in this example we will run a formal test for heteroscedasticity
+(`ncvTest()`). Based on this plot alone, would you have predicted that
+test to come back significant or not?
+:::
+
 ### Detecting Influential Observations
 
 ```{r cook-plot}
@@ -127,7 +210,21 @@ diag_df %>%
   head(10)
 ```
 
-Points above the 4/n threshold merit investigation. They may be data errors or genuinely extreme but valid cases. **Do not remove them automatically** --- investigate first.
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. With `n = 410`, the 4/n threshold is about
+0.0098. The most influential observation is row 272 (Cook's distance
+≈ 0.056, about 5.7 times the threshold): a patient with albumin = 2.93
+g/dL and log_bili = −0.693 (bilirubin ≈ 0.5 mg/dL), for whom the model
+predicts albumin ≈ 3.84 -- a residual of about −0.91. Several of the
+top 10 rows have Cook's distance well above 0.0098. **Check:** do these
+look like data-entry errors (e.g. implausible values), or genuinely
+unusual-but-real patients? This is the judgement call the next
+paragraph warns you not to skip.
+:::
+
+Points above the 4/n threshold merit investigation. They may be data errors or genuinely extreme but valid cases. **Do not remove them automatically**: investigate first.
 
 ### Checking Multicollinearity
 
@@ -135,16 +232,57 @@ Points above the 4/n threshold merit investigation. They may be data errors or g
 vif(fit)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. All three predictors have GVIF^(1/(2*Df)) close to
+1.03--1.09 (GVIF values around 1.18 for `log_bili` and `log_proto`, and
+1.19 for `stage`), all far below the threshold of 5. Multicollinearity
+is not a concern for this model -- consistent with what we found for
+the same predictors in [Multiple Regression](multiple-regression.qmd).
+:::
+
 ### Testing for Heteroscedasticity
+
+*Estimated time: ~5 minutes*
 
 ```{r ncvtest}
 ncvTest(fit)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `Chisquare = 6.05`, `Df = 1`,
+`p = 0.014`. This **is** statistically significant (p < 0.05): the
+Breusch-Pagan test detects heteroscedasticity in this model, even
+though the Residuals vs Fitted plot above did not show an obvious
+funnel shape by eye. **Check:** does this change your answer to the
+question in the "Run It Yourself" box above the residual plots? This
+is a good example of why formal tests complement (not replace) visual
+checks -- subtle heteroscedasticity can be hard to see but still
+statistically detectable in a sample of 410.
+:::
+
 A significant p-value from the Breusch-Pagan test (from the `car` package) indicates heteroscedasticity. Consider transforming Y or using heteroscedasticity-consistent (HC) standard errors.
 
 
 ## Example 2: Logistic Regression Diagnostics (PBC Mortality)
+
+*Estimated time: ~25 minutes (walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+`fit_log` here uses the same predictors as `fit_multi` from
+[Logistic Regression](logistic-regression.qmd) (`log_bili + log_proto +
+albumin + stage`), so its AIC should match what learners already saw
+there (≈ 416). The deviance-residuals-vs-fitted-probability plot looks
+very different from the linear-regression residual plot: binary
+outcomes produce two curving bands of points (one for each outcome
+value) rather than a flat cloud. Warn learners not to mistake this
+expected pattern for a problem.
+:::
 
 ```{r logistic-fit}
 pbc2 <- pbc %>%
@@ -182,6 +320,26 @@ ggplot(diag_log, aes(x = row, y = .cooksd)) +
   theme_bw()
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run both chunks above. In the deviance-residuals plot, you will see
+**two curving bands** of points -- one trending from a large positive
+residual down to near zero (the patients who survived, `died = 0`,
+moving from low to high fitted probability), and a mirror-image band
+for `died = 1`. This X-shaped pattern is **expected** for binary
+outcomes and is not, by itself, evidence of a problem; the red LOESS
+line staying close to zero across the range is the reassuring sign.
+
+In the Cook's distance plot, with `n = 410` the 4/n threshold is again
+about 0.0098. A handful of points clearly exceed it, including one
+around Cook's distance ≈ 0.12 -- noticeably larger than anything we saw
+for the linear model. **Check:** would you expect a single PBC patient
+to have more influence on a model predicting their own death (binary)
+than on a model predicting their albumin level (continuous)? Why might
+that be?
+:::
+
 ### AIC Comparison: Model Selection Without P-value Fishing
 
 ```{r aic-compare}
@@ -195,10 +353,38 @@ AIC(m1, m2, m3, m4) %>%
   arrange(AIC)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. Sorted by AIC: `m4` (all four predictors,
+AIC ≈ 415.96) is lowest, then `m3` (`log_bili + log_proto + albumin`,
+AIC ≈ 417.94), then `m2` (`log_bili + log_proto`, AIC ≈ 418.57), and
+`m1` (`log_bili` alone, AIC ≈ 446.71) is clearly worst. **Check:** the
+gap between `m4` and `m3` is only about 2 AIC points -- recall from the
+Comprehension Check guidance that models within about 2 AIC units are
+considered roughly equivalent. Does that change which model you would
+report as "the" final model, versus reporting both as comparable and
+letting your pre-specified hypothesis (about `stage`) decide?
+:::
+
 Choose the model with the lowest AIC that aligns with your pre-specified hypotheses.
 
 
 ## Example 3: Penalised Regression (Lasso)
+
+*Estimated time: ~15 minutes (walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This example only has three candidate predictors (`log_bili`,
+`log_proto`, `platelet`), so it is a small-scale demonstration of the
+*mechanism* rather than a realistic variable-selection scenario --
+with so few predictors, lasso may not drop any of them. If `glmnet` is
+not installed, this chunk is skipped automatically (`eval` is
+conditional); tell learners what the output *would* look like using
+the numbers in the "Run It Yourself" box below.
+:::
 
 When you have many candidate predictors and want data-driven selection, lasso (L1 penalisation) shrinks some coefficients to exactly zero.
 
@@ -219,17 +405,37 @@ plot(cv_lasso)
 coef(cv_lasso, s = "lambda.min")
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above (it requires the `glmnet` package). At
+`lambda.min`, the coefficients are approximately: intercept ≈ 4.47,
+`log_bili` ≈ −0.122, `log_proto` ≈ −0.441, and `platelet` ≈ 0.00055.
+**None of the three predictors were shrunk to exactly zero** -- with
+only three candidates, lasso has little to "select" here. The
+cross-validation plot shows mean-squared error decreasing as
+`-log(lambda)` increases (less shrinkage), levelling off once all
+three predictors are included. **Check:** try re-running with
+`s = "lambda.1se"` (a more conservative choice, one standard error away
+from the minimum). Does it drop any predictors? This illustrates the
+`lambda.min` vs `lambda.1se` trade-off: `lambda.min` minimises
+cross-validated error, while `lambda.1se` gives a simpler model that is
+still within one SE of the best.
+:::
+
 Lasso selects predictors by shrinking small coefficients to zero. It is useful for exploratory modelling with many candidates, but coefficients are biased (shrunk toward zero) and should not be interpreted as effect estimates without post-selection inference.
 
 ::: {.callout-note}
 ## Where to Find Data Like This
 
-**PBC dataset:** `survival::pbc` --- multiple correlated continuous and categorical predictors; good for demonstrating overfitting, VIF, and model selection.
+**PBC dataset:** `survival::pbc`: multiple correlated continuous and categorical predictors; good for demonstrating overfitting, VIF, and model selection.
 
 **MASS::Boston (or `BostonHousing2` from `mlbench`):** Housing data with correlated predictors, commonly used for penalised regression examples.
 
-**Any of your prior datasets** --- model building and diagnostics are always applied to real data from a research question.
+**Any of your prior datasets**: model building and diagnostics are always applied to real data from a research question.
 :::
+
+*Estimated time: ~10 minutes (reading)*
 
 ::: {.callout-warning}
 ## What Can Go Wrong
@@ -247,9 +453,24 @@ Influential observations may be genuine extreme cases, not errors. Removing them
 R² and AIC measure in-sample fit. A model that fits the data well may not predict new observations accurately (overfitting). Use cross-validation or a hold-out test set to estimate predictive performance.
 :::
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Exercise 1 fits the exact same model as Example 1's `fit`, so learners
+should reproduce the VIF and `ncvTest()` numbers seen above (VIF ≈ 1.18
+for `log_bili` and `log_proto`, ≈ 1.19 for `stage`; `ncvTest`
+Chisquare ≈ 6.05, p ≈ 0.014) and the same top-5 Cook's distance rows
+(row 272 highest, ≈ 0.056). If their numbers differ, check they used
+`pbc` (not `pbc2`) and the same predictor set. For Exercise 2, the
+model `a4` is the same as `m4` from Example 2 (AIC ≈ 415.96), so the
+AIC ranking should also match.
+:::
+
 ## Exercises
 
 ### Exercise 1 (Guided): Full Diagnostic Workflow
+
+*Estimated time: ~15 minutes (practice)*
 
 Fit `lm(albumin ~ log_bili + log_proto + stage, data = pbc)` and:
 
@@ -283,9 +504,20 @@ aug_ex %>%
 vif(fit_ex)
 ncvTest(fit_ex)
 ```
+
+`fit_ex` is the same model as `fit` in Example 1, so the results match:
+the residual and Q-Q plots look the same as above; row 272 again has
+the highest Cook's distance (≈ 0.056); all GVIFs are below 1.2, so
+multicollinearity is not a concern; and `ncvTest()` again gives
+Chisquare ≈ 6.05 (p ≈ 0.014), confirming mild but statistically
+significant heteroscedasticity. In a write-up, you would note this and
+either report robust (HC) standard errors or mention it as a
+limitation.
 :::
 
 ### Exercise 2 (Semi-guided): AIC Model Selection for Logistic Regression
+
+*Estimated time: ~15 minutes (practice)*
 
 Using `pbc2`, fit four logistic models predicting mortality, adding one predictor at a time. Choose the best model by AIC. Then check Cook's distance for the chosen model.
 
@@ -304,14 +536,32 @@ augment(a4, type.predict = "response") %>%
   arrange(desc(.cooksd)) %>%
   head(5)
 ```
+
+Sorted by AIC: `a4` (all four predictors) ≈ 415.96, `a3`
+(`log_bili + albumin + log_proto`) ≈ 417.94, `a2`
+(`log_bili + albumin`) ≈ 443.55, and `a1` (`log_bili` alone) ≈ 446.71.
+`a4` is the same model as `m4` from Example 2, so it has the same AIC,
+as expected. The single largest jump in AIC is between `a2` and `a3`
+(adding `log_proto` drops AIC by about 26), much bigger than the gap
+between `a3` and `a4` (about 2).
+
+For `a4`, the highest Cook's distance (≈ 0.12) belongs to a patient who
+**survived** (`died = 0`) but whose predictors gave a predicted
+probability of death ≈ 0.96 -- the model was confidently wrong about
+this patient, which is exactly the kind of case Cook's distance is
+designed to flag. This matches the Cook's distance plot from Example 2.
 :::
 
 ### Exercise 3 (Open-ended)
+
+*Estimated time: 15--30 minutes (practice)*
 
 Take a model from your own research and apply the full diagnostic workflow: residual plots, QQ-plot, influence analysis, VIF. Write a one-paragraph Supplementary Methods section documenting your model-checking process and how you handled any issues found.
 
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes (self-test)*
 
 1. The Residuals vs Fitted plot shows a clear U-shape. What does this indicate, and how should you fix it?
 2. One observation has Cook's distance = 0.8 (the threshold 4/n = 0.01). Should you automatically remove it?
@@ -326,7 +576,7 @@ Take a model from your own research and apply the full diagnostic workflow: resi
 2. No; influential observations should be investigated, not automatically removed. Check whether the observation is a data entry error (correct it) or a genuinely extreme but valid case (keep it and report sensitivity analyses with and without that observation).
 3. VIF = 9.2 indicates severe collinearity with other predictors. Its coefficient estimate is unreliable (large SE, may flip sign). Options: (1) remove the collinear predictor if it is not the predictor of primary interest; (2) combine correlated predictors into a composite score; (3) use ridge regression.
 4. The third model (AIC = 307) is preferred; it has the lowest AIC. However, the difference from model 2 (AIC = 308) is only 1, which is not a meaningful improvement. Models within 2 AIC units of the minimum are considered roughly equivalent.
-5. No. Lasso coefficients are biased toward zero by the penalty. After lasso selects variables, you should refit the model using ordinary regression on those selected variables to obtain unbiased estimates and valid CIs. Even then, some caution is needed because variable selection inflates Type I error --- ideally, treat lasso as exploratory and pre-specify variables for the confirmatory model.
+5. No. Lasso coefficients are biased toward zero by the penalty. After lasso selects variables, you should refit the model using ordinary regression on those selected variables to obtain unbiased estimates and valid CIs. Even then, some caution is needed because variable selection inflates Type I error: ideally, treat lasso as exploratory and pre-specify variables for the confirmatory model.
 :::
 
 
@@ -349,7 +599,7 @@ Take a model from your own research and apply the full diagnostic workflow: resi
 
 ## Further Reading
 
-- @Harrell-2015 --- *Regression Modeling Strategies* --- the definitive reference for clinical regression
-- @Fox-2019 --- *An R Companion to Applied Regression* --- covers all diagnostics in R
+- @Harrell-2015: *Regression Modeling Strategies*, the definitive reference for clinical regression
+- @Fox-2019: *An R Companion to Applied Regression*, covering all diagnostics in R
 - `?plot.lm`, `?augment`, `?vif` in R
 - `glmnet` package vignette for penalised regression

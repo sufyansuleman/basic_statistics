@@ -35,9 +35,9 @@ This course is ideal for:
 
 Start with these key sections in the online course:
 
-- `Setup` — tools, packages, and workflow for reproducible analysis
-- `Hypothesis Testing` — core logic behind p-values, error types, and inference
-- `Regression` — modeling continuous and categorical outcomes with real examples
+- `Setup` - tools, packages, and workflow for reproducible analysis
+- `Hypothesis Testing` - core logic behind p-values, error types, and inference
+- `Regression` - modeling continuous and categorical outcomes with real examples
 
 ## Want to contribute?
 

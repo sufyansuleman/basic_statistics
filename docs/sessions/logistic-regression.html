@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -440,6 +440,94 @@ window.Quarto = {
 <p>Logistic regression shares the same structure as linear regression but models a binary outcome. If you have not done so yet, complete the <a href="../sessions/linear-regression.html">Linear Regression</a> and <a href="../sessions/multiple-regression.html">Multiple Regression</a> sessions first.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session at a Glance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Total core time: ~150 minutes</strong> (plus extra time for Exercise 3, which is open-ended).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Time</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The Key Idea: Why Not Just Use Linear Regression?</td>
+<td>~10 min</td>
+<td>Concept</td>
+</tr>
+<tr class="even">
+<td>Background: The Logistic Model</td>
+<td>~15 min</td>
+<td>Concept</td>
+</tr>
+<tr class="odd">
+<td>Example 1: Clinical Data (PBC)</td>
+<td>~45 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="even">
+<td>Example 2: Melanoma Data</td>
+<td>~15 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="odd">
+<td>What Can Go Wrong</td>
+<td>~10 min</td>
+<td>Reading</td>
+</tr>
+<tr class="even">
+<td>Exercise 1 (Guided)</td>
+<td>~15 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Exercise 2 (Semi-guided)</td>
+<td>~15 min</td>
+<td>Practice</td>
+</tr>
+<tr class="even">
+<td>Exercise 3 (Open-ended)</td>
+<td>15–30 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Comprehension Check</td>
+<td>~10 min</td>
+<td>Self-test</td>
+</tr>
+</tbody>
+</table>
+<p>If you are working through this self-paced and have limited time, the Example 1 walkthrough (PBC data) is the core of this session – it covers everything from fitting a model to checking discrimination with a ROC curve. Example 2 (melanoma) repeats the same steps on a smaller dataset and can be skimmed or done as homework. Exercise 3 is open-ended: budget extra time if you want to apply this to your own data.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code in This Session
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code chunk below is written so you can copy it into your R console (or an R script) and run it yourself, in the order shown. Where you see a “Run It Yourself” box, stop and run the code above it before reading the explanation that follows.</p>
+</div>
+</div>
 <section id="sec-logistic-regression" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="sec-logistic-regression"><span class="header-section-number">12.1</span> When Do You Use This?</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -453,6 +541,22 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>Your outcome is binary (yes/no, alive/dead, event/no event) and you want to model how one or more predictors change the probability of that outcome. Logistic regression gives you odds ratios with confidence intervals and lets you adjust for confounders. For example: predicting whether a patient died from liver disease, or whether a tumour responded to treatment.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If learners have just finished <a href="../sessions/multiple-regression.html">Multiple Regression</a>, remind them that <code>glm()</code> uses the same model-fitting syntax as <code>lm()</code> – the difference is <code>family = binomial</code> and the fact that the coefficients live on the log-odds scale until you exponentiate them. Ask learners to predict: in earlier sessions, higher bilirubin was associated with <em>lower</em> albumin. Would you expect higher bilirubin to be associated with <em>higher</em> or <em>lower</em> odds of death in PBC patients, and why?</p>
+</div>
 </div>
 </div>
 </section>
@@ -469,12 +573,14 @@ Tip
 </section>
 <section id="the-key-idea-why-not-just-use-linear-regression" class="level2" data-number="12.3">
 <h2 data-number="12.3" class="anchored" data-anchor-id="the-key-idea-why-not-just-use-linear-regression"><span class="header-section-number">12.3</span> The Key Idea: Why Not Just Use Linear Regression?</h2>
-<p>Consider predicting whether a patient dies (0 or 1) from their bilirubin level. If you fit a straight line, nothing stops it from predicting a probability of −0.2 or 1.7 — which makes no sense. Probabilities must stay between 0 and 1.</p>
+<p><em>Estimated time: ~10 minutes (concept)</em></p>
+<p>Consider predicting whether a patient dies (0 or 1) from their bilirubin level. If you fit a straight line, nothing stops it from predicting a probability of −0.2 or 1.7, which makes no sense. Probabilities must stay between 0 and 1.</p>
 <p>Logistic regression solves this by modelling the <strong>log-odds</strong> (logit) of the outcome instead of the probability directly. The log-odds can range freely from −∞ to +∞, and when you transform it back, the probability is always between 0 and 1.</p>
-<p>The trade-off: coefficients are now on the log-odds scale, which is hard to read directly. We exponentiate them to get <strong>odds ratios (OR)</strong> — and those are what you report in a paper.</p>
+<p>The trade-off: coefficients are now on the log-odds scale, which is hard to read directly. We exponentiate them to get <strong>odds ratios (OR)</strong>, and those are what you report in a paper.</p>
 </section>
 <section id="background-the-logistic-model" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="background-the-logistic-model"><span class="header-section-number">12.4</span> Background: The Logistic Model</h2>
+<p><em>Estimated time: ~15 minutes (concept)</em></p>
 <p>A binary outcome <span class="math inline">\(Y \in \{0, 1\}\)</span> is modelled as:</p>
 <p><span class="math display">\[\log\left(\frac{P(Y=1)}{1-P(Y=1)}\right) = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p\]</span></p>
 <p>Exponentiating the coefficients gives <strong>odds ratios</strong>:</p>
@@ -486,6 +592,23 @@ Tip
 </section>
 <section id="example-1-clinical-data-pbc" class="level2" data-number="12.5">
 <h2 data-number="12.5" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">12.5</span> Example 1: Clinical Data (PBC)</h2>
+<p><em>Estimated time: ~45 minutes (walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example has six natural stopping points: (1) fit <code>fit_log</code> and read the <code>summary()</code> output, (2) extract odds ratios with <code>tidy()</code>, (3) compute predicted probabilities, (4) fit the multivariable model <code>fit_multi</code>, (5) assess discrimination with the ROC curve and C-statistic, and (6) check <code>glance()</code> output. For a self-paced learner with limited time, stops 1, 2, and 5 give the core story (single-predictor model, odds ratio, discrimination); stops 3, 4, and 6 can be done as homework or skimmed.</p>
+</div>
+</div>
+</div>
 <section id="predict-mortality-from-bilirubin" class="level3" data-number="12.5.1">
 <h3 data-number="12.5.1" class="anchored" data-anchor-id="predict-mortality-from-bilirubin"><span class="header-section-number">12.5.1</span> Predict Mortality from Bilirubin</h3>
 <div class="cell">
@@ -503,7 +626,7 @@ Tip
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(stage))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <blockquote class="blockquote">
-<p><strong>Think before you run:</strong> Among the 375 PBC patients in this dataset, about a quarter died from liver disease during follow-up. Do you expect higher bilirubin to be associated with higher mortality? What direction would you predict for the OR?</p>
+<p><strong>Think before you run:</strong> Among the 410 PBC patients in this dataset, about 38% (156 patients) died from liver disease during follow-up. Do you expect higher bilirubin to be associated with higher mortality? What direction would you predict for the OR?</p>
 </blockquote>
 <p>Always visualise first:</p>
 <div class="cell">
@@ -563,8 +686,8 @@ Number of Fisher Scoring iterations: 3</code></pre>
 <p>Logistic regression output looks similar to linear regression but the numbers mean different things.</p>
 <p><strong><code>Coefficients:</code> table</strong></p>
 <pre><code>              Estimate Std. Error z value Pr(&gt;|z|)
-(Intercept)  -2.54      0.22     -11.5    &lt;2e-16 ***
-log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
+(Intercept)  -1.22      0.15     -8.41    &lt;2e-16 ***
+log_bili      1.14      0.13      8.74    &lt;2e-16 ***</code></pre>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -595,9 +718,9 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 </tr>
 </tbody>
 </table>
-<p><strong><code>Null deviance: 487 on 374 degrees of freedom</code></strong> The deviance of a model with <em>no predictors</em> (intercept only). This is the baseline.</p>
-<p><strong><code>Residual deviance: 409 on 373 degrees of freedom</code></strong> The deviance of <em>your</em> model. A large drop from null to residual deviance (here: 78 units) means your predictor explains a lot.</p>
-<p><strong><code>AIC: 413</code></strong> Lower AIC = better fit (penalised for complexity). Use AIC to compare models, not to interpret a single model in isolation.</p>
+<p><strong><code>Null deviance: 544.73 on 409 degrees of freedom</code></strong> The deviance of a model with <em>no predictors</em> (intercept only). This is the baseline.</p>
+<p><strong><code>Residual deviance: 442.71 on 408 degrees of freedom</code></strong> The deviance of <em>your</em> model. A large drop from null to residual deviance (here: about 102 units, for the cost of a single predictor) means <code>log_bili</code> explains a lot.</p>
+<p><strong><code>AIC: 446.71</code></strong> Lower AIC = better fit (penalised for complexity). Use AIC to compare models, not to interpret a single model in isolation.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -608,15 +731,28 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The coefficient for <code>log_bili</code> is 0.89 on the log-odds scale. To interpret it:</p>
+<p>The coefficient for <code>log_bili</code> is 1.14 on the log-odds scale. To interpret it:</p>
 <ol type="1">
-<li><strong>Exponentiate</strong> to get an odds ratio: <span class="math inline">\(e^{0.89} \approx 2.4\)</span></li>
-<li><strong>Translate:</strong> Each one-unit increase in log(bilirubin) — roughly a 2.7-fold increase in bilirubin — multiplies the odds of death by <strong>2.4</strong>.</li>
-<li><strong>Write it up:</strong> <em>“Higher bilirubin is strongly associated with mortality in PBC patients. Each 2.7-fold increase in bilirubin is associated with 2.4 times higher odds of death (OR = 2.4, 95% CI: [low]–[high], p &lt; 0.001).”</em></li>
+<li><strong>Exponentiate</strong> to get an odds ratio: <span class="math inline">\(e^{1.14} \approx 3.13\)</span></li>
+<li><strong>Translate:</strong> Each one-unit increase in log(bilirubin) (roughly a 2.7-fold increase in bilirubin) multiplies the odds of death by about <strong>3.1</strong>.</li>
+<li><strong>Write it up:</strong> <em>“Higher bilirubin is strongly associated with mortality in PBC patients. Each 2.7-fold increase in bilirubin is associated with about 3.1 times higher odds of death (OR = 3.13, 95% CI: 2.45–4.09, p &lt; 0.001).”</em></li>
 </ol>
-<p>Remember: odds ratios are <strong>not</strong> the same as relative risk. An OR of 2.4 does not mean the risk doubles. For rare outcomes (&lt; 10%), OR ≈ RR; for common outcomes, OR exaggerates the association.</p>
+<p>Remember: odds ratios are <strong>not</strong> the same as relative risk. An OR of 3.13 does not mean the risk triples. For rare outcomes (&lt; 10%), OR ≈ RR; for common outcomes (like death here, at 38%), OR exaggerates the association.</p>
 </div>
 </div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the <code>glm-fit</code> chunk above and check your <code>summary(fit_log)</code> output against the table above: <code>(Intercept)</code> ≈ −1.22 and <code>log_bili</code> ≈ 1.14 (both with <code>p &lt; 2e-16</code>), residual deviance ≈ 442.71 on 408 df, and AIC ≈ 446.71. <strong>Predict before you check:</strong> since <code>log_bili</code> has a positive coefficient, do you expect the odds ratio (once you exponentiate it) to be greater than 1 or less than 1?</p>
 </div>
 </div>
 </section>
@@ -631,6 +767,19 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
   &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 1 (Intercept)    0.295    0.220     0.389 4.17e-17
 2 log_bili       3.13     2.45      4.09  2.41e-18</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should get <code>log_bili</code> with <code>estimate</code> ≈ 3.13 (95% CI: 2.45–4.09, <code>p.value</code> ≈ 2.41e-18) and <code>(Intercept)</code> ≈ 0.295 (95% CI: 0.220–0.389). The intercept’s “odds ratio” here is just the baseline odds of death when <code>log_bili = 0</code> (i.e.&nbsp;bilirubin = 1 mg/dL) – it is not usually reported on its own. <strong>Check:</strong> does the 95% CI for <code>log_bili</code> include 1? What does that tell you about statistical significance?</p>
 </div>
 </div>
 </section>
@@ -649,6 +798,19 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 3    1.61      0.650
 4    2.30      0.804
 5    3.00      0.900</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. For bilirubin = 1, 2, 5, 10, and 20 mg/dL, the predicted probability of death is approximately 0.228, 0.395, 0.650, 0.804, and 0.900. Notice how the probability rises steeply but then levels off as it approaches 1 – this is the S-shaped logistic curve from the “Key Idea” section, not a straight line. <strong>Check:</strong> does the <em>difference</em> in predicted probability between bilirubin = 1 and bilirubin = 2 (about 0.17) equal the difference between bilirubin = 10 and bilirubin = 20 (about 0.10)? Why not, if the odds ratio per log-unit is constant?</p>
 </div>
 </div>
 </section>
@@ -672,6 +834,20 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 5 stageStage 2    3.50     0.723     28.0    0.165
 6 stageStage 3    4.15     0.904     32.3    0.106
 7 stageStage 4    6.52     1.42      50.2    0.033</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. <code>log_bili</code> now has OR ≈ 2.53 (95% CI: 1.93–3.36, p &lt; 0.001) – still significant, though attenuated from 3.13 once we adjust for prothrombin time, albumin, and stage. <code>albumin</code> has OR ≈ 0.755 (95% CI: 0.399–1.42, p = 0.383, not significant), and only <code>stageStage 4</code> reaches significance versus Stage 1 (OR ≈ 6.52, 95% CI: 1.42–50.2, p = 0.033).</p>
+<p>Look closely at <code>log_proto</code>: OR ≈ 1523 with a 95% CI of roughly 67.6–43432. <strong>This is a red flag, not a strong effect.</strong> A 95% CI that spans several orders of magnitude usually signals near-separation or an unstable estimate – here, prothrombin time has a narrow range in this dataset, so a moderate coefficient on the <em>log</em> scale translates into a huge OR per one-unit change in log(protime) (which corresponds to a 2.7-fold change in protime – far outside the range actually observed). Always check the <em>range</em> of a predictor before reporting an OR for “a one-unit increase.”</p>
 </div>
 </div>
 </section>
@@ -699,6 +875,19 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should get a C-statistic of about 0.825, meaning the model assigns a higher predicted probability of death to the patient who died, versus the patient who survived, in about 83% of all possible (died, survived) pairs. <strong>Check:</strong> is 0.825 closer to the 0.75 considered “moderate” or the 0.90+ considered “excellent” discrimination in the Comprehension Check question below? Remember that this C-statistic still says nothing about <em>calibration</em>.</p>
+</div>
+</div>
 </section>
 <section id="goodness-of-fit" class="level3" data-number="12.5.6">
 <h3 data-number="12.5.6" class="anchored" data-anchor-id="goodness-of-fit"><span class="header-section-number">12.5.6</span> Goodness of Fit</h3>
@@ -711,11 +900,41 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 1          545.     409  -201.  416.  444.     402.         403   410</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should see <code>null.deviance</code> ≈ 545 (409 df), <code>deviance</code> ≈ 402 (403 df), <code>AIC</code> ≈ 416, and <code>nobs</code> = 410. Compare this AIC to the single-predictor <code>fit_log</code> model’s AIC of 446.71: the multivariable model is about 31 AIC points lower, indicating a meaningfully better fit despite adding three more predictors – consistent with the higher C-statistic (0.825 vs the discrimination you would get from <code>log_bili</code> alone).</p>
+</div>
+</div>
 <p>A large drop from null to residual deviance indicates good model fit. Compare AIC between models to choose the best specification.</p>
 </section>
 </section>
 <section id="example-2-melanoma-data" class="level2" data-number="12.6">
 <h2 data-number="12.6" class="anchored" data-anchor-id="example-2-melanoma-data"><span class="header-section-number">12.6</span> Example 2: Melanoma Data</h2>
+<p><em>Estimated time: ~15 minutes (walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example repeats the same steps as Example 1 on a smaller dataset with a different multivariable model – use it to check whether learners can apply the workflow independently. Before running the chunk below, ask: which of <code>log_thick</code>, <code>ulceration</code>, and <code>sex</code> do you expect to be the strongest predictor of melanoma death, and in which direction?</p>
+</div>
+</div>
+</div>
 <p>We predict melanoma mortality from tumour thickness and ulceration.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mel <span class="ot">&lt;-</span> boot<span class="sc">::</span>melanoma <span class="sc">%&gt;%</span></span>
@@ -740,6 +959,19 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 2 log_thick        1.84    1.21       2.89  5.91e- 3
 3 ulcerationYes    2.85    1.34       6.21  7.29e- 3
 4 sexMale          1.43    0.713      2.84  3.09e- 1</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should get <code>log_thick</code> with OR ≈ 1.84 (95% CI: 1.21–2.89, p ≈ 0.006) and <code>ulcerationYes</code> with OR ≈ 2.85 (95% CI: 1.34–6.21, p ≈ 0.007) – both significant, with ulceration roughly doubling the odds of death on top of tumour thickness. <code>sexMale</code> has OR ≈ 1.43 (95% CI: 0.713–2.84, p ≈ 0.31), not statistically significant once thickness and ulceration are accounted for. <strong>Check:</strong> does the direction of the <code>log_thick</code> and <code>ulceration</code> effects match what you predicted in the Teacher Note above?</p>
 </div>
 </div>
 <div class="cell">
@@ -772,7 +1004,7 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> — binary mortality outcome with multiple continuous and categorical predictors.</p>
+<p><strong>PBC dataset:</strong> <code>survival::pbc</code>: binary mortality outcome with multiple continuous and categorical predictors.</p>
 <p><strong>boot::melanoma:</strong> Binary mortality with tumour characteristics; good for a smaller example.</p>
 <p><strong>MASS::birthwt:</strong> Low birth weight (binary) with maternal predictors, commonly used in logistic regression teaching.</p>
 <p><strong>medicaldata package:</strong> Multiple clean clinical trial datasets with binary outcomes.</p>
@@ -781,6 +1013,7 @@ log_bili      0.89      0.09       9.8    &lt;2e-16 ***</code></pre>
 </section>
 <section id="what-can-go-wrong" class="level2" data-number="12.7">
 <h2 data-number="12.7" class="anchored" data-anchor-id="what-can-go-wrong"><span class="header-section-number">12.7</span> What Can Go Wrong</h2>
+<p><em>Estimated time: ~10 minutes (reading)</em></p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -793,7 +1026,7 @@ Warning
 <div class="callout-body-container callout-body">
 <p><strong>Separation (complete or quasi-complete).</strong> If a predictor perfectly separates the outcome, the algorithm fails to converge and produces extreme coefficients with huge SEs. Check with a contingency table or histogram. Use Firth’s penalised logistic regression (<code>logistf</code> package) as a remedy.</p>
 <p><strong>Interpreting ORs as relative risks for common outcomes.</strong> When the outcome prevalence is &gt; 15–20%, OR &gt; RR substantially. If you report ORs, state them clearly and note that they do not equal relative risks.</p>
-<p><strong>Events per variable (EPV) rule of thumb.</strong> Logistic models require approximately 10–20 events per predictor variable for stable estimates. With 50 deaths and 6 predictors, you have EPV ≈ 8 — borderline. Consider reducing predictors or using penalised methods.</p>
+<p><strong>Events per variable (EPV) rule of thumb.</strong> Logistic models require approximately 10–20 events per predictor variable for stable estimates. Our <code>fit_multi</code> model above has 156 deaths and 6 predictors (<code>log_bili</code>, <code>log_proto</code>, <code>albumin</code>, and three stage dummies), giving EPV ≈ 26 – comfortably above the rule of thumb. If you had a dataset with, say, 50 events and 6 predictors, EPV ≈ 8 would be borderline, and you would want to reduce predictors or use penalised methods. (Note that the unstable <code>log_proto</code> estimate we saw earlier was not an EPV problem – it was a scale problem, caused by the narrow real-world range of prothrombin time.)</p>
 <p><strong>Not checking calibration.</strong> A high C-statistic does not guarantee good calibration (that predicted probabilities match observed proportions). Use a calibration plot (<code>val.prob()</code> from the <code>rms</code> package) for clinical prediction models.</p>
 </div>
 </div>
@@ -807,18 +1040,57 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>“OR = 2.4 means the risk is 2.4 times higher.”</strong> An odds ratio of 2.4 means the <em>odds</em> increased 2.4-fold, not the risk. When the outcome is common (&gt; 15%), the OR substantially overestimates the relative risk. If you want relative risk, use a Poisson model with robust standard errors or a log-binomial model.</p>
+<p><strong>“OR = 3.13 means the risk is 3.13 times higher.”</strong> An odds ratio of 3.13 means the <em>odds</em> increased about 3-fold, not the risk. When the outcome is common (&gt; 15% – and death occurs in 38% of this PBC sample), the OR substantially overestimates the relative risk. If you want relative risk, use a Poisson model with robust standard errors or a log-binomial model.</p>
 <p><strong>“C-statistic = 0.80 means my model is good.”</strong> The C-statistic measures discrimination: can the model rank a case above a non-case? It says nothing about calibration: are predicted probabilities accurate? A model can discriminate well but be badly miscalibrated. Always check both.</p>
 <p><strong>“My predictor has OR = 1.02, so it has no effect.”</strong> On the odds ratio scale, even small ORs can be meaningful for very common exposures. Conversely, a large OR for a rare predictor may have little population impact. Report the OR alongside the absolute risk change at clinically relevant predictor values.</p>
 <p><strong>“I adjusted for many variables so my result is unconfounded.”</strong> Adjusting for more variables does not automatically remove confounding. You can only adjust for confounders you <em>measured</em>. Unmeasured confounders remain a threat in all observational studies.</p>
 <p><strong>“Quasi-complete separation means my predictor is too good.”</strong> Separation causes coefficient inflation and numerical instability. It usually means you have too few events. Use Firth’s penalised logistic regression (<code>logistf::logistf()</code>).</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note: True or False?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Pose these statements to learners (true/false, with justification):</p>
+<ol type="1">
+<li>“An OR of 3.13 means patients with higher bilirubin are 3.13 times more likely to die.” (<strong>False</strong> – this confuses odds with probability/risk.)</li>
+<li>“A C-statistic of 0.825 means the model’s predicted probabilities are well calibrated.” (<strong>False</strong> – C-statistic measures discrimination, not calibration.)</li>
+<li>“Because <code>log_proto</code> had OR ≈ 1523 in <code>fit_multi</code>, prothrombin time is the most important predictor of death.” (<strong>False</strong> – the huge OR and CI spanning orders of magnitude signal an unstable, scale-dependent estimate, not a strong real effect.)</li>
+<li>“Adding <code>stage</code> to the model means we have fully adjusted for disease severity.” (<strong>False</strong> – we have adjusted for <em>measured</em> severity as captured by histologic stage; unmeasured aspects of severity could still confound.)</li>
+</ol>
+</div>
+</div>
+</div>
 </section>
 <section id="exercises" class="level2" data-number="12.8">
 <h2 data-number="12.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">12.8</span> Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Before learners run Exercise 1, ask them to predict: of <code>log_bili</code>, <code>albumin</code>, <code>log_proto</code>, and <code>stage</code>, which single predictor do they expect to have the strongest association with death (largest OR away from 1, smallest p-value)? After they run it, discuss why <code>log_proto</code>’s huge OR is misleading (same issue as in <code>fit_multi</code> above) even though it has the smallest p-value.</p>
+</div>
+</div>
+</div>
 <section id="exercise-1-guided-univariable-predictors-of-mortality" class="level3" data-number="12.8.1">
 <h3 data-number="12.8.1" class="anchored" data-anchor-id="exercise-1-guided-univariable-predictors-of-mortality"><span class="header-section-number">12.8.1</span> Exercise 1 (Guided): Univariable Predictors of Mortality</h3>
+<p><em>Estimated time: ~15 minutes (practice)</em></p>
 <p>Using <code>pbc</code>:</p>
 <ol type="1">
 <li>Fit separate logistic regressions for each of: <code>log_bili</code>, <code>albumin</code>, <code>log_proto</code>, <code>stage</code>.</li>
@@ -826,7 +1098,7 @@ Warning
 <li>Which single predictor has the largest OR?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -835,7 +1107,7 @@ Warning
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>predictors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"log_bili"</span>, <span class="st">"albumin"</span>, <span class="st">"log_proto"</span>)</span>
@@ -871,12 +1143,15 @@ Warning
 4 stageStage 4   12.4       0.764      3.30 0.000969   3.42      80.2  </code></pre>
 </div>
 </div>
+<p>Sorted by p-value, the univariable results are: <code>log_proto</code> (OR ≈ 43331, 95% CI: 2392–986265, p ≈ 3.4e-12), <code>log_bili</code> (OR ≈ 3.13, 95% CI: 2.45–4.09, p ≈ 2.4e-18), and <code>albumin</code> (OR ≈ 0.258, 95% CI: 0.151–0.430, p ≈ 3.6e-7 – albumin is <em>protective</em>, so higher albumin is associated with lower odds of death). By p-value alone, <code>log_bili</code> looks “strongest,” but <code>log_proto</code>’s astronomically large OR and CI are the same scale-instability problem flagged earlier, not evidence of a uniquely powerful predictor.</p>
+<p>For <code>fit_s</code> (<code>died ~ stage</code>), only <code>stageStage 4</code> is significant versus Stage 1 (OR ≈ 12.4, 95% CI: 3.42–80.2, p ≈ 0.001); <code>stageStage 2</code> (OR ≈ 3.00, p ≈ 0.16) and <code>stageStage 3</code> (OR ≈ 4.04, p ≈ 0.07) are not. This mirrors what we saw for <code>stage</code> inside <code>fit_multi</code>.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-2-semi-guided-multivariable-melanoma-model" class="level3" data-number="12.8.2">
 <h3 data-number="12.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-multivariable-melanoma-model"><span class="header-section-number">12.8.2</span> Exercise 2 (Semi-guided): Multivariable Melanoma Model</h3>
+<p><em>Estimated time: ~15 minutes (practice)</em></p>
 <p>Using <code>boot::melanoma</code>:</p>
 <ol type="1">
 <li>Fit a univariable model: <code>died ~ log_thick</code>.</li>
@@ -885,7 +1160,7 @@ Warning
 <li>Compare all three models by AIC.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -894,7 +1169,7 @@ Warning
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_thick,               <span class="at">data =</span> mel, <span class="at">family =</span> binomial)</span>
@@ -924,17 +1199,20 @@ m2  3 213.3625
 m3  4 214.3350</code></pre>
 </div>
 </div>
+<p>The OR for <code>log_thick</code> shrinks each time a new predictor is added: about 2.53 (model 1, p ≈ 3.4e-6) → about 1.91 (model 2, after adding <code>ulceration</code>, p ≈ 0.003) → about 1.84 (model 3, after adding <code>sex</code>, p ≈ 0.006). Thickness remains a significant predictor throughout, but part of its univariable association is shared with ulceration – thicker tumours are more likely to be ulcerated. Comparing AIC: model 1 ≈ 219.3, model 2 ≈ 213.4, model 3 ≈ 214.3. Adding <code>ulceration</code> improves the model (AIC drops by about 6), but adding <code>sex</code> on top makes AIC slightly <em>worse</em> (it rises by about 1), consistent with <code>sexMale</code> not being a significant predictor in <code>fit_mel</code> above (p ≈ 0.31). Model 2 is the best fit by AIC.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-3-open-ended" class="level3" data-number="12.8.3">
 <h3 data-number="12.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">12.8.3</span> Exercise 3 (Open-ended)</h3>
+<p><em>Estimated time: 15–30 minutes (practice)</em></p>
 <p>Using your own data, identify a binary outcome and at least two predictors. Fit a multivariable logistic regression. Report: ORs with 95% CIs, C-statistic, and a calibration check. Write a one-paragraph Methods section and a one-paragraph Results section as you would for a clinical paper.</p>
 </section>
 </section>
 <section id="comprehension-check" class="level2" data-number="12.9">
 <h2 data-number="12.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">12.9</span> Comprehension Check</h2>
+<p><em>Estimated time: ~10 minutes (self-test)</em></p>
 <ol type="1">
 <li>You fit logistic regression and get a coefficient of 0.8 for log_bili. What is the odds ratio, and what does it mean?</li>
 <li>Your outcome occurs in 40% of the study sample. A colleague reports OR = 2.5 as “roughly a doubling of risk.” Is this correct?</li>
@@ -943,7 +1221,7 @@ m3  4 214.3350</code></pre>
 <li>Your model fails to converge. The output shows a coefficient of 25 with SE = 1000 for one predictor. What is likely happening?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -952,7 +1230,7 @@ m3  4 214.3350</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>OR = exp(0.8) = 2.23. Each one-unit increase in log(bilirubin) is associated with 2.23 times higher odds of the event (e.g., death), holding other predictors constant.</li>
@@ -981,7 +1259,7 @@ Note
 <p><strong>In results:</strong> “Patients with [predictor level] had X-fold higher odds of [outcome] compared with [reference] (OR = X, 95% CI [L, U], p = Y).”</p>
 <p><strong>Always include:</strong></p>
 <ul>
-<li>Odds ratio (OR) — not the log-odds coefficient</li>
+<li>Odds ratio (OR): not the log-odds coefficient</li>
 <li>95% CI for the OR</li>
 <li>Reference category (e.g., “compared with Stage 1”)</li>
 <li>Number of events and total sample size (e.g., “87 deaths among 312 patients”)</li>
@@ -993,8 +1271,8 @@ Note
 <section id="further-reading" class="level2" data-number="12.11">
 <h2 data-number="12.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">12.11</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Hosmer-2013">Hosmer, Lemeshow, and Sturdivant (<a href="#ref-Hosmer-2013" role="doc-biblioref">2013</a>)</span> — <em>Applied Logistic Regression</em>, the standard reference</li>
-<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span> — Logistic regression in <em>An Introduction to Medical Statistics</em></li>
+<li><span class="citation" data-cites="Hosmer-2013">Hosmer, Lemeshow, and Sturdivant (<a href="#ref-Hosmer-2013" role="doc-biblioref">2013</a>)</span>: <em>Applied Logistic Regression</em>, the standard reference</li>
+<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span>: Logistic regression in <em>An Introduction to Medical Statistics</em></li>
 <li><code>?glm</code> in R: full documentation for generalised linear models</li>
 <li><code>pROC</code> package vignette for ROC analysis</li>
 <li><code>logistf</code> package for Firth’s penalised logistic regression</li>

@@ -17,10 +17,49 @@ if (!requireNamespace("gtsummary", quietly = TRUE)) {
 library(broom)
 ```
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: about 115 minutes (~2 hours).**
+
+| Section | Time | Type |
+|---|---|---|
+| When Do You Use This? + Learning Objectives | 5 min | Reading |
+| The Key Idea: Comparing Observed to Expected | 15 min | Reading |
+| Example 1: Clinical Data (PBC) | 30 min | Worked example |
+| Example 2: Melanoma Data | 15 min | Worked example |
+| What Can Go Wrong | 10 min | Reading |
+| Exercises 1 & 2 | 30 min | Practice |
+| Comprehension Check | 10 min | Self-test |
+
+In a taught course, this session fits one teaching block. For
+self-paced study, split it into two sittings, e.g. the key idea and
+Example 1 first, Example 2 onward later. Exercise 3 is open-ended and
+works best as a follow-up using a dataset from your own field.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-categorical}
 
 ::: {.callout-tip}
-You want to know whether adverse event rates differ between two treatment arms --- both outcomes are binary (event: yes/no). Or you want to know whether disease stage at diagnosis differs between men and women. These are questions about **counts and proportions**, not means. Chi-square and Fisher's exact tests are the right tools.
+You want to know whether adverse event rates differ between two treatment arms: both outcomes are binary (event: yes/no). Or you want to know whether disease stage at diagnosis differs between men and women. These are questions about **counts and proportions**, not means. Chi-square and Fisher's exact tests are the right tools.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Ask the room for a binary or categorical outcome from their own work:
+response/no response, complication/no complication, genotype categories.
+Keep one of those examples in mind through the session as an alternative
+to the PBC and melanoma examples below.
 :::
 
 ## Learning Objectives
@@ -35,6 +74,20 @@ After completing this session you will be able to:
 - Report an association correctly: test result *plus* the actual proportions
 
 ## The Key Idea: Comparing Observed to Expected
+
+*Estimated time: ~15 minutes (reading)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Board exercise: with the 2x2 table below on the board, ask the room to
+compute the four expected counts by hand using
+$E = \frac{\text{row total} \times \text{column total}}{n}$ before you
+reveal that they are all 25. Then ask: "given the observed counts of
+30, 70, 20, 80, does this table look close to that, or far from it?"
+This primes the chi-square statistic as a literal measure of distance
+between observed and expected.
+:::
 
 Before we touch any R code, let's build the intuition.
 
@@ -55,15 +108,28 @@ Chi-square then measures how far the actual table is from this "no relationship"
 
 $$\chi^2 = \sum \frac{(O - E)^2}{E}$$
 
-A large chi-square means the observed table looks nothing like what we'd expect under independence --- evidence of a real association. A small chi-square means the table is consistent with chance alone.
+A large chi-square means the observed table looks nothing like what we'd expect under independence, evidence of a real association. A small chi-square means the table is consistent with chance alone.
 
 This is the same logic from the [hypothesis testing session](hypothesis-testing.qmd): we are asking "how surprising is this data if the null hypothesis (no association) were true?" The chi-square distribution with $(r-1)(c-1)$ degrees of freedom converts that statistic into a p-value.
 
 ## Example 1: Clinical Data (PBC)
 
+*Estimated time: ~30 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+The PBC dataset has appeared in several earlier sessions (always as
+continuous outcomes: albumin, bilirubin). Here every variable of
+interest is categorical (sex, stage) or binary (death). Ask the room:
+"if you wanted to test whether *albumin level* differed by sex, would
+you use chi-square?" The answer is no — chi-square is for the
+*sex/stage* question here, not for a continuous outcome like albumin.
+:::
+
 ### Is Sex Associated with Disease Stage?
 
-The PBC dataset (`survival::pbc`) records 312 patients with primary biliary cirrhosis. Before running anything, take a moment to think:
+The PBC dataset (`survival::pbc`) records 418 patients with primary biliary cirrhosis. Before running anything, take a moment to think:
 
 > **Think before you run:** Do you expect sex and disease stage to be associated? In a randomised trial, baseline characteristics should not differ between arms by design. But this is an observational cohort. Is there a clinical reason men and women might present at different stages?
 
@@ -87,6 +153,17 @@ table(pbc$sex, pbc$stage)
 chisq.test(table(pbc$sex, pbc$stage))
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above (you'll see a warning about the chi-square
+approximation — some expected counts are small, which we'll check
+properly with Fisher's exact test next). You should get
+`X-squared ≈ 0.88`, `df = 3`, `p ≈ 0.83`. Far above 0.05: no evidence
+that the distribution of disease stage differs between men and women.
+Does this match what you predicted in "Think before you run"?
+:::
+
 **Reading the output:**
 
 | Output element | What it means |
@@ -95,7 +172,7 @@ chisq.test(table(pbc$sex, pbc$stage))
 | `df = 3` | Degrees of freedom: (2 rows − 1) × (4 cols − 1) = 1 × 3 = 3 |
 | `p-value = ...` | Probability of seeing this much difference by chance alone |
 
-A significant p-value tells you the distribution of stages differs between men and women. It does **not** tell you which stages drive the difference --- you need the table and the plot for that.
+A significant p-value tells you the distribution of stages differs between men and women. It does **not** tell you which stages drive the difference: you need the table and the plot for that.
 
 **Visualise:**
 
@@ -113,7 +190,7 @@ pbc %>%
 
 ### Fisher's Exact Test for a Sparse Table
 
-Chi-square relies on a large-sample approximation. When any expected cell count is below 5, that approximation breaks down and the p-value becomes unreliable. Fisher's exact test computes the exact probability without any approximation --- it is the right choice for sparse tables, regardless of sample size.
+Chi-square relies on a large-sample approximation. When any expected cell count is below 5, that approximation breaks down and the p-value becomes unreliable. Fisher's exact test computes the exact probability without any approximation: it is the right choice for sparse tables, regardless of sample size.
 
 ```{r fisher-example}
 pbc_14 <- pbc %>%
@@ -129,9 +206,19 @@ chisq.test(tab_14)$expected
 fisher.test(tab_14)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. The expected count for Male/Stage 1 is only
+≈ 2.5, below the rule-of-thumb minimum of 5 — chi-square would not be
+reliable here. Fisher's exact test gives `p ≈ 0.72`: no evidence of
+association between sex and stage in this restricted Stage 1 vs
+Stage 4 comparison.
+:::
+
 ### Comparing Two Proportions with a CI
 
-`prop.test()` compares two proportions and gives a confidence interval for the **difference** --- the quantity you actually want to report. If the 95% CI for the difference includes zero, there is no statistically significant difference at the 5% level.
+`prop.test()` compares two proportions and gives a confidence interval for the **difference**, the quantity you actually want to report. If the 95% CI for the difference includes zero, there is no statistically significant difference at the 5% level.
 
 This is exactly the [equivalence between confidence intervals and hypothesis tests](hypothesis-testing.qmd) from the previous session: the CI and the p-value always agree.
 
@@ -144,6 +231,16 @@ deaths_by_trt <- pbc_rand %>%
 
 prop.test(x = deaths_by_trt$deaths, n = deaths_by_trt$n)
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `X-squared ≈ 0.077`, `p ≈ 0.78`,
+and a 95% CI for the difference in death rates of about (-0.093,
+0.137) — straddling zero. The randomised treatment groups do not differ
+in mortality, consistent with the comparable baseline albumin and
+bilirubin values seen in earlier sessions.
+:::
 
 ### Publication-Quality Table with gtsummary
 
@@ -160,9 +257,21 @@ pbc %>%
   bold_labels()
 ```
 
-`add_p()` automatically selects chi-square or Fisher's exact depending on expected cell counts --- no manual checking required for this table format.
+`add_p()` automatically selects chi-square or Fisher's exact depending on expected cell counts: no manual checking required for this table format.
 
 ## Example 2: Melanoma Data
+
+*Estimated time: ~15 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Unlike the PBC sex/stage comparison above, this example produces a
+significant result. Use the contrast deliberately: a non-significant
+chi-square (PBC) and a significant one (melanoma) side by side help
+students see that "the test didn't find anything" and "the test found
+something" are both normal outcomes, not a sign of doing it wrong.
+:::
 
 ```{r melanoma-setup}
 mel <- boot::melanoma %>%
@@ -185,6 +294,16 @@ chisq.test(tab_mel)
 tidy(chisq.test(tab_mel))
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. The table is 79/47 (Female: no/yes ulceration) vs
+36/43 (Male: no/yes). With Yates' correction, `X-squared ≈ 5.11`,
+`df = 1`, `p ≈ 0.024` — below 0.05. Unlike the PBC sex/stage example,
+this one is statistically significant: ulceration is more common among
+male patients in this sample.
+:::
+
 ### Relative Risk and Odds Ratio
 
 For a 2×2 table, the p-value only tells you whether an association exists. You need an effect size measure to say how strong it is. Two measures are common:
@@ -205,14 +324,24 @@ cat("Relative Risk:", round(rr, 2), "\n")
 cat("Odds Ratio:   ", round(or, 2), "\n")
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `RR ≈ 1.46` and `OR ≈ 2.01`. Men in
+this sample are 1.46× as likely to have ulceration as women. The OR
+(2.01) is noticeably larger than the RR (1.46) — a reminder that the OR
+exaggerates the association relative to the RR when the outcome is not
+rare (ulceration occurs in roughly a third to a half of patients here).
+:::
+
 For logistic regression-based ORs with 95% CIs, see the [Logistic Regression](logistic-regression.qmd) session.
 
 ::: {.callout-note}
 ## Where to Find Data Like This
 
-**PBC dataset:** `survival::pbc` --- stage, sex, treatment, status: all categorical.
+**PBC dataset:** `survival::pbc`: stage, sex, treatment, status: all categorical.
 
-**boot::melanoma:** `boot::melanoma` --- sex, ulceration, survival status: classic 2×2 scenarios.
+**boot::melanoma:** `boot::melanoma`: sex, ulceration, survival status: classic 2×2 scenarios.
 
 **MASS::birthwt:** Binary outcome (low birth weight) with categorical predictors.
 
@@ -222,8 +351,10 @@ For logistic regression-based ORs with 95% CIs, see the [Logistic Regression](lo
 ::: {.callout-warning}
 ## What Can Go Wrong
 
+*Estimated time: ~10 minutes (reading)*
+
 **Using chi-square with small expected counts.**
-When any expected cell count is < 5, the chi-square approximation is unreliable. Use `fisher.test()`. R warns you when this occurs --- do not ignore that warning.
+When any expected cell count is < 5, the chi-square approximation is unreliable. Use `fisher.test()`. R warns you when this occurs: do not ignore that warning.
 
 **Confusing counts with proportions.**
 `chisq.test()` requires a table of *counts*, not proportions. Dividing cells by totals before running the test gives wrong results.
@@ -235,12 +366,30 @@ R applies Yates' correction by default for 2×2 tables (`correct = TRUE`), makin
 With large samples, chi-square detects tiny, clinically irrelevant differences. Supplement the p-value with an effect size: **Cramér's V** for larger tables, or relative risk/odds ratio for 2×2 tables.
 
 **Forgetting that chi-square is non-directional.**
-A significant chi-square tells you the variables are associated --- not which group has a higher proportion. Always report the contingency table or a bar chart alongside the test.
+A significant chi-square tells you the variables are associated, not which group has a higher proportion. Always report the contingency table or a bar chart alongside the test.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Quick true/false check, drawing on the points above:
+
+- "R prints 'Chi-squared approximation may be incorrect' but still gives a p-value, so it's fine to report it." (**False** -- switch to `fisher.test()`.)
+- "`chisq.test()` works the same whether you give it counts or proportions." (**False** -- it needs counts.)
+- "A chi-square p-value of 0.001 tells you which group has the higher proportion." (**False** -- chi-square is non-directional; check the table or proportions to see direction.)
 :::
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Pair students up for these exercises. Before running Exercise 1, ask each pair to predict: based on what they've seen of the PBC dataset in earlier sessions, do they expect sex to be associated with survival? Exercise 2 revisits the same `mel$sex` x `mel$ulceration` table used in Example 2, but asks students to compute the odds ratio by hand -- a useful check that they understand how the four cells of a 2x2 table map onto the OR formula.
+:::
+
 ### Exercise 1 (Guided): Sex and Mortality in PBC
+
+*Estimated time: ~15 minutes*
 
 1. Create a 2×2 table of `sex` by `died` in `pbc`.
 2. Run a chi-square test. Check that all expected counts are ≥ 5.
@@ -272,6 +421,8 @@ pbc %>%
 
 ### Exercise 2 (Semi-guided): Ulceration and Sex in Melanoma
 
+*Estimated time: ~15 minutes*
+
 Using `boot::melanoma`, test whether ulceration status differs by sex.
 
 1. Build a 2×2 contingency table.
@@ -295,9 +446,13 @@ cat("OR:", round((a * d) / (b * c), 2))
 
 ### Exercise 3 (Open-ended)
 
-Find a binary or nominal outcome in your own data. Construct a contingency table with a grouping variable of interest. Run the appropriate test, check assumptions, and write a two-sentence result suitable for a paper --- including the actual proportions, not just the p-value.
+*Estimated time: 15--30 minutes*
+
+Find a binary or nominal outcome in your own data. Construct a contingency table with a grouping variable of interest. Run the appropriate test, check assumptions, and write a two-sentence result suitable for a paper, including the actual proportions, not just the p-value.
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes (self-test)*
 
 1. When should you use Fisher's exact test instead of chi-square?
 2. R prints: "Chi-squared approximation may be incorrect." What does this mean and what should you do?
@@ -326,7 +481,7 @@ Find a binary or nominal outcome in your own data. Construct a contingency table
 
 - The chi-square statistic with degrees of freedom: χ²(2) = 8.4
 - The p-value
-- The actual proportions --- the test result alone is not informative
+- The actual proportions: the test result alone is not informative
 - Whether Fisher's exact was used (and why)
 - An effect size for 2×2 tables: odds ratio or relative risk with 95% CI
 
@@ -335,6 +490,6 @@ For models that estimate odds ratios with confidence intervals directly, see the
 
 ## Further Reading
 
-- @Agresti-2019 --- *An Introduction to Categorical Data Analysis*, the standard reference
-- @Bland-2015 --- Chi-square and Fisher's test in *An Introduction to Medical Statistics*
+- @Agresti-2019: *An Introduction to Categorical Data Analysis*, the standard reference
+- @Bland-2015: Chi-square and Fisher's test in *An Introduction to Medical Statistics*
 - `?chisq.test`, `?fisher.test`, `?prop.test` in R: built-in documentation with examples

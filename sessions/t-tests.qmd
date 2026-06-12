@@ -10,6 +10,37 @@ library(survival)
 library(broom)
 ```
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: about 115 minutes (~2 hours).**
+
+| Section | Time | Type |
+|---|---|---|
+| When Do You Use This? + Learning Objectives | 5 min | Reading |
+| Background | 15 min | Reading |
+| Example 1: Animal and Lab Data | 20 min | Worked example |
+| Example 2: Clinical Data (PBC) | 15 min | Worked example |
+| Checking Assumptions: QQ-plots | 10 min | Worked example |
+| What Can Go Wrong | 10 min | Reading |
+| Exercises 1 & 2 | 30 min | Practice |
+| Comprehension Check | 10 min | Self-test |
+
+In a taught course, this session fits one teaching block. For
+self-paced study, it splits naturally into two sittings, e.g.
+Background and Example 1 first, the rest later. Exercise 3 is
+open-ended and works best as a follow-up using your own data.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-t-tests}
 
 ::: {.callout-tip}
@@ -23,6 +54,15 @@ sampling variation alone?**
 This session is the first place you will apply the framework from
 [Hypothesis Testing](hypothesis-testing.qmd). If hypothesis testing is
 the logic, t-tests are one of its most common tools.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Open by asking the room for a "before vs after" or "treated vs control"
+comparison from their own work. Use one of those examples, rather than
+the textbook ones, to motivate the one-sample / two-sample / paired
+distinction in the Background section before any formula appears.
 :::
 
 ## Learning Objectives
@@ -39,19 +79,33 @@ After completing this session you will be able to:
 
 ## Background: The One Idea Behind All Three Tests
 
+*Estimated time: ~15 minutes (reading)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+The signal-to-noise framing below is the single most important idea in
+this session, arguably in the whole course. A useful board exercise:
+write $t = \text{signal} / \text{noise}$ and ask what happens to $t$ if
+(a) the sample size doubles, (b) the measurement becomes noisier, (c)
+the true effect gets bigger. Work through all three before moving on to
+which test variant to use; the variant choice is comparatively
+mechanical once this idea is solid.
+:::
+
 Before the three variants, here is the single idea that ties them all
 together. A t-test answers one question: **is the difference I measured
 bigger than the noise?** It takes the difference between means (the
-*signal*) and divides by the standard error (the *noise* --- how much
+*signal*) and divides by the standard error (the *noise*: how much
 that difference would vary if you ran the study again on a new sample).
 That ratio is the **t-statistic**:
 
 $$t = \frac{\text{difference between means}}{\text{standard error of that difference}} = \frac{\text{signal}}{\text{noise}}$$
 
 A large $|t|$ means the difference stands out against background
-variability --- chance is an unlikely explanation. A small $|t|$ means
-the difference could easily be noise. Everything below --- which variant
-to pick, Welch versus Student, checking normality --- is just this one
+variability: chance is an unlikely explanation. A small $|t|$ means
+the difference could easily be noise. Everything below (which variant
+to pick, Welch versus Student, checking normality) is just this one
 idea adapted to your specific study design.
 
 ### Choosing the right variant
@@ -77,6 +131,16 @@ Ask yourself two questions before running anything:
 
 ### Welch's vs Student's: always use Welch's
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+A common question here is "then why does Student's t-test still get
+taught at all?" The short, honest answer is history, plus a handful of
+specialised designs that assume equal variances by construction. For
+everything in this course, Welch's is the right default; treat this as
+a one-minute aside, not a detour.
+:::
+
 Welch's t-test (R default: `var.equal = FALSE`) does not assume the two
 groups have equal variances. Student's t-test does. Since you usually
 cannot know in advance whether variances are equal, Welch's is safer.
@@ -98,13 +162,27 @@ heavily skewed or have extreme outliers, use a nonparametric test
 ### The one thing to remember
 
 A t-test is **signal ÷ noise**. A small p-value means your signal is
-loud relative to the noise --- it does not tell you the difference is
+loud relative to the noise: it does not tell you the difference is
 large or clinically important. Always read the p-value alongside the
 effect size (the mean difference) and its 95% CI.
 :::
 
 
 ## Example 1: Animal and Lab Data
+
+*Estimated time: ~20 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Live-session idea: before showing the boxplot below, ask students to
+predict which delivery method will show higher tooth growth, and by
+roughly how much. Reveal the plot, then run the test. The plot makes a
+difference look obvious; the test result (p = 0.18) tells a more
+cautious story. That tension, a visually convincing plot paired with an
+inconclusive test, is the core lesson of this example and is worth
+dwelling on rather than rushing past.
+:::
 
 ### Two-sample: does supplement type affect tooth growth?
 
@@ -154,19 +232,30 @@ res_tg <- t.test(len ~ supp, data = tg_1mg, var.equal = FALSE)
 tidy(res_tg)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Execute the two chunks above. Your plot should show orange juice (OJ)
+somewhat higher than ascorbic acid (VC), with overlapping spread between
+the two groups. Your table should match: `t ≈ -1.41`, `p.value ≈ 0.18`,
+`conf.low ≈ -8.78`, `conf.high ≈ 1.78`. Before reading the table below,
+decide for yourself: based on the plot and these numbers, would you say
+the delivery method matters at this dose?
+:::
+
 ::: {.callout-note}
 ### Reading the Output Line by Line
 
 | Column | What it means |
 |---|---|
 | **statistic (t = −1.41)** | The means differ by 1.41 standard errors. Negative because VC < OJ. Close to zero: the gap could easily be noise. |
-| **parameter (df = 15.36)** | Welch's degrees of freedom. Not a whole number --- this is expected and correct. |
+| **parameter (df = 15.36)** | Welch's degrees of freedom. Not a whole number: this is expected and correct. |
 | **p.value (0.18)** | If there were truly no difference, we would see a gap this large 18% of the time from chance alone. Not significant. |
 | **conf.low / conf.high (−8.78 to 1.78)** | The true difference could range from OJ being 8.78 mm better to VC being 1.78 mm better. The CI contains zero. |
-| **estimate1 / estimate2** | OJ mean = 22.70 mm; VC mean = 16.77 mm. The raw difference is 5.93 mm --- always report this, not just p. |
+| **estimate1 / estimate2** | OJ mean = 22.70 mm; VC mean = 16.77 mm. The raw difference is 5.93 mm: always report this, not just p. |
 
-The difference is not significant at 1 mg/day. At 0.5 mg/day it is
---- try it in Exercise 1.
+The difference is not significant at 1 mg/day. At 0.5 mg/day it is:
+try it in Exercise 1.
 :::
 
 ### Paired: do two sleep drugs differ?
@@ -202,7 +291,7 @@ sleepdat %>%
 
 The connecting lines show each patient's trajectory between drugs. Most
 lines slope upward from Drug 1 to Drug 2. The paired test uses exactly
-this information --- the consistent direction of change across patients.
+this information, the consistent direction of change across patients.
 
 ```{r sleep-test}
 #| eval: true
@@ -218,6 +307,15 @@ res_sleep <- t.test(sleep_wide[["Drug 2"]], sleep_wide[["Drug 1"]],
                     paired = TRUE)
 tidy(res_sleep)
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `estimate ≈ 1.58`, `statistic ≈
+4.06`, `p.value ≈ 0.0028`. Compare this p-value to the two-sample result
+from the previous example (p ≈ 0.18). Same kind of test, a much smaller
+p-value: the next chunk shows why.
+:::
 
 To see exactly why using the paired test matters, run both on the same
 data and compare:
@@ -236,19 +334,29 @@ bind_rows(
 
 The paired test gives a much smaller p-value because it strips out the
 between-patient variability that inflates the noise estimate in the
-two-sample test. The same data, the same effect size --- but the right
+two-sample test. The same data, the same effect size, but the right
 design choice makes the difference detectable.
 
 
 ## Example 2: Clinical Data (PBC)
 
-### One-sample: is mean albumin below the clinical threshold?
+*Estimated time: ~15 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This example connects back to the Hypothesis Testing session's
+discussion of baseline comparability in randomised trials. If the group
+has covered that session, ask them to recall why checking baseline
+balance matters before running the two-sample test below.
+:::
+
+### One-sample: is mean albumin different from the clinical threshold?
 
 The lower limit of normal serum albumin is 3.5 g/dL. PBC is a
-progressive liver disease that impairs the liver's ability to synthesise
-albumin. We expect PBC patients to run low. The one-sample t-test tests
-whether the mean in our patients is significantly below the reference
-value.
+progressive liver disease that can impair the liver's ability to
+synthesise albumin, so it is natural to ask: in this cohort, does the
+average patient sit below the normal range?
 
 ```{r pbc-setup}
 #| eval: true
@@ -264,11 +372,29 @@ pbc <- survival::pbc %>%
 tidy(t.test(pbc$albumin, mu = 3.5))
 ```
 
-Read across the row: `estimate` is the sample mean; `statistic` is the
-t-value; `p.value` is how often a sample this far from 3.5 would arise
-if the true population mean really were 3.5. The mean sits below 3.5
-and the p-value is tiny --- clear evidence that PBC patients have
-albumin below the normal threshold.
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `estimate ≈ 3.50`, `statistic ≈
+-0.12`, `p.value ≈ 0.90`, with the 95% CI (3.46 to 3.54) sitting almost
+exactly on 3.5. Notice how close `estimate` is to `mu`: this is what a
+genuinely null result looks like.
+:::
+
+Read across the row: `estimate` is the sample mean (3.50 g/dL);
+`statistic` is the t-value (−0.12); `p.value` (0.90) is how often a
+sample this far from 3.5 would arise by chance if the true population
+mean really were 3.5. The 95% CI (3.46 to 3.54) sits almost exactly on
+3.5: this is a precise null result. Across the whole cohort, mean
+albumin is indistinguishable from the lower limit of normal.
+
+That does **not** mean PBC has no effect on albumin. PBC ranges from
+early, asymptomatic disease to advanced cirrhosis, and this cohort spans
+that whole spectrum. A cohort-wide average mixes patients whose albumin
+is still normal with patients whose albumin is severely depleted, and
+the two can cancel out. The next section asks a more useful question:
+does albumin differ between groups defined by something other than
+disease status, namely treatment arm at baseline.
 
 (`broom::tidy()` packs the output into a data frame rather than the
 default printed block. Both show the same numbers; `tidy()` is easier
@@ -306,31 +432,59 @@ tidy(t.test(albumin ~ trt, data = pbc_rand, var.equal = FALSE))
 ```
 
 ::: {.callout-tip}
-### Putting the two results together
+### Run It Yourself
 
-> "Mean albumin in PBC patients was 3.43 g/dL (95% CI: 3.39--3.47),
-> significantly below the clinical threshold of 3.5 g/dL (one-sample
-> t-test: *t*(417) = −3.12, p = 0.002). There was no significant
-> difference in albumin between the D-penicillamine and placebo groups
-> at baseline, confirming comparable randomisation."
+Run the chunk above. You should get `p.value ≈ 0.87` and a confidence
+interval for the difference that comfortably contains zero (about −0.10
+to 0.09 g/dL). This is the result you want to see when checking baseline
+balance: no evidence of a difference.
+:::
 
-Two tests, two different scientific questions, two complementary
-answers.
+::: {.callout-tip}
+### Putting the Two Results Together
+
+> "Mean serum albumin across the cohort was 3.50 g/dL (95% CI:
+> 3.46--3.54), not significantly different from the lower limit of
+> normal (3.5 g/dL; one-sample t-test: *t*(417) = −0.12, p = 0.90).
+> There was no significant difference in baseline albumin between the
+> D-penicillamine and placebo groups (two-sample t-test: p = 0.87),
+> confirming comparable randomisation."
+
+Two tests, two null results, but they answer different questions. The
+first tells you the cohort average sits right at the clinical threshold,
+which, given the spread of disease severity in PBC, is unsurprising and
+not very informative on its own. The second tells you something
+genuinely useful for trial design: randomisation balanced albumin
+between arms at baseline, so a later difference between groups is
+unlikely to be explained by a baseline imbalance in this variable.
 :::
 
 
 ## Checking Assumptions: QQ-plots
 
+*Estimated time: ~10 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Students often expect QQ-plot points to fall in a perfectly straight
+line and worry when $n = 10$ produces visible wiggle. After showing the
+plot below, ask: "if I simulated 10 points from a true normal
+distribution and made this plot 20 times, would they all look
+identical?" Running `qqnorm(rnorm(10))` a few times live is a quick,
+memorable way to calibrate expectations for small-sample QQ-plots.
+:::
+
 For small samples ($n < 30$), use a QQ-plot to check approximate
-normality. `ToothGrowth` has only 10 animals per group at each dose ---
+normality. `ToothGrowth` has only 10 animals per group at each dose,
 exactly the situation where checking matters.
 
 A QQ-plot compares the quantiles of your data against the quantiles of a
 theoretical normal distribution. If the points fall roughly along the
 diagonal line, normality is a reasonable assumption. What to watch for:
 
-- **Heavy tails**: points curve away from the line at both ends ---
-  suggests a distribution with more extreme values than normal
+- **Heavy tails**: points curve away from the line at both ends,
+  suggesting a distribution with more extreme values than normal
 - **Right skew**: points curve upward at the top right
 - **Outliers**: one or two points far off the line
 
@@ -344,7 +498,7 @@ tg_1mg %>%
   theme_bw()
 ```
 
-With $n = 10$, points roughly following the line are sufficient ---
+With $n = 10$, points roughly following the line are sufficient:
 you cannot expect perfection from ten observations. If you see a
 systematic curve or extreme departures, consider a Wilcoxon test
 ([Nonparametric Tests](nonparametric-tests.qmd)).
@@ -352,14 +506,25 @@ systematic curve or extreme departures, consider a Wilcoxon test
 
 ## What Can Go Wrong
 
+*Estimated time: ~10 minutes (reading)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+The "Common misinterpretations" callout below works well as a quick
+true/false round: read each statement aloud, ask for a show of hands
+before revealing why it is wrong. This surfaces misconceptions the group
+already holds rather than just presenting them.
+:::
+
 **Using paired when data are independent, or vice versa**
 
 The paired t-test requires a genuine one-to-one link between
 observations. If you apply it to two independent groups, the degrees of
 freedom will be wrong and the p-value meaningless. If you apply a
 two-sample test to paired data, you throw away the within-subject
-information and lose statistical power. The design --- not the software
---- determines which test is correct.
+information and lose statistical power. The design, not the software,
+determines which test is correct.
 
 **Relying on Shapiro-Wilk to decide whether to use a t-test**
 
@@ -381,7 +546,7 @@ difference, SD or SE for each group, and the 95% CI.
 `t.test()` in R uses `var.equal = FALSE` by default, which gives
 Welch's test. This is the right choice. Do not override it with
 `var.equal = TRUE` unless you have a genuine scientific reason to assume
-equal variances --- and there is rarely such a reason in biomedical
+equal variances, and there is rarely such a reason in biomedical
 research.
 
 ::: {.callout-warning}
@@ -409,7 +574,19 @@ are genuinely independent, the paired test is simply wrong.
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+In a live session, have students attempt Exercise 1 in pairs (~10
+minutes) before revealing the solution, then work Exercise 2
+individually. Exercise 3 needs each student's own data, so it works best
+as a take-home or end-of-day task rather than something to complete in
+the room.
+:::
+
 ### Exercise 1 (Guided): Two-Sample Test at a Different Dose
+
+*Estimated time: ~15 minutes*
 
 Using `ToothGrowth`, test whether tooth length differs by supplement
 type at the **0.5 mg/day** dose (where the difference looks larger than
@@ -447,6 +624,8 @@ effect changes across doses.
 
 ### Exercise 2 (Semi-guided): One-Sample Test for Bilirubin
 
+*Estimated time: ~15 minutes*
+
 The upper limit of normal for bilirubin is approximately 1.2 mg/dL.
 
 1. Plot the bilirubin distribution in `survival::pbc`. Is it symmetric?
@@ -479,6 +658,8 @@ cholestatic liver disease.
 
 ### Exercise 3 (Open-ended)
 
+*Estimated time: 15--30 minutes, depending on your data*
+
 Using a dataset from your own research, identify a comparison where a
 t-test is appropriate. Decide which variant (one-sample, two-sample, or
 paired) fits your design. Run the test, check assumptions with a
@@ -487,6 +668,8 @@ would for a journal submission.
 
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes*
 
 1. What is the difference between a one-sample, two-sample, and paired
    t-test? Give a concrete biomedical example for each.
@@ -526,7 +709,7 @@ would for a journal submission.
    tells you almost nothing about the size of the effect. Report both
    the p-value and the CI, and note that the estimate is imprecise.
 
-5. Shapiro-Wilk with p = 0.06 does not mean the data are normal --- it
+5. Shapiro-Wilk with p = 0.06 does not mean the data are normal: it
    means non-normality was not detected at $\alpha = 0.05$. With
    n = 12 the test has very low power; it would miss moderate non-
    normality routinely. Use a QQ-plot and domain knowledge to assess
@@ -570,7 +753,7 @@ would for a journal submission.
 
 ## Further Reading
 
-- @Welch-1947 --- the original Welch t-test paper
-- @Bland-2015 --- *An Introduction to Medical Statistics*, chapter on
+- @Welch-1947: the original Welch t-test paper
+- @Bland-2015: *An Introduction to Medical Statistics*, chapter on
   t-tests; written for clinicians
 - `?t.test` in R: the built-in help page covers all options clearly

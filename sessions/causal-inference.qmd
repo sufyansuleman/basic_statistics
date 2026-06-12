@@ -13,10 +13,45 @@ library(dagitty)
 library(ggdag)
 ```
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: ~155 minutes** (about 2.5 hours). A natural break point is after Example 1 (drawing and querying DAGs)---cover Example 2 (propensity scores) and the exercises in a second sitting. Exercise 3 is open-ended and its time will vary.
+
+| Section | Time | Type |
+|---------|------|------|
+| The Key Idea: Correlation Is Not Causation | ~10 min | Concept |
+| Background: Why Associations Are Not Causes | ~15 min | Concept |
+| Example 1: Drawing a DAG for PBC | ~35 min | Walkthrough |
+| Example 2: Propensity Score Analysis | ~25 min | Walkthrough |
+| What Can Go Wrong | ~10 min | Reading |
+| Exercise 1 (Guided) | ~15 min | Practice |
+| Exercise 2 (Semi-guided) | ~15 min | Practice |
+| Exercise 3 (Open-ended) | 15--30 min | Practice |
+| Comprehension Check | ~10 min | Self-test |
+
+If you are short on time, the collider-bias demonstration in Example 1 (the `collider-demo` chunk) is the single most counterintuitive and memorable result in this session: a correlation of essentially zero becomes a strong spurious correlation just by restricting the sample on a shared outcome.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-causal-inference}
 
 ::: {.callout-tip}
 You have found a statistical association between an exposure and an outcome, but associations can arise from confounding, reverse causation, or selection bias rather than a true causal effect. Causal inference provides the framework for deciding whether an observed association reflects a genuine causal relationship, what "adjusting for confounders" really means, and why adjusting for the *wrong* variables can make things worse rather than better. For example: patients who take aspirin have lower bilirubin, but does aspirin reduce bilirubin, or do healthier patients simply take aspirin more often?
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Ask learners: when building a regression model, is it ever a bad idea to add *more* covariates "just to be safe"? Most will say no -- more adjustment feels more careful, more conservative. This session's central goal is to overturn that intuition: whether adjusting for a variable helps or hurts depends entirely on its causal role (confounder, mediator, or collider), which a regression model cannot tell you on its own. Keep this question in mind through the collider-bias demonstration and Exercise 1.
 :::
 
 ## Learning Objectives
@@ -30,13 +65,17 @@ After completing this session you will be able to:
 - Recognise and avoid collider bias and mediation bias
 
 
-## The Key Idea: Correlation Is Not Causation — and Adjustment Is Not Neutral
+## The Key Idea: Correlation Is Not Causation, and Adjustment Is Not Neutral
+
+*Estimated time: ~10 minutes (Concept)*
 
 You have heard "correlation is not causation" a thousand times. But causal inference makes this concrete: it gives you a framework for knowing *when* a correlation reflects causation, and *when* adjusting for a variable helps versus hurts.
 
-The central insight: whether to adjust for a variable depends entirely on its causal role. A confounder must be adjusted for. A mediator must NOT be adjusted for (if you want the total effect). A collider must NEVER be adjusted for. Without a causal diagram, you cannot tell these apart --- and getting it wrong can introduce more bias than it removes.
+The central insight: whether to adjust for a variable depends entirely on its causal role. A confounder must be adjusted for. A mediator must NOT be adjusted for (if you want the total effect). A collider must NEVER be adjusted for. Without a causal diagram, you cannot tell these apart, and getting it wrong can introduce more bias than it removes.
 
 ## Background: Why Associations Are Not Causes
+
+*Estimated time: ~15 minutes (Concept)*
 
 ### Potential Outcomes Framework
 
@@ -65,6 +104,18 @@ A DAG encodes the investigator's causal assumptions as a graph where arrows repr
 
 ## Example 1: Drawing a DAG for PBC
 
+*Estimated time: ~35 minutes (Walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This example has several natural stopping points for prediction:
+
+- Before running `dag-pbc`: sketch on paper (or whiteboard) a DAG for "does bilirubin cause low albumin in PBC, or is this confounded by disease stage?" Then compare with the DAG drawn in code.
+- Before running `adjustment-set`: ask learners to predict, from the DAG alone, what `dagitty::adjustmentSets()` will return for the effect of `bili` on `albumin`.
+- Before running `collider-demo`: ask learners to predict what will happen to the correlation between `exercise` and `diet` (currently ~0) once the sample is restricted to people with low BMI. Most learners predict "nothing changes" - the surprising result is the point.
+:::
+
 ### The Research Question
 
 Does bilirubin causally affect albumin in PBC patients, or is the association confounded by disease severity (stage)?
@@ -88,12 +139,34 @@ ggdag::ggdag(dag, layout = "auto") +
   labs(title = "DAG: Bilirubin - Albumin in PBC")
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+The plot shows a diamond shape: `stage` sits at the top with three arrows leading out to `bili`, `albumin`, and `protime`; `bili` has its own arrow into `albumin`; and `protime` also has an arrow into `albumin`. Visually, `stage` is a common cause of `bili`, `albumin`, and `protime` - a classic confounder structure - while `protime` sits between `stage` and `albumin` as well as receiving its own arrow from `stage`.
+
+Before moving on: which node(s) in this DAG do you think need to be in the adjustment set if you want the causal effect of `bili` on `albumin`? Write down your answer, then check it against the next chunk.
+:::
+
 ### Identifying the Adjustment Set
+
+*Estimated time: ~5 minutes (Walkthrough)*
 
 ```{r adjustment-set}
 # What must we adjust for to estimate the causal effect of bili on albumin?
 dagitty::adjustmentSets(dag, exposure = "bili", outcome = "albumin")
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+You should see:
+
+```
+{ stage }
+```
+
+`dagitty` agrees with the visual reasoning: `stage` is the only variable you need to adjust for. `protime` does not need to be in the adjustment set - it lies on a path from `stage` to `albumin` that does not create a backdoor path from `bili`, so adjusting for it would not be necessary (and, depending on the question, could even be harmful - see the next section).
+:::
 
 The backdoor criterion says: block all non-causal paths from `bili` to `albumin`. In this DAG, `stage` is a common cause (confounder) - it opens a backdoor path. Adjusting for `stage` closes this path.
 
@@ -110,9 +183,23 @@ dagitty::adjustmentSets(dag2, exposure = "bili", outcome = "albumin",
                          effect = "total")
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+You should see:
+
+```
+{}
+```
+
+An empty set - `dagitty` says you should adjust for *nothing*. In this DAG, `protime` lies entirely on the causal path from `bili` to `albumin` (a mediator), so it is not part of any backdoor path. If you adjusted for `protime` here, you would block part of the very effect you are trying to estimate, biasing your estimate of the *total* effect of `bili` on `albumin` toward zero.
+:::
+
 If `protime` is on the causal pathway from bilirubin to albumin (a mediator), adjusting for it blocks part of the effect of bilirubin. We would then estimate only the *direct* effect, not the total effect. Be explicit about whether you want total or direct effects.
 
 ### Collider Bias: A Demonstration
+
+*Estimated time: ~10 minutes (Walkthrough)*
 
 ```{r collider-demo}
 set.seed(2024)
@@ -135,12 +222,35 @@ cat("r(exercise, diet | BMI quintile 1) =",
               df$diet[df$bmi < quantile(df$bmi, 0.2)]), 3), "\n")
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+You should see:
+
+```
+r(exercise, diet) = -0.014
+r(exercise, diet | BMI quintile 1) = -0.384
+```
+
+In the full simulated sample, `exercise` and `diet` are essentially uncorrelated (r = -0.014), exactly as we built them: independent random draws. But once we restrict to the lowest BMI quintile - conditioning on `bmi`, which is *caused by both* `exercise` and `diet` - a strong negative correlation (r = -0.384) appears out of nowhere.
+
+Why? Among people with very low BMI, low exercise must be "compensated for" by a stricter diet (and vice versa) to end up in that low-BMI group. The collider has manufactured a relationship between two variables that were never related in the first place. No causal link between `exercise` and `diet` was created by this restriction - the association is entirely an artefact of *how the sample was selected*.
+:::
+
 Restricting to low BMI (conditioning on the collider) creates a spurious negative correlation between exercise and diet. This is **collider bias** - conditioning on a common *effect* of two variables induces an association between them.
 
 **Practical example:** In a study of ICU patients, restricting the sample to those admitted to ICU (a collider of severe illness and random events) can make risk factors appear protective; this is Berkson's paradox.
 
 
 ## Example 2: Propensity Score Analysis
+
+*Estimated time: ~25 minutes (Walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+The `survival::pbc` data come from a randomised trial, so treatment assignment should already be close to balanced on measured covariates. Ask learners to predict, before running `iptw`: do they expect the IPTW-adjusted estimate of the effect of `trt_d` on `albumin` to differ much from a simple unadjusted comparison? And how might this connect to the log-rank test result from the [Survival and Time-to-Event](survival-and-time-to-event.qmd) session, which found no significant difference in survival between treatment arms (p = 0.7)?
+:::
 
 When randomisation is not possible, propensity score methods attempt to balance confounders between treatment groups.
 
@@ -171,6 +281,12 @@ pbc %>%
   theme_bw()
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+The two distributions overlap substantially across the 0.3-0.7 range, which is reassuring. However, look closely at the upper tail: the D-penicillamine group (steelblue) has additional mass out to propensity scores of 0.6-0.85, where the Placebo group (tomato) has little or no presence. This is a mild positivity concern - for patients whose covariates put them at the high end of this range, we have few or no observed Placebo patients to compare against, so any IPTW estimate in that region relies more heavily on extrapolation (and those patients will receive large weights if they are in the Placebo group).
+:::
+
 Good overlap (positivity) is required for propensity score methods to work. If the groups are completely separated on the propensity score, there is no common support; the causal question cannot be answered from these data alone.
 
 ```{r iptw}
@@ -186,6 +302,19 @@ pbc <- pbc %>%
 lm(albumin ~ trt_d, data = pbc, weights = ipw) %>%
   broom::tidy(conf.int = TRUE)
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+You should see (rounded):
+
+| term | estimate | std.error | statistic | p.value | conf.low | conf.high |
+|------|----------|-----------|-----------|---------|----------|-----------|
+| (Intercept) | 3.52 | 0.0340 | 104 | <0.001 | 3.45 | 3.58 |
+| trt_d | 0.00322 | 0.0479 | 0.0673 | 0.946 | -0.0910 | 0.0975 |
+
+After IPTW adjustment, the estimated effect of D-penicillamine versus placebo on albumin is essentially zero (0.003 g/dL, 95% CI -0.09 to 0.10, p = 0.946). This matches the prediction from the Teacher Note: since `pbc` comes from a randomised trial, treatment groups were already well-balanced before weighting, and the log-rank test in the [Survival and Time-to-Event](survival-and-time-to-event.qmd) session likewise found no significant survival difference between arms (p = 0.7). Two different outcomes (albumin and survival), two different methods (IPTW-weighted regression and the log-rank test), and the same conclusion: this trial found no detectable benefit of D-penicillamine.
+:::
 
 IPTW creates a pseudo-population in which treatment assignment is independent of confounders. The weighted outcome difference estimates the ATE.
 
@@ -204,8 +333,10 @@ IPTW creates a pseudo-population in which treatment assignment is independent of
 ::: {.callout-warning}
 ## What Can Go Wrong
 
+*Estimated time: ~10 minutes (Reading)*
+
 **Adjusting for everything.**
-Adding all available variables to a regression model is not "conservative" --- it can introduce collider bias if any of those variables is a collider. Always draw a DAG before deciding what to adjust for.
+Adding all available variables to a regression model is not "conservative": it can introduce collider bias if any of those variables is a collider. Always draw a DAG before deciding what to adjust for.
 
 **Over-adjusting for mediators.**
 If you adjust for a mediator, you estimate the direct effect of exposure on outcome. This is only correct if your research question specifically asks about the direct effect. For most aetiological questions, you want the total effect, which means *not* adjusting for mediators.
@@ -220,7 +351,15 @@ If some patient subgroups always or never receive treatment, inverse probability
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Exercise 1 mirrors the mediator example from earlier in this session (`dag-mediator`), but applied to a new question: the effect of `stage` on `died`, with `albumin` and `bili` as intermediate variables. Before learners run the solution code, ask them to predict whether the adjustment set will be empty, contain `albumin`, or contain something else - and to articulate *why* based on the causal roles (confounder vs. mediator) of each variable.
+:::
+
 ### Exercise 1 (Guided): Draw and Query a DAG
+
+*Estimated time: ~15 minutes (Practice)*
 
 Consider this question: "Does albumin mediate the effect of disease stage on mortality in PBC?"
 
@@ -247,9 +386,13 @@ dagitty::adjustmentSets(dag_ex, exposure = "stage", outcome = "died",
 # albumin is a mediator (stage -> albumin -> died)
 # adjusting for albumin would block part of the total effect
 ```
+
+`adjustmentSets()` returns `{}` - an empty set, meaning you should adjust for nothing to estimate the total effect of `stage` on `died`. `albumin` is a **mediator**: it lies on the causal pathway `stage -> albumin -> died`. Adjusting for it would block part of the very effect we want to measure, biasing the total-effect estimate toward zero. `bili` is also a mediator here (`stage -> bili -> albumin -> died` and `stage -> bili -> died`), so it too should be left out of the adjustment set for a total-effect analysis.
 :::
 
 ### Exercise 2 (Semi-guided): Propensity Score Balance Check
+
+*Estimated time: ~15 minutes (Practice)*
 
 Using the `pbc` dataset and the propensity score model fitted above:
 
@@ -276,9 +419,20 @@ w0 <- pbc$ipw[pbc$trt_d == 0]; x0 <- pbc$log_bili[pbc$trt_d == 0]
 cat("Weighted SMD log_bili:", round((wt_mean(x1, w1) - wt_mean(x0, w0)) /
   sqrt((var(x1) + var(x0)) / 2), 3), "\n")
 ```
+
+You should see:
+
+```
+Raw SMD log_bili: -0.074
+Weighted SMD log_bili: -0.011
+```
+
+Both values are small (well under the common rule-of-thumb threshold of 0.1), so `log_bili` is reasonably balanced between treatment groups even before weighting - as expected in a randomised trial. IPTW weighting reduces the imbalance further, from -0.074 to -0.011. This illustrates two things: (1) even RCT data has small non-zero raw imbalances on individual covariates due to sampling variation, and (2) IPTW can improve balance on *measured* covariates, but - as in this example - it has little left to do when the data are already well balanced.
 :::
 
 ### Exercise 3 (Open-ended)
+
+*Estimated time: 15--30 minutes (Practice)*
 
 For your own observational research question:
 1. Draw a DAG encoding your assumptions about the data-generating process.
@@ -288,6 +442,8 @@ For your own observational research question:
 
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes (Self-test)*
 
 1. You adjust for 15 variables in a regression "to be safe." Why might this make your causal estimate *worse*?
 2. You restrict your analysis to hospitalised patients to reduce confounding by severity. A colleague says this introduces collider bias. Explain why.
@@ -323,14 +479,14 @@ For your own observational research question:
 - That mediators and colliders were *not* adjusted for (if relevant)
 
 **Common reporting errors:**
-- Adjusting for all available covariates regardless of causal structure --- this can introduce collider bias
-- Adjusting for mediators on the causal path --- this blocks the effect you are trying to estimate
+- Adjusting for all available covariates regardless of causal structure: this can introduce collider bias
+- Adjusting for mediators on the causal path: this blocks the effect you are trying to estimate
 - Describing a result as "causal" when it is observational without instrumental variable or experimental design
 :::
 
 ## Further Reading
 
-- @Hernan-2023 --- *Causal Inference: What If* (free PDF: causalinferencebook.net)
-- @Pearl-2009 --- *Causality: Models, Reasoning, and Inference*
+- @Hernan-2023: *Causal Inference: What If* (free PDF: causalinferencebook.net)
+- @Pearl-2009: *Causality: Models, Reasoning, and Inference*
 - `dagitty` package and website (dagitty.net) for interactive DAG construction
-- @VanderWeele-2015 --- *Explanation in Causal Inference* - mediation analysis
+- @VanderWeele-2015: *Explanation in Causal Inference* - mediation analysis

@@ -11,10 +11,46 @@ library(broom)
 library(gtsummary)
 ```
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: ~150 minutes** (about 2.5 hours). A natural break point is after Example 1 (Table 1 and adjusted analysis in PBC)---cover Example 2 (confounding simulation) and the exercises in a second sitting. Exercise 3 is open-ended and its time will vary.
+
+| Section | Time | Type |
+|---------|------|------|
+| The Key Idea: No Analysis Can Fix a Broken Design | ~10 min | Concept |
+| Background: Study Design | ~15 min | Concept |
+| Background: Bias in Clinical Research | ~15 min | Concept |
+| Example 1: Table 1 and Adjusted Analysis in PBC | ~30 min | Walkthrough |
+| Example 2: Observational Study (Confounding) | ~15 min | Walkthrough |
+| What Can Go Wrong | ~10 min | Reading |
+| Exercise 1 (Guided) | ~15 min | Practice |
+| Exercise 2 (Semi-guided) | ~20 min | Practice |
+| Exercise 3 (Open-ended) | 15--30 min | Practice |
+| Comprehension Check | ~10 min | Self-test |
+
+If you are short on time, focus on the `pbc-table1` chunk in Example 1: even in this genuinely randomised trial, one of six baseline comparisons (age) comes out "significant" at p = 0.020 by chance. This is the session's central lesson in one table - randomisation does not guarantee every p-value will be reassuring, and a single low p-value among several baseline comparisons is not evidence that randomisation failed.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-clinical-methods}
 
 ::: {.callout-tip}
 You are designing a clinical or translational study and need to make foundational decisions before collecting any data: What study design is appropriate? What biases might invalidate your conclusions? How do you translate a research question into a clearly defined estimand? These choices determine what statistical analysis is appropriate and what your results can legitimately claim. For example: whether a study of a novel intervention should be an RCT or an observational cohort, and how that choice affects analysis and interpretation.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Ask learners to briefly describe a study they are involved in or planning - and to classify it using the design table in "Types of Study Design" below before they reach that table. Many learners are surprised to find their "obviously observational" project actually has elements of more than one design (e.g., a cross-sectional survey nested within a prospective cohort).
 :::
 
 ## Learning Objectives
@@ -30,12 +66,16 @@ After completing this session you will be able to:
 
 ## The Key Idea: No Analysis Can Fix a Broken Design
 
-Every other session in this course starts from the assumption that you already have a dataset, and asks: which test, which model, which diagnostic? This session asks the question that comes *before* all of that --- was the study designed in a way that your data can actually answer your question?
+*Estimated time: ~10 minutes (Concept)*
 
-Here is the uncomfortable truth: a sophisticated multivariable model applied to a poorly designed study does not rescue it. If your controls were recruited from a population that systematically differs from your cases (selection bias), if your exposure was measured differently in cases and controls (information bias), or if you failed to measure the one variable that explains both your exposure and your outcome (confounding) --- no regression coefficient, however precisely estimated, will give you the right answer. Get the design right first; the analysis comes second.
+Every other session in this course starts from the assumption that you already have a dataset, and asks: which test, which model, which diagnostic? This session asks the question that comes *before* all of that: was the study designed in a way that your data can actually answer your question?
+
+Here is the uncomfortable truth: a sophisticated multivariable model applied to a poorly designed study does not rescue it. If your controls were recruited from a population that systematically differs from your cases (selection bias), if your exposure was measured differently in cases and controls (information bias), or if you failed to measure the one variable that explains both your exposure and your outcome (confounding), no regression coefficient, however precisely estimated, will give you the right answer. Get the design right first; the analysis comes second.
 
 
 ## Background: Study Design
+
+*Estimated time: ~15 minutes (Concept)*
 
 ### From Question to Design
 
@@ -69,6 +109,8 @@ Randomised evidence sits above observational evidence because randomisation dist
 
 ## Background: Bias in Clinical Research
 
+*Estimated time: ~15 minutes (Concept)*
+
 ### Three Core Biases
 
 **Selection bias** occurs when study participants are not representative of the target population, or when selection into the study depends on both exposure and outcome.
@@ -101,6 +143,14 @@ Nine criteria for judging whether an observed association is causal:
 
 
 ## Example 1: Table 1 and Adjusted Analysis in PBC
+
+*Estimated time: ~30 minutes (Walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Before running `pbc-table1`, remind learners that `survival::pbc` is from a genuinely *randomised* trial - so on average, baseline characteristics should be balanced across treatment arms by design. Ask: if you compute six p-values comparing baseline characteristics between two randomly assigned groups, each truly equal in the population, what is the chance that at least one of those six p-values is below 0.05, just by chance? (Answer: roughly 1 - 0.95^6 ≈ 26%.) Keep this in mind when the table appears.
+:::
 
 We use the `survival::pbc` dataset (418 patients, primary biliary cholangitis trial).
 
@@ -138,9 +188,28 @@ pbc_clean %>%
   bold_labels()
 ```
 
-A balanced Table 1 (no significant p-values) suggests randomisation worked; baseline confounders are similar across treatment groups.
+::: {.callout-tip}
+### Run It Yourself
+
+You should see a table with six rows comparing D-penicillamine (n = 158) and Placebo (n = 154):
+
+| Characteristic | D-penicillamine | Placebo | p-value |
+|---|---|---|---|
+| Age (years) | 51 (11) | 49 (10) | 0.020 |
+| Sex (f) | 137 (87%) | 139 (90%) | 0.3 |
+| Serum bilirubin (mg/dL) | 2.9 (3.6) | 3.6 (5.3) | 0.8 |
+| Albumin (g/dL) | 3.52 (0.44) | 3.52 (0.40) | >0.9 |
+| Histologic stage | (distribution) | (distribution) | 0.2 |
+| Died during follow-up | 65 (41%) | 60 (39%) | 0.7 |
+
+Five of the six comparisons are comfortably non-significant (p ≥ 0.2), as expected from randomisation. The exception is **age** (p = 0.020): the D-penicillamine group is on average about 2 years older. As discussed in the Teacher Note, with six comparisons there is roughly a 1-in-4 chance that at least one would fall below p = 0.05 purely by chance, even with perfect randomisation. A 2-year age difference is also small in absolute terms and unlikely to be clinically meaningful on its own.
+
+This is **not** evidence that randomisation failed - it is exactly the kind of baseline imbalance that a well-randomised trial can still produce by chance, and exactly why the adjusted analysis below includes `age` as a covariate: adjustment can account for it regardless.
+:::
 
 ### Unadjusted Analysis
+
+*Estimated time: ~5 minutes (Walkthrough)*
 
 ```{r unadjusted}
 fit_unadj <- glm(status_bin ~ trt_label, data = pbc_clean, family = binomial)
@@ -148,7 +217,21 @@ tidy(fit_unadj, exponentiate = TRUE, conf.int = TRUE) %>%
   filter(term != "(Intercept)")
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+You should see (rounded):
+
+| term | estimate (OR) | std.error | statistic | p.value | conf.low | conf.high |
+|------|----------------|-----------|-----------|---------|----------|-----------|
+| trt_labelPlacebo | 0.913 | 0.231 | -0.393 | 0.695 | 0.580 | 1.44 |
+
+The unadjusted odds of death are slightly lower for Placebo (OR = 0.913), but the confidence interval (0.580 to 1.44) is wide and includes 1, and p = 0.695 is far from significant. This matches the [Survival and Time-to-Event](survival-and-time-to-event.qmd) session's log-rank result for the same trial (p = 0.7): there is no detectable difference in outcomes between treatment arms.
+:::
+
 ### Adjusted Analysis
+
+*Estimated time: ~10 minutes (Walkthrough)*
 
 ```{r adjusted}
 fit_adj <- glm(status_bin ~ trt_label + age + bili + albumin + factor(stage),
@@ -158,10 +241,36 @@ tidy(fit_adj, exponentiate = TRUE, conf.int = TRUE) %>%
   select(term, estimate, conf.low, conf.high, p.value)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+You should see (rounded):
+
+| term | estimate (OR) | conf.low | conf.high | p.value |
+|------|----------------|----------|-----------|---------|
+| trt_labelPlacebo | 0.819 | 0.469 | 1.43 | 0.482 |
+| age | 1.05 | 1.03 | 1.08 | 0.000240 |
+| bili | 1.40 | 1.25 | 1.61 | <0.001 |
+| albumin | 0.556 | 0.259 | 1.16 | 0.124 |
+| factor(stage)2 | 3.26 | 0.528 | 64.2 | 0.289 |
+| factor(stage)3 | 5.30 | 0.918 | 102 | 0.127 |
+| factor(stage)4 | 7.62 | 1.28 | 148 | 0.0652 |
+
+The treatment odds ratio barely moves (0.913 → 0.819) and remains non-significant (p = 0.482) - exactly what "adjustment should not materially change the estimate" predicts for a randomised trial, *despite* the baseline age imbalance flagged above. Meanwhile, `age` itself is a highly significant predictor of death (OR = 1.05 per year, p < 0.001), as is `bili` (OR = 1.40 per unit, p < 0.001). Notice the familiar near-miss pattern for `factor(stage)4` (OR = 7.62, p = 0.0652) - this echoes the borderline Stage 4 hazard ratio seen in the survival session's Cox model, and for the same reason: relatively few patients reach Stage 4 with an event recorded, so the estimate is imprecise (wide CI from 1.28 to 148) even though the point estimate suggests a large effect.
+:::
+
 Compare the treatment odds ratio before and after adjustment. In a well-randomised trial, adjustment should not materially change the estimate, but it can improve precision.
 
 
-## Example 2: Observational Study — Confounding
+## Example 2: Observational Study (Confounding)
+
+*Estimated time: ~15 minutes (Walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This simulation is constructed so that `exercise` has *no* true effect on `HbA1c` - the only reason they are related is that both depend on `SES`. Before running `confounding-sim`, ask learners to predict the sign and significance of the unadjusted `exercise` coefficient, and then predict what will happen to it once `SES` is added to the model in `confounding-adjusted`.
+:::
 
 In this example we simulate an observational study where the exposure-outcome association is entirely confounded.
 
@@ -186,11 +295,35 @@ fit_unconf <- lm(HbA1c ~ exercise, data = obs)
 tidy(fit_unconf, conf.int = TRUE) %>% filter(term == "exercise")
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+You should see (rounded):
+
+| term | estimate | std.error | statistic | p.value | conf.low | conf.high |
+|------|----------|-----------|-----------|---------|----------|-----------|
+| exercise | -0.199 | 0.0522 | -3.82 | <0.001 | -0.302 | -0.0969 |
+
+This looks like a clear, highly significant result: people who exercise have HbA1c about 0.2 mg/dL lower (p < 0.001), and the confidence interval doesn't come close to including zero. If you stopped here, you would conclude that exercise reduces HbA1c.
+:::
+
 ```{r confounding-adjusted}
 # Adjusted: true effect (null) restored
 fit_conf <- lm(HbA1c ~ exercise + SES, data = obs)
 tidy(fit_conf, conf.int = TRUE) %>% filter(term == "exercise")
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+You should see (rounded):
+
+| term | estimate | std.error | statistic | p.value | conf.low | conf.high |
+|------|----------|-----------|-----------|---------|----------|-----------|
+| exercise | 0.0216 | 0.0542 | 0.400 | 0.689 | -0.0846 | 0.128 |
+
+Adding `SES` to the model collapses the exercise effect to essentially zero (0.0216, p = 0.689, CI spanning both positive and negative values). This is exactly what the simulation built in: `exercise` has *no* direct effect on `HbA1c` (see the comment in `confounding-sim`). The unadjusted "effect" of -0.199 was entirely an artefact of `SES` driving both `exercise` (richer people exercise more) and `HbA1c` (richer people have lower HbA1c). Without a DAG or prior knowledge of the data-generating process, you cannot tell from the unadjusted result alone that this is what's happening - see the [Causal Inference](causal-inference.qmd) session for the general framework.
+:::
 
 In the unadjusted model, exercise appears to lower HbA1c, but this is entirely explained by SES (richer people exercise more **and** have lower HbA1c). Adjusting for SES removes the confounded association.
 
@@ -210,6 +343,8 @@ In the unadjusted model, exercise appears to lower HbA1c, but this is entirely e
 
 ## What Can Go Wrong
 
+*Estimated time: ~10 minutes (Reading)*
+
 ::: {.callout-warning}
 **Immortal time bias**
 In retrospective cohort studies, if patients must survive long enough to receive a treatment, the treatment group has immortal follow-up time before exposure begins. Ignoring this biases results in favour of the treated group.
@@ -227,7 +362,15 @@ Adjusting for a mediator (a variable on the causal pathway from exposure to outc
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Exercise 1 is a worked example of identifying bias from a study description alone - the kind of critical appraisal skill that Exercise 3 asks learners to apply to a real published paper. Exercise 2 returns to Table 1 and adjustment, but this time with *observational* (non-randomised) data, where you should expect - and find - genuine baseline imbalances, unlike the chance imbalance in Example 1.
+:::
+
 ### Exercise 1 (Guided): Identify Bias
+
+*Estimated time: ~15 minutes (Practice)*
 
 Read the following study description and identify the likely bias:
 
@@ -245,6 +388,8 @@ Read the following study description and identify the likely bias:
 :::
 
 ### Exercise 2 (Semi-guided): Table 1 and Confounding
+
+*Estimated time: ~20 minutes (Practice)*
 
 Using `MASS::birthwt`:
 
@@ -283,10 +428,24 @@ tidy(fit_adj, exponentiate = TRUE, conf.int = TRUE) %>%
   select(term, estimate, conf.low, conf.high, p.value)
 ```
 
-If the smoking odds ratio changes substantially after adjustment, age, race, or maternal weight confound the unadjusted association.
+**Real output.** The Table 1 for `birthwt` shows genuine baseline imbalance between birth-weight groups - unlike the chance Age imbalance in Example 1, these differences reflect real associations in observational data: `smoke` (p = 0.026), `race` (p = 0.082), `lwt` (p = 0.013), and `age` (p = 0.2, not significant).
+
+The unadjusted model gives `smokeSmoker` OR = 2.02 (95% CI 1.08-3.80, p = 0.0276) - smokers appear roughly twice as likely to have a low-birth-weight baby. After adjusting for age, race, and maternal weight, the picture is:
+
+| term | estimate (OR) | conf.low | conf.high | p.value |
+|------|----------------|----------|-----------|---------|
+| smokeSmoker | 2.87 | 1.38 | 6.19 | 0.00552 |
+| age | 0.978 | 0.913 | 1.04 | 0.511 |
+| raceBlack | 3.43 | 1.25 | 9.63 | 0.0172 |
+| raceOther | 2.57 | 1.15 | 5.94 | 0.0234 |
+| lwt | 0.988 | 0.974 | 0.999 | 0.0498 |
+
+The smoking odds ratio *increases* after adjustment (2.02 -> 2.87), the opposite of the typical "confounding toward the null" pattern in Example 2's `confounding-sim`/`confounding-adjusted` pair. This is **negative confounding** (or "confounding masking"): smokers in this sample tend to have characteristics (e.g. lower `lwt`, race distribution) that are themselves protective against low birth weight, so those factors were partly cancelling out smoking's true effect in the unadjusted model. Once `age`, `race`, and `lwt` are held constant, smoking's full effect on birth weight becomes visible - and the adjusted association is *more* significant (p = 0.00552) than the unadjusted one (p = 0.0276). The lesson generalises: adjustment can move an estimate in either direction, and "the odds ratio changed after adjustment" does not by itself tell you whether confounding was inflating or masking the true effect - you have to think about the direction of each confounder's association with both exposure and outcome.
 :::
 
 ### Exercise 3 (Open-ended)
+
+*Estimated time: 15--30 minutes (Practice)*
 
 Identify a published observational study in your research area. Write a one-page critical appraisal covering:
 
@@ -298,6 +457,8 @@ Identify a published observational study in your research area. Write a one-page
 
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes (Self-test)*
 
 1. What is the key advantage of an RCT over a prospective cohort study?
 2. A study finds that coffee drinking is associated with reduced risk of Parkinson's disease. A confounder is proposed: smokers drink more coffee and are less likely to develop Parkinson's (due to nicotine's neuroprotective effects). Is this a confounder? Explain why or why not.
@@ -341,7 +502,7 @@ Use the appropriate reporting checklist for your study design; reviewers and jou
 
 ## Further Reading
 
-- @Rothman-2012 --- *Epidemiology: An Introduction* - authoritative text on study design and confounding
-- @Hernan-Robins-2020 --- *Causal Inference: What If* - free online textbook on observational causal inference
-- @Szklo-Nieto-2014 --- *Epidemiology: Beyond the Basics* - bias, confounding, effect modification
-- @Grimes-Schulz-2002 --- *Cohort studies: marching towards outcomes* (Lancet series on study design)
+- @Rothman-2012: *Epidemiology: An Introduction* - authoritative text on study design and confounding
+- @Hernan-Robins-2020: *Causal Inference: What If* - free online textbook on observational causal inference
+- @Szklo-Nieto-2014: *Epidemiology: Beyond the Basics* - bias, confounding, effect modification
+- @Grimes-Schulz-2002: *Cohort studies: marching towards outcomes* (Lancet series on study design)

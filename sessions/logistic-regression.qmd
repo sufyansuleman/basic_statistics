@@ -19,10 +19,50 @@ library(pROC)
 Logistic regression shares the same structure as linear regression but models a binary outcome. If you have not done so yet, complete the [Linear Regression](linear-regression.qmd) and [Multiple Regression](multiple-regression.qmd) sessions first.
 :::
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: ~150 minutes** (plus extra time for Exercise 3, which is open-ended).
+
+| Section | Time | Type |
+|---|---|---|
+| The Key Idea: Why Not Just Use Linear Regression? | ~10 min | Concept |
+| Background: The Logistic Model | ~15 min | Concept |
+| Example 1: Clinical Data (PBC) | ~45 min | Walkthrough |
+| Example 2: Melanoma Data | ~15 min | Walkthrough |
+| What Can Go Wrong | ~10 min | Reading |
+| Exercise 1 (Guided) | ~15 min | Practice |
+| Exercise 2 (Semi-guided) | ~15 min | Practice |
+| Exercise 3 (Open-ended) | 15--30 min | Practice |
+| Comprehension Check | ~10 min | Self-test |
+
+If you are working through this self-paced and have limited time, the
+Example 1 walkthrough (PBC data) is the core of this session -- it covers
+everything from fitting a model to checking discrimination with a ROC
+curve. Example 2 (melanoma) repeats the same steps on a smaller dataset
+and can be skimmed or done as homework. Exercise 3 is open-ended: budget
+extra time if you want to apply this to your own data.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-logistic-regression}
 
 ::: {.callout-tip}
 Your outcome is binary (yes/no, alive/dead, event/no event) and you want to model how one or more predictors change the probability of that outcome. Logistic regression gives you odds ratios with confidence intervals and lets you adjust for confounders. For example: predicting whether a patient died from liver disease, or whether a tumour responded to treatment.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+If learners have just finished [Multiple Regression](multiple-regression.qmd), remind them that `glm()` uses the same model-fitting syntax as `lm()` -- the difference is `family = binomial` and the fact that the coefficients live on the log-odds scale until you exponentiate them. Ask learners to predict: in earlier sessions, higher bilirubin was associated with *lower* albumin. Would you expect higher bilirubin to be associated with *higher* or *lower* odds of death in PBC patients, and why?
 :::
 
 ## Learning Objectives
@@ -37,13 +77,17 @@ After completing this session you will be able to:
 
 ## The Key Idea: Why Not Just Use Linear Regression?
 
-Consider predicting whether a patient dies (0 or 1) from their bilirubin level. If you fit a straight line, nothing stops it from predicting a probability of −0.2 or 1.7 --- which makes no sense. Probabilities must stay between 0 and 1.
+*Estimated time: ~10 minutes (concept)*
+
+Consider predicting whether a patient dies (0 or 1) from their bilirubin level. If you fit a straight line, nothing stops it from predicting a probability of −0.2 or 1.7, which makes no sense. Probabilities must stay between 0 and 1.
 
 Logistic regression solves this by modelling the **log-odds** (logit) of the outcome instead of the probability directly. The log-odds can range freely from −∞ to +∞, and when you transform it back, the probability is always between 0 and 1.
 
-The trade-off: coefficients are now on the log-odds scale, which is hard to read directly. We exponentiate them to get **odds ratios (OR)** --- and those are what you report in a paper.
+The trade-off: coefficients are now on the log-odds scale, which is hard to read directly. We exponentiate them to get **odds ratios (OR)**, and those are what you report in a paper.
 
 ## Background: The Logistic Model
+
+*Estimated time: ~15 minutes (concept)*
 
 A binary outcome $Y \in \{0, 1\}$ is modelled as:
 
@@ -64,6 +108,14 @@ $$\hat{P} = \frac{1}{1 + e^{-(\hat{\beta}_0 + \hat{\beta}_1 X_1 + \cdots)}}$$
 
 ## Example 1: Clinical Data (PBC)
 
+*Estimated time: ~45 minutes (walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This example has six natural stopping points: (1) fit `fit_log` and read the `summary()` output, (2) extract odds ratios with `tidy()`, (3) compute predicted probabilities, (4) fit the multivariable model `fit_multi`, (5) assess discrimination with the ROC curve and C-statistic, and (6) check `glance()` output. For a self-paced learner with limited time, stops 1, 2, and 5 give the core story (single-predictor model, odds ratio, discrimination); stops 3, 4, and 6 can be done as homework or skimmed.
+:::
+
 ### Predict Mortality from Bilirubin
 
 ```{r pbc-setup}
@@ -81,7 +133,7 @@ pbc <- survival::pbc %>%
   filter(!is.na(bili), !is.na(protime), !is.na(albumin), !is.na(stage))
 ```
 
-> **Think before you run:** Among the 375 PBC patients in this dataset, about a quarter died from liver disease during follow-up. Do you expect higher bilirubin to be associated with higher mortality? What direction would you predict for the OR?
+> **Think before you run:** Among the 410 PBC patients in this dataset, about 38% (156 patients) died from liver disease during follow-up. Do you expect higher bilirubin to be associated with higher mortality? What direction would you predict for the OR?
 
 Always visualise first:
 
@@ -109,8 +161,8 @@ Logistic regression output looks similar to linear regression but the numbers me
 **`Coefficients:` table**
 ```
               Estimate Std. Error z value Pr(>|z|)
-(Intercept)  -2.54      0.22     -11.5    <2e-16 ***
-log_bili      0.89      0.09       9.8    <2e-16 ***
+(Intercept)  -1.22      0.15     -8.41    <2e-16 ***
+log_bili      1.14      0.13      8.74    <2e-16 ***
 ```
 
 | Column | What it means |
@@ -120,26 +172,37 @@ log_bili      0.89      0.09       9.8    <2e-16 ***
 | **z value** | Estimate / Std. Error (note: z, not t; logistic regression uses a normal approximation). |
 | **Pr(>\|z\|)** | p-value: same interpretation as in linear regression. |
 
-**`Null deviance: 487 on 374 degrees of freedom`**
+**`Null deviance: 544.73 on 409 degrees of freedom`**
 The deviance of a model with *no predictors* (intercept only). This is the baseline.
 
-**`Residual deviance: 409 on 373 degrees of freedom`**
-The deviance of *your* model. A large drop from null to residual deviance (here: 78 units) means your predictor explains a lot.
+**`Residual deviance: 442.71 on 408 degrees of freedom`**
+The deviance of *your* model. A large drop from null to residual deviance (here: about 102 units, for the cost of a single predictor) means `log_bili` explains a lot.
 
-**`AIC: 413`**
+**`AIC: 446.71`**
 Lower AIC = better fit (penalised for complexity). Use AIC to compare models, not to interpret a single model in isolation.
 
 ::: {.callout-tip}
 ### What Does This Actually Tell Us?
 
-The coefficient for `log_bili` is 0.89 on the log-odds scale. To interpret it:
+The coefficient for `log_bili` is 1.14 on the log-odds scale. To interpret it:
 
-1. **Exponentiate** to get an odds ratio: $e^{0.89} \approx 2.4$
-2. **Translate:** Each one-unit increase in log(bilirubin) --- roughly a 2.7-fold increase in bilirubin --- multiplies the odds of death by **2.4**.
-3. **Write it up:** *"Higher bilirubin is strongly associated with mortality in PBC patients. Each 2.7-fold increase in bilirubin is associated with 2.4 times higher odds of death (OR = 2.4, 95% CI: [low]--[high], p < 0.001)."*
+1. **Exponentiate** to get an odds ratio: $e^{1.14} \approx 3.13$
+2. **Translate:** Each one-unit increase in log(bilirubin) (roughly a 2.7-fold increase in bilirubin) multiplies the odds of death by about **3.1**.
+3. **Write it up:** *"Higher bilirubin is strongly associated with mortality in PBC patients. Each 2.7-fold increase in bilirubin is associated with about 3.1 times higher odds of death (OR = 3.13, 95% CI: 2.45--4.09, p < 0.001)."*
 
-Remember: odds ratios are **not** the same as relative risk. An OR of 2.4 does not mean the risk doubles. For rare outcomes (< 10%), OR ≈ RR; for common outcomes, OR exaggerates the association.
+Remember: odds ratios are **not** the same as relative risk. An OR of 3.13 does not mean the risk triples. For rare outcomes (< 10%), OR ≈ RR; for common outcomes (like death here, at 38%), OR exaggerates the association.
 :::
+:::
+
+::: {.callout-tip}
+### Run It Yourself
+
+Run the `glm-fit` chunk above and check your `summary(fit_log)` output
+against the table above: `(Intercept)` ≈ −1.22 and `log_bili` ≈ 1.14
+(both with `p < 2e-16`), residual deviance ≈ 442.71 on 408 df, and
+AIC ≈ 446.71. **Predict before you check:** since `log_bili` has a
+positive coefficient, do you expect the odds ratio (once you
+exponentiate it) to be greater than 1 or less than 1?
 :::
 
 ### Extracting Odds Ratios
@@ -149,6 +212,18 @@ tidy(fit_log, conf.int = TRUE, exponentiate = TRUE) %>%
   select(term, estimate, conf.low, conf.high, p.value)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `log_bili` with `estimate` ≈ 3.13
+(95% CI: 2.45--4.09, `p.value` ≈ 2.41e-18) and `(Intercept)` ≈ 0.295
+(95% CI: 0.220--0.389). The intercept's "odds ratio" here is just the
+baseline odds of death when `log_bili = 0` (i.e. bilirubin = 1
+mg/dL) -- it is not usually reported on its own. **Check:** does the
+95% CI for `log_bili` include 1? What does that tell you about
+statistical significance?
+:::
+
 ### Predicted Probabilities
 
 ```{r predicted-probs}
@@ -156,6 +231,20 @@ new_d <- tibble(log_bili = log(c(1, 2, 5, 10, 20)))
 new_d %>%
   mutate(pred_prob = predict(fit_log, newdata = new_d, type = "response"))
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. For bilirubin = 1, 2, 5, 10, and 20 mg/dL, the
+predicted probability of death is approximately 0.228, 0.395, 0.650,
+0.804, and 0.900. Notice how the probability rises steeply but then
+levels off as it approaches 1 -- this is the S-shaped logistic curve
+from the "Key Idea" section, not a straight line. **Check:** does the
+*difference* in predicted probability between bilirubin = 1 and
+bilirubin = 2 (about 0.17) equal the difference between bilirubin = 10
+and bilirubin = 20 (about 0.10)? Why not, if the odds ratio per
+log-unit is constant?
+:::
 
 ### Multivariable Logistic Model
 
@@ -167,6 +256,27 @@ tidy(fit_multi, conf.int = TRUE, exponentiate = TRUE) %>%
   select(term, estimate, conf.low, conf.high, p.value) %>%
   mutate(across(where(is.numeric), \(x) round(x, 3)))
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. `log_bili` now has OR ≈ 2.53 (95% CI: 1.93--3.36,
+p < 0.001) -- still significant, though attenuated from 3.13 once we
+adjust for prothrombin time, albumin, and stage. `albumin` has
+OR ≈ 0.755 (95% CI: 0.399--1.42, p = 0.383, not significant), and only
+`stageStage 4` reaches significance versus Stage 1 (OR ≈ 6.52, 95% CI:
+1.42--50.2, p = 0.033).
+
+Look closely at `log_proto`: OR ≈ 1523 with a 95% CI of roughly
+67.6--43432. **This is a red flag, not a strong effect.** A 95% CI that
+spans several orders of magnitude usually signals near-separation or
+an unstable estimate -- here, prothrombin time has a narrow range in
+this dataset, so a moderate coefficient on the *log* scale translates
+into a huge OR per one-unit change in log(protime) (which corresponds
+to a 2.7-fold change in protime -- far outside the range actually
+observed). Always check the *range* of a predictor before reporting an
+OR for "a one-unit increase."
+:::
 
 ### Model Discrimination: ROC Curve and C-statistic
 
@@ -185,16 +295,53 @@ ggroc(roc_obj, colour = "steelblue", linewidth = 1) +
   theme_bw()
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get a C-statistic of about 0.825,
+meaning the model assigns a higher predicted probability of death to
+the patient who died, versus the patient who survived, in about 83% of
+all possible (died, survived) pairs. **Check:** is 0.825 closer to the
+0.75 considered "moderate" or the 0.90+ considered "excellent"
+discrimination in the Comprehension Check question below? Remember
+that this C-statistic still says nothing about *calibration*.
+:::
+
 ### Goodness of Fit
 
 ```{r hosmer}
 glance(fit_multi)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should see `null.deviance` ≈ 545 (409 df),
+`deviance` ≈ 402 (403 df), `AIC` ≈ 416, and `nobs` = 410. Compare this
+AIC to the single-predictor `fit_log` model's AIC of 446.71: the
+multivariable model is about 31 AIC points lower, indicating a
+meaningfully better fit despite adding three more predictors --
+consistent with the higher C-statistic (0.825 vs the discrimination
+you would get from `log_bili` alone).
+:::
+
 A large drop from null to residual deviance indicates good model fit. Compare AIC between models to choose the best specification.
 
 
 ## Example 2: Melanoma Data
+
+*Estimated time: ~15 minutes (walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This example repeats the same steps as Example 1 on a smaller dataset
+with a different multivariable model -- use it to check whether
+learners can apply the workflow independently. Before running the
+chunk below, ask: which of `log_thick`, `ulceration`, and `sex` do you
+expect to be the strongest predictor of melanoma death, and in which
+direction?
+:::
 
 We predict melanoma mortality from tumour thickness and ulceration.
 
@@ -215,6 +362,19 @@ tidy(fit_mel, conf.int = TRUE, exponentiate = TRUE) %>%
   select(term, estimate, conf.low, conf.high, p.value)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `log_thick` with OR ≈ 1.84 (95% CI:
+1.21--2.89, p ≈ 0.006) and `ulcerationYes` with OR ≈ 2.85 (95% CI:
+1.34--6.21, p ≈ 0.007) -- both significant, with ulceration roughly
+doubling the odds of death on top of tumour thickness. `sexMale` has
+OR ≈ 1.43 (95% CI: 0.713--2.84, p ≈ 0.31), not statistically
+significant once thickness and ulceration are accounted for.
+**Check:** does the direction of the `log_thick` and `ulceration`
+effects match what you predicted in the Teacher Note above?
+:::
+
 ```{r mel-plot}
 mel %>%
   ggplot(aes(x = log_thick, y = died, colour = ulceration)) +
@@ -229,7 +389,7 @@ mel %>%
 ::: {.callout-note}
 ## Where to Find Data Like This
 
-**PBC dataset:** `survival::pbc` --- binary mortality outcome with multiple continuous and categorical predictors.
+**PBC dataset:** `survival::pbc`: binary mortality outcome with multiple continuous and categorical predictors.
 
 **boot::melanoma:** Binary mortality with tumour characteristics; good for a smaller example.
 
@@ -240,6 +400,8 @@ mel %>%
 
 ## What Can Go Wrong
 
+*Estimated time: ~10 minutes (reading)*
+
 ::: {.callout-warning}
 **Separation (complete or quasi-complete).**
 If a predictor perfectly separates the outcome, the algorithm fails to converge and produces extreme coefficients with huge SEs. Check with a contingency table or histogram. Use Firth's penalised logistic regression (`logistf` package) as a remedy.
@@ -248,7 +410,7 @@ If a predictor perfectly separates the outcome, the algorithm fails to converge 
 When the outcome prevalence is > 15--20%, OR > RR substantially. If you report ORs, state them clearly and note that they do not equal relative risks.
 
 **Events per variable (EPV) rule of thumb.**
-Logistic models require approximately 10--20 events per predictor variable for stable estimates. With 50 deaths and 6 predictors, you have EPV ≈ 8 --- borderline. Consider reducing predictors or using penalised methods.
+Logistic models require approximately 10--20 events per predictor variable for stable estimates. Our `fit_multi` model above has 156 deaths and 6 predictors (`log_bili`, `log_proto`, `albumin`, and three stage dummies), giving EPV ≈ 26 -- comfortably above the rule of thumb. If you had a dataset with, say, 50 events and 6 predictors, EPV ≈ 8 would be borderline, and you would want to reduce predictors or use penalised methods. (Note that the unstable `log_proto` estimate we saw earlier was not an EPV problem -- it was a scale problem, caused by the narrow real-world range of prothrombin time.)
 
 **Not checking calibration.**
 A high C-statistic does not guarantee good calibration (that predicted probabilities match observed proportions). Use a calibration plot (`val.prob()` from the `rms` package) for clinical prediction models.
@@ -257,8 +419,8 @@ A high C-statistic does not guarantee good calibration (that predicted probabili
 ::: {.callout-warning}
 ### Common Misinterpretations
 
-**"OR = 2.4 means the risk is 2.4 times higher."**
-An odds ratio of 2.4 means the *odds* increased 2.4-fold, not the risk. When the outcome is common (> 15%), the OR substantially overestimates the relative risk. If you want relative risk, use a Poisson model with robust standard errors or a log-binomial model.
+**"OR = 3.13 means the risk is 3.13 times higher."**
+An odds ratio of 3.13 means the *odds* increased about 3-fold, not the risk. When the outcome is common (> 15% -- and death occurs in 38% of this PBC sample), the OR substantially overestimates the relative risk. If you want relative risk, use a Poisson model with robust standard errors or a log-binomial model.
 
 **"C-statistic = 0.80 means my model is good."**
 The C-statistic measures discrimination: can the model rank a case above a non-case? It says nothing about calibration: are predicted probabilities accurate? A model can discriminate well but be badly miscalibrated. Always check both.
@@ -273,10 +435,33 @@ Adjusting for more variables does not automatically remove confounding. You can 
 Separation causes coefficient inflation and numerical instability. It usually means you have too few events. Use Firth's penalised logistic regression (`logistf::logistf()`).
 :::
 
+::: {.callout-note collapse="true"}
+### Teacher Note: True or False?
+
+Pose these statements to learners (true/false, with justification):
+
+1. "An OR of 3.13 means patients with higher bilirubin are 3.13 times more likely to die." (**False** -- this confuses odds with probability/risk.)
+2. "A C-statistic of 0.825 means the model's predicted probabilities are well calibrated." (**False** -- C-statistic measures discrimination, not calibration.)
+3. "Because `log_proto` had OR ≈ 1523 in `fit_multi`, prothrombin time is the most important predictor of death." (**False** -- the huge OR and CI spanning orders of magnitude signal an unstable, scale-dependent estimate, not a strong real effect.)
+4. "Adding `stage` to the model means we have fully adjusted for disease severity." (**False** -- we have adjusted for *measured* severity as captured by histologic stage; unmeasured aspects of severity could still confound.)
+:::
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Before learners run Exercise 1, ask them to predict: of `log_bili`,
+`albumin`, `log_proto`, and `stage`, which single predictor do they
+expect to have the strongest association with death (largest OR away
+from 1, smallest p-value)? After they run it, discuss why `log_proto`'s
+huge OR is misleading (same issue as in `fit_multi` above) even though
+it has the smallest p-value.
+:::
+
 ### Exercise 1 (Guided): Univariable Predictors of Mortality
+
+*Estimated time: ~15 minutes (practice)*
 
 Using `pbc`:
 
@@ -305,9 +490,26 @@ results %>%
 fit_s <- glm(died ~ stage, data = pbc, family = binomial)
 tidy(fit_s, conf.int = TRUE, exponentiate = TRUE)
 ```
+
+Sorted by p-value, the univariable results are: `log_proto`
+(OR ≈ 43331, 95% CI: 2392--986265, p ≈ 3.4e-12), `log_bili`
+(OR ≈ 3.13, 95% CI: 2.45--4.09, p ≈ 2.4e-18), and `albumin`
+(OR ≈ 0.258, 95% CI: 0.151--0.430, p ≈ 3.6e-7 -- albumin is
+*protective*, so higher albumin is associated with lower odds of
+death). By p-value alone, `log_bili` looks "strongest," but
+`log_proto`'s astronomically large OR and CI are the same
+scale-instability problem flagged earlier, not evidence of a uniquely
+powerful predictor.
+
+For `fit_s` (`died ~ stage`), only `stageStage 4` is significant versus
+Stage 1 (OR ≈ 12.4, 95% CI: 3.42--80.2, p ≈ 0.001); `stageStage 2`
+(OR ≈ 3.00, p ≈ 0.16) and `stageStage 3` (OR ≈ 4.04, p ≈ 0.07) are not.
+This mirrors what we saw for `stage` inside `fit_multi`.
 :::
 
 ### Exercise 2 (Semi-guided): Multivariable Melanoma Model
+
+*Estimated time: ~15 minutes (practice)*
 
 Using `boot::melanoma`:
 
@@ -334,14 +536,30 @@ bind_rows(
 
 AIC(m1, m2, m3)
 ```
+
+The OR for `log_thick` shrinks each time a new predictor is added:
+about 2.53 (model 1, p ≈ 3.4e-6) → about 1.91 (model 2, after adding
+`ulceration`, p ≈ 0.003) → about 1.84 (model 3, after adding `sex`,
+p ≈ 0.006). Thickness remains a significant predictor throughout, but
+part of its univariable association is shared with ulceration --
+thicker tumours are more likely to be ulcerated. Comparing AIC: model 1
+≈ 219.3, model 2 ≈ 213.4, model 3 ≈ 214.3. Adding `ulceration` improves
+the model (AIC drops by about 6), but adding `sex` on top makes AIC
+slightly *worse* (it rises by about 1), consistent with `sexMale` not
+being a significant predictor in `fit_mel` above (p ≈ 0.31). Model 2 is
+the best fit by AIC.
 :::
 
 ### Exercise 3 (Open-ended)
+
+*Estimated time: 15--30 minutes (practice)*
 
 Using your own data, identify a binary outcome and at least two predictors. Fit a multivariable logistic regression. Report: ORs with 95% CIs, C-statistic, and a calibration check. Write a one-paragraph Methods section and a one-paragraph Results section as you would for a clinical paper.
 
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes (self-test)*
 
 1. You fit logistic regression and get a coefficient of 0.8 for log_bili. What is the odds ratio, and what does it mean?
 2. Your outcome occurs in 40% of the study sample. A colleague reports OR = 2.5 as "roughly a doubling of risk." Is this correct?
@@ -369,7 +587,7 @@ Using your own data, identify a binary outcome and at least two predictors. Fit 
 
 **Always include:**
 
-- Odds ratio (OR) --- not the log-odds coefficient
+- Odds ratio (OR): not the log-odds coefficient
 - 95% CI for the OR
 - Reference category (e.g., "compared with Stage 1")
 - Number of events and total sample size (e.g., "87 deaths among 312 patients")
@@ -379,8 +597,8 @@ Using your own data, identify a binary outcome and at least two predictors. Fit 
 
 ## Further Reading
 
-- @Hosmer-2013 --- *Applied Logistic Regression*, the standard reference
-- @Bland-2015 --- Logistic regression in *An Introduction to Medical Statistics*
+- @Hosmer-2013: *Applied Logistic Regression*, the standard reference
+- @Bland-2015: Logistic regression in *An Introduction to Medical Statistics*
 - `?glm` in R: full documentation for generalised linear models
 - `pROC` package vignette for ROC analysis
 - `logistf` package for Firth's penalised logistic regression

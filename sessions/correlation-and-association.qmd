@@ -13,10 +13,52 @@ library(GGally)
 library(palmerpenguins)
 ```
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: about 130 minutes (a little over 2 hours).**
+
+| Section | Time | Type |
+|---|---|---|
+| When Do You Use This? + Learning Objectives | 5 min | Reading |
+| The Key Idea: What Does r Actually Tell You? | 10 min | Reading |
+| Background: Measuring Linear Association | 15 min | Reading |
+| Example 1: Ecology Data (palmerpenguins) | 30 min | Worked example |
+| Example 2: Clinical Data (PBC) | 20 min | Worked example |
+| What Can Go Wrong | 10 min | Reading |
+| Exercises 1 & 2 | 30 min | Practice |
+| Comprehension Check | 10 min | Self-test |
+
+In a taught course, this session fits one teaching block. For
+self-paced study, split it into two sittings, e.g. the Key Idea,
+Background, and Example 1 first, Example 2 onward later. Exercise 3 is
+open-ended and works best as a follow-up using a dataset from your own
+field.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-correlation}
 
 ::: {.callout-tip}
 Before fitting a regression model, you want to understand the pairwise relationships between continuous variables: which variables move together, how strong those associations are, and in what direction. Correlation gives you a standardised measure of association that is independent of the units of measurement. Does albumin decline as bilirubin rises? Is platelet count associated with prothrombin time? Start here.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Ask the room for a pair of continuous variables from their own work
+that they expect to be related (e.g. dose and response, age and a lab
+value). Keep this pair in mind through the session -- after Example 1
+and Example 2, ask whether they'd use Pearson or Spearman for their
+pair, and why.
 :::
 
 ## Learning Objectives
@@ -32,13 +74,27 @@ After completing this session you will be able to:
 
 ## The Key Idea: What Does r Actually Tell You?
 
+*Estimated time: ~10 minutes (reading)*
+
 Correlation answers a simple question: "when X is above average, does Y tend to be above average too?" If yes, r is positive. If higher X goes with lower Y, r is negative. If there is no pattern, r is near zero.
 
 But r has an important limitation: it only captures *linear* relationships. You can have a perfect U-shaped relationship (Y rises steeply, then falls) and get r = 0. **Always plot your data first.** A scatter plot takes 10 seconds and can save you from a completely wrong interpretation.
 
 One more thing before the formulas: r = 0.6 does not mean "60% association." The variance explained by the relationship is r², not r. With r = 0.6, the two variables share r² = 0.36, or 36%, of their variance. Keep that in mind when someone tells you "there's a moderate correlation."
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Draw a quick U-shape on the board (e.g. Y high at both small and
+large X, low in the middle). Ask: "if I compute Pearson's r for these
+points, roughly what value do I get?" Most people guess a moderate
+positive or negative number; the answer is close to zero, because r
+only measures *linear* trend. This motivates "always plot first."
+:::
+
 ## Background: Measuring Linear Association
+
+*Estimated time: ~15 minutes (reading)*
 
 **Pearson's r** measures the strength and direction of a *linear* relationship between two continuous variables:
 
@@ -61,6 +117,20 @@ $r$ ranges from -1 (perfect negative) to +1 (perfect positive). $r = 0$ means no
 
 
 ## Example 1: Ecology Data (palmerpenguins)
+
+*Estimated time: ~30 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Before running the first `cor.test()`, ask students to predict the
+sign and rough size of the correlation between bill length and body
+mass: positive or negative, and small/medium/large? Then check the
+real result together. Later, the Simpson's Paradox subsection is a
+good moment to slow down -- make sure everyone sees both the overall
+(negative) and within-species (positive) correlations before moving
+on.
+:::
 
 Penguin body measurements are intuitive: does a longer bill go with a deeper bill? Does body mass
 predict flipper length? The `palmerpenguins` dataset is ideal for introducing correlation because
@@ -86,21 +156,30 @@ cor.test(penguins_clean$bill_length_mm, penguins_clean$body_mass_g, method = "pe
 
 ```
 Pearson's product-moment correlation
-t = 15.4, df = 340, p-value < 0.001
-95 percent confidence interval:  0.55  0.69
+t = 13.65, df = 340, p-value < 2.2e-16
+95 percent confidence interval:  0.52  0.66
 sample estimates: cor = 0.60
 ```
 
 | Output | What it means |
 |---|---|
-| **t = 15.4** | Test statistic for H0: r = 0. Calculated as r x sqrt(n-2) / sqrt(1-r^2). Large absolute value = strong evidence r != 0. |
+| **t = 13.65** | Test statistic for H0: r = 0. Calculated as r x sqrt(n-2) / sqrt(1-r^2). Large absolute value = strong evidence r != 0. |
 | **df = 340** | Degrees of freedom = n - 2 |
-| **p < 0.001** | If true r were zero, we would almost never see this by chance |
-| **95% CI: 0.55 to 0.69** | Plausible range for the true population correlation. CI excludes zero. |
+| **p < 2.2e-16** | If true r were zero, we would almost never see this by chance |
+| **95% CI: 0.52 to 0.66** | Plausible range for the true population correlation. CI excludes zero. |
 | **r = 0.60** | Medium-to-large positive association. Longer bills go with heavier birds. |
 
-r^2 = 0.36: bill length explains 36% of variance in body mass.
+r^2 ≈ 0.35: bill length explains about 35% of variance in body mass.
 Effect size benchmarks (Cohen, 1988): |r| = 0.10 small / 0.30 medium / 0.50 large.
+:::
+
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `t = 13.65, df = 340, p-value <
+2.2e-16`, a 95% CI of about (0.52, 0.66), and `cor = 0.60`. Does the
+sign and rough size match what you predicted in the Teacher Note
+above?
 :::
 
 ```{r penguin-scatter}
@@ -144,9 +223,9 @@ ggpairs(
 
 ### Simpson's Paradox: Bill Dimensions
 
-The overall correlation between bill length and bill depth is **negative** (-0.23). Within each
-species it is **positive**. This is Simpson's Paradox -- always check for a grouping variable
-before reporting an unexpected correlation.
+The overall correlation between bill length and bill depth is **negative** (-0.24, see the
+correlation matrix above). Within each species it is **positive**. This is Simpson's Paradox --
+always check for a grouping variable before reporting an unexpected correlation.
 
 ```{r simpsons}
 #| eval: true
@@ -169,8 +248,29 @@ penguins_clean %>%
   summarise(r = round(cor(bill_length_mm, bill_depth_mm, method = "pearson"), 2), n = n())
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get within-species correlations of
+Adelie r = 0.39, Chinstrap r = 0.65, Gentoo r = 0.64 -- all
+**positive**, even though the overall correlation (ignoring species)
+is **negative** (-0.24). Species is a confounder here: each species
+has its own characteristic bill shape, and those between-species
+differences dominate the overall correlation.
+:::
 
 ## Example 2: Clinical Data (PBC)
+
+*Estimated time: ~20 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This example reuses the PBC dataset from earlier sessions, now
+focused on whether albumin and bilirubin move together. Ask students
+to predict the sign before running the code: as bilirubin rises
+(liver dysfunction), do they expect albumin to rise or fall?
+:::
 
 Clinical biomarkers are often skewed and require a careful choice between Pearson and Spearman
 correlation. This example shows how to make that decision and how to build a clinical correlation
@@ -211,6 +311,18 @@ tidy(cor.test(pbc$albumin, log(pbc$bili), method = "pearson"))
 tidy(cor.test(pbc$albumin, pbc$bili, method = "spearman"))
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. Pearson on log(bilirubin) gives an estimate
+of about -0.34 (t ≈ -7.21, df = 403, p ≈ 2.8e-12, 95% CI -0.42 to
+-0.25). Spearman on the raw bilirubin gives `rho ≈ -0.33` (p ≈ 1.0e-11; R warns that
+it cannot compute an exact p-value because of ties -- expected with
+real clinical data). The two estimates are close (-0.34 vs -0.33),
+even though one is computed on log-transformed values and the other
+on ranks of the raw values.
+:::
+
 Both methods point in the same direction (negative association). Report Spearman when data are
 skewed; use log-Pearson when you want a linear model interpretation.
 
@@ -250,6 +362,17 @@ pbc_num %>%
   mutate(p_adj = p.adjust(p.value, method = "holm"))
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get three correlations with albumin:
+`log_bili r ≈ -0.33` (p_adj ≈ 3.2e-11), `platelet r ≈ 0.19`
+(p_adj ≈ 2.2e-4), and `protime r ≈ -0.18` (p_adj ≈ 2.2e-4). Even
+after the Holm adjustment for testing three correlations at once, all
+three remain well below 0.05 -- but notice how much smaller the
+platelet and protime correlations are than the bilirubin one.
+:::
+
 ::: {.callout-note}
 ## Where to Find Data Like This
 
@@ -257,11 +380,13 @@ pbc_num %>%
 
 **`survival::pbc`** (used in Example 2): Multiple skewed clinical biomarkers (albumin, bilirubin, protime, platelet). Real-world case for choosing Spearman over Pearson.
 
-**NHANES:** `nhanesA` or `nhanes` package --- population-level continuous variables (blood pressure, cholesterol, BMI, age).
+**NHANES:** `nhanesA` or `nhanes` package: population-level continuous variables (blood pressure, cholesterol, BMI, age).
 :::
 
 
 ## What Can Go Wrong
+
+*Estimated time: ~10 minutes (reading)*
 
 ::: {.callout-warning}
 **Correlation ≠ causation.**
@@ -274,7 +399,7 @@ A single extreme outlier can drive a large r. Always plot your data before compu
 Testing all $p(p-1)/2$ pairs from a correlation matrix inflates the Type I error rate. Adjust p-values with `p.adjust()` when reporting multiple correlations.
 
 **Range restriction.**
-If you select subjects based on one of the variables (e.g., only patients with bilirubin > 5), the correlation in that subset will differ from the population correlation --- usually attenuated.
+If you select subjects based on one of the variables (e.g., only patients with bilirubin > 5), the correlation in that subset will differ from the population correlation, usually attenuated.
 
 **Ecological correlation.**
 Correlations computed on group averages (e.g., countries, hospitals) are typically stronger than individual-level correlations. Do not interpret ecological correlations as individual-level associations.
@@ -299,10 +424,33 @@ High zero-order correlations can be misleading. After adjusting for other predic
 A negative r means higher X tends to go with lower Y; that is all. It says nothing about proportionality or causation.
 :::
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Quick true/false check, drawing on the points above:
+
+- "A correlation of r = 0.37 means 37% of the variance is explained." (**False** -- it's r² = 0.14, or 14%.)
+- "With a large enough sample, even a clinically trivial correlation can be statistically significant." (**True** -- significance tells you r != 0, not that it's important.)
+- "A high zero-order correlation between a predictor and an outcome means that predictor will have a strong effect in a multiple regression model." (**False** -- the partial effect can shrink once other predictors are included; see [Multiple Regression](multiple-regression.qmd).)
+:::
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Pair students up for these exercises. Exercise 1 revisits the
+penguins data with a new variable pair (flipper length and body mass)
+-- before running the solution, ask pairs to predict whether the
+overall and within-species correlations will point in the same
+direction this time, or show another Simpson's Paradox reversal like
+bill length vs bill depth. Exercise 2 returns to PBC with a new
+variable pair (albumin and prothrombin time).
+:::
+
 ### Exercise 1 (Guided): Flipper Length vs Body Mass (penguins)
+
+*Estimated time: ~15 minutes*
 
 1. Plot flipper length vs body mass in `penguins_clean`. Does the relationship look linear?
 2. Compute Pearson and Spearman correlations. Do they agree?
@@ -344,6 +492,8 @@ tidy(cor.test(
 :::
 
 ### Exercise 2 (Semi-guided): Albumin and Prothrombin Time (PBC)
+
+*Estimated time: ~15 minutes*
 
 Using `survival::pbc`, explore the association between albumin and prothrombin time.
 
@@ -390,10 +540,14 @@ pbc_num %>%
 
 ### Exercise 3 (Open-ended)
 
+*Estimated time: 15--30 minutes*
+
 Using your own data, identify two continuous variables you expect to be related. Plot them, compute the appropriate correlation, and test the significance. Write a two-sentence result. Now think of a third variable that might confound the relationship - how would you check for it?
 
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes (self-test)*
 
 1. When should you use Spearman's ρ instead of Pearson's r?
 2. You compute r = 0.85, p < 0.001 between two blood biomarkers. Can you conclude one biomarker causes changes in the other?
@@ -436,12 +590,12 @@ Using your own data, identify two continuous variables you expect to be related.
 - Sample size (n)
 - Which method was used (Pearson or Spearman) and why
 
-**Never report r² alone** --- the sign (direction) is lost and readers cannot recover it.
+**Never report r² alone**: the sign (direction) is lost and readers cannot recover it.
 :::
 
 ## Further Reading
 
-- @Bland-2015 --- Correlation in *An Introduction to Medical Statistics*
-- @Dalgaard-2008 --- Chapter on correlation and regression
+- @Bland-2015: Correlation in *An Introduction to Medical Statistics*
+- @Dalgaard-2008: Chapter on correlation and regression
 - `?cor.test` in R: documentation covering all three methods
 - `GGally::ggpairs()` vignette for visualising multivariate relationships

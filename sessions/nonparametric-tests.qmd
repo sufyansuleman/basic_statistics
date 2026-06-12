@@ -10,11 +10,41 @@ library(survival)
 library(broom)
 ```
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: about 125 minutes (~2 hours).**
+
+| Section | Time | Type |
+|---|---|---|
+| When Do You Use This? + Learning Objectives | 5 min | Reading |
+| Background: The Idea of Ranks | 20 min | Reading |
+| Example 1: Small Samples (Lab Data) | 25 min | Worked example |
+| Example 2: Clinical Data (PBC) | 25 min | Worked example |
+| What Can Go Wrong | 10 min | Reading |
+| Exercises 1 & 2 | 30 min | Practice |
+| Comprehension Check | 10 min | Self-test |
+
+In a taught course, this session fits one teaching block. For
+self-paced study, split it into two sittings, e.g. Background and
+Example 1 first, Example 2 onward later. Exercise 3 is open-ended and
+works best as a follow-up using a dataset from your own field.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-nonparametric}
 
 ::: {.callout-tip}
-You have 8 mice per group and the outcome --- tumour volume, cytokine
-concentration, cell count --- is heavily right-skewed with a few extreme
+You have 8 mice per group and the outcome (tumour volume, cytokine
+concentration, cell count) is heavily right-skewed with a few extreme
 values. Or you are measuring pain on a 0--10 scale and the values clump
 at the low end. The t-tests from the previous session assume the
 sampling distribution of the mean is normal, and with small non-normal
@@ -24,6 +54,17 @@ Nonparametric tests are the alternative. They work on the *ranks* of the
 data rather than the raw values. This makes them robust to skew and
 outliers. The trade-off: they are slightly less powerful than t-tests
 when the normality assumption genuinely holds.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Ask the room for an outcome from their own research that is skewed or
+has extreme values: length of stay, cytokine levels, viral load, time
+to event. Use one of those examples throughout the session in place of
+(or alongside) the tumour-volume and bilirubin examples below — it
+makes the "ranks are robust to outliers" argument land harder when it's
+their own data.
 :::
 
 ## Learning Objectives
@@ -42,6 +83,20 @@ After completing this session you will be able to:
 
 ## Background: The Idea of Ranks
 
+*Estimated time: ~20 minutes (reading)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Board exercise: write the five tumour volumes (5, 1, 42, 3, 7) on the
+board and ask the room to rank them by hand before revealing the table
+below. Then ask: "if 42 were actually 420, what would change?" Let
+someone answer "nothing" before you confirm it — the moment of
+realising that ranks are completely insensitive to *how* extreme an
+outlier is, only to its *order*, is the conceptual core of this whole
+session.
+:::
+
 ### What ranks are and why they help
 
 Suppose five mice have tumour volumes of 5, 1, 42, 3, and 7 mm³. Their
@@ -56,7 +111,7 @@ ranks are:
 | 42 | 5 |
 
 Now suppose the outlier was a measurement error and the true value was
-420 instead of 42. The ranks do not change at all --- 420 is still rank
+420 instead of 42. The ranks do not change at all: 420 is still rank
 5. A t-test would give a very different answer; a Wilcoxon test would
 not. This is the core property: nonparametric tests are insensitive to
 the exact magnitude of extreme values.
@@ -64,20 +119,20 @@ the exact magnitude of extreme values.
 The Wilcoxon rank-sum test takes all observations from both groups,
 ranks them together from smallest to largest, and then checks whether
 one group's ranks are systematically higher than the other's. The null
-hypothesis is that the two groups are drawn from the same distribution
---- no tendency for one group to produce larger values.
+hypothesis is that the two groups are drawn from the same distribution:
+no tendency for one group to produce larger values.
 
 ### When to use nonparametric tests
 
 Use a nonparametric test when:
 
 1. **Sample size is small** ($n < 30$ per group) **and the data are
-   clearly non-normal** --- check a QQ-plot; if points deviate
+   clearly non-normal**: check a QQ-plot; if points deviate
    substantially from the line, switch to nonparametric
-2. **Extreme outliers** that reflect real biology (not data errors) ---
+2. **Extreme outliers** that reflect real biology (not data errors):
    a mouse tumour genuinely 10× larger than the rest is real information
    that should not drive your result
-3. **Ordinal outcomes** --- pain scales, Likert items, disease stages;
+3. **Ordinal outcomes**: pain scales, Likert items, disease stages;
    the numeric labels do not have consistent spacing
 
 When *not* to use them by default: if $n \geq 30$ and data are
@@ -94,6 +149,20 @@ unnecessarily.
 
 
 ## Example 1: Small Samples (Lab Data)
+
+*Estimated time: ~25 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Before running the `tg-small` chunk, ask the room to predict (show of
+hands) whether the QQ-plots will look "normal enough" for a t-test with
+only n = 10 per group. Then run the chunk, look at the plots together,
+and connect this back to the QQ-plot discussion in
+[T-tests](t-tests.qmd): the decision to use a nonparametric test is made
+*before* seeing the test result, based on the plot and sample size, not
+by picking whichever test gives a smaller p-value.
+:::
 
 ### Step 1: Check normality, then decide
 
@@ -148,6 +217,17 @@ tg_05 %>%
   )
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `W ≈ 19.5` and `p ≈ 0.023`. The
+group medians are 7.15 (IQR: 5.95--10.9) for ascorbic acid and 12.2
+(IQR: 9.7--16.2) for orange juice — orange juice produces longer teeth
+at this dose, and the gap is large relative to the spread. Before
+moving on, predict: will the t-test on the same data (next chunk) reach
+the same conclusion?
+:::
+
 ::: {.callout-note}
 ### Reading the Wilcoxon Output
 
@@ -175,8 +255,17 @@ bind_rows(
   select(test, statistic, p.value)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. The Welch t-test gives `t ≈ -3.17, p ≈ 0.006`, and
+the Wilcoxon gives `W ≈ 19.5, p ≈ 0.023`. Both are well below 0.05, so
+both tests agree: orange juice produces significantly longer teeth than
+ascorbic acid at this dose.
+:::
+
 Both reach the same conclusion here. They often agree. When they
-disagree, trust the Wilcoxon for small non-normal samples --- and
+disagree, trust the Wilcoxon for small non-normal samples, and
 investigate why they differ (usually an outlier is driving the t-test
 result).
 
@@ -224,16 +313,39 @@ res_sleep <- wilcox.test(
 tidy(res_sleep)
 ```
 
-With n = 10 differences, the QQ-plot shows reasonable normality ---
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above (you'll see two warnings about ties and zeroes —
+these are expected with small integer-valued data and do not invalidate
+the test). You should get `V ≈ 45` and `p ≈ 0.009`. This is well below
+0.05: Drug 2 gives significantly more extra sleep than Drug 1.
+:::
+
+With n = 10 differences, the QQ-plot shows reasonable normality:
 a paired t-test would also be valid. The Wilcoxon and t-test conclusions
 agree here, which is reassuring.
 
 
 ## Example 2: Clinical Data (PBC)
 
+*Estimated time: ~25 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+The PBC dataset has been used for treatment-group comparisons in
+[T-tests](t-tests.qmd) and [Hypothesis Testing](hypothesis-testing.qmd)
+with `albumin` (a roughly symmetric variable, no significant
+difference between groups). Here we switch to `bilirubin`, which is
+heavily skewed in the opposite direction: ask the room why the same
+randomised comparison (D-penicillamine vs placebo) might call for a
+different test depending on which variable you look at.
+:::
+
 Bilirubin in the PBC dataset is a genuine case for nonparametric tests:
 heavily right-skewed, extreme outliers, and meaningful biological
-variability. No log transformation changes the underlying problem ---
+variability. No log transformation changes the underlying problem:
 the distribution is better described by its median and spread than its
 mean.
 
@@ -283,10 +395,19 @@ pbc_rand %>%
   )
 ```
 
-No significant difference at baseline, consistent with successful
-randomisation. Report medians and IQR: "Median bilirubin was X mg/dL
-(IQR: A--B) in the D-penicillamine group and Y mg/dL (IQR: C--D) in
-the placebo group."
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `W ≈ 12007` and `p ≈ 0.84`. The
+medians are 1.4 mg/dL (IQR: 0.8--3.2, n = 158) for D-penicillamine and
+1.3 mg/dL (IQR: 0.725--3.6, n = 154) for placebo — very similar
+distributions, as expected for a randomised baseline comparison.
+:::
+
+No significant difference at baseline (median bilirubin 1.4 mg/dL,
+IQR: 0.8--3.2, in the D-penicillamine group vs 1.3 mg/dL, IQR:
+0.725--3.6, in the placebo group; Wilcoxon rank-sum: W = 12007, p =
+0.84), consistent with successful randomisation.
 
 ### Kruskal-Wallis: three or more groups
 
@@ -305,7 +426,15 @@ pbc_stage <- pbc %>% filter(!is.na(stage), !is.na(bili))
 kruskal.test(bili ~ stage, data = pbc_stage)
 ```
 
-The overall test is highly significant --- bilirubin clearly rises with
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `chi-squared ≈ 46.6`, `df = 3`,
+and `p ≈ 4e-10` — a tiny p-value, far below 0.05. At least one disease
+stage differs from the others in bilirubin.
+:::
+
+The overall test is highly significant: bilirubin clearly rises with
 disease stage, as expected biologically. Now identify which specific
 stage pairs account for this:
 
@@ -318,6 +447,18 @@ pairwise.wilcox.test(
   p.adjust.method = "bonferroni"
 )
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get a table of pairwise p-values.
+Stage 1 vs Stage 2 (p = 1.000) and Stage 2 vs Stage 3 (p = 0.168) are
+not significant after Bonferroni correction, and Stage 1 vs Stage 3 is
+borderline (p = 0.029). Every comparison involving Stage 4 is highly
+significant (p < 0.0001). In words: bilirubin in Stage 4 is clearly
+different from every earlier stage, while the early stages are harder
+to tell apart from each other.
+:::
 
 ```{r kruskal-plot}
 #| eval: true
@@ -354,10 +495,22 @@ then summarise which pairs differed.
 
 ## What Can Go Wrong
 
+*Estimated time: ~10 minutes (reading)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Run a quick true/false round on the "Common misinterpretations" callout
+below: read each bold statement aloud and ask for a thumbs up/down
+before revealing the explanation. The "Wilcoxon makes no assumptions"
+one is usually the most surprising to students who learned it as "the
+test you use when you can't make assumptions."
+:::
+
 **Using nonparametric tests as the default "safe" choice**
 
 Nonparametric tests are not always better. When data are approximately
-normal, the t-test is more powerful --- it extracts more information
+normal, the t-test is more powerful: it extracts more information
 from the same data. Switching to nonparametric by default when a t-test
 would be valid is a quiet way to reduce your power to detect real
 effects. Make the decision from the data: check the QQ-plot and the
@@ -400,7 +553,7 @@ normality test to justify a Wilcoxon.
 
 **"The Wilcoxon test compares medians"**
 Not exactly. It tests whether one group's values tend to be larger than
-the other's --- technically, whether P(X > Y) = 0.5. This is close to
+the other's: technically, whether P(X > Y) = 0.5. This is close to
 comparing medians when the distributions have the same shape, but not
 in general.
 :::
@@ -408,7 +561,19 @@ in general.
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Pair students for Exercises 1 and 2: one person runs the code while the
+other predicts the result before each output appears (medians, then
+test statistic, then p-value). Exercise 1 has a genuine surprise in
+store (see the solution), which works best if students commit to a
+prediction first.
+:::
+
 ### Exercise 1 (Guided): Wilcoxon Test for Bilirubin by Sex
+
+*Estimated time: ~15 minutes*
 
 Using `survival::pbc`, test whether bilirubin differs between male and
 female patients.
@@ -449,12 +614,29 @@ tidy(wilcox.test(bili ~ sex, data = pbc_sex))
 tidy(t.test(log(bili) ~ sex, data = pbc_sex))
 ```
 
-The Wilcoxon and the t-test on log-bilirubin typically reach the same
-conclusion. When they agree, either is defensible. When they disagree
-for a small, skewed sample, prefer the Wilcoxon.
+Run the chunk above. Median bilirubin is 1.3 mg/dL (IQR: 0.7--3.4) for
+females (n = 374) and 2.05 mg/dL (IQR: 1.3--3.5) for males (n = 44).
+The Wilcoxon test gives `W ≈ 6574, p ≈ 0.029` — significant at the 0.05
+level. But the t-test on `log(bili)` gives `t ≈ -1.73, df ≈ 64,
+p ≈ 0.089` — *not* significant.
+
+This time the two tests **disagree**: the Wilcoxon says males and
+females differ significantly, the t-test on log-bilirubin does not
+quite reach 0.05. This is a useful real example, not an error. A few
+things are happening at once: the male group is small (n = 44) and the
+two group sizes are very unequal (44 vs 374), which affects the t-test's
+power and its degrees of freedom (Welch's correction gives df ≈ 64, far
+below the 416 you might naively expect). The Wilcoxon, working on ranks
+across the whole sample, is less sensitive to that imbalance here. When
+two reasonable methods disagree like this, do not pick whichever gives
+the answer you want — report both results and let the reader judge,
+or note that the result is borderline and would benefit from a larger
+male sample.
 :::
 
 ### Exercise 2 (Semi-guided): Kruskal-Wallis Across Disease Stages
+
+*Estimated time: ~15 minutes*
 
 Test whether bilirubin differs across disease stages 1--4 in `pbc`.
 
@@ -489,7 +671,7 @@ pbc_s %>%
   theme(legend.position = "none")
 ```
 
-For a progressive disease, we expect bilirubin to rise with stage ---
+For a progressive disease, we expect bilirubin to rise with stage,
 and it does. The pairwise tests show that adjacent early stages may not
 differ significantly, but the gap between early and late stages is
 substantial and highly significant.
@@ -497,14 +679,18 @@ substantial and highly significant.
 
 ### Exercise 3 (Open-ended)
 
+*Estimated time: 15--30 minutes*
+
 From your own data, find a continuous variable that is clearly
 non-normal (cytokine levels, viral load, cell counts, enzyme
 concentrations). Run both a t-test and a Wilcoxon test on the same
-comparison. Do they agree? If they disagree, investigate why --- look
+comparison. Do they agree? If they disagree, investigate why: look
 at the data and identify what is driving the difference.
 
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes (self-test)*
 
 1. In what two situations is a nonparametric test preferred over a
    t-test?
@@ -533,7 +719,7 @@ at the data and identify what is driving the difference.
 
 3. Follow up with pairwise Wilcoxon tests using `pairwise.wilcox.test()`
    with a multiple testing correction (Bonferroni or Holm). The
-   Kruskal-Wallis result tells you "at least one group differs" ---
+   Kruskal-Wallis result tells you "at least one group differs";
    post-hoc tests identify which specific pairs.
 
 4. Medians and IQR. The Wilcoxon test is based on ranks, and the
@@ -582,9 +768,9 @@ at the data and identify what is driving the difference.
 
 ## Further Reading
 
-- @Bland-2015 --- *An Introduction to Medical Statistics*: clear
+- @Bland-2015: *An Introduction to Medical Statistics*: clear
   chapters on nonparametric methods written for clinicians
-- @Hollander-1999 --- *Nonparametric Statistical Methods*: comprehensive
+- @Hollander-1999: *Nonparametric Statistical Methods*: comprehensive
   reference
 - `?wilcox.test` and `?kruskal.test` in R: built-in help with worked
   examples

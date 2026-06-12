@@ -19,10 +19,54 @@ library(car)
 This session extends simple linear regression to multiple predictors. If you have not done so yet, complete the [Linear Regression](linear-regression.qmd) session first.
 :::
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: ~135 minutes**, plus exercises.
+
+| Section | Time | Type |
+|---|---|---|
+| When Do You Use This? + Learning Objectives | ~5 min | reading |
+| The Key Idea: Adjusting for Confounders | ~10 min | reading/discussion |
+| Background: Extending the Linear Model | ~15 min | reading |
+| Example 1: Clinical Data (PBC) | ~40 min | code-along |
+| Example 2: Animal Data (palmerpenguins) | ~15 min | code-along |
+| What Can Go Wrong | ~10 min | reading |
+| Exercises 1 & 2 | ~30 min | guided practice |
+| Comprehension Check | ~10 min | self-test |
+
+Example 1 is the longest section in this session, since it covers model
+building, multicollinearity, model comparison, and interactions in one
+worked example. If you are short on time, you can stop after "Checking for
+Multicollinearity" and treat the LRT and interaction subsections as
+optional. Exercise 3 is open-ended and can be assigned as take-home work.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-multiple-regression}
 
 ::: {.callout-tip}
-You have a continuous outcome and multiple predictors, some of which are correlated with each other. Multiple regression estimates each predictor's independent effect, holding the others constant --- so you can adjust for confounders and identify which variables have a genuine association with the outcome. For example: estimating the effect of bilirubin on albumin after accounting for prothrombin time and disease stage.
+You have a continuous outcome and multiple predictors, some of which are correlated with each other. Multiple regression estimates each predictor's independent effect, holding the others constant, so you can adjust for confounders and identify which variables have a genuine association with the outcome. For example: estimating the effect of bilirubin on albumin after accounting for prothrombin time and disease stage.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Ask the room to recall the [Linear Regression](linear-regression.qmd)
+session's bilirubin-albumin example (slope ≈ −0.14, R² ≈ 0.12). Ask: "If
+we also adjust for prothrombin time and disease stage, do you expect the
+bilirubin coefficient to get bigger, smaller, or stay about the same?"
+Most learners will guess "smaller" once reminded that bilirubin,
+prothrombin time, and stage are all correlated measures of liver function
+-- this sets up the confounding-adjustment story in Example 1.
 :::
 
 ## Learning Objectives
@@ -37,13 +81,17 @@ After completing this session you will be able to:
 
 ## The Key Idea: Adjusting for Confounders
 
-Imagine you find that people who carry lighters have higher rates of lung cancer. Does carrying a lighter cause lung cancer? No --- both carrying a lighter and lung cancer are caused by a shared variable: smoking. Smoking is a **confounder**.
+*Estimated time: ~10 minutes (reading/discussion)*
 
-Multiple regression handles this by estimating the effect of each predictor *while holding the others fixed*. The coefficient for "lighter-carrying" in a model that includes smoking status will shrink dramatically --- because we have accounted for the shared cause.
+Imagine you find that people who carry lighters have higher rates of lung cancer. Does carrying a lighter cause lung cancer? No, both carrying a lighter and lung cancer are caused by a shared variable: smoking. Smoking is a **confounder**.
+
+Multiple regression handles this by estimating the effect of each predictor *while holding the others fixed*. The coefficient for "lighter-carrying" in a model that includes smoking status will shrink dramatically, because we have accounted for the shared cause.
 
 Every coefficient in a multiple regression model answers the question: "what is the relationship between this predictor and the outcome, *among people who are otherwise comparable on all the other predictors in the model?*"
 
 ## Background: Extending the Linear Model
+
+*Estimated time: ~15 minutes (reading)*
 
 A multiple regression with $p$ predictors is:
 
@@ -61,6 +109,19 @@ $$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 (X_1 \times X_2) + \varepsil
 
 
 ## Example 1: Clinical Data (PBC)
+
+*Estimated time: ~40 minutes (code-along)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This example has several moving parts: model building, coefficient
+interpretation, VIF, a likelihood ratio test, and an interaction. If
+running this live, consider pacing it as four short stops rather than one
+long block: (1) fit and compare the four models, (2) interpret the full
+model's coefficients, (3) VIF + LRT, (4) the interaction. Each stop has its
+own "Run It Yourself" box below.
+:::
 
 ### Build a Multivariable Model
 
@@ -87,6 +148,16 @@ fit_full <- lm(albumin ~ log_bili + log_proto + stage, data = pbc)
 tidy(fit_full, conf.int = TRUE)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. In `fit_full`, `log_bili` has estimate ≈ −0.107 (95%
+CI: −0.146 to −0.067, p < 0.001) and `stageStage 4` has estimate ≈ −0.320
+(95% CI: −0.503 to −0.136, p < 0.001). `stageStage 2` and `stageStage 3`
+are both close to zero and not statistically significant (p ≈ 0.24 and
+0.26). Keep these numbers in mind for the next chunk.
+:::
+
 ```{r glance-compare}
 bind_rows(
   glance(fit1) %>% mutate(model = "log_bili only"),
@@ -96,6 +167,17 @@ bind_rows(
 ) %>%
   select(model, r.squared, adj.r.squared, AIC, BIC)
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. Each single-predictor model explains only a modest
+share of the variance (`log_bili`: R² ≈ 0.12; `log_proto`: R² ≈ 0.05;
+`stage`: R² ≈ 0.12), but the full model with all three predictors reaches
+R² ≈ 0.19 (adjusted R² ≈ 0.18) and has the lowest AIC (≈ 382, vs ≈ 408,
+442, and 412 for the single-predictor models). Lower AIC means a better
+fit-to-complexity trade-off -- the full model is preferred.
+:::
 
 ### Interpreting Partial Coefficients
 
@@ -107,8 +189,8 @@ tidy(fit_full, conf.int = TRUE) %>%
 
 **Reading the output:**
 
-- **log_bili (−0.22):** After adjusting for prothrombin time and stage, each one-unit increase in log(bilirubin) is associated with 0.22 g/dL lower albumin.
-- **stageStage 2 (−0.09):** Stage 2 patients have 0.09 g/dL lower albumin than Stage 1 patients, after adjusting for bilirubin and prothrombin time.
+- **log_bili (−0.107):** After adjusting for prothrombin time and stage, each one-unit increase in log(bilirubin) is associated with 0.11 g/dL lower albumin.
+- **stageStage 2 (−0.111):** Stage 2 patients have 0.11 g/dL lower albumin than Stage 1 patients, after adjusting for bilirubin and prothrombin time -- though with p ≈ 0.24, this difference is not statistically significant.
 
 The coefficients change from the simple models because predictors share variance. Comparing univariable and multivariable estimates reveals confounding.
 
@@ -122,10 +204,10 @@ The coefficient for `log_bili` in a multivariable model is the effect of bilirub
 
 | Model | log_bili slope | What it means |
 |---|---|---|
-| Simple `lm(albumin ~ log_bili)` | −0.34 | Total association, including confounding |
-| Multiple `lm(albumin ~ log_bili + log_proto + stage)` | −0.22 | Effect of bilirubin, *adjusted for* the other predictors |
+| Simple `lm(albumin ~ log_bili)` | −0.14 | Total association, including confounding |
+| Multiple `lm(albumin ~ log_bili + log_proto + stage)` | −0.11 | Effect of bilirubin, *adjusted for* the other predictors |
 
-The coefficient shrank from −0.34 to −0.22. Prothrombin time and stage were partially *confounding* the bilirubin-albumin relationship. The multivariable model gives the purer estimate.
+The coefficient shrank from −0.14 to −0.11. Prothrombin time and stage were partially *confounding* the bilirubin-albumin relationship. The multivariable model gives the purer estimate.
 
 **Reference categories for factors.**
 `stageStage 2` coefficient means: *Stage 2 vs Stage 1 (the reference), after adjusting for other predictors.* Stage 1 is absorbed into the intercept; it is not missing, it is the baseline.
@@ -133,9 +215,9 @@ The coefficient shrank from −0.34 to −0.22. Prothrombin time and stage were 
 ::: {.callout-tip}
 ### What Does This Actually Tell Us?
 
-> *"After adjusting for prothrombin time and disease stage, each 2.7-fold increase in bilirubin was associated with 0.22 g/dL lower albumin (95% CI: −0.28 to −0.16, p < 0.001). Stage was independently associated with albumin, with patients in advanced stages having lower albumin than Stage 1 patients even after accounting for bilirubin and prothrombin time. The full model explained 35% of the variance in albumin (adjusted R² = 0.35)."*
+> *"After adjusting for prothrombin time and disease stage, each 2.7-fold increase in bilirubin was associated with 0.11 g/dL lower albumin (95% CI: −0.15 to −0.07, p < 0.001). Disease stage was independently associated with albumin overall (likelihood ratio test, p < 0.001): patients in Stage 4 had albumin about 0.32 g/dL lower than Stage 1 patients (95% CI: −0.50 to −0.14, p < 0.001), though Stage 2 and Stage 3 were not significantly different from Stage 1. The full model explained 19% of the variance in albumin (adjusted R² = 0.18)."*
 
-The key phrase is **"after adjusting for"**: this is what separates multiple regression from a simple comparison.
+The key phrase is **"after adjusting for"**: this is what separates multiple regression from a simple comparison. Notice also that the *overall* effect of stage can be significant (via the likelihood ratio test below) even when not every individual stage contrast reaches significance: stage as a whole adds real explanatory value, concentrated mainly in the Stage 4 vs Stage 1 contrast.
 :::
 :::
 
@@ -147,7 +229,18 @@ vif(fit_full)
 
 VIF values close to 1 indicate no problematic multicollinearity. VIF > 5 is a concern; VIF > 10 is severe.
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. All three GVIF values are close to 1 (around
+1.18--1.19), well below the warning threshold of 5. The predictors are not
+problematically collinear, so the coefficient estimates above can be
+trusted.
+:::
+
 ### Model Comparison with Likelihood Ratio Test
+
+*Estimated time: ~5 minutes*
 
 ```{r lrt}
 fit_reduced <- lm(albumin ~ log_bili + log_proto, data = pbc)
@@ -156,7 +249,19 @@ anova(fit_reduced, fit_full)
 
 A significant F-test means the full model fits significantly better than the reduced model: stage adds explanatory value beyond bilirubin and prothrombin time.
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `F = 9.456` on 3 and 404 degrees of
+freedom, `p = 4.738e-06`. This is the same comparison as "stage only" vs
+"full model" in the table above, just expressed as a direct hypothesis
+test: adding stage to a model that already has `log_bili` and `log_proto`
+significantly improves fit.
+:::
+
 ### Including an Interaction
+
+*Estimated time: ~5 minutes*
 
 Does the effect of bilirubin on albumin differ by disease stage?
 
@@ -169,8 +274,34 @@ tidy(fit_int, conf.int = TRUE) %>%
 
 The interaction terms `log_bili:stageStage X` represent how much the slope of bilirubin differs in Stage X compared to Stage 1. If the CIs include zero, the slope does not differ significantly across stages.
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. All four rows have confidence intervals that include
+zero (p-values range from 0.45 to 0.91). There is no evidence that the
+bilirubin-albumin slope differs by disease stage, so the simpler
+main-effects model (`fit_full`, without the interaction) is preferred --
+fewer parameters, same conclusion.
+:::
+
 
 ## Example 2: Animal Data (palmerpenguins)
+
+*Estimated time: ~15 minutes (code-along)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Recall from [Linear Regression](linear-regression.qmd) that the
+unadjusted flipper-length slope was about 49.7 g/mm with R² ≈ 0.76. Ask
+learners to predict whether adjusting for species will make this slope
+*bigger* or *smaller*. Many will guess "smaller" by analogy with Example
+1, which is correct here too -- but the direction is not guaranteed in
+general. The key teaching point is that you cannot know the direction of
+confounding without checking; you can only know that *some* change is
+likely when the added variable is correlated with both the predictor and
+the outcome.
+:::
 
 Flipper length and bill length both predict body mass. Adding species as a covariate adjusts for the confounding we identified in the [correlation session](correlation-and-association.qmd).
 
@@ -189,6 +320,17 @@ bind_rows(
   select(model, estimate, conf.low, conf.high, p.value)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. The unadjusted slope is about 49.7 g/mm (95% CI: 46.7
+to 52.7). After adjusting for species, it drops to about 40.7 g/mm (95%
+CI: 34.7 to 46.7) -- still highly significant (p < 0.001), but noticeably
+smaller. Part of the "raw" flipper-mass relationship was really a
+between-species difference (Gentoo penguins have both longer flippers and
+higher body mass than Adelie or Chinstrap).
+:::
+
 Adding species to the model changes the flipper length coefficient. This is confounding adjustment in action: within each species, the flipper-mass relationship is different from the pooled one.
 
 ```{r penguin-interaction-plot}
@@ -205,14 +347,16 @@ peng %>%
 ::: {.callout-note}
 ## Where to Find Data Like This
 
-**PBC dataset:** `survival::pbc` --- multiple correlated clinical predictors with a continuous outcome, ideal for demonstrating confounding and model building.
+**PBC dataset:** `survival::pbc`: multiple correlated clinical predictors with a continuous outcome, ideal for demonstrating confounding and model building.
 
-**palmerpenguins:** `palmerpenguins::penguins` --- biological measurements with species as a natural confounder.
+**palmerpenguins:** `palmerpenguins::penguins`: biological measurements with species as a natural confounder.
 
 **NHANES:** Many continuous health outcomes (blood pressure, cholesterol) with multiple demographic and clinical predictors.
 :::
 
 ## What Can Go Wrong
+
+*Estimated time: ~10 minutes (reading)*
 
 ::: {.callout-warning}
 **Overfitting.**
@@ -228,7 +372,7 @@ Adjusting for a variable on the causal pathway between exposure and outcome (a m
 Selecting predictors based on p-values from exploratory analysis, then reporting the final model as if it were pre-specified, produces overfitted models with inflated associations. Pre-register your model or use a penalised method (ridge, lasso).
 
 **Interpreting coefficients in models with interactions.**
-When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference level --- not the marginal effect. Always evaluate interactions at meaningful covariate values.
+When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference level, not the marginal effect. Always evaluate interactions at meaningful covariate values.
 :::
 
 ::: {.callout-warning}
@@ -246,13 +390,38 @@ Adjusting for a *collider* introduces bias that was not there in the unadjusted 
 **"I can compare R² between models with different outcomes."**
 R² is not comparable across different outcome variables or different datasets. Only compare R² (or AIC) between models fitted to the same data with the same outcome.
 
-**"Stage 2 coefficient = −0.09 means Stage 2 patients have lower albumin."**
-It means Stage 2 patients have 0.09 g/dL lower albumin than Stage 1 patients *after adjusting for other predictors.* Change the reference category and the coefficient changes. Always state the reference group when reporting factor coefficients.
+**"Stage 2 coefficient = −0.11 means Stage 2 patients have lower albumin."**
+It means Stage 2 patients have 0.11 g/dL lower albumin than Stage 1 patients *after adjusting for other predictors* -- and in our `fit_full` model, this particular difference was not statistically significant (p ≈ 0.24). Change the reference category and the coefficient changes. Always state the reference group when reporting factor coefficients.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+A quick true/false check before moving to the exercises:
+
+1. "If a predictor's coefficient is not significant in the full model, it has no effect on the outcome." **False** -- with correlated predictors, an effect can be shared across several variables so that none individually reaches significance, even though jointly they matter (see the LRT for `stage`, p < 0.001).
+2. "Adding more predictors will always increase R²." **True** for raw R² -- but adjusted R², AIC, and BIC penalise added complexity, which is why we compare models on those instead.
+3. "A coefficient that shrinks after adjustment was previously biased by confounding." **Often true, but not certain** -- shrinkage is *consistent* with confounding, but could also reflect chance variation or a collider; the causal interpretation depends on subject-matter knowledge, not the regression output alone.
 :::
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Pair learners up for Exercise 1 and 2. For Exercise 1, ask them to predict
+the order of the three models by AIC *before* running the code -- most
+will correctly guess that the full model (with stage) has the lowest AIC,
+echoing the LRT result from Example 1. For Exercise 2, ask whether they
+expect the flipper-length-by-species interaction to be significant; the
+answer (yes, driven mainly by Gentoo) reinforces that "adjusting for
+species" (Example 2) and "letting the slope vary by species" (this
+exercise) are related but different questions.
+:::
+
 ### Exercise 1 (Guided): Build and Compare Models
+
+*Estimated time: ~15 minutes*
 
 Using `pbc`, predict albumin from:
 
@@ -279,9 +448,17 @@ bind_rows(
 
 anova(m2, m3)
 ```
+
+Run the chunk above. Adjusted R² rises from about 0.122 (model 1) to 0.132
+(model 2) to 0.183 (model 3), while AIC drops from about 408 to 404 to
+382. By both criteria, model 3 (with stage) is best. `anova(m2, m3)` gives
+`F = 9.456`, `p = 4.738e-06`: adding stage significantly improves the fit
+beyond `log_bili + log_proto` alone.
 :::
 
 ### Exercise 2 (Semi-guided): Penguin Model with Interaction
+
+*Estimated time: ~15 minutes*
 
 Using `palmerpenguins::penguins`, fit a model predicting body mass from flipper length, species, and their interaction.
 
@@ -303,14 +480,28 @@ tidy(fit_i, conf.int = TRUE) %>%
   filter(str_detect(term, "flipper")) %>%
   select(term, estimate, conf.low, conf.high, p.value)
 ```
+
+Run the chunk above. `anova(fit_no, fit_i)` gives `F = 5.346`, `p = 0.0052`:
+the interaction is statistically significant overall. Looking at the
+coefficients, the flipper-length slope for Adelie (the reference species)
+is about 32.7 g/mm. The interaction term for Chinstrap is small and not
+significant (≈ 1.9, p = 0.81), but for Gentoo it is about 21.5 (95% CI:
+7.8 to 35.2, p = 0.002) -- meaning Gentoo's flipper-mass slope (≈ 32.7 +
+21.5 ≈ 54.2 g/mm) is significantly steeper than Adelie's or Chinstrap's.
+The interaction is "significant" mainly because Gentoo behaves
+differently, not because all three species differ from each other.
 :::
 
 ### Exercise 3 (Open-ended)
+
+*Estimated time: 15--30 minutes*
 
 In your own research, identify a continuous outcome with at least two potential predictors. Fit univariable and multivariable models. Compare the coefficients: do they change after adjustment? Interpret any changes as confounding and write a Methods section justifying your final model.
 
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes (self-test)*
 
 1. You fit a simple regression and get slope = −0.5 for log_bili. In the multivariable model with protime and stage, the slope is −0.2. What happened, and what does this tell you?
 2. VIF for two of your predictors is 12 and 11. What is the problem, and what are your options?
@@ -348,7 +539,7 @@ In your own research, identify a continuous outcome with at least two potential 
 
 ## Further Reading
 
-- @Dalgaard-2008 --- Multiple regression chapter in *Introductory Statistics with R*
-- @Bland-2015 --- Multivariable regression in *An Introduction to Medical Statistics*
+- @Dalgaard-2008: Multiple regression chapter in *Introductory Statistics with R*
+- @Bland-2015: Multivariable regression in *An Introduction to Medical Statistics*
 - `?lm`, `?vif` (from `car`), `?anova.lm` in R
-- @Harrell-2015 --- *Regression Modeling Strategies* --- comprehensive reference for clinical regression
+- @Harrell-2015: *Regression Modeling Strategies*, a comprehensive reference for clinical regression

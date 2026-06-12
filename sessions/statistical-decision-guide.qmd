@@ -8,10 +8,47 @@ title: "Statistical Decision Guide"
 library(tidyverse)
 ```
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: ~145 minutes** (about 2.5 hours). This session is structured as a reference guide as much as a tutorial - the decision tables in particular are designed for you to come back to whenever you face a new analysis. A natural break point is after Example 2.
+
+| Section | Time | Type |
+|---------|------|------|
+| The Key Idea: Match Method to Question | ~10 min | Concept |
+| The Decision Framework | ~5 min | Concept |
+| Decision Tables by Question Type | ~15 min | Reference |
+| Example 1: Navigating to the Right Test | ~15 min | Walkthrough |
+| Example 2: Binary Outcome | ~15 min | Walkthrough |
+| Assumption Checking & Method Summary | ~10 min | Reference |
+| What Can Go Wrong | ~10 min | Reading |
+| Exercise 1 (Guided) | ~15 min | Practice |
+| Exercise 2 (Semi-guided) | ~20 min | Practice |
+| Exercise 3 (Open-ended) | 15--30 min | Practice |
+| Comprehension Check | ~10 min | Self-test |
+
+If you are short on time, work through Example 2 (`binary-example`): it shows a chi-square test returning p = 0.18 even though the simulation builds in a real 15-percentage-point difference (35% vs 20%) between groups. This is the session's central warning in miniature - a non-significant result does not mean "no test was needed" or "pick a different test until something is significant"; it may simply mean the sample size was too small to detect a real effect.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-statistical-decision-guide}
 
 ::: {.callout-tip}
-You have data from a clinical study and need to choose the right test. Should you use a t-test or Mann-Whitney? Logistic regression or a chi-square test? This guide helps you navigate from your research question and data type to the appropriate method --- and links you to the session where you can learn it properly.
+You have data from a clinical study and need to choose the right test. Should you use a t-test or Mann-Whitney? Logistic regression or a chi-square test? This guide helps you navigate from your research question and data type to the appropriate method, and links you to the session where you can learn it properly.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Before starting, ask learners to write down one analysis they are currently planning or have recently completed (their own research question, outcome type, and comparison). Keep this written down - at the end of the session, in Exercise 3, they will use the decision tables to check whether the test they chose (or are planning to choose) is the appropriate one.
 :::
 
 ## Learning Objectives
@@ -26,12 +63,16 @@ After completing this session you will be able to:
 
 ## The Key Idea: Match Method to Question
 
-Every statistical method in this course was designed to answer a specific type of question. Use the wrong method and your answer is biased or meaningless --- even if R runs without errors.
+*Estimated time: ~10 minutes (Concept)*
+
+Every statistical method in this course was designed to answer a specific type of question. Use the wrong method and your answer is biased or meaningless, even if R runs without errors.
 
 The two most common mistakes are: picking a test based on which gives the smallest p-value (outcome-dependent test selection, which inflates false positives), and defaulting to a t-test when the design calls for something else (paired measurements, a binary outcome, or clustered observations). Before you open R, answer three questions: *What type is your outcome? What are you comparing or estimating? Are the assumptions for your first-choice method met?* The tables below take you from those three answers to the right method, every time.
 
 
 ## The Decision Framework
+
+*Estimated time: ~5 minutes (Concept)*
 
 Every statistical test choice starts with three questions:
 
@@ -41,6 +82,8 @@ Every statistical test choice starts with three questions:
 
 
 ## Decision Tables by Question Type
+
+*Estimated time: ~15 minutes (Reference)*
 
 ### Question 1: Comparing Two Groups
 
@@ -96,6 +139,14 @@ Every statistical test choice starts with three questions:
 
 ## Example: Navigating to the Right Test
 
+*Estimated time: ~15 minutes (Walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Before running `decision-example`, ask learners to walk through the three decision-framework questions out loud for this scenario: What is the outcome (continuous, binary, etc.)? What is being compared (paired, unpaired, three groups, etc.)? What assumption needs checking before picking the final test? Then run the code and confirm the answer matches.
+:::
+
 **Scenario:** A clinical trial randomises 40 patients to drug vs placebo. You measure systolic blood pressure (continuous) before and after treatment. Which test?
 
 ```{r decision-example}
@@ -112,15 +163,51 @@ diff   <- after - before
 shapiro.test(diff)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+You should see:
+
+```
+W = 0.97966, p-value = 0.9297
+```
+
+p = 0.93 is nowhere near significant, so there is no evidence that the before/after differences depart from normality. Step 3 of the framework is satisfied: with a continuous outcome, paired groups, and normal differences, the decision tables (Question 1) point to the **paired t-test**.
+:::
+
 ```{r decision-test}
 # Normal? - paired t-test
 t.test(after, before, paired = TRUE)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+You should see:
+
+```
+t = -4.3163, df = 19, p-value = 0.0003723
+95 percent confidence interval:
+ -15.903258  -5.516578
+mean difference
+      -10.70992
+```
+
+The mean within-patient drop in systolic BP is about 10.7 mmHg (95% CI 5.5 to 15.9), and this is highly significant (p < 0.001) - consistent with the -8 mmHg effect built into the simulation. Notice that the *test statistic* (t = -4.3163) is large relative to its standard error precisely because the paired design removes the large between-patient variability in baseline BP; an unpaired t-test on the same data would have a much wider confidence interval.
+:::
+
 **Decision path:** Continuous outcome → Paired groups → Normal differences → **Paired t-test** → @sec-t-tests
 
 
 ## Example 2: Binary Outcome - Choosing Between Chi-Square and Logistic Regression
+
+*Estimated time: ~15 minutes (Walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+The simulation below builds in a real difference: males have a 35% chance of NAFLD vs 20% for females, a 15-percentage-point gap. Before running `binary-example`, ask learners to predict whether `chisq.test()` will find this difference statistically significant with n = 200 split roughly evenly between sexes. Most learners expect "yes, obviously" because the built-in difference is large. The actual result is a useful surprise.
+:::
 
 **Scenario:** You want to know if NAFLD diagnosis (yes/no) differs between males and females in a cohort of 200 patients.
 
@@ -136,6 +223,18 @@ dat   <- tibble(sex, nafld = factor(nafld, labels = c("No", "Yes")))
 chisq.test(table(dat$sex, dat$nafld))
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+You should see:
+
+```
+X-squared = 1.7904, df = 1, p-value = 0.1809
+```
+
+Despite the 15-percentage-point true difference built into the simulation (35% vs 20%), the chi-square test gives p = 0.18 - not significant at the conventional 0.05 threshold. With only 200 patients split between two sexes, the observed counts in this particular random sample are not extreme enough to rule out chance. This is **not** a reason to try a different test until you find a significant one (see "What Can Go Wrong" below); it may simply reflect limited power. The [Power and Sample Size](power-and-sample-size.qmd) session covers how to plan a study large enough to detect an effect of this size.
+:::
+
 If you need to **adjust for age and BMI**, switch to logistic regression:
 
 ```{r binary-logistic}
@@ -147,10 +246,27 @@ glm(nafld_num ~ sex + age + bmi, data = dat2, family = binomial) %>%
   select(term, estimate, conf.low, conf.high, p.value)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+You should see (rounded):
+
+| term | estimate (OR) | conf.low | conf.high | p.value |
+|------|----------------|----------|-----------|---------|
+| (Intercept) | 0.608 | 0.0486 | 7.44 | 0.697 |
+| sexMale | 1.60 | 0.885 | 2.92 | 0.122 |
+| age | 1.01 | 0.976 | 1.04 | 0.665 |
+| bmi | 0.972 | 0.899 | 1.05 | 0.467 |
+
+The adjusted odds ratio for `sexMale` (1.60, 95% CI 0.885 to 2.92, p = 0.122) tells the same story as the chi-square test, just on a different scale: males appear to have higher odds of NAFLD, but the confidence interval is wide and includes 1, and the p-value does not reach significance. Logistic regression adds the ability to adjust for `age` and `bmi` (neither of which shows an association here) - this is the key reason to move beyond chi-square, not because chi-square "failed" to find significance.
+:::
+
 **Decision path:** Binary outcome → Association with one predictor → **Chi-square** (unadjusted). Add covariates → **Logistic regression** → @sec-logistic-regression
 
 
 ## Assumption Checking Quick Reference
+
+*Estimated time: ~10 minutes (Reference)*
 
 | Assumption | Test / Plot | What to do if violated |
 |------------|-------------|------------------------|
@@ -182,6 +298,8 @@ tribble(
 
 ## What Can Go Wrong
 
+*Estimated time: ~10 minutes (Reading)*
+
 ::: {.callout-warning}
 **Choosing based on p-value alone**
 Never choose the test that gives the most significant result. Test choice must be determined by the research question and data type, not by the outcome.
@@ -199,7 +317,15 @@ Likert scales (1--5) are ordinal. Means are interpretable but formal inference s
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+For each scenario in Exercise 1, ask learners to work through the three decision-framework questions explicitly (outcome type, comparison, assumptions) before consulting the answer - this is the habit the whole session is trying to build, and it transfers directly to Exercise 3, where they apply it to their own research.
+:::
+
 ### Exercise 1 (Guided): Test Selection
+
+*Estimated time: ~15 minutes (Practice)*
 
 For each scenario below, name the appropriate statistical test and state why:
 
@@ -220,6 +346,8 @@ For each scenario below, name the appropriate statistical test and state why:
 
 ### Exercise 2 (Semi-guided): Assumption Check and Decision
 
+*Estimated time: ~20 minutes (Practice)*
+
 You have expression levels of a biomarker in healthy (n = 15) vs disease (n = 18) patients. The data look right-skewed with a few large values.
 
 1. Plot the distribution (histogram and QQ plot).
@@ -229,6 +357,8 @@ You have expression levels of a biomarker in healthy (n = 15) vs disease (n = 18
 
 ### Exercise 3 (Open-ended)
 
+*Estimated time: 15--30 minutes (Practice)*
+
 Take a published paper from your field. For each analysis reported:
 1. Identify the outcome type and comparison being made.
 2. Assess whether the correct test was used based on the decision tables above.
@@ -236,6 +366,8 @@ Take a published paper from your field. For each analysis reported:
 
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes (Self-test)*
 
 1. A researcher measures body weight (continuous) in mice at three time points (baseline, week 4, week 8). They analyse each time point separately with t-tests. What is wrong with this approach?
 2. You want to test whether a new drug reduces blood pressure. Patients are measured before and after treatment. Should you use a paired or unpaired test? Why?
@@ -277,6 +409,6 @@ Take a published paper from your field. For each analysis reported:
 
 ## Further Reading
 
-- @Field-2013 --- *Discovering Statistics Using R* - practical test selection guidance
-- @Glantz-2002 --- *Primer of Biostatistics* - clear, clinically-oriented decision guide
+- @Field-2013: *Discovering Statistics Using R* - practical test selection guidance
+- @Glantz-2002: *Primer of Biostatistics* - clear, clinically-oriented decision guide
 - [UCLA Statistical Consulting: Which Statistical Test?](https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/) - online decision aid

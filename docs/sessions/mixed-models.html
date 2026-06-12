@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -444,6 +444,94 @@ window.Quarto = {
 <p>Mixed models extend linear regression to handle repeated measures and clustered data. Complete the <strong>Linear Regression</strong> and <strong>Multiple Regression</strong> sessions before starting this one.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session at a Glance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Total core time: ~160 minutes</strong> (about 2.5–3 hours). A natural break point is after Example 1 (the chick growth models)—cover Example 2 and the exercises in a second sitting. Exercise 3 is open-ended and its time will vary.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 28%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Time</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The Key Idea: Why Independence Matters</td>
+<td>~10 min</td>
+<td>Concept</td>
+</tr>
+<tr class="even">
+<td>Background: Fixed Effects, Random Effects, Correlation</td>
+<td>~15 min</td>
+<td>Concept</td>
+</tr>
+<tr class="odd">
+<td>Example 1: Longitudinal Chick Growth</td>
+<td>~45 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="even">
+<td>Example 2: Litter Effects in a Mouse Experiment</td>
+<td>~25 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="odd">
+<td>What Can Go Wrong</td>
+<td>~10 min</td>
+<td>Reading</td>
+</tr>
+<tr class="even">
+<td>Exercise 1 (Guided)</td>
+<td>~15 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Exercise 2 (Semi-guided)</td>
+<td>~15 min</td>
+<td>Practice</td>
+</tr>
+<tr class="even">
+<td>Exercise 3 (Open-ended)</td>
+<td>15–30 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Comprehension Check</td>
+<td>~10 min</td>
+<td>Self-test</td>
+</tr>
+</tbody>
+</table>
+<p>If you are short on time, the comparison between the naive <code>lm()</code> and the mixed model in Example 2 (the <code>naive-vs-mixed</code> table) is the single clearest illustration of why ignoring clustering matters.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code in This Session
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code chunk below is written so you can copy it into your R console (or an R script) and run it yourself, in the order shown. Where you see a “Run It Yourself” box, stop and run the code above it before reading the explanation that follows.</p>
+</div>
+</div>
 <section id="sec-mixed-models" class="level2" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="sec-mixed-models"><span class="header-section-number">15.1</span> When Do You Use This?</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -457,6 +545,22 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>Your data have a grouped or hierarchical structure: repeated measurements on the same individuals over time, participants nested within clinics, or samples from the same animal litter. Standard regression assumes all observations are independent, which is violated whenever observations share a common source. Mixed models handle this by estimating a random effect for each group, correctly accounting for within-group correlation and preventing inflated Type I error. For example: a biomarker measured at multiple clinic visits per patient, or body weight measurements across litters in an animal experiment.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Before running anything, ask learners to think of an example from their own work where observations come in natural clusters (repeated visits, litters, clinics, twins). Ask: if you analysed this data with ordinary <code>lm()</code>, treating every observation as independent, would your standard errors be too small, too large, or about right? (Too small—this is the central idea of the whole session.) Keep this example in mind as a personal anchor while working through <code>ChickWeight</code> and the mouse litter data below.</p>
+</div>
 </div>
 </div>
 </section>
@@ -473,12 +577,14 @@ Tip
 </section>
 <section id="the-key-idea-why-independence-matters" class="level2" data-number="15.3">
 <h2 data-number="15.3" class="anchored" data-anchor-id="the-key-idea-why-independence-matters"><span class="header-section-number">15.3</span> The Key Idea: Why Independence Matters</h2>
-<p>Every statistical test in this course assumes observations are independent. But imagine measuring a mouse’s tumour volume five times. Those five measurements are not five independent data points — they come from the same mouse. Three siblings from the same litter are not three independent animals — they share genes and environment.</p>
+<p><em>Estimated time: ~10 minutes (Concept)</em></p>
+<p>Every statistical test in this course assumes observations are independent. But imagine measuring a mouse’s tumour volume five times. Those five measurements are not five independent data points: they come from the same mouse. Three siblings from the same litter are not three independent animals: they share genes and environment.</p>
 <p>When you ignore this grouping, your model thinks it has more independent information than it really does. The result: standard errors that are too small, p-values that are too low, and results that look more certain than they are.</p>
 <p>Mixed models fix this by adding a random effect for each group. This soaks up the within-group correlation, gives you honest standard errors, and lets you estimate the effect of your predictor on the population as a whole.</p>
 </section>
 <section id="background-fixed-effects-random-effects-and-correlation-structure" class="level2" data-number="15.4">
 <h2 data-number="15.4" class="anchored" data-anchor-id="background-fixed-effects-random-effects-and-correlation-structure"><span class="header-section-number">15.4</span> Background: Fixed Effects, Random Effects, and Correlation Structure</h2>
+<p><em>Estimated time: ~15 minutes (Concept)</em></p>
 <p><strong>Fixed effects</strong> are the predictors you care about: the treatment, time, or exposure. They estimate the population-average relationship between a predictor and the outcome.</p>
 <p><strong>Random effects</strong> model the variation between higher-level units (patients, litters, hospitals) that introduces correlation within those units. A <strong>random intercept</strong> allows each unit to have its own baseline level; a <strong>random slope</strong> allows the relationship between a predictor and the outcome to vary by unit.</p>
 <p>The general linear mixed model is:</p>
@@ -490,6 +596,23 @@ Tip
 </section>
 <section id="example-1-longitudinal-chick-growth-chickweight" class="level2" data-number="15.5">
 <h2 data-number="15.5" class="anchored" data-anchor-id="example-1-longitudinal-chick-growth-chickweight"><span class="header-section-number">15.5</span> Example 1: Longitudinal Chick Growth (ChickWeight)</h2>
+<p><em>Estimated time: ~45 minutes (Walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example has four natural stopping points: (1) the data exploration and spaghetti plot, (2) the random-intercept model and its ICC, (3) the random-slope model and likelihood ratio test, and (4) the comparison of the two. The spaghetti plot is worth lingering on—ask learners to predict, before fitting <code>fit_rs</code>, whether the lines look “parallel” (random intercept enough) or “fanning out” (random slope needed). The real result is a dramatic one: the random-slope model improves the AIC by about 785 points, one of the largest effect sizes you will see in this course.</p>
+</div>
+</div>
+</div>
 <p>The <code>ChickWeight</code> dataset (built into base R) records the body weight of 50 chicks measured repeatedly from hatching (day 0) to day 21, under four different diet treatments. This is a genuine repeated-measures design: the same chick is weighed multiple times, so observations within a chick are correlated.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>chicks <span class="ot">&lt;-</span> ChickWeight <span class="sc">%&gt;%</span></span>
@@ -514,6 +637,20 @@ $ diet   &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   min_obs max_obs median_obs
     &lt;int&gt;   &lt;int&gt;      &lt;dbl&gt;
 1       2      12         12</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. <code>glimpse()</code> shows 578 rows and 4 columns: <code>weight</code>, <code>day</code>, <code>chick</code> (an ordered factor with 50 levels), and <code>diet</code> (a factor with 4 levels). The second table shows <code>min_obs = 2</code>, <code>max_obs = 12</code>, <code>median_obs = 12</code>: most chicks were weighed all 12 times (days 0, 2, 4, …, 20, 21), but at least one chick has only 2 measurements.</p>
+<p>Before reading on: what do you think happened to the chick(s) with only 2 measurements? (This is real data—chicks occasionally die during a growth study, leaving a short, incomplete trajectory. Mixed models handle this unbalanced structure naturally; a repeated-measures ANOVA would need to drop these chicks entirely.)</p>
 </div>
 </div>
 <section id="visualise-individual-trajectories" class="level3" data-number="15.5.1">
@@ -541,10 +678,24 @@ $ diet   &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 </div>
 </div>
 </div>
-<p>The spaghetti plot is a key diagnostic: parallel lines suggest a random intercept alone is sufficient; fanning lines indicate a random slope is also needed.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should see four panels (one per diet), each with many thin individual chick trajectories plus a thick fitted line with a shaded confidence band. Within every panel, the individual lines start close together near day 0 but <strong>fan out</strong> as day increases—by day 21, some chicks on diet 3 weigh over 350g while others on the same diet weigh under 150g.</p>
+<p>Before reading on: based on this fanning pattern, do you predict that a random intercept alone (<code>(1 | chick)</code>) will be enough, or that a random slope for <code>day</code> (<code>(1 + day | chick)</code>) will substantially improve the fit? Keep your prediction in mind for the likelihood ratio test later in this example.</p>
+</div>
+</div>
 </section>
 <section id="fit-a-random-intercept-model" class="level3" data-number="15.5.2">
 <h3 data-number="15.5.2" class="anchored" data-anchor-id="fit-a-random-intercept-model"><span class="header-section-number">15.5.2</span> Fit a Random-Intercept Model</h3>
+<p><em>Estimated time: ~15 minutes (Walkthrough)</em></p>
 <p>The simplest mixed model allows each chick its own baseline weight (random intercept) while estimating the shared population-average growth rate (fixed effect of day) and diet differences.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fit_ri <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight <span class="sc">~</span> day <span class="sc">+</span> diet <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> chick), <span class="at">data =</span> chicks, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
@@ -605,9 +756,24 @@ diet4 -0.548 -0.012  0.339  0.339</code></pre>
 <li><strong>Fixed effects:</strong> <code>day</code> is the population-average weight gain per day. <code>diet2</code>, <code>diet3</code>, <code>diet4</code> are mean weight differences versus Diet 1.</li>
 <li><strong>Random effects:</strong> <code>sd__(Intercept)</code> is the SD of starting weights across chicks; <code>sd__Observation</code> is the residual SD.</li>
 </ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. <code>summary(fit_ri)</code> reports AIC = 5619.2; random effects <code>chick (Intercept)</code> variance = 478.0 (SD = 21.86) and <code>Residual</code> variance = 797.8 (SD = 28.25), from 578 observations across 50 chicks. The fixed effects are: <code>(Intercept)</code> = 11.23 (SE = 5.58, t = 2.01); <code>day</code> = 8.72 (SE = 0.175, t = 49.7); <code>diet2</code> = 16.22 (95% CI -1.57 to 34.0, not significant—the CI crosses zero); <code>diet3</code> = 36.55 (95% CI 18.8 to 54.3); <code>diet4</code> = 30.03 (95% CI 12.2 to 47.8).</p>
+<p>So diets 3 and 4 produce clearly heavier chicks than diet 1 by day 21, but diet 2’s effect is not distinguishable from diet 1 at the 95% level—even though its point estimate (16.2) is roughly half of diet 3’s.</p>
+</div>
+</div>
 </section>
 <section id="calculate-the-icc" class="level3" data-number="15.5.3">
 <h3 data-number="15.5.3" class="anchored" data-anchor-id="calculate-the-icc"><span class="header-section-number">15.5.3</span> Calculate the ICC</h3>
+<p><em>Estimated time: ~5 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">icc</span>(fit_ri)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -617,10 +783,28 @@ diet4 -0.548 -0.012  0.339  0.339</code></pre>
   Unadjusted ICC: 0.095</code></pre>
 </div>
 </div>
-<p>An ICC near 0.8 is typical: about 80% of total variance in chick weight comes from stable between-chick differences.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should see <strong>Adjusted ICC: 0.375</strong> and <strong>Unadjusted ICC: 0.095</strong>—not the “0.8” you might expect from a typical clustered dataset. The two numbers differ substantially here because <code>day</code> is such a strong predictor (chicks gain about 8.7g every day, so most of the <em>total</em> variance in weight is simply due to chicks getting older).</p>
+<ul>
+<li>The <strong>unadjusted ICC (0.095)</strong> is the proportion of <em>total</em> outcome variance attributable to between-chick differences. It is small because most of the variance in raw weight comes from time, not from chick identity.</li>
+<li>The <strong>adjusted ICC (0.375)</strong> is the proportion of the <em>residual</em> variance—after accounting for <code>day</code> and <code>diet</code>—that is between-chick. This is substantial: even at the same age and on the same diet, chicks still differ from one another by an amount equivalent to 37.5% of the leftover variance.</li>
+</ul>
+<p>The lesson: always check which version of the ICC you are looking at, and relative to what. A model with strong fixed-effect predictors can have a low unadjusted ICC and a high adjusted ICC at the same time—both numbers are “correct,” they just answer different questions.</p>
+</div>
+</div>
 </section>
 <section id="fit-a-random-slope-model" class="level3" data-number="15.5.4">
 <h3 data-number="15.5.4" class="anchored" data-anchor-id="fit-a-random-slope-model"><span class="header-section-number">15.5.4</span> Fit a Random-Slope Model</h3>
+<p><em>Estimated time: ~10 minutes (Walkthrough)</em></p>
 <p>Do chicks differ not only in starting weight but also in their rate of growth?</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fit_rs <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight <span class="sc">~</span> day <span class="sc">+</span> diet <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> day <span class="sc">|</span> chick), <span class="at">data =</span> chicks, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
@@ -639,11 +823,42 @@ fit_rs    9 4834.1 4873.3 -2408.0    4816.1 789.12  2  &lt; 2.2e-16 ***
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. The likelihood ratio test compares <code>fit_ri</code> (AIC = 5619.2, 7 parameters) to <code>fit_rs</code> (AIC = 4834.1, 9 parameters): Chisq = 789.12 on 2 df, p &lt; 2.2e-16.</p>
+<p>This is about as decisive a result as you will ever see: adding a random slope for <code>day</code> improves the AIC by <strong>785 points</strong>, for the cost of just 2 extra parameters. This matches the “fanning” pattern you saw in the spaghetti plot—chicks really do grow at different rates, not just from different starting weights, and the random-intercept-only model was substantially mis-specified.</p>
+</div>
+</div>
 <p>The random-slope model is biologically plausible – some chicks simply grow faster than others. The LRT tells you whether the data support this extra complexity.</p>
 </section>
 </section>
 <section id="example-2-clustering-litter-effects-in-a-mouse-experiment" class="level2" data-number="15.6">
 <h2 data-number="15.6" class="anchored" data-anchor-id="example-2-clustering-litter-effects-in-a-mouse-experiment"><span class="header-section-number">15.6</span> Example 2: Clustering – Litter Effects in a Mouse Experiment</h2>
+<p><em>Estimated time: ~25 minutes (Walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example uses simulated data with a known “true” effect (HFD adds 4.5g, baked into the simulation via <code>set.seed(42)</code>), so learners can see exactly how close the model estimates come to the truth. The key comparison is the <code>naive-vs-mixed</code> table: both models recover the same point estimate, but the confidence intervals differ. Ask learners to predict, before running the code, which model’s CI will be wider, and why.</p>
+</div>
+</div>
+</div>
 <p>Mice from the same litter share genetic background and early environment. Their outcomes are correlated within litter – a fact that naive regression ignores, producing standard errors that are too small and inflated Type I error.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
@@ -687,7 +902,24 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 2 Mixed model -- random litter intercept     4.35     2.44      6.27 NA       </code></pre>
 </div>
 </div>
-<p>The OLS SE is smaller because it treats 75 mice as 75 independent replicates. The mixed model correctly recognises there are only 15 independent litters, producing wider (honest) confidence intervals.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. Both rows show the <strong>same point estimate</strong> (4.35g), but very different intervals: the OLS row gives 95% CI 3.32–5.39 (p = 2.85e-12), while the mixed-model row gives 95% CI 2.44–6.27 with <code>p.value = NA</code>.</p>
+<p>Two things to notice:</p>
+<ol type="1">
+<li><strong>The CI is about 65% wider for the mixed model</strong> (width 2.07 vs.&nbsp;1.95… actually compute it: OLS width = 5.39 - 3.32 = 2.07; mixed width = 6.27 - 2.44 = 3.83, nearly double). The point estimate barely moved, but the honest uncertainty—reflecting that there are really only 15 independent litters, not 75 independent mice—is much larger.</li>
+<li><strong>Why is <code>p.value</code> <code>NA</code> for the mixed model?</strong> By default, <code>lme4::lmer()</code> does not report p-values for fixed effects, because the correct denominator degrees of freedom for the t-statistic is not straightforward to determine. If you need a p-value, use <code>lmerTest::lmer()</code> (which adds Satterthwaite-approximated degrees of freedom) or compute a likelihood ratio test as in Example 1.</li>
+</ol>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mouse_data <span class="sc">%&gt;%</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> weight_g, <span class="at">colour =</span> <span class="fu">factor</span>(litter))) <span class="sc">+</span></span>
@@ -709,6 +941,19 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p><img src="mixed-models_files/figure-html/litter-plot-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should see a jittered scatter plot with two groups (Control, HFD) on the x-axis, each point coloured by its litter of origin. HFD mice are clearly heavier overall, but within each treatment group you can also see clustering by colour—some litters (e.g., the greens, litters 5–7) sit consistently near the top of the HFD group, while others (e.g., litter 4, olive) sit near the bottom of Control. This visual clustering is exactly what the random intercept in <code>fit_litter</code> is modelling.</p>
 </div>
 </div>
 </section>
@@ -736,6 +981,20 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 13     14          -0.8393823
 14      6          -0.6084064
 15     10          -0.1470204</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should see 15 rows, one per litter, sorted by the size of their deviation from the grand mean. The largest deviations are litter 4 (-3.27), litter 15 (+2.50), litter 1 (+2.36), litter 12 (-2.28), and litter 2 (-2.27); the smallest is litter 10 (-0.15, essentially average).</p>
+<p>These numbers are on the same scale as <code>weight_g</code>: litter 4’s pups are, on average, about 3.3g lighter than the population mean (after accounting for treatment), and litter 15’s are about 2.5g heavier. With <code>litter_re</code> simulated as <code>rnorm(15, 0, 1.8)</code>, deviations of this magnitude are entirely expected—this is the random variation the model is designed to soak up.</p>
 </div>
 </div>
 <p>Each row is one litter’s deviation from the grand mean. Large deviations flag litters with unusual genetics, housing, or batch effects.</p>
@@ -766,6 +1025,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><em>Estimated time: ~10 minutes (Reading)</em></p>
 <p><strong>Using a paired t-test or repeated-measures ANOVA when you have covariates.</strong> These simpler methods cannot adjust for continuous covariates or handle unbalanced time points. A mixed model does both.</p>
 <p><strong>Over-complex random effects structures.</strong> Fitting a random slope for every predictor often leads to singular fits (variance estimate collapses to zero) or convergence failures. Start with a random intercept and add random slopes only if theoretically motivated and if the model converges.</p>
 <p><strong>Singular fit warning.</strong> <code>lmer()</code> warns “singular fit” when the random effects variance is estimated as zero or the correlation between random effects is ±1. This usually means the model is overparameterised for your data. Simplify the random effects structure.</p>
@@ -776,8 +1036,25 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="exercises" class="level2" data-number="15.7">
 <h2 data-number="15.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">15.7</span> Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Before learners run Exercise 1, ask them to predict whether adding <code>diet</code> to the random-intercept model will improve the AIC by a little or a lot, given that <code>fit_ri</code> (which already includes <code>diet</code>) had AIC = 5619.2. After they run it, point out that <code>m1</code> in Exercise 1 <em>is</em> <code>fit_ri</code> from Example 1—so its ICC will reproduce the same Adjusted/Unadjusted values (0.375 / 0.095) discussed earlier.</p>
+</div>
+</div>
+</div>
 <section id="exercise-1-guided-fit-a-random-intercept-model" class="level3" data-number="15.7.1">
 <h3 data-number="15.7.1" class="anchored" data-anchor-id="exercise-1-guided-fit-a-random-intercept-model"><span class="header-section-number">15.7.1</span> Exercise 1 (Guided): Fit a Random-Intercept Model</h3>
+<p><em>Estimated time: ~15 minutes (Practice)</em></p>
 <p>Using the <code>chicks</code> dataset from Example 1:</p>
 <ol type="1">
 <li>Fit a random-intercept model with only <code>day</code> as a fixed effect: <code>lmer(weight ~ day + (1 | chick), data = chicks, REML = FALSE)</code>.</li>
@@ -786,7 +1063,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Calculate the ICC.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -795,7 +1072,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight <span class="sc">~</span> day        <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> chick), <span class="at">data =</span> chicks, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
@@ -826,12 +1103,15 @@ m1  7 5619.201</code></pre>
   Unadjusted ICC: 0.095</code></pre>
 </div>
 </div>
+<p><code>AIC(m0, m1)</code> gives <code>m0</code> AIC = 5630.34 (4 parameters, <code>day</code> only) versus <code>m1</code> AIC = 5619.20 (7 parameters, <code>day</code> + <code>diet</code>)—adding <code>diet</code> improves the AIC by about 11 points for 3 extra parameters, a modest but real improvement. (<code>m1</code> is identical to <code>fit_ri</code> from Example 1.)</p>
+<p>For Diet 4 vs.&nbsp;Diet 1: <code>diet4</code> = 30.03, 95% CI 12.2 to 47.8—a clear, statistically significant difference. <code>icc(m1)</code> reproduces Example 1’s result: <strong>Adjusted ICC = 0.375, Unadjusted ICC = 0.095</strong>.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-2-semi-guided-random-slope-in-the-mouse-data" class="level3" data-number="15.7.2">
 <h3 data-number="15.7.2" class="anchored" data-anchor-id="exercise-2-semi-guided-random-slope-in-the-mouse-data"><span class="header-section-number">15.7.2</span> Exercise 2 (Semi-guided): Random Slope in the Mouse Data</h3>
+<p><em>Estimated time: ~15 minutes (Practice)</em></p>
 <p>Using <code>mouse_data</code>:</p>
 <ol type="1">
 <li>Fit a random-intercept model for weight by treatment.</li>
@@ -840,7 +1120,7 @@ m1  7 5619.201</code></pre>
 <li>Examine the random effects. Which litters deviate most from the mean?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -849,7 +1129,7 @@ m1  7 5619.201</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ml1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(weight_g <span class="sc">~</span> treatment <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> litter),             <span class="at">data =</span> mouse_data, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
@@ -890,12 +1170,15 @@ ml2  6 297.9186</code></pre>
 15     10  -0.1470204</code></pre>
 </div>
 </div>
+<p>Fitting <code>ml2</code> produces a convergence warning (“Model failed to converge: degenerate Hessian with 1 negative eigenvalue”)—a direct illustration of the “Over-complex random effects structures” warning above. <code>AIC(ml1, ml2)</code> gives <code>ml1</code> AIC = 295.39 (4 parameters) versus <code>ml2</code> AIC = 297.92 (6 parameters): <code>ml2</code> is <em>worse</em> despite having 2 extra parameters to play with. With only 15 litters and one binary predictor, there simply isn’t enough information to estimate a separate slope variance per litter.</p>
+<p><code>ranef(ml1)$litter</code> reproduces the same top deviations as <code>fit_litter</code> in Example 2 (litter 4 = -3.27, litter 15 = +2.50, litter 1 = +2.36, …)—as expected, since <code>ml1</code> and <code>fit_litter</code> are the same model. The conclusion: a random intercept alone is the right level of complexity for this dataset; the random slope is not supported by the data.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-3-open-ended" class="level3" data-number="15.7.3">
 <h3 data-number="15.7.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">15.7.3</span> Exercise 3 (Open-ended)</h3>
+<p><em>Estimated time: 15–30 minutes (Practice)</em></p>
 <p>Using <code>lme4::sleepstudy</code>, fit a random-intercept and then a random-slope model for reaction time as a function of days of sleep deprivation. Report:</p>
 <ol type="1">
 <li>The population-average slope for days (fixed effect).</li>
@@ -908,6 +1191,7 @@ ml2  6 297.9186</code></pre>
 </section>
 <section id="comprehension-check" class="level2" data-number="15.8">
 <h2 data-number="15.8" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">15.8</span> Comprehension Check</h2>
+<p><em>Estimated time: ~10 minutes (Self-test)</em></p>
 <ol type="1">
 <li>You have 50 mice from 10 litters (5 per litter). Your outcome is tumour volume and your predictor is drug dose. Why should you use a mixed model rather than simple regression?</li>
 <li>The ICC in your model is 0.55. What does this mean?</li>
@@ -916,7 +1200,7 @@ ml2  6 297.9186</code></pre>
 <li>You want to know whether the <em>slope</em> of albumin over time differs by treatment. How would you specify this model?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -925,7 +1209,7 @@ ml2  6 297.9186</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Mice from the same litter share genetic background and early environment, making their tumour volumes correlated within litter. Ignoring this within-litter correlation treats 50 mice as 50 independent observations, but the effective sample size is closer to 10 (litters). Simple regression will produce standard errors that are too small, inflating Type I error. A random intercept per litter accounts for this correlation.</li>
@@ -969,8 +1253,8 @@ Note
 <section id="further-reading" class="level2" data-number="15.10">
 <h2 data-number="15.10" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">15.10</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Bates-2015">Bates et al. (<a href="#ref-Bates-2015" role="doc-biblioref">2015</a>)</span> — <em>Fitting Linear Mixed-Effects Models Using lme4</em> (JSS paper, free online)</li>
-<li><span class="citation" data-cites="Zuur-2009">Zuur et al. (<a href="#ref-Zuur-2009" role="doc-biblioref">2009</a>)</span> — <em>Mixed Effects Models and Extensions in Ecology with R</em></li>
+<li><span class="citation" data-cites="Bates-2015">Bates et al. (<a href="#ref-Bates-2015" role="doc-biblioref">2015</a>)</span>: <em>Fitting Linear Mixed-Effects Models Using lme4</em> (JSS paper, free online)</li>
+<li><span class="citation" data-cites="Zuur-2009">Zuur et al. (<a href="#ref-Zuur-2009" role="doc-biblioref">2009</a>)</span>: <em>Mixed Effects Models and Extensions in Ecology with R</em></li>
 <li><code>?lmer</code>, <code>?glmer</code> in R</li>
 <li><code>broom.mixed</code> package for tidy output from mixed models</li>
 <li><code>performance::icc()</code> documentation</li>

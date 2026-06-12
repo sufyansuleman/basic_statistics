@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -433,6 +433,89 @@ window.Quarto = {
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session at a Glance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Total core time: ~145 minutes</strong> (about 2.5 hours). A natural break point is after Example 1 (the simulated one-sample MR analysis)—cover Example 2 (two-sample MR) and the exercises in a second sitting. Exercise 3 is open-ended and its time will vary.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Time</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The Key Idea: Nature’s Randomised Trial</td>
+<td>~10 min</td>
+<td>Concept</td>
+</tr>
+<tr class="even">
+<td>Background: MR as an Instrument</td>
+<td>~15 min</td>
+<td>Concept</td>
+</tr>
+<tr class="odd">
+<td>Example 1: Simulated One-Sample MR</td>
+<td>~30 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="even">
+<td>Example 2: Summary-Level Two-Sample MR</td>
+<td>~20 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="odd">
+<td>What Can Go Wrong</td>
+<td>~10 min</td>
+<td>Reading</td>
+</tr>
+<tr class="even">
+<td>Exercise 1 (Guided)</td>
+<td>~15 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Exercise 2 (Semi-guided)</td>
+<td>~15 min</td>
+<td>Practice</td>
+</tr>
+<tr class="even">
+<td>Exercise 3 (Open-ended)</td>
+<td>15–30 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Comprehension Check</td>
+<td>~10 min</td>
+<td>Self-test</td>
+</tr>
+</tbody>
+</table>
+<p>If you are short on time, focus on Example 1’s <code>naive-ols</code> and <code>wald-ratio</code> chunks: they show, side by side, how a confounded OLS estimate (0.906, more than triple the true effect) and an MR estimate (0.345, close to the true effect of 0.3) can disagree dramatically for the <em>same</em> simulated data.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code in This Session
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code chunk below is written so you can copy it into your R console (or an R script) and run it yourself, in the order shown. Where you see a “Run It Yourself” box, stop and run the code above it before reading the explanation that follows.</p>
+</div>
+</div>
 <section id="sec-mr" class="level2" data-number="18.1">
 <h2 data-number="18.1" class="anchored" data-anchor-id="sec-mr"><span class="header-section-number">18.1</span> When Do You Use This?</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -445,7 +528,23 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You want to know whether high LDL cholesterol causally increases the risk of liver disease. Observational studies are confounded — sick people may both have elevated LDL and worse liver function. An RCT randomising people to high or low LDL is impossible. Mendelian randomisation uses genetic variants that naturally raise LDL as a randomisation instrument: because genotype is assigned at conception, it cannot be confounded by lifestyle or disease state.</p>
+<p>You want to know whether high LDL cholesterol causally increases the risk of liver disease. Observational studies are confounded: sick people may both have elevated LDL and worse liver function. An RCT randomising people to high or low LDL is impossible. Mendelian randomisation uses genetic variants that naturally raise LDL as a randomisation instrument: because genotype is assigned at conception, it cannot be confounded by lifestyle or disease state.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Before going further, ask learners: if LDL and a liver enzyme (ALT) are both raised by a common factor (say, BMI), what would you expect a simple <code>lm(ALT ~ LDL)</code> regression to show, compared to the <em>true</em> causal effect of LDL on ALT? Will the OLS estimate be too high, too low, or about right? Keep this prediction in mind for Example 1, where both numbers are computed directly.</p>
+</div>
 </div>
 </div>
 </section>
@@ -462,12 +561,14 @@ Tip
 </section>
 <section id="the-key-idea-natures-randomised-trial" class="level2" data-number="18.3">
 <h2 data-number="18.3" class="anchored" data-anchor-id="the-key-idea-natures-randomised-trial"><span class="header-section-number">18.3</span> The Key Idea: Nature’s Randomised Trial</h2>
+<p><em>Estimated time: ~10 minutes (Concept)</em></p>
 <p>Randomisation is the gold standard for establishing causation because it breaks the link between who receives treatment and everything else about those people. In an RCT, you randomly assign some people to high LDL (or a drug that raises LDL) and compare their outcomes to a control group.</p>
-<p>Mendelian randomisation says: nature has already done this. Genetic variants that raise LDL are distributed essentially at random in the population (by Mendel’s laws of segregation). People who inherited more LDL-raising alleles are, on average, no different from those who inherited fewer — except for their LDL level. So we can use the genetic “dose” as a proxy for random assignment to high or low LDL.</p>
-<p>The key difference from an RCT: you cannot verify the assumptions as directly. This is why sensitivity analyses for pleiotropy are essential — see the <a href="../sessions/causal-inference.html">Causal Inference</a> session for the broader framework.</p>
+<p>Mendelian randomisation says: nature has already done this. Genetic variants that raise LDL are distributed essentially at random in the population (by Mendel’s laws of segregation). People who inherited more LDL-raising alleles are, on average, no different from those who inherited fewer, except for their LDL level. So we can use the genetic “dose” as a proxy for random assignment to high or low LDL.</p>
+<p>The key difference from an RCT: you cannot verify the assumptions as directly. This is why sensitivity analyses for pleiotropy are essential; see the <a href="../sessions/causal-inference.html">Causal Inference</a> session for the broader framework.</p>
 </section>
 <section id="background-mendelian-randomisation-as-an-instrument" class="level2" data-number="18.4">
 <h2 data-number="18.4" class="anchored" data-anchor-id="background-mendelian-randomisation-as-an-instrument"><span class="header-section-number">18.4</span> Background: Mendelian Randomisation as an Instrument</h2>
+<p><em>Estimated time: ~15 minutes (Concept)</em></p>
 <section id="the-instrumental-variable-framework" class="level3" data-number="18.4.1">
 <h3 data-number="18.4.1" class="anchored" data-anchor-id="the-instrumental-variable-framework"><span class="header-section-number">18.4.1</span> The Instrumental Variable Framework</h3>
 <p>An <strong>instrumental variable (IV)</strong> <span class="math inline">\(Z\)</span> satisfies three assumptions:</p>
@@ -513,6 +614,27 @@ Tip
 </section>
 <section id="example-1-simulated-one-sample-mr" class="level2" data-number="18.5">
 <h2 data-number="18.5" class="anchored" data-anchor-id="example-1-simulated-one-sample-mr"><span class="header-section-number">18.5</span> Example 1: Simulated One-Sample MR</h2>
+<p><em>Estimated time: ~30 minutes (Walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example has the data-generating process spelled out in code (<code>simulate-mr</code>), so the “true” causal effect (0.3) is known by construction - a luxury we never have with real data. Use this to make predictions concrete:</p>
+<ul>
+<li>Before running <code>naive-ols</code>: ask learners to predict whether the naive <code>lm(ALT ~ LDL)</code> estimate will be above, below, or equal to 0.3, and why (BMI raises both LDL and ALT).</li>
+<li>Before running <code>wald-ratio</code>: ask learners to predict whether the genetic-instrument-based estimate will be closer to 0.3 than the OLS estimate, and why genotype <code>G</code> is not affected by BMI.</li>
+</ul>
+</div>
+</div>
+</div>
 <p>We simulate a dataset where LDL causally increases liver enzyme (ALT), with confounding by BMI.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
@@ -534,6 +656,7 @@ Tip
 </div>
 <section id="naive-ols-confounded" class="level3" data-number="18.5.1">
 <h3 data-number="18.5.1" class="anchored" data-anchor-id="naive-ols-confounded"><span class="header-section-number">18.5.1</span> Naive OLS (confounded)</h3>
+<p><em>Estimated time: ~5 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OLS is biased because BMI confounds LDL-ALT association</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fit_ols <span class="ot">&lt;-</span> <span class="fu">lm</span>(ALT <span class="sc">~</span> LDL, <span class="at">data =</span> sim)</span>
@@ -545,10 +668,58 @@ Tip
 1 LDL      0.906    0.0155      58.6       0    0.876     0.937</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should see (rounded):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 14%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 13%">
+<col style="width: 14%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>term</th>
+<th>estimate</th>
+<th>std.error</th>
+<th>statistic</th>
+<th>p.value</th>
+<th>conf.low</th>
+<th>conf.high</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LDL</td>
+<td>0.906</td>
+<td>0.0155</td>
+<td>58.6</td>
+<td>&lt;0.001</td>
+<td>0.876</td>
+<td>0.937</td>
+</tr>
+</tbody>
+</table>
+<p>The naive OLS estimate (0.906) is roughly <strong>three times</strong> the true causal effect of 0.3 that we built into the simulation. The confidence interval (0.876, 0.937) does not even come close to containing 0.3. This is exactly the bias predicted in the Teacher Note: BMI raises both LDL and ALT, so part of the LDL-ALT association in this regression reflects their shared dependence on BMI, not a direct causal effect of LDL on ALT.</p>
+</div>
+</div>
 <p>The OLS estimate is inflated because BMI raises both LDL and ALT.</p>
 </section>
 <section id="wald-ratio-mr" class="level3" data-number="18.5.2">
 <h3 data-number="18.5.2" class="anchored" data-anchor-id="wald-ratio-mr"><span class="header-section-number">18.5.2</span> Wald Ratio MR</h3>
+<p><em>Estimated time: ~10 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First stage: SNP - LDL (relevance check)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>fit_z_x <span class="ot">&lt;-</span> <span class="fu">lm</span>(LDL <span class="sc">~</span> G, <span class="at">data =</span> sim)</span>
@@ -580,54 +751,107 @@ Tip
 <pre><code>True causal effect: 0.3</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should see:</p>
+<pre><code>First-stage F-statistic: 291.3
+Wald ratio MR estimate: 0.345 | SE: 0.085 | 95% CI: ( 0.177 , 0.512 )
+True causal effect: 0.3</code></pre>
+<p>Two things to notice:</p>
+<ol type="1">
+<li><strong>The instrument is strong.</strong> The first-stage F-statistic (291.3) is far above the rule-of-thumb threshold of 10, so the relevance assumption is well satisfied here - <code>G</code> is a good predictor of <code>LDL</code>.</li>
+<li><strong>The MR estimate recovers the true effect.</strong> 0.345 (95% CI 0.177 to 0.512) is close to the true causal effect of 0.3, and the CI comfortably contains it - unlike the OLS estimate of 0.906. Because <code>G</code> is assigned at conception (by Mendel’s laws) and is not associated with <code>BMI</code> in this simulation, the SNP-outcome association is not contaminated by the BMI confounding that biased the OLS estimate.</li>
+</ol>
+</div>
+</div>
 </section>
 <section id="two-stage-least-squares-2sls" class="level3" data-number="18.5.3">
 <h3 data-number="18.5.3" class="anchored" data-anchor-id="two-stage-least-squares-2sls"><span class="header-section-number">18.5.3</span> Two-Stage Least Squares (2SLS)</h3>
+<p><em>Estimated time: ~5 minutes (Walkthrough)</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fit_iv <span class="ot">&lt;-</span> <span class="fu">ivreg</span>(ALT <span class="sc">~</span> LDL <span class="sc">|</span> G, <span class="at">data =</span> sim)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_iv, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"LDL"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fit_iv <span class="ot">&lt;-</span> <span class="fu">ivreg</span>(ALT <span class="sc">~</span> LDL <span class="sc">|</span> G, <span class="at">data =</span> sim)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit_iv, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"LDL"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This chunk only runs if the <code>AER</code> package is installed (it is skipped otherwise, with a message from the setup chunk). If you have <code>AER</code> available, run it and compare the <code>LDL</code> row to the Wald ratio above: with a single instrument, 2SLS is mathematically equivalent to the Wald ratio, so you should get the same estimate (≈0.345) and a very similar standard error.</p>
+</div>
 </div>
 <p>2SLS is the multi-instrument generalisation of the Wald ratio. The result should match the Wald ratio when only one instrument is used.</p>
 </section>
 </section>
 <section id="example-2-summary-level-two-sample-mr" class="level2" data-number="18.6">
 <h2 data-number="18.6" class="anchored" data-anchor-id="example-2-summary-level-two-sample-mr"><span class="header-section-number">18.6</span> Example 2: Summary-Level Two-Sample MR</h2>
+<p><em>Estimated time: ~20 minutes (Walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <code>two-sample-mr</code> chunk below is marked <code>eval: false</code> because it queries the live MR-Base/IEU OpenGWAS database over the internet and requires the <code>TwoSampleMR</code> package. It will not run as part of this session, but the code is realistic - if learners have internet access and the package installed, they can run it themselves outside the session to fetch real LDL/CAD summary statistics. The <code>pleiotropy-sim</code> chunk that follows is a self-contained simulation that <em>does</em> run, and illustrates the kind of scatter plot the <code>TwoSampleMR</code> package would produce from real data.</p>
+</div>
+</div>
+</div>
 <p>Two-sample MR uses GWAS summary statistics from two independent datasets: - <strong>Exposure GWAS:</strong> SNP-LDL associations (e.g., from UK Biobank) - <strong>Outcome GWAS:</strong> SNP-liver disease associations (e.g., FinnGen)</p>
 <p>Here we use the <code>TwoSampleMR</code> package to query the MR-Base database.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TwoSampleMR)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: LDL - coronary artery disease (publicly available data)</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>exposure <span class="ot">&lt;-</span> <span class="fu">extract_instruments</span>(<span class="st">"ieu-a-300"</span>)     <span class="co"># LDL from GLGC GWAS</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>outcome  <span class="ot">&lt;-</span> <span class="fu">extract_outcome_data</span>(</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">snps    =</span> exposure<span class="sc">$</span>SNP,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcomes =</span> <span class="st">"ieu-a-7"</span>                           <span class="co"># CAD from CARDIoGRAM</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">harmonise_data</span>(exposure, outcome)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Primary MR methods</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">mr</span>(dat)</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>res <span class="sc">%&gt;%</span> <span class="fu">select</span>(method, b, se, pval, lo_ci, up_ci)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TwoSampleMR)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: LDL - coronary artery disease (publicly available data)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>exposure <span class="ot">&lt;-</span> <span class="fu">extract_instruments</span>(<span class="st">"ieu-a-300"</span>)     <span class="co"># LDL from GLGC GWAS</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>outcome  <span class="ot">&lt;-</span> <span class="fu">extract_outcome_data</span>(</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">snps    =</span> exposure<span class="sc">$</span>SNP,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcomes =</span> <span class="st">"ieu-a-7"</span>                           <span class="co"># CAD from CARDIoGRAM</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">harmonise_data</span>(exposure, outcome)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Primary MR methods</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">mr</span>(dat)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>res <span class="sc">%&gt;%</span> <span class="fu">select</span>(method, b, se, pval, lo_ci, up_ci)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The output reports: - <strong>IVW (inverse-variance weighted):</strong> Main estimate — assumes no directional pleiotropy - <strong>MR-Egger:</strong> Allows for pleiotropy; the intercept tests for it - <strong>Weighted median:</strong> Consistent estimate if &gt;50% of instruments are valid - <strong>MR-PRESSO:</strong> Detects and corrects for outlier pleiotropy</p>
+<p>The output reports: - <strong>IVW (inverse-variance weighted):</strong> Main estimate (assumes no directional pleiotropy) - <strong>MR-Egger:</strong> Allows for pleiotropy; the intercept tests for it - <strong>Weighted median:</strong> Consistent estimate if &gt;50% of instruments are valid - <strong>MR-PRESSO:</strong> Detects and corrects for outlier pleiotropy</p>
 <section id="sensitivity-analysis-pleiotropy" class="level3" data-number="18.6.1">
 <h3 data-number="18.6.1" class="anchored" data-anchor-id="sensitivity-analysis-pleiotropy"><span class="header-section-number">18.6.1</span> Sensitivity Analysis: Pleiotropy</h3>
+<p><em>Estimated time: ~10 minutes (Walkthrough)</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulated scatter plot: SNP effects on exposure vs outcome</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>n_snps  <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>beta_x  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_snps, <span class="fl">0.05</span>, <span class="fl">0.02</span>)        <span class="co"># SNP-LDL effects</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>beta_y  <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="sc">*</span> beta_x <span class="sc">+</span> <span class="fu">rnorm</span>(n_snps, <span class="dv">0</span>, <span class="fl">0.008</span>)  <span class="co"># SNP-outcome (no pleiotropy)</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(beta_x, beta_y) <span class="sc">%&gt;%</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> beta_x, <span class="at">y =</span> beta_y)) <span class="sc">+</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"MR scatter plot: SNP effects on exposure vs outcome"</span>,</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"SNP--Exposure (LDL) effect"</span>,</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"SNP--Outcome (ALT) effect"</span>) <span class="sc">+</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulated scatter plot: SNP effects on exposure vs outcome</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>n_snps  <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>beta_x  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_snps, <span class="fl">0.05</span>, <span class="fl">0.02</span>)        <span class="co"># SNP-LDL effects</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>beta_y  <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="sc">*</span> beta_x <span class="sc">+</span> <span class="fu">rnorm</span>(n_snps, <span class="dv">0</span>, <span class="fl">0.008</span>)  <span class="co"># SNP-outcome (no pleiotropy)</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(beta_x, beta_y) <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> beta_x, <span class="at">y =</span> beta_y)) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">colour =</span> <span class="st">"tomato"</span>) <span class="sc">+</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"MR scatter plot: SNP effects on exposure vs outcome"</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"SNP--Exposure (LDL) effect"</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"SNP--Outcome (ALT) effect"</span>) <span class="sc">+</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -637,6 +861,20 @@ Tip
 <p><img src="mendelian-randomization_files/figure-html/pleiotropy-sim-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The plot shows 20 points (one per simulated SNP), with SNP-exposure effects (<code>beta_x</code>) on the x-axis and SNP-outcome effects (<code>beta_y</code>) on the y-axis. The points trend upward from bottom-left to top-right, and the fitted regression line (red) passes close to the origin - near <code>beta_x = 0</code>, the fitted <code>beta_y</code> is close to 0.</p>
+<p>This is what an MR-Egger plot looks like when there is <strong>no directional pleiotropy</strong>: the line’s slope (≈0.3, matching how <code>beta_y</code> was simulated from <code>beta_x</code>) represents the causal effect estimate, and an intercept close to zero means the SNPs’ effects on the outcome are well explained by their effects on the exposure alone - none of them appear to have a “shortcut” direct effect on the outcome. Compare this to Exercise 2, where a SNP with a genuine direct effect on the outcome (horizontal pleiotropy) biases the corresponding estimate.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -649,7 +887,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>MR-Base (IEU Open GWAS):</strong> <code>TwoSampleMR::available_outcomes()</code> — thousands of GWAS summary datasets freely accessible via the <code>TwoSampleMR</code> package.</p>
+<p><strong>MR-Base (IEU Open GWAS):</strong> <code>TwoSampleMR::available_outcomes()</code>: thousands of GWAS summary datasets freely accessible via the <code>TwoSampleMR</code> package.</p>
 <p><strong>UK Biobank GWAS:</strong> Downloadable summary statistics for thousands of traits at ukbiobank.ac.uk.</p>
 <p><strong>FinnGen:</strong> European biobank GWAS summary data at finngen.fi.</p>
 <p><strong>PhenoScanner:</strong> Query SNP associations across thousands of traits at phenoscanner.medschl.cam.ac.uk.</p>
@@ -665,6 +903,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><em>Estimated time: ~10 minutes (Reading)</em></p>
 <p><strong>Weak instruments (F &lt; 10).</strong> When the SNP explains little variance in the exposure, the Wald ratio becomes unstable. Weak instruments bias 2SLS toward the OLS estimate in one-sample MR, and toward the null in two-sample MR. Use multiple SNPs and check F-statistics.</p>
 <p><strong>Horizontal pleiotropy.</strong> The exclusion restriction is violated if the SNP affects the outcome through pathways other than the exposure. MR-Egger, weighted median, and MR-PRESSO test for and partly correct this, but they are not definitive. Biological understanding of the genetic variant is essential.</p>
 <p><strong>Winner’s curse in instrument selection.</strong> Using the same dataset to select instruments and to estimate the causal effect inflates the apparent SNP-exposure association. Always use independent datasets for instrument selection and effect estimation (two-sample design).</p>
@@ -675,8 +914,25 @@ Tip
 </section>
 <section id="exercises" class="level2" data-number="18.7">
 <h2 data-number="18.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">18.7</span> Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Both exercises take the strong instrument from Example 1 (F = 291.3, MR estimate close to the truth) and break one of the IV assumptions on purpose. Exercise 1 breaks <strong>relevance</strong> (a much weaker SNP-exposure association); Exercise 2 breaks the <strong>exclusion restriction</strong> (the SNP also has a direct effect on the outcome). Ask learners, before they run either solution, which IV assumption is being violated and what direction of bias they expect.</p>
+</div>
+</div>
+</div>
 <section id="exercise-1-guided-first-stage-f-statistic" class="level3" data-number="18.7.1">
 <h3 data-number="18.7.1" class="anchored" data-anchor-id="exercise-1-guided-first-stage-f-statistic"><span class="header-section-number">18.7.1</span> Exercise 1 (Guided): First-Stage F-Statistic</h3>
+<p><em>Estimated time: ~15 minutes (Practice)</em></p>
 <p>Using the simulated <code>sim</code> dataset:</p>
 <ol type="1">
 <li>Regress <code>LDL ~ G</code> and compute the F-statistic for the instrument.</li>
@@ -684,7 +940,7 @@ Tip
 <li>Now simulate a weak instrument: replace <code>G</code> with <code>G_weak &lt;- rbinom(n, 2, 0.05)</code>. Recompute the F-statistic. What changes?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -693,30 +949,35 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LDL <span class="sc">~</span> G, <span class="at">data =</span> sim)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>f    <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit1)<span class="sc">$</span>fstatistic[<span class="st">"value"</span>]</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"F-statistic:"</span>, <span class="fu">round</span>(f, <span class="dv">1</span>), <span class="st">"--- strong if &gt; 10</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LDL <span class="sc">~</span> G, <span class="at">data =</span> sim)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>f    <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit1)<span class="sc">$</span>fstatistic[<span class="st">"value"</span>]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"F-statistic:"</span>, <span class="fu">round</span>(f, <span class="dv">1</span>), <span class="st">"--- strong if &gt; 10</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>F-statistic: 291.3 --- strong if &gt; 10</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weak instrument</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>G_weak  <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">nrow</span>(sim), <span class="dv">2</span>, <span class="fl">0.05</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>LDL_alt <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="sc">*</span> G_weak <span class="sc">+</span> <span class="fl">0.4</span> <span class="sc">*</span> sim<span class="sc">$</span>BMI <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(sim), <span class="dv">0</span>, <span class="fl">1.5</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>fit_weak <span class="ot">&lt;-</span> <span class="fu">lm</span>(LDL_alt <span class="sc">~</span> G_weak)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Weak instrument F:"</span>, <span class="fu">round</span>(<span class="fu">summary</span>(fit_weak)<span class="sc">$</span>fstatistic[<span class="st">"value"</span>], <span class="dv">1</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weak instrument</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>G_weak  <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">nrow</span>(sim), <span class="dv">2</span>, <span class="fl">0.05</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>LDL_alt <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="sc">*</span> G_weak <span class="sc">+</span> <span class="fl">0.4</span> <span class="sc">*</span> sim<span class="sc">$</span>BMI <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(sim), <span class="dv">0</span>, <span class="fl">1.5</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>fit_weak <span class="ot">&lt;-</span> <span class="fu">lm</span>(LDL_alt <span class="sc">~</span> G_weak)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Weak instrument F:"</span>, <span class="fu">round</span>(<span class="fu">summary</span>(fit_weak)<span class="sc">$</span>fstatistic[<span class="st">"value"</span>], <span class="dv">1</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Weak instrument F: 0.2 </code></pre>
 </div>
 </div>
+<p>You should see:</p>
+<pre><code>F-statistic: 291.3 --- strong if &gt; 10
+Weak instrument F: 0.2</code></pre>
+<p>The original instrument is comfortably strong (F = 291.3 ≫ 10). The weak instrument - constructed with a much rarer effect allele (allele frequency 0.05 instead of 0.3) and a smaller per-allele effect (0.1 instead of 0.8) - has an F-statistic of just 0.2, far below the threshold. With an instrument this weak, the Wald ratio’s denominator (<span class="math inline">\(\hat{\beta}_{ZX}\)</span>) is estimated so imprecisely that the resulting MR estimate would be highly unstable, with a huge standard error, and in one-sample MR would be biased toward the (confounded) OLS estimate.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-2-semi-guided-horizontal-pleiotropy-check" class="level3" data-number="18.7.2">
 <h3 data-number="18.7.2" class="anchored" data-anchor-id="exercise-2-semi-guided-horizontal-pleiotropy-check"><span class="header-section-number">18.7.2</span> Exercise 2 (Semi-guided): Horizontal Pleiotropy Check</h3>
+<p><em>Estimated time: ~15 minutes (Practice)</em></p>
 <p>Extend the simulation to add horizontal pleiotropy: the SNP also directly affects ALT (independent of LDL).</p>
 <ol type="1">
 <li>Simulate <code>ALT_pleiotropic &lt;- 0.3 * LDL + 0.5 * BMI + 0.4 * G + rnorm(n, 0, 2)</code> (direct SNP effect = 0.4).</li>
@@ -724,7 +985,7 @@ Tip
 <li>Interpret: what would this mean in a real MR study?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -733,31 +994,37 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ALT_p <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="sc">*</span> sim<span class="sc">$</span>LDL <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> sim<span class="sc">$</span>BMI <span class="sc">+</span> <span class="fl">0.4</span> <span class="sc">*</span> sim<span class="sc">$</span>G <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(sim), <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># SNP-outcome (includes direct path)</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>beta_zy_p <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(ALT_p <span class="sc">~</span> sim<span class="sc">$</span>G))[<span class="st">"sim$G"</span>]</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>wald_p    <span class="ot">&lt;-</span> beta_zy_p <span class="sc">/</span> beta_zx</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"True causal effect: 0.3</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ALT_p <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="sc">*</span> sim<span class="sc">$</span>LDL <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> sim<span class="sc">$</span>BMI <span class="sc">+</span> <span class="fl">0.4</span> <span class="sc">*</span> sim<span class="sc">$</span>G <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(sim), <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># SNP-outcome (includes direct path)</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>beta_zy_p <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(ALT_p <span class="sc">~</span> sim<span class="sc">$</span>G))[<span class="st">"sim$G"</span>]</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>wald_p    <span class="ot">&lt;-</span> beta_zy_p <span class="sc">/</span> beta_zx</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"True causal effect: 0.3</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>True causal effect: 0.3</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Wald ratio with pleiotropy:"</span>, <span class="fu">round</span>(wald_p, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Wald ratio with pleiotropy:"</span>, <span class="fu">round</span>(wald_p, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Wald ratio with pleiotropy: 0.773 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Biased upward because SNP -&gt; ALT directly inflates beta_zy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Biased upward because SNP -&gt; ALT directly inflates beta_zy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>You should see:</p>
+<pre><code>True causal effect: 0.3
+Wald ratio with pleiotropy: 0.773</code></pre>
+<p>Adding a direct SNP-to-ALT effect of 0.4 (independent of LDL) more than doubles the MR estimate, from a true effect of 0.3 to an apparent 0.773. This is <strong>horizontal pleiotropy</strong>: the exclusion restriction is violated because the SNP affects the outcome through a pathway other than the exposure (LDL). The Wald ratio attributes the <em>entire</em> SNP-outcome association to the SNP-LDL pathway, so the direct effect gets folded into the causal estimate as bias.</p>
+<p>In a real MR study, you would not know the true effect or the size of any direct pathway. This is exactly why sensitivity analyses such as MR-Egger (which can detect a non-zero intercept, as in Comprehension Check Q3) and the weighted median are essential: they provide a way to detect and partially correct for this kind of bias when it cannot be ruled out by design.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-3-open-ended" class="level3" data-number="18.7.3">
 <h3 data-number="18.7.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">18.7.3</span> Exercise 3 (Open-ended)</h3>
+<p><em>Estimated time: 15–30 minutes (Practice)</em></p>
 <p>Identify a trait relevant to your research that has publicly available GWAS summary data (check MR-Base or GWAS Catalog). Design an MR study:</p>
 <ol type="1">
 <li>State your causal hypothesis (exposure → outcome).</li>
@@ -768,6 +1035,7 @@ Tip
 </section>
 <section id="comprehension-check" class="level2" data-number="18.8">
 <h2 data-number="18.8" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">18.8</span> Comprehension Check</h2>
+<p><em>Estimated time: ~10 minutes (Self-test)</em></p>
 <ol type="1">
 <li>Why does Mendelian randomisation approximate an RCT?</li>
 <li>The F-statistic for your genetic instrument is 7.2. What is the concern, and what should you do?</li>
@@ -776,7 +1044,7 @@ Tip
 <li>Your exposure and outcome GWAS come from the same cohort. What problem does this introduce?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -785,7 +1053,7 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Genetic variants are assigned at conception by the random process of meiosis, effectively a natural randomisation that is independent of most environmental confounders, reverse causation (genes precede disease), and confounders that develop over the life course. This mimics the randomised assignment in an RCT, though only for the specific exposure pathway affected by those variants.</li>
@@ -830,10 +1098,10 @@ Note
 <section id="further-reading" class="level2" data-number="18.10">
 <h2 data-number="18.10" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">18.10</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Davey-Smith-2003">Smith and Ebrahim (<a href="#ref-Davey-Smith-2003" role="doc-biblioref">2003</a>)</span> — <em>Mendelian randomization: can genetic epidemiology contribute to understanding environmental determinants of disease?</em> (IJE - the original MR paper)</li>
-<li><span class="citation" data-cites="Bowden-2015">Bowden, Smith, and Burgess (<a href="#ref-Bowden-2015" role="doc-biblioref">2015</a>)</span> — <em>Mendelian Randomization with invalid instruments</em> - MR-Egger paper</li>
+<li><span class="citation" data-cites="Davey-Smith-2003">Smith and Ebrahim (<a href="#ref-Davey-Smith-2003" role="doc-biblioref">2003</a>)</span>: <em>Mendelian randomization: can genetic epidemiology contribute to understanding environmental determinants of disease?</em> (IJE - the original MR paper)</li>
+<li><span class="citation" data-cites="Bowden-2015">Bowden, Smith, and Burgess (<a href="#ref-Bowden-2015" role="doc-biblioref">2015</a>)</span>: <em>Mendelian Randomization with invalid instruments</em> - MR-Egger paper</li>
 <li><code>TwoSampleMR</code> package vignette (MR-Base documentation)</li>
-<li><span class="citation" data-cites="Hemani-2018">Hemani et al. (<a href="#ref-Hemani-2018" role="doc-biblioref">2018</a>)</span> — <em>The MR-Base platform supports systematic causal inference across the human phenome</em> (eLife)</li>
+<li><span class="citation" data-cites="Hemani-2018">Hemani et al. (<a href="#ref-Hemani-2018" role="doc-biblioref">2018</a>)</span>: <em>The MR-Base platform supports systematic causal inference across the human phenome</em> (eLife)</li>
 </ul>
 
 

@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -430,6 +430,89 @@ window.Quarto = {
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session at a Glance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Total core time: ~160 minutes</strong> (about 2.5–3 hours). If you need to split this across sessions, a natural break point is after the complete-case analysis (end of “Complete-Case Analysis (Baseline)”)—cover the multiple-imputation comparison and Example 2 in a second sitting. Exercise 3 is open-ended and its time will vary with your own data.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Time</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The Key Idea: Three Mechanisms</td>
+<td>~10 min</td>
+<td>Concept</td>
+</tr>
+<tr class="even">
+<td>Background: Why Missing Data Matter</td>
+<td>~15 min</td>
+<td>Concept</td>
+</tr>
+<tr class="odd">
+<td>Example 1: Clinical Data (PBC)</td>
+<td>~50 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="even">
+<td>Example 2: Penguins Data</td>
+<td>~15 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="odd">
+<td>What Can Go Wrong</td>
+<td>~10 min</td>
+<td>Reading</td>
+</tr>
+<tr class="even">
+<td>Exercise 1 (Guided)</td>
+<td>~15 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Exercise 2 (Semi-guided)</td>
+<td>~20 min</td>
+<td>Practice</td>
+</tr>
+<tr class="even">
+<td>Exercise 3 (Open-ended)</td>
+<td>15–30 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Comprehension Check</td>
+<td>~10 min</td>
+<td>Self-test</td>
+</tr>
+</tbody>
+</table>
+<p>If you are short on time, the single most important result in this session is the <code>compare</code> table near the end of Example 1: it shows directly how much complete-case analysis can diverge from a properly imputed analysis.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code in This Session
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code chunk below is written so you can copy it into your R console (or an R script) and run it yourself, in the order shown. Where you see a “Run It Yourself” box, stop and run the code above it before reading the explanation that follows.</p>
+</div>
+</div>
 <section id="sec-imputation" class="level2" data-number="14.1">
 <h2 data-number="14.1" class="anchored" data-anchor-id="sec-imputation"><span class="header-section-number">14.1</span> When Do You Use This?</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -443,6 +526,22 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>Your dataset has missing values. Simply dropping incomplete cases loses statistical power, and if data are not missing at random, dropping them biases your estimates in ways that are difficult to detect. Missing data methods let you use all available information and make your assumptions about missingness explicit. For example: if sicker patients are more likely to have missing lab values, a complete-case analysis systematically excludes the most severely ill and distorts every downstream estimate.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Before running anything, ask learners to predict: in the PBC dataset, which lab values do they expect to have the most missingness, and why? (Hint: this is a study that recruited patients over many years, and some tests were added partway through the study.) The real answer—<code>trig</code> and <code>chol</code> are each missing for about a third of patients—often surprises learners who expect missingness to be rare. This sets up the “Exploring Missingness” section nicely.</p>
+</div>
 </div>
 </div>
 </section>
@@ -459,12 +558,14 @@ Tip
 </section>
 <section id="the-key-idea-three-mechanisms-three-consequences" class="level2" data-number="14.3">
 <h2 data-number="14.3" class="anchored" data-anchor-id="the-key-idea-three-mechanisms-three-consequences"><span class="header-section-number">14.3</span> The Key Idea: Three Mechanisms, Three Consequences</h2>
+<p><em>Estimated time: ~10 minutes (Concept)</em></p>
 <p>The most important concept in missing data is <em>why</em> values are missing. The answer determines what you can validly do about it.</p>
-<p>Think of it this way: imagine you are measuring blood pressure. Some readings are missing because the machine broke randomly — that is truly random, unrelated to anything else. Some are missing because elderly patients were too tired to attend follow-up (missingness depends on their age, which you can observe). And some are missing because patients with dangerously high pressure were admitted to hospital before the reading (missingness depends on the very thing you are trying to measure, which you cannot observe).</p>
+<p>Think of it this way: imagine you are measuring blood pressure. Some readings are missing because the machine broke randomly: that is truly random, unrelated to anything else. Some are missing because elderly patients were too tired to attend follow-up (missingness depends on their age, which you can observe). And some are missing because patients with dangerously high pressure were admitted to hospital before the reading (missingness depends on the very thing you are trying to measure, which you cannot observe).</p>
 <p>Those three scenarios have completely different consequences for your analysis.</p>
 </section>
 <section id="background-why-missing-data-matter" class="level2" data-number="14.4">
 <h2 data-number="14.4" class="anchored" data-anchor-id="background-why-missing-data-matter"><span class="header-section-number">14.4</span> Background: Why Missing Data Matter</h2>
+<p><em>Estimated time: ~15 minutes (Concept)</em></p>
 <section id="three-mechanisms" class="level3" data-number="14.4.1">
 <h3 data-number="14.4.1" class="anchored" data-anchor-id="three-mechanisms"><span class="header-section-number">14.4.1</span> Three Mechanisms</h3>
 <table class="caption-top table">
@@ -482,23 +583,23 @@ Tip
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>MCAR</strong> — Missing Completely At Random</td>
+<td><strong>MCAR</strong>: Missing Completely At Random</td>
 <td>Probability of missing is unrelated to any variable</td>
 <td>Complete-case analysis is unbiased</td>
 </tr>
 <tr class="even">
-<td><strong>MAR</strong> — Missing At Random</td>
+<td><strong>MAR</strong>: Missing At Random</td>
 <td>Probability of missing depends on <em>observed</em> variables, not on the missing value itself</td>
 <td>Multiple imputation is valid; complete-case is biased</td>
 </tr>
 <tr class="odd">
-<td><strong>MNAR</strong> — Missing Not At Random</td>
+<td><strong>MNAR</strong>: Missing Not At Random</td>
 <td>Probability of missing depends on the <em>unobserved</em> missing value itself</td>
 <td>Neither complete-case nor simple imputation is valid; sensitivity analysis required</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Example:</strong> Patients with high bilirubin are less likely to have platelet counts recorded (perhaps because they were too ill for the test). Missingness depends on observed bilirubin — MAR. Imputation conditioned on bilirubin will recover unbiased estimates.</p>
+<p><strong>Example:</strong> Patients with high bilirubin are less likely to have platelet counts recorded (perhaps because they were too ill for the test). Missingness depends on observed bilirubin (MAR). Imputation conditioned on bilirubin will recover unbiased estimates.</p>
 </section>
 <section id="why-not-just-drop-missing-rows" class="level3" data-number="14.4.2">
 <h3 data-number="14.4.2" class="anchored" data-anchor-id="why-not-just-drop-missing-rows"><span class="header-section-number">14.4.2</span> Why Not Just Drop Missing Rows?</h3>
@@ -506,7 +607,7 @@ Tip
 <ul>
 <li>Reduces sample size and loses statistical power</li>
 <li>Is biased under MAR or MNAR</li>
-<li>Implicitly assumes MCAR — an assumption you should test, not ignore</li>
+<li>Implicitly assumes MCAR: an assumption you should test, not ignore</li>
 </ul>
 </section>
 <section id="multiple-imputation-overview" class="level3" data-number="14.4.3">
@@ -516,8 +617,26 @@ Tip
 </section>
 <section id="example-1-clinical-data-pbc" class="level2" data-number="14.5">
 <h2 data-number="14.5" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">14.5</span> Example 1: Clinical Data (PBC)</h2>
+<p><em>Estimated time: ~50 minutes (Walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example has five natural stopping points: (1) the missingness table, (2) the bilirubin-by-missingness plot, (3) the complete-case fit, (4) the <code>mice</code> trace plots and pooled fit, and (5) the side-by-side comparison table. The comparison table is the payoff for the whole example—make sure learners reach it, even if you need to move quickly through earlier sections. Little’s MCAR test requires the <code>naniar</code> package, which is not installed in every environment; if it is not available, skip straight from the exploratory plot to the complete-case analysis.</p>
+</div>
+</div>
+</div>
 <section id="exploring-missingness" class="level3" data-number="14.5.1">
 <h3 data-number="14.5.1" class="anchored" data-anchor-id="exploring-missingness"><span class="header-section-number">14.5.1</span> Exploring Missingness</h3>
+<p><em>Estimated time: ~15 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
@@ -546,8 +665,38 @@ Tip
 12 protime       0.00478</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should see a 12-row table sorted by <code>prop_missing</code>, with <code>trig</code> (0.325) and <code>chol</code> (0.321) at the top—about a third of patients are missing these. <code>copper</code>, <code>trt</code>, <code>ascites</code>, <code>hepato</code>, <code>spiders</code>, <code>alk_phos</code>, and <code>ast</code> are all missing for about a quarter (0.254) of patients, <code>platelet</code> for 2.6%, <code>stage</code> for 1.4%, and <code>protime</code> for less than 0.5%.</p>
+<p>Before reading on: does a third of patients missing <code>trig</code> and <code>chol</code> surprise you? What might explain such a high rate for these two variables specifically, when <code>albumin</code> and <code>bili</code> have no missing values at all?</p>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_miss</span>(pbc <span class="sc">%&gt;%</span> <span class="fu">select</span>(albumin, bili, platelet, protime, chol, trig, copper))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <code>vis_miss()</code> plot above requires the <code>naniar</code> package. If <code>naniar</code> is not installed, this chunk produces no output at all—install it with <code>install.packages("naniar")</code> to see a heatmap of missingness across every variable and observation at once. The histogram in the next chunk (<code>miss-gg</code>) works without any extra packages and tells a similar story for one variable at a time.</p>
+</div>
+</div>
 </div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
@@ -567,17 +716,49 @@ Tip
 </div>
 </div>
 </div>
-<p>If the distributions differ, missingness is related to bilirubin — consistent with MAR rather than MCAR.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should see a histogram of <code>log(bili)</code> with two overlapping bars at each bin: blue for patients with an observed platelet count, and orange/red for patients with a missing platelet count. The red bars appear scattered across most of the range of <code>log(bili)</code>, from about -1 to 2.5, rather than clustering at one end.</p>
+<p>This is a useful preview: if missingness were strongly tied to bilirubin, you’d expect the red bars to cluster at high (or low) values of <code>log(bili)</code>. They don’t obviously do so here—keep this in mind for Exercise 1, which tests this relationship formally.</p>
+</div>
+</div>
+<p>If the distributions differ, missingness is related to bilirubin, consistent with MAR rather than MCAR.</p>
 </section>
 <section id="littles-mcar-test" class="level3" data-number="14.5.2">
 <h3 data-number="14.5.2" class="anchored" data-anchor-id="littles-mcar-test"><span class="header-section-number">14.5.2</span> Little’s MCAR Test</h3>
+<p><em>Estimated time: ~5 minutes (Reading)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcar_test</span>(pbc <span class="sc">%&gt;%</span> <span class="fu">select</span>(albumin, bili, platelet, protime, chol))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>A significant p-value (p &lt; 0.05) means the data are not MCAR. In that case, complete-case analysis is biased and multiple imputation is necessary.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>mcar_test()</code> is part of the <code>naniar</code> package and, like <code>vis_miss()</code> above, produces no output if <code>naniar</code> is not installed. Where it is available, it returns a chi-squared statistic and p-value: a significant result (p &lt; 0.05) is evidence against MCAR. Don’t over-interpret a non-significant result as proof of MCAR, though—the test has limited power and cannot detect MNAR at all. The complete-case vs.&nbsp;multiple-imputation comparison later in this example is a more practical check: if the two sets of estimates differ substantially, that is direct evidence that complete-case analysis is doing something different from MI.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="complete-case-analysis-baseline" class="level3" data-number="14.5.3">
 <h3 data-number="14.5.3" class="anchored" data-anchor-id="complete-case-analysis-baseline"><span class="header-section-number">14.5.3</span> Complete-Case Analysis (Baseline)</h3>
+<p><em>Estimated time: ~10 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pbc_cc <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(platelet), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(stage)) <span class="sc">%&gt;%</span></span>
@@ -605,9 +786,28 @@ Tip
 6 stageStage 4 -0.300    -0.489     -0.112    1.88e-  3</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should see:</p>
+<ul>
+<li><strong>Complete cases: 399 of 418</strong>—19 patients (4.5%) are dropped entirely, even though most of them have only one or two missing values.</li>
+<li><code>fit_cc</code> coefficients: <code>log_bili</code> = -0.106 (95% CI -0.144 to -0.067, p &lt; 0.001); <code>platelet</code> = 0.000385 (95% CI -0.0000237 to 0.000793, p = 0.065, not significant); <code>stageStage 4</code> = -0.300 (95% CI -0.489 to -0.112, p = 0.002); <code>stageStage 2</code> and <code>stageStage 3</code> are both non-significant (p = 0.351 and p = 0.412).</li>
+</ul>
+<p>So in the complete-case analysis, only <code>log_bili</code> and <code>stage 4</code> are clearly associated with albumin. Keep these numbers in mind—you’ll compare them directly to the multiply-imputed estimates shortly.</p>
+</div>
+</div>
 </section>
 <section id="multiple-imputation-with-mice" class="level3" data-number="14.5.4">
 <h3 data-number="14.5.4" class="anchored" data-anchor-id="multiple-imputation-with-mice"><span class="header-section-number">14.5.4</span> Multiple Imputation with <code>mice</code></h3>
+<p><em>Estimated time: ~15 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pbc_imp <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(albumin, bili, platelet, protime, chol, trig, copper, stage, age, sex) <span class="sc">%&gt;%</span></span>
@@ -631,7 +831,21 @@ Tip
 </div>
 </div>
 </div>
-<p>The trace plots should mix well (lines criss-crossing rather than staying in one area) — this indicates the imputation algorithm has converged.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should see a 2x2 grid of trace plots: mean and standard deviation of the imputed values for <code>platelet</code> (top row) and <code>chol</code> (bottom row), across 5 iterations, with one line per imputed dataset (<code>m = 10</code> lines).</p>
+<p>Good convergence looks like the lines criss-crossing back and forth without any overall upward or downward drift—a “fat hairball” rather than lines that diverge or trend in one direction. The plots above show exactly this: the lines for both variables wander up and down across iterations but show no systematic trend, which is what you want to see.</p>
+</div>
+</div>
+<p>The trace plots should mix well (lines criss-crossing rather than staying in one area): this indicates the imputation algorithm has converged.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fit_mi <span class="ot">&lt;-</span> <span class="fu">with</span>(imp, <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> platelet <span class="sc">+</span> stage))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pooled  <span class="ot">&lt;-</span> <span class="fu">pool</span>(fit_mi)</span>
@@ -647,9 +861,24 @@ Tip
 6      stage4 -0.2603963469 -4.455976e-01 -0.0751950927  5.983364e-03</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. The pooled multiple-imputation estimates are: <code>log_bili</code> = -0.111 (95% CI -0.149 to -0.073, p &lt; 0.001); <code>platelet</code> = 0.000338 (95% CI -0.0000586 to 0.000735, p = 0.095, not significant); <code>stage2</code> = -0.055 (p = 0.558), <code>stage3</code> = -0.040 (p = 0.666), <code>stage4</code> = -0.260 (95% CI -0.446 to -0.075, p = 0.006).</p>
+<p>Compare these to the complete-case numbers from the previous section. The conclusions are broadly similar—<code>log_bili</code> and <code>stage 4</code> remain significant, <code>platelet</code> and the lower stage categories remain non-significant—but every estimate has shifted slightly, and (as you’ll see in the comparison table next) the standard errors have changed too.</p>
+</div>
+</div>
 </section>
 <section id="comparing-complete-case-and-imputed-estimates" class="level3" data-number="14.5.5">
 <h3 data-number="14.5.5" class="anchored" data-anchor-id="comparing-complete-case-and-imputed-estimates"><span class="header-section-number">14.5.5</span> Comparing Complete-Case and Imputed Estimates</h3>
+<p><em>Estimated time: ~5 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cc_results <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(fit_cc, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value) <span class="sc">%&gt;%</span></span>
@@ -678,11 +907,121 @@ Tip
 7 Complete-case       stageStage 4 -0.300    -0.489     -0.112    0.00188     </code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should see a 7-row table:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>method</th>
+<th>term</th>
+<th>estimate</th>
+<th>conf.low</th>
+<th>conf.high</th>
+<th>p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Complete-case</td>
+<td>log_bili</td>
+<td>-0.106</td>
+<td>-0.144</td>
+<td>-0.0670</td>
+<td>1.3e-7</td>
+</tr>
+<tr class="even">
+<td>Multiple imputation</td>
+<td>log_bili</td>
+<td>-0.111</td>
+<td>-0.149</td>
+<td>-0.0732</td>
+<td>1.8e-8</td>
+</tr>
+<tr class="odd">
+<td>Complete-case</td>
+<td>platelet</td>
+<td>0.000385</td>
+<td>-0.0000237</td>
+<td>0.000793</td>
+<td>0.065</td>
+</tr>
+<tr class="even">
+<td>Multiple imputation</td>
+<td>platelet</td>
+<td>0.000338</td>
+<td>-0.0000586</td>
+<td>0.000735</td>
+<td>0.095</td>
+</tr>
+<tr class="odd">
+<td>Complete-case</td>
+<td>stageStage 2</td>
+<td>-0.0903</td>
+<td>-0.280</td>
+<td>0.0998</td>
+<td>0.351</td>
+</tr>
+<tr class="even">
+<td>Complete-case</td>
+<td>stageStage 3</td>
+<td>-0.0766</td>
+<td>-0.260</td>
+<td>0.107</td>
+<td>0.412</td>
+</tr>
+<tr class="odd">
+<td>Complete-case</td>
+<td>stageStage 4</td>
+<td>-0.300</td>
+<td>-0.489</td>
+<td>-0.112</td>
+<td>0.002</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Spot the gotcha:</strong> there are no “Multiple imputation” rows for <code>stage</code>. Look closely at the <code>filter()</code> step: it keeps terms named <code>"stageStage 2"</code>, <code>"stageStage 3"</code>, <code>"stageStage 4"</code>—the names produced by <code>fit_cc</code>, where <code>stage</code> was coded as a labelled factor (<code>"Stage 1"</code>, …, <code>"Stage 4"</code>). But in <code>pbc_imp</code>, <code>stage</code> was coded as a plain numeric factor (<code>factor(stage, levels = 1:4)</code>), so <code>fit_mi</code>’s terms are named <code>"stage2"</code>, <code>"stage3"</code>, <code>"stage4"</code>—and these don’t match the filter, so they are silently dropped.</p>
+<p>This is a realistic bug: the code runs without error and produces a plausible-looking table, but it is quietly incomplete. From the <code>mice-analyse</code> Run It Yourself box above, you already have the missing numbers: <code>stage2</code> = -0.055, <code>stage3</code> = -0.040, <code>stage4</code> = -0.260 for multiple imputation, versus -0.090, -0.077, -0.300 for complete-case. The biggest gap is <code>stage 4</code>: complete-case overstates the effect (-0.300 vs -0.260)—exactly the kind of bias multiple imputation is meant to correct.</p>
+</div>
+</div>
 <p>If the estimates differ substantially, the missing data were not MCAR and complete-case analysis was biased.</p>
 </section>
 </section>
 <section id="example-2-penguins-data" class="level2" data-number="14.6">
 <h2 data-number="14.6" class="anchored" data-anchor-id="example-2-penguins-data"><span class="header-section-number">14.6</span> Example 2: Penguins Data</h2>
+<p><em>Estimated time: ~15 minutes (Walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example deliberately uses a dataset with very little missingness (<code>palmerpenguins</code>), to show that the MI workflow is the same regardless of how much data is missing—only the consequences differ. Ask learners to predict, before running the code: with only 2 missing values per numeric variable (out of 344 penguins), would they expect the multiply-imputed estimates to differ much from a complete-case analysis here? (They shouldn’t—and that is the point: MI is “do no harm” when missingness is minimal, but essential when it is not, as in the PBC example.)</p>
+</div>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), \(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))) <span class="sc">%&gt;%</span></span>
@@ -697,6 +1036,19 @@ Tip
 3 flipper_length_mm     2
 4 body_mass_g           2
 5 sex                  11</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should see a 5-row table: <code>bill_length_mm</code>, <code>bill_depth_mm</code>, <code>flipper_length_mm</code>, and <code>body_mass_g</code> are each missing for 2 penguins (out of 344), and <code>sex</code> is missing for 11. This is a tiny fraction of the data—well under 1% for the numeric variables.</p>
 </div>
 </div>
 <div class="cell">
@@ -722,6 +1074,20 @@ Tip
 4    81.57376   454.93637    81.57376   454.93637</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. The pooled estimates are: <code>(Intercept)</code> = -4015.7 (95% CI -5159.7 to -2871.7); <code>flipper_length_mm</code> = 40.6 (95% CI 34.6 to 46.6, p &lt; 0.001); <code>speciesChinstrap</code> = -206.4 (95% CI -319.6 to -93.1, p &lt; 0.001); <code>speciesGentoo</code> = 268.3 (95% CI 81.6 to 454.9, p = 0.005).</p>
+<p>If you re-ran this with <code>na.omit()</code> and a plain <code>lm()</code> instead of <code>mice</code>, you would find the coefficients are nearly identical—because with only 2 missing values per variable, there is very little for imputation to “do.” This confirms the prediction from the Teacher Note above: MI matters most when missingness is substantial, as in the PBC example, not when it is minimal.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -732,7 +1098,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong><code>survival::pbc</code>:</strong> Real-world clinical data with informative missingness in laboratory values — a classic MI teaching example.</p>
+<p><strong><code>survival::pbc</code>:</strong> Real-world clinical data with informative missingness in laboratory values, a classic MI teaching example.</p>
 <p><strong><code>palmerpenguins</code>:</strong> Minimal missingness; useful to practice the workflow without bias concerns.</p>
 <p><strong><code>NHANES</code></strong> (via the <code>NHANES</code> or <code>nhanesA</code> packages): Large survey with complex, realistic missingness patterns across demographic and clinical variables.</p>
 </div>
@@ -747,6 +1113,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><em>Estimated time: ~10 minutes (Reading)</em></p>
 <p><strong>Imputing the outcome.</strong> Never include the outcome variable as a predictor in the imputation model if missingness in the outcome is not informative. Report the proportion of missing outcomes and conduct a sensitivity analysis.</p>
 <p><strong>Too few imputed datasets.</strong> The rule of thumb is m ≥ the percentage of missing data (e.g., 20% missing → m ≥ 20). Five imputations is typically insufficient when missingness is substantial.</p>
 <p><strong>Using complete-case AIC to select variables before imputing.</strong> Model selection should be done within the multiply-imputed framework, not on complete cases only. Selecting variables on complete cases and then imputing introduces bias.</p>
@@ -756,15 +1123,32 @@ Tip
 </section>
 <section id="exercises" class="level2" data-number="14.7">
 <h2 data-number="14.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">14.7</span> Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Before learners run Exercise 1, ask them to predict: based on the <code>miss-gg</code> plot earlier (which showed missing platelet values scattered across the bilirubin range), do they expect a logistic regression of platelet-missingness on <code>log(bili)</code> to be statistically significant? After they run it, discuss why a non-significant result here does not prove the data are MCAR overall—it only tells you that <em>this one variable</em> does not explain platelet missingness; other variables (e.g., <code>trt</code>, calendar time) might still matter.</p>
+</div>
+</div>
+</div>
 <section id="exercise-1-guided-explore-pbc-missingness" class="level3" data-number="14.7.1">
 <h3 data-number="14.7.1" class="anchored" data-anchor-id="exercise-1-guided-explore-pbc-missingness"><span class="header-section-number">14.7.1</span> Exercise 1 (Guided): Explore PBC Missingness</h3>
+<p><em>Estimated time: ~15 minutes (Practice)</em></p>
 <ol type="1">
 <li>Count the proportion of missing values for each variable in <code>survival::pbc</code>.</li>
 <li>Visualise the missingness pattern for <code>platelet</code>, <code>chol</code>, <code>trig</code>, and <code>copper</code>.</li>
 <li>Test whether missingness in <code>platelet</code> is associated with <code>bili</code> (logistic regression). What does a significant result tell you?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -773,7 +1157,7 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
@@ -809,12 +1193,15 @@ Tip
 2 log(bili)     0.758      0.332    -0.836 4.03e- 1   0.369     1.38  </code></pre>
 </div>
 </div>
+<p>The missingness table reproduces the 12-row result from “Exploring Missingness” above (<code>trig</code> 0.325, <code>chol</code> 0.321, …, <code>protime</code> 0.00478).</p>
+<p>For the logistic regression, <code>log(bili)</code> has OR ≈ 0.758 (95% CI 0.369–1.38, p ≈ 0.40)—<strong>not statistically significant</strong>. So in this univariable test, missingness in <code>platelet</code> is not detectably associated with bilirubin, consistent with the scattered pattern you saw in the <code>miss-gg</code> plot. This does <em>not</em> prove the data are MCAR (the test has limited power, and other variables could still be related to platelet missingness), but it is at least reassuring: the variable most central to this session’s analyses (<code>log_bili</code>) does not appear to drive platelet missingness on its own.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-2-semi-guided-multiple-imputation-of-pbc" class="level3" data-number="14.7.2">
 <h3 data-number="14.7.2" class="anchored" data-anchor-id="exercise-2-semi-guided-multiple-imputation-of-pbc"><span class="header-section-number">14.7.2</span> Exercise 2 (Semi-guided): Multiple Imputation of PBC</h3>
+<p><em>Estimated time: ~20 minutes (Practice)</em></p>
 <ol type="1">
 <li>Select variables: <code>albumin</code>, <code>log_bili</code>, <code>platelet</code>, <code>chol</code>, <code>stage</code>.</li>
 <li>Create 20 imputed datasets using <code>mice</code> with <code>method = "pmm"</code>.</li>
@@ -822,7 +1209,7 @@ Tip
 <li>Compare pooled SEs to the complete-case SEs. Which are larger, and why?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -831,7 +1218,7 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pbc_ex <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
@@ -860,17 +1247,22 @@ Tip
 6 -4.505906e-01 -0.0856301862 -4.505906e-01 -0.0856301862</code></pre>
 </div>
 </div>
+<p>The pooled (m = 20) estimates are: <code>log_bili</code> = -0.1117 (SE = 0.0194, 95% CI -0.150 to -0.074, p &lt; 0.001); <code>platelet</code> = 0.000304 (SE = 0.000203, 95% CI -0.0000946 to 0.000703, p = 0.13, not significant); <code>stage2</code> = -0.0629 (SE = 0.0930, p = 0.50), <code>stage3</code> = -0.0471 (SE = 0.0900, p = 0.60), <code>stage4</code> = -0.268 (SE = 0.0928, 95% CI -0.451 to -0.086, p = 0.004).</p>
+<p>Now compare these SEs to the complete-case SEs (from <code>fit_cc</code>, n = 399): <code>log_bili</code> SE ≈ 0.0196, <code>platelet</code> SE ≈ 0.000208, <code>stage4</code> SE ≈ 0.0962. With m = 20 imputations, the pooled SEs here are very similar to—if anything, marginally <em>smaller</em> than—the complete-case SEs.</p>
+<p>This might seem to contradict the usual rule that imputation inflates SEs (see Comprehension Check, Q3). The resolution: that rule describes the <em>extra</em> uncertainty Rubin’s rules add on top of an analysis that otherwise uses the same information. Here, multiple imputation uses all 418 patients (plus the auxiliary variable <code>chol</code>, which is 32% missing but still informs the imputation model), whereas the complete-case analysis discards 19 patients entirely. The gain in information from the larger effective sample roughly cancels out the extra between-imputation variance, so the net SEs end up about the same. The lesson: imputation does not always widen confidence intervals—it depends on how much information is recovered versus how much uncertainty about the missing values is being honestly propagated.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-3-open-ended" class="level3" data-number="14.7.3">
 <h3 data-number="14.7.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">14.7.3</span> Exercise 3 (Open-ended)</h3>
+<p><em>Estimated time: 15–30 minutes (Practice)</em></p>
 <p>In your own dataset, identify variables with missing data. Determine whether the missing mechanism is likely MCAR, MAR, or MNAR (document your reasoning). Perform multiple imputation and compare the complete-case and imputed estimates. Write a Missing Data section for a methods paper following STROBE or CONSORT reporting guidelines.</p>
 </section>
 </section>
 <section id="comprehension-check" class="level2" data-number="14.8">
 <h2 data-number="14.8" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">14.8</span> Comprehension Check</h2>
+<p><em>Estimated time: ~10 minutes (Self-test)</em></p>
 <ol type="1">
 <li>A variable is missing in 30% of patients. The probability of being missing is higher in older patients. What missing mechanism does this suggest?</li>
 <li>You run complete-case analysis and get n = 180 (originally 300). Your colleague says this is fine because the results are “still significant.” What is wrong with this reasoning?</li>
@@ -879,7 +1271,7 @@ Tip
 <li>A key predictor is missing for 60% of patients. Can you still use multiple imputation? What concerns arise?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -888,10 +1280,10 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Missingness depends on an observed variable (age) — this is MAR. Complete-case analysis will be biased if age also predicts the outcome. Multiple imputation conditioned on age is the appropriate approach.</li>
+<li>Missingness depends on an observed variable (age): this is MAR. Complete-case analysis will be biased if age also predicts the outcome. Multiple imputation conditioned on age is the appropriate approach.</li>
 <li>Significance alone does not validate the analysis. Complete-case with 40% dropout may be biased under MAR/MNAR, underestimates the true sample size, and gives artificially narrow confidence intervals. The key question is whether the missing data mechanism biases the estimates, not whether the result is still statistically significant.</li>
 <li>Multiple imputation correctly propagates two sources of uncertainty: within-imputation variance (ordinary sampling variance) and between-imputation variance (uncertainty about the missing values). Rubin’s rules add these two components together. The inflated SE is the correct, honest estimate. Complete-case analysis ignores the between-imputation uncertainty and therefore underestimates the SE.</li>
 <li>PMM imputes values by drawing from observed cases whose predicted values are closest to the predicted value of the missing case. This preserves the actual distribution of the variable (no impossible values like negative counts or probabilities outside 0–1) and is robust to non-normality. Normal imputation assumes the variable is normally distributed, which is often violated.</li>
@@ -930,8 +1322,8 @@ Note
 <section id="further-reading" class="level2" data-number="14.10">
 <h2 data-number="14.10" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">14.10</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="vanBuuren-2018">Buuren (<a href="#ref-vanBuuren-2018" role="doc-biblioref">2018</a>)</span> — <em>Flexible Imputation of Missing Data</em> (free online at stefvanbuuren.name/fimd/)</li>
-<li><span class="citation" data-cites="Sterne-2009">Sterne et al. (<a href="#ref-Sterne-2009" role="doc-biblioref">2009</a>)</span> — <em>Multiple imputation for missing data in epidemiological and clinical research: potential and pitfalls</em> (BMJ)</li>
+<li><span class="citation" data-cites="vanBuuren-2018">Buuren (<a href="#ref-vanBuuren-2018" role="doc-biblioref">2018</a>)</span>: <em>Flexible Imputation of Missing Data</em> (free online at stefvanbuuren.name/fimd/)</li>
+<li><span class="citation" data-cites="Sterne-2009">Sterne et al. (<a href="#ref-Sterne-2009" role="doc-biblioref">2009</a>)</span>: <em>Multiple imputation for missing data in epidemiological and clinical research: potential and pitfalls</em> (BMJ)</li>
 <li><code>mice</code> package documentation and vignettes</li>
 <li><code>naniar</code> package for visualising missingness</li>
 </ul>

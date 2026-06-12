@@ -10,6 +10,37 @@ library(survival)
 library(boot)
 ```
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: about 120 minutes (~2 hours).**
+
+| Section | Time | Type |
+|---|---|---|
+| When Do You Use This? + Learning Objectives | 5 min | Reading |
+| Background: From Sample to Population | 25 min | Reading + simulation |
+| Example 1: Clinical Data (PBC) | 25 min | Worked example |
+| Example 2: Small Samples and Bootstrap CIs | 15 min | Worked example |
+| What Can Go Wrong | 10 min | Reading |
+| Exercises 1 & 2 | 30 min | Practice |
+| Comprehension Check | 10 min | Self-test |
+
+In a taught course, this session fits one teaching block, possibly
+running slightly long. For self-paced study, split it into two
+sittings, e.g. Background and Example 1 first, Example 2 onward later.
+Exercise 3 is open-ended and works best as a follow-up using your own
+data.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-sampling}
 
 ::: {.callout-tip}
@@ -31,6 +62,17 @@ confidence interval. Understanding this session well will make every
 session that follows easier to interpret.
 :::
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This session sets the mental model for the entire course: estimate +
+uncertainty. Ask the room for an example from their own work where they
+report a single number (a mean, a proportion, a rate) and probe: "how
+sure are you about that number?" Most will not have a ready answer.
+That gap is exactly what this session fills, and it is worth dwelling
+on before moving to formulas.
+:::
+
 ## Learning Objectives
 
 After completing this session you will be able to:
@@ -40,12 +82,27 @@ After completing this session you will be able to:
 - State the Central Limit Theorem and understand why it makes
   confidence intervals valid even for skewed data
 - Compute confidence intervals for means and proportions in R
-- Interpret a 95% confidence interval correctly --- and avoid the most
+- Interpret a 95% confidence interval correctly, and avoid the most
   common misinterpretation
 - Use bootstrap resampling when distributional assumptions are uncertain
 
 
 ## Background: From Sample to Population
+
+*Estimated time: ~25 minutes (reading + simulation)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Before revealing the "most common CI misinterpretation" callout below,
+ask the room to write down, in their own words, what a "95% confidence
+interval" means. Collect a few answers on the board. Most will phrase
+it as a probability statement about the true value ("there's a 95%
+chance the true mean is in this range"), which is the exact
+misconception the callout addresses. Revisiting their own board answers
+after reading the callout makes the correction stick far better than
+presenting it cold.
+:::
 
 ### The core problem
 
@@ -53,7 +110,7 @@ You can never measure every patient, mouse, or cell in the world. You
 measure a **sample** and use it to estimate something about the
 **population** it came from. The key challenge is: your sample is just
 one of infinitely many samples you could have drawn. A different clinic,
-a different week, a different cohort --- and you would have gotten
+a different week, a different cohort, and you would have gotten
 slightly different numbers.
 
 Statistics gives you tools to say: "here is my best estimate, and here
@@ -65,7 +122,7 @@ different sample."
 Before any formulas: think of an election poll. A polling firm surveys
 1,000 voters and reports that 54% support Party A (95% CI: 51% to 57%).
 They did not survey every voter. They surveyed a sample and used it to
-estimate the population proportion --- the share of all voters who
+estimate the population proportion, the share of all voters who
 support Party A. The confidence interval is their honest statement about
 how much that estimate could have moved if they had called a different
 1,000 people.
@@ -77,10 +134,10 @@ bilirubin, survival times, or gene expression.
 
 ### Three numbers you need to know
 
-**Point estimate** --- Your best single guess at the population value.
+**Point estimate**: Your best single guess at the population value.
 For a mean, this is just the sample mean $\bar{x}$.
 
-**Standard error (SE)** --- How much your point estimate would move if
+**Standard error (SE)**: How much your point estimate would move if
 you repeated the study on a fresh sample of the same size. It is not the
 spread of your data (that is the standard deviation); it is the spread
 of your *estimate*:
@@ -88,11 +145,11 @@ of your *estimate*:
 $$SE(\bar{x}) = \frac{s}{\sqrt{n}}$$
 
 Two things follow directly from this formula. First, larger samples give
-smaller SEs --- your estimate gets more precise as $n$ grows. Second,
-more variable data (larger $s$) gives larger SEs --- noisier
+smaller SEs: your estimate gets more precise as $n$ grows. Second,
+more variable data (larger $s$) gives larger SEs: noisier
 measurements are harder to estimate precisely.
 
-**Confidence interval (CI)** --- A range built around the point estimate
+**Confidence interval (CI)**: A range built around the point estimate
 so that, across many repetitions of the study, the specified fraction of
 intervals would contain the true population value:
 
@@ -103,7 +160,7 @@ $$95\% \text{ CI for } \mu \approx \bar{x} \pm 1.96 \times SE(\bar{x})$$
 
 "There is a 95% probability that the true mean lies in this interval."
 
-This is wrong. The true mean is a fixed (unknown) number --- it either
+This is wrong. The true mean is a fixed (unknown) number: it either
 is in your interval or it is not. The 95% refers to the *procedure*: if
 you repeated your study 100 times, approximately 95 of the resulting
 intervals would contain the true mean.
@@ -116,6 +173,19 @@ you did not.
 :::
 
 ### The Central Limit Theorem: why any of this works
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Live-demo idea: after running the chunk below, change
+`rexp(n, rate = 0.5)` to a different distribution, e.g.
+`runif(n, 0, 1)` or `rbinom(n, 1, 0.1)`, and re-run. The same pattern
+appears regardless of the starting shape. A good follow-up question:
+"what if we plotted the sampling distribution of the *maximum* instead
+of the *mean*?" (It does not become normal. This contrast sharpens what
+is special about the mean, and why the CLT is specifically a statement
+about averages.)
+:::
 
 Here is the remarkable fact at the heart of statistics: even if
 individual measurements are skewed, heavy-tailed, or oddly distributed,
@@ -155,6 +225,19 @@ ggplot(sim_means, aes(x = mean)) +
   theme_bw()
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should see three histograms, labelled n = 10,
+n = 30, and n = 100. Even though every individual draw comes from a
+steeply right-skewed exponential distribution, the n = 10 panel is
+already roughly bell-shaped (with a slight right skew), n = 30 looks
+close to normal, and n = 100 is essentially indistinguishable from a
+normal curve. Before reading on: if you started from an even more
+skewed distribution (try changing `rate = 0.5` to `rate = 0.05`), would
+you expect to need a larger or smaller sample size for the same effect?
+:::
+
 Each histogram shows 2,000 means, each computed from a fresh random
 sample of exponential (right-skewed) data. At $n = 10$ the distribution
 of means is already roughly bell-shaped. By $n = 30$ it is nearly
@@ -169,6 +252,20 @@ requires larger samples.
 
 
 ## Example 1: Clinical Data (PBC)
+
+*Estimated time: ~25 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This example revisits the `survival::pbc` dataset and the albumin
+variable used again in the [T-tests](t-tests.qmd) session. If the group
+has not reached that session yet, that is fine: everything here is
+estimation, no hypothesis tests. If they have, it is worth pointing out
+that the CI computed by hand below is the *same interval* that
+`t.test()` reports: estimation and testing share the same machinery,
+just with different questions attached.
+:::
 
 The `survival::pbc` dataset contains data from a clinical trial of
 418 patients with primary biliary cirrhosis (PBC), a chronic liver
@@ -187,10 +284,10 @@ pbc <- survival::pbc %>%
 ### Estimating mean albumin with a 95% CI
 
 Serum albumin is a marker of liver function. Normal levels in healthy
-adults are roughly 3.5--5.0 g/dL. Before running any test, it is
-reasonable to expect that PBC patients --- who have impaired liver
-function --- would run below the lower end of this range. Let's
-estimate their mean albumin and quantify our uncertainty:
+adults are roughly 3.5--5.0 g/dL. PBC impairs the liver's ability to
+synthesise albumin, so it is natural to ask: across this cohort, where
+does the average sit relative to that threshold? Let's estimate the
+mean albumin and quantify our uncertainty:
 
 ```{r albumin-ci}
 albumin_est <- pbc %>%
@@ -206,6 +303,16 @@ albumin_est <- pbc %>%
 albumin_est
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `n = 418`, `mean ≈ 3.50`,
+`sd ≈ 0.425`, `se ≈ 0.0208`, and a 95% CI of about (3.46, 3.54). Before
+reading on: does this interval sit clearly below 3.5, clearly above it,
+or does it straddle 3.5? What would you conclude about this cohort's
+average albumin relative to the normal range?
+:::
+
 ::: {.callout-note}
 ### Reading the Output
 
@@ -220,9 +327,20 @@ albumin_est
 **In plain English:** We estimate that the mean albumin in PBC patients
 is `r round(albumin_est$mean, 2)` g/dL (95% CI:
 `r round(albumin_est$ci_lower, 2)` to
-`r round(albumin_est$ci_upper, 2)` g/dL). This is below the lower limit
-of the normal range (3.5 g/dL), consistent with impaired liver
-synthesis.
+`r round(albumin_est$ci_upper, 2)` g/dL). This interval straddles the
+lower limit of the normal range (3.5 g/dL): the point estimate sits
+just below 3.5, but the CI extends comfortably above it too. On
+average, this cohort is not clearly below the normal range.
+
+That might seem surprising for a disease that is supposed to reduce
+albumin. The explanation is that PBC spans a wide spectrum, from early,
+asymptomatic disease (near-normal albumin) to advanced cirrhosis
+(severely depleted albumin). A single cohort-wide mean blends both ends
+of that spectrum, and an estimate that sits right on the threshold, with
+a CI that straddles it, is itself informative: it tells you that "PBC"
+is not a single homogeneous state, and that disease stage matters more
+than diagnosis alone for this marker. The [T-tests](t-tests.qmd) session
+revisits this same number from a hypothesis-testing angle.
 :::
 
 ### The fast way: using `t.test()`
@@ -234,7 +352,19 @@ vector gives you the same CI:
 t.test(pbc$albumin)
 ```
 
-The default null hypothesis ($\mu = 0$) is irrelevant here --- we are
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. The 95% CI (about 3.4566 to 3.5383) should match
+the `ci_lower`/`ci_upper` you computed by hand in the previous chunk
+almost exactly: same calculation, different packaging. Notice the
+tiny p-value (`< 2.2e-16`) and huge t-statistic (`t ≈ 168`): that is
+testing the default null `mu = 0` (zero albumin), which no real patient
+has. A tiny p-value here is meaningless; it is an artefact of testing an
+irrelevant hypothesis.
+:::
+
+The default null hypothesis ($\mu = 0$) is irrelevant here: we are
 only using the function to get the confidence interval. You can ignore
 the p-value in this context.
 
@@ -250,6 +380,16 @@ n_total  <- sum(!is.na(pbc$sex))
 
 prop.test(x = n_female, n = n_total, conf.level = 0.95)
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `p ≈ 0.895` (about 89.5% of trial
+participants are female), with a 95% CI of about (0.860, 0.922). This
+fits what is known about PBC: it disproportionately affects women.
+Notice how narrow this CI is even though the proportion is far from
+0.5: with n = 418, the estimate is precise.
+:::
 
 ### Comparing estimates across groups
 
@@ -285,13 +425,38 @@ group_est %>%
   theme_bw()
 ```
 
-The two CIs overlap substantially --- a visual hint that the groups
+::: {.callout-tip}
+### Run It Yourself
+
+Run both chunks above. You should get nearly identical group means
+(both `≈ 3.52`), with CIs of about (3.45, 3.59) for D-penicillamine and
+(3.46, 3.59) for Placebo. The plot should show two points at almost the
+same height, with heavily overlapping error bars. Before reading on:
+based on this plot alone, would you guess the treatment groups differ
+on baseline albumin?
+:::
+
+The two CIs overlap substantially, a visual hint that the groups
 probably do not differ on albumin. But overlapping CIs are not a
 formal test. For a definitive answer you need a two-sample t-test,
 which is the subject of the next session.
 
 
 ## Example 2: Small Samples and Bootstrap CIs
+
+*Estimated time: ~15 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Live activity: write 8-10 numbers on the board (e.g., a quick
+show-of-hands measurement from the room). Have a few students
+"resample with replacement" by picking indices at random (dice, or
+slips of paper) and recompute the mean each time. After 5-6 resamples,
+plot the means on the board. This hands-on version of the `boot()` call
+below demystifies what "resampling" actually does before R does it
+1,000 times in a fraction of a second.
+:::
 
 The formula-based CI assumes the sampling distribution of the mean is
 normal. The CLT guarantees this for large samples, but with small
@@ -338,6 +503,18 @@ boot_mean <- boot(
 boot.ci(boot_mean, type = "perc")
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run both chunks above. The `mice` summary table should show Control
+(n = 20, mean ≈ 27.1, CI ≈ 25.4 to 28.8) and Treatment (n = 20,
+mean ≈ 24.7, CI ≈ 23.5 to 25.9). The bootstrap percentile CI for the
+Control group's mean should come out close to (25.5, 28.6), very near
+the formula-based CI above. For a sample this size from roughly normal
+data, the bootstrap and the t-interval agree closely; the next callout
+explains when they would not.
+:::
+
 ::: {.callout-note}
 ### When to use the bootstrap
 
@@ -355,6 +532,19 @@ that is a signal your data are unusual enough to think carefully about.
 
 
 ## What Can Go Wrong
+
+*Estimated time: ~10 minutes (reading)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Each bolded item below works well as a quick scenario quiz: read a
+short scenario aloud (e.g. "a colleague reports their result as
+'mean ± SD' to describe how precise their estimate is, is that
+correct?"), ask for a show of hands, then reveal the explanation. This
+surfaces misconceptions the group already holds rather than just
+presenting them.
+:::
 
 ::: {.callout-warning}
 **Confusing standard deviation with standard error**
@@ -393,7 +583,19 @@ p = 0.05. For a definitive test, use a two-sample procedure.
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+In a live session, have students attempt Exercise 1 in pairs (~15
+minutes) before revealing the solution, then work Exercise 2
+individually. Exercise 3 needs each student's own data, so it works
+best as a take-home or end-of-day task rather than something to
+complete in the room.
+:::
+
 ### Exercise 1 (Guided): CI for Bilirubin
+
+*Estimated time: ~15 minutes*
 
 Using `survival::pbc`:
 
@@ -436,13 +638,15 @@ log_est %>%
 ```
 
 The geometric mean is lower than the arithmetic mean because bilirubin
-is right-skewed --- a small number of patients have very high values
+is right-skewed: a small number of patients have very high values
 that pull the arithmetic mean upward. The geometric mean better
 represents the "typical" patient in a skewed distribution and is the
 correct summary to report alongside a log-transformed analysis.
 :::
 
 ### Exercise 2 (Semi-guided): Bootstrap vs t-interval
+
+*Estimated time: ~15 minutes*
 
 Simulate 15 observations from a skewed distribution:
 
@@ -482,11 +686,13 @@ boot.ci(b, type = "perc")$percent[4:5]
 With n = 15 and moderate skew, the intervals are similar but not
 identical. The bootstrap CI will tend to be asymmetric when data are
 skewed, because the resampling captures the asymmetry directly. With
-heavier skew or a smaller sample, the divergence grows --- and in those
+heavier skew or a smaller sample, the divergence grows, and in those
 cases you should trust the bootstrap.
 :::
 
 ### Exercise 3 (Open-ended)
+
+*Estimated time: 15--30 minutes, depending on your data*
 
 Using a dataset from your own research, compute 95% confidence intervals
 for the key outcome variable, separately by group. Produce an error-bar
@@ -496,6 +702,8 @@ sample size for each group.
 
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes*
 
 1. What is the difference between a standard deviation and a standard
    error? If you double the sample size, what happens to the SE?
@@ -570,10 +778,10 @@ sample size for each group.
 
 **Common reporting errors:**
 
-- Writing "mean ± SD" when you mean "mean (95% CI)" --- they answer
+- Writing "mean ± SD" when you mean "mean (95% CI)": they answer
   different questions. SD describes your sample; CI describes your
   estimate.
-- Saying "the true value lies in this interval" --- a 95% CI is a
+- Saying "the true value lies in this interval": a 95% CI is a
   statement about the procedure, not about this specific interval.
 - Reporting a CI without the point estimate, or vice versa.
 :::
@@ -581,10 +789,10 @@ sample size for each group.
 
 ## Further Reading
 
-- @Bland-2015 --- *An Introduction to Medical Statistics*: the standard
+- @Bland-2015: *An Introduction to Medical Statistics*: the standard
   reference for clinical researchers, with chapters on estimation and
   CIs
-- [R for Data Science](https://r4ds.hadley.nz) --- Wickham & Grolemund:
+- [R for Data Science](https://r4ds.hadley.nz): Wickham & Grolemund:
   excellent coverage of data wrangling and visualisation in R
-- @Efron-1993 --- *An Introduction to the Bootstrap*: the
+- @Efron-1993: *An Introduction to the Bootstrap*: the
   original book on bootstrap methods, readable without heavy mathematics

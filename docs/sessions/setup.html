@@ -158,7 +158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -361,7 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This page tells you everything you need to do <strong>once</strong>, before starting the course. The setup takes about 10-15 minutes. After that, each session just works.</p>
+<p>This page tells you everything you need to do <strong>once</strong>, before starting the course. Setting up R, RStudio, and the core packages takes about <strong>20-35 minutes</strong>, most of it spent waiting for installations to finish (Step 2 alone takes 10-20 minutes, mostly unattended). Steps 3 and 4 are optional and only needed for specific sessions; add ~10-15 minutes if you need them. After that, each session just works.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -375,8 +375,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If your goal is to understand statistical concepts and methods (not to learn R programming), you can <strong>skip Parts 1 and 2</strong> and start directly at <strong>Part 3: Inference</strong>. The statistics begins there. You can still follow the Examples in each session by reading the code output without running it yourself, but you will still need R and the packages installed to run anything interactively.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code on This Page
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code block below is a command to copy into your RStudio <strong>Console</strong>, not code that runs automatically when this page is built (that is why each block is marked <code>eval: false</code>). Work through the steps in order from top to bottom - each one builds on the last - and wait for each install to finish (the <code>&gt;</code> prompt returns) before starting the next.</p>
+</div>
+</div>
 <section id="sec-setup" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="sec-setup"><span class="header-section-number">1.1</span> Step 1: Install R and RStudio</h2>
+<p><em>Estimated time: ~5-10 minutes (Setup)</em></p>
 <p>You need two things on your computer:</p>
 <table class="caption-top table">
 <thead>
@@ -407,6 +421,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="step-1b-install-rtools-windows-only" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="step-1b-install-rtools-windows-only">Step 1b: Install Rtools (Windows Only)</h2>
+<p><em>Estimated time: ~5 minutes (Setup, Windows only)</em></p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -431,6 +446,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="step-2-install-course-packages-cran" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="step-2-install-course-packages-cran"><span class="header-section-number">1.2</span> Step 2: Install Course Packages (CRAN)</h2>
+<p><em>Estimated time: ~10-20 minutes (Setup, mostly unattended)</em></p>
 <p>Copy and paste the block below into your <strong>RStudio Console</strong> and press Enter. This installs every package used across all sessions in one go. You only need to do this once.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -519,6 +535,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="step-3-install-bioconductor-packages" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="step-3-install-bioconductor-packages"><span class="header-section-number">1.3</span> Step 3: Install Bioconductor Packages</h2>
+<p><em>Estimated time: ~5-10 minutes (Setup, optional)</em></p>
 <p>The Advanced Visualization session optionally uses a Bioconductor package. Install it with:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
@@ -559,6 +576,7 @@ Note
 </section>
 <section id="step-4-install-twosamplemr-github" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="step-4-install-twosamplemr-github"><span class="header-section-number">1.4</span> Step 4: Install TwoSampleMR (GitHub)</h2>
+<p><em>Estimated time: ~5 minutes (Setup, optional)</em></p>
 <p>The Mendelian Randomization session uses a package hosted on GitHub:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"remotes"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
@@ -582,6 +600,7 @@ Note
 </section>
 <section id="step-5-verify-your-setup" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="step-5-verify-your-setup"><span class="header-section-number">1.5</span> Step 5: Verify Your Setup</h2>
+<p><em>Estimated time: ~2 minutes (Setup)</em></p>
 <p>Run this block to confirm the core packages are installed. You should see no errors.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>core_pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>

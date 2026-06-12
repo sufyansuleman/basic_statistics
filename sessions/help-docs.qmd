@@ -8,10 +8,44 @@ title: "Help and Documentation"
 library(tidyverse)
 ```
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: ~80 minutes** (about 1.3 hours). Unlike the other sessions in this course, this one is a **reference guide**, not a linear walkthrough. Skim it once now so you know what is here, then come back to specific sections whenever you hit an error or get stuck during another session.
+
+| Section | Time | Type |
+|---------|------|------|
+| Getting Help Inside R | ~10 min | Reference |
+| Common Error Messages | ~20 min | Reference |
+| Warnings vs Errors | ~5 min | Reference |
+| Useful Functions for Debugging | ~10 min | Reference |
+| Online Resources | ~10 min | Reference |
+| Course Method Map | ~5 min | Reference |
+| Comprehension Check | ~10 min | Self-test |
+| Common Pitfalls When Getting Help | ~10 min | Reading |
+
+If you are short on time, focus on **Common Error Messages**: those five error and warning patterns (especially the "fitted probabilities numerically 0 or 1" warning and the `na-debug` chunk) are the ones you are most likely to meet elsewhere in this course.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-help-docs}
 
 ::: {.callout-tip}
 You are halfway through an analysis and get an error message you don't understand. Or you can't remember the exact arguments for a function. This session is your reference guide: how to get help inside R, how to read error messages, how to find the right function for a task, and where to turn when you're stuck.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Before working through this session, ask learners to find (or recall) an error message they have personally encountered in this course - in their console history, a script, or their memory. Keep it visible. As you go through "Common Error Messages" below, check whether it matches one of the five patterns covered, and if not, diagnose it together using the `?`, `help.search()`, and debugging-function workflow from the first two sections.
 :::
 
 ## Learning Objectives
@@ -26,6 +60,8 @@ After completing this session you will be able to:
 
 
 ## Getting Help Inside R
+
+*Estimated time: ~10 minutes (Reference)*
 
 ### The `?` Operator and `help()`
 
@@ -71,6 +107,8 @@ Every R help page has the same structure:
 
 
 ## Common Error Messages
+
+*Estimated time: ~20 minutes (Reference)*
 
 ### Object Not Found
 
@@ -127,6 +165,12 @@ which(is.na(as.numeric(x)))   # which elements became NA?
 x[is.na(as.numeric(x))]       # what are they?
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Both lines trigger `Warning: NAs introduced by coercion` - that warning is the clue, not a separate problem to chase down. The first line returns `[1] 3`: element 3 of `x` became `NA` when coerced to numeric. The second line shows you why: `[1] "N/A"` - the string `"N/A"` is not a number R recognises, so `as.numeric()` silently turns it into `NA` and raises this warning. This two-line pattern - "which positions became NA?" then "what were they originally?" - is the fastest way to track down a coercion warning in your own data.
+:::
+
 
 ### Subscript Out of Bounds
 
@@ -152,6 +196,8 @@ Error in model.frame.default : factor has new levels: XYZ
 
 ## Warnings vs Errors
 
+*Estimated time: ~5 minutes (Reference)*
+
 | Message type | Meaning | Action needed? |
 |-------------|---------|---------------|
 | `Error` | R stopped: no result produced | Yes: must fix |
@@ -168,6 +214,8 @@ This means your logistic regression has complete separation: a predictor perfect
 
 
 ## Useful Functions for Debugging
+
+*Estimated time: ~10 minutes (Reference)*
 
 ```{r debug-functions}
 #| eval: false
@@ -198,6 +246,8 @@ sapply(my_data, class)
 
 ## Online Resources
 
+*Estimated time: ~10 minutes (Reference)*
+
 ### Finding Answers
 
 | Resource | Best for | URL |
@@ -227,6 +277,8 @@ A reprex is a small, self-contained snippet of code that demonstrates the proble
 
 ## Course Method Map
 
+*Estimated time: ~5 minutes (Reference)*
+
 The table below maps every statistical method covered in this course to its session. Use this to quickly navigate when you need to recall a method.
 
 | Method | Session |
@@ -255,6 +307,14 @@ The table below maps every statistical method covered in this course to its sess
 
 ## Comprehension Check
 
+*Estimated time: ~10 minutes (Self-test)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+These questions revisit the error and warning patterns from earlier in the session, but ask learners to *explain* them rather than just recognise them. Encourage learners to answer from memory first, then check the relevant section above before reading the model answer - the goal is to practise diagnosing an error from the message alone, the same skill that matters when a real error appears in their own analysis.
+:::
+
 1. You run `lm(y ~ x, data = mydata)` and get `Error: object 'y' not found`. What are two likely causes?
 2. What is the difference between an R error and a warning? Give an example of a warning you should not ignore.
 3. You want to do a survival analysis but don't know which function to use. How would you search for relevant functions in R?
@@ -272,6 +332,8 @@ The table below maps every statistical method covered in this course to its sess
 
 ## Common Pitfalls When Getting Help
 
+*Estimated time: ~10 minutes (Reading)*
+
 ::: {.callout-warning}
 **Posting an incomplete question.** The most common reason a Stack Overflow question goes unanswered is that it lacks a reproducible example. Always include: the exact error message, the R version and key package versions, and a minimal dataset that demonstrates the problem (use `dput()` or a built-in dataset).
 
@@ -279,14 +341,14 @@ The table below maps every statistical method covered in this course to its sess
 
 **Copying code without understanding it.** If you paste a solution and it works, spend 60 seconds asking why. Change one thing to confirm your mental model. Copy-paste dependency is the main reason R skills don't compound.
 
-**Not checking the package version.** Many Stack Overflow answers are outdated. Always confirm that the answer applies to your version (`packageVersion("pkg")`). Behaviour changes across versions --- especially for `dplyr`, `ggplot2`, and `tidymodels`.
+**Not checking the package version.** Many Stack Overflow answers are outdated. Always confirm that the answer applies to your version (`packageVersion("pkg")`). Behaviour changes across versions, especially for `dplyr`, `ggplot2`, and `tidymodels`.
 
 **Skipping `?function_name` before asking.** The help page often contains a working example that answers the question. Always check the Examples section at the bottom of the help page first.
 :::
 
 ## Further Reading
 
-- @Grolemund-2015 --- *Hands-On Programming with R*  -  getting started, debugging, and help
-- @Wickham-2019 --- *Advanced R*  -  chapter on debugging and performance: [adv-r.hadley.nz](https://adv-r.hadley.nz/)
+- @Grolemund-2015: *Hands-On Programming with R*  -  getting started, debugging, and help
+- @Wickham-2019: *Advanced R*  -  chapter on debugging and performance: [adv-r.hadley.nz](https://adv-r.hadley.nz/)
 - [Happy Git and GitHub for the useR](https://happygitwithr.com/)  -  version control with R
 - [R for Data Science (2nd ed.)](https://r4ds.hadley.nz/)  -  canonical reference for the tidyverse workflow

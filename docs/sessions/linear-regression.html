@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -425,6 +425,89 @@ window.Quarto = {
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session at a Glance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Total core time: ~130 minutes</strong>, plus exercises.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Time</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>When Do You Use This? + Learning Objectives</td>
+<td>~5 min</td>
+<td>reading</td>
+</tr>
+<tr class="even">
+<td>The Key Idea: From Correlation to Prediction</td>
+<td>~10 min</td>
+<td>reading/discussion</td>
+</tr>
+<tr class="odd">
+<td>Background: The Linear Model</td>
+<td>~15 min</td>
+<td>reading</td>
+</tr>
+<tr class="even">
+<td>Example 1: Clinical Data (PBC)</td>
+<td>~30 min</td>
+<td>code-along</td>
+</tr>
+<tr class="odd">
+<td>Example 2: Animal Data (palmerpenguins)</td>
+<td>~20 min</td>
+<td>code-along</td>
+</tr>
+<tr class="even">
+<td>What Can Go Wrong</td>
+<td>~10 min</td>
+<td>reading</td>
+</tr>
+<tr class="odd">
+<td>Exercises 1 &amp; 2</td>
+<td>~30 min</td>
+<td>guided practice</td>
+</tr>
+<tr class="even">
+<td>Comprehension Check</td>
+<td>~10 min</td>
+<td>self-test</td>
+</tr>
+</tbody>
+</table>
+<p>If you are short on time, the two worked examples (Example 1 and Example 2) are the heart of the session. Exercise 3 is open-ended and can be assigned as take-home work rather than completed live.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code in This Session
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code chunk below is written so you can copy it into your R console (or an R script) and run it yourself, in the order shown. Where you see a “Run It Yourself” box, stop and run the code above it before reading the explanation that follows.</p>
+</div>
+</div>
 <section id="sec-linear-regression" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="sec-linear-regression"><span class="header-section-number">10.1</span> When Do You Use This?</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -437,7 +520,23 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You have a continuous outcome and a continuous predictor, and you want to quantify how much the outcome changes per unit increase in the predictor — and test whether that relationship is statistically meaningful. Simple linear regression gives you a straight-line model with an estimated slope and its confidence interval. For example: predicting albumin from bilirubin, or estimating how body mass changes with flipper length in penguins.</p>
+<p>You have a continuous outcome and a continuous predictor, and you want to quantify how much the outcome changes per unit increase in the predictor, and test whether that relationship is statistically meaningful. Simple linear regression gives you a straight-line model with an estimated slope and its confidence interval. For example: predicting albumin from bilirubin, or estimating how body mass changes with flipper length in penguins.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Ask the room: “Suppose you already know two variables are correlated (r = 0.6). What extra information does a regression slope give you that the correlation coefficient does not?” Steer toward: <em>units</em> and <em>magnitude</em> – “albumin drops by X g/dL per unit increase in log(bilirubin)” is something you can act on; “r = 0.6” on its own is not.</p>
+</div>
 </div>
 </div>
 </section>
@@ -454,17 +553,19 @@ Tip
 </section>
 <section id="the-key-idea-from-correlation-to-prediction" class="level2" data-number="10.3">
 <h2 data-number="10.3" class="anchored" data-anchor-id="the-key-idea-from-correlation-to-prediction"><span class="header-section-number">10.3</span> The Key Idea: From Correlation to Prediction</h2>
+<p><em>Estimated time: ~10 minutes (reading/discussion)</em></p>
 <p>In the <a href="../sessions/correlation-and-association.html">correlation session</a> we measured <em>whether</em> two variables are related. Linear regression goes further: it tells you <em>how much</em> one variable changes when the other increases by one unit, and it gives you a confidence interval for that change.</p>
-<p>The key quantity is the <strong>slope</strong> (<span class="math inline">\(\beta_1\)</span>): “for every one-unit increase in X, Y changes by <span class="math inline">\(\beta_1\)</span> units, on average.” That is the number you will quote in a paper, a grant, or a presentation — not r, not R², but the slope with its uncertainty.</p>
+<p>The key quantity is the <strong>slope</strong> (<span class="math inline">\(\beta_1\)</span>): “for every one-unit increase in X, Y changes by <span class="math inline">\(\beta_1\)</span> units, on average.” That is the number you will quote in a paper, a grant, or a presentation, not r, not R², but the slope with its uncertainty.</p>
 </section>
 <section id="background-the-linear-model" class="level2" data-number="10.4">
 <h2 data-number="10.4" class="anchored" data-anchor-id="background-the-linear-model"><span class="header-section-number">10.4</span> Background: The Linear Model</h2>
+<p><em>Estimated time: ~15 minutes (reading)</em></p>
 <p>A simple linear regression models the relationship between a continuous outcome <span class="math inline">\(Y\)</span> and a single predictor <span class="math inline">\(X\)</span>:</p>
 <p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i \quad \varepsilon_i \sim N(0, \sigma^2)\]</span></p>
 <ul>
-<li><span class="math inline">\(\beta_0\)</span>: <strong>intercept</strong> — the expected value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X = 0\)</span></li>
-<li><span class="math inline">\(\beta_1\)</span>: <strong>slope</strong> — the expected change in <span class="math inline">\(Y\)</span> for a one-unit increase in <span class="math inline">\(X\)</span></li>
-<li><span class="math inline">\(\varepsilon_i\)</span>: <strong>residual</strong> — what the model does not explain</li>
+<li><span class="math inline">\(\beta_0\)</span>: <strong>intercept</strong>: the expected value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X = 0\)</span></li>
+<li><span class="math inline">\(\beta_1\)</span>: <strong>slope</strong>: the expected change in <span class="math inline">\(Y\)</span> for a one-unit increase in <span class="math inline">\(X\)</span></li>
+<li><span class="math inline">\(\varepsilon_i\)</span>: <strong>residual</strong>: what the model does not explain</li>
 </ul>
 <p>The model is fitted by minimising the sum of squared residuals (ordinary least squares, OLS).</p>
 <p><strong>Assumptions (LINE):</strong></p>
@@ -501,6 +602,23 @@ Tip
 </section>
 <section id="example-1-clinical-data-pbc" class="level2" data-number="10.5">
 <h2 data-number="10.5" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">10.5</span> Example 1: Clinical Data (PBC)</h2>
+<p><em>Estimated time: ~30 minutes (code-along)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Before running the model, ask learners to predict: do they expect the slope of albumin on log(bilirubin) to be positive or negative, and roughly how strong (in R² terms) do they expect the relationship to be? Most will correctly guess “negative” (sicker liver -&gt; higher bilirubin, lower albumin), but few will guess that a single biomarker explains only around 10–15% of the variance in another. This sets up the “Is this R² any good?” discussion later in the example.</p>
+</div>
+</div>
+</div>
 <section id="predict-albumin-from-logbilirubin" class="level3" data-number="10.5.1">
 <h3 data-number="10.5.1" class="anchored" data-anchor-id="predict-albumin-from-logbilirubin"><span class="header-section-number">10.5.1</span> Predict Albumin from Log(Bilirubin)</h3>
 <p>Bilirubin is right-skewed; we log-transform it to achieve a more linear relationship with albumin.</p>
@@ -569,12 +687,12 @@ F-statistic: 57.34 on 1 and 416 DF,  p-value: 2.391e-13</code></pre>
 <p><strong><code>Call:</code></strong> Just echoes back the formula you used: <code>albumin ~ log_bili</code>. Confirms R fitted the right model.</p>
 <p><strong><code>Residuals:</code></strong></p>
 <pre><code>Min      1Q  Median      3Q     Max
--1.52   -0.29   0.01    0.31    1.18</code></pre>
-<p>These are the differences between each patient’s observed albumin and the model’s prediction. Ideally: - The <strong>Median</strong> should be close to 0 (no systematic over- or under-prediction) - The <strong>Min</strong> and <strong>Max</strong> should be roughly symmetric — if the biggest error is <code>+1.18</code> and smallest is <code>-1.52</code>, that is reasonably balanced - Very large Max or very negative Min suggests outliers</p>
+-1.44   -0.23   0.03    0.25    1.15</code></pre>
+<p>These are the differences between each patient’s observed albumin and the model’s prediction. Ideally: - The <strong>Median</strong> should be close to 0 (no systematic over- or under-prediction) - The <strong>Min</strong> and <strong>Max</strong> should be roughly symmetric: if the biggest error is <code>+1.15</code> and smallest is <code>-1.44</code>, that is reasonably balanced - Very large Max or very negative Min suggests outliers</p>
 <p><strong><code>Coefficients:</code> table</strong></p>
 <pre><code>              Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)   4.15      0.06      69.2    &lt;2e-16 ***
-log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
+(Intercept)   3.58      0.02      160.2   &lt;2e-16 ***
+log_bili     -0.14      0.02      -7.57   2.39e-13 ***</code></pre>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -609,10 +727,23 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </tr>
 </tbody>
 </table>
-<p><strong><code>Residual standard error: 0.43 on 416 degrees of freedom</code></strong> The typical size of a prediction error. On average, the model’s albumin prediction is off by about 0.43 g/dL. Degrees of freedom = observations minus parameters estimated (418 − 2 = 416).</p>
-<p><strong><code>Multiple R-squared: 0.22</code></strong> Log(bilirubin) explains <strong>22% of the variability</strong> in albumin. The remaining 78% is explained by other factors not in this model.</p>
-<p><strong><code>Adjusted R-squared: 0.22</code></strong> Almost the same here because we have one predictor. It drops relative to R² if many predictors are uninformative. Prefer adjusted R² when comparing models.</p>
-<p><strong><code>F-statistic: 128 on 1 and 416 DF, p-value: &lt; 2.2e-16</code></strong> Tests whether the whole model explains significantly more variance than just predicting the mean for everyone. With one predictor, this is equivalent to the t-test on the slope.</p>
+<p><strong><code>Residual standard error: 0.40 on 416 degrees of freedom</code></strong> The typical size of a prediction error. On average, the model’s albumin prediction is off by about 0.40 g/dL. Degrees of freedom = observations minus parameters estimated (418 − 2 = 416).</p>
+<p><strong><code>Multiple R-squared: 0.12</code></strong> Log(bilirubin) explains <strong>about 12% of the variability</strong> in albumin. The remaining 88% is explained by other factors not in this model.</p>
+<p><strong><code>Adjusted R-squared: 0.12</code></strong> Almost the same here because we have one predictor. It drops relative to R² if many predictors are uninformative. Prefer adjusted R² when comparing models.</p>
+<p><strong><code>F-statistic: 57.3 on 1 and 416 DF, p-value: 2.39e-13</code></strong> Tests whether the whole model explains significantly more variance than just predicting the mean for everyone. With one predictor, this is equivalent to the t-test on the slope.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the <code>fit-lm</code> chunk above. You should see <code>(Intercept) = 3.58</code> and <code>log_bili = -0.14</code> in the coefficients table, a residual standard error of about 0.40, and <code>Multiple R-squared: 0.12</code>. Does the sign of the slope match what you predicted in the Teacher Note before this example?</p>
 </div>
 </div>
 </section>
@@ -638,9 +769,9 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </div>
 <p><strong>Reading the coefficients:</strong></p>
 <ul>
-<li><strong>Intercept (4.15):</strong> Expected albumin when log(bilirubin) = 0, i.e., bilirubin = 1 mg/dL, is 4.15 g/dL.</li>
-<li><strong>Slope (−0.34):</strong> For each one-unit increase in log(bilirubin), albumin decreases by 0.34 g/dL on average.</li>
-<li><strong>R² (0.22):</strong> Log(bilirubin) explains 22% of the variability in albumin.</li>
+<li><strong>Intercept (3.58):</strong> Expected albumin when log(bilirubin) = 0, i.e., bilirubin = 1 mg/dL, is 3.58 g/dL.</li>
+<li><strong>Slope (−0.14):</strong> For each one-unit increase in log(bilirubin), albumin decreases by 0.14 g/dL on average.</li>
+<li><strong>R² (0.12):</strong> Log(bilirubin) explains about 12% of the variability in albumin.</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -654,23 +785,23 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 <div class="callout-body-container callout-body">
 <p>Translate the numbers into a scientific sentence before you report anything:</p>
 <blockquote class="blockquote">
-<p><em>“In PBC patients, higher bilirubin is associated with lower albumin. For every approximate 2.7-fold increase in bilirubin (one unit on the log scale), albumin is on average 0.34 g/dL lower (95% CI: −0.40 to −0.28, p &lt; 0.001). Log(bilirubin) explains 22% of the variability in albumin across patients.”</em></p>
+<p><em>“In PBC patients, higher bilirubin is associated with lower albumin. For every approximate 2.7-fold increase in bilirubin (one unit on the log scale), albumin is on average 0.14 g/dL lower (95% CI: −0.18 to −0.11, p &lt; 0.001). Log(bilirubin) explains about 12% of the variability in albumin across patients.”</em></p>
 </blockquote>
 <p>Notice:</p>
 <ul>
 <li>You state the <strong>direction</strong> (lower albumin)</li>
-<li>You give the <strong>magnitude</strong> (0.34 g/dL)</li>
+<li>You give the <strong>magnitude</strong> (0.14 g/dL)</li>
 <li>You give the <strong>uncertainty</strong> (95% CI)</li>
-<li>You give the <strong>p-value</strong> — but note it only tells you the effect is unlikely to be zero, not that it is large or clinically important</li>
+<li>You give the <strong>p-value</strong>, but note it only tells you the effect is unlikely to be zero, not that it is large or clinically important</li>
 <li>You give <strong>R²</strong> to indicate how much of the outcome this one predictor explains</li>
 </ul>
-<p><strong>Is 22% a good R²?</strong> In clinical and biological data, a single biomarker rarely explains more than 20–30% of an outcome — there are too many other factors involved. R² = 0.22 is quite respectable. R² of 0.90+ is typical in physics or engineering, not medicine.</p>
+<p><strong>Is 12% a good R²?</strong> In clinical and biological data, a single biomarker rarely explains more than 20–30% of an outcome: there are too many other factors involved. R² = 0.12 is realistic for a single biomarker: log(bilirubin) alone leaves 88% of the variation in albumin unexplained, which is expected. R² of 0.90+ is typical in physics or engineering, not medicine.</p>
 </div>
 </div>
 </section>
 <section id="checking-assumptions" class="level3" data-number="10.5.3">
 <h3 data-number="10.5.3" class="anchored" data-anchor-id="checking-assumptions"><span class="header-section-number">10.5.3</span> Checking Assumptions</h3>
-<p>We use <code>broom::augment()</code> to extract residuals and fitted values, then plot with ggplot — consistent with the rest of the course.</p>
+<p>We use <code>broom::augment()</code> to extract residuals and fitted values, then plot with ggplot, consistent with the rest of the course.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>aug <span class="ot">&lt;-</span> <span class="fu">augment</span>(fit)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -740,6 +871,19 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 3 3.247342 3.171939 3.322745</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. For bilirubin = 2, 5, and 10 mg/dL, the model predicts albumin of about 3.48, 3.35, and 3.25 g/dL respectively, with narrow confidence intervals because all three values are well within the range of observed bilirubin. Notice the predicted albumin keeps dropping as bilirubin rises, but more slowly each time, because the predictor is log(bilirubin): equal <em>ratios</em> of bilirubin (2 to 5 is roughly the same ratio as 5 to 12.5) produce roughly equal drops in albumin.</p>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pred_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">log_bili =</span> <span class="fu">seq</span>(<span class="fu">min</span>(pbc<span class="sc">$</span>log_bili), <span class="fu">max</span>(pbc<span class="sc">$</span>log_bili), <span class="at">length.out =</span> <span class="dv">100</span>)</span>
@@ -768,7 +912,24 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </section>
 <section id="example-2-animal-data-palmerpenguins" class="level2" data-number="10.6">
 <h2 data-number="10.6" class="anchored" data-anchor-id="example-2-animal-data-palmerpenguins"><span class="header-section-number">10.6</span> Example 2: Animal Data (palmerpenguins)</h2>
-<p>We predict body mass from flipper length — a practical calibration question in ecology.</p>
+<p><em>Estimated time: ~20 minutes (code-along)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Before running this chunk, ask learners to predict: do they expect flipper length to explain <em>more</em> or <em>less</em> of the variability in body mass than log(bilirubin) explained in albumin (R² = 0.12 in Example 1)? Both are single-predictor models, but morphological measurements within a species tend to be much more tightly linked to body size than a single blood biomarker is to a complex clinical outcome – so R² here will be substantially higher.</p>
+</div>
+</div>
+</div>
+<p>We predict body mass from flipper length, a practical calibration question in ecology.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(body_mass_g, flipper_length_mm, species)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -788,6 +949,19 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1     0.759         0.758  394.     1071. 4.37e-107     1 -2528. 5063. 5074.
 # ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should get a slope of about <strong>49.7 g per mm</strong> of flipper length (95% CI: 46.7 to 52.7, p &lt; 0.001), and <code>Multiple R-squared</code> of about <strong>0.76</strong>. Flipper length alone explains roughly three-quarters of the variability in body mass – much higher than the 12% from Example 1, as predicted in the Teacher Note above. The intercept (about −5781 g) is not meaningful on its own: a penguin with 0 mm flippers is impossible, so it is purely a mathematical anchor for the line.</p>
 </div>
 </div>
 <div class="cell">
@@ -842,7 +1016,7 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </div>
 </div>
 </div>
-<p>Notice that residuals may cluster by species — a sign that species confounds the relationship. This motivates <a href="../sessions/multiple-regression.html">multiple regression</a>.</p>
+<p>Notice that residuals may cluster by species, a sign that species confounds the relationship. This motivates <a href="../sessions/multiple-regression.html">multiple regression</a>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -853,14 +1027,15 @@ log_bili     -0.34      0.03     -11.3    &lt;2e-16 ***</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> — multiple continuous variables with clinically interpretable relationships.</p>
-<p><strong>palmerpenguins:</strong> <code>palmerpenguins::penguins</code> — clean morphological measurements, ideal for regression with a natural grouping structure.</p>
-<p><strong>MASS::Boston:</strong> Housing data commonly used to teach regression; however, contains a problematic racial variable — examine the data carefully before use.</p>
+<p><strong>PBC dataset:</strong> <code>survival::pbc</code>: multiple continuous variables with clinically interpretable relationships.</p>
+<p><strong>palmerpenguins:</strong> <code>palmerpenguins::penguins</code>: clean morphological measurements, ideal for regression with a natural grouping structure.</p>
+<p><strong>MASS::Boston:</strong> Housing data commonly used to teach regression; however, contains a problematic racial variable: examine the data carefully before use.</p>
 </div>
 </div>
 </section>
 <section id="what-can-go-wrong" class="level2" data-number="10.7">
 <h2 data-number="10.7" class="anchored" data-anchor-id="what-can-go-wrong"><span class="header-section-number">10.7</span> What Can Go Wrong</h2>
+<p><em>Estimated time: ~10 minutes (reading)</em></p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -871,11 +1046,11 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Extrapolation.</strong> A regression line is only valid within the range of the observed data. Predicting outside this range can produce nonsensical values — e.g., negative albumin.</p>
+<p><strong>Extrapolation.</strong> A regression line is only valid within the range of the observed data. Predicting outside this range can produce nonsensical values, e.g., negative albumin.</p>
 <p><strong>Ignoring non-linearity.</strong> If the Residuals vs Fitted plot shows a U-shape, the linear model is misspecified. Try a log-transformation of X, or consider polynomial terms.</p>
 <p><strong>Heteroscedasticity.</strong> If variance increases with fitted values (fan-shaped residuals), OLS standard errors are incorrect. Consider transforming Y, or use heteroscedasticity-consistent (robust) standard errors.</p>
 <p><strong>Confounding.</strong> A simple regression coefficient is not causal. A third variable may drive both X and Y. See the <a href="../sessions/multiple-regression.html">multiple regression session</a> for how to adjust for confounders.</p>
-<p><strong>Outliers and influential points.</strong> Check Cook’s distance via <code>augment()</code> — the <code>.cooksd</code> column. Values above 4/n flag cases to investigate; they may be data errors or genuinely unusual patients.</p>
+<p><strong>Outliers and influential points.</strong> Check Cook’s distance via <code>augment()</code>, the <code>.cooksd</code> column. Values above 4/n flag cases to investigate; they may be data errors or genuinely unusual patients.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -895,11 +1070,49 @@ Warning
 <p><strong>“A significant p-value means my model assumptions are met.”</strong> The p-value tells you nothing about model assumptions. Check the diagnostic plots regardless of the p-value.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A quick true/false check before moving to the exercises:</p>
+<ol type="1">
+<li>“A slope’s 95% CI that excludes zero means the effect is large.” <strong>False</strong> – it means the effect is unlikely to be exactly zero, not that it is big.</li>
+<li>“If R² is low, the slope estimate is wrong.” <strong>False</strong> – R² and the slope answer different questions; a precise, statistically significant slope can coexist with a low R² when many other factors also affect the outcome.</li>
+<li>“The residuals-vs-fitted plot should be checked regardless of whether p &lt; 0.05.” <strong>True</strong> – a significant p-value says nothing about whether the linearity, equal-variance, or normality assumptions hold.</li>
+</ol>
+</div>
+</div>
+</div>
 </section>
 <section id="exercises" class="level2" data-number="10.8">
 <h2 data-number="10.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">10.8</span> Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Pair learners up for Exercise 1 and 2. Before they start Exercise 1, ask them to predict: will the relationship between prothrombin time and albumin be stronger or weaker than the bilirubin-albumin relationship in Example 1 (R² = 0.12)? After Exercise 2, ask whether the species-specific slopes (bill length vs body mass within each species) are larger or smaller than the slope from the pooled model – this previews the confounding-by-species theme that <a href="../sessions/multiple-regression.html">multiple regression</a> will address directly.</p>
+</div>
+</div>
+</div>
 <section id="exercise-1-guided-prothrombin-time-predicts-albumin" class="level3" data-number="10.8.1">
 <h3 data-number="10.8.1" class="anchored" data-anchor-id="exercise-1-guided-prothrombin-time-predicts-albumin"><span class="header-section-number">10.8.1</span> Exercise 1 (Guided): Prothrombin Time Predicts Albumin</h3>
+<p><em>Estimated time: ~15 minutes</em></p>
 <ol type="1">
 <li>Plot albumin (y) vs prothrombin time (x) in <code>pbc</code>. Log-transform prothrombin time.</li>
 <li>Fit <code>lm(albumin ~ log(protime), data = pbc)</code>. Interpret the slope.</li>
@@ -907,7 +1120,7 @@ Warning
 <li>Report the slope, 95% CI, and R².</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -916,7 +1129,7 @@ Warning
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pbc2 <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(protime))</span>
@@ -982,19 +1195,21 @@ Warning
 </div>
 </div>
 </div>
+<p>Run the chunk above. You should get a slope of about −1.00 for <code>I(log(protime))</code> (95% CI: −1.45 to −0.54, p &lt; 0.001), and <code>Multiple R-squared</code> of about 0.04. The direction is the same as the bilirubin-albumin relationship (longer prothrombin time -&gt; lower albumin, both reflecting worse liver function), but the relationship is considerably weaker (R² ≈ 0.04 vs 0.12 for log(bilirubin)).</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-2-semi-guided-bill-length-predicts-body-mass-penguins" class="level3" data-number="10.8.2">
 <h3 data-number="10.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-bill-length-predicts-body-mass-penguins"><span class="header-section-number">10.8.2</span> Exercise 2 (Semi-guided): Bill Length Predicts Body Mass (Penguins)</h3>
+<p><em>Estimated time: ~15 minutes</em></p>
 <ol type="1">
 <li>Fit <code>lm(body_mass_g ~ bill_length_mm, data = penguins)</code>.</li>
 <li>Check the diagnostic plots using <code>augment()</code>. Do the residuals look well-behaved?</li>
 <li>Fit the model separately for each species. Compare the slopes. How do they differ from the overall model?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1003,7 +1218,7 @@ Warning
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>peng2 <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
@@ -1059,26 +1274,29 @@ Warning
 3 Gentoo       108.      85.6     130.  1.26e-16</code></pre>
 </div>
 </div>
+<p>Run the chunk above. The pooled model gives a slope of about 86.8 g per mm of bill length (95% CI: 73.9 to 99.7). But the species-specific slopes are all noticeably <em>larger</em>: Adelie ≈ 93.7, Chinstrap ≈ 59.1, Gentoo ≈ 108 g per mm (all p &lt; 0.001). Chinstrap’s slope of about 59 is actually <em>smaller</em> than the pooled estimate. This spread of species-specific slopes around the pooled value – with one species clearly out of line – is a sign that species is confounding the bill-length-body-mass relationship, the same theme you saw with flipper length and body mass earlier in this session.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-3-open-ended" class="level3" data-number="10.8.3">
 <h3 data-number="10.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">10.8.3</span> Exercise 3 (Open-ended)</h3>
+<p><em>Estimated time: 15–30 minutes</em></p>
 <p>In your own research, identify a continuous outcome and a single continuous predictor you expect to be linearly related. Fit a simple linear regression, check all assumptions, and write a Results paragraph including: the slope (95% CI), the R², and a sentence on whether the assumptions are satisfied.</p>
 </section>
 </section>
 <section id="comprehension-check" class="level2" data-number="10.9">
 <h2 data-number="10.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">10.9</span> Comprehension Check</h2>
+<p><em>Estimated time: ~10 minutes (self-test)</em></p>
 <ol type="1">
-<li>You fit <code>lm(albumin ~ log_bili)</code> and get slope = −0.34, SE = 0.03. Interpret the slope in plain language.</li>
+<li>You fit <code>lm(albumin ~ log_bili)</code> and get slope = −0.14, SE = 0.02. Interpret the slope in plain language.</li>
 <li>The QQ-plot of residuals shows a heavy right tail. Is this a problem? What would you do?</li>
 <li>R² = 0.05. Does this mean the model is useless?</li>
 <li>You predict albumin = 2.1 g/dL for a patient with bilirubin = 80 mg/dL. The maximum observed bilirubin in your data is 28 mg/dL. Should you trust this prediction?</li>
 <li>What does the intercept represent in <code>lm(albumin ~ log_bili)</code> when many patients have bilirubin values far from 1 mg/dL?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1087,10 +1305,10 @@ Warning
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>For every one-unit increase in log(bilirubin) — roughly a 2.7-fold increase in bilirubin on the original scale — albumin is expected to be 0.34 g/dL lower, on average.</li>
+<li>For every one-unit increase in log(bilirubin) (roughly a 2.7-fold increase in bilirubin on the original scale), albumin is expected to be 0.14 g/dL lower, on average.</li>
 <li>A heavy right tail means large positive residuals occur more often than expected under normality. For inference (CIs, p-values), mild non-normality is acceptable with large samples (Central Limit Theorem). For severe non-normality, try a log-transformation of the outcome or use robust standard errors.</li>
 <li>R² = 0.05 means the predictor explains 5% of the outcome’s variability. Whether this is “useful” depends on context. In complex biological systems, a single biomarker explaining even 5% of variance may be scientifically meaningful. The slope and CI are more informative than R² alone.</li>
 <li>No.&nbsp;Bilirubin = 80 mg/dL is well outside the range of the data used to fit the model (max = 28). Extrapolation is unreliable; the linear relationship may not hold at extreme values.</li>
@@ -1121,7 +1339,7 @@ Note
 <li>Number of observations and any excluded due to missing data</li>
 <li>Whether the model is unadjusted or adjusted (and for what)</li>
 </ul>
-<p><strong>Reporting R² alone is not enough</strong> — always report the coefficient and CI so readers know the direction and magnitude of the effect.</p>
+<p><strong>Reporting R² alone is not enough</strong>: always report the coefficient and CI so readers know the direction and magnitude of the effect.</p>
 <p>For models with multiple predictors, see the <a href="../sessions/multiple-regression.html">Multiple Regression</a> session.</p>
 </div>
 </div>
@@ -1129,8 +1347,8 @@ Note
 <section id="further-reading" class="level2" data-number="10.11">
 <h2 data-number="10.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">10.11</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Dalgaard-2008">Dalgaard (<a href="#ref-Dalgaard-2008" role="doc-biblioref">2008</a>)</span> — Chapter on linear models in <em>Introductory Statistics with R</em></li>
-<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span> — Regression chapters in <em>An Introduction to Medical Statistics</em></li>
+<li><span class="citation" data-cites="Dalgaard-2008">Dalgaard (<a href="#ref-Dalgaard-2008" role="doc-biblioref">2008</a>)</span>: Chapter on linear models in <em>Introductory Statistics with R</em></li>
+<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span>: Regression chapters in <em>An Introduction to Medical Statistics</em></li>
 <li><code>?lm</code>, <code>?predict.lm</code> in R: full documentation</li>
 <li><code>broom</code> package vignette for tidy model output</li>
 </ul>

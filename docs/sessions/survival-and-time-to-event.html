@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -444,6 +444,89 @@ window.Quarto = {
 <p>This session assumes you are comfortable with basic inference (hypothesis testing, p-values) and regression concepts. Complete at least the <a href="../sessions/hypothesis-testing.html">Hypothesis Testing</a> and <a href="../sessions/linear-regression.html">Linear Regression</a> sessions before starting here.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session at a Glance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Total core time: ~180 minutes</strong> (about 3 hours). A natural break point is after Example 1 (the PBC survival curves and Cox models)—cover Example 2 and the exercises in a second sitting. Exercise 3 is open-ended and its time will vary.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Time</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The Key Idea: “Survived At Least…”</td>
+<td>~10 min</td>
+<td>Concept</td>
+</tr>
+<tr class="even">
+<td>Background: Key Concepts</td>
+<td>~15 min</td>
+<td>Concept</td>
+</tr>
+<tr class="odd">
+<td>Example 1: Clinical Data (PBC)</td>
+<td>~60 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="even">
+<td>Example 2: Melanoma Data</td>
+<td>~20 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="odd">
+<td>What Can Go Wrong</td>
+<td>~10 min</td>
+<td>Reading</td>
+</tr>
+<tr class="even">
+<td>Exercise 1 (Guided)</td>
+<td>~15 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Exercise 2 (Semi-guided)</td>
+<td>~20 min</td>
+<td>Practice</td>
+</tr>
+<tr class="even">
+<td>Exercise 3 (Open-ended)</td>
+<td>15–30 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Comprehension Check</td>
+<td>~10 min</td>
+<td>Self-test</td>
+</tr>
+</tbody>
+</table>
+<p>If you are short on time, focus on the multivariable Cox model (<code>cox_full</code>) and its proportional-hazards check in Example 1 – together they show both how to adjust for multiple predictors and how to detect when the model’s central assumption does not hold.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code in This Session
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code chunk below is written so you can copy it into your R console (or an R script) and run it yourself, in the order shown. Where you see a “Run It Yourself” box, stop and run the code above it before reading the explanation that follows.</p>
+</div>
+</div>
 <section id="sec-survival" class="level2" data-number="16.1">
 <h2 data-number="16.1" class="anchored" data-anchor-id="sec-survival"><span class="header-section-number">16.1</span> When Do You Use This?</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -457,6 +540,22 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>Your outcome is the time until an event: death, disease recurrence, treatment response, or any clearly defined endpoint, and some participants did not experience the event by the end of observation (censored). Standard methods cannot handle censoring correctly because a censored observation is not a missing value: you know the person survived <em>at least</em> to that time. Survival analysis models both event probability and time to event while making full use of censored information.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Before starting, ask learners for their own “survived at least…” example: a patient who hasn’t relapsed yet, a machine part that hasn’t failed yet, a customer who hasn’t churned yet. Then ask: in the PBC liver disease data below, out of 312 patients with treatment information, roughly how many do you expect to have died by the end of follow-up – a quarter, a third, half? (The real answer, revealed in the log-rank test output, is 125 of 312, about 40%.) Holding a guess in mind makes the first KM plot land harder.</p>
+</div>
 </div>
 </div>
 </section>
@@ -473,13 +572,15 @@ Tip
 </section>
 <section id="the-key-idea-what-to-do-with-survived-at-least" class="level2" data-number="16.3">
 <h2 data-number="16.3" class="anchored" data-anchor-id="the-key-idea-what-to-do-with-survived-at-least"><span class="header-section-number">16.3</span> The Key Idea: What to Do with “Survived At Least…”</h2>
+<p><em>Estimated time: ~10 minutes (Concept)</em></p>
 <p>Here is the problem that makes survival analysis different from everything else in this course.</p>
-<p>You follow 100 patients for five years. At the end, 60 have died. The other 40 are alive, or were lost to follow-up, or withdrew. Can you use logistic regression on the “died/alive” outcome? No — because a patient who dropped out at year 1 is counted the same as one who stayed healthy for 4.9 years. You are throwing away timing information.</p>
-<p>Can you use linear regression on time-to-death? No — because 40 patients have no death time. You can’t include them.</p>
+<p>You follow 100 patients for five years. At the end, 60 have died. The other 40 are alive, or were lost to follow-up, or withdrew. Can you use logistic regression on the “died/alive” outcome? No, because a patient who dropped out at year 1 is counted the same as one who stayed healthy for 4.9 years. You are throwing away timing information.</p>
+<p>Can you use linear regression on time-to-death? No, because 40 patients have no death time. You can’t include them.</p>
 <p>Survival analysis keeps everyone in the analysis: the 60 who died contribute their full event time, and the 40 who were censored contribute their partial time (they were at risk until they left). No one is wasted.</p>
 </section>
 <section id="background-key-concepts" class="level2" data-number="16.4">
 <h2 data-number="16.4" class="anchored" data-anchor-id="background-key-concepts"><span class="header-section-number">16.4</span> Background: Key Concepts</h2>
+<p><em>Estimated time: ~15 minutes (Concept)</em></p>
 <section id="time-to-event-data" class="level3" data-number="16.4.1">
 <h3 data-number="16.4.1" class="anchored" data-anchor-id="time-to-event-data"><span class="header-section-number">16.4.1</span> Time-to-event data</h3>
 <p>Each patient contributes: - <strong>Event time</strong> <span class="math inline">\(T_i\)</span>: the time from study entry to the event (death, relapse, etc.) - <strong>Event indicator</strong> <span class="math inline">\(\delta_i\)</span>: 1 if the event occurred, 0 if censored</p>
@@ -496,12 +597,35 @@ Tip
 <h3 data-number="16.4.3" class="anchored" data-anchor-id="the-cox-proportional-hazards-model"><span class="header-section-number">16.4.3</span> The Cox Proportional Hazards Model</h3>
 <p>The Cox model relates covariates to the hazard:</p>
 <p><span class="math display">\[h(t \mid X) = h_0(t) \cdot \exp(\beta_1 X_1 + \cdots + \beta_p X_p)\]</span></p>
-<p>The <strong>hazard ratio (HR)</strong> for a one-unit increase in <span class="math inline">\(X_j\)</span> is <span class="math inline">\(e^{\beta_j}\)</span>. HR &gt; 1 means increased risk; HR &lt; 1 means reduced risk. The baseline hazard <span class="math inline">\(h_0(t)\)</span> is left unspecified — this is the “semi-parametric” nature of the Cox model.</p>
+<p>The <strong>hazard ratio (HR)</strong> for a one-unit increase in <span class="math inline">\(X_j\)</span> is <span class="math inline">\(e^{\beta_j}\)</span>. HR &gt; 1 means increased risk; HR &lt; 1 means reduced risk. The baseline hazard <span class="math inline">\(h_0(t)\)</span> is left unspecified: this is the “semi-parametric” nature of the Cox model.</p>
 <p><strong>Proportional hazards assumption:</strong> The ratio of hazards between any two covariate patterns is constant over time. This must be checked.</p>
 </section>
 </section>
 <section id="example-1-clinical-data-pbc" class="level2" data-number="16.5">
 <h2 data-number="16.5" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">16.5</span> Example 1: Clinical Data (PBC)</h2>
+<p><em>Estimated time: ~60 minutes (Walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example has several natural stopping points – pause and ask learners to predict before running each one:</p>
+<ol type="1">
+<li><strong>After <code>pbc-setup</code>:</strong> the <code>filter(!is.na(trt))</code> step quietly drops 106 of the 418 PBC patients (these are an observational follow-up cohort with no treatment assignment), leaving 312 for the trial comparison. Ask: does this filter introduce bias? (Worth discussing, but in this case the 106 are simply a separate cohort, not a non-random subset of the 312.)</li>
+<li><strong>Before <code>km-plot</code>:</strong> D-penicillamine was the experimental drug in the real PBC trial. Ask learners to predict whether the two KM curves will separate. (They will not – the trial famously found no survival benefit.)</li>
+<li><strong>Before <code>cox-multi</code>:</strong> ask which single predictor learners expect to have the strongest hazard ratio once everything is adjusted – bilirubin, albumin, or disease stage? (Bilirubin and albumin remain strong; stage becomes less precise once bilirubin and albumin are in the model, because they partly capture the same underlying liver damage.)</li>
+<li><strong>Before <code>ph-test</code>:</strong> ask whether learners expect the proportional hazards assumption to hold perfectly for a 5-predictor model followed for over 10 years. (It does not – two terms show evidence of violation, a realistic outcome worth normalising.)</li>
+</ol>
+</div>
+</div>
+</div>
 <section id="prepare-the-data" class="level3" data-number="16.5.1">
 <h3 data-number="16.5.1" class="anchored" data-anchor-id="prepare-the-data"><span class="header-section-number">16.5.1</span> Prepare the Data</h3>
 <div class="cell">
@@ -518,9 +642,23 @@ Tip
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This chunk produces no printed output, but it does important work. Run <code>nrow(pbc)</code> afterwards: you should get <strong>312</strong>, not 418. The <code>filter(!is.na(trt))</code> step removes 106 patients who were enrolled in an observational follow-up registry without a randomised treatment assignment. Every analysis below (KM curves, log-rank test, Cox models) uses this 312-patient trial subset.</p>
+</div>
+</div>
 </section>
 <section id="kaplan-meier-survival-curves" class="level3" data-number="16.5.2">
 <h3 data-number="16.5.2" class="anchored" data-anchor-id="kaplan-meier-survival-curves"><span class="header-section-number">16.5.2</span> Kaplan-Meier Survival Curves</h3>
+<p><em>Estimated time: ~10 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>km_trt <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(time, died) <span class="sc">~</span> trt, <span class="at">data =</span> pbc)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(km_trt, <span class="at">times =</span> <span class="fu">c</span>(<span class="dv">365</span>, <span class="dv">730</span>, <span class="dv">1460</span>, <span class="dv">2920</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -542,6 +680,51 @@ Tip
  2920     33      11    0.605  0.0486        0.517        0.709</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should see survival estimates at four follow-up times (1, 2, 4, and 8 years):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Time (days)</th>
+<th>D-penicillamine</th>
+<th>Placebo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>365</td>
+<td>0.943 (0.908–0.980)</td>
+<td>0.916 (0.873–0.961)</td>
+</tr>
+<tr class="even">
+<td>730</td>
+<td>0.911 (0.868–0.957)</td>
+<td>0.877 (0.826–0.930)</td>
+</tr>
+<tr class="odd">
+<td>1460</td>
+<td>0.764 (0.699–0.834)</td>
+<td>0.740 (0.672–0.814)</td>
+</tr>
+<tr class="even">
+<td>2920</td>
+<td>0.542 (0.455–0.645)</td>
+<td>0.605 (0.517–0.709)</td>
+</tr>
+</tbody>
+</table>
+<p>At every time point the two groups’ confidence intervals overlap substantially – a first hint that treatment makes little difference, before you even see the plot or the test.</p>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>km_trt <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsurvfit</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -559,9 +742,23 @@ Tip
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The two step curves should sit almost on top of each other for the full follow-up period, with heavily overlapping shaded confidence bands. The risk table below the plot shows both groups starting at a similar size (158 vs 154) and losing patients to events at a similar pace (e.g., by day 2920, 58 of 158 D-penicillamine patients and 50 of 154 placebo patients have had the event). Visually, this is what “no treatment effect” looks like.</p>
+</div>
+</div>
 </section>
 <section id="log-rank-test" class="level3" data-number="16.5.3">
 <h3 data-number="16.5.3" class="anchored" data-anchor-id="log-rank-test"><span class="header-section-number">16.5.3</span> Log-Rank Test</h3>
+<p><em>Estimated time: ~5 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">survdiff</span>(<span class="fu">Surv</span>(time, died) <span class="sc">~</span> trt, <span class="at">data =</span> pbc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -575,10 +772,24 @@ trt=Placebo         154       60     61.8    0.0513     0.102
  Chisq= 0.1  on 1 degrees of freedom, p= 0.7 </code></pre>
 </div>
 </div>
-<p>The log-rank test compares survival curves between groups. A significant p-value means survival differs at some point over follow-up — it does not tell you where or by how much.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should get <strong>Chisq = 0.1 on 1 df, p = 0.7</strong>. With 65 observed deaths in the D-penicillamine group against 63.2 expected, and 60 observed against 61.8 expected in the placebo group, the data are entirely consistent with no difference between groups. This matches the original PBC trial finding: D-penicillamine showed no survival benefit over placebo.</p>
+</div>
+</div>
+<p>The log-rank test compares survival curves between groups. A significant p-value means survival differs at some point over follow-up; it does not tell you where or by how much.</p>
 </section>
 <section id="estimating-median-survival" class="level3" data-number="16.5.4">
 <h3 data-number="16.5.4" class="anchored" data-anchor-id="estimating-median-survival"><span class="header-section-number">16.5.4</span> Estimating Median Survival</h3>
+<p><em>Estimated time: ~5 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>km_trt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -589,12 +800,26 @@ trt=D-penicillamine 158     65   3282    2583      NA
 trt=Placebo         154     60   3428    3090      NA</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should see median survival of <strong>3282 days</strong> (95% CI: 2583–NA) for D-penicillamine and <strong>3428 days</strong> (95% CI: 3090–NA) for Placebo – about 9 years in both groups, with overlapping confidence intervals (consistent with the log-rank result above). The upper CI is <code>NA</code> for both groups because the survival curve never drops back down to the lower bound needed to compute it within the follow-up period: not every quantity you might want is always estimable from the available data.</p>
+</div>
+</div>
 <p>The median survival is the time at which <span class="math inline">\(S(t) = 0.5\)</span>. If the curve does not drop below 0.5, the median is not reached within the study period.</p>
 </section>
 <section id="cox-proportional-hazards-model" class="level3" data-number="16.5.5">
 <h3 data-number="16.5.5" class="anchored" data-anchor-id="cox-proportional-hazards-model"><span class="header-section-number">16.5.5</span> Cox Proportional Hazards Model</h3>
 <section id="univariable-cox-models" class="level4" data-number="16.5.5.1">
 <h4 data-number="16.5.5.1" class="anchored" data-anchor-id="univariable-cox-models"><span class="header-section-number">16.5.5.1</span> Univariable Cox Models</h4>
+<p><em>Estimated time: ~10 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cox1 <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(time, died) <span class="sc">~</span> trt,      <span class="at">data =</span> pbc)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cox2 <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(time, died) <span class="sc">~</span> log_bili, <span class="at">data =</span> pbc)</span>
@@ -615,9 +840,54 @@ trt=Placebo         154     60   3428    3090      NA</code></pre>
 3 albumin       0.166    0.110     0.250 9.85e-18</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should get a 3-row tibble:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>term</th>
+<th>HR</th>
+<th>95% CI</th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>trtPlacebo</td>
+<td>0.944</td>
+<td>0.665–1.34</td>
+<td>0.749</td>
+</tr>
+<tr class="even">
+<td>log_bili</td>
+<td>2.96</td>
+<td>2.47–3.55</td>
+<td>2.99e-31</td>
+</tr>
+<tr class="odd">
+<td>albumin</td>
+<td>0.166</td>
+<td>0.110–0.250</td>
+<td>9.85e-18</td>
+</tr>
+</tbody>
+</table>
+<p><code>trtPlacebo</code>’s HR is close to 1 with a wide, non-significant CI – the Cox model agrees with the log-rank test that treatment has essentially no effect. <code>log_bili</code> and <code>albumin</code>, by contrast, have astronomically small p-values: each is, on its own, a very strong predictor of mortality. This is expected – bilirubin and albumin are direct markers of liver function.</p>
+</div>
+</div>
 </section>
 <section id="multivariable-cox-model" class="level4" data-number="16.5.5.2">
 <h4 data-number="16.5.5.2" class="anchored" data-anchor-id="multivariable-cox-model"><span class="header-section-number">16.5.5.2</span> Multivariable Cox Model</h4>
+<p><em>Estimated time: ~15 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cox_full <span class="ot">&lt;-</span> <span class="fu">coxph</span>(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Surv</span>(time, died) <span class="sc">~</span> trt <span class="sc">+</span> log_bili <span class="sc">+</span> albumin <span class="sc">+</span> log_proto <span class="sc">+</span> stage,</span>
@@ -652,17 +922,88 @@ trt=Placebo         154     60   3428    3090      NA</code></pre>
 #   BIC &lt;dbl&gt;, nobs &lt;dbl&gt;</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>cox_full</code> table should have 7 rows:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>term</th>
+<th>HR</th>
+<th>95% CI</th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>trtPlacebo</td>
+<td>0.994</td>
+<td>0.696–1.42</td>
+<td>0.975</td>
+</tr>
+<tr class="even">
+<td>log_bili</td>
+<td>2.30</td>
+<td>1.88–2.82</td>
+<td>&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td>albumin</td>
+<td>0.365</td>
+<td>0.23–0.581</td>
+<td>&lt;0.001</td>
+</tr>
+<tr class="even">
+<td>log_proto</td>
+<td>48.6</td>
+<td>5.27–448</td>
+<td>0.001</td>
+</tr>
+<tr class="odd">
+<td>stageStage 2</td>
+<td>4.34</td>
+<td>0.559–33.7</td>
+<td>0.16</td>
+</tr>
+<tr class="even">
+<td>stageStage 3</td>
+<td>5.49</td>
+<td>0.739–40.8</td>
+<td>0.096</td>
+</tr>
+<tr class="odd">
+<td>stageStage 4</td>
+<td>7.03</td>
+<td>0.947–52.1</td>
+<td>0.057</td>
+</tr>
+</tbody>
+</table>
+<p><code>glance(cox_full)</code> should report <strong>n = 312, nevent = 125, concordance ≈ 0.837, AIC ≈ 1108</strong>. A concordance of 0.84 means the model ranks pairs of patients by predicted risk correctly about 84% of the time – a strong model by clinical standards.</p>
+</div>
+</div>
 <p><strong>Interpreting hazard ratios:</strong></p>
 <ul>
-<li><strong>log_bili:</strong> Each one-unit increase in log(bilirubin) multiplies the hazard of death by the HR — roughly a 2.7-fold increase in bilirubin on the original scale.</li>
-<li><strong>albumin:</strong> Each 1 g/dL increase in albumin is associated with HR &lt; 1, i.e., lower hazard (protective).</li>
-<li><strong>stageStage 4:</strong> Stage 4 patients have HR times the hazard of Stage 1 patients, after adjustment.</li>
+<li><strong>trt:</strong> <code>trtPlacebo</code> has HR = 0.994 (95% CI 0.696–1.42, p = 0.975) – still indistinguishable from 1 once bilirubin, albumin, prothrombin time, and stage are accounted for. Treatment assignment adds nothing once disease severity is in the model, consistent with the log-rank test and univariable models above.</li>
+<li><strong>log_bili:</strong> HR = 2.30 (95% CI 1.88–2.82, p &lt; 0.001). Each one-unit increase in log(bilirubin) – a roughly 2.7-fold increase in bilirubin on the original scale – multiplies the hazard of death by about 2.3, i.e.&nbsp;a 130% higher hazard, after adjusting for the other predictors.</li>
+<li><strong>albumin:</strong> HR = 0.365 (95% CI 0.23–0.581, p &lt; 0.001). Each 1 g/dL increase in albumin is associated with a 63.5% <em>lower</em> hazard (HR &lt; 1, protective), after adjustment.</li>
+<li><strong>log_proto:</strong> HR = 48.6 (95% CI 5.27–448, p = 0.001). This HR looks enormous, but <code>protime</code> (prothrombin time) varies over a very narrow range in this data, so a full one-unit change in <code>log_proto</code> represents a large relative change in clotting time. Large HRs for log-transformed lab values with a narrow range are common – always check the range of the original variable before reacting to the size of the HR.</li>
+<li><strong>stageStage 4:</strong> HR = 7.03 (95% CI 0.947–52.1, p = 0.057). The point estimate suggests roughly 7 times the hazard of Stage 1 patients after adjustment, but the confidence interval includes 1 and the p-value sits just above the conventional 0.05 threshold. With only 16 Stage 1 patients (and just 1 death among them), this comparison is imprecise – “not quite significant” here reflects limited data for Stage 1 as much as a weak effect.</li>
 </ul>
 <p>Note that the HR is <strong>not</strong> the same as an odds ratio or a relative risk. See the <a href="../sessions/logistic-regression.html">Logistic Regression</a> session for the OR comparison.</p>
 </section>
 </section>
 <section id="checking-the-proportional-hazards-assumption" class="level3" data-number="16.5.6">
 <h3 data-number="16.5.6" class="anchored" data-anchor-id="checking-the-proportional-hazards-assumption"><span class="header-section-number">16.5.6</span> Checking the Proportional Hazards Assumption</h3>
+<p><em>Estimated time: ~10 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ph_test <span class="ot">&lt;-</span> <span class="fu">cox.zph</span>(cox_full)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ph_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -690,16 +1031,96 @@ GLOBAL    14.413  7 0.044</code></pre>
 </div>
 </div>
 </div>
-<p>A significant p-value for a term indicates the hazard ratio for that variable changes over time (non-proportional hazards). If the Schoenfeld residual plot shows a systematic trend, consider:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should see:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>term</th>
+<th>chisq</th>
+<th>df</th>
+<th>p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>trt</td>
+<td>1.598</td>
+<td>1</td>
+<td>0.206</td>
+</tr>
+<tr class="even">
+<td>log_bili</td>
+<td>0.657</td>
+<td>1</td>
+<td>0.417</td>
+</tr>
+<tr class="odd">
+<td>albumin</td>
+<td>2.588</td>
+<td>1</td>
+<td>0.108</td>
+</tr>
+<tr class="even">
+<td>log_proto</td>
+<td>5.504</td>
+<td>1</td>
+<td>0.019</td>
+</tr>
+<tr class="odd">
+<td>stage</td>
+<td>8.276</td>
+<td>3</td>
+<td>0.041</td>
+</tr>
+<tr class="even">
+<td>GLOBAL</td>
+<td>14.413</td>
+<td>7</td>
+<td>0.044</td>
+</tr>
+</tbody>
+</table>
+<p>The GLOBAL test is significant (p = 0.044): the proportional hazards assumption does <strong>not</strong> hold perfectly for <code>cox_full</code>. <code>log_proto</code> (p = 0.019) and <code>stage</code> (p = 0.041) are the terms driving this. In the Schoenfeld residual plots, the <code>log_proto</code> panel shows a downward-sloping smooth line (its effect on the hazard weakens at later follow-up times), and the <code>stage</code> panel similarly slopes down, with one large outlier point. The other three terms (<code>trt</code>, <code>log_bili</code>, <code>albumin</code>) have roughly flat smooths and non-significant tests – their hazard ratios are reasonably constant over time.</p>
+</div>
+</div>
+<p>A significant p-value for a term indicates the hazard ratio for that variable changes over time (non-proportional hazards). Here, the global test and the <code>log_proto</code> and <code>stage</code> terms suggest the model would benefit from one of the following:</p>
 <ul>
-<li><strong>Stratification:</strong> <code>coxph(... + strata(stage), ...)</code> — allows separate baseline hazards by stage, not estimating a stage HR</li>
+<li><strong>Stratification:</strong> <code>coxph(... + strata(stage), ...)</code>: allows separate baseline hazards by stage, not estimating a stage HR</li>
 <li><strong>Time-varying coefficients:</strong> <code>tt()</code> in <code>coxph</code></li>
 <li><strong>Restricted mean survival time</strong> as an alternative summary measure</li>
 </ul>
+<p>In practice, a single borderline term in a 5-predictor model followed for over a decade is not unusual, and many analysts would still report <code>cox_full</code> while noting this limitation – but you should always report whether you checked, and what you found.</p>
 </section>
 </section>
 <section id="example-2-melanoma-data" class="level2" data-number="16.6">
 <h2 data-number="16.6" class="anchored" data-anchor-id="example-2-melanoma-data"><span class="header-section-number">16.6</span> Example 2: Melanoma Data</h2>
+<p><em>Estimated time: ~20 minutes (Walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Ulceration of a melanoma – the surface of the tumour breaking down – is a well-established marker of aggressive disease. Before running <code>mel-survival</code>, ask learners to predict roughly how different the two KM curves will look, and whether the difference will be larger or smaller than the treatment-effect (non-)difference seen in Example 1. (It is much larger: this is a real prognostic factor, not a null result.)</p>
+</div>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mel <span class="ot">&lt;-</span> boot<span class="sc">::</span>melanoma <span class="sc">%&gt;%</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
@@ -728,6 +1149,19 @@ GLOBAL    14.413  7 0.044</code></pre>
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The two curves should now separate clearly, unlike Example 1. The <code>ulceration = No</code> group (115 patients) stays near 1.0 for the first ~800 days, then declines gently to about <strong>0.81</strong> by the end of follow-up (16 events). The <code>ulceration = Yes</code> group (90 patients) starts declining almost immediately and drops to about <strong>0.43</strong> (41 events) – a much steeper curve with a wider confidence band, reflecting both the higher event rate and the smaller group size. This is what a real prognostic effect looks like next to the null result from Example 1.</p>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cox_mel <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(time, died_mel) <span class="sc">~</span> log_thick <span class="sc">+</span> ulceration <span class="sc">+</span> sex, <span class="at">data =</span> mel)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(cox_mel, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
@@ -739,6 +1173,50 @@ GLOBAL    14.413  7 0.044</code></pre>
 1 log_thick         1.78    1.25       2.53 0.00133
 2 ulcerationYes     2.56    1.35       4.83 0.00379
 3 sexMale           1.46    0.862      2.49 0.159  </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should get a 3-row tibble:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>term</th>
+<th>HR</th>
+<th>95% CI</th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>log_thick</td>
+<td>1.78</td>
+<td>1.25–2.53</td>
+<td>0.00133</td>
+</tr>
+<tr class="even">
+<td>ulcerationYes</td>
+<td>2.56</td>
+<td>1.35–4.83</td>
+<td>0.00379</td>
+</tr>
+<tr class="odd">
+<td>sexMale</td>
+<td>1.46</td>
+<td>0.862–2.49</td>
+<td>0.159</td>
+</tr>
+</tbody>
+</table>
+<p>Both <code>log_thick</code> (each unit increase in log(tumour thickness) more than doubles the hazard… well, multiplies it by 1.78) and <code>ulcerationYes</code> (an ulcerated tumour roughly 2.6 times the hazard of a non-ulcerated one of the same thickness and sex) are significant after mutual adjustment. <code>sexMale</code> has HR &gt; 1 (men have higher point-estimate risk) but the CI crosses 1 – not significant here, though sex differences in melanoma outcomes are reported elsewhere in the literature with larger samples.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -767,6 +1245,7 @@ GLOBAL    14.413  7 0.044</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><em>Estimated time: ~10 minutes (Reading)</em></p>
 <p><strong>Ignoring censoring (using logistic or linear regression).</strong> Using a binary “died/alive” outcome discards timing information and biases estimates when follow-up lengths differ. Always use time-to-event methods when censoring is present.</p>
 <p><strong>Assuming proportional hazards without checking.</strong> Cox models assume constant hazard ratios over time. If treatment benefit wanes or emerges late, HRs averaged over the whole follow-up are misleading. Always run <code>cox.zph()</code>.</p>
 <p><strong>Immortal time bias.</strong> If covariates are recorded after study entry (e.g., “did the patient receive surgery?”), misclassifying the period before surgery as exposed creates an artificial survival advantage. Use landmark analysis or time-varying covariates to address this.</p>
@@ -776,11 +1255,28 @@ GLOBAL    14.413  7 0.044</code></pre>
 </section>
 <section id="exercises" class="level2" data-number="16.7">
 <h2 data-number="16.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">16.7</span> Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Before Exercise 1, ask learners to predict: with 312 patients split across 4 disease stages (16 / 67 / 120 / 109), and stage being a strong predictor in <code>cox_full</code>, will the log-rank test across all 4 stages be significant – and if so, how significant compared to the trt comparison (p = 0.7)? (It is dramatically more significant: p ≈ 1e-11.) Exercise 2 also revisits the proportional-hazards theme from Example 1 – another model, another borderline PH violation.</p>
+</div>
+</div>
+</div>
 <section id="exercise-1-guided-km-curves-by-disease-stage" class="level3" data-number="16.7.1">
 <h3 data-number="16.7.1" class="anchored" data-anchor-id="exercise-1-guided-km-curves-by-disease-stage"><span class="header-section-number">16.7.1</span> Exercise 1 (Guided): KM Curves by Disease Stage</h3>
+<p><em>Estimated time: ~15 minutes (Practice)</em></p>
 <p>Using <code>pbc</code>, plot Kaplan-Meier survival curves separately for each disease stage. Use <code>add_risktable()</code>. Then run the log-rank test.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -789,7 +1285,7 @@ GLOBAL    14.413  7 0.044</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>km_stage <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(time, died) <span class="sc">~</span> stage, <span class="at">data =</span> pbc)</span>
@@ -822,12 +1318,14 @@ stage=Stage 4 109       65     31.6     35.17     47.84
  Chisq= 53.8  on 3 degrees of freedom, p= 1e-11 </code></pre>
 </div>
 </div>
+<p>The four curves should fan out clearly, with Stage 1 staying near 1.0 throughout and Stage 4 dropping to around 0.2 by the end of follow-up. The log-rank test gives <strong>Chisq = 53.8 on 3 df, p = 1e-11</strong> – overwhelmingly significant, in sharp contrast to the trt comparison (Chisq = 0.1, p = 0.7). The per-stage observed-vs-expected counts show why: Stage 1 had only 1 death against 9.9 expected, while Stage 4 had 65 against 31.6 expected. Disease stage, unlike treatment, is a real and large driver of survival differences.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-2-semi-guided-adjusted-cox-model-for-melanoma" class="level3" data-number="16.7.2">
 <h3 data-number="16.7.2" class="anchored" data-anchor-id="exercise-2-semi-guided-adjusted-cox-model-for-melanoma"><span class="header-section-number">16.7.2</span> Exercise 2 (Semi-guided): Adjusted Cox Model for Melanoma</h3>
+<p><em>Estimated time: ~20 minutes (Practice)</em></p>
 <p>Using <code>boot::melanoma</code>:</p>
 <ol type="1">
 <li>Fit a univariable Cox model for <code>log_thick</code>.</li>
@@ -836,7 +1334,7 @@ stage=Stage 4 109       65     31.6     35.17     47.84
 <li>Check proportional hazards with <code>cox.zph()</code>. Is any variable problematic?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -845,7 +1343,7 @@ stage=Stage 4 109       65     31.6     35.17     47.84
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(time, died_mel) <span class="sc">~</span> log_thick,              <span class="at">data =</span> mel)</span>
@@ -883,26 +1381,31 @@ sex         1.20  1 0.2728
 GLOBAL      7.99  3 0.0461</code></pre>
 </div>
 </div>
+<p>The <code>log_thick</code> HR drops from <strong>2.28</strong> (model 1, p ≈ 1.07e-7) to <strong>1.84</strong> (model 2, p = 0.00052) once <code>ulceration</code> is added – thickness and ulceration are correlated (thicker tumours are more likely to be ulcerated), so part of what looked like a thickness effect was really an ulceration effect. Adding <code>sex</code> barely moves it further, to <strong>1.78</strong> (model 3, p = 0.00133).</p>
+<p><code>AIC(m1, m2, m3)</code> gives <strong>537.84, 529.72, 529.74</strong> for models 1–3: adding <code>ulceration</code> improves the model by about 8 AIC points, but adding <code>sex</code> on top makes essentially no difference (529.72 vs 529.74) – model 2 is the most parsimonious adequate model.</p>
+<p><code>cox.zph(m3)</code> gives <code>log_thick</code> chisq = 6.96, p = 0.0083; <code>ulceration</code> p = 0.056; <code>sex</code> p = 0.273; GLOBAL p = 0.046. Just as with <code>cox_full</code> in Example 1, the proportional hazards assumption is not perfectly satisfied here either – <code>log_thick</code>’s effect appears to weaken at later times. This is a second example of the same realistic pattern: significant predictors whose hazard ratios are not perfectly constant over a long follow-up.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-3-open-ended" class="level3" data-number="16.7.3">
 <h3 data-number="16.7.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">16.7.3</span> Exercise 3 (Open-ended)</h3>
+<p><em>Estimated time: 15–30 minutes (Practice)</em></p>
 <p>Using <code>survival::lung</code>, fit a multivariable Cox model predicting death from ECOG performance score, age, sex, and weight loss. Check proportional hazards. Write a Results paragraph reporting HRs with 95% CIs for each predictor, as you would in a clinical paper. Include a KM plot stratified by ECOG category.</p>
 </section>
 </section>
 <section id="comprehension-check" class="level2" data-number="16.8">
 <h2 data-number="16.8" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">16.8</span> Comprehension Check</h2>
+<p><em>Estimated time: ~10 minutes (Self-test)</em></p>
 <ol type="1">
 <li>A patient is censored at 800 days with <code>died = 0</code>. What does this mean, and how does the Cox model use this data point?</li>
 <li>You compare two KM curves with the log-rank test and get p = 0.04. What exactly is being tested?</li>
-<li>The HR for log_bili is 2.1 (95% CI 1.7–2.6). Interpret this in plain language.</li>
-<li><code>cox.zph()</code> gives p = 0.007 for stage. What is the problem, and what are your options?</li>
+<li>In <code>cox_full</code>, the HR for log_bili is 2.30 (95% CI 1.88–2.82). Interpret this in plain language.</li>
+<li>In <code>cox_full</code>, <code>cox.zph()</code> gives p = 0.041 for stage (and a GLOBAL p = 0.044). What is the problem, and what are your options?</li>
 <li>Your study has 200 patients, of whom 120 were transplanted before dying. Why is treating transplant as censoring a problem?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -911,13 +1414,13 @@ GLOBAL      7.99  3 0.0461</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>The patient was alive at 800 days when observation ended — whether by end of study, loss to follow-up, or administrative censoring. The Cox model uses this as a partial likelihood contribution: the patient was in the risk set at all times up to 800 days and did not have the event. Their data provides information about who was at risk but does not contribute a completed failure time.</li>
-<li>The log-rank test evaluates the null hypothesis that the two survival curves are identical over the entire follow-up period — expected and observed numbers of deaths are equal across all time points. p = 0.04 means the evidence against identical survival curves reaches conventional significance. It does not specify where the curves diverge or by how much.</li>
-<li>Each 2.72-fold increase in bilirubin (one unit on the log scale) is associated with a 2.1-times higher instantaneous rate of dying (hazard), after adjustment for other variables. Patients with bilirubin 2.72 times higher are estimated to die at 2.1 times the rate of otherwise similar patients.</li>
-<li>The proportional hazards assumption is violated for stage; the hazard ratio between stages is not constant over time. Options: (1) stratify by stage using <code>strata(stage)</code>, which allows separate baseline hazards per stage but does not estimate a stage HR; (2) include a <code>stage:log(time)</code> interaction term to model the time-varying hazard ratio; (3) use restricted mean survival time (RMST) as an alternative summary that does not assume proportionality.</li>
+<li>The patient was alive at 800 days when observation ended, whether by end of study, loss to follow-up, or administrative censoring. The Cox model uses this as a partial likelihood contribution: the patient was in the risk set at all times up to 800 days and did not have the event. Their data provides information about who was at risk but does not contribute a completed failure time.</li>
+<li>The log-rank test evaluates the null hypothesis that the two survival curves are identical over the entire follow-up period: expected and observed numbers of deaths are equal across all time points. p = 0.04 means the evidence against identical survival curves reaches conventional significance. It does not specify where the curves diverge or by how much.</li>
+<li>Each 2.72-fold increase in bilirubin (one unit on the log scale) is associated with a 2.30-times higher instantaneous rate of dying (hazard), after adjustment for the other variables in the model (treatment, albumin, prothrombin time, and disease stage). Patients with bilirubin 2.72 times higher are estimated to die at roughly 2.3 times the rate of otherwise similar patients – this is the actual <code>cox_full</code> result computed earlier in this session.</li>
+<li>The proportional hazards assumption is violated for stage (and, with a GLOBAL p = 0.044, for the model overall); the hazard ratio between stages is not constant over time. Options: (1) stratify by stage using <code>strata(stage)</code>, which allows separate baseline hazards per stage but does not estimate a stage HR; (2) include a <code>stage:log(time)</code> interaction term to model the time-varying hazard ratio; (3) use restricted mean survival time (RMST) as an alternative summary that does not assume proportionality.</li>
 <li>Transplant is a <strong>competing risk</strong> for death from liver disease; a patient who receives a transplant can no longer die from the disease. Treating transplant as censoring falsely assumes these patients had the same underlying risk as uncensored patients, which overestimates the cumulative incidence of disease-specific death. The correct analysis uses cumulative incidence functions and the Fine-Gray or cause-specific Cox model.</li>
 </ol>
 </div>
@@ -937,8 +1440,8 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>In a methods section:</strong> “Time-to-event data were analysed using the Kaplan-Meier estimator and log-rank test to compare survival between groups. Cox proportional hazards regression was used to estimate hazard ratios adjusted for [covariates]. The proportional hazards assumption was assessed using Schoenfeld residuals.”</p>
-<p><strong>In results — Kaplan-Meier:</strong> “Median survival was X months (95% CI [L, U]) in [group A] and Y months (95% CI [L, U]) in [group B] (log-rank p = Z). The 1-year survival probability was X% (95% CI [L, U]) in [group A].”</p>
-<p><strong>In results — Cox model:</strong> “[Predictor] was significantly associated with mortality after adjustment for [covariates] (HR = X, 95% CI [L, U], p = Y).”</p>
+<p><strong>In results (Kaplan-Meier):</strong> “Median survival was X months (95% CI [L, U]) in [group A] and Y months (95% CI [L, U]) in [group B] (log-rank p = Z). The 1-year survival probability was X% (95% CI [L, U]) in [group A].”</p>
+<p><strong>In results (Cox model):</strong> “[Predictor] was significantly associated with mortality after adjustment for [covariates] (HR = X, 95% CI [L, U], p = Y).”</p>
 <p><strong>Always include:</strong></p>
 <ul>
 <li>Median survival with 95% CI for each group</li>
@@ -953,10 +1456,10 @@ Note
 <section id="further-reading" class="level2" data-number="16.10">
 <h2 data-number="16.10" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">16.10</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Therneau-2000">Therneau and Grambsch (<a href="#ref-Therneau-2000" role="doc-biblioref">2000</a>)</span> — <em>Modeling Survival Data: Extending the Cox Model</em></li>
-<li><code>vignette("survival", package = "survival")</code> — comprehensive package vignette</li>
+<li><span class="citation" data-cites="Therneau-2000">Therneau and Grambsch (<a href="#ref-Therneau-2000" role="doc-biblioref">2000</a>)</span>: <em>Modeling Survival Data: Extending the Cox Model</em></li>
+<li><code>vignette("survival", package = "survival")</code>: comprehensive package vignette</li>
 <li><code>ggsurvfit</code> package documentation for publication-quality KM plots</li>
-<li><span class="citation" data-cites="Royston-2011">Royston and Lambert (<a href="#ref-Royston-2011" role="doc-biblioref">2011</a>)</span> — <em>Restricted mean survival time: an alternative to the hazard ratio</em> (Statistics in Medicine)</li>
+<li><span class="citation" data-cites="Royston-2011">Royston and Lambert (<a href="#ref-Royston-2011" role="doc-biblioref">2011</a>)</span>: <em>Restricted mean survival time: an alternative to the hazard ratio</em> (Statistics in Medicine)</li>
 </ul>
 
 

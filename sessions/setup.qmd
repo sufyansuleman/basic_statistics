@@ -7,15 +7,28 @@ title: "Before You Begin: Setup"
 #| eval: false
 ```
 
-This page tells you everything you need to do **once**, before starting the course. The setup takes about 10-15 minutes. After that, each session just works.
+This page tells you everything you need to do **once**, before starting the course. Setting up R, RStudio, and the core packages takes about **20-35 minutes**, most of it spent waiting for installations to finish (Step 2 alone takes 10-20 minutes, mostly unattended). Steps 3 and 4 are optional and only needed for specific sessions; add ~10-15 minutes if you need them. After that, each session just works.
 
 ::: {.callout-note}
 ### Only here for the statistics, not learning R?
 If your goal is to understand statistical concepts and methods (not to learn R programming), you can **skip Parts 1 and 2** and start directly at **Part 3: Inference**. The statistics begins there. You can still follow the Examples in each session by reading the code output without running it yourself, but you will still need R and the packages installed to run anything interactively.
 :::
 
+::: {.callout-tip}
+### How to Use the Code on This Page
+
+Every code block below is a command to copy into your RStudio
+**Console**, not code that runs automatically when this page is built
+(that is why each block is marked `eval: false`). Work through the
+steps in order from top to bottom - each one builds on the last - and
+wait for each install to finish (the `>` prompt returns) before
+starting the next.
+:::
+
 
 ## Step 1: Install R and RStudio {#sec-setup}
+
+*Estimated time: ~5-10 minutes (Setup)*
 
 You need two things on your computer:
 
@@ -36,6 +49,8 @@ R.version.string
 
 ## Step 1b: Install Rtools (Windows Only) {.unnumbered}
 
+*Estimated time: ~5 minutes (Setup, Windows only)*
+
 ::: {.callout-important}
 ### Windows users must do this before installing packages
 Many R packages compile C or Fortran code during installation. Without **Rtools**, Windows will silently install outdated pre-compiled versions of packages, which can cause version conflicts that break Quarto rendering later.
@@ -53,6 +68,8 @@ pkgbuild::has_build_tools(debug = TRUE)
 
 
 ## Step 2: Install Course Packages (CRAN)
+
+*Estimated time: ~10-20 minutes (Setup, mostly unattended)*
 
 Copy and paste the block below into your **RStudio Console** and press Enter. This installs every package used across all sessions in one go. You only need to do this once.
 
@@ -131,6 +148,8 @@ Run `install.packages("packagename")` individually to see the specific error mes
 
 ## Step 3: Install Bioconductor Packages
 
+*Estimated time: ~5-10 minutes (Setup, optional)*
+
 The Advanced Visualization session optionally uses a Bioconductor package. Install it with:
 
 ```{r}
@@ -159,6 +178,8 @@ Bioconductor packages can take 5-10 minutes to install. If you are not doing the
 
 ## Step 4: Install TwoSampleMR (GitHub)
 
+*Estimated time: ~5 minutes (Setup, optional)*
+
 The Mendelian Randomization session uses a package hosted on GitHub:
 
 ```{r}
@@ -175,6 +196,8 @@ This requires an internet connection. If you are not doing the Mendelian Randomi
 
 
 ## Step 5: Verify Your Setup
+
+*Estimated time: ~2 minutes (Setup)*
 
 Run this block to confirm the core packages are installed. You should see no errors.
 

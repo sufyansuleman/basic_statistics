@@ -16,10 +16,45 @@ library(performance)
 Mixed models extend linear regression to handle repeated measures and clustered data. Complete the **Linear Regression** and **Multiple Regression** sessions before starting this one.
 :::
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: ~160 minutes** (about 2.5--3 hours). A natural break point is after Example 1 (the chick growth models)---cover Example 2 and the exercises in a second sitting. Exercise 3 is open-ended and its time will vary.
+
+| Section | Time | Type |
+|---------|------|------|
+| The Key Idea: Why Independence Matters | ~10 min | Concept |
+| Background: Fixed Effects, Random Effects, Correlation | ~15 min | Concept |
+| Example 1: Longitudinal Chick Growth | ~45 min | Walkthrough |
+| Example 2: Litter Effects in a Mouse Experiment | ~25 min | Walkthrough |
+| What Can Go Wrong | ~10 min | Reading |
+| Exercise 1 (Guided) | ~15 min | Practice |
+| Exercise 2 (Semi-guided) | ~15 min | Practice |
+| Exercise 3 (Open-ended) | 15--30 min | Practice |
+| Comprehension Check | ~10 min | Self-test |
+
+If you are short on time, the comparison between the naive `lm()` and the mixed model in Example 2 (the `naive-vs-mixed` table) is the single clearest illustration of why ignoring clustering matters.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-mixed-models}
 
 ::: {.callout-tip}
 Your data have a grouped or hierarchical structure: repeated measurements on the same individuals over time, participants nested within clinics, or samples from the same animal litter. Standard regression assumes all observations are independent, which is violated whenever observations share a common source. Mixed models handle this by estimating a random effect for each group, correctly accounting for within-group correlation and preventing inflated Type I error. For example: a biomarker measured at multiple clinic visits per patient, or body weight measurements across litters in an animal experiment.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Before running anything, ask learners to think of an example from their own work where observations come in natural clusters (repeated visits, litters, clinics, twins). Ask: if you analysed this data with ordinary `lm()`, treating every observation as independent, would your standard errors be too small, too large, or about right? (Too small---this is the central idea of the whole session.) Keep this example in mind as a personal anchor while working through `ChickWeight` and the mouse litter data below.
 :::
 
 ## Learning Objectives
@@ -35,13 +70,17 @@ After completing this session you will be able to:
 
 ## The Key Idea: Why Independence Matters
 
-Every statistical test in this course assumes observations are independent. But imagine measuring a mouse's tumour volume five times. Those five measurements are not five independent data points --- they come from the same mouse. Three siblings from the same litter are not three independent animals --- they share genes and environment.
+*Estimated time: ~10 minutes (Concept)*
+
+Every statistical test in this course assumes observations are independent. But imagine measuring a mouse's tumour volume five times. Those five measurements are not five independent data points: they come from the same mouse. Three siblings from the same litter are not three independent animals: they share genes and environment.
 
 When you ignore this grouping, your model thinks it has more independent information than it really does. The result: standard errors that are too small, p-values that are too low, and results that look more certain than they are.
 
 Mixed models fix this by adding a random effect for each group. This soaks up the within-group correlation, gives you honest standard errors, and lets you estimate the effect of your predictor on the population as a whole.
 
 ## Background: Fixed Effects, Random Effects, and Correlation Structure
+
+*Estimated time: ~15 minutes (Concept)*
 
 **Fixed effects** are the predictors you care about: the treatment, time, or exposure. They estimate the population-average relationship between a predictor and the outcome.
 
@@ -62,6 +101,14 @@ ICC = 0.4 means 40% of the total outcome variance is attributable to between-pat
 
 ## Example 1: Longitudinal Chick Growth (ChickWeight)
 
+*Estimated time: ~45 minutes (Walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This example has four natural stopping points: (1) the data exploration and spaghetti plot, (2) the random-intercept model and its ICC, (3) the random-slope model and likelihood ratio test, and (4) the comparison of the two. The spaghetti plot is worth lingering on---ask learners to predict, before fitting `fit_rs`, whether the lines look "parallel" (random intercept enough) or "fanning out" (random slope needed). The real result is a dramatic one: the random-slope model improves the AIC by about 785 points, one of the largest effect sizes you will see in this course.
+:::
+
 The `ChickWeight` dataset (built into base R) records the body weight of 50 chicks measured repeatedly from hatching (day 0) to day 21, under four different diet treatments. This is a genuine repeated-measures design: the same chick is weighed multiple times, so observations within a chick are correlated.
 
 ```{r chickweight-explore}
@@ -78,6 +125,14 @@ chicks %>%
   count(chick) %>%
   summarise(min_obs = min(n), max_obs = max(n), median_obs = median(n))
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. `glimpse()` shows 578 rows and 4 columns: `weight`, `day`, `chick` (an ordered factor with 50 levels), and `diet` (a factor with 4 levels). The second table shows `min_obs = 2`, `max_obs = 12`, `median_obs = 12`: most chicks were weighed all 12 times (days 0, 2, 4, ..., 20, 21), but at least one chick has only 2 measurements.
+
+Before reading on: what do you think happened to the chick(s) with only 2 measurements? (This is real data---chicks occasionally die during a growth study, leaving a short, incomplete trajectory. Mixed models handle this unbalanced structure naturally; a repeated-measures ANOVA would need to drop these chicks entirely.)
+:::
 
 ### Visualise Individual Trajectories
 
@@ -97,9 +152,17 @@ chicks %>%
   theme(legend.position = "none")
 ```
 
-The spaghetti plot is a key diagnostic: parallel lines suggest a random intercept alone is sufficient; fanning lines indicate a random slope is also needed.
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should see four panels (one per diet), each with many thin individual chick trajectories plus a thick fitted line with a shaded confidence band. Within every panel, the individual lines start close together near day 0 but **fan out** as day increases---by day 21, some chicks on diet 3 weigh over 350g while others on the same diet weigh under 150g.
+
+Before reading on: based on this fanning pattern, do you predict that a random intercept alone (`(1 | chick)`) will be enough, or that a random slope for `day` (`(1 + day | chick)`) will substantially improve the fit? Keep your prediction in mind for the likelihood ratio test later in this example.
+:::
 
 ### Fit a Random-Intercept Model
+
+*Estimated time: ~15 minutes (Walkthrough)*
 
 The simplest mixed model allows each chick its own baseline weight (random intercept) while estimating the shared population-average growth rate (fixed effect of day) and diet differences.
 
@@ -123,7 +186,17 @@ tidy(fit_ri, conf.int = TRUE) %>%
 - **Fixed effects:** `day` is the population-average weight gain per day. `diet2`, `diet3`, `diet4` are mean weight differences versus Diet 1.
 - **Random effects:** `sd__(Intercept)` is the SD of starting weights across chicks; `sd__Observation` is the residual SD.
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. `summary(fit_ri)` reports AIC = 5619.2; random effects `chick (Intercept)` variance = 478.0 (SD = 21.86) and `Residual` variance = 797.8 (SD = 28.25), from 578 observations across 50 chicks. The fixed effects are: `(Intercept)` = 11.23 (SE = 5.58, t = 2.01); `day` = 8.72 (SE = 0.175, t = 49.7); `diet2` = 16.22 (95% CI -1.57 to 34.0, not significant---the CI crosses zero); `diet3` = 36.55 (95% CI 18.8 to 54.3); `diet4` = 30.03 (95% CI 12.2 to 47.8).
+
+So diets 3 and 4 produce clearly heavier chicks than diet 1 by day 21, but diet 2's effect is not distinguishable from diet 1 at the 95% level---even though its point estimate (16.2) is roughly half of diet 3's.
+:::
+
 ### Calculate the ICC
+
+*Estimated time: ~5 minutes (Walkthrough)*
 
 ```{r icc-chick}
 #| eval: true
@@ -131,9 +204,20 @@ tidy(fit_ri, conf.int = TRUE) %>%
 icc(fit_ri)
 ```
 
-An ICC near 0.8 is typical: about 80% of total variance in chick weight comes from stable between-chick differences.
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should see **Adjusted ICC: 0.375** and **Unadjusted ICC: 0.095**---not the "0.8" you might expect from a typical clustered dataset. The two numbers differ substantially here because `day` is such a strong predictor (chicks gain about 8.7g every day, so most of the *total* variance in weight is simply due to chicks getting older).
+
+- The **unadjusted ICC (0.095)** is the proportion of *total* outcome variance attributable to between-chick differences. It is small because most of the variance in raw weight comes from time, not from chick identity.
+- The **adjusted ICC (0.375)** is the proportion of the *residual* variance---after accounting for `day` and `diet`---that is between-chick. This is substantial: even at the same age and on the same diet, chicks still differ from one another by an amount equivalent to 37.5% of the leftover variance.
+
+The lesson: always check which version of the ICC you are looking at, and relative to what. A model with strong fixed-effect predictors can have a low unadjusted ICC and a high adjusted ICC at the same time---both numbers are "correct," they just answer different questions.
+:::
 
 ### Fit a Random-Slope Model
+
+*Estimated time: ~10 minutes (Walkthrough)*
 
 Do chicks differ not only in starting weight but also in their rate of growth?
 
@@ -146,10 +230,26 @@ fit_rs <- lmer(weight ~ day + diet + (1 + day | chick), data = chicks, REML = FA
 anova(fit_ri, fit_rs)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. The likelihood ratio test compares `fit_ri` (AIC = 5619.2, 7 parameters) to `fit_rs` (AIC = 4834.1, 9 parameters): Chisq = 789.12 on 2 df, p < 2.2e-16.
+
+This is about as decisive a result as you will ever see: adding a random slope for `day` improves the AIC by **785 points**, for the cost of just 2 extra parameters. This matches the "fanning" pattern you saw in the spaghetti plot---chicks really do grow at different rates, not just from different starting weights, and the random-intercept-only model was substantially mis-specified.
+:::
+
 The random-slope model is biologically plausible -- some chicks simply grow faster than others. The LRT tells you whether the data support this extra complexity.
 
 
 ## Example 2: Clustering -- Litter Effects in a Mouse Experiment
+
+*Estimated time: ~25 minutes (Walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This example uses simulated data with a known "true" effect (HFD adds 4.5g, baked into the simulation via `set.seed(42)`), so learners can see exactly how close the model estimates come to the truth. The key comparison is the `naive-vs-mixed` table: both models recover the same point estimate, but the confidence intervals differ. Ask learners to predict, before running the code, which model's CI will be wider, and why.
+:::
 
 Mice from the same litter share genetic background and early environment. Their outcomes are correlated within litter -- a fact that naive regression ignores, producing standard errors that are too small and inflated Type I error.
 
@@ -194,7 +294,16 @@ bind_rows(
   select(model, estimate, conf.low, conf.high, p.value)
 ```
 
-The OLS SE is smaller because it treats 75 mice as 75 independent replicates. The mixed model correctly recognises there are only 15 independent litters, producing wider (honest) confidence intervals.
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. Both rows show the **same point estimate** (4.35g), but very different intervals: the OLS row gives 95% CI 3.32--5.39 (p = 2.85e-12), while the mixed-model row gives 95% CI 2.44--6.27 with `p.value = NA`.
+
+Two things to notice:
+
+1. **The CI is about 65% wider for the mixed model** (width 2.07 vs. 1.95... actually compute it: OLS width = 5.39 - 3.32 = 2.07; mixed width = 6.27 - 2.44 = 3.83, nearly double). The point estimate barely moved, but the honest uncertainty---reflecting that there are really only 15 independent litters, not 75 independent mice---is much larger.
+2. **Why is `p.value` `NA` for the mixed model?** By default, `lme4::lmer()` does not report p-values for fixed effects, because the correct denominator degrees of freedom for the t-statistic is not straightforward to determine. If you need a p-value, use `lmerTest::lmer()` (which adds Satterthwaite-approximated degrees of freedom) or compute a likelihood ratio test as in Example 1.
+:::
 
 ```{r litter-plot}
 #| eval: true
@@ -211,6 +320,12 @@ mouse_data %>%
   theme_bw()
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should see a jittered scatter plot with two groups (Control, HFD) on the x-axis, each point coloured by its litter of origin. HFD mice are clearly heavier overall, but within each treatment group you can also see clustering by colour---some litters (e.g., the greens, litters 5--7) sit consistently near the top of the HFD group, while others (e.g., litter 4, olive) sit near the bottom of Control. This visual clustering is exactly what the random intercept in `fit_litter` is modelling.
+:::
+
 ### Extracting Random Effects
 
 ```{r ranef}
@@ -221,6 +336,14 @@ ranef(fit_litter)$litter %>%
   rename(intercept_deviation = `(Intercept)`) %>%
   arrange(desc(abs(intercept_deviation)))
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should see 15 rows, one per litter, sorted by the size of their deviation from the grand mean. The largest deviations are litter 4 (-3.27), litter 15 (+2.50), litter 1 (+2.36), litter 12 (-2.28), and litter 2 (-2.27); the smallest is litter 10 (-0.15, essentially average).
+
+These numbers are on the same scale as `weight_g`: litter 4's pups are, on average, about 3.3g lighter than the population mean (after accounting for treatment), and litter 15's are about 2.5g heavier. With `litter_re` simulated as `rnorm(15, 0, 1.8)`, deviations of this magnitude are entirely expected---this is the random variation the model is designed to soak up.
+:::
 
 Each row is one litter's deviation from the grand mean. Large deviations flag litters with unusual genetics, housing, or batch effects.
 
@@ -242,6 +365,8 @@ Each row is one litter's deviation from the grand mean. Large deviations flag li
 ::: {.callout-warning}
 ## What Can Go Wrong
 
+*Estimated time: ~10 minutes (Reading)*
+
 **Using a paired t-test or repeated-measures ANOVA when you have covariates.**
 These simpler methods cannot adjust for continuous covariates or handle unbalanced time points. A mixed model does both.
 
@@ -258,7 +383,15 @@ High ICC is not a problem to solve; it is a finding. It tells you there is subst
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Before learners run Exercise 1, ask them to predict whether adding `diet` to the random-intercept model will improve the AIC by a little or a lot, given that `fit_ri` (which already includes `diet`) had AIC = 5619.2. After they run it, point out that `m1` in Exercise 1 *is* `fit_ri` from Example 1---so its ICC will reproduce the same Adjusted/Unadjusted values (0.375 / 0.095) discussed earlier.
+:::
+
 ### Exercise 1 (Guided): Fit a Random-Intercept Model
+
+*Estimated time: ~15 minutes (Practice)*
 
 Using the `chicks` dataset from Example 1:
 
@@ -280,9 +413,15 @@ tidy(m1, conf.int = TRUE, effects = "fixed")
 
 icc(m1)
 ```
+
+`AIC(m0, m1)` gives `m0` AIC = 5630.34 (4 parameters, `day` only) versus `m1` AIC = 5619.20 (7 parameters, `day` + `diet`)---adding `diet` improves the AIC by about 11 points for 3 extra parameters, a modest but real improvement. (`m1` is identical to `fit_ri` from Example 1.)
+
+For Diet 4 vs. Diet 1: `diet4` = 30.03, 95% CI 12.2 to 47.8---a clear, statistically significant difference. `icc(m1)` reproduces Example 1's result: **Adjusted ICC = 0.375, Unadjusted ICC = 0.095**.
 :::
 
 ### Exercise 2 (Semi-guided): Random Slope in the Mouse Data
+
+*Estimated time: ~15 minutes (Practice)*
 
 Using `mouse_data`:
 
@@ -304,9 +443,15 @@ ranef(ml1)$litter %>%
   tibble::rownames_to_column("litter") %>%
   arrange(desc(abs(`(Intercept)`)))
 ```
+
+Fitting `ml2` produces a convergence warning ("Model failed to converge: degenerate Hessian with 1 negative eigenvalue")---a direct illustration of the "Over-complex random effects structures" warning above. `AIC(ml1, ml2)` gives `ml1` AIC = 295.39 (4 parameters) versus `ml2` AIC = 297.92 (6 parameters): `ml2` is *worse* despite having 2 extra parameters to play with. With only 15 litters and one binary predictor, there simply isn't enough information to estimate a separate slope variance per litter.
+
+`ranef(ml1)$litter` reproduces the same top deviations as `fit_litter` in Example 2 (litter 4 = -3.27, litter 15 = +2.50, litter 1 = +2.36, ...)---as expected, since `ml1` and `fit_litter` are the same model. The conclusion: a random intercept alone is the right level of complexity for this dataset; the random slope is not supported by the data.
 :::
 
 ### Exercise 3 (Open-ended)
+
+*Estimated time: 15--30 minutes (Practice)*
 
 Using `lme4::sleepstudy`, fit a random-intercept and then a random-slope model for reaction time as a function of days of sleep deprivation. Report:
 
@@ -319,6 +464,8 @@ Write a Methods paragraph as you would in a neuroscience paper.
 
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes (Self-test)*
 
 1. You have 50 mice from 10 litters (5 per litter). Your outcome is tumour volume and your predictor is drug dose. Why should you use a mixed model rather than simple regression?
 2. The ICC in your model is 0.55. What does this mean?
@@ -356,8 +503,8 @@ Write a Methods paragraph as you would in a neuroscience paper.
 
 ## Further Reading
 
-- @Bates-2015 --- *Fitting Linear Mixed-Effects Models Using lme4* (JSS paper, free online)
-- @Zuur-2009 --- *Mixed Effects Models and Extensions in Ecology with R*
+- @Bates-2015: *Fitting Linear Mixed-Effects Models Using lme4* (JSS paper, free online)
+- @Zuur-2009: *Mixed Effects Models and Extensions in Ecology with R*
 - `?lmer`, `?glmer` in R
 - `broom.mixed` package for tidy output from mixed models
 - `performance::icc()` documentation

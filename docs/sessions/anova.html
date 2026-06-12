@@ -167,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 1: Inference — Testing and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/anova.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 1: Inference, Testing, and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/anova.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -383,7 +383,7 @@ window.Quarto = {
   <li><a href="#background-how-anova-works" id="toc-background-how-anova-works" class="nav-link" data-scroll-target="#background-how-anova-works"><span class="header-section-number">6.3</span> Background: How ANOVA Works</a>
   <ul class="collapse">
   <li><a href="#the-f-statistic-is-signal-noise" id="toc-the-f-statistic-is-signal-noise" class="nav-link" data-scroll-target="#the-f-statistic-is-signal-noise"><span class="header-section-number">6.3.1</span> The F-statistic is signal ÷ noise</a></li>
-  <li><a href="#the-one-thing-anova-tells-you-and-the-one-thing-it-doesnt" id="toc-the-one-thing-anova-tells-you-and-the-one-thing-it-doesnt" class="nav-link" data-scroll-target="#the-one-thing-anova-tells-you-and-the-one-thing-it-doesnt"><span class="header-section-number">6.3.2</span> The one thing ANOVA tells you — and the one thing it doesn’t</a></li>
+  <li><a href="#the-one-thing-anova-tells-you-and-the-one-thing-it-doesnt" id="toc-the-one-thing-anova-tells-you-and-the-one-thing-it-doesnt" class="nav-link" data-scroll-target="#the-one-thing-anova-tells-you-and-the-one-thing-it-doesnt"><span class="header-section-number">6.3.2</span> The one thing ANOVA tells you, and the one thing it doesn’t</a></li>
   <li><a href="#anova-assumptions" id="toc-anova-assumptions" class="nav-link" data-scroll-target="#anova-assumptions"><span class="header-section-number">6.3.3</span> ANOVA assumptions</a></li>
   </ul></li>
   <li><a href="#example-1-one-way-anova-plantgrowth" id="toc-example-1-one-way-anova-plantgrowth" class="nav-link" data-scroll-target="#example-1-one-way-anova-plantgrowth"><span class="header-section-number">6.4</span> Example 1: One-Way ANOVA (PlantGrowth)</a>
@@ -411,7 +411,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 1: Inference — Testing and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/anova.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 1: Inference, Testing, and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/anova.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ANOVA: Comparing Means Across Groups</span></h1>
 </div>
@@ -430,6 +430,79 @@ window.Quarto = {
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session at a Glance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Total core time: about 120 minutes (~2 hours).</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Time</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>When Do You Use This? + Learning Objectives</td>
+<td>5 min</td>
+<td>Reading</td>
+</tr>
+<tr class="even">
+<td>Background: How ANOVA Works</td>
+<td>20 min</td>
+<td>Reading</td>
+</tr>
+<tr class="odd">
+<td>Example 1: One-Way ANOVA (PlantGrowth)</td>
+<td>25 min</td>
+<td>Worked example</td>
+</tr>
+<tr class="even">
+<td>Example 2: Two-Way ANOVA (ToothGrowth)</td>
+<td>20 min</td>
+<td>Worked example</td>
+</tr>
+<tr class="odd">
+<td>What Can Go Wrong</td>
+<td>10 min</td>
+<td>Reading</td>
+</tr>
+<tr class="even">
+<td>Exercises 1 &amp; 2</td>
+<td>30 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Comprehension Check</td>
+<td>10 min</td>
+<td>Self-test</td>
+</tr>
+</tbody>
+</table>
+<p>In a taught course, this session fits one teaching block. For self-paced study, split it into two sittings, e.g.&nbsp;Background and Example 1 first, Example 2 onward later. Exercise 3 is open-ended and works best as a follow-up using a dataset from your own field.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code in This Session
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code chunk below is written so you can copy it into your R console (or an R script) and run it yourself, in the order shown. Where you see a “Run It Yourself” box, stop and run the code above it before reading the explanation that follows.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -440,7 +513,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>ANOVA extends the t-test to three or more groups. Make sure you have completed <a href="../sessions/t-tests.html">T-tests and Group Comparisons</a> first — the logic here builds directly on the signal ÷ noise framework introduced there.</p>
+<p>ANOVA extends the t-test to three or more groups. Make sure you have completed <a href="../sessions/t-tests.html">T-tests and Group Comparisons</a> first: the logic here builds directly on the signal ÷ noise framework introduced there.</p>
 </div>
 </div>
 <section id="sec-anova" class="level2" data-number="6.1">
@@ -458,6 +531,22 @@ Tip
 <p>You have a continuous outcome in three or more groups and you want to know whether the group means differ. Maybe you are comparing a biomarker across four disease stages, or a drug response across a control and three dose levels. The temptation is to run all possible pairs of t-tests. The problem: with four groups there are six pairs, and at α = 0.05 the probability of at least one false positive from six tests is 1 − 0.95⁶ = 26%. ANOVA tests all groups simultaneously in a single model and keeps the false positive rate at 5%.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Have the room verify 1 − 0.95⁶ = 26% on a calculator before moving on — it is easy to nod along to “26%” without registering how large that is. This is the same multiple-testing logic as Example 2 in <a href="../sessions/hypothesis-testing.html">Hypothesis Testing</a>; if you taught that session, ask the room to connect the two before you explain ANOVA’s solution.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="learning-objectives" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">6.2</span> Learning Objectives</h2>
@@ -472,6 +561,23 @@ Tip
 </section>
 <section id="background-how-anova-works" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="background-how-anova-works"><span class="header-section-number">6.3</span> Background: How ANOVA Works</h2>
+<p><em>Estimated time: ~20 minutes (reading)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Connect this back to the t-statistic from <a href="../sessions/t-tests.html">T-tests</a>: for exactly two groups, ANOVA’s F-statistic equals the square of the two-sample t-statistic (<span class="math inline">\(F = t^2\)</span>), and the ANOVA p-value equals the two-sided t-test p-value. ANOVA is the generalisation of the t-test to more than two groups, not a different idea.</p>
+</div>
+</div>
+</div>
 <section id="the-f-statistic-is-signal-noise" class="level3" data-number="6.3.1">
 <h3 data-number="6.3.1" class="anchored" data-anchor-id="the-f-statistic-is-signal-noise"><span class="header-section-number">6.3.1</span> The F-statistic is signal ÷ noise</h3>
 <p>In the t-tests session, the t-statistic was signal ÷ noise: the difference between group means divided by the standard error of that difference. The F-statistic follows the same logic but for multiple groups simultaneously:</p>
@@ -485,7 +591,7 @@ Tip
 <p>The ratio of these, after accounting for degrees of freedom, is the F-statistic.</p>
 </section>
 <section id="the-one-thing-anova-tells-you-and-the-one-thing-it-doesnt" class="level3" data-number="6.3.2">
-<h3 data-number="6.3.2" class="anchored" data-anchor-id="the-one-thing-anova-tells-you-and-the-one-thing-it-doesnt"><span class="header-section-number">6.3.2</span> The one thing ANOVA tells you — and the one thing it doesn’t</h3>
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="the-one-thing-anova-tells-you-and-the-one-thing-it-doesnt"><span class="header-section-number">6.3.2</span> The one thing ANOVA tells you, and the one thing it doesn’t</h3>
 <p>A significant ANOVA tells you <strong>at least one group mean differs from at least one other</strong>. It does not tell you which groups differ. That requires a post-hoc test (Tukey’s HSD is standard for ANOVA).</p>
 </section>
 <section id="anova-assumptions" class="level3" data-number="6.3.3">
@@ -504,7 +610,7 @@ Tip
 <tbody>
 <tr class="odd">
 <td><strong>Independence</strong></td>
-<td>Study design — each observation from a different subject</td>
+<td>Study design: each observation from a different subject</td>
 </tr>
 <tr class="even">
 <td><strong>Normality of residuals</strong></td>
@@ -521,6 +627,23 @@ Tip
 </section>
 <section id="example-1-one-way-anova-plantgrowth" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="example-1-one-way-anova-plantgrowth"><span class="header-section-number">6.4</span> Example 1: One-Way ANOVA (PlantGrowth)</h2>
+<p><em>Estimated time: ~25 minutes (worked example)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>After the boxplot (<code>pg-setup</code>), ask the room to predict, by eye, which of the three pairwise comparisons (ctrl vs trt1, ctrl vs trt2, trt1 vs trt2) will turn out significant in the Tukey output later. Most people correctly guess trt1 vs trt2 because that gap looks largest relative to the spread — a good opportunity to reinforce “signal relative to noise,” not just “signal.”</p>
+</div>
+</div>
+</div>
 <p>The <code>PlantGrowth</code> dataset records dried plant weight under three conditions: a control and two experimental treatments, with 10 plants per group.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> PlantGrowth <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
@@ -555,6 +678,19 @@ group        2  3.766  1.8832   4.846 0.0159 *
 Residuals   27 10.492  0.3886                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should get <code>F ≈ 4.85</code> on (2, 27) degrees of freedom, with <code>Pr(&gt;F) ≈ 0.016</code>. Below 0.05, so at least one group mean differs. Which one(s)? The table alone cannot say — that is what Tukey’s HSD is for, next.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -628,6 +764,19 @@ Residuals 27  10.49    0.39</code></pre>
 3 trt1-ctrl   -0.371   -1.06      0.320      0.391 </code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. Only <code>trt2-trt1</code> has <code>adj.p.value ≈ 0.012</code>, below 0.05. The mean difference is about 0.865 g (95% CI: 0.17 to 1.56). <code>trt2-ctrl</code> (adj.p ≈ 0.198) and <code>trt1-ctrl</code> (adj.p ≈ 0.391) are not significant. Did this match your prediction?</p>
+</div>
+</div>
 <p>Read each row as a pairwise comparison: <code>estimate</code> is the mean difference, <code>conf.low</code>/<code>conf.high</code> is the 95% CI for that difference, and <code>adj.p.value</code> is the p-value adjusted for multiple comparisons. The trt1 vs trt2 contrast drives the overall significance.</p>
 </section>
 <section id="checking-assumptions" class="level3" data-number="6.4.2">
@@ -686,6 +835,19 @@ This warning is displayed once per session.</code></pre>
 3 trt2     10  5.53 0.443</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. Means are ctrl ≈ 5.03, trt1 ≈ 4.66, trt2 ≈ 5.53; SDs are ctrl ≈ 0.58, trt1 ≈ 0.79, trt2 ≈ 0.44. The largest SD (0.79) is less than twice the smallest (0.44), so the equal-variance assumption is reasonable.</p>
+</div>
+</div>
 <p>The residual plot shows no pattern (equal variance holds). The QQ-plot shows approximate normality. The group SDs are within a factor of 2 of each other. The ANOVA assumptions are met.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -706,13 +868,30 @@ This warning is displayed once per session.</code></pre>
 </section>
 <section id="example-2-two-way-anova-toothgrowth" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="example-2-two-way-anova-toothgrowth"><span class="header-section-number">6.5</span> Example 2: Two-Way ANOVA (ToothGrowth)</h2>
+<p><em>Estimated time: ~20 minutes (worked example)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This dataset also appears in <a href="../sessions/nonparametric-tests.html">Nonparametric Tests</a> (comparing the two supplements at dose 0.5 only). Here the design is extended to all three doses, which lets the interaction term emerge. Before showing the interaction plot, ask the room what a “no interaction” plot would look like (two parallel lines), so the converging lines below stand out as a meaningful pattern rather than just “two lines that happen to be close.”</p>
+</div>
+</div>
+</div>
 <p>The <code>ToothGrowth</code> dataset is a 2 × 3 factorial experiment: two Vitamin C delivery methods × three dose levels, 10 guinea pigs per cell. This design lets us ask three questions simultaneously:</p>
 <ol type="1">
 <li>Does the supplement type affect tooth length? (main effect of <code>supp</code>)</li>
 <li>Does the dose level affect tooth length? (main effect of <code>dose</code>)</li>
 <li>Does the effect of dose <em>depend on</em> which supplement was used? (interaction between <code>supp</code> and <code>dose</code>)</li>
 </ol>
-<p>The interaction question is the most interesting — and the most commonly misunderstood.</p>
+<p>The interaction question is the most interesting, and the most commonly misunderstood.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tg <span class="ot">&lt;-</span> ToothGrowth <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
@@ -724,7 +903,7 @@ This warning is displayed once per session.</code></pre>
 </div>
 <section id="visualise-before-testing-the-interaction-plot" class="level3" data-number="6.5.1">
 <h3 data-number="6.5.1" class="anchored" data-anchor-id="visualise-before-testing-the-interaction-plot"><span class="header-section-number">6.5.1</span> Visualise before testing: the interaction plot</h3>
-<p>An <strong>interaction plot</strong> shows the mean response at each dose level for each supplement. If the two lines are roughly parallel, the dose effect is similar for both supplements (no interaction). If the lines cross or converge, the dose effect differs by supplement — an interaction.</p>
+<p>An <strong>interaction plot</strong> shows the mean response at each dose level for each supplement. If the two lines are roughly parallel, the dose effect is similar for both supplements (no interaction). If the lines cross or converge, the dose effect differs by supplement, an interaction.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tg <span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(supp, dose) <span class="sc">%&gt;%</span></span>
@@ -771,6 +950,19 @@ Residuals   54  712.1    13.2
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. All three rows are significant: <code>supp</code> (F ≈ 15.6, p ≈ 0.0002), <code>dose</code> (F ≈ 92.0, p &lt; 2e-16), and <code>supp:dose</code> (F ≈ 4.11, p ≈ 0.022). Because the interaction term is significant, the two main effects cannot be interpreted on their own — see below.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -807,7 +999,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </tr>
 </tbody>
 </table>
-<p>When the <strong>interaction is significant</strong>, the main effects alone are misleading. The story is more subtle: the effect of dose depends on which supplement you use. Report the interaction and show the plot — do not summarise by “supplement A is better” if it is only better at certain doses.</p>
+<p>When the <strong>interaction is significant</strong>, the main effects alone are misleading. The story is more subtle: the effect of dose depends on which supplement you use. Report the interaction and show the plot: do not summarise by “supplement A is better” if it is only better at certain doses.</p>
 <p>When the interaction is <strong>not</strong> significant, the main effects can be interpreted directly.</p>
 </div>
 </div>
@@ -832,12 +1024,42 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 10 supp:dose Ascorbic acid:2…          0     9.37     4.57     14.2     5.77e- 6</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. With 2 supplements × 3 doses there are 15 possible pairwise contrasts; the ten shown here are the most significant. The largest effect is <code>dose 2-0.5</code> (estimate ≈ 15.5 mm, adj.p ≈ 4e-13): the dose effect dwarfs the supplement effect, consistent with <code>dose</code> having by far the largest F-statistic above.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="what-can-go-wrong" class="level2" data-number="6.6">
 <h2 data-number="6.6" class="anchored" data-anchor-id="what-can-go-wrong"><span class="header-section-number">6.6</span> What Can Go Wrong</h2>
+<p><em>Estimated time: ~10 minutes (reading)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Quick true/false round on the “Common misinterpretations” callout below — read each bold statement aloud and ask for a thumbs up/down before revealing the explanation. The “F = 12.4 means a large effect” item connects directly back to the η² discussion in “How to Report” later, so it’s worth flagging that effect size is still to come.</p>
+</div>
+</div>
+</div>
 <p><strong>Running multiple t-tests instead of ANOVA</strong></p>
-<p>With four groups and six pairwise t-tests at α = 0.05, the chance of at least one false positive is 26%. This is not a minor concern — it means roughly one in four such analyses produces a spurious finding by chance. ANOVA + Tukey’s HSD keeps the family-wise error rate at 5%.</p>
+<p>With four groups and six pairwise t-tests at α = 0.05, the chance of at least one false positive is 26%. This is not a minor concern: it means roughly one in four such analyses produces a spurious finding by chance. ANOVA + Tukey’s HSD keeps the family-wise error rate at 5%.</p>
 <p><strong>Ignoring a significant interaction in two-way ANOVA</strong></p>
 <p>If <code>supp:dose</code> is significant, reporting only the main effects is wrong. “Orange juice increases tooth length by 3.7 mm on average” is misleading if orange juice is only better at low doses. Always check the interaction term and plot the group means before summarising the results.</p>
 <p><strong>Claiming “all groups differ” after a significant ANOVA</strong></p>
@@ -862,8 +1084,25 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="exercises" class="level2" data-number="6.7">
 <h2 data-number="6.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">6.7</span> Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Pair students for Exercises 1 and 2: one runs the code while the other predicts each result (ANOVA significance, then which Tukey pairs will be significant) before it appears. Both exercises use the same <code>pbc</code> stage variable as <a href="../sessions/nonparametric-tests.html">Nonparametric Tests</a>, so if you taught that session, ask the room to predict whether the ANOVA post-hoc pattern will look like the Kruskal-Wallis post-hoc pattern they already saw.</p>
+</div>
+</div>
+</div>
 <section id="exercise-1-guided-one-way-anova-for-bilirubin-by-stage" class="level3" data-number="6.7.1">
 <h3 data-number="6.7.1" class="anchored" data-anchor-id="exercise-1-guided-one-way-anova-for-bilirubin-by-stage"><span class="header-section-number">6.7.1</span> Exercise 1 (Guided): One-Way ANOVA for Bilirubin by Stage</h3>
+<p><em>Estimated time: ~20 minutes</em></p>
 <p>Using <code>survival::pbc</code>, test whether log(bilirubin) differs across the four disease stages.</p>
 <ol type="1">
 <li>Plot log(bilirubin) by stage (boxplot + jitter, using <code>scale_fill_brewer()</code>).</li>
@@ -872,7 +1111,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Extract residuals with <code>augment()</code> and plot a QQ-plot. Is the normality assumption met?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -881,7 +1120,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
@@ -940,13 +1179,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </div>
-<p>Log-bilirubin increases substantially with disease stage. The ANOVA is highly significant and Tukey’s HSD shows that most stage pairs differ. The residuals are approximately normal on the log scale, confirming the transformation was appropriate.</p>
+<p>Run the chunk above. The ANOVA is highly significant (<code>F(3, 408) ≈ 15.1, p ≈ 2.6e-09</code>). Tukey’s HSD shows the same pattern seen with the Kruskal-Wallis post-hoc test in <a href="../sessions/nonparametric-tests.html">Nonparametric Tests</a>: Stage 4 differs significantly from every other stage (all adj.p &lt; 0.0001), while Stages 1, 2, and 3 do not differ significantly from each other (adj.p between 0.32 and 0.84). The residuals are approximately normal on the log scale, confirming the transformation was appropriate.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-2-semi-guided-anova-for-albumin-by-stage" class="level3" data-number="6.7.2">
 <h3 data-number="6.7.2" class="anchored" data-anchor-id="exercise-2-semi-guided-anova-for-albumin-by-stage"><span class="header-section-number">6.7.2</span> Exercise 2 (Semi-guided): ANOVA for Albumin by Stage</h3>
+<p><em>Estimated time: ~15 minutes</em></p>
 <p>Using <code>survival::pbc</code>, test whether serum albumin differs across the four disease stages.</p>
 <ol type="1">
 <li>Plot albumin by stage.</li>
@@ -956,7 +1196,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Does the direction of the albumin effect make biological sense for a disease where liver function progressively declines?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -965,7 +1205,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pbc_s <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stage), <span class="sc">!</span><span class="fu">is.na</span>(albumin))</span>
@@ -1028,20 +1268,22 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="exercise-3-open-ended" class="level3" data-number="6.7.3">
 <h3 data-number="6.7.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">6.7.3</span> Exercise 3 (Open-ended)</h3>
+<p><em>Estimated time: 15–30 minutes</em></p>
 <p>From your own data, identify a continuous outcome and a categorical grouping variable with three or more groups. Run a one-way ANOVA, check assumptions with residual plots, and run Tukey’s HSD. Write a complete Methods and Results paragraph as you would for a journal paper, including the F-statistic, degrees of freedom, p-value, and the specific group pairs that differ.</p>
 </section>
 </section>
 <section id="comprehension-check" class="level2" data-number="6.8">
 <h2 data-number="6.8" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">6.8</span> Comprehension Check</h2>
+<p><em>Estimated time: ~10 minutes (self-test)</em></p>
 <ol type="1">
 <li>What is the null hypothesis in a one-way ANOVA? What does a significant result tell you, and what does it not tell you?</li>
 <li>Why is running multiple pairwise t-tests not a valid substitute for ANOVA?</li>
 <li>In a two-way ANOVA, the interaction term <code>supp:dose</code> is significant. What does this mean, and how should you proceed?</li>
 <li>Your residual QQ-plot shows clear non-normality and you have n = 8 per group. What should you do?</li>
-<li>“ANOVA tests variances” — true or false, and why?</li>
+<li>“ANOVA tests variances”: true or false, and why?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1050,12 +1292,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li><p>The null hypothesis is <span class="math inline">\(H_0: \mu_1 = \mu_2 = \ldots = \mu_k\)</span> — all group population means are equal. A significant result means <em>at least one</em> group mean differs from at least one other. It does not identify which pairs differ — that requires a post-hoc test.</p></li>
+<li><p>The null hypothesis is <span class="math inline">\(H_0: \mu_1 = \mu_2 = \ldots = \mu_k\)</span>: all group population means are equal. A significant result means <em>at least one</em> group mean differs from at least one other. It does not identify which pairs differ: that requires a post-hoc test.</p></li>
 <li><p>Running <span class="math inline">\(\binom{k}{2}\)</span> independent t-tests inflates the family-wise error rate. With k = 4 groups there are 6 comparisons; at α = 0.05, the probability of at least one false positive is 1 − 0.95⁶ = 26%. ANOVA tests all groups simultaneously, keeping the overall Type I error at 5%.</p></li>
-<li><p>A significant interaction means the effect of one factor depends on the level of the other. Reporting only main effects is misleading — you must show the interaction plot and describe how the effect of dose changes across supplement types (or vice versa).</p></li>
+<li><p>A significant interaction means the effect of one factor depends on the level of the other. Reporting only main effects is misleading: you must show the interaction plot and describe how the effect of dose changes across supplement types (or vice versa).</p></li>
 <li><p>With small, non-normal groups, switch to Kruskal-Wallis: a nonparametric ANOVA alternative that works on ranks and does not require normality.</p></li>
 <li><p>False. ANOVA tests whether group <em>means</em> are equal, using a technique that partitions total variance into between-group and within-group components. It assumes equal within-group variances, but the hypothesis being tested is about means, not variances.</p></li>
 </ol>
@@ -1101,8 +1343,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="further-reading" class="level2" data-number="6.10">
 <h2 data-number="6.10" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">6.10</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span> — <em>An Introduction to Medical Statistics</em>: clear treatment of one-way and two-way ANOVA for clinical researchers</li>
-<li><span class="citation" data-cites="Dalgaard-2008">Dalgaard (<a href="#ref-Dalgaard-2008" role="doc-biblioref">2008</a>)</span> — <em>Introductory Statistics with R</em>: practical ANOVA chapter with worked examples</li>
+<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span>: <em>An Introduction to Medical Statistics</em>: clear treatment of one-way and two-way ANOVA for clinical researchers</li>
+<li><span class="citation" data-cites="Dalgaard-2008">Dalgaard (<a href="#ref-Dalgaard-2008" role="doc-biblioref">2008</a>)</span>: <em>Introductory Statistics with R</em>: practical ANOVA chapter with worked examples</li>
 <li><code>?aov</code>, <code>?TukeyHSD</code>, <code>?oneway.test</code> in R</li>
 </ul>
 

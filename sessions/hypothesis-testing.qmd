@@ -9,6 +9,36 @@ library(tidyverse)
 library(survival)
 ```
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: about 115 minutes (~2 hours).**
+
+| Section | Time | Type |
+|---|---|---|
+| When Do You Use This? + Learning Objectives | 5 min | Reading |
+| Background: The Logic of Hypothesis Testing | 25 min | Reading |
+| Example 1: Clinical Data (PBC) | 20 min | Worked example |
+| Example 2: Multiple Testing | 15 min | Worked example |
+| What Can Go Wrong | 10 min | Reading |
+| Exercises 1 & 2 | 30 min | Practice |
+| Comprehension Check | 10 min | Self-test |
+
+In a taught course, this session fits one teaching block. For
+self-paced study, split it into two sittings, e.g. Background and
+Example 1 first, Example 2 onward later. Exercise 3 is open-ended and
+works best as a follow-up using a paper from your own field.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-hypothesis-testing}
 
 ::: {.callout-tip}
@@ -24,7 +54,17 @@ This session builds directly on the previous one. In [Sampling,
 Estimation, and Confidence Intervals](sampling-and-estimation.qmd) you
 learned how to estimate a population quantity and quantify your
 uncertainty. Hypothesis testing is the next step: instead of just
-estimating, you are now making a yes/no decision --- is the effect real?
+estimating, you are now making a yes/no decision: is the effect real?
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Open by asking the room for a time they made an informal "is this real
+or just noise?" judgement: a slightly higher reading on a second
+measurement, a colleague's result that didn't replicate, a small change
+between two runs of an experiment. Use one of those examples to motivate
+the criminal-trial analogy below before any formula appears.
 :::
 
 ## Learning Objectives
@@ -32,7 +72,7 @@ estimating, you are now making a yes/no decision --- is the effect real?
 After completing this session you will be able to:
 
 - State null and alternative hypotheses for a comparison
-- Explain what a p-value means --- and what it does not mean
+- Explain what a p-value means, and what it does not mean
 - Describe Type I and Type II errors and how they relate to $\alpha$ and
   $\beta$
 - Explain statistical power and the factors that determine it
@@ -43,13 +83,28 @@ After completing this session you will be able to:
 
 ## Background: The Logic of Hypothesis Testing
 
+*Estimated time: ~25 minutes (reading)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+The criminal trial analogy below is the single most useful framing in
+this session: almost every later confusion about p-values traces back
+to forgetting that a hypothesis test starts by *assuming* $H_0$ is
+true. Before reading on, ask the room: "in a criminal trial, does 'not
+guilty' mean the jury believes the defendant is innocent?" The answer
+("no, it means the evidence wasn't strong enough to convict") is
+exactly the relationship between "p > 0.05" and "no effect" that comes
+up later in this session.
+:::
+
 ### The criminal trial analogy
 
 Before any formulas, here is the underlying logic in a context you
 already understand.
 
 In a criminal trial, the defendant is presumed innocent until proven
-guilty. The court does not ask "is this person guilty?" --- it asks "is
+guilty. The court does not ask "is this person guilty?"; it asks "is
 the evidence against an innocent person this damning, or more so?" If
 the answer is yes (the evidence would be very unlikely if the person
 were truly innocent), you reject the presumption of innocence and
@@ -57,7 +112,7 @@ convict.
 
 Hypothesis testing follows the exact same logic:
 
-- The **null hypothesis** ($H_0$) is the default position --- usually
+- The **null hypothesis** ($H_0$) is the default position: usually
   "there is no effect" or "the groups are the same." This is the
   presumption of innocence.
 - You do not ask "is the effect real?" You ask: "How likely is it that
@@ -67,7 +122,7 @@ Hypothesis testing follows the exact same logic:
   you reject the null hypothesis.
 
 That probability is the **p-value**. And just as a conviction does not
-prove guilt beyond all doubt --- only beyond a reasonable doubt --- a
+prove guilt beyond all doubt (only beyond a reasonable doubt), a
 small p-value does not prove your hypothesis is true. It only says the
 data are sufficiently inconsistent with the null.
 
@@ -87,7 +142,7 @@ Every hypothesis test follows the same sequence:
 5. **Interpret**: report the test statistic, p-value, effect size, and
    confidence interval. State your conclusion in plain language.
 
-### What a p-value is --- and is not
+### What a p-value is, and is not
 
 ::: {.callout-warning}
 ### The most important thing to understand about p-values
@@ -106,7 +161,7 @@ extreme than) the one you got, *assuming the null hypothesis is true*.
 The most common misstatement in science is: "p = 0.03 means there is a
 3% chance the result is a fluke." This is wrong. The p-value is
 computed *under the assumption* that the null is true. It cannot tell
-you the probability that the null is true --- that requires Bayesian
+you the probability that the null is true: that requires Bayesian
 reasoning.
 
 **The correct statement:** "If the null hypothesis were true, the
@@ -121,12 +176,25 @@ a real effect that your study was too small to detect. This is why
 
 ### Type I and Type II errors
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Board exercise: draw the 2x2 table below empty, then describe a
+diagnostic test scenario (e.g. a screening test for a disease) and ask
+the room to fill in each cell with a concrete consequence ("patient
+told they have the disease but does not", etc.). Once the table is
+filled, introduce the smoke-alarm analogy and ask students to map it
+onto their own diagnostic-test table. Connecting the abstract 2x2 table
+to two concrete scenarios in succession is what makes $\alpha$, power,
+and $\beta$ stick.
+:::
+
 Every decision rule makes errors. Here are the two kinds:
 
 |  | $H_0$ is true | $H_0$ is false |
 |---|---|---|
-| **Reject $H_0$** | **Type I error** (false positive) --- probability $= \alpha$ | Correct (true positive) --- probability $= \text{power}$ |
-| **Fail to reject $H_0$** | Correct (true negative) | **Type II error** (false negative) --- probability $= \beta$ |
+| **Reject $H_0$** | **Type I error** (false positive): probability $= \alpha$ | Correct (true positive): probability $= \text{power}$ |
+| **Fail to reject $H_0$** | Correct (true negative) | **Type II error** (false negative): probability $= \beta$ |
 
 **Power** $= 1 - \beta$ is the probability of detecting a real effect
 of a given size. A study with 80% power has a 20% chance of missing a
@@ -140,10 +208,10 @@ increases missed fires.
 
 Power increases when:
 
-- Sample size increases --- the most reliable lever
-- Effect size is larger --- big effects are easier to detect
-- Variability is smaller --- cleaner measurements help
-- $\alpha$ is larger --- but this increases the Type I error rate
+- Sample size increases: the most reliable lever
+- Effect size is larger: big effects are easier to detect
+- Variability is smaller: cleaner measurements help
+- $\alpha$ is larger, but this increases the Type I error rate
 
 ### The connection to confidence intervals
 
@@ -161,12 +229,27 @@ is*. Report both.
 
 ## Example 1: Clinical Data (PBC)
 
+*Estimated time: ~20 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Before running anything, take a quick show-of-hands poll: "do you
+expect this baseline test to come out significant (p < 0.05) or not?"
+Most students will correctly guess "not significant" once reminded that
+the groups were randomised, but the poll makes the prediction explicit
+and gives the eventual result more weight. The
+[Sampling and Estimation](sampling-and-estimation.qmd) session computed
+a CI for this same albumin variable; if the group covered that session,
+this is a natural callback.
+:::
+
 The question: does serum albumin differ between patients who received
 D-penicillamine versus those who received placebo?
 
 This is a clinical trial, so the groups were randomised. Before we test
 the primary outcome (which comes after treatment), it is standard
-practice to check **baseline comparability** --- were the groups similar
+practice to check **baseline comparability**: were the groups similar
 on key characteristics before the intervention began? Albumin at
 baseline should be similar between groups if the randomisation worked.
 
@@ -222,9 +305,19 @@ pbc %>%
   theme(legend.position = "none")
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. Both groups should show `mean ≈ 3.52`, with
+similar SDs (0.44 vs 0.40) and medians (3.56 vs 3.54). The boxplot
+should show two distributions that look almost identical, heavily
+overlapping. Based on this, what would you predict for the t-test
+p-value in the next chunk: small (< 0.05) or large (> 0.05)?
+:::
+
 The two groups look nearly identical. The means differ by less than
 0.05 g/dL. Before even running the test, the plot strongly suggests a
-null result --- and that is exactly what we want to see for a baseline
+null result, and that is exactly what we want to see for a baseline
 variable.
 
 ### Step 3: Check assumptions and choose the test
@@ -245,23 +338,32 @@ t.test(albumin ~ trt,
        var.equal = FALSE)   # Welch's t-test (default; always use this)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `t ≈ -0.16`, `df ≈ 307.7`,
+`p ≈ 0.87`, and a 95% CI for the difference of about (-0.10, 0.09). The
+group means are about 3.516 (D-pen) and 3.524 (Placebo), both rounding
+to 3.52. Does this match your prediction from the plot?
+:::
+
 ::: {.callout-note}
 ### Reading the Output Line by Line
 
 | Output | What it means |
 |---|---|
-| **t = 0.45** | Test statistic: the difference between means divided by the standard error. A value near zero means the difference is about the size we would expect from random sampling alone. |
-| **df = 310** | Welch's degrees of freedom. Not simply n₁ + n₂ − 2 because it accounts for the possibility of unequal variances. |
-| **p-value = 0.65** | If there were truly no difference in albumin, we would see a gap this large or larger 65% of the time just from sampling variation. Strong evidence that the groups are similar. |
-| **95% CI: −0.09 to 0.14** | The difference in means (D-pen minus placebo) is plausibly between −0.09 and +0.14 g/dL. Because the interval contains zero, the difference is not statistically significant. |
-| **Means: 3.52 vs 3.50** | The actual values. The 0.02 g/dL gap is both statistically and clinically negligible. |
+| **t = −0.16** | Test statistic: the difference between means divided by the standard error. A value near zero means the difference is about the size we would expect from random sampling alone. |
+| **df = 307.7** | Welch's degrees of freedom. Not simply n₁ + n₂ − 2 because it accounts for the possibility of unequal variances. |
+| **p-value = 0.87** | If there were truly no difference in albumin, we would see a gap this large or larger 87% of the time just from sampling variation. Strong evidence that the groups are similar. |
+| **95% CI: −0.10 to 0.09** | The difference in means (D-pen minus placebo) is plausibly between −0.10 and +0.09 g/dL. Because the interval contains zero, the difference is not statistically significant. |
+| **Means: 3.52 vs 3.52** | The actual values (3.516 vs 3.524 to three decimals). A ~0.01 g/dL gap is both statistically and clinically negligible. |
 :::
 
 ### Step 5: Interpret
 
 The result is exactly what we hoped for: no statistically significant
-difference in baseline albumin between groups (p = 0.65, 95% CI for
-difference: −0.09 to 0.14 g/dL). This confirms that randomisation
+difference in baseline albumin between groups (p = 0.87, 95% CI for
+difference: −0.10 to 0.09 g/dL). This confirms that randomisation
 produced two comparable groups, which is reassuring for the validity of
 the trial.
 
@@ -269,22 +371,35 @@ the trial.
 ### Writing the result
 
 > "Serum albumin at baseline was similar between the D-penicillamine
-> group (mean 3.52 g/dL) and placebo group (mean 3.50 g/dL; Welch's
-> t-test: *t*(310) = 0.45, p = 0.65, mean difference 0.02 g/dL, 95%
-> CI: −0.09 to 0.14)."
+> group (mean 3.52 g/dL) and placebo group (mean 3.52 g/dL; Welch's
+> t-test: *t*(307.7) = −0.16, p = 0.87, mean difference −0.01 g/dL, 95%
+> CI: −0.10 to 0.09)."
 
 Note: always report the means for both groups, the test statistic with
 degrees of freedom, the exact p-value, and the 95% CI for the
-difference. "p = 0.65" alone tells the reader almost nothing.
+difference. "p = 0.87" alone tells the reader almost nothing.
 :::
 
 
 ## Example 2: Multiple Testing
 
+*Estimated time: ~15 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Live activity: ask everyone in the room to silently pick a random
+number between 0 and 1 (or generate one on their phone/laptop). Then
+ask everyone whose number is below 0.05 to raise their hand. With a
+class of 20, you would expect about 1 hand. This makes the "1 false
+positive per 20 tests" arithmetic concrete before the simulation below
+runs the same idea computationally.
+:::
+
 When you run many tests at once, the p < 0.05 threshold becomes
 dangerous. If you test 20 genes and none are truly differentially
 expressed, you still expect $20 \times 0.05 = 1$ false positive by
-chance alone. This is not a statistical quirk --- it is a direct
+chance alone. This is not a statistical quirk; it is a direct
 consequence of the definition of $\alpha$.
 
 Imagine you are testing 20 different drugs against placebo. All 20 are
@@ -310,6 +425,18 @@ p_bh <- p.adjust(p_values, method = "BH")
 sum(p_bh < 0.05)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above with `set.seed(2024)`. All three lines should print
+`0`: none of the 20 raw p-values are below 0.05, and so none survive
+Bonferroni or BH correction either. Every one of these 20 tests is
+testing a true null, so this is a "good" outcome, but it is partly
+luck: on average you'd expect about $20 \times 0.05 = 1$ false positive
+among the raw p-values. Try removing `set.seed(2024)` and re-running a
+few times. How often do you see 1 or more raw p-values below 0.05?
+:::
+
 ::: {.callout-note}
 ### Which correction to use?
 
@@ -319,7 +446,7 @@ sum(p_bh < 0.05)
 | **Benjamini–Hochberg (FDR)** | False discovery rate (proportion of discoveries that are false) | Screening many hypotheses: genomics, proteomics, GWAS |
 | **None** | Nothing | Single pre-specified primary hypothesis only |
 
-Bonferroni is conservative --- it will miss real effects when you run
+Bonferroni is conservative: it will miss real effects when you run
 many tests. For genomic studies with thousands of tests, use FDR.
 For a clinical trial with five pre-specified endpoints, use Bonferroni
 (or better: specify one primary endpoint in your protocol).
@@ -328,12 +455,23 @@ For a clinical trial with five pre-specified endpoints, use Bonferroni
 
 ## What Can Go Wrong
 
+*Estimated time: ~10 minutes (reading)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+The "Common misinterpretations" callout below works well as a quick
+true/false round: read each statement aloud, ask for a show of hands
+before revealing why it is wrong. This surfaces misconceptions the
+group already holds rather than just presenting them.
+:::
+
 **P-hacking: running tests until something is significant**
 
 Every additional test you run on the same data increases the false
 positive rate. If you test all 50 variables in your dataset and report
 only the five that came out significant, your Type I error rate is no
-longer 5% --- it is much higher. This is p-hacking, even when done
+longer 5%: it is much higher. This is p-hacking, even when done
 unintentionally. Specify your primary analysis in advance and treat
 everything else as exploratory.
 
@@ -351,7 +489,7 @@ size and CI, not just the p-value.
 
 A one-sided test is more powerful but only valid when you specified the
 direction of the effect *before collecting data*. Using a one-sided
-test because the data happened to go the expected way is p-hacking --- it
+test because the data happened to go the expected way is p-hacking: it
 halves the p-value without any legitimate justification.
 
 ::: {.callout-warning}
@@ -374,7 +512,7 @@ that includes zero is not significant. Width reflects precision;
 significance reflects where the interval sits relative to zero.
 
 **"A non-significant result is not worth reporting"**
-A well-powered null result is scientifically valuable --- it provides
+A well-powered null result is scientifically valuable: it provides
 an upper bound on how large a real effect could plausibly be. Non-
 significant results from adequately powered studies should be reported.
 :::
@@ -382,7 +520,19 @@ significant results from adequately powered studies should be reported.
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+In a live session, have students attempt Exercise 1 in pairs (~15
+minutes) before revealing the solution, then work Exercise 2
+individually. Exercise 3 needs a paper from the student's own field, so
+it works best as a take-home or end-of-day task rather than something
+to complete in the room.
+:::
+
 ### Exercise 1 (Guided): Hypothesis Test for Bilirubin
+
+*Estimated time: ~15 minutes*
 
 Using `survival::pbc`, test whether bilirubin (`bili`) differs between
 the D-penicillamine and placebo groups at baseline.
@@ -420,6 +570,8 @@ CI from your output)."
 :::
 
 ### Exercise 2 (Semi-guided): The Multiple Testing Problem in Practice
+
+*Estimated time: ~15 minutes*
 
 Simulate 100 hypothesis tests: 90 where the null is true and 10 where
 there is a real effect.
@@ -466,6 +618,8 @@ independent SNPs).
 
 ### Exercise 3 (Open-ended)
 
+*Estimated time: 15--30 minutes, depending on your data*
+
 Find a published paper in your field that reports multiple hypothesis
 tests. Does it apply any multiple testing correction? Is that
 correction appropriate for the study design? Write a short paragraph
@@ -474,6 +628,8 @@ differently.
 
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes*
 
 1. A study reports p = 0.04. State the correct interpretation of this
    value in one sentence.
@@ -501,7 +657,7 @@ differently.
 
 3. Statistical significance does not equal clinical importance. A 0.5
    mmHg reduction in blood pressure is almost certainly not clinically
-   meaningful --- typical antihypertensive treatments aim for 5--10 mmHg
+   meaningful: typical antihypertensive treatments aim for 5--10 mmHg
    reductions. You need the 95% CI for the difference (to see the range
    of plausible effect sizes) and a clinical judgement about the minimum
    relevant effect in this context.
@@ -511,11 +667,11 @@ differently.
    studies and anywhere you are testing hundreds or thousands of
    hypotheses simultaneously.
 
-5. **Bonferroni**: when any false positive is very costly --- clinical
+5. **Bonferroni**: when any false positive is very costly: clinical
    trial with pre-specified endpoints, regulatory decision-making,
    confirmatory studies. **FDR (BH)**: when you are screening many
    hypotheses and can tolerate some false discoveries in exchange for
-   more power --- genomics, proteomics, metabolomics, any exploratory
+   more power: genomics, proteomics, metabolomics, any exploratory
    high-dimensional study.
 :::
 
@@ -548,19 +704,19 @@ differently.
 
 **Common errors:**
 
-- Writing "p = 0.000" --- use "p < 0.001"
+- Writing "p = 0.000"; use "p < 0.001" instead
 - Reporting only "p < 0.05" without the actual value
-- Omitting the CI --- this is often more informative than the p-value
+- Omitting the CI: this is often more informative than the p-value
 - Writing "the result was significant" without giving the numbers
 :::
 
 
 ## Further Reading
 
-- @Bland-Altman-1994 --- BMJ "Statistics notes" series: short,
+- @Bland-Altman-1994: BMJ "Statistics notes" series: short,
   accessible articles on hypothesis testing and p-values
-- [Nature Methods Points of Significance](https://www.nature.com/collections/qghhqm)
-  --- authoritative short articles on p-values, power, and replication
+- [Nature Methods Points of Significance](https://www.nature.com/collections/qghhqm):
+  authoritative short articles on p-values, power, and replication
   in biology
-- @Benjamini-Hochberg-1995 --- the original FDR paper; readable and
+- @Benjamini-Hochberg-1995: the original FDR paper; readable and
   worth understanding

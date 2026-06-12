@@ -10,11 +10,41 @@ library(survival)
 library(broom)
 ```
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: about 120 minutes (~2 hours).**
+
+| Section | Time | Type |
+|---|---|---|
+| When Do You Use This? + Learning Objectives | 5 min | Reading |
+| Background: How ANOVA Works | 20 min | Reading |
+| Example 1: One-Way ANOVA (PlantGrowth) | 25 min | Worked example |
+| Example 2: Two-Way ANOVA (ToothGrowth) | 20 min | Worked example |
+| What Can Go Wrong | 10 min | Reading |
+| Exercises 1 & 2 | 30 min | Practice |
+| Comprehension Check | 10 min | Self-test |
+
+In a taught course, this session fits one teaching block. For
+self-paced study, split it into two sittings, e.g. Background and
+Example 1 first, Example 2 onward later. Exercise 3 is open-ended and
+works best as a follow-up using a dataset from your own field.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ::: {.callout-important}
 ## Before You Start
 
 ANOVA extends the t-test to three or more groups. Make sure you have
-completed [T-tests and Group Comparisons](t-tests.qmd) first --- the
+completed [T-tests and Group Comparisons](t-tests.qmd) first: the
 logic here builds directly on the signal ÷ noise framework introduced
 there.
 :::
@@ -32,6 +62,17 @@ six tests is 1 − 0.95⁶ = 26%. ANOVA tests all groups simultaneously
 in a single model and keeps the false positive rate at 5%.
 :::
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Have the room verify 1 − 0.95⁶ = 26% on a calculator before moving on
+— it is easy to nod along to "26%" without registering how large that
+is. This is the same multiple-testing logic as Example 2 in
+[Hypothesis Testing](hypothesis-testing.qmd); if you taught that
+session, ask the room to connect the two before you explain ANOVA's
+solution.
+:::
+
 ## Learning Objectives
 
 After completing this session you will be able to:
@@ -44,6 +85,18 @@ After completing this session you will be able to:
 
 
 ## Background: How ANOVA Works
+
+*Estimated time: ~20 minutes (reading)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Connect this back to the t-statistic from [T-tests](t-tests.qmd):
+for exactly two groups, ANOVA's F-statistic equals the square of the
+two-sample t-statistic ($F = t^2$), and the ANOVA p-value equals the
+two-sided t-test p-value. ANOVA is the generalisation of the t-test to
+more than two groups, not a different idea.
+:::
 
 ### The F-statistic is signal ÷ noise
 
@@ -70,7 +123,7 @@ ANOVA works by **partitioning total variation** into two parts:
 The ratio of these, after accounting for degrees of freedom, is the
 F-statistic.
 
-### The one thing ANOVA tells you --- and the one thing it doesn't
+### The one thing ANOVA tells you, and the one thing it doesn't
 
 A significant ANOVA tells you **at least one group mean differs from at
 least one other**. It does not tell you which groups differ. That
@@ -80,7 +133,7 @@ requires a post-hoc test (Tukey's HSD is standard for ANOVA).
 
 | Assumption | How to check |
 |---|---|
-| **Independence** | Study design --- each observation from a different subject |
+| **Independence** | Study design: each observation from a different subject |
 | **Normality of residuals** | QQ-plot of model residuals (not raw data) |
 | **Equal variances** | Check group SDs; use Welch's ANOVA if unequal |
 
@@ -90,6 +143,19 @@ Kruskal-Wallis instead (see [Nonparametric Tests](nonparametric-tests.qmd)).
 
 
 ## Example 1: One-Way ANOVA (PlantGrowth)
+
+*Estimated time: ~25 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+After the boxplot (`pg-setup`), ask the room to predict, by eye, which
+of the three pairwise comparisons (ctrl vs trt1, ctrl vs trt2, trt1 vs
+trt2) will turn out significant in the Tukey output later. Most people
+correctly guess trt1 vs trt2 because that gap looks largest relative
+to the spread — a good opportunity to reinforce "signal relative to
+noise," not just "signal."
+:::
 
 The `PlantGrowth` dataset records dried plant weight under three
 conditions: a control and two experimental treatments, with 10 plants
@@ -124,6 +190,15 @@ ANOVA will try to detect relative to the within-group scatter.
 fit_pg <- aov(weight ~ group, data = pg)
 summary(fit_pg)
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. You should get `F ≈ 4.85` on (2, 27) degrees of
+freedom, with `Pr(>F) ≈ 0.016`. Below 0.05, so at least one group mean
+differs. Which one(s)? The table alone cannot say — that is what
+Tukey's HSD is for, next.
+:::
 
 ::: {.callout-note}
 ### Reading the ANOVA Table
@@ -160,6 +235,15 @@ TukeyHSD(fit_pg) %>%
   select(contrast, estimate, conf.low, conf.high, adj.p.value) %>%
   arrange(adj.p.value)
 ```
+
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. Only `trt2-trt1` has `adj.p.value ≈ 0.012`, below
+0.05. The mean difference is about 0.865 g (95% CI: 0.17 to 1.56).
+`trt2-ctrl` (adj.p ≈ 0.198) and `trt1-ctrl` (adj.p ≈ 0.391) are not
+significant. Did this match your prediction?
+:::
 
 Read each row as a pairwise comparison: `estimate` is the mean
 difference, `conf.low`/`conf.high` is the 95% CI for that difference,
@@ -205,6 +289,15 @@ pg %>%
   summarise(n = n(), mean = mean(weight), sd = sd(weight))
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. Means are ctrl ≈ 5.03, trt1 ≈ 4.66, trt2 ≈ 5.53;
+SDs are ctrl ≈ 0.58, trt1 ≈ 0.79, trt2 ≈ 0.44. The largest SD (0.79) is
+less than twice the smallest (0.44), so the equal-variance assumption
+is reasonable.
+:::
+
 The residual plot shows no pattern (equal variance holds). The QQ-plot
 shows approximate normality. The group SDs are within a factor of 2 of
 each other. The ANOVA assumptions are met.
@@ -225,6 +318,20 @@ Follow this with Games-Howell post-hoc tests rather than Tukey's HSD.
 
 ## Example 2: Two-Way ANOVA (ToothGrowth)
 
+*Estimated time: ~20 minutes (worked example)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This dataset also appears in [Nonparametric Tests](nonparametric-tests.qmd)
+(comparing the two supplements at dose 0.5 only). Here the design is
+extended to all three doses, which lets the interaction term emerge.
+Before showing the interaction plot, ask the room what a "no
+interaction" plot would look like (two parallel lines), so the
+converging lines below stand out as a meaningful pattern rather than
+just "two lines that happen to be close."
+:::
+
 The `ToothGrowth` dataset is a 2 × 3 factorial experiment: two Vitamin
 C delivery methods × three dose levels, 10 guinea pigs per cell. This
 design lets us ask three questions simultaneously:
@@ -234,7 +341,7 @@ design lets us ask three questions simultaneously:
 3. Does the effect of dose *depend on* which supplement was used?
    (interaction between `supp` and `dose`)
 
-The interaction question is the most interesting --- and the most
+The interaction question is the most interesting, and the most
 commonly misunderstood.
 
 ```{r tg-setup}
@@ -254,7 +361,7 @@ tg <- ToothGrowth %>%
 An **interaction plot** shows the mean response at each dose level for
 each supplement. If the two lines are roughly parallel, the dose effect
 is similar for both supplements (no interaction). If the lines cross or
-converge, the dose effect differs by supplement --- an interaction.
+converge, the dose effect differs by supplement, an interaction.
 
 ```{r tg-interaction-plot}
 #| eval: true
@@ -296,6 +403,15 @@ fit2 <- aov(len ~ supp * dose, data = tg)
 summary(fit2)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. All three rows are significant: `supp` (F ≈ 15.6,
+p ≈ 0.0002), `dose` (F ≈ 92.0, p < 2e-16), and `supp:dose` (F ≈ 4.11,
+p ≈ 0.022). Because the interaction term is significant, the two main
+effects cannot be interpreted on their own — see below.
+:::
+
 ::: {.callout-note}
 ### Reading the Two-Way ANOVA Table
 
@@ -307,7 +423,7 @@ summary(fit2)
 
 When the **interaction is significant**, the main effects alone are
 misleading. The story is more subtle: the effect of dose depends on
-which supplement you use. Report the interaction and show the plot ---
+which supplement you use. Report the interaction and show the plot:
 do not summarise by "supplement A is better" if it is only better at
 certain doses.
 
@@ -324,13 +440,35 @@ TukeyHSD(fit2) %>%
   head(10)
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+Run the chunk above. With 2 supplements × 3 doses there are 15 possible
+pairwise contrasts; the ten shown here are the most significant. The
+largest effect is `dose 2-0.5` (estimate ≈ 15.5 mm, adj.p ≈ 4e-13): the
+dose effect dwarfs the supplement effect, consistent with `dose` having
+by far the largest F-statistic above.
+:::
+
 
 ## What Can Go Wrong
+
+*Estimated time: ~10 minutes (reading)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Quick true/false round on the "Common misinterpretations" callout below
+— read each bold statement aloud and ask for a thumbs up/down before
+revealing the explanation. The "F = 12.4 means a large effect" item
+connects directly back to the η² discussion in "How to Report" later,
+so it's worth flagging that effect size is still to come.
+:::
 
 **Running multiple t-tests instead of ANOVA**
 
 With four groups and six pairwise t-tests at α = 0.05, the chance of
-at least one false positive is 26%. This is not a minor concern --- it
+at least one false positive is 26%. This is not a minor concern: it
 means roughly one in four such analyses produces a spurious finding by
 chance. ANOVA + Tukey's HSD keeps the family-wise error rate at 5%.
 
@@ -378,7 +516,21 @@ pattern is consistent with your scientific interpretation.
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Pair students for Exercises 1 and 2: one runs the code while the other
+predicts each result (ANOVA significance, then which Tukey pairs will
+be significant) before it appears. Both exercises use the same `pbc`
+stage variable as [Nonparametric Tests](nonparametric-tests.qmd), so if
+you taught that session, ask the room to predict whether the ANOVA
+post-hoc pattern will look like the Kruskal-Wallis post-hoc pattern
+they already saw.
+:::
+
 ### Exercise 1 (Guided): One-Way ANOVA for Bilirubin by Stage
+
+*Estimated time: ~20 minutes*
 
 Using `survival::pbc`, test whether log(bilirubin) differs across
 the four disease stages.
@@ -422,13 +574,19 @@ augment(fit_bili) %>%
   theme_bw()
 ```
 
-Log-bilirubin increases substantially with disease stage. The ANOVA is
-highly significant and Tukey's HSD shows that most stage pairs differ.
-The residuals are approximately normal on the log scale, confirming the
-transformation was appropriate.
+Run the chunk above. The ANOVA is highly significant (`F(3, 408) ≈
+15.1, p ≈ 2.6e-09`). Tukey's HSD shows the same pattern seen with the
+Kruskal-Wallis post-hoc test in
+[Nonparametric Tests](nonparametric-tests.qmd): Stage 4 differs
+significantly from every other stage (all adj.p < 0.0001), while
+Stages 1, 2, and 3 do not differ significantly from each other
+(adj.p between 0.32 and 0.84). The residuals are approximately normal
+on the log scale, confirming the transformation was appropriate.
 :::
 
 ### Exercise 2 (Semi-guided): ANOVA for Albumin by Stage
+
+*Estimated time: ~15 minutes*
 
 Using `survival::pbc`, test whether serum albumin differs across the
 four disease stages.
@@ -476,6 +634,8 @@ show early vs. late stage differences drive the result.
 
 ### Exercise 3 (Open-ended)
 
+*Estimated time: 15--30 minutes*
+
 From your own data, identify a continuous outcome and a categorical
 grouping variable with three or more groups. Run a one-way ANOVA,
 check assumptions with residual plots, and run Tukey's HSD. Write a
@@ -486,6 +646,8 @@ specific group pairs that differ.
 
 ## Comprehension Check
 
+*Estimated time: ~10 minutes (self-test)*
+
 1. What is the null hypothesis in a one-way ANOVA? What does a
    significant result tell you, and what does it not tell you?
 2. Why is running multiple pairwise t-tests not a valid substitute for
@@ -494,15 +656,15 @@ specific group pairs that differ.
    What does this mean, and how should you proceed?
 4. Your residual QQ-plot shows clear non-normality and you have n = 8
    per group. What should you do?
-5. "ANOVA tests variances" --- true or false, and why?
+5. "ANOVA tests variances": true or false, and why?
 
 ::: {.callout-note collapse="true"}
 ### Answers
 
-1. The null hypothesis is $H_0: \mu_1 = \mu_2 = \ldots = \mu_k$ ---
+1. The null hypothesis is $H_0: \mu_1 = \mu_2 = \ldots = \mu_k$:
    all group population means are equal. A significant result means
    *at least one* group mean differs from at least one other. It does
-   not identify which pairs differ --- that requires a post-hoc test.
+   not identify which pairs differ: that requires a post-hoc test.
 
 2. Running $\binom{k}{2}$ independent t-tests inflates the family-wise
    error rate. With k = 4 groups there are 6 comparisons; at α = 0.05,
@@ -511,7 +673,7 @@ specific group pairs that differ.
    error at 5%.
 
 3. A significant interaction means the effect of one factor depends on
-   the level of the other. Reporting only main effects is misleading ---
+   the level of the other. Reporting only main effects is misleading:
    you must show the interaction plot and describe how the effect of
    dose changes across supplement types (or vice versa).
 
@@ -563,8 +725,8 @@ specific group pairs that differ.
 
 ## Further Reading
 
-- @Bland-2015 --- *An Introduction to Medical Statistics*: clear
+- @Bland-2015: *An Introduction to Medical Statistics*: clear
   treatment of one-way and two-way ANOVA for clinical researchers
-- @Dalgaard-2008 --- *Introductory Statistics with R*: practical ANOVA
+- @Dalgaard-2008: *Introductory Statistics with R*: practical ANOVA
   chapter with worked examples
 - `?aov`, `?TukeyHSD`, `?oneway.test` in R

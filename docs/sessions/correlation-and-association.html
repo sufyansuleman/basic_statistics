@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -432,6 +432,84 @@ window.Quarto = {
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session at a Glance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Total core time: about 130 minutes (a little over 2 hours).</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Time</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>When Do You Use This? + Learning Objectives</td>
+<td>5 min</td>
+<td>Reading</td>
+</tr>
+<tr class="even">
+<td>The Key Idea: What Does r Actually Tell You?</td>
+<td>10 min</td>
+<td>Reading</td>
+</tr>
+<tr class="odd">
+<td>Background: Measuring Linear Association</td>
+<td>15 min</td>
+<td>Reading</td>
+</tr>
+<tr class="even">
+<td>Example 1: Ecology Data (palmerpenguins)</td>
+<td>30 min</td>
+<td>Worked example</td>
+</tr>
+<tr class="odd">
+<td>Example 2: Clinical Data (PBC)</td>
+<td>20 min</td>
+<td>Worked example</td>
+</tr>
+<tr class="even">
+<td>What Can Go Wrong</td>
+<td>10 min</td>
+<td>Reading</td>
+</tr>
+<tr class="odd">
+<td>Exercises 1 &amp; 2</td>
+<td>30 min</td>
+<td>Practice</td>
+</tr>
+<tr class="even">
+<td>Comprehension Check</td>
+<td>10 min</td>
+<td>Self-test</td>
+</tr>
+</tbody>
+</table>
+<p>In a taught course, this session fits one teaching block. For self-paced study, split it into two sittings, e.g.&nbsp;the Key Idea, Background, and Example 1 first, Example 2 onward later. Exercise 3 is open-ended and works best as a follow-up using a dataset from your own field.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code in This Session
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code chunk below is written so you can copy it into your R console (or an R script) and run it yourself, in the order shown. Where you see a “Run It Yourself” box, stop and run the code above it before reading the explanation that follows.</p>
+</div>
+</div>
 <section id="sec-correlation" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="sec-correlation"><span class="header-section-number">9.1</span> When Do You Use This?</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -445,6 +523,22 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>Before fitting a regression model, you want to understand the pairwise relationships between continuous variables: which variables move together, how strong those associations are, and in what direction. Correlation gives you a standardised measure of association that is independent of the units of measurement. Does albumin decline as bilirubin rises? Is platelet count associated with prothrombin time? Start here.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Ask the room for a pair of continuous variables from their own work that they expect to be related (e.g.&nbsp;dose and response, age and a lab value). Keep this pair in mind through the session – after Example 1 and Example 2, ask whether they’d use Pearson or Spearman for their pair, and why.</p>
+</div>
 </div>
 </div>
 </section>
@@ -461,12 +555,30 @@ Tip
 </section>
 <section id="the-key-idea-what-does-r-actually-tell-you" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="the-key-idea-what-does-r-actually-tell-you"><span class="header-section-number">9.3</span> The Key Idea: What Does r Actually Tell You?</h2>
+<p><em>Estimated time: ~10 minutes (reading)</em></p>
 <p>Correlation answers a simple question: “when X is above average, does Y tend to be above average too?” If yes, r is positive. If higher X goes with lower Y, r is negative. If there is no pattern, r is near zero.</p>
 <p>But r has an important limitation: it only captures <em>linear</em> relationships. You can have a perfect U-shaped relationship (Y rises steeply, then falls) and get r = 0. <strong>Always plot your data first.</strong> A scatter plot takes 10 seconds and can save you from a completely wrong interpretation.</p>
 <p>One more thing before the formulas: r = 0.6 does not mean “60% association.” The variance explained by the relationship is r², not r. With r = 0.6, the two variables share r² = 0.36, or 36%, of their variance. Keep that in mind when someone tells you “there’s a moderate correlation.”</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Draw a quick U-shape on the board (e.g.&nbsp;Y high at both small and large X, low in the middle). Ask: “if I compute Pearson’s r for these points, roughly what value do I get?” Most people guess a moderate positive or negative number; the answer is close to zero, because r only measures <em>linear</em> trend. This motivates “always plot first.”</p>
+</div>
+</div>
+</div>
 </section>
 <section id="background-measuring-linear-association" class="level2" data-number="9.4">
 <h2 data-number="9.4" class="anchored" data-anchor-id="background-measuring-linear-association"><span class="header-section-number">9.4</span> Background: Measuring Linear Association</h2>
+<p><em>Estimated time: ~15 minutes (reading)</em></p>
 <p><strong>Pearson’s r</strong> measures the strength and direction of a <em>linear</em> relationship between two continuous variables:</p>
 <p><span class="math display">\[r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \sum (y_i - \bar{y})^2}}\]</span></p>
 <p><span class="math inline">\(r\)</span> ranges from -1 (perfect negative) to +1 (perfect positive). <span class="math inline">\(r = 0\)</span> means no <em>linear</em> association.</p>
@@ -506,6 +618,23 @@ Tip
 </section>
 <section id="example-1-ecology-data-palmerpenguins" class="level2" data-number="9.5">
 <h2 data-number="9.5" class="anchored" data-anchor-id="example-1-ecology-data-palmerpenguins"><span class="header-section-number">9.5</span> Example 1: Ecology Data (palmerpenguins)</h2>
+<p><em>Estimated time: ~30 minutes (worked example)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Before running the first <code>cor.test()</code>, ask students to predict the sign and rough size of the correlation between bill length and body mass: positive or negative, and small/medium/large? Then check the real result together. Later, the Simpson’s Paradox subsection is a good moment to slow down – make sure everyone sees both the overall (negative) and within-species (positive) correlations before moving on.</p>
+</div>
+</div>
+</div>
 <p>Penguin body measurements are intuitive: does a longer bill go with a deeper bill? Does body mass predict flipper length? The <code>palmerpenguins</code> dataset is ideal for introducing correlation because the biology makes sense and it contains a famous cautionary tale about confounding.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
@@ -540,8 +669,8 @@ sample estimates:
 </div>
 <div class="callout-body-container callout-body">
 <pre><code>Pearson's product-moment correlation
-t = 15.4, df = 340, p-value &lt; 0.001
-95 percent confidence interval:  0.55  0.69
+t = 13.65, df = 340, p-value &lt; 2.2e-16
+95 percent confidence interval:  0.52  0.66
 sample estimates: cor = 0.60</code></pre>
 <table class="caption-top table">
 <colgroup>
@@ -556,7 +685,7 @@ sample estimates: cor = 0.60</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>t = 15.4</strong></td>
+<td><strong>t = 13.65</strong></td>
 <td>Test statistic for H0: r = 0. Calculated as r x sqrt(n-2) / sqrt(1-r^2). Large absolute value = strong evidence r != 0.</td>
 </tr>
 <tr class="even">
@@ -564,11 +693,11 @@ sample estimates: cor = 0.60</code></pre>
 <td>Degrees of freedom = n - 2</td>
 </tr>
 <tr class="odd">
-<td><strong>p &lt; 0.001</strong></td>
+<td><strong>p &lt; 2.2e-16</strong></td>
 <td>If true r were zero, we would almost never see this by chance</td>
 </tr>
 <tr class="even">
-<td><strong>95% CI: 0.55 to 0.69</strong></td>
+<td><strong>95% CI: 0.52 to 0.66</strong></td>
 <td>Plausible range for the true population correlation. CI excludes zero.</td>
 </tr>
 <tr class="odd">
@@ -577,7 +706,20 @@ sample estimates: cor = 0.60</code></pre>
 </tr>
 </tbody>
 </table>
-<p>r^2 = 0.36: bill length explains 36% of variance in body mass. Effect size benchmarks (Cohen, 1988): |r| = 0.10 small / 0.30 medium / 0.50 large.</p>
+<p>r^2 ≈ 0.35: bill length explains about 35% of variance in body mass. Effect size benchmarks (Cohen, 1988): |r| = 0.10 small / 0.30 medium / 0.50 large.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should get <code>t = 13.65, df = 340, p-value &lt; 2.2e-16</code>, a 95% CI of about (0.52, 0.66), and <code>cor = 0.60</code>. Does the sign and rough size match what you predicted in the Teacher Note above?</p>
 </div>
 </div>
 <div class="cell">
@@ -635,7 +777,7 @@ body_mass_g                 0.60         -0.47              0.87        1.00</co
 </section>
 <section id="simpsons-paradox-bill-dimensions" class="level3" data-number="9.5.3">
 <h3 data-number="9.5.3" class="anchored" data-anchor-id="simpsons-paradox-bill-dimensions"><span class="header-section-number">9.5.3</span> Simpson’s Paradox: Bill Dimensions</h3>
-<p>The overall correlation between bill length and bill depth is <strong>negative</strong> (-0.23). Within each species it is <strong>positive</strong>. This is Simpson’s Paradox – always check for a grouping variable before reporting an unexpected correlation.</p>
+<p>The overall correlation between bill length and bill depth is <strong>negative</strong> (-0.24, see the correlation matrix above). Within each species it is <strong>positive</strong>. This is Simpson’s Paradox – always check for a grouping variable before reporting an unexpected correlation.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
@@ -672,10 +814,40 @@ body_mass_g                 0.60         -0.47              0.87        1.00</co
 3 Gentoo     0.64   123</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should get within-species correlations of Adelie r = 0.39, Chinstrap r = 0.65, Gentoo r = 0.64 – all <strong>positive</strong>, even though the overall correlation (ignoring species) is <strong>negative</strong> (-0.24). Species is a confounder here: each species has its own characteristic bill shape, and those between-species differences dominate the overall correlation.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="example-2-clinical-data-pbc" class="level2" data-number="9.6">
 <h2 data-number="9.6" class="anchored" data-anchor-id="example-2-clinical-data-pbc"><span class="header-section-number">9.6</span> Example 2: Clinical Data (PBC)</h2>
+<p><em>Estimated time: ~20 minutes (worked example)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example reuses the PBC dataset from earlier sessions, now focused on whether albumin and bilirubin move together. Ask students to predict the sign before running the code: as bilirubin rises (liver dysfunction), do they expect albumin to rise or fall?</p>
+</div>
+</div>
+</div>
 <p>Clinical biomarkers are often skewed and require a careful choice between Pearson and Spearman correlation. This example shows how to make that decision and how to build a clinical correlation matrix for exploratory analysis.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
@@ -725,6 +897,19 @@ compute exact p-value with ties</code></pre>
   estimate statistic  p.value method                          alternative
      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                           &lt;chr&gt;      
 1   -0.329 14718822. 1.05e-11 Spearman's rank correlation rho two.sided  </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. Pearson on log(bilirubin) gives an estimate of about -0.34 (t ≈ -7.21, df = 403, p ≈ 2.8e-12, 95% CI -0.42 to -0.25). Spearman on the raw bilirubin gives <code>rho ≈ -0.33</code> (p ≈ 1.0e-11; R warns that it cannot compute an exact p-value because of ties – expected with real clinical data). The two estimates are close (-0.34 vs -0.33), even though one is computed on log-transformed values and the other on ranks of the raw values.</p>
 </div>
 </div>
 <p>Both methods point in the same direction (negative association). Report Spearman when data are skewed; use log-Pearson when you want a linear model interpretation.</p>
@@ -796,6 +981,19 @@ Caused by warning in `cor.test.default()`:
 3 protime  -0.183 2.14e- 4 2.18e- 4</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should get three correlations with albumin: <code>log_bili r ≈ -0.33</code> (p_adj ≈ 3.2e-11), <code>platelet r ≈ 0.19</code> (p_adj ≈ 2.2e-4), and <code>protime r ≈ -0.18</code> (p_adj ≈ 2.2e-4). Even after the Holm adjustment for testing three correlations at once, all three remain well below 0.05 – but notice how much smaller the platelet and protime correlations are than the bilirubin one.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -808,13 +1006,14 @@ Caused by warning in `cor.test.default()`:
 <div class="callout-body-container callout-body">
 <p><strong><code>palmerpenguins</code></strong> (used in Example 1): Four continuous body measurements with a species grouping variable. Perfect for teaching Pearson correlation and Simpson’s Paradox.</p>
 <p><strong><code>survival::pbc</code></strong> (used in Example 2): Multiple skewed clinical biomarkers (albumin, bilirubin, protime, platelet). Real-world case for choosing Spearman over Pearson.</p>
-<p><strong>NHANES:</strong> <code>nhanesA</code> or <code>nhanes</code> package — population-level continuous variables (blood pressure, cholesterol, BMI, age).</p>
+<p><strong>NHANES:</strong> <code>nhanesA</code> or <code>nhanes</code> package: population-level continuous variables (blood pressure, cholesterol, BMI, age).</p>
 </div>
 </div>
 </section>
 </section>
 <section id="what-can-go-wrong" class="level2" data-number="9.7">
 <h2 data-number="9.7" class="anchored" data-anchor-id="what-can-go-wrong"><span class="header-section-number">9.7</span> What Can Go Wrong</h2>
+<p><em>Estimated time: ~10 minutes (reading)</em></p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -828,7 +1027,7 @@ Warning
 <p><strong>Correlation ≠ causation.</strong> Two variables can correlate strongly because they share a common cause, not because one causes the other. Always think mechanistically before interpreting a correlation.</p>
 <p><strong>Using Pearson’s r with skewed data or outliers.</strong> A single extreme outlier can drive a large r. Always plot your data before computing a correlation. Use Spearman’s ρ for robustness when data are skewed.</p>
 <p><strong>Multiple comparisons in correlation matrices.</strong> Testing all <span class="math inline">\(p(p-1)/2\)</span> pairs from a correlation matrix inflates the Type I error rate. Adjust p-values with <code>p.adjust()</code> when reporting multiple correlations.</p>
-<p><strong>Range restriction.</strong> If you select subjects based on one of the variables (e.g., only patients with bilirubin &gt; 5), the correlation in that subset will differ from the population correlation — usually attenuated.</p>
+<p><strong>Range restriction.</strong> If you select subjects based on one of the variables (e.g., only patients with bilirubin &gt; 5), the correlation in that subset will differ from the population correlation, usually attenuated.</p>
 <p><strong>Ecological correlation.</strong> Correlations computed on group averages (e.g., countries, hospitals) are typically stronger than individual-level correlations. Do not interpret ecological correlations as individual-level associations.</p>
 </div>
 </div>
@@ -849,11 +1048,49 @@ Warning
 <p><strong>“A negative correlation means the variables are inversely proportional.”</strong> A negative r means higher X tends to go with lower Y; that is all. It says nothing about proportionality or causation.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Quick true/false check, drawing on the points above:</p>
+<ul>
+<li>“A correlation of r = 0.37 means 37% of the variance is explained.” (<strong>False</strong> – it’s r² = 0.14, or 14%.)</li>
+<li>“With a large enough sample, even a clinically trivial correlation can be statistically significant.” (<strong>True</strong> – significance tells you r != 0, not that it’s important.)</li>
+<li>“A high zero-order correlation between a predictor and an outcome means that predictor will have a strong effect in a multiple regression model.” (<strong>False</strong> – the partial effect can shrink once other predictors are included; see <a href="../sessions/multiple-regression.html">Multiple Regression</a>.)</li>
+</ul>
+</div>
+</div>
+</div>
 </section>
 <section id="exercises" class="level2" data-number="9.8">
 <h2 data-number="9.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">9.8</span> Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Pair students up for these exercises. Exercise 1 revisits the penguins data with a new variable pair (flipper length and body mass) – before running the solution, ask pairs to predict whether the overall and within-species correlations will point in the same direction this time, or show another Simpson’s Paradox reversal like bill length vs bill depth. Exercise 2 returns to PBC with a new variable pair (albumin and prothrombin time).</p>
+</div>
+</div>
+</div>
 <section id="exercise-1-guided-flipper-length-vs-body-mass-penguins" class="level3" data-number="9.8.1">
 <h3 data-number="9.8.1" class="anchored" data-anchor-id="exercise-1-guided-flipper-length-vs-body-mass-penguins"><span class="header-section-number">9.8.1</span> Exercise 1 (Guided): Flipper Length vs Body Mass (penguins)</h3>
+<p><em>Estimated time: ~15 minutes</em></p>
 <ol type="1">
 <li>Plot flipper length vs body mass in <code>penguins_clean</code>. Does the relationship look linear?</li>
 <li>Compute Pearson and Spearman correlations. Do they agree?</li>
@@ -861,7 +1098,7 @@ Warning
 <li>Compute within-species correlations. Report r, 95% CI, and p-value for one species.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -870,7 +1107,7 @@ Warning
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(flipper_length_mm, body_mass_g, species)</span>
@@ -944,6 +1181,7 @@ Warning
 </section>
 <section id="exercise-2-semi-guided-albumin-and-prothrombin-time-pbc" class="level3" data-number="9.8.2">
 <h3 data-number="9.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-albumin-and-prothrombin-time-pbc"><span class="header-section-number">9.8.2</span> Exercise 2 (Semi-guided): Albumin and Prothrombin Time (PBC)</h3>
+<p><em>Estimated time: ~15 minutes</em></p>
 <p>Using <code>survival::pbc</code>, explore the association between albumin and prothrombin time.</p>
 <ol type="1">
 <li>Plot albumin vs prothrombin time. Does the relationship look linear? Try a log transform.</li>
@@ -952,7 +1190,7 @@ Warning
 <li>Adjust p-values for multiple comparisons using Holm’s method.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -961,7 +1199,7 @@ Warning
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
@@ -1041,11 +1279,13 @@ Caused by warning in `cor.test.default()`:
 </section>
 <section id="exercise-3-open-ended" class="level3" data-number="9.8.3">
 <h3 data-number="9.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">9.8.3</span> Exercise 3 (Open-ended)</h3>
+<p><em>Estimated time: 15–30 minutes</em></p>
 <p>Using your own data, identify two continuous variables you expect to be related. Plot them, compute the appropriate correlation, and test the significance. Write a two-sentence result. Now think of a third variable that might confound the relationship - how would you check for it?</p>
 </section>
 </section>
 <section id="comprehension-check" class="level2" data-number="9.9">
 <h2 data-number="9.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">9.9</span> Comprehension Check</h2>
+<p><em>Estimated time: ~10 minutes (self-test)</em></p>
 <ol type="1">
 <li>When should you use Spearman’s ρ instead of Pearson’s r?</li>
 <li>You compute r = 0.85, p &lt; 0.001 between two blood biomarkers. Can you conclude one biomarker causes changes in the other?</li>
@@ -1054,7 +1294,7 @@ Caused by warning in `cor.test.default()`:
 <li>You want to correlate a Likert-scale pain score (1–10) with serum CRP. Which coefficient should you use?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1063,7 +1303,7 @@ Caused by warning in `cor.test.default()`:
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Use Spearman when (1) one or both variables are skewed or contain outliers, (2) the relationship is monotonic but not necessarily linear, or (3) one variable is ordinal.</li>
@@ -1126,7 +1366,7 @@ Note
 <li>Sample size (n)</li>
 <li>Which method was used (Pearson or Spearman) and why</li>
 </ul>
-<p><strong>Never report r² alone</strong> — the sign (direction) is lost and readers cannot recover it.</p>
+<p><strong>Never report r² alone</strong>: the sign (direction) is lost and readers cannot recover it.</p>
 </div>
 </div>
 </section>
@@ -1134,8 +1374,8 @@ Note
 <section id="further-reading" class="level2" data-number="9.11">
 <h2 data-number="9.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">9.11</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span> — Correlation in <em>An Introduction to Medical Statistics</em></li>
-<li><span class="citation" data-cites="Dalgaard-2008">Dalgaard (<a href="#ref-Dalgaard-2008" role="doc-biblioref">2008</a>)</span> — Chapter on correlation and regression</li>
+<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span>: Correlation in <em>An Introduction to Medical Statistics</em></li>
+<li><span class="citation" data-cites="Dalgaard-2008">Dalgaard (<a href="#ref-Dalgaard-2008" role="doc-biblioref">2008</a>)</span>: Chapter on correlation and regression</li>
 <li><code>?cor.test</code> in R: documentation covering all three methods</li>
 <li><code>GGally::ggpairs()</code> vignette for visualising multivariate relationships</li>
 </ul>

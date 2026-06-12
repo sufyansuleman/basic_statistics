@@ -14,10 +14,45 @@ if (!requireNamespace("AER", quietly = TRUE)) {
 }
 ```
 
+::: {.callout-note}
+### Session at a Glance
+
+**Total core time: ~145 minutes** (about 2.5 hours). A natural break point is after Example 1 (the simulated one-sample MR analysis)---cover Example 2 (two-sample MR) and the exercises in a second sitting. Exercise 3 is open-ended and its time will vary.
+
+| Section | Time | Type |
+|---------|------|------|
+| The Key Idea: Nature's Randomised Trial | ~10 min | Concept |
+| Background: MR as an Instrument | ~15 min | Concept |
+| Example 1: Simulated One-Sample MR | ~30 min | Walkthrough |
+| Example 2: Summary-Level Two-Sample MR | ~20 min | Walkthrough |
+| What Can Go Wrong | ~10 min | Reading |
+| Exercise 1 (Guided) | ~15 min | Practice |
+| Exercise 2 (Semi-guided) | ~15 min | Practice |
+| Exercise 3 (Open-ended) | 15--30 min | Practice |
+| Comprehension Check | ~10 min | Self-test |
+
+If you are short on time, focus on Example 1's `naive-ols` and `wald-ratio` chunks: they show, side by side, how a confounded OLS estimate (0.906, more than triple the true effect) and an MR estimate (0.345, close to the true effect of 0.3) can disagree dramatically for the *same* simulated data.
+:::
+
+::: {.callout-tip}
+### How to Use the Code in This Session
+
+Every code chunk below is written so you can copy it into your R
+console (or an R script) and run it yourself, in the order shown.
+Where you see a "Run It Yourself" box, stop and run the code above it
+before reading the explanation that follows.
+:::
+
 ## When Do You Use This? {#sec-mr}
 
 ::: {.callout-tip}
-You want to know whether high LDL cholesterol causally increases the risk of liver disease. Observational studies are confounded --- sick people may both have elevated LDL and worse liver function. An RCT randomising people to high or low LDL is impossible. Mendelian randomisation uses genetic variants that naturally raise LDL as a randomisation instrument: because genotype is assigned at conception, it cannot be confounded by lifestyle or disease state.
+You want to know whether high LDL cholesterol causally increases the risk of liver disease. Observational studies are confounded: sick people may both have elevated LDL and worse liver function. An RCT randomising people to high or low LDL is impossible. Mendelian randomisation uses genetic variants that naturally raise LDL as a randomisation instrument: because genotype is assigned at conception, it cannot be confounded by lifestyle or disease state.
+:::
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Before going further, ask learners: if LDL and a liver enzyme (ALT) are both raised by a common factor (say, BMI), what would you expect a simple `lm(ALT ~ LDL)` regression to show, compared to the *true* causal effect of LDL on ALT? Will the OLS estimate be too high, too low, or about right? Keep this prediction in mind for Example 1, where both numbers are computed directly.
 :::
 
 ## Learning Objectives
@@ -33,13 +68,17 @@ After completing this session you will be able to:
 
 ## The Key Idea: Nature's Randomised Trial
 
+*Estimated time: ~10 minutes (Concept)*
+
 Randomisation is the gold standard for establishing causation because it breaks the link between who receives treatment and everything else about those people. In an RCT, you randomly assign some people to high LDL (or a drug that raises LDL) and compare their outcomes to a control group.
 
-Mendelian randomisation says: nature has already done this. Genetic variants that raise LDL are distributed essentially at random in the population (by Mendel's laws of segregation). People who inherited more LDL-raising alleles are, on average, no different from those who inherited fewer --- except for their LDL level. So we can use the genetic "dose" as a proxy for random assignment to high or low LDL.
+Mendelian randomisation says: nature has already done this. Genetic variants that raise LDL are distributed essentially at random in the population (by Mendel's laws of segregation). People who inherited more LDL-raising alleles are, on average, no different from those who inherited fewer, except for their LDL level. So we can use the genetic "dose" as a proxy for random assignment to high or low LDL.
 
-The key difference from an RCT: you cannot verify the assumptions as directly. This is why sensitivity analyses for pleiotropy are essential --- see the [Causal Inference](causal-inference.qmd) session for the broader framework.
+The key difference from an RCT: you cannot verify the assumptions as directly. This is why sensitivity analyses for pleiotropy are essential; see the [Causal Inference](causal-inference.qmd) session for the broader framework.
 
 ## Background: Mendelian Randomisation as an Instrument
+
+*Estimated time: ~15 minutes (Concept)*
 
 ### The Instrumental Variable Framework
 
@@ -64,6 +103,17 @@ where $\hat{\beta}_{ZY}$ is the SNP-outcome association and $\hat{\beta}_{ZX}$ i
 
 ## Example 1: Simulated One-Sample MR
 
+*Estimated time: ~30 minutes (Walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+This example has the data-generating process spelled out in code (`simulate-mr`), so the "true" causal effect (0.3) is known by construction - a luxury we never have with real data. Use this to make predictions concrete:
+
+- Before running `naive-ols`: ask learners to predict whether the naive `lm(ALT ~ LDL)` estimate will be above, below, or equal to 0.3, and why (BMI raises both LDL and ALT).
+- Before running `wald-ratio`: ask learners to predict whether the genetic-instrument-based estimate will be closer to 0.3 than the OLS estimate, and why genotype `G` is not affected by BMI.
+:::
+
 We simulate a dataset where LDL causally increases liver enzyme (ALT), with confounding by BMI.
 
 ```{r simulate-mr}
@@ -87,15 +137,31 @@ sim <- tibble(G, BMI, LDL, ALT)
 
 ### Naive OLS (confounded)
 
+*Estimated time: ~5 minutes (Walkthrough)*
+
 ```{r naive-ols}
 # OLS is biased because BMI confounds LDL-ALT association
 fit_ols <- lm(ALT ~ LDL, data = sim)
 tidy(fit_ols, conf.int = TRUE) %>% filter(term == "LDL")
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+You should see (rounded):
+
+| term | estimate | std.error | statistic | p.value | conf.low | conf.high |
+|------|----------|-----------|-----------|---------|----------|-----------|
+| LDL | 0.906 | 0.0155 | 58.6 | <0.001 | 0.876 | 0.937 |
+
+The naive OLS estimate (0.906) is roughly **three times** the true causal effect of 0.3 that we built into the simulation. The confidence interval (0.876, 0.937) does not even come close to containing 0.3. This is exactly the bias predicted in the Teacher Note: BMI raises both LDL and ALT, so part of the LDL-ALT association in this regression reflects their shared dependence on BMI, not a direct causal effect of LDL on ALT.
+:::
+
 The OLS estimate is inflated because BMI raises both LDL and ALT.
 
 ### Wald Ratio MR
+
+*Estimated time: ~10 minutes (Walkthrough)*
 
 ```{r wald-ratio}
 # First stage: SNP - LDL (relevance check)
@@ -121,7 +187,26 @@ cat("Wald ratio MR estimate:", round(beta_mr, 3),
 cat("True causal effect: 0.3\n")
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+You should see:
+
+```
+First-stage F-statistic: 291.3
+Wald ratio MR estimate: 0.345 | SE: 0.085 | 95% CI: ( 0.177 , 0.512 )
+True causal effect: 0.3
+```
+
+Two things to notice:
+
+1. **The instrument is strong.** The first-stage F-statistic (291.3) is far above the rule-of-thumb threshold of 10, so the relevance assumption is well satisfied here - `G` is a good predictor of `LDL`.
+2. **The MR estimate recovers the true effect.** 0.345 (95% CI 0.177 to 0.512) is close to the true causal effect of 0.3, and the CI comfortably contains it - unlike the OLS estimate of 0.906. Because `G` is assigned at conception (by Mendel's laws) and is not associated with `BMI` in this simulation, the SNP-outcome association is not contaminated by the BMI confounding that biased the OLS estimate.
+:::
+
 ### Two-Stage Least Squares (2SLS)
+
+*Estimated time: ~5 minutes (Walkthrough)*
 
 ```{r tsls}
 #| eval: !expr requireNamespace("AER", quietly = TRUE)
@@ -129,10 +214,24 @@ fit_iv <- ivreg(ALT ~ LDL | G, data = sim)
 tidy(fit_iv, conf.int = TRUE) %>% filter(term == "LDL")
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+This chunk only runs if the `AER` package is installed (it is skipped otherwise, with a message from the setup chunk). If you have `AER` available, run it and compare the `LDL` row to the Wald ratio above: with a single instrument, 2SLS is mathematically equivalent to the Wald ratio, so you should get the same estimate (≈0.345) and a very similar standard error.
+:::
+
 2SLS is the multi-instrument generalisation of the Wald ratio. The result should match the Wald ratio when only one instrument is used.
 
 
 ## Example 2: Summary-Level Two-Sample MR
+
+*Estimated time: ~20 minutes (Walkthrough)*
+
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+The `two-sample-mr` chunk below is marked `eval: false` because it queries the live MR-Base/IEU OpenGWAS database over the internet and requires the `TwoSampleMR` package. It will not run as part of this session, but the code is realistic - if learners have internet access and the package installed, they can run it themselves outside the session to fetch real LDL/CAD summary statistics. The `pleiotropy-sim` chunk that follows is a self-contained simulation that *does* run, and illustrates the kind of scatter plot the `TwoSampleMR` package would produce from real data.
+:::
 
 Two-sample MR uses GWAS summary statistics from two independent datasets:
 - **Exposure GWAS:** SNP-LDL associations (e.g., from UK Biobank)
@@ -158,12 +257,14 @@ res %>% select(method, b, se, pval, lo_ci, up_ci)
 ```
 
 The output reports:
-- **IVW (inverse-variance weighted):** Main estimate — assumes no directional pleiotropy
+- **IVW (inverse-variance weighted):** Main estimate (assumes no directional pleiotropy)
 - **MR-Egger:** Allows for pleiotropy; the intercept tests for it
 - **Weighted median:** Consistent estimate if >50% of instruments are valid
 - **MR-PRESSO:** Detects and corrects for outlier pleiotropy
 
 ### Sensitivity Analysis: Pleiotropy
+
+*Estimated time: ~10 minutes (Walkthrough)*
 
 ```{r pleiotropy-sim}
 # Simulated scatter plot: SNP effects on exposure vs outcome
@@ -183,11 +284,18 @@ tibble(beta_x, beta_y) %>%
   theme_bw()
 ```
 
+::: {.callout-tip}
+### Run It Yourself
+
+The plot shows 20 points (one per simulated SNP), with SNP-exposure effects (`beta_x`) on the x-axis and SNP-outcome effects (`beta_y`) on the y-axis. The points trend upward from bottom-left to top-right, and the fitted regression line (red) passes close to the origin - near `beta_x = 0`, the fitted `beta_y` is close to 0.
+
+This is what an MR-Egger plot looks like when there is **no directional pleiotropy**: the line's slope (≈0.3, matching how `beta_y` was simulated from `beta_x`) represents the causal effect estimate, and an intercept close to zero means the SNPs' effects on the outcome are well explained by their effects on the exposure alone - none of them appear to have a "shortcut" direct effect on the outcome. Compare this to Exercise 2, where a SNP with a genuine direct effect on the outcome (horizontal pleiotropy) biases the corresponding estimate.
+:::
 
 ::: {.callout-note}
 ## Where to Find Data Like This
 
-**MR-Base (IEU Open GWAS):** `TwoSampleMR::available_outcomes()` --- thousands of GWAS summary datasets freely accessible via the `TwoSampleMR` package.
+**MR-Base (IEU Open GWAS):** `TwoSampleMR::available_outcomes()`: thousands of GWAS summary datasets freely accessible via the `TwoSampleMR` package.
 
 **UK Biobank GWAS:** Downloadable summary statistics for thousands of traits at ukbiobank.ac.uk.
 
@@ -199,6 +307,8 @@ tibble(beta_x, beta_y) %>%
 
 ::: {.callout-warning}
 ## What Can Go Wrong
+
+*Estimated time: ~10 minutes (Reading)*
 
 **Weak instruments (F < 10).**
 When the SNP explains little variance in the exposure, the Wald ratio becomes unstable. Weak instruments bias 2SLS toward the OLS estimate in one-sample MR, and toward the null in two-sample MR. Use multiple SNPs and check F-statistics.
@@ -216,7 +326,15 @@ If the exposure and outcome GWAS come from populations with different ancestry, 
 
 ## Exercises
 
+::: {.callout-note collapse="true"}
+### Teacher Note
+
+Both exercises take the strong instrument from Example 1 (F = 291.3, MR estimate close to the truth) and break one of the IV assumptions on purpose. Exercise 1 breaks **relevance** (a much weaker SNP-exposure association); Exercise 2 breaks the **exclusion restriction** (the SNP also has a direct effect on the outcome). Ask learners, before they run either solution, which IV assumption is being violated and what direction of bias they expect.
+:::
+
 ### Exercise 1 (Guided): First-Stage F-Statistic
+
+*Estimated time: ~15 minutes (Practice)*
 
 Using the simulated `sim` dataset:
 
@@ -238,9 +356,20 @@ LDL_alt <- 0.1 * G_weak + 0.4 * sim$BMI + rnorm(nrow(sim), 0, 1.5)
 fit_weak <- lm(LDL_alt ~ G_weak)
 cat("Weak instrument F:", round(summary(fit_weak)$fstatistic["value"], 1), "\n")
 ```
+
+You should see:
+
+```
+F-statistic: 291.3 --- strong if > 10
+Weak instrument F: 0.2
+```
+
+The original instrument is comfortably strong (F = 291.3 ≫ 10). The weak instrument - constructed with a much rarer effect allele (allele frequency 0.05 instead of 0.3) and a smaller per-allele effect (0.1 instead of 0.8) - has an F-statistic of just 0.2, far below the threshold. With an instrument this weak, the Wald ratio's denominator ($\hat{\beta}_{ZX}$) is estimated so imprecisely that the resulting MR estimate would be highly unstable, with a huge standard error, and in one-sample MR would be biased toward the (confounded) OLS estimate.
 :::
 
 ### Exercise 2 (Semi-guided): Horizontal Pleiotropy Check
+
+*Estimated time: ~15 minutes (Practice)*
 
 Extend the simulation to add horizontal pleiotropy: the SNP also directly affects ALT (independent of LDL).
 
@@ -262,9 +391,22 @@ cat("True causal effect: 0.3\n")
 cat("Wald ratio with pleiotropy:", round(wald_p, 3), "\n")
 # Biased upward because SNP -> ALT directly inflates beta_zy
 ```
+
+You should see:
+
+```
+True causal effect: 0.3
+Wald ratio with pleiotropy: 0.773
+```
+
+Adding a direct SNP-to-ALT effect of 0.4 (independent of LDL) more than doubles the MR estimate, from a true effect of 0.3 to an apparent 0.773. This is **horizontal pleiotropy**: the exclusion restriction is violated because the SNP affects the outcome through a pathway other than the exposure (LDL). The Wald ratio attributes the *entire* SNP-outcome association to the SNP-LDL pathway, so the direct effect gets folded into the causal estimate as bias.
+
+In a real MR study, you would not know the true effect or the size of any direct pathway. This is exactly why sensitivity analyses such as MR-Egger (which can detect a non-zero intercept, as in Comprehension Check Q3) and the weighted median are essential: they provide a way to detect and partially correct for this kind of bias when it cannot be ruled out by design.
 :::
 
 ### Exercise 3 (Open-ended)
+
+*Estimated time: 15--30 minutes (Practice)*
 
 Identify a trait relevant to your research that has publicly available GWAS summary data (check MR-Base or GWAS Catalog). Design an MR study:
 
@@ -274,6 +416,8 @@ Identify a trait relevant to your research that has publicly available GWAS summ
 
 
 ## Comprehension Check
+
+*Estimated time: ~10 minutes (Self-test)*
 
 1. Why does Mendelian randomisation approximate an RCT?
 2. The F-statistic for your genetic instrument is 7.2. What is the concern, and what should you do?
@@ -313,7 +457,7 @@ Identify a trait relevant to your research that has publicly available GWAS summ
 
 ## Further Reading
 
-- @Davey-Smith-2003 --- *Mendelian randomization: can genetic epidemiology contribute to understanding environmental determinants of disease?* (IJE - the original MR paper)
-- @Bowden-2015 --- *Mendelian Randomization with invalid instruments* - MR-Egger paper
+- @Davey-Smith-2003: *Mendelian randomization: can genetic epidemiology contribute to understanding environmental determinants of disease?* (IJE - the original MR paper)
+- @Bowden-2015: *Mendelian Randomization with invalid instruments* - MR-Egger paper
 - `TwoSampleMR` package vignette (MR-Base documentation)
-- @Hemani-2018 --- *The MR-Base platform supports systematic causal inference across the human phenome* (eLife)
+- @Hemani-2018: *The MR-Base platform supports systematic causal inference across the human phenome* (eLife)

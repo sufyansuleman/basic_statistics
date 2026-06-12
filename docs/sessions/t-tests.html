@@ -167,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 1: Inference — Testing and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/t-tests.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 1: Inference, Testing, and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/t-tests.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -393,7 +393,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#example-2-clinical-data-pbc" id="toc-example-2-clinical-data-pbc" class="nav-link" data-scroll-target="#example-2-clinical-data-pbc"><span class="header-section-number">4.5</span> Example 2: Clinical Data (PBC)</a>
   <ul class="collapse">
-  <li><a href="#one-sample-is-mean-albumin-below-the-clinical-threshold" id="toc-one-sample-is-mean-albumin-below-the-clinical-threshold" class="nav-link" data-scroll-target="#one-sample-is-mean-albumin-below-the-clinical-threshold"><span class="header-section-number">4.5.1</span> One-sample: is mean albumin below the clinical threshold?</a></li>
+  <li><a href="#one-sample-is-mean-albumin-different-from-the-clinical-threshold" id="toc-one-sample-is-mean-albumin-different-from-the-clinical-threshold" class="nav-link" data-scroll-target="#one-sample-is-mean-albumin-different-from-the-clinical-threshold"><span class="header-section-number">4.5.1</span> One-sample: is mean albumin different from the clinical threshold?</a></li>
   <li><a href="#two-sample-does-albumin-differ-between-treatment-groups" id="toc-two-sample-does-albumin-differ-between-treatment-groups" class="nav-link" data-scroll-target="#two-sample-does-albumin-differ-between-treatment-groups"><span class="header-section-number">4.5.2</span> Two-sample: does albumin differ between treatment groups?</a></li>
   </ul></li>
   <li><a href="#checking-assumptions-qq-plots" id="toc-checking-assumptions-qq-plots" class="nav-link" data-scroll-target="#checking-assumptions-qq-plots"><span class="header-section-number">4.6</span> Checking Assumptions: QQ-plots</a></li>
@@ -413,7 +413,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 1: Inference — Testing and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/t-tests.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/sampling-and-estimation.html">Part 1: Inference, Testing, and Estimation</a></li><li class="breadcrumb-item"><a href="../sessions/t-tests.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">T-tests and Group Comparisons</span></h1>
 </div>
@@ -432,6 +432,84 @@ window.Quarto = {
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session at a Glance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Total core time: about 115 minutes (~2 hours).</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Time</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>When Do You Use This? + Learning Objectives</td>
+<td>5 min</td>
+<td>Reading</td>
+</tr>
+<tr class="even">
+<td>Background</td>
+<td>15 min</td>
+<td>Reading</td>
+</tr>
+<tr class="odd">
+<td>Example 1: Animal and Lab Data</td>
+<td>20 min</td>
+<td>Worked example</td>
+</tr>
+<tr class="even">
+<td>Example 2: Clinical Data (PBC)</td>
+<td>15 min</td>
+<td>Worked example</td>
+</tr>
+<tr class="odd">
+<td>Checking Assumptions: QQ-plots</td>
+<td>10 min</td>
+<td>Worked example</td>
+</tr>
+<tr class="even">
+<td>What Can Go Wrong</td>
+<td>10 min</td>
+<td>Reading</td>
+</tr>
+<tr class="odd">
+<td>Exercises 1 &amp; 2</td>
+<td>30 min</td>
+<td>Practice</td>
+</tr>
+<tr class="even">
+<td>Comprehension Check</td>
+<td>10 min</td>
+<td>Self-test</td>
+</tr>
+</tbody>
+</table>
+<p>In a taught course, this session fits one teaching block. For self-paced study, it splits naturally into two sittings, e.g. Background and Example 1 first, the rest later. Exercise 3 is open-ended and works best as a follow-up using your own data.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code in This Session
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code chunk below is written so you can copy it into your R console (or an R script) and run it yourself, in the order shown. Where you see a “Run It Yourself” box, stop and run the code above it before reading the explanation that follows.</p>
+</div>
+</div>
 <section id="sec-t-tests" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="sec-t-tests"><span class="header-section-number">4.1</span> When Do You Use This?</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -448,6 +526,22 @@ Tip
 <p>This session is the first place you will apply the framework from <a href="../sessions/hypothesis-testing.html">Hypothesis Testing</a>. If hypothesis testing is the logic, t-tests are one of its most common tools.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Open by asking the room for a “before vs after” or “treated vs control” comparison from their own work. Use one of those examples, rather than the textbook ones, to motivate the one-sample / two-sample / paired distinction in the Background section before any formula appears.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="learning-objectives" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">4.2</span> Learning Objectives</h2>
@@ -462,9 +556,26 @@ Tip
 </section>
 <section id="background-the-one-idea-behind-all-three-tests" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="background-the-one-idea-behind-all-three-tests"><span class="header-section-number">4.3</span> Background: The One Idea Behind All Three Tests</h2>
-<p>Before the three variants, here is the single idea that ties them all together. A t-test answers one question: <strong>is the difference I measured bigger than the noise?</strong> It takes the difference between means (the <em>signal</em>) and divides by the standard error (the <em>noise</em> — how much that difference would vary if you ran the study again on a new sample). That ratio is the <strong>t-statistic</strong>:</p>
+<p><em>Estimated time: ~15 minutes (reading)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The signal-to-noise framing below is the single most important idea in this session, arguably in the whole course. A useful board exercise: write <span class="math inline">\(t = \text{signal} / \text{noise}\)</span> and ask what happens to <span class="math inline">\(t\)</span> if (a) the sample size doubles, (b) the measurement becomes noisier, (c) the true effect gets bigger. Work through all three before moving on to which test variant to use; the variant choice is comparatively mechanical once this idea is solid.</p>
+</div>
+</div>
+</div>
+<p>Before the three variants, here is the single idea that ties them all together. A t-test answers one question: <strong>is the difference I measured bigger than the noise?</strong> It takes the difference between means (the <em>signal</em>) and divides by the standard error (the <em>noise</em>: how much that difference would vary if you ran the study again on a new sample). That ratio is the <strong>t-statistic</strong>:</p>
 <p><span class="math display">\[t = \frac{\text{difference between means}}{\text{standard error of that difference}} = \frac{\text{signal}}{\text{noise}}\]</span></p>
-<p>A large <span class="math inline">\(|t|\)</span> means the difference stands out against background variability — chance is an unlikely explanation. A small <span class="math inline">\(|t|\)</span> means the difference could easily be noise. Everything below — which variant to pick, Welch versus Student, checking normality — is just this one idea adapted to your specific study design.</p>
+<p>A large <span class="math inline">\(|t|\)</span> means the difference stands out against background variability: chance is an unlikely explanation. A small <span class="math inline">\(|t|\)</span> means the difference could easily be noise. Everything below (which variant to pick, Welch versus Student, checking normality) is just this one idea adapted to your specific study design.</p>
 <section id="choosing-the-right-variant" class="level3" data-number="4.3.1">
 <h3 data-number="4.3.1" class="anchored" data-anchor-id="choosing-the-right-variant"><span class="header-section-number">4.3.1</span> Choosing the right variant</h3>
 <p>Ask yourself two questions before running anything:</p>
@@ -506,6 +617,22 @@ Tip
 </section>
 <section id="welchs-vs-students-always-use-welchs" class="level3" data-number="4.3.2">
 <h3 data-number="4.3.2" class="anchored" data-anchor-id="welchs-vs-students-always-use-welchs"><span class="header-section-number">4.3.2</span> Welch’s vs Student’s: always use Welch’s</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A common question here is “then why does Student’s t-test still get taught at all?” The short, honest answer is history, plus a handful of specialised designs that assume equal variances by construction. For everything in this course, Welch’s is the right default; treat this as a one-minute aside, not a detour.</p>
+</div>
+</div>
+</div>
 <p>Welch’s t-test (R default: <code>var.equal = FALSE</code>) does not assume the two groups have equal variances. Student’s t-test does. Since you usually cannot know in advance whether variances are equal, Welch’s is safer. The cost in power is negligible when variances <em>are</em> equal, but the cost of using Student’s when they are not is inflated Type I error. There is no good reason to use <code>var.equal = TRUE</code>.</p>
 </section>
 <section id="normality-what-the-assumption-actually-means" class="level3" data-number="4.3.3">
@@ -521,13 +648,30 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A t-test is <strong>signal ÷ noise</strong>. A small p-value means your signal is loud relative to the noise — it does not tell you the difference is large or clinically important. Always read the p-value alongside the effect size (the mean difference) and its 95% CI.</p>
+<p>A t-test is <strong>signal ÷ noise</strong>. A small p-value means your signal is loud relative to the noise: it does not tell you the difference is large or clinically important. Always read the p-value alongside the effect size (the mean difference) and its 95% CI.</p>
 </div>
 </div>
 </section>
 </section>
 <section id="example-1-animal-and-lab-data" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="example-1-animal-and-lab-data"><span class="header-section-number">4.4</span> Example 1: Animal and Lab Data</h2>
+<p><em>Estimated time: ~20 minutes (worked example)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Live-session idea: before showing the boxplot below, ask students to predict which delivery method will show higher tooth growth, and by roughly how much. Reveal the plot, then run the test. The plot makes a difference look obvious; the test result (p = 0.18) tells a more cautious story. That tension, a visually convincing plot paired with an inconclusive test, is the core lesson of this example and is worth dwelling on rather than rushing past.</p>
+</div>
+</div>
+</div>
 <section id="two-sample-does-supplement-type-affect-tooth-growth" class="level3" data-number="4.4.1">
 <h3 data-number="4.4.1" class="anchored" data-anchor-id="two-sample-does-supplement-type-affect-tooth-growth"><span class="header-section-number">4.4.1</span> Two-sample: does supplement type affect tooth growth?</h3>
 <p>The <code>ToothGrowth</code> dataset records the length of odontoblast cells in 60 guinea pigs given Vitamin C either as ascorbic acid (VC) or orange juice (OJ) at three doses. At 1 mg/day, does the delivery method change tooth-cell growth?</p>
@@ -575,6 +719,19 @@ Tip
 # ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Execute the two chunks above. Your plot should show orange juice (OJ) somewhat higher than ascorbic acid (VC), with overlapping spread between the two groups. Your table should match: <code>t ≈ -1.41</code>, <code>p.value ≈ 0.18</code>, <code>conf.low ≈ -8.78</code>, <code>conf.high ≈ 1.78</code>. Before reading the table below, decide for yourself: based on the plot and these numbers, would you say the delivery method matters at this dose?</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -603,7 +760,7 @@ Tip
 </tr>
 <tr class="even">
 <td><strong>parameter (df = 15.36)</strong></td>
-<td>Welch’s degrees of freedom. Not a whole number — this is expected and correct.</td>
+<td>Welch’s degrees of freedom. Not a whole number: this is expected and correct.</td>
 </tr>
 <tr class="odd">
 <td><strong>p.value (0.18)</strong></td>
@@ -615,11 +772,11 @@ Tip
 </tr>
 <tr class="odd">
 <td><strong>estimate1 / estimate2</strong></td>
-<td>OJ mean = 22.70 mm; VC mean = 16.77 mm. The raw difference is 5.93 mm — always report this, not just p.</td>
+<td>OJ mean = 22.70 mm; VC mean = 16.77 mm. The raw difference is 5.93 mm: always report this, not just p.</td>
 </tr>
 </tbody>
 </table>
-<p>The difference is not significant at 1 mg/day. At 0.5 mg/day it is — try it in Exercise 1.</p>
+<p>The difference is not significant at 1 mg/day. At 0.5 mg/day it is: try it in Exercise 1.</p>
 </div>
 </div>
 </section>
@@ -652,7 +809,7 @@ Tip
 </div>
 </div>
 </div>
-<p>The connecting lines show each patient’s trajectory between drugs. Most lines slope upward from Drug 1 to Drug 2. The paired test uses exactly this information — the consistent direction of change across patients.</p>
+<p>The connecting lines show each patient’s trajectory between drugs. Most lines slope upward from Drug 1 to Drug 2. The paired test uses exactly this information, the consistent direction of change across patients.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sleep_wide <span class="ot">&lt;-</span> sleepdat <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(</span>
@@ -669,6 +826,19 @@ Tip
   estimate statistic p.value parameter conf.low conf.high method     alternative
      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
 1     1.58      4.06 0.00283         9    0.700      2.46 Paired t-… two.sided  </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should get <code>estimate ≈ 1.58</code>, <code>statistic ≈ 4.06</code>, <code>p.value ≈ 0.0028</code>. Compare this p-value to the two-sample result from the previous example (p ≈ 0.18). Same kind of test, a much smaller p-value: the next chunk shows why.</p>
 </div>
 </div>
 <p>To see exactly why using the paired test matters, run both on the same data and compare:</p>
@@ -688,14 +858,31 @@ Tip
 2 Paired (correct)                       1.58    0.700     2.46  0.00283</code></pre>
 </div>
 </div>
-<p>The paired test gives a much smaller p-value because it strips out the between-patient variability that inflates the noise estimate in the two-sample test. The same data, the same effect size — but the right design choice makes the difference detectable.</p>
+<p>The paired test gives a much smaller p-value because it strips out the between-patient variability that inflates the noise estimate in the two-sample test. The same data, the same effect size, but the right design choice makes the difference detectable.</p>
 </section>
 </section>
 <section id="example-2-clinical-data-pbc" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="example-2-clinical-data-pbc"><span class="header-section-number">4.5</span> Example 2: Clinical Data (PBC)</h2>
-<section id="one-sample-is-mean-albumin-below-the-clinical-threshold" class="level3" data-number="4.5.1">
-<h3 data-number="4.5.1" class="anchored" data-anchor-id="one-sample-is-mean-albumin-below-the-clinical-threshold"><span class="header-section-number">4.5.1</span> One-sample: is mean albumin below the clinical threshold?</h3>
-<p>The lower limit of normal serum albumin is 3.5 g/dL. PBC is a progressive liver disease that impairs the liver’s ability to synthesise albumin. We expect PBC patients to run low. The one-sample t-test tests whether the mean in our patients is significantly below the reference value.</p>
+<p><em>Estimated time: ~15 minutes (worked example)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example connects back to the Hypothesis Testing session’s discussion of baseline comparability in randomised trials. If the group has covered that session, ask them to recall why checking baseline balance matters before running the two-sample test below.</p>
+</div>
+</div>
+</div>
+<section id="one-sample-is-mean-albumin-different-from-the-clinical-threshold" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="one-sample-is-mean-albumin-different-from-the-clinical-threshold"><span class="header-section-number">4.5.1</span> One-sample: is mean albumin different from the clinical threshold?</h3>
+<p>The lower limit of normal serum albumin is 3.5 g/dL. PBC is a progressive liver disease that can impair the liver’s ability to synthesise albumin, so it is natural to ask: in this cohort, does the average patient sit below the normal range?</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
@@ -713,7 +900,21 @@ Tip
 1     3.50    -0.123   0.902       417     3.46      3.54 One Sampl… two.sided  </code></pre>
 </div>
 </div>
-<p>Read across the row: <code>estimate</code> is the sample mean; <code>statistic</code> is the t-value; <code>p.value</code> is how often a sample this far from 3.5 would arise if the true population mean really were 3.5. The mean sits below 3.5 and the p-value is tiny — clear evidence that PBC patients have albumin below the normal threshold.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should get <code>estimate ≈ 3.50</code>, <code>statistic ≈ -0.12</code>, <code>p.value ≈ 0.90</code>, with the 95% CI (3.46 to 3.54) sitting almost exactly on 3.5. Notice how close <code>estimate</code> is to <code>mu</code>: this is what a genuinely null result looks like.</p>
+</div>
+</div>
+<p>Read across the row: <code>estimate</code> is the sample mean (3.50 g/dL); <code>statistic</code> is the t-value (−0.12); <code>p.value</code> (0.90) is how often a sample this far from 3.5 would arise by chance if the true population mean really were 3.5. The 95% CI (3.46 to 3.54) sits almost exactly on 3.5: this is a precise null result. Across the whole cohort, mean albumin is indistinguishable from the lower limit of normal.</p>
+<p>That does <strong>not</strong> mean PBC has no effect on albumin. PBC ranges from early, asymptomatic disease to advanced cirrhosis, and this cohort spans that whole spectrum. A cohort-wide average mixes patients whose albumin is still normal with patients whose albumin is severely depleted, and the two can cancel out. The next section asks a more useful question: does albumin differ between groups defined by something other than disease status, namely treatment arm at baseline.</p>
 <p>(<code>broom::tidy()</code> packs the output into a data frame rather than the default printed block. Both show the same numbers; <code>tidy()</code> is easier to work with in reports and pipelines.)</p>
 </section>
 <section id="two-sample-does-albumin-differ-between-treatment-groups" class="level3" data-number="4.5.2">
@@ -758,24 +959,54 @@ Tip
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Putting the two results together
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should get <code>p.value ≈ 0.87</code> and a confidence interval for the difference that comfortably contains zero (about −0.10 to 0.09 g/dL). This is the result you want to see when checking baseline balance: no evidence of a difference.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Putting the Two Results Together
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <blockquote class="blockquote">
-<p>“Mean albumin in PBC patients was 3.43 g/dL (95% CI: 3.39–3.47), significantly below the clinical threshold of 3.5 g/dL (one-sample t-test: <em>t</em>(417) = −3.12, p = 0.002). There was no significant difference in albumin between the D-penicillamine and placebo groups at baseline, confirming comparable randomisation.”</p>
+<p>“Mean serum albumin across the cohort was 3.50 g/dL (95% CI: 3.46–3.54), not significantly different from the lower limit of normal (3.5 g/dL; one-sample t-test: <em>t</em>(417) = −0.12, p = 0.90). There was no significant difference in baseline albumin between the D-penicillamine and placebo groups (two-sample t-test: p = 0.87), confirming comparable randomisation.”</p>
 </blockquote>
-<p>Two tests, two different scientific questions, two complementary answers.</p>
+<p>Two tests, two null results, but they answer different questions. The first tells you the cohort average sits right at the clinical threshold, which, given the spread of disease severity in PBC, is unsurprising and not very informative on its own. The second tells you something genuinely useful for trial design: randomisation balanced albumin between arms at baseline, so a later difference between groups is unlikely to be explained by a baseline imbalance in this variable.</p>
 </div>
 </div>
 </section>
 </section>
 <section id="checking-assumptions-qq-plots" class="level2" data-number="4.6">
 <h2 data-number="4.6" class="anchored" data-anchor-id="checking-assumptions-qq-plots"><span class="header-section-number">4.6</span> Checking Assumptions: QQ-plots</h2>
-<p>For small samples (<span class="math inline">\(n &lt; 30\)</span>), use a QQ-plot to check approximate normality. <code>ToothGrowth</code> has only 10 animals per group at each dose — exactly the situation where checking matters.</p>
+<p><em>Estimated time: ~10 minutes (worked example)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Students often expect QQ-plot points to fall in a perfectly straight line and worry when <span class="math inline">\(n = 10\)</span> produces visible wiggle. After showing the plot below, ask: “if I simulated 10 points from a true normal distribution and made this plot 20 times, would they all look identical?” Running <code>qqnorm(rnorm(10))</code> a few times live is a quick, memorable way to calibrate expectations for small-sample QQ-plots.</p>
+</div>
+</div>
+</div>
+<p>For small samples (<span class="math inline">\(n &lt; 30\)</span>), use a QQ-plot to check approximate normality. <code>ToothGrowth</code> has only 10 animals per group at each dose, exactly the situation where checking matters.</p>
 <p>A QQ-plot compares the quantiles of your data against the quantiles of a theoretical normal distribution. If the points fall roughly along the diagonal line, normality is a reasonable assumption. What to watch for:</p>
 <ul>
-<li><strong>Heavy tails</strong>: points curve away from the line at both ends — suggests a distribution with more extreme values than normal</li>
+<li><strong>Heavy tails</strong>: points curve away from the line at both ends, suggesting a distribution with more extreme values than normal</li>
 <li><strong>Right skew</strong>: points curve upward at the top right</li>
 <li><strong>Outliers</strong>: one or two points far off the line</li>
 </ul>
@@ -795,18 +1026,35 @@ Tip
 </div>
 </div>
 </div>
-<p>With <span class="math inline">\(n = 10\)</span>, points roughly following the line are sufficient — you cannot expect perfection from ten observations. If you see a systematic curve or extreme departures, consider a Wilcoxon test (<a href="../sessions/nonparametric-tests.html">Nonparametric Tests</a>).</p>
+<p>With <span class="math inline">\(n = 10\)</span>, points roughly following the line are sufficient: you cannot expect perfection from ten observations. If you see a systematic curve or extreme departures, consider a Wilcoxon test (<a href="../sessions/nonparametric-tests.html">Nonparametric Tests</a>).</p>
 </section>
 <section id="what-can-go-wrong" class="level2" data-number="4.7">
 <h2 data-number="4.7" class="anchored" data-anchor-id="what-can-go-wrong"><span class="header-section-number">4.7</span> What Can Go Wrong</h2>
+<p><em>Estimated time: ~10 minutes (reading)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The “Common misinterpretations” callout below works well as a quick true/false round: read each statement aloud, ask for a show of hands before revealing why it is wrong. This surfaces misconceptions the group already holds rather than just presenting them.</p>
+</div>
+</div>
+</div>
 <p><strong>Using paired when data are independent, or vice versa</strong></p>
-<p>The paired t-test requires a genuine one-to-one link between observations. If you apply it to two independent groups, the degrees of freedom will be wrong and the p-value meaningless. If you apply a two-sample test to paired data, you throw away the within-subject information and lose statistical power. The design — not the software — determines which test is correct.</p>
+<p>The paired t-test requires a genuine one-to-one link between observations. If you apply it to two independent groups, the degrees of freedom will be wrong and the p-value meaningless. If you apply a two-sample test to paired data, you throw away the within-subject information and lose statistical power. The design, not the software, determines which test is correct.</p>
 <p><strong>Relying on Shapiro-Wilk to decide whether to use a t-test</strong></p>
 <p><code>shapiro.test()</code> is the wrong tool for this decision. With small samples (where normality matters most), it has low power and will miss real non-normality. With large samples (where normality matters least, because the CLT takes over), it will flag trivially small departures as “significant.” Use a QQ-plot and think about whether your outcome could plausibly come from a normal distribution.</p>
 <p><strong>Reporting only the p-value</strong></p>
 <p>“p = 0.03” tells the reader almost nothing. How big is the difference? In what direction? How precise is the estimate? Always report the mean difference, SD or SE for each group, and the 95% CI.</p>
 <p><strong>Forgetting that the default is Welch’s, not Student’s</strong></p>
-<p><code>t.test()</code> in R uses <code>var.equal = FALSE</code> by default, which gives Welch’s test. This is the right choice. Do not override it with <code>var.equal = TRUE</code> unless you have a genuine scientific reason to assume equal variances — and there is rarely such a reason in biomedical research.</p>
+<p><code>t.test()</code> in R uses <code>var.equal = FALSE</code> by default, which gives Welch’s test. This is the right choice. Do not override it with <code>var.equal = TRUE</code> unless you have a genuine scientific reason to assume equal variances, and there is rarely such a reason in biomedical research.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -826,8 +1074,25 @@ Tip
 </section>
 <section id="exercises" class="level2" data-number="4.8">
 <h2 data-number="4.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.8</span> Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In a live session, have students attempt Exercise 1 in pairs (~10 minutes) before revealing the solution, then work Exercise 2 individually. Exercise 3 needs each student’s own data, so it works best as a take-home or end-of-day task rather than something to complete in the room.</p>
+</div>
+</div>
+</div>
 <section id="exercise-1-guided-two-sample-test-at-a-different-dose" class="level3" data-number="4.8.1">
 <h3 data-number="4.8.1" class="anchored" data-anchor-id="exercise-1-guided-two-sample-test-at-a-different-dose"><span class="header-section-number">4.8.1</span> Exercise 1 (Guided): Two-Sample Test at a Different Dose</h3>
+<p><em>Estimated time: ~15 minutes</em></p>
 <p>Using <code>ToothGrowth</code>, test whether tooth length differs by supplement type at the <strong>0.5 mg/day</strong> dose (where the difference looks larger than at 1 mg/day).</p>
 <ol type="1">
 <li>Filter to dose = 0.5, plot, then run a Welch’s two-sample t-test.</li>
@@ -835,7 +1100,7 @@ Tip
 <li>How does the conclusion change compared to the 1 mg/day result?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -844,7 +1109,7 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tg_0<span class="fl">.5</span>mg <span class="ot">&lt;-</span> tg <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dose <span class="sc">==</span> <span class="st">"0.5"</span>)</span>
@@ -880,6 +1145,7 @@ Tip
 </section>
 <section id="exercise-2-semi-guided-one-sample-test-for-bilirubin" class="level3" data-number="4.8.2">
 <h3 data-number="4.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-one-sample-test-for-bilirubin"><span class="header-section-number">4.8.2</span> Exercise 2 (Semi-guided): One-Sample Test for Bilirubin</h3>
+<p><em>Estimated time: ~15 minutes</em></p>
 <p>The upper limit of normal for bilirubin is approximately 1.2 mg/dL.</p>
 <ol type="1">
 <li>Plot the bilirubin distribution in <code>survival::pbc</code>. Is it symmetric?</li>
@@ -887,7 +1153,7 @@ Tip
 <li>Report the geometric mean (back-transform with <code>exp()</code>), the 95% CI, t-statistic, df, and p-value. Write one sentence of interpretation.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -896,7 +1162,7 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pbc, <span class="fu">aes</span>(<span class="at">x =</span> bili)) <span class="sc">+</span></span>
@@ -932,11 +1198,13 @@ attr(,"conf.level")
 </section>
 <section id="exercise-3-open-ended" class="level3" data-number="4.8.3">
 <h3 data-number="4.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">4.8.3</span> Exercise 3 (Open-ended)</h3>
+<p><em>Estimated time: 15–30 minutes, depending on your data</em></p>
 <p>Using a dataset from your own research, identify a comparison where a t-test is appropriate. Decide which variant (one-sample, two-sample, or paired) fits your design. Run the test, check assumptions with a QQ-plot, and write a complete Methods and Results paragraph as you would for a journal submission.</p>
 </section>
 </section>
 <section id="comprehension-check" class="level2" data-number="4.9">
 <h2 data-number="4.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">4.9</span> Comprehension Check</h2>
+<p><em>Estimated time: ~10 minutes</em></p>
 <ol type="1">
 <li>What is the difference between a one-sample, two-sample, and paired t-test? Give a concrete biomedical example for each.</li>
 <li>Why is Welch’s t-test preferred over Student’s t-test in practice?</li>
@@ -945,7 +1213,7 @@ attr(,"conf.level")
 <li>A colleague says: “I ran Shapiro-Wilk and got p = 0.06, so the data are normal enough for a t-test.” What is wrong with this reasoning?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -954,14 +1222,14 @@ attr(,"conf.level")
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li><p><strong>One-sample:</strong> compare a sample mean to a fixed reference value (e.g., “Is mean haemoglobin in my patients below 12 g/dL?”). <strong>Two-sample:</strong> compare means of two independent groups (e.g., “Does albumin differ between treated and untreated mice?”). <strong>Paired:</strong> compare two measurements on the same subjects (e.g., “Did blood pressure change from baseline to 6 weeks in the same patients?”).</p></li>
 <li><p>Welch’s test does not assume equal group variances, making it more robust. The cost in statistical power when variances are equal is negligible. Using Student’s test when variances differ inflates the Type I error rate. Welch’s is the R default and should stay that way.</p></li>
 <li><p>With n = 12 and visible non-normality, the sample is too small for the CLT to rescue you. Use a nonparametric Wilcoxon rank-sum test instead.</p></li>
 <li><p>The result is statistically significant (p = 0.04) and the CI excludes zero, but the CI is very wide: the true difference could be as small as 0.01 g/dL (negligible) or as large as 2.1 g/dL (potentially important). A barely significant result with a wide CI tells you almost nothing about the size of the effect. Report both the p-value and the CI, and note that the estimate is imprecise.</p></li>
-<li><p>Shapiro-Wilk with p = 0.06 does not mean the data are normal — it means non-normality was not detected at <span class="math inline">\(\alpha = 0.05\)</span>. With n = 12 the test has very low power; it would miss moderate non- normality routinely. Use a QQ-plot and domain knowledge to assess whether the normal distribution is a plausible model for your data.</p></li>
+<li><p>Shapiro-Wilk with p = 0.06 does not mean the data are normal: it means non-normality was not detected at <span class="math inline">\(\alpha = 0.05\)</span>. With n = 12 the test has very low power; it would miss moderate non- normality routinely. Use a QQ-plot and domain knowledge to assess whether the normal distribution is a plausible model for your data.</p></li>
 </ol>
 </div>
 </div>
@@ -1007,8 +1275,8 @@ attr(,"conf.level")
 <section id="further-reading" class="level2" data-number="4.11">
 <h2 data-number="4.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">4.11</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Welch-1947">Welch (<a href="#ref-Welch-1947" role="doc-biblioref">1947</a>)</span> — the original Welch t-test paper</li>
-<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span> — <em>An Introduction to Medical Statistics</em>, chapter on t-tests; written for clinicians</li>
+<li><span class="citation" data-cites="Welch-1947">Welch (<a href="#ref-Welch-1947" role="doc-biblioref">1947</a>)</span>: the original Welch t-test paper</li>
+<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span>: <em>An Introduction to Medical Statistics</em>, chapter on t-tests; written for clinicians</li>
 <li><code>?t.test</code> in R: the built-in help page covers all options clearly</li>
 </ul>
 

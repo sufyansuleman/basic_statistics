@@ -177,7 +177,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -401,6 +401,84 @@ div.csl-indent {
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session at a Glance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Total core time: ~80 minutes</strong> (about 1.3 hours). Unlike the other sessions in this course, this one is a <strong>reference guide</strong>, not a linear walkthrough. Skim it once now so you know what is here, then come back to specific sections whenever you hit an error or get stuck during another session.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Time</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Getting Help Inside R</td>
+<td>~10 min</td>
+<td>Reference</td>
+</tr>
+<tr class="even">
+<td>Common Error Messages</td>
+<td>~20 min</td>
+<td>Reference</td>
+</tr>
+<tr class="odd">
+<td>Warnings vs Errors</td>
+<td>~5 min</td>
+<td>Reference</td>
+</tr>
+<tr class="even">
+<td>Useful Functions for Debugging</td>
+<td>~10 min</td>
+<td>Reference</td>
+</tr>
+<tr class="odd">
+<td>Online Resources</td>
+<td>~10 min</td>
+<td>Reference</td>
+</tr>
+<tr class="even">
+<td>Course Method Map</td>
+<td>~5 min</td>
+<td>Reference</td>
+</tr>
+<tr class="odd">
+<td>Comprehension Check</td>
+<td>~10 min</td>
+<td>Self-test</td>
+</tr>
+<tr class="even">
+<td>Common Pitfalls When Getting Help</td>
+<td>~10 min</td>
+<td>Reading</td>
+</tr>
+</tbody>
+</table>
+<p>If you are short on time, focus on <strong>Common Error Messages</strong>: those five error and warning patterns (especially the “fitted probabilities numerically 0 or 1” warning and the <code>na-debug</code> chunk) are the ones you are most likely to meet elsewhere in this course.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code in This Session
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code chunk below is written so you can copy it into your R console (or an R script) and run it yourself, in the order shown. Where you see a “Run It Yourself” box, stop and run the code above it before reading the explanation that follows.</p>
+</div>
+</div>
 <section id="sec-help-docs" class="level2" data-number="21.1">
 <h2 data-number="21.1" class="anchored" data-anchor-id="sec-help-docs"><span class="header-section-number">21.1</span> When Do You Use This?</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -414,6 +492,22 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>You are halfway through an analysis and get an error message you don’t understand. Or you can’t remember the exact arguments for a function. This session is your reference guide: how to get help inside R, how to read error messages, how to find the right function for a task, and where to turn when you’re stuck.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Before working through this session, ask learners to find (or recall) an error message they have personally encountered in this course - in their console history, a script, or their memory. Keep it visible. As you go through “Common Error Messages” below, check whether it matches one of the five patterns covered, and if not, diagnose it together using the <code>?</code>, <code>help.search()</code>, and debugging-function workflow from the first two sections.</p>
+</div>
 </div>
 </div>
 </section>
@@ -430,6 +524,7 @@ Tip
 </section>
 <section id="getting-help-inside-r" class="level2" data-number="21.3">
 <h2 data-number="21.3" class="anchored" data-anchor-id="getting-help-inside-r"><span class="header-section-number">21.3</span> Getting Help Inside R</h2>
+<p><em>Estimated time: ~10 minutes (Reference)</em></p>
 <section id="the-operator-and-help" class="level3" data-number="21.3.1">
 <h3 data-number="21.3.1" class="anchored" data-anchor-id="the-operator-and-help"><span class="header-section-number">21.3.1</span> The <code>?</code> Operator and <code>help()</code></h3>
 <div class="cell">
@@ -501,6 +596,7 @@ Tip
 </section>
 <section id="common-error-messages" class="level2" data-number="21.4">
 <h2 data-number="21.4" class="anchored" data-anchor-id="common-error-messages"><span class="header-section-number">21.4</span> Common Error Messages</h2>
+<p><em>Estimated time: ~20 minutes (Reference)</em></p>
 <section id="object-not-found" class="level3" data-number="21.4.1">
 <h3 data-number="21.4.1" class="anchored" data-anchor-id="object-not-found"><span class="header-section-number">21.4.1</span> Object Not Found</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">plot</span>(my_data) <span class="sc">:</span> object <span class="st">'my_data'</span> not found</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -545,6 +641,19 @@ Tip
 <pre><code>[1] "N/A"</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Both lines trigger <code>Warning: NAs introduced by coercion</code> - that warning is the clue, not a separate problem to chase down. The first line returns <code>[1] 3</code>: element 3 of <code>x</code> became <code>NA</code> when coerced to numeric. The second line shows you why: <code>[1] "N/A"</code> - the string <code>"N/A"</code> is not a number R recognises, so <code>as.numeric()</code> silently turns it into <code>NA</code> and raises this warning. This two-line pattern - “which positions became NA?” then “what were they originally?” - is the fastest way to track down a coercion warning in your own data.</p>
+</div>
+</div>
 </section>
 <section id="subscript-out-of-bounds" class="level3" data-number="21.4.5">
 <h3 data-number="21.4.5" class="anchored" data-anchor-id="subscript-out-of-bounds"><span class="header-section-number">21.4.5</span> Subscript Out of Bounds</h3>
@@ -561,6 +670,7 @@ Tip
 </section>
 <section id="warnings-vs-errors" class="level2" data-number="21.5">
 <h2 data-number="21.5" class="anchored" data-anchor-id="warnings-vs-errors"><span class="header-section-number">21.5</span> Warnings vs Errors</h2>
+<p><em>Estimated time: ~5 minutes (Reference)</em></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 35%">
@@ -598,6 +708,7 @@ Tip
 </section>
 <section id="useful-functions-for-debugging" class="level2" data-number="21.6">
 <h2 data-number="21.6" class="anchored" data-anchor-id="useful-functions-for-debugging"><span class="header-section-number">21.6</span> Useful Functions for Debugging</h2>
+<p><em>Estimated time: ~10 minutes (Reference)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What is in my environment?</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span>
@@ -625,6 +736,7 @@ Tip
 </section>
 <section id="online-resources" class="level2" data-number="21.7">
 <h2 data-number="21.7" class="anchored" data-anchor-id="online-resources"><span class="header-section-number">21.7</span> Online Resources</h2>
+<p><em>Estimated time: ~10 minutes (Reference)</em></p>
 <section id="finding-answers" class="level3" data-number="21.7.1">
 <h3 data-number="21.7.1" class="anchored" data-anchor-id="finding-answers"><span class="header-section-number">21.7.1</span> Finding Answers</h3>
 <table class="caption-top table">
@@ -680,6 +792,7 @@ Tip
 </section>
 <section id="course-method-map" class="level2" data-number="21.8">
 <h2 data-number="21.8" class="anchored" data-anchor-id="course-method-map"><span class="header-section-number">21.8</span> Course Method Map</h2>
+<p><em>Estimated time: ~5 minutes (Reference)</em></p>
 <p>The table below maps every statistical method covered in this course to its session. Use this to quickly navigate when you need to recall a method.</p>
 <table class="caption-top table">
 <thead>
@@ -774,6 +887,23 @@ Tip
 </section>
 <section id="comprehension-check" class="level2" data-number="21.9">
 <h2 data-number="21.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">21.9</span> Comprehension Check</h2>
+<p><em>Estimated time: ~10 minutes (Self-test)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>These questions revisit the error and warning patterns from earlier in the session, but ask learners to <em>explain</em> them rather than just recognise them. Encourage learners to answer from memory first, then check the relevant section above before reading the model answer - the goal is to practise diagnosing an error from the message alone, the same skill that matters when a real error appears in their own analysis.</p>
+</div>
+</div>
+</div>
 <ol type="1">
 <li>You run <code>lm(y ~ x, data = mydata)</code> and get <code>Error: object 'y' not found</code>. What are two likely causes?</li>
 <li>What is the difference between an R error and a warning? Give an example of a warning you should not ignore.</li>
@@ -782,7 +912,7 @@ Tip
 <li>You get a message <code>Warning: 152 rows removed due to missing values</code>. Should you be concerned? What would you check?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -791,7 +921,7 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li><ol type="a">
@@ -808,6 +938,7 @@ Tip
 </section>
 <section id="common-pitfalls-when-getting-help" class="level2" data-number="21.10">
 <h2 data-number="21.10" class="anchored" data-anchor-id="common-pitfalls-when-getting-help"><span class="header-section-number">21.10</span> Common Pitfalls When Getting Help</h2>
+<p><em>Estimated time: ~10 minutes (Reading)</em></p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -821,7 +952,7 @@ Warning
 <p><strong>Posting an incomplete question.</strong> The most common reason a Stack Overflow question goes unanswered is that it lacks a reproducible example. Always include: the exact error message, the R version and key package versions, and a minimal dataset that demonstrates the problem (use <code>dput()</code> or a built-in dataset).</p>
 <p><strong>Searching for the wrong thing.</strong> Error messages in R are often generic. Search for the <em>function name</em> and <em>package name</em> alongside the error text, not the error alone. For example: “lme4 singular fit random effects” is a better search than “model failed to converge.”</p>
 <p><strong>Copying code without understanding it.</strong> If you paste a solution and it works, spend 60 seconds asking why. Change one thing to confirm your mental model. Copy-paste dependency is the main reason R skills don’t compound.</p>
-<p><strong>Not checking the package version.</strong> Many Stack Overflow answers are outdated. Always confirm that the answer applies to your version (<code>packageVersion("pkg")</code>). Behaviour changes across versions — especially for <code>dplyr</code>, <code>ggplot2</code>, and <code>tidymodels</code>.</p>
+<p><strong>Not checking the package version.</strong> Many Stack Overflow answers are outdated. Always confirm that the answer applies to your version (<code>packageVersion("pkg")</code>). Behaviour changes across versions, especially for <code>dplyr</code>, <code>ggplot2</code>, and <code>tidymodels</code>.</p>
 <p><strong>Skipping <code>?function_name</code> before asking.</strong> The help page often contains a working example that answers the question. Always check the Examples section at the bottom of the help page first.</p>
 </div>
 </div>
@@ -829,8 +960,8 @@ Warning
 <section id="further-reading" class="level2" data-number="21.11">
 <h2 data-number="21.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">21.11</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Grolemund-2015">Grolemund (<a href="#ref-Grolemund-2015" role="doc-biblioref">2015</a>)</span> — <em>Hands-On Programming with R</em> - getting started, debugging, and help</li>
-<li><span class="citation" data-cites="Wickham-2019">Wickham (<a href="#ref-Wickham-2019" role="doc-biblioref">2019</a>)</span> — <em>Advanced R</em> - chapter on debugging and performance: <a href="https://adv-r.hadley.nz/">adv-r.hadley.nz</a></li>
+<li><span class="citation" data-cites="Grolemund-2015">Grolemund (<a href="#ref-Grolemund-2015" role="doc-biblioref">2015</a>)</span>: <em>Hands-On Programming with R</em> - getting started, debugging, and help</li>
+<li><span class="citation" data-cites="Wickham-2019">Wickham (<a href="#ref-Wickham-2019" role="doc-biblioref">2019</a>)</span>: <em>Advanced R</em> - chapter on debugging and performance: <a href="https://adv-r.hadley.nz/">adv-r.hadley.nz</a></li>
 <li><a href="https://happygitwithr.com/">Happy Git and GitHub for the useR</a> - version control with R</li>
 <li><a href="https://r4ds.hadley.nz/">R for Data Science (2nd ed.)</a> - canonical reference for the tidyverse workflow</li>
 </ul>

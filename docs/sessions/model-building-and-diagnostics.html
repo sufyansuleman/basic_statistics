@@ -178,7 +178,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -414,6 +414,99 @@ div.csl-indent {
 <p>This session covers model selection and diagnostics for regression models. Complete the <a href="../sessions/linear-regression.html">Linear Regression</a>, <a href="../sessions/multiple-regression.html">Multiple Regression</a>, and <a href="../sessions/logistic-regression.html">Logistic Regression</a> sessions before starting here.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session at a Glance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Total core time: ~170 minutes</strong> (plus extra time for Exercise 3, which is open-ended).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Time</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The Key Idea: Fit a Model, Then Check It</td>
+<td>~10 min</td>
+<td>Concept</td>
+</tr>
+<tr class="even">
+<td>Background: A Model-Building Framework</td>
+<td>~15 min</td>
+<td>Concept</td>
+</tr>
+<tr class="odd">
+<td>Example 1: Linear Regression Diagnostics (PBC)</td>
+<td>~40 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="even">
+<td>Example 2: Logistic Regression Diagnostics (PBC Mortality)</td>
+<td>~25 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="odd">
+<td>Example 3: Penalised Regression (Lasso)</td>
+<td>~15 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="even">
+<td>What Can Go Wrong</td>
+<td>~10 min</td>
+<td>Reading</td>
+</tr>
+<tr class="odd">
+<td>Exercise 1 (Guided)</td>
+<td>~15 min</td>
+<td>Practice</td>
+</tr>
+<tr class="even">
+<td>Exercise 2 (Semi-guided)</td>
+<td>~15 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Exercise 3 (Open-ended)</td>
+<td>15–30 min</td>
+<td>Practice</td>
+</tr>
+<tr class="even">
+<td>Comprehension Check</td>
+<td>~10 min</td>
+<td>Self-test</td>
+</tr>
+</tbody>
+</table>
+<p>If you are working through this self-paced and have limited time, Example 1 (linear regression diagnostics) is the core of this session – it introduces residual plots, Cook’s distance, VIF, and the Breusch-Pagan test, all of which reappear in Example 2. Example 3 (lasso) can be skimmed or done as homework if the <code>glmnet</code> package is not available. Exercise 3 is open-ended: budget extra time if you want to apply this to your own data.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code in This Session
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code chunk below is written so you can copy it into your R console (or an R script) and run it yourself, in the order shown. Where you see a “Run It Yourself” box, stop and run the code above it before reading the explanation that follows.</p>
+</div>
+</div>
 <section id="sec-model-building" class="level2" data-number="13.1">
 <h2 data-number="13.1" class="anchored" data-anchor-id="sec-model-building"><span class="header-section-number">13.1</span> When Do You Use This?</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -427,6 +520,22 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>You have fitted a regression model, but before trusting its conclusions you need to verify that the model is appropriate: are the assumptions met? Are there influential outliers? Is the model overfitted? Model building and diagnostics are the quality-control steps between fitting a model and reporting it.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This session reuses the PBC dataset and the <code>fit_full</code>-style model from <a href="../sessions/multiple-regression.html">Multiple Regression</a> and the <code>fit_log</code>/<code>fit_multi</code> models from <a href="../sessions/logistic-regression.html">Logistic Regression</a>. If learners remember those coefficients, ask them to predict: do they expect the residuals from <code>albumin ~ log_bili + log_proto + stage</code> to look “clean” (a flat band around zero) given that earlier sessions found R² ≈ 0.18–0.19 for similar models – i.e.&nbsp;most of the variance in albumin is <em>not</em> explained by these predictors?</p>
+</div>
 </div>
 </div>
 </section>
@@ -443,26 +552,45 @@ Tip
 </section>
 <section id="the-key-idea-fit-a-model-then-check-it" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="the-key-idea-fit-a-model-then-check-it"><span class="header-section-number">13.3</span> The Key Idea: Fit a Model, Then Check It</h2>
-<p>A common mistake is to fit a model, look at the p-values, and write up the results — without ever checking whether the model is appropriate. If the assumptions are violated, the p-values and confidence intervals are wrong, regardless of how elegant the model looks.</p>
+<p><em>Estimated time: ~10 minutes (concept)</em></p>
+<p>A common mistake is to fit a model, look at the p-values, and write up the results, without ever checking whether the model is appropriate. If the assumptions are violated, the p-values and confidence intervals are wrong, regardless of how elegant the model looks.</p>
 <p>Think of diagnostic checks as the peer review step <em>before</em> you show anyone your results. Residual plots take a few lines of code. They can save you from a retraction.</p>
 </section>
 <section id="background-a-model-building-framework" class="level2" data-number="13.4">
 <h2 data-number="13.4" class="anchored" data-anchor-id="background-a-model-building-framework"><span class="header-section-number">13.4</span> Background: A Model-Building Framework</h2>
+<p><em>Estimated time: ~15 minutes (concept)</em></p>
 <p>Good regression modelling is a structured process, not a p-value fishing expedition.</p>
 <p><strong>Steps:</strong></p>
 <ol type="1">
-<li><strong>Define the research question</strong> — outcome, predictors, and target population</li>
-<li><strong>Explore the data</strong> — distributions, missingness, correlations</li>
-<li><strong>Pre-specify the model</strong> — driven by domain knowledge, not by initial results</li>
-<li><strong>Fit and assess assumptions</strong> — residuals, influential points</li>
-<li><strong>Compare models</strong> — use AIC/BIC or likelihood ratio tests, not stepwise selection</li>
-<li><strong>Validate</strong> — internal (bootstrap) or external (hold-out data)</li>
-<li><strong>Report</strong> — all results, including assumption checks</li>
+<li><strong>Define the research question</strong>: outcome, predictors, and target population</li>
+<li><strong>Explore the data</strong>: distributions, missingness, correlations</li>
+<li><strong>Pre-specify the model</strong>: driven by domain knowledge, not by initial results</li>
+<li><strong>Fit and assess assumptions</strong>: residuals, influential points</li>
+<li><strong>Compare models</strong>: use AIC/BIC or likelihood ratio tests, not stepwise selection</li>
+<li><strong>Validate</strong>: internal (bootstrap) or external (hold-out data)</li>
+<li><strong>Report</strong>: all results, including assumption checks</li>
 </ol>
 <p><strong>The selection problem:</strong> Choosing predictors based on their p-values from the same data you use to estimate coefficients inflates the apparent significance and overfits the model. Pre-specification and penalised methods address this.</p>
 </section>
 <section id="example-1-linear-regression-diagnostics-pbc" class="level2" data-number="13.5">
 <h2 data-number="13.5" class="anchored" data-anchor-id="example-1-linear-regression-diagnostics-pbc"><span class="header-section-number">13.5</span> Example 1: Linear Regression Diagnostics (PBC)</h2>
+<p><em>Estimated time: ~40 minutes (walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example has four stops: (1) fit the model and produce residual plots, (2) check Cook’s distance for influential points, (3) check VIF for multicollinearity, and (4) test for heteroscedasticity with <code>ncvTest()</code>. The model is the same <code>albumin ~ log_bili + log_proto + stage</code> model from <a href="../sessions/multiple-regression.html">Multiple Regression</a> (there called <code>fit_full</code>-style), so learners already know its R² ≈ 0.18. Use that as a hook: a model that “only” explains 18% of the variance can still have well-behaved residuals – R² and diagnostics answer different questions.</p>
+</div>
+</div>
+</div>
 <section id="fit-a-model" class="level3" data-number="13.5.1">
 <h3 data-number="13.5.1" class="anchored" data-anchor-id="fit-a-model"><span class="header-section-number">13.5.1</span> Fit a Model</h3>
 <div class="cell">
@@ -520,6 +648,19 @@ Tip
 <li><strong>Residuals vs Fitted:</strong> Should be a horizontal cloud around zero. Any systematic pattern (U-shape, funnel) indicates non-linearity or heteroscedasticity.</li>
 <li><strong>Normal Q-Q:</strong> Residuals should follow the diagonal line. Systematic deviation indicates non-normality.</li>
 </ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. The Residuals vs Fitted plot shows a roughly flat LOESS line hovering near zero across the range of fitted values – there is no strong U-shape or funnel, so linearity and (visually) constant variance look reasonable. The Normal Q-Q plot tracks the diagonal closely through the middle, with mild deviation in both tails (a few points below −2 and above 2 sit slightly off the line). <strong>Check:</strong> later in this example we will run a formal test for heteroscedasticity (<code>ncvTest()</code>). Based on this plot alone, would you have predicted that test to come back significant or not?</p>
+</div>
+</div>
 </section>
 <section id="detecting-influential-observations" class="level3" data-number="13.5.3">
 <h3 data-number="13.5.3" class="anchored" data-anchor-id="detecting-influential-observations"><span class="header-section-number">13.5.3</span> Detecting Influential Observations</h3>
@@ -561,7 +702,20 @@ Tip
 10   361    4.52    1.48     3.26  1.26   0.0153 0.00825</code></pre>
 </div>
 </div>
-<p>Points above the 4/n threshold merit investigation. They may be data errors or genuinely extreme but valid cases. <strong>Do not remove them automatically</strong> — investigate first.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. With <code>n = 410</code>, the 4/n threshold is about 0.0098. The most influential observation is row 272 (Cook’s distance ≈ 0.056, about 5.7 times the threshold): a patient with albumin = 2.93 g/dL and log_bili = −0.693 (bilirubin ≈ 0.5 mg/dL), for whom the model predicts albumin ≈ 3.84 – a residual of about −0.91. Several of the top 10 rows have Cook’s distance well above 0.0098. <strong>Check:</strong> do these look like data-entry errors (e.g.&nbsp;implausible values), or genuinely unusual-but-real patients? This is the judgement call the next paragraph warns you not to skip.</p>
+</div>
+</div>
+<p>Points above the 4/n threshold merit investigation. They may be data errors or genuinely extreme but valid cases. <strong>Do not remove them automatically</strong>: investigate first.</p>
 </section>
 <section id="checking-multicollinearity" class="level3" data-number="13.5.4">
 <h3 data-number="13.5.4" class="anchored" data-anchor-id="checking-multicollinearity"><span class="header-section-number">13.5.4</span> Checking Multicollinearity</h3>
@@ -574,9 +728,23 @@ log_proto 1.188617  1        1.090237
 stage     1.188763  3        1.029238</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. All three predictors have GVIF^(1/(2*Df)) close to 1.03–1.09 (GVIF values around 1.18 for <code>log_bili</code> and <code>log_proto</code>, and 1.19 for <code>stage</code>), all far below the threshold of 5. Multicollinearity is not a concern for this model – consistent with what we found for the same predictors in <a href="../sessions/multiple-regression.html">Multiple Regression</a>.</p>
+</div>
+</div>
 </section>
 <section id="testing-for-heteroscedasticity" class="level3" data-number="13.5.5">
 <h3 data-number="13.5.5" class="anchored" data-anchor-id="testing-for-heteroscedasticity"><span class="header-section-number">13.5.5</span> Testing for Heteroscedasticity</h3>
+<p><em>Estimated time: ~5 minutes</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -585,11 +753,41 @@ Variance formula: ~ fitted.values
 Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should get <code>Chisquare = 6.05</code>, <code>Df = 1</code>, <code>p = 0.014</code>. This <strong>is</strong> statistically significant (p &lt; 0.05): the Breusch-Pagan test detects heteroscedasticity in this model, even though the Residuals vs Fitted plot above did not show an obvious funnel shape by eye. <strong>Check:</strong> does this change your answer to the question in the “Run It Yourself” box above the residual plots? This is a good example of why formal tests complement (not replace) visual checks – subtle heteroscedasticity can be hard to see but still statistically detectable in a sample of 410.</p>
+</div>
+</div>
 <p>A significant p-value from the Breusch-Pagan test (from the <code>car</code> package) indicates heteroscedasticity. Consider transforming Y or using heteroscedasticity-consistent (HC) standard errors.</p>
 </section>
 </section>
 <section id="example-2-logistic-regression-diagnostics-pbc-mortality" class="level2" data-number="13.6">
 <h2 data-number="13.6" class="anchored" data-anchor-id="example-2-logistic-regression-diagnostics-pbc-mortality"><span class="header-section-number">13.6</span> Example 2: Logistic Regression Diagnostics (PBC Mortality)</h2>
+<p><em>Estimated time: ~25 minutes (walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>fit_log</code> here uses the same predictors as <code>fit_multi</code> from <a href="../sessions/logistic-regression.html">Logistic Regression</a> (<code>log_bili + log_proto + albumin + stage</code>), so its AIC should match what learners already saw there (≈ 416). The deviance-residuals-vs-fitted-probability plot looks very different from the linear-regression residual plot: binary outcomes produce two curving bands of points (one for each outcome value) rather than a flat cloud. Warn learners not to mistake this expected pattern for a problem.</p>
+</div>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pbc2 <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -640,6 +838,20 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run both chunks above. In the deviance-residuals plot, you will see <strong>two curving bands</strong> of points – one trending from a large positive residual down to near zero (the patients who survived, <code>died = 0</code>, moving from low to high fitted probability), and a mirror-image band for <code>died = 1</code>. This X-shaped pattern is <strong>expected</strong> for binary outcomes and is not, by itself, evidence of a problem; the red LOESS line staying close to zero across the range is the reassuring sign.</p>
+<p>In the Cook’s distance plot, with <code>n = 410</code> the 4/n threshold is again about 0.0098. A handful of points clearly exceed it, including one around Cook’s distance ≈ 0.12 – noticeably larger than anything we saw for the linear model. <strong>Check:</strong> would you expect a single PBC patient to have more influence on a model predicting their own death (binary) than on a model predicting their albumin level (continuous)? Why might that be?</p>
+</div>
+</div>
 </section>
 <section id="aic-comparison-model-selection-without-p-value-fishing" class="level3" data-number="13.6.2">
 <h3 data-number="13.6.2" class="anchored" data-anchor-id="aic-comparison-model-selection-without-p-value-fishing"><span class="header-section-number">13.6.2</span> AIC Comparison: Model Selection Without P-value Fishing</h3>
@@ -660,11 +872,41 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 4    m1  2 446.7112</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. Sorted by AIC: <code>m4</code> (all four predictors, AIC ≈ 415.96) is lowest, then <code>m3</code> (<code>log_bili + log_proto + albumin</code>, AIC ≈ 417.94), then <code>m2</code> (<code>log_bili + log_proto</code>, AIC ≈ 418.57), and <code>m1</code> (<code>log_bili</code> alone, AIC ≈ 446.71) is clearly worst. <strong>Check:</strong> the gap between <code>m4</code> and <code>m3</code> is only about 2 AIC points – recall from the Comprehension Check guidance that models within about 2 AIC units are considered roughly equivalent. Does that change which model you would report as “the” final model, versus reporting both as comparable and letting your pre-specified hypothesis (about <code>stage</code>) decide?</p>
+</div>
+</div>
 <p>Choose the model with the lowest AIC that aligns with your pre-specified hypotheses.</p>
 </section>
 </section>
 <section id="example-3-penalised-regression-lasso" class="level2" data-number="13.7">
 <h2 data-number="13.7" class="anchored" data-anchor-id="example-3-penalised-regression-lasso"><span class="header-section-number">13.7</span> Example 3: Penalised Regression (Lasso)</h2>
+<p><em>Estimated time: ~15 minutes (walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example only has three candidate predictors (<code>log_bili</code>, <code>log_proto</code>, <code>platelet</code>), so it is a small-scale demonstration of the <em>mechanism</em> rather than a realistic variable-selection scenario – with so few predictors, lasso may not drop any of them. If <code>glmnet</code> is not installed, this chunk is skipped automatically (<code>eval</code> is conditional); tell learners what the output <em>would</em> look like using the numbers in the “Run It Yourself” box below.</p>
+</div>
+</div>
+</div>
 <p>When you have many candidate predictors and want data-driven selection, lasso (L1 penalisation) shrinks some coefficients to exactly zero.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pbc_mat <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
@@ -694,6 +936,19 @@ log_proto   -0.4405941333
 platelet     0.0005532384</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above (it requires the <code>glmnet</code> package). At <code>lambda.min</code>, the coefficients are approximately: intercept ≈ 4.47, <code>log_bili</code> ≈ −0.122, <code>log_proto</code> ≈ −0.441, and <code>platelet</code> ≈ 0.00055. <strong>None of the three predictors were shrunk to exactly zero</strong> – with only three candidates, lasso has little to “select” here. The cross-validation plot shows mean-squared error decreasing as <code>-log(lambda)</code> increases (less shrinkage), levelling off once all three predictors are included. <strong>Check:</strong> try re-running with <code>s = "lambda.1se"</code> (a more conservative choice, one standard error away from the minimum). Does it drop any predictors? This illustrates the <code>lambda.min</code> vs <code>lambda.1se</code> trade-off: <code>lambda.min</code> minimises cross-validated error, while <code>lambda.1se</code> gives a simpler model that is still within one SE of the best.</p>
+</div>
+</div>
 <p>Lasso selects predictors by shrinking small coefficients to zero. It is useful for exploratory modelling with many candidates, but coefficients are biased (shrunk toward zero) and should not be interpreted as effect estimates without post-selection inference.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -705,11 +960,12 @@ platelet     0.0005532384</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> — multiple correlated continuous and categorical predictors; good for demonstrating overfitting, VIF, and model selection.</p>
+<p><strong>PBC dataset:</strong> <code>survival::pbc</code>: multiple correlated continuous and categorical predictors; good for demonstrating overfitting, VIF, and model selection.</p>
 <p><strong>MASS::Boston (or <code>BostonHousing2</code> from <code>mlbench</code>):</strong> Housing data with correlated predictors, commonly used for penalised regression examples.</p>
-<p><strong>Any of your prior datasets</strong> — model building and diagnostics are always applied to real data from a research question.</p>
+<p><strong>Any of your prior datasets</strong>: model building and diagnostics are always applied to real data from a research question.</p>
 </div>
 </div>
+<p><em>Estimated time: ~10 minutes (reading)</em></p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -726,11 +982,28 @@ platelet     0.0005532384</code></pre>
 <p><strong>Confusing in-sample fit with predictive performance.</strong> R² and AIC measure in-sample fit. A model that fits the data well may not predict new observations accurately (overfitting). Use cross-validation or a hold-out test set to estimate predictive performance.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Exercise 1 fits the exact same model as Example 1’s <code>fit</code>, so learners should reproduce the VIF and <code>ncvTest()</code> numbers seen above (VIF ≈ 1.18 for <code>log_bili</code> and <code>log_proto</code>, ≈ 1.19 for <code>stage</code>; <code>ncvTest</code> Chisquare ≈ 6.05, p ≈ 0.014) and the same top-5 Cook’s distance rows (row 272 highest, ≈ 0.056). If their numbers differ, check they used <code>pbc</code> (not <code>pbc2</code>) and the same predictor set. For Exercise 2, the model <code>a4</code> is the same as <code>m4</code> from Example 2 (AIC ≈ 415.96), so the AIC ranking should also match.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="exercises" class="level2" data-number="13.8">
 <h2 data-number="13.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">13.8</span> Exercises</h2>
 <section id="exercise-1-guided-full-diagnostic-workflow" class="level3" data-number="13.8.1">
 <h3 data-number="13.8.1" class="anchored" data-anchor-id="exercise-1-guided-full-diagnostic-workflow"><span class="header-section-number">13.8.1</span> Exercise 1 (Guided): Full Diagnostic Workflow</h3>
+<p><em>Estimated time: ~15 minutes (practice)</em></p>
 <p>Fit <code>lm(albumin ~ log_bili + log_proto + stage, data = pbc)</code> and:</p>
 <ol type="1">
 <li>Produce ggplot residuals-vs-fitted and QQ-plots using <code>augment()</code>.</li>
@@ -739,7 +1012,7 @@ platelet     0.0005532384</code></pre>
 <li>Run <code>ncvTest()</code>. Is heteroscedasticity detected?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -748,7 +1021,7 @@ platelet     0.0005532384</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fit_ex <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto <span class="sc">+</span> stage, <span class="at">data =</span> pbc)</span>
@@ -807,15 +1080,17 @@ Variance formula: ~ fitted.values
 Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 </div>
 </div>
+<p><code>fit_ex</code> is the same model as <code>fit</code> in Example 1, so the results match: the residual and Q-Q plots look the same as above; row 272 again has the highest Cook’s distance (≈ 0.056); all GVIFs are below 1.2, so multicollinearity is not a concern; and <code>ncvTest()</code> again gives Chisquare ≈ 6.05 (p ≈ 0.014), confirming mild but statistically significant heteroscedasticity. In a write-up, you would note this and either report robust (HC) standard errors or mention it as a limitation.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-2-semi-guided-aic-model-selection-for-logistic-regression" class="level3" data-number="13.8.2">
 <h3 data-number="13.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-aic-model-selection-for-logistic-regression"><span class="header-section-number">13.8.2</span> Exercise 2 (Semi-guided): AIC Model Selection for Logistic Regression</h3>
+<p><em>Estimated time: ~15 minutes (practice)</em></p>
 <p>Using <code>pbc2</code>, fit four logistic models predicting mortality, adding one predictor at a time. Choose the best model by AIC. Then check Cook’s distance for the chosen model.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -824,7 +1099,7 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(died <span class="sc">~</span> log_bili,                               <span class="at">data =</span> pbc2, <span class="at">family =</span> binomial)</span>
@@ -855,17 +1130,21 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 # ℹ 1 more variable: .std.resid &lt;dbl&gt;</code></pre>
 </div>
 </div>
+<p>Sorted by AIC: <code>a4</code> (all four predictors) ≈ 415.96, <code>a3</code> (<code>log_bili + albumin + log_proto</code>) ≈ 417.94, <code>a2</code> (<code>log_bili + albumin</code>) ≈ 443.55, and <code>a1</code> (<code>log_bili</code> alone) ≈ 446.71. <code>a4</code> is the same model as <code>m4</code> from Example 2, so it has the same AIC, as expected. The single largest jump in AIC is between <code>a2</code> and <code>a3</code> (adding <code>log_proto</code> drops AIC by about 26), much bigger than the gap between <code>a3</code> and <code>a4</code> (about 2).</p>
+<p>For <code>a4</code>, the highest Cook’s distance (≈ 0.12) belongs to a patient who <strong>survived</strong> (<code>died = 0</code>) but whose predictors gave a predicted probability of death ≈ 0.96 – the model was confidently wrong about this patient, which is exactly the kind of case Cook’s distance is designed to flag. This matches the Cook’s distance plot from Example 2.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-3-open-ended" class="level3" data-number="13.8.3">
 <h3 data-number="13.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">13.8.3</span> Exercise 3 (Open-ended)</h3>
+<p><em>Estimated time: 15–30 minutes (practice)</em></p>
 <p>Take a model from your own research and apply the full diagnostic workflow: residual plots, QQ-plot, influence analysis, VIF. Write a one-paragraph Supplementary Methods section documenting your model-checking process and how you handled any issues found.</p>
 </section>
 </section>
 <section id="comprehension-check" class="level2" data-number="13.9">
 <h2 data-number="13.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">13.9</span> Comprehension Check</h2>
+<p><em>Estimated time: ~10 minutes (self-test)</em></p>
 <ol type="1">
 <li>The Residuals vs Fitted plot shows a clear U-shape. What does this indicate, and how should you fix it?</li>
 <li>One observation has Cook’s distance = 0.8 (the threshold 4/n = 0.01). Should you automatically remove it?</li>
@@ -874,7 +1153,7 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 <li>A lasso model shrinks 14 out of 20 coefficients to zero, leaving 6 non-zero predictors. Can you interpret those 6 coefficients as the “true” effects?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -883,14 +1162,14 @@ Chisquare = 6.050681, Df = 1, p = 0.013901</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>A U-shape indicates non-linearity; the linear model misses a curved relationship. Check whether X needs to be log-transformed, squared, or modelled with a spline. You can also use a LOESS smoother on the scatter plot to visualise the true shape.</li>
 <li>No; influential observations should be investigated, not automatically removed. Check whether the observation is a data entry error (correct it) or a genuinely extreme but valid case (keep it and report sensitivity analyses with and without that observation).</li>
 <li>VIF = 9.2 indicates severe collinearity with other predictors. Its coefficient estimate is unreliable (large SE, may flip sign). Options: (1) remove the collinear predictor if it is not the predictor of primary interest; (2) combine correlated predictors into a composite score; (3) use ridge regression.</li>
 <li>The third model (AIC = 307) is preferred; it has the lowest AIC. However, the difference from model 2 (AIC = 308) is only 1, which is not a meaningful improvement. Models within 2 AIC units of the minimum are considered roughly equivalent.</li>
-<li>No.&nbsp;Lasso coefficients are biased toward zero by the penalty. After lasso selects variables, you should refit the model using ordinary regression on those selected variables to obtain unbiased estimates and valid CIs. Even then, some caution is needed because variable selection inflates Type I error — ideally, treat lasso as exploratory and pre-specify variables for the confirmatory model.</li>
+<li>No.&nbsp;Lasso coefficients are biased toward zero by the penalty. After lasso selects variables, you should refit the model using ordinary regression on those selected variables to obtain unbiased estimates and valid CIs. Even then, some caution is needed because variable selection inflates Type I error: ideally, treat lasso as exploratory and pre-specify variables for the confirmatory model.</li>
 </ol>
 </div>
 </div>
@@ -924,8 +1203,8 @@ Note
 <section id="further-reading" class="level2" data-number="13.11">
 <h2 data-number="13.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">13.11</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Harrell-2015">Harrell (<a href="#ref-Harrell-2015" role="doc-biblioref">2015</a>)</span> — <em>Regression Modeling Strategies</em> — the definitive reference for clinical regression</li>
-<li><span class="citation" data-cites="Fox-2019">Fox and Weisberg (<a href="#ref-Fox-2019" role="doc-biblioref">2019</a>)</span> — <em>An R Companion to Applied Regression</em> — covers all diagnostics in R</li>
+<li><span class="citation" data-cites="Harrell-2015">Harrell (<a href="#ref-Harrell-2015" role="doc-biblioref">2015</a>)</span>: <em>Regression Modeling Strategies</em>, the definitive reference for clinical regression</li>
+<li><span class="citation" data-cites="Fox-2019">Fox and Weisberg (<a href="#ref-Fox-2019" role="doc-biblioref">2019</a>)</span>: <em>An R Companion to Applied Regression</em>, covering all diagnostics in R</li>
 <li><code>?plot.lm</code>, <code>?augment</code>, <code>?vif</code> in R</li>
 <li><code>glmnet</code> package vignette for penalised regression</li>
 </ul>

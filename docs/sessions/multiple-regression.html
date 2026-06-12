@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -439,6 +439,89 @@ window.Quarto = {
 <p>This session extends simple linear regression to multiple predictors. If you have not done so yet, complete the <a href="../sessions/linear-regression.html">Linear Regression</a> session first.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session at a Glance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Total core time: ~135 minutes</strong>, plus exercises.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Time</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>When Do You Use This? + Learning Objectives</td>
+<td>~5 min</td>
+<td>reading</td>
+</tr>
+<tr class="even">
+<td>The Key Idea: Adjusting for Confounders</td>
+<td>~10 min</td>
+<td>reading/discussion</td>
+</tr>
+<tr class="odd">
+<td>Background: Extending the Linear Model</td>
+<td>~15 min</td>
+<td>reading</td>
+</tr>
+<tr class="even">
+<td>Example 1: Clinical Data (PBC)</td>
+<td>~40 min</td>
+<td>code-along</td>
+</tr>
+<tr class="odd">
+<td>Example 2: Animal Data (palmerpenguins)</td>
+<td>~15 min</td>
+<td>code-along</td>
+</tr>
+<tr class="even">
+<td>What Can Go Wrong</td>
+<td>~10 min</td>
+<td>reading</td>
+</tr>
+<tr class="odd">
+<td>Exercises 1 &amp; 2</td>
+<td>~30 min</td>
+<td>guided practice</td>
+</tr>
+<tr class="even">
+<td>Comprehension Check</td>
+<td>~10 min</td>
+<td>self-test</td>
+</tr>
+</tbody>
+</table>
+<p>Example 1 is the longest section in this session, since it covers model building, multicollinearity, model comparison, and interactions in one worked example. If you are short on time, you can stop after “Checking for Multicollinearity” and treat the LRT and interaction subsections as optional. Exercise 3 is open-ended and can be assigned as take-home work.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code in This Session
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code chunk below is written so you can copy it into your R console (or an R script) and run it yourself, in the order shown. Where you see a “Run It Yourself” box, stop and run the code above it before reading the explanation that follows.</p>
+</div>
+</div>
 <section id="sec-multiple-regression" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="sec-multiple-regression"><span class="header-section-number">11.1</span> When Do You Use This?</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -451,7 +534,23 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You have a continuous outcome and multiple predictors, some of which are correlated with each other. Multiple regression estimates each predictor’s independent effect, holding the others constant — so you can adjust for confounders and identify which variables have a genuine association with the outcome. For example: estimating the effect of bilirubin on albumin after accounting for prothrombin time and disease stage.</p>
+<p>You have a continuous outcome and multiple predictors, some of which are correlated with each other. Multiple regression estimates each predictor’s independent effect, holding the others constant, so you can adjust for confounders and identify which variables have a genuine association with the outcome. For example: estimating the effect of bilirubin on albumin after accounting for prothrombin time and disease stage.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Ask the room to recall the <a href="../sessions/linear-regression.html">Linear Regression</a> session’s bilirubin-albumin example (slope ≈ −0.14, R² ≈ 0.12). Ask: “If we also adjust for prothrombin time and disease stage, do you expect the bilirubin coefficient to get bigger, smaller, or stay about the same?” Most learners will guess “smaller” once reminded that bilirubin, prothrombin time, and stage are all correlated measures of liver function – this sets up the confounding-adjustment story in Example 1.</p>
+</div>
 </div>
 </div>
 </section>
@@ -468,12 +567,14 @@ Tip
 </section>
 <section id="the-key-idea-adjusting-for-confounders" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="the-key-idea-adjusting-for-confounders"><span class="header-section-number">11.3</span> The Key Idea: Adjusting for Confounders</h2>
-<p>Imagine you find that people who carry lighters have higher rates of lung cancer. Does carrying a lighter cause lung cancer? No — both carrying a lighter and lung cancer are caused by a shared variable: smoking. Smoking is a <strong>confounder</strong>.</p>
-<p>Multiple regression handles this by estimating the effect of each predictor <em>while holding the others fixed</em>. The coefficient for “lighter-carrying” in a model that includes smoking status will shrink dramatically — because we have accounted for the shared cause.</p>
+<p><em>Estimated time: ~10 minutes (reading/discussion)</em></p>
+<p>Imagine you find that people who carry lighters have higher rates of lung cancer. Does carrying a lighter cause lung cancer? No, both carrying a lighter and lung cancer are caused by a shared variable: smoking. Smoking is a <strong>confounder</strong>.</p>
+<p>Multiple regression handles this by estimating the effect of each predictor <em>while holding the others fixed</em>. The coefficient for “lighter-carrying” in a model that includes smoking status will shrink dramatically, because we have accounted for the shared cause.</p>
 <p>Every coefficient in a multiple regression model answers the question: “what is the relationship between this predictor and the outcome, <em>among people who are otherwise comparable on all the other predictors in the model?</em>”</p>
 </section>
 <section id="background-extending-the-linear-model" class="level2" data-number="11.4">
 <h2 data-number="11.4" class="anchored" data-anchor-id="background-extending-the-linear-model"><span class="header-section-number">11.4</span> Background: Extending the Linear Model</h2>
+<p><em>Estimated time: ~15 minutes (reading)</em></p>
 <p>A multiple regression with <span class="math inline">\(p\)</span> predictors is:</p>
 <p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_p X_{pi} + \varepsilon_i\]</span></p>
 <p>Each <span class="math inline">\(\beta_j\)</span> is the <strong>partial effect</strong> of <span class="math inline">\(X_j\)</span> on <span class="math inline">\(Y\)</span>, holding all other predictors constant. This is what allows confounding adjustment.</p>
@@ -484,6 +585,23 @@ Tip
 </section>
 <section id="example-1-clinical-data-pbc" class="level2" data-number="11.5">
 <h2 data-number="11.5" class="anchored" data-anchor-id="example-1-clinical-data-pbc"><span class="header-section-number">11.5</span> Example 1: Clinical Data (PBC)</h2>
+<p><em>Estimated time: ~40 minutes (code-along)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example has several moving parts: model building, coefficient interpretation, VIF, a likelihood ratio test, and an interaction. If running this live, consider pacing it as four short stops rather than one long block: (1) fit and compare the four models, (2) interpret the full model’s coefficients, (3) VIF + LRT, (4) the interaction. Each stop has its own “Run It Yourself” box below.</p>
+</div>
+</div>
+</div>
 <section id="build-a-multivariable-model" class="level3" data-number="11.5.1">
 <h3 data-number="11.5.1" class="anchored" data-anchor-id="build-a-multivariable-model"><span class="header-section-number">11.5.1</span> Build a Multivariable Model</h3>
 <p>We predict albumin from bilirubin, prothrombin time, and disease stage.</p>
@@ -517,6 +635,19 @@ Tip
 6 stageStage 4   -0.320    0.0934     -3.42 6.80e- 4   -0.503   -0.136 </code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. In <code>fit_full</code>, <code>log_bili</code> has estimate ≈ −0.107 (95% CI: −0.146 to −0.067, p &lt; 0.001) and <code>stageStage 4</code> has estimate ≈ −0.320 (95% CI: −0.503 to −0.136, p &lt; 0.001). <code>stageStage 2</code> and <code>stageStage 3</code> are both close to zero and not statistically significant (p ≈ 0.24 and 0.26). Keep these numbers in mind for the next chunk.</p>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(fit1) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"log_bili only"</span>),</span>
@@ -533,6 +664,19 @@ Tip
 2 log_proto only    0.0465        0.0441  442.  454.
 3 stage only        0.123         0.116   412.  432.
 4 full model        0.193         0.183   382.  410.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. Each single-predictor model explains only a modest share of the variance (<code>log_bili</code>: R² ≈ 0.12; <code>log_proto</code>: R² ≈ 0.05; <code>stage</code>: R² ≈ 0.12), but the full model with all three predictors reaches R² ≈ 0.19 (adjusted R² ≈ 0.18) and has the lowest AIC (≈ 382, vs ≈ 408, 442, and 412 for the single-predictor models). Lower AIC means a better fit-to-complexity trade-off – the full model is preferred.</p>
 </div>
 </div>
 </section>
@@ -556,8 +700,8 @@ Tip
 </div>
 <p><strong>Reading the output:</strong></p>
 <ul>
-<li><strong>log_bili (−0.22):</strong> After adjusting for prothrombin time and stage, each one-unit increase in log(bilirubin) is associated with 0.22 g/dL lower albumin.</li>
-<li><strong>stageStage 2 (−0.09):</strong> Stage 2 patients have 0.09 g/dL lower albumin than Stage 1 patients, after adjusting for bilirubin and prothrombin time.</li>
+<li><strong>log_bili (−0.107):</strong> After adjusting for prothrombin time and stage, each one-unit increase in log(bilirubin) is associated with 0.11 g/dL lower albumin.</li>
+<li><strong>stageStage 2 (−0.111):</strong> Stage 2 patients have 0.11 g/dL lower albumin than Stage 1 patients, after adjusting for bilirubin and prothrombin time – though with p ≈ 0.24, this difference is not statistically significant.</li>
 </ul>
 <p>The coefficients change from the simple models because predictors share variance. Comparing univariable and multivariable estimates reveals confounding.</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -588,17 +732,17 @@ Tip
 <tbody>
 <tr class="odd">
 <td>Simple <code>lm(albumin ~ log_bili)</code></td>
-<td>−0.34</td>
+<td>−0.14</td>
 <td>Total association, including confounding</td>
 </tr>
 <tr class="even">
 <td>Multiple <code>lm(albumin ~ log_bili + log_proto + stage)</code></td>
-<td>−0.22</td>
+<td>−0.11</td>
 <td>Effect of bilirubin, <em>adjusted for</em> the other predictors</td>
 </tr>
 </tbody>
 </table>
-<p>The coefficient shrank from −0.34 to −0.22. Prothrombin time and stage were partially <em>confounding</em> the bilirubin-albumin relationship. The multivariable model gives the purer estimate.</p>
+<p>The coefficient shrank from −0.14 to −0.11. Prothrombin time and stage were partially <em>confounding</em> the bilirubin-albumin relationship. The multivariable model gives the purer estimate.</p>
 <p><strong>Reference categories for factors.</strong> <code>stageStage 2</code> coefficient means: <em>Stage 2 vs Stage 1 (the reference), after adjusting for other predictors.</em> Stage 1 is absorbed into the intercept; it is not missing, it is the baseline.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -611,9 +755,9 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <blockquote class="blockquote">
-<p><em>“After adjusting for prothrombin time and disease stage, each 2.7-fold increase in bilirubin was associated with 0.22 g/dL lower albumin (95% CI: −0.28 to −0.16, p &lt; 0.001). Stage was independently associated with albumin, with patients in advanced stages having lower albumin than Stage 1 patients even after accounting for bilirubin and prothrombin time. The full model explained 35% of the variance in albumin (adjusted R² = 0.35).”</em></p>
+<p><em>“After adjusting for prothrombin time and disease stage, each 2.7-fold increase in bilirubin was associated with 0.11 g/dL lower albumin (95% CI: −0.15 to −0.07, p &lt; 0.001). Disease stage was independently associated with albumin overall (likelihood ratio test, p &lt; 0.001): patients in Stage 4 had albumin about 0.32 g/dL lower than Stage 1 patients (95% CI: −0.50 to −0.14, p &lt; 0.001), though Stage 2 and Stage 3 were not significantly different from Stage 1. The full model explained 19% of the variance in albumin (adjusted R² = 0.18).”</em></p>
 </blockquote>
-<p>The key phrase is <strong>“after adjusting for”</strong>: this is what separates multiple regression from a simple comparison.</p>
+<p>The key phrase is <strong>“after adjusting for”</strong>: this is what separates multiple regression from a simple comparison. Notice also that the <em>overall</em> effect of stage can be significant (via the likelihood ratio test below) even when not every individual stage contrast reaches significance: stage as a whole adds real explanatory value, concentrated mainly in the Stage 4 vs Stage 1 contrast.</p>
 </div>
 </div>
 </div>
@@ -631,9 +775,23 @@ stage     1.188763  3        1.029238</code></pre>
 </div>
 </div>
 <p>VIF values close to 1 indicate no problematic multicollinearity. VIF &gt; 5 is a concern; VIF &gt; 10 is severe.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. All three GVIF values are close to 1 (around 1.18–1.19), well below the warning threshold of 5. The predictors are not problematically collinear, so the coefficient estimates above can be trusted.</p>
+</div>
+</div>
 </section>
 <section id="model-comparison-with-likelihood-ratio-test" class="level3" data-number="11.5.4">
 <h3 data-number="11.5.4" class="anchored" data-anchor-id="model-comparison-with-likelihood-ratio-test"><span class="header-section-number">11.5.4</span> Model Comparison with Likelihood Ratio Test</h3>
+<p><em>Estimated time: ~5 minutes</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fit_reduced <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">+</span> log_proto, <span class="at">data =</span> pbc)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_reduced, fit_full)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -650,9 +808,23 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>A significant F-test means the full model fits significantly better than the reduced model: stage adds explanatory value beyond bilirubin and prothrombin time.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. You should get <code>F = 9.456</code> on 3 and 404 degrees of freedom, <code>p = 4.738e-06</code>. This is the same comparison as “stage only” vs “full model” in the table above, just expressed as a direct hypothesis test: adding stage to a model that already has <code>log_bili</code> and <code>log_proto</code> significantly improves fit.</p>
+</div>
+</div>
 </section>
 <section id="including-an-interaction" class="level3" data-number="11.5.5">
 <h3 data-number="11.5.5" class="anchored" data-anchor-id="including-an-interaction"><span class="header-section-number">11.5.5</span> Including an Interaction</h3>
+<p><em>Estimated time: ~5 minutes</em></p>
 <p>Does the effect of bilirubin on albumin differ by disease stage?</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fit_int <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili <span class="sc">*</span> stage, <span class="at">data =</span> pbc)</span>
@@ -670,10 +842,40 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>The interaction terms <code>log_bili:stageStage X</code> represent how much the slope of bilirubin differs in Stage X compared to Stage 1. If the CIs include zero, the slope does not differ significantly across stages.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. All four rows have confidence intervals that include zero (p-values range from 0.45 to 0.91). There is no evidence that the bilirubin-albumin slope differs by disease stage, so the simpler main-effects model (<code>fit_full</code>, without the interaction) is preferred – fewer parameters, same conclusion.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="example-2-animal-data-palmerpenguins" class="level2" data-number="11.6">
 <h2 data-number="11.6" class="anchored" data-anchor-id="example-2-animal-data-palmerpenguins"><span class="header-section-number">11.6</span> Example 2: Animal Data (palmerpenguins)</h2>
+<p><em>Estimated time: ~15 minutes (code-along)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Recall from <a href="../sessions/linear-regression.html">Linear Regression</a> that the unadjusted flipper-length slope was about 49.7 g/mm with R² ≈ 0.76. Ask learners to predict whether adjusting for species will make this slope <em>bigger</em> or <em>smaller</em>. Many will guess “smaller” by analogy with Example 1, which is correct here too – but the direction is not guaranteed in general. The key teaching point is that you cannot know the direction of confounding without checking; you can only know that <em>some</em> change is likely when the added variable is correlated with both the predictor and the outcome.</p>
+</div>
+</div>
+</div>
 <p>Flipper length and bill length both predict body mass. Adding species as a covariate adjusts for the confounding we identified in the <a href="../sessions/correlation-and-association.html">correlation session</a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
@@ -694,6 +896,19 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
   &lt;chr&gt;                   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 1 unadjusted               49.7     46.7      52.7 4.37e-107
 2 adjusted for species     40.7     34.7      46.7 1.40e- 32</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the chunk above. The unadjusted slope is about 49.7 g/mm (95% CI: 46.7 to 52.7). After adjusting for species, it drops to about 40.7 g/mm (95% CI: 34.7 to 46.7) – still highly significant (p &lt; 0.001), but noticeably smaller. Part of the “raw” flipper-mass relationship was really a between-species difference (Gentoo penguins have both longer flippers and higher body mass than Adelie or Chinstrap).</p>
 </div>
 </div>
 <p>Adding species to the model changes the flipper length coefficient. This is confounding adjustment in action: within each species, the flipper-mass relationship is different from the pooled one.</p>
@@ -727,14 +942,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>PBC dataset:</strong> <code>survival::pbc</code> — multiple correlated clinical predictors with a continuous outcome, ideal for demonstrating confounding and model building.</p>
-<p><strong>palmerpenguins:</strong> <code>palmerpenguins::penguins</code> — biological measurements with species as a natural confounder.</p>
+<p><strong>PBC dataset:</strong> <code>survival::pbc</code>: multiple correlated clinical predictors with a continuous outcome, ideal for demonstrating confounding and model building.</p>
+<p><strong>palmerpenguins:</strong> <code>palmerpenguins::penguins</code>: biological measurements with species as a natural confounder.</p>
 <p><strong>NHANES:</strong> Many continuous health outcomes (blood pressure, cholesterol) with multiple demographic and clinical predictors.</p>
 </div>
 </div>
 </section>
 <section id="what-can-go-wrong" class="level2" data-number="11.7">
 <h2 data-number="11.7" class="anchored" data-anchor-id="what-can-go-wrong"><span class="header-section-number">11.7</span> What Can Go Wrong</h2>
+<p><em>Estimated time: ~10 minutes (reading)</em></p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -749,7 +965,7 @@ Warning
 <p><strong>Multicollinearity.</strong> Highly correlated predictors produce inflated standard errors and unstable coefficients. Check VIF before interpreting a model with many predictors.</p>
 <p><strong>Including colliders.</strong> Adjusting for a variable on the causal pathway between exposure and outcome (a mediator) or a common effect of both (a collider) can introduce bias. See the <a href="../sessions/causal-inference.html">Causal Inference</a> session for guidance.</p>
 <p><strong>Data-dredging.</strong> Selecting predictors based on p-values from exploratory analysis, then reporting the final model as if it were pre-specified, produces overfitted models with inflated associations. Pre-register your model or use a penalised method (ridge, lasso).</p>
-<p><strong>Interpreting coefficients in models with interactions.</strong> When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference level — not the marginal effect. Always evaluate interactions at meaningful covariate values.</p>
+<p><strong>Interpreting coefficients in models with interactions.</strong> When an interaction is present, the main effect coefficients are conditional on the other variable being at its reference level, not the marginal effect. Always evaluate interactions at meaningful covariate values.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -766,14 +982,52 @@ Warning
 <p><strong>“My predictor is not significant so it has no effect.”</strong> With collinear predictors, both can become non-significant even if together they explain a lot of variance. Check VIF and consider whether the predictors should be modelled together or separately.</p>
 <p><strong>“The adjusted model is always more accurate than the unadjusted one.”</strong> Adjusting for a <em>collider</em> introduces bias that was not there in the unadjusted model. Think carefully about the causal structure before adding covariates. See the <a href="../sessions/causal-inference.html">Causal Inference</a> session.</p>
 <p><strong>“I can compare R² between models with different outcomes.”</strong> R² is not comparable across different outcome variables or different datasets. Only compare R² (or AIC) between models fitted to the same data with the same outcome.</p>
-<p><strong>“Stage 2 coefficient = −0.09 means Stage 2 patients have lower albumin.”</strong> It means Stage 2 patients have 0.09 g/dL lower albumin than Stage 1 patients <em>after adjusting for other predictors.</em> Change the reference category and the coefficient changes. Always state the reference group when reporting factor coefficients.</p>
+<p><strong>“Stage 2 coefficient = −0.11 means Stage 2 patients have lower albumin.”</strong> It means Stage 2 patients have 0.11 g/dL lower albumin than Stage 1 patients <em>after adjusting for other predictors</em> – and in our <code>fit_full</code> model, this particular difference was not statistically significant (p ≈ 0.24). Change the reference category and the coefficient changes. Always state the reference group when reporting factor coefficients.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A quick true/false check before moving to the exercises:</p>
+<ol type="1">
+<li>“If a predictor’s coefficient is not significant in the full model, it has no effect on the outcome.” <strong>False</strong> – with correlated predictors, an effect can be shared across several variables so that none individually reaches significance, even though jointly they matter (see the LRT for <code>stage</code>, p &lt; 0.001).</li>
+<li>“Adding more predictors will always increase R².” <strong>True</strong> for raw R² – but adjusted R², AIC, and BIC penalise added complexity, which is why we compare models on those instead.</li>
+<li>“A coefficient that shrinks after adjustment was previously biased by confounding.” <strong>Often true, but not certain</strong> – shrinkage is <em>consistent</em> with confounding, but could also reflect chance variation or a collider; the causal interpretation depends on subject-matter knowledge, not the regression output alone.</li>
+</ol>
+</div>
 </div>
 </div>
 </section>
 <section id="exercises" class="level2" data-number="11.8">
 <h2 data-number="11.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">11.8</span> Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Pair learners up for Exercise 1 and 2. For Exercise 1, ask them to predict the order of the three models by AIC <em>before</em> running the code – most will correctly guess that the full model (with stage) has the lowest AIC, echoing the LRT result from Example 1. For Exercise 2, ask whether they expect the flipper-length-by-species interaction to be significant; the answer (yes, driven mainly by Gentoo) reinforces that “adjusting for species” (Example 2) and “letting the slope vary by species” (this exercise) are related but different questions.</p>
+</div>
+</div>
+</div>
 <section id="exercise-1-guided-build-and-compare-models" class="level3" data-number="11.8.1">
 <h3 data-number="11.8.1" class="anchored" data-anchor-id="exercise-1-guided-build-and-compare-models"><span class="header-section-number">11.8.1</span> Exercise 1 (Guided): Build and Compare Models</h3>
+<p><em>Estimated time: ~15 minutes</em></p>
 <p>Using <code>pbc</code>, predict albumin from:</p>
 <ol type="1">
 <li>Univariable: <code>log_bili</code> only</li>
@@ -782,7 +1036,7 @@ Warning
 </ol>
 <p>Report adjusted R² and AIC for each model. Which is best? Does adding stage improve fit (use <code>anova()</code>)?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -791,7 +1045,7 @@ Warning
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(albumin <span class="sc">~</span> log_bili, <span class="at">data =</span> pbc)</span>
@@ -825,12 +1079,14 @@ Model 2: albumin ~ log_bili + log_proto + stage
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
+<p>Run the chunk above. Adjusted R² rises from about 0.122 (model 1) to 0.132 (model 2) to 0.183 (model 3), while AIC drops from about 408 to 404 to 382. By both criteria, model 3 (with stage) is best. <code>anova(m2, m3)</code> gives <code>F = 9.456</code>, <code>p = 4.738e-06</code>: adding stage significantly improves the fit beyond <code>log_bili + log_proto</code> alone.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-2-semi-guided-penguin-model-with-interaction" class="level3" data-number="11.8.2">
 <h3 data-number="11.8.2" class="anchored" data-anchor-id="exercise-2-semi-guided-penguin-model-with-interaction"><span class="header-section-number">11.8.2</span> Exercise 2 (Semi-guided): Penguin Model with Interaction</h3>
+<p><em>Estimated time: ~15 minutes</em></p>
 <p>Using <code>palmerpenguins::penguins</code>, fit a model predicting body mass from flipper length, species, and their interaction.</p>
 <ol type="1">
 <li>Fit <code>lm(body_mass_g ~ flipper_length_mm * species, data = penguins)</code>.</li>
@@ -838,7 +1094,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Interpret: does the slope of flipper length differ between species?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -847,7 +1103,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>peng3  <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
@@ -878,17 +1134,20 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 3 flipper_length_mm:speciesGentoo       21.5      7.77      35.2 2.23e- 3</code></pre>
 </div>
 </div>
+<p>Run the chunk above. <code>anova(fit_no, fit_i)</code> gives <code>F = 5.346</code>, <code>p = 0.0052</code>: the interaction is statistically significant overall. Looking at the coefficients, the flipper-length slope for Adelie (the reference species) is about 32.7 g/mm. The interaction term for Chinstrap is small and not significant (≈ 1.9, p = 0.81), but for Gentoo it is about 21.5 (95% CI: 7.8 to 35.2, p = 0.002) – meaning Gentoo’s flipper-mass slope (≈ 32.7 + 21.5 ≈ 54.2 g/mm) is significantly steeper than Adelie’s or Chinstrap’s. The interaction is “significant” mainly because Gentoo behaves differently, not because all three species differ from each other.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-3-open-ended" class="level3" data-number="11.8.3">
 <h3 data-number="11.8.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">11.8.3</span> Exercise 3 (Open-ended)</h3>
+<p><em>Estimated time: 15–30 minutes</em></p>
 <p>In your own research, identify a continuous outcome with at least two potential predictors. Fit univariable and multivariable models. Compare the coefficients: do they change after adjustment? Interpret any changes as confounding and write a Methods section justifying your final model.</p>
 </section>
 </section>
 <section id="comprehension-check" class="level2" data-number="11.9">
 <h2 data-number="11.9" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">11.9</span> Comprehension Check</h2>
+<p><em>Estimated time: ~10 minutes (self-test)</em></p>
 <ol type="1">
 <li>You fit a simple regression and get slope = −0.5 for log_bili. In the multivariable model with protime and stage, the slope is −0.2. What happened, and what does this tell you?</li>
 <li>VIF for two of your predictors is 12 and 11. What is the problem, and what are your options?</li>
@@ -897,7 +1156,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>An interaction term has estimate = 0.15, 95% CI (−0.02, 0.32), p = 0.08. Should you include it in the final model?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -906,7 +1165,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>The simple regression slope was confounded: bilirubin was acting partly as a proxy for prothrombin time and disease stage. After adjustment, the partial effect of bilirubin is smaller (−0.2), reflecting the unique contribution of bilirubin above and beyond the other predictors.</li>
@@ -947,10 +1206,10 @@ Note
 <section id="further-reading" class="level2" data-number="11.11">
 <h2 data-number="11.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">11.11</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Dalgaard-2008">Dalgaard (<a href="#ref-Dalgaard-2008" role="doc-biblioref">2008</a>)</span> — Multiple regression chapter in <em>Introductory Statistics with R</em></li>
-<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span> — Multivariable regression in <em>An Introduction to Medical Statistics</em></li>
+<li><span class="citation" data-cites="Dalgaard-2008">Dalgaard (<a href="#ref-Dalgaard-2008" role="doc-biblioref">2008</a>)</span>: Multiple regression chapter in <em>Introductory Statistics with R</em></li>
+<li><span class="citation" data-cites="Bland-2015">Bland (<a href="#ref-Bland-2015" role="doc-biblioref">2015</a>)</span>: Multivariable regression in <em>An Introduction to Medical Statistics</em></li>
 <li><code>?lm</code>, <code>?vif</code> (from <code>car</code>), <code>?anova.lm</code> in R</li>
-<li><span class="citation" data-cites="Harrell-2015">Harrell (<a href="#ref-Harrell-2015" role="doc-biblioref">2015</a>)</span> — <em>Regression Modeling Strategies</em> — comprehensive reference for clinical regression</li>
+<li><span class="citation" data-cites="Harrell-2015">Harrell (<a href="#ref-Harrell-2015" role="doc-biblioref">2015</a>)</span>: <em>Regression Modeling Strategies</em>, a comprehensive reference for clinical regression</li>
 </ul>
 
 

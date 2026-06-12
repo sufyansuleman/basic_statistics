@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part 1: Inference — Testing and Estimation</span></a>
+ <span class="menu-text">Part 1: Inference, Testing, and Estimation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -380,7 +380,7 @@ window.Quarto = {
   <ul>
   <li><a href="#sec-causal-inference" id="toc-sec-causal-inference" class="nav-link active" data-scroll-target="#sec-causal-inference"><span class="header-section-number">17.1</span> When Do You Use This?</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">17.2</span> Learning Objectives</a></li>
-  <li><a href="#the-key-idea-correlation-is-not-causation-and-adjustment-is-not-neutral" id="toc-the-key-idea-correlation-is-not-causation-and-adjustment-is-not-neutral" class="nav-link" data-scroll-target="#the-key-idea-correlation-is-not-causation-and-adjustment-is-not-neutral"><span class="header-section-number">17.3</span> The Key Idea: Correlation Is Not Causation — and Adjustment Is Not Neutral</a></li>
+  <li><a href="#the-key-idea-correlation-is-not-causation-and-adjustment-is-not-neutral" id="toc-the-key-idea-correlation-is-not-causation-and-adjustment-is-not-neutral" class="nav-link" data-scroll-target="#the-key-idea-correlation-is-not-causation-and-adjustment-is-not-neutral"><span class="header-section-number">17.3</span> The Key Idea: Correlation Is Not Causation, and Adjustment Is Not Neutral</a></li>
   <li><a href="#background-why-associations-are-not-causes" id="toc-background-why-associations-are-not-causes" class="nav-link" data-scroll-target="#background-why-associations-are-not-causes"><span class="header-section-number">17.4</span> Background: Why Associations Are Not Causes</a>
   <ul class="collapse">
   <li><a href="#potential-outcomes-framework" id="toc-potential-outcomes-framework" class="nav-link" data-scroll-target="#potential-outcomes-framework"><span class="header-section-number">17.4.1</span> Potential Outcomes Framework</a></li>
@@ -428,6 +428,89 @@ window.Quarto = {
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session at a Glance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Total core time: ~155 minutes</strong> (about 2.5 hours). A natural break point is after Example 1 (drawing and querying DAGs)—cover Example 2 (propensity scores) and the exercises in a second sitting. Exercise 3 is open-ended and its time will vary.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Time</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The Key Idea: Correlation Is Not Causation</td>
+<td>~10 min</td>
+<td>Concept</td>
+</tr>
+<tr class="even">
+<td>Background: Why Associations Are Not Causes</td>
+<td>~15 min</td>
+<td>Concept</td>
+</tr>
+<tr class="odd">
+<td>Example 1: Drawing a DAG for PBC</td>
+<td>~35 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="even">
+<td>Example 2: Propensity Score Analysis</td>
+<td>~25 min</td>
+<td>Walkthrough</td>
+</tr>
+<tr class="odd">
+<td>What Can Go Wrong</td>
+<td>~10 min</td>
+<td>Reading</td>
+</tr>
+<tr class="even">
+<td>Exercise 1 (Guided)</td>
+<td>~15 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Exercise 2 (Semi-guided)</td>
+<td>~15 min</td>
+<td>Practice</td>
+</tr>
+<tr class="even">
+<td>Exercise 3 (Open-ended)</td>
+<td>15–30 min</td>
+<td>Practice</td>
+</tr>
+<tr class="odd">
+<td>Comprehension Check</td>
+<td>~10 min</td>
+<td>Self-test</td>
+</tr>
+</tbody>
+</table>
+<p>If you are short on time, the collider-bias demonstration in Example 1 (the <code>collider-demo</code> chunk) is the single most counterintuitive and memorable result in this session: a correlation of essentially zero becomes a strong spurious correlation just by restricting the sample on a shared outcome.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use the Code in This Session
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every code chunk below is written so you can copy it into your R console (or an R script) and run it yourself, in the order shown. Where you see a “Run It Yourself” box, stop and run the code above it before reading the explanation that follows.</p>
+</div>
+</div>
 <section id="sec-causal-inference" class="level2" data-number="17.1">
 <h2 data-number="17.1" class="anchored" data-anchor-id="sec-causal-inference"><span class="header-section-number">17.1</span> When Do You Use This?</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -443,6 +526,22 @@ Tip
 <p>You have found a statistical association between an exposure and an outcome, but associations can arise from confounding, reverse causation, or selection bias rather than a true causal effect. Causal inference provides the framework for deciding whether an observed association reflects a genuine causal relationship, what “adjusting for confounders” really means, and why adjusting for the <em>wrong</em> variables can make things worse rather than better. For example: patients who take aspirin have lower bilirubin, but does aspirin reduce bilirubin, or do healthier patients simply take aspirin more often?</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Ask learners: when building a regression model, is it ever a bad idea to add <em>more</em> covariates “just to be safe”? Most will say no – more adjustment feels more careful, more conservative. This session’s central goal is to overturn that intuition: whether adjusting for a variable helps or hurts depends entirely on its causal role (confounder, mediator, or collider), which a regression model cannot tell you on its own. Keep this question in mind through the collider-bias demonstration and Exercise 1.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="learning-objectives" class="level2" data-number="17.2">
 <h2 data-number="17.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">17.2</span> Learning Objectives</h2>
@@ -456,12 +555,14 @@ Tip
 </ul>
 </section>
 <section id="the-key-idea-correlation-is-not-causation-and-adjustment-is-not-neutral" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="the-key-idea-correlation-is-not-causation-and-adjustment-is-not-neutral"><span class="header-section-number">17.3</span> The Key Idea: Correlation Is Not Causation — and Adjustment Is Not Neutral</h2>
+<h2 data-number="17.3" class="anchored" data-anchor-id="the-key-idea-correlation-is-not-causation-and-adjustment-is-not-neutral"><span class="header-section-number">17.3</span> The Key Idea: Correlation Is Not Causation, and Adjustment Is Not Neutral</h2>
+<p><em>Estimated time: ~10 minutes (Concept)</em></p>
 <p>You have heard “correlation is not causation” a thousand times. But causal inference makes this concrete: it gives you a framework for knowing <em>when</em> a correlation reflects causation, and <em>when</em> adjusting for a variable helps versus hurts.</p>
-<p>The central insight: whether to adjust for a variable depends entirely on its causal role. A confounder must be adjusted for. A mediator must NOT be adjusted for (if you want the total effect). A collider must NEVER be adjusted for. Without a causal diagram, you cannot tell these apart — and getting it wrong can introduce more bias than it removes.</p>
+<p>The central insight: whether to adjust for a variable depends entirely on its causal role. A confounder must be adjusted for. A mediator must NOT be adjusted for (if you want the total effect). A collider must NEVER be adjusted for. Without a causal diagram, you cannot tell these apart, and getting it wrong can introduce more bias than it removes.</p>
 </section>
 <section id="background-why-associations-are-not-causes" class="level2" data-number="17.4">
 <h2 data-number="17.4" class="anchored" data-anchor-id="background-why-associations-are-not-causes"><span class="header-section-number">17.4</span> Background: Why Associations Are Not Causes</h2>
+<p><em>Estimated time: ~15 minutes (Concept)</em></p>
 <section id="potential-outcomes-framework" class="level3" data-number="17.4.1">
 <h3 data-number="17.4.1" class="anchored" data-anchor-id="potential-outcomes-framework"><span class="header-section-number">17.4.1</span> Potential Outcomes Framework</h3>
 <p>For each individual <span class="math inline">\(i\)</span>, define: - <span class="math inline">\(Y_i(1)\)</span>: the outcome if they receive treatment - <span class="math inline">\(Y_i(0)\)</span>: the outcome if they do not</p>
@@ -508,6 +609,28 @@ Tip
 </section>
 <section id="example-1-drawing-a-dag-for-pbc" class="level2" data-number="17.5">
 <h2 data-number="17.5" class="anchored" data-anchor-id="example-1-drawing-a-dag-for-pbc"><span class="header-section-number">17.5</span> Example 1: Drawing a DAG for PBC</h2>
+<p><em>Estimated time: ~35 minutes (Walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This example has several natural stopping points for prediction:</p>
+<ul>
+<li>Before running <code>dag-pbc</code>: sketch on paper (or whiteboard) a DAG for “does bilirubin cause low albumin in PBC, or is this confounded by disease stage?” Then compare with the DAG drawn in code.</li>
+<li>Before running <code>adjustment-set</code>: ask learners to predict, from the DAG alone, what <code>dagitty::adjustmentSets()</code> will return for the effect of <code>bili</code> on <code>albumin</code>.</li>
+<li>Before running <code>collider-demo</code>: ask learners to predict what will happen to the correlation between <code>exercise</code> and <code>diet</code> (currently ~0) once the sample is restricted to people with low BMI. Most learners predict “nothing changes” - the surprising result is the point.</li>
+</ul>
+</div>
+</div>
+</div>
 <section id="the-research-question" class="level3" data-number="17.5.1">
 <h3 data-number="17.5.1" class="anchored" data-anchor-id="the-research-question"><span class="header-section-number">17.5.1</span> The Research Question</h3>
 <p>Does bilirubin causally affect albumin in PBC patients, or is the association confounded by disease severity (stage)?</p>
@@ -536,9 +659,24 @@ Tip
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The plot shows a diamond shape: <code>stage</code> sits at the top with three arrows leading out to <code>bili</code>, <code>albumin</code>, and <code>protime</code>; <code>bili</code> has its own arrow into <code>albumin</code>; and <code>protime</code> also has an arrow into <code>albumin</code>. Visually, <code>stage</code> is a common cause of <code>bili</code>, <code>albumin</code>, and <code>protime</code> - a classic confounder structure - while <code>protime</code> sits between <code>stage</code> and <code>albumin</code> as well as receiving its own arrow from <code>stage</code>.</p>
+<p>Before moving on: which node(s) in this DAG do you think need to be in the adjustment set if you want the causal effect of <code>bili</code> on <code>albumin</code>? Write down your answer, then check it against the next chunk.</p>
+</div>
+</div>
 </section>
 <section id="identifying-the-adjustment-set" class="level3" data-number="17.5.2">
 <h3 data-number="17.5.2" class="anchored" data-anchor-id="identifying-the-adjustment-set"><span class="header-section-number">17.5.2</span> Identifying the Adjustment Set</h3>
+<p><em>Estimated time: ~5 minutes (Walkthrough)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What must we adjust for to estimate the causal effect of bili on albumin?</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dagitty<span class="sc">::</span><span class="fu">adjustmentSets</span>(dag, <span class="at">exposure =</span> <span class="st">"bili"</span>, <span class="at">outcome =</span> <span class="st">"albumin"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -546,50 +684,98 @@ Tip
 <pre><code>{ stage }</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should see:</p>
+<pre><code>{ stage }</code></pre>
+<p><code>dagitty</code> agrees with the visual reasoning: <code>stage</code> is the only variable you need to adjust for. <code>protime</code> does not need to be in the adjustment set - it lies on a path from <code>stage</code> to <code>albumin</code> that does not create a backdoor path from <code>bili</code>, so adjusting for it would not be necessary (and, depending on the question, could even be harmful - see the next section).</p>
+</div>
+</div>
 <p>The backdoor criterion says: block all non-causal paths from <code>bili</code> to <code>albumin</code>. In this DAG, <code>stage</code> is a common cause (confounder) - it opens a backdoor path. Adjusting for <code>stage</code> closes this path.</p>
 </section>
 <section id="what-if-we-adjust-for-a-mediator" class="level3" data-number="17.5.3">
 <h3 data-number="17.5.3" class="anchored" data-anchor-id="what-if-we-adjust-for-a-mediator"><span class="header-section-number">17.5.3</span> What If We Adjust for a Mediator?</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dag2 <span class="ot">&lt;-</span> dagitty<span class="sc">::</span><span class="fu">dagitty</span>(<span class="st">'dag {</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">  bili    -&gt; protime</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">  protime -&gt; albumin</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">  bili    -&gt; albumin</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>dagitty<span class="sc">::</span><span class="fu">adjustmentSets</span>(dag2, <span class="at">exposure =</span> <span class="st">"bili"</span>, <span class="at">outcome =</span> <span class="st">"albumin"</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">effect =</span> <span class="st">"total"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dag2 <span class="ot">&lt;-</span> dagitty<span class="sc">::</span><span class="fu">dagitty</span>(<span class="st">'dag {</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">  bili    -&gt; protime</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">  protime -&gt; albumin</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">  bili    -&gt; albumin</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>dagitty<span class="sc">::</span><span class="fu">adjustmentSets</span>(dag2, <span class="at">exposure =</span> <span class="st">"bili"</span>, <span class="at">outcome =</span> <span class="st">"albumin"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">effect =</span> <span class="st">"total"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> {}</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should see:</p>
+<pre><code>{}</code></pre>
+<p>An empty set - <code>dagitty</code> says you should adjust for <em>nothing</em>. In this DAG, <code>protime</code> lies entirely on the causal path from <code>bili</code> to <code>albumin</code> (a mediator), so it is not part of any backdoor path. If you adjusted for <code>protime</code> here, you would block part of the very effect you are trying to estimate, biasing your estimate of the <em>total</em> effect of <code>bili</code> on <code>albumin</code> toward zero.</p>
 </div>
 </div>
 <p>If <code>protime</code> is on the causal pathway from bilirubin to albumin (a mediator), adjusting for it blocks part of the effect of bilirubin. We would then estimate only the <em>direct</em> effect, not the total effect. Be explicit about whether you want total or direct effects.</p>
 </section>
 <section id="collider-bias-a-demonstration" class="level3" data-number="17.5.4">
 <h3 data-number="17.5.4" class="anchored" data-anchor-id="collider-bias-a-demonstration"><span class="header-section-number">17.5.4</span> Collider Bias: A Demonstration</h3>
+<p><em>Estimated time: ~10 minutes (Walkthrough)</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate: exercise and diet both independently affect BMI</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># But exercise and diet are NOT associated in the population</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">exercise =</span> <span class="fu">rnorm</span>(n),</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">diet     =</span> <span class="fu">rnorm</span>(n),</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">bmi      =</span> <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">*</span> exercise <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> diet <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Unadjusted: no correlation between exercise and diet</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"r(exercise, diet) ="</span>, <span class="fu">round</span>(<span class="fu">cor</span>(df<span class="sc">$</span>exercise, df<span class="sc">$</span>diet), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate: exercise and diet both independently affect BMI</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># But exercise and diet are NOT associated in the population</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">exercise =</span> <span class="fu">rnorm</span>(n),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">diet     =</span> <span class="fu">rnorm</span>(n),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">bmi      =</span> <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">*</span> exercise <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> diet <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Unadjusted: no correlation between exercise and diet</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"r(exercise, diet) ="</span>, <span class="fu">round</span>(<span class="fu">cor</span>(df<span class="sc">$</span>exercise, df<span class="sc">$</span>diet), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>r(exercise, diet) = -0.014 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conditional on BMI (a collider): spurious negative correlation</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"r(exercise, diet | BMI quintile 1) ="</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">cor</span>(df<span class="sc">$</span>exercise[df<span class="sc">$</span>bmi <span class="sc">&lt;</span> <span class="fu">quantile</span>(df<span class="sc">$</span>bmi, <span class="fl">0.2</span>)],</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>              df<span class="sc">$</span>diet[df<span class="sc">$</span>bmi <span class="sc">&lt;</span> <span class="fu">quantile</span>(df<span class="sc">$</span>bmi, <span class="fl">0.2</span>)]), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conditional on BMI (a collider): spurious negative correlation</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"r(exercise, diet | BMI quintile 1) ="</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">cor</span>(df<span class="sc">$</span>exercise[df<span class="sc">$</span>bmi <span class="sc">&lt;</span> <span class="fu">quantile</span>(df<span class="sc">$</span>bmi, <span class="fl">0.2</span>)],</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>              df<span class="sc">$</span>diet[df<span class="sc">$</span>bmi <span class="sc">&lt;</span> <span class="fu">quantile</span>(df<span class="sc">$</span>bmi, <span class="fl">0.2</span>)]), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>r(exercise, diet | BMI quintile 1) = -0.384 </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should see:</p>
+<pre><code>r(exercise, diet) = -0.014
+r(exercise, diet | BMI quintile 1) = -0.384</code></pre>
+<p>In the full simulated sample, <code>exercise</code> and <code>diet</code> are essentially uncorrelated (r = -0.014), exactly as we built them: independent random draws. But once we restrict to the lowest BMI quintile - conditioning on <code>bmi</code>, which is <em>caused by both</em> <code>exercise</code> and <code>diet</code> - a strong negative correlation (r = -0.384) appears out of nowhere.</p>
+<p>Why? Among people with very low BMI, low exercise must be “compensated for” by a stricter diet (and vice versa) to end up in that low-BMI group. The collider has manufactured a relationship between two variables that were never related in the first place. No causal link between <code>exercise</code> and <code>diet</code> was created by this restriction - the association is entirely an artefact of <em>how the sample was selected</em>.</p>
 </div>
 </div>
 <p>Restricting to low BMI (conditioning on the collider) creates a spurious negative correlation between exercise and diet. This is <strong>collider bias</strong> - conditioning on a common <em>effect</em> of two variables induces an association between them.</p>
@@ -598,32 +784,49 @@ Tip
 </section>
 <section id="example-2-propensity-score-analysis" class="level2" data-number="17.6">
 <h2 data-number="17.6" class="anchored" data-anchor-id="example-2-propensity-score-analysis"><span class="header-section-number">17.6</span> Example 2: Propensity Score Analysis</h2>
+<p><em>Estimated time: ~25 minutes (Walkthrough)</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <code>survival::pbc</code> data come from a randomised trial, so treatment assignment should already be close to balanced on measured covariates. Ask learners to predict, before running <code>iptw</code>: do they expect the IPTW-adjusted estimate of the effect of <code>trt_d</code> on <code>albumin</code> to differ much from a simple unadjusted comparison? And how might this connect to the log-rank test result from the <a href="../sessions/survival-and-time-to-event.html">Survival and Time-to-Event</a> session, which found no significant difference in survival between treatment arms (p = 0.7)?</p>
+</div>
+</div>
+</div>
 <p>When randomisation is not possible, propensity score methods attempt to balance confounders between treatment groups.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(stage)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trt_d     =</span> <span class="fu">as.integer</span>(trt <span class="sc">==</span> <span class="dv">1</span>),</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_bili  =</span> <span class="fu">log</span>(bili),</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_proto =</span> <span class="fu">log</span>(protime),</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">stage     =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Stage"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate propensity scores</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>ps_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(trt_d <span class="sc">~</span> log_bili <span class="sc">+</span> albumin <span class="sc">+</span> log_proto <span class="sc">+</span> stage <span class="sc">+</span> age <span class="sc">+</span> sex,</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> pbc, <span class="at">family =</span> binomial)</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>pbc<span class="sc">$</span>ps <span class="ot">&lt;-</span> <span class="fu">predict</span>(ps_model, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trt_label =</span> <span class="fu">if_else</span>(trt_d <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"D-penicillamine"</span>, <span class="st">"Placebo"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ps, <span class="at">fill =</span> trt_label)) <span class="sc">+</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Propensity score overlap by treatment group"</span>,</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Propensity score (P(treatment))"</span>, <span class="at">y =</span> <span class="st">"Count"</span>, <span class="at">fill =</span> <span class="st">"Treatment"</span>) <span class="sc">+</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> survival<span class="sc">::</span>pbc <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(trt), <span class="sc">!</span><span class="fu">is.na</span>(bili), <span class="sc">!</span><span class="fu">is.na</span>(albumin), <span class="sc">!</span><span class="fu">is.na</span>(protime), <span class="sc">!</span><span class="fu">is.na</span>(stage)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trt_d     =</span> <span class="fu">as.integer</span>(trt <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_bili  =</span> <span class="fu">log</span>(bili),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_proto =</span> <span class="fu">log</span>(protime),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">stage     =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Stage"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate propensity scores</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>ps_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(trt_d <span class="sc">~</span> log_bili <span class="sc">+</span> albumin <span class="sc">+</span> log_proto <span class="sc">+</span> stage <span class="sc">+</span> age <span class="sc">+</span> sex,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> pbc, <span class="at">family =</span> binomial)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>pbc<span class="sc">$</span>ps <span class="ot">&lt;-</span> <span class="fu">predict</span>(ps_model, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>pbc <span class="sc">%&gt;%</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trt_label =</span> <span class="fu">if_else</span>(trt_d <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"D-penicillamine"</span>, <span class="st">"Placebo"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ps, <span class="at">fill =</span> trt_label)) <span class="sc">+</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"tomato"</span>)) <span class="sc">+</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Propensity score overlap by treatment group"</span>,</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Propensity score (P(treatment))"</span>, <span class="at">y =</span> <span class="st">"Count"</span>, <span class="at">fill =</span> <span class="st">"Treatment"</span>) <span class="sc">+</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -632,25 +835,94 @@ Tip
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The two distributions overlap substantially across the 0.3-0.7 range, which is reassuring. However, look closely at the upper tail: the D-penicillamine group (steelblue) has additional mass out to propensity scores of 0.6-0.85, where the Placebo group (tomato) has little or no presence. This is a mild positivity concern - for patients whose covariates put them at the high end of this range, we have few or no observed Placebo patients to compare against, so any IPTW estimate in that region relies more heavily on extrapolation (and those patients will receive large weights if they are in the Placebo group).</p>
+</div>
+</div>
 <p>Good overlap (positivity) is required for propensity score methods to work. If the groups are completely separated on the propensity score, there is no common support; the causal question cannot be answered from these data alone.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inverse probability of treatment weighting (IPTW)</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ipw =</span> <span class="fu">case_when</span>(</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      trt_d <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span> <span class="sc">/</span> ps,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      trt_d <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> ps)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(albumin <span class="sc">~</span> trt_d, <span class="at">data =</span> pbc, <span class="at">weights =</span> ipw) <span class="sc">%&gt;%</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inverse probability of treatment weighting (IPTW)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>pbc <span class="ot">&lt;-</span> pbc <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ipw =</span> <span class="fu">case_when</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>      trt_d <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span> <span class="sc">/</span> ps,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>      trt_d <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> ps)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(albumin <span class="sc">~</span> trt_d, <span class="at">data =</span> pbc, <span class="at">weights =</span> ipw) <span class="sc">%&gt;%</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term        estimate std.error statistic   p.value conf.low conf.high
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 1 (Intercept)  3.52       0.0340  104.     1.80e-242   3.45      3.58  
 2 trt_d        0.00322    0.0479    0.0673 9.46e-  1  -0.0910    0.0975</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Run It Yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should see (rounded):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 14%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 13%">
+<col style="width: 14%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>term</th>
+<th>estimate</th>
+<th>std.error</th>
+<th>statistic</th>
+<th>p.value</th>
+<th>conf.low</th>
+<th>conf.high</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td>3.52</td>
+<td>0.0340</td>
+<td>104</td>
+<td>&lt;0.001</td>
+<td>3.45</td>
+<td>3.58</td>
+</tr>
+<tr class="even">
+<td>trt_d</td>
+<td>0.00322</td>
+<td>0.0479</td>
+<td>0.0673</td>
+<td>0.946</td>
+<td>-0.0910</td>
+<td>0.0975</td>
+</tr>
+</tbody>
+</table>
+<p>After IPTW adjustment, the estimated effect of D-penicillamine versus placebo on albumin is essentially zero (0.003 g/dL, 95% CI -0.09 to 0.10, p = 0.946). This matches the prediction from the Teacher Note: since <code>pbc</code> comes from a randomised trial, treatment groups were already well-balanced before weighting, and the log-rank test in the <a href="../sessions/survival-and-time-to-event.html">Survival and Time-to-Event</a> session likewise found no significant survival difference between arms (p = 0.7). Two different outcomes (albumin and survival), two different methods (IPTW-weighted regression and the log-rank test), and the same conclusion: this trial found no detectable benefit of D-penicillamine.</p>
 </div>
 </div>
 <p>IPTW creates a pseudo-population in which treatment assignment is independent of confounders. The weighted outcome difference estimates the ATE.</p>
@@ -679,7 +951,8 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Adjusting for everything.</strong> Adding all available variables to a regression model is not “conservative” — it can introduce collider bias if any of those variables is a collider. Always draw a DAG before deciding what to adjust for.</p>
+<p><em>Estimated time: ~10 minutes (Reading)</em></p>
+<p><strong>Adjusting for everything.</strong> Adding all available variables to a regression model is not “conservative”: it can introduce collider bias if any of those variables is a collider. Always draw a DAG before deciding what to adjust for.</p>
 <p><strong>Over-adjusting for mediators.</strong> If you adjust for a mediator, you estimate the direct effect of exposure on outcome. This is only correct if your research question specifically asks about the direct effect. For most aetiological questions, you want the total effect, which means <em>not</em> adjusting for mediators.</p>
 <p><strong>Confusing statistical control with causal identification.</strong> A regression coefficient “adjusted for X” does not automatically equal the causal effect. The causal interpretation requires the DAG-based assumptions to hold: no unmeasured confounders, correct functional form, no measurement error in confounders.</p>
 <p><strong>Positivity violations in propensity score methods.</strong> If some patient subgroups always or never receive treatment, inverse probability weights become extreme or undefined. Trim weights or restrict the analysis to the region of common support.</p>
@@ -688,8 +961,25 @@ Tip
 </section>
 <section id="exercises" class="level2" data-number="17.7">
 <h2 data-number="17.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">17.7</span> Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Exercise 1 mirrors the mediator example from earlier in this session (<code>dag-mediator</code>), but applied to a new question: the effect of <code>stage</code> on <code>died</code>, with <code>albumin</code> and <code>bili</code> as intermediate variables. Before learners run the solution code, ask them to predict whether the adjustment set will be empty, contain <code>albumin</code>, or contain something else - and to articulate <em>why</em> based on the causal roles (confounder vs.&nbsp;mediator) of each variable.</p>
+</div>
+</div>
+</div>
 <section id="exercise-1-guided-draw-and-query-a-dag" class="level3" data-number="17.7.1">
 <h3 data-number="17.7.1" class="anchored" data-anchor-id="exercise-1-guided-draw-and-query-a-dag"><span class="header-section-number">17.7.1</span> Exercise 1 (Guided): Draw and Query a DAG</h3>
+<p><em>Estimated time: ~15 minutes (Practice)</em></p>
 <p>Consider this question: “Does albumin mediate the effect of disease stage on mortality in PBC?”</p>
 <ol type="1">
 <li>Draw a DAG with nodes: <code>stage</code>, <code>albumin</code>, <code>bili</code>, <code>died</code>. Include arrows based on your biological knowledge.</li>
@@ -697,7 +987,7 @@ Tip
 <li>Is <code>albumin</code> a mediator, confounder, or collider in this DAG?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -706,39 +996,41 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dag_ex <span class="ot">&lt;-</span> dagitty<span class="sc">::</span><span class="fu">dagitty</span>(<span class="st">'dag {</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st">  stage   -&gt; albumin</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">  stage   -&gt; bili</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="st">  stage   -&gt; died</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="st">  albumin -&gt; died</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="st">  bili    -&gt; albumin</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="st">  bili    -&gt; died</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>dagitty<span class="sc">::</span><span class="fu">adjustmentSets</span>(dag_ex, <span class="at">exposure =</span> <span class="st">"stage"</span>, <span class="at">outcome =</span> <span class="st">"died"</span>,</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">effect =</span> <span class="st">"total"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dag_ex <span class="ot">&lt;-</span> dagitty<span class="sc">::</span><span class="fu">dagitty</span>(<span class="st">'dag {</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="st">  stage   -&gt; albumin</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="st">  stage   -&gt; bili</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="st">  stage   -&gt; died</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="st">  albumin -&gt; died</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="st">  bili    -&gt; albumin</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="st">  bili    -&gt; died</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>dagitty<span class="sc">::</span><span class="fu">adjustmentSets</span>(dag_ex, <span class="at">exposure =</span> <span class="st">"stage"</span>, <span class="at">outcome =</span> <span class="st">"died"</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">effect =</span> <span class="st">"total"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> {}</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># albumin is a mediator (stage -&gt; albumin -&gt; died)</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># adjusting for albumin would block part of the total effect</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># albumin is a mediator (stage -&gt; albumin -&gt; died)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># adjusting for albumin would block part of the total effect</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p><code>adjustmentSets()</code> returns <code>{}</code> - an empty set, meaning you should adjust for nothing to estimate the total effect of <code>stage</code> on <code>died</code>. <code>albumin</code> is a <strong>mediator</strong>: it lies on the causal pathway <code>stage -&gt; albumin -&gt; died</code>. Adjusting for it would block part of the very effect we want to measure, biasing the total-effect estimate toward zero. <code>bili</code> is also a mediator here (<code>stage -&gt; bili -&gt; albumin -&gt; died</code> and <code>stage -&gt; bili -&gt; died</code>), so it too should be left out of the adjustment set for a total-effect analysis.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-2-semi-guided-propensity-score-balance-check" class="level3" data-number="17.7.2">
 <h3 data-number="17.7.2" class="anchored" data-anchor-id="exercise-2-semi-guided-propensity-score-balance-check"><span class="header-section-number">17.7.2</span> Exercise 2 (Semi-guided): Propensity Score Balance Check</h3>
+<p><em>Estimated time: ~15 minutes (Practice)</em></p>
 <p>Using the <code>pbc</code> dataset and the propensity score model fitted above:</p>
 <ol type="1">
 <li>Check covariate balance before and after weighting: compare mean <code>log_bili</code>, <code>albumin</code>, <code>log_proto</code> between treatment groups in the raw data and in the IPTW-weighted data.</li>
 <li>Is balance achieved? What is the standardised mean difference for <code>log_bili</code> before and after weighting?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -747,41 +1039,47 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Raw SMD</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>smd <span class="ot">&lt;-</span> <span class="cf">function</span>(x, treat) {</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> <span class="fu">mean</span>(x[treat <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">-</span> <span class="fu">mean</span>(x[treat <span class="sc">==</span> <span class="dv">0</span>])</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((<span class="fu">var</span>(x[treat <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">+</span> <span class="fu">var</span>(x[treat <span class="sc">==</span> <span class="dv">0</span>])) <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  d <span class="sc">/</span> s</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Raw SMD log_bili:"</span>, <span class="fu">round</span>(<span class="fu">smd</span>(pbc<span class="sc">$</span>log_bili, pbc<span class="sc">$</span>trt_d), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Raw SMD</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>smd <span class="ot">&lt;-</span> <span class="cf">function</span>(x, treat) {</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> <span class="fu">mean</span>(x[treat <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">-</span> <span class="fu">mean</span>(x[treat <span class="sc">==</span> <span class="dv">0</span>])</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((<span class="fu">var</span>(x[treat <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">+</span> <span class="fu">var</span>(x[treat <span class="sc">==</span> <span class="dv">0</span>])) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  d <span class="sc">/</span> s</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Raw SMD log_bili:"</span>, <span class="fu">round</span>(<span class="fu">smd</span>(pbc<span class="sc">$</span>log_bili, pbc<span class="sc">$</span>trt_d), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Raw SMD log_bili: -0.074 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weighted SMD (using IPTW)</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>wt_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x, w) <span class="fu">sum</span>(x <span class="sc">*</span> w) <span class="sc">/</span> <span class="fu">sum</span>(w)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>w1 <span class="ot">&lt;-</span> pbc<span class="sc">$</span>ipw[pbc<span class="sc">$</span>trt_d <span class="sc">==</span> <span class="dv">1</span>]; x1 <span class="ot">&lt;-</span> pbc<span class="sc">$</span>log_bili[pbc<span class="sc">$</span>trt_d <span class="sc">==</span> <span class="dv">1</span>]</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>w0 <span class="ot">&lt;-</span> pbc<span class="sc">$</span>ipw[pbc<span class="sc">$</span>trt_d <span class="sc">==</span> <span class="dv">0</span>]; x0 <span class="ot">&lt;-</span> pbc<span class="sc">$</span>log_bili[pbc<span class="sc">$</span>trt_d <span class="sc">==</span> <span class="dv">0</span>]</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Weighted SMD log_bili:"</span>, <span class="fu">round</span>((<span class="fu">wt_mean</span>(x1, w1) <span class="sc">-</span> <span class="fu">wt_mean</span>(x0, w0)) <span class="sc">/</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>((<span class="fu">var</span>(x1) <span class="sc">+</span> <span class="fu">var</span>(x0)) <span class="sc">/</span> <span class="dv">2</span>), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weighted SMD (using IPTW)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>wt_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x, w) <span class="fu">sum</span>(x <span class="sc">*</span> w) <span class="sc">/</span> <span class="fu">sum</span>(w)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>w1 <span class="ot">&lt;-</span> pbc<span class="sc">$</span>ipw[pbc<span class="sc">$</span>trt_d <span class="sc">==</span> <span class="dv">1</span>]; x1 <span class="ot">&lt;-</span> pbc<span class="sc">$</span>log_bili[pbc<span class="sc">$</span>trt_d <span class="sc">==</span> <span class="dv">1</span>]</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>w0 <span class="ot">&lt;-</span> pbc<span class="sc">$</span>ipw[pbc<span class="sc">$</span>trt_d <span class="sc">==</span> <span class="dv">0</span>]; x0 <span class="ot">&lt;-</span> pbc<span class="sc">$</span>log_bili[pbc<span class="sc">$</span>trt_d <span class="sc">==</span> <span class="dv">0</span>]</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Weighted SMD log_bili:"</span>, <span class="fu">round</span>((<span class="fu">wt_mean</span>(x1, w1) <span class="sc">-</span> <span class="fu">wt_mean</span>(x0, w0)) <span class="sc">/</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>((<span class="fu">var</span>(x1) <span class="sc">+</span> <span class="fu">var</span>(x0)) <span class="sc">/</span> <span class="dv">2</span>), <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Weighted SMD log_bili: -0.011 </code></pre>
 </div>
 </div>
+<p>You should see:</p>
+<pre><code>Raw SMD log_bili: -0.074
+Weighted SMD log_bili: -0.011</code></pre>
+<p>Both values are small (well under the common rule-of-thumb threshold of 0.1), so <code>log_bili</code> is reasonably balanced between treatment groups even before weighting - as expected in a randomised trial. IPTW weighting reduces the imbalance further, from -0.074 to -0.011. This illustrates two things: (1) even RCT data has small non-zero raw imbalances on individual covariates due to sampling variation, and (2) IPTW can improve balance on <em>measured</em> covariates, but - as in this example - it has little left to do when the data are already well balanced.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exercise-3-open-ended" class="level3" data-number="17.7.3">
 <h3 data-number="17.7.3" class="anchored" data-anchor-id="exercise-3-open-ended"><span class="header-section-number">17.7.3</span> Exercise 3 (Open-ended)</h3>
+<p><em>Estimated time: 15–30 minutes (Practice)</em></p>
 <p>For your own observational research question: 1. Draw a DAG encoding your assumptions about the data-generating process. 2. Use <code>dagitty::adjustmentSets()</code> to identify the minimal sufficient adjustment set. 3. Check whether any of your standard covariates might be colliders or mediators. 4. Write a Causal Assumptions section for your Methods, describing the DAG and justifying each arrow.</p>
 </section>
 </section>
 <section id="comprehension-check" class="level2" data-number="17.8">
 <h2 data-number="17.8" class="anchored" data-anchor-id="comprehension-check"><span class="header-section-number">17.8</span> Comprehension Check</h2>
+<p><em>Estimated time: ~10 minutes (Self-test)</em></p>
 <ol type="1">
 <li>You adjust for 15 variables in a regression “to be safe.” Why might this make your causal estimate <em>worse</em>?</li>
 <li>You restrict your analysis to hospitalised patients to reduce confounding by severity. A colleague says this introduces collider bias. Explain why.</li>
@@ -790,7 +1088,7 @@ Tip
 <li>The treatment effect from an RCT is -0.3 g/dL for albumin. Your observational IPTW estimate is -0.05 g/dL. What might explain the discrepancy?</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -799,7 +1097,7 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Adjusting for a collider opens a backdoor path that was previously closed, inducing a spurious association. Adjusting for a mediator removes part of the causal effect, biasing toward the null. Without a DAG, you cannot know whether your covariates are confounders, mediators, or colliders; adding all of them can introduce more bias than it removes.</li>
@@ -833,17 +1131,17 @@ Tip
 <p>“After adjustment for [list covariates from DAG], the association between [exposure] and [outcome] was [direction and magnitude]: adjusted OR = X.XX (95% CI: L.LL-U.UU, p = .YYY). The unadjusted association was OR = X.XX, suggesting [direction] confounding by [confounder(s)].”</p>
 </blockquote>
 <p><strong>Always report:</strong> - What confounders were adjusted for, and how they were identified (ideally via a DAG) - Both unadjusted and adjusted estimates (so readers can see the direction of confounding) - That mediators and colliders were <em>not</em> adjusted for (if relevant)</p>
-<p><strong>Common reporting errors:</strong> - Adjusting for all available covariates regardless of causal structure — this can introduce collider bias - Adjusting for mediators on the causal path — this blocks the effect you are trying to estimate - Describing a result as “causal” when it is observational without instrumental variable or experimental design</p>
+<p><strong>Common reporting errors:</strong> - Adjusting for all available covariates regardless of causal structure: this can introduce collider bias - Adjusting for mediators on the causal path: this blocks the effect you are trying to estimate - Describing a result as “causal” when it is observational without instrumental variable or experimental design</p>
 </div>
 </div>
 </section>
 <section id="further-reading" class="level2" data-number="17.10">
 <h2 data-number="17.10" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">17.10</span> Further Reading</h2>
 <ul>
-<li><span class="citation" data-cites="Hernan-2023">Hernan and Robins (<a href="#ref-Hernan-2023" role="doc-biblioref">2023</a>)</span> — <em>Causal Inference: What If</em> (free PDF: causalinferencebook.net)</li>
-<li><span class="citation" data-cites="Pearl-2009">Pearl (<a href="#ref-Pearl-2009" role="doc-biblioref">2009</a>)</span> — <em>Causality: Models, Reasoning, and Inference</em></li>
+<li><span class="citation" data-cites="Hernan-2023">Hernan and Robins (<a href="#ref-Hernan-2023" role="doc-biblioref">2023</a>)</span>: <em>Causal Inference: What If</em> (free PDF: causalinferencebook.net)</li>
+<li><span class="citation" data-cites="Pearl-2009">Pearl (<a href="#ref-Pearl-2009" role="doc-biblioref">2009</a>)</span>: <em>Causality: Models, Reasoning, and Inference</em></li>
 <li><code>dagitty</code> package and website (dagitty.net) for interactive DAG construction</li>
-<li><span class="citation" data-cites="VanderWeele-2015">VanderWeele (<a href="#ref-VanderWeele-2015" role="doc-biblioref">2015</a>)</span> — <em>Explanation in Causal Inference</em> - mediation analysis</li>
+<li><span class="citation" data-cites="VanderWeele-2015">VanderWeele (<a href="#ref-VanderWeele-2015" role="doc-biblioref">2015</a>)</span>: <em>Explanation in Causal Inference</em> - mediation analysis</li>
 </ul>
 
 
