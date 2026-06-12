@@ -1,5 +1,7 @@
 # Basic Statistics for Researchers
 
+[![DOI](https://zenodo.org/badge/762611559.svg)](https://doi.org/10.5281/zenodo.20672940)
+
 Welcome to  a practical, modern statistics course built for researchers, doctoral students, and clinicians.
 
 > If you are visiting this repository from your PhD office or lab, start with the online book. It is the best way to explore the concepts, examples, and workflows.
